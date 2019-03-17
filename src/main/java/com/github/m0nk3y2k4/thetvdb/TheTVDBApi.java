@@ -526,26 +526,120 @@ public class TheTVDBApi {
         return JsonDeserializer.createEpisodeAbstract(getEpisodesJSON(seriesId, Map.of(SeriesAPI.QUERY_PAGE, String.valueOf(page))));
     }
 
+    /**
+     * Returns basic information for all matching episodes of a specific series as raw JSON. Results will be paginated. Use <code>queryParameters</code> to filter
+     * for specific episodes or to select a specific result page.
+     * <p/>
+     * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_query">/series/{id}/episodes/query</a>
+     *
+     * @see #queryEpisodes(long, Map) queryEpisodes(seriesId, queryParameters)
+     *
+     * @param seriesId The TheTVDB series ID
+     * @param queryParameters Map containing key/value pairs of query parameters. For a complete list of possible search parameters
+     *                        see the API documentation.
+     *
+     * @return JSON object containing a single result page of queried episode records
+     *
+     * @throws APIException
+     */
     public JsonNode queryEpisodesJSON(long seriesId, Map<String, String> queryParameters) throws APIException {
         return SeriesAPI.queryEpisodes(con, seriesId, queryParameters);
     }
 
+    /**
+     * Returns a list of basic information for all matching episodes of a specific series mapped as Java objects. Results will be paginated. Note that this method
+     * is deterministic and will always return the <b>first</b> result page of the available episodes.
+     * <p/>
+     * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_query">/series/{id}/episodes/query</a>
+     *
+     * @see #queryEpisodesJSON(long, Map) queryEpisodesJSON(seriesId, queryParameters)
+     *
+     * @param seriesId The TheTVDB series ID
+     * @param queryParameters Map containing key/value pairs of query parameters. For a complete list of possible search parameters
+     *                        see the API documentation.
+     *
+     * @return List of basic episode information matching the query parameters, mapped as Java objects based on the JSON data returned by the remote service
+     *
+     * @throws APIException
+     */
     public List<EpisodeAbstract> queryEpisodes(long seriesId, Map<String, String> queryParameters) throws APIException {
         return JsonDeserializer.createEpisodeAbstract(queryEpisodesJSON(seriesId, queryParameters));
     }
 
+    /**
+     * Returns a list of basic information for all episodes of a specific series and season mapped as Java objects. Results will be paginated. Note that this method
+     * is deterministic and will always return the <b>first</b> result page of the available episodes. This is a shortcut-method for {@link #queryEpisodesJSON(long, Map)}
+     * with a single "airedSeason" query parameter.
+     *
+     * @see #queryEpisodesByAiredSeason(long, long, long) queryEpisodesByAiredSeason(seriesId, airedSeason, page)
+     *
+     * @param seriesId The TheTVDB series ID
+     * @param airedSeason The number of the aired season to query for
+     *
+     * @return List of basic episode information for a specific season, mapped as Java objects based on the JSON data returned by the remote service
+     *
+     * @throws APIException
+     */
     public List<EpisodeAbstract> queryEpisodesByAiredSeason(long seriesId, long airedSeason) throws APIException {
         return JsonDeserializer.createEpisodeAbstract(queryEpisodesJSON(seriesId, Map.of(SeriesAPI.QUERY_AIREDSEASON, String.valueOf(airedSeason))));
     }
 
+    /**
+     * Returns a list of basic information for all episodes of a specific series and season mapped as Java objects. Results will be paginated. For seasons with
+     * a high number of episodes use the <code>page</code> parameter to browse to a specific result page. This is a shortcut-method for {@link #queryEpisodesJSON(long, Map)}
+     * with a "airedSeason" and "page" query parameter.
+     *
+     * @see #queryEpisodesByAiredSeason(long, long) queryEpisodesByAiredSeason(seriesId, airedSeason)
+     *
+     * @param seriesId The TheTVDB series ID
+     * @param airedSeason The number of the aired season to query for
+     * @param page The result page to be returned
+     *
+     * @return List of basic episode information for a specific season, mapped as Java objects based on the JSON data returned by the remote service
+     *
+     * @throws APIException
+     */
     public List<EpisodeAbstract> queryEpisodesByAiredSeason(long seriesId, long airedSeason, long page) throws APIException {
         return JsonDeserializer.createEpisodeAbstract(queryEpisodesJSON(seriesId, Map.of(SeriesAPI.QUERY_AIREDSEASON, String.valueOf(airedSeason), SeriesAPI.QUERY_PAGE, String.valueOf(page))));
     }
 
+    /**
+     * Returns a list of basic information for all episodes of a specific series, matching the <code>airedEpisode</code> parameter, mapped as Java objects. Results will be paginated.
+     * This is a shortcut-method for {@link #queryEpisodesJSON(long, Map)} with a single "airedEpisode" query parameter.
+     * <p/>
+     * Note that an aired episode number might be associated with a specific season. If the series consists of more than one season this method will return the matching aired episodes
+     * from all the seasons. Use {@link #queryEpisodesByAbsoluteNumber(long, long)} in order to query for a single episode.
+     *
+     * @see #queryEpisodesByAbsoluteNumber(long, long) queryEpisodesByAbsoluteNumber(seriesId, absoluteNumber)
+     *
+     * @param seriesId The TheTVDB series ID
+     * @param airedEpisode The number of the aired episode to query for
+     *
+     * @return List of basic episode information for a specific season and aired episode number, mapped as Java objects based on the JSON data returned by the remote service
+     *
+     * @throws APIException
+     */
     public List<EpisodeAbstract> queryEpisodesByAiredEpisode(long seriesId, long airedEpisode) throws APIException {
         return JsonDeserializer.createEpisodeAbstract(queryEpisodesJSON(seriesId, Map.of(SeriesAPI.QUERY_AIREDEPISODE, String.valueOf(airedEpisode))));
     }
 
+    /**
+     * Returns basic information for a specific episode of a series, mapped as Java object. Results will be paginated.
+     * This is a shortcut-method for {@link #queryEpisodesJSON(long, Map)} with a single "absoluteNumber" query parameter.
+     * <p/>
+     * Note that (unlike an aired episode number) an absolute episode number should most likely be unique throughout all episodes of a specific series. So in most cases the returned
+     * list will consist of only one element. However, as the remote API doesn't give any guarantees that querying with an "absoluteNumber" parameter always returns one episode record
+     * <b>at most</b> this method will return all episode data as received from the remote service.
+     *
+     * @see #getEpisode(long) getEpisode(episodeId)
+     *
+     * @param seriesId The TheTVDB series ID
+     * @param absoluteNumber The absolute number of the episode to query for (this is not the episode ID!)
+     *
+     * @return List of basic episode information for an absolute episode number, mapped as Java objects based on the JSON data returned by the remote service
+     *
+     * @throws APIException
+     */
     public List<EpisodeAbstract> queryEpisodesByAbsoluteNumber(long seriesId, long absoluteNumber) throws APIException {
         return JsonDeserializer.createEpisodeAbstract(queryEpisodesJSON(seriesId, Map.of(SeriesAPI.QUERY_ABSOLUTENUMBER, String.valueOf(absoluteNumber))));
     }
