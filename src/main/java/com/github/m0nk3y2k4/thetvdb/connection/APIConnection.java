@@ -3,10 +3,12 @@ package com.github.m0nk3y2k4.thetvdb.connection;
 import static com.github.m0nk3y2k4.thetvdb.exception.APIException.API_CONFLICT_ERROR;
 import static com.github.m0nk3y2k4.thetvdb.exception.APIException.API_NOT_FOUND_ERROR;
 import static com.github.m0nk3y2k4.thetvdb.exception.APIException.API_SERVICE_UNAVAILABLE;
+import static com.github.m0nk3y2k4.thetvdb.connection.APISession.Status.NOT_AUTHORIZED;
+import static com.github.m0nk3y2k4.thetvdb.connection.APISession.Status;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map.Entry;
@@ -77,6 +79,10 @@ public class APIConnection {
         return session.userAuthentication();
     }
 
+    public void setStatus(Status status) {
+        session.setStatus(status);
+    }
+
     public void setToken(String token) {
         session.setToken(token);
     }
@@ -92,6 +98,7 @@ public class APIConnection {
             try {
                 return request.send();
             } catch (APINotAuthorizedException e) {
+                // If the session is not yet authorized try to login or refresh the session
                 authorizeSession();
             }
         }
@@ -100,10 +107,18 @@ public class APIConnection {
     }
 
     private void authorizeSession() throws APIException {
-        if (!session.isInitialized()) {
-            AuthenticationAPI.login(this);             // Request a new token
-        } else {
-             AuthenticationAPI.refreshSession(this);    // Refresh the existing token
+        switch (session.getStatus()) {
+            case NOT_AUTHORIZED:
+                AuthenticationAPI.login(this);              // Request a new token
+                break;
+            case AUTHORIZED:
+                AuthenticationAPI.refreshSession(this);     // Refresh the existing token
+                break;
+            default:
+                // Authorization is already in progress but could not be completed. Do not retry to authorize this session
+                // again but abort processing and notify the calling instance that the session could not be authorized.
+                session.setStatus(NOT_AUTHORIZED);
+                throw new APIException("Remote API authorization failed: Please check your API key and login credentials");
         }
     }
 }
@@ -134,7 +149,7 @@ abstract class APIRequest {
         this.session = session;
     }
 
-    protected HttpsURLConnection openConnection(@Nonnull String resource, @Nonnull String requestMethod) throws MalformedURLException, IOException {
+    protected HttpsURLConnection openConnection(@Nonnull String resource, @Nonnull String requestMethod) throws IOException {
         con = (HttpsURLConnection) new URL(API_URL + resource).openConnection();
 
         // POST or GET
@@ -145,6 +160,7 @@ abstract class APIRequest {
         con.setRequestProperty("Accept", "application/json");
         con.setRequestProperty("User-Agent", USER_AGENT);
         if (session != null && session.isInitialized()) {
+            // If session has already been initialized, add token information and language key to each request
             con.setRequestProperty("Authorization", "Bearer " + session.getToken());
             con.setRequestProperty("Accept-Language", session.getLanguage());
         }
@@ -177,15 +193,19 @@ abstract class APIRequest {
         }
     }
 
-    private JsonNode parseResponse() throws IOException {
+    private JsonNode parseResponse(InputStream inputStream) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        try (JsonParser parser = mapper.getFactory().createParser(con.getInputStream())) {
+        try (JsonParser parser = mapper.getFactory().createParser(inputStream)) {
             return mapper.readTree(parser);
         }
     }
 
+    private JsonNode parseResponse() throws IOException {
+        return parseResponse(con.getInputStream());
+    }
+
     private String getError() throws IOException {
-        return parseResponse().get(API_ERROR).asText("");
+        return parseResponse(con.getErrorStream()).get(API_ERROR).asText("");
     }
 
     public abstract JsonNode send() throws APIException;
