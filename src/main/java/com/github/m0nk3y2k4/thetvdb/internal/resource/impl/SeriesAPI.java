@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.github.m0nk3y2k4.thetvdb.api.constants.Query;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.QueryResource;
@@ -13,18 +14,6 @@ import com.github.m0nk3y2k4.thetvdb.internal.resource.validation.ParamValidator;
 public final class SeriesAPI extends QueryResource {
 
     private static final String BASE = "/series";
-
-    public static final String QUERY_PAGE = "page";
-    public static final String QUERY_ABSOLUTENUMBER = "absoluteNumber";
-    public static final String QUERY_AIREDSEASON = "airedSeason";
-    public static final String QUERY_AIREDEPISODE = "airedEpisode";
-    public static final String QUERY_DVDSEASON = "dvdSeason";
-    public static final String QUERY_DVDEPISODE = "dvdEpisode";
-    public static final String QUERY_IMDBID = "imdbId";
-    public static final String QUERY_KEYS = "keys";
-    public static final String QUERY_KEYTYPE = "keyType";
-    public static final String QUERY_RESOLUTION = "resolution";
-    public static final String QUERY_SUBKEY = "subKey";
 
     private SeriesAPI() {}     // Private constructor. Only static methods
 
@@ -65,7 +54,7 @@ public final class SeriesAPI extends QueryResource {
 
     public static JsonNode filter(@Nonnull APIConnection con, long id, Map<String, String> params) throws APIException {
         ParamValidator.requiresPathParam(PATH_ID, id, ID_VALIDATOR);
-        ParamValidator.requiresQueryParam(QUERY_KEYS, params);
+        ParamValidator.requiresQueryParam(Query.Series.KEYS, params);
         return con.sendGET(createResource(BASE, id, "/filter", params));
     }
 

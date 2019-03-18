@@ -18,10 +18,9 @@ public final class UsersAPI extends QueryResource {
 
     private static final Function<Object, Boolean> ITEMTYPE_VALIDATOR = value -> Arrays.asList("series", "episode", "image").contains(value);
 
-    public static final String QUERY_ITEMTYPE = "itemType";
-    public static final String PATH_ITEMTYPE = "itemType";
-    public static final String PATH_ITEMID = "itemId";
-    public static final String PATH_ITEMRATING = "itemRating";
+    private static final String PATH_ITEMTYPE = "itemType";
+    private static final String PATH_ITEMID = "itemId";
+    private static final String PATH_ITEMRATING = "itemRating";
 
     private UsersAPI() {}     // Private constructor. Only static methods
 
