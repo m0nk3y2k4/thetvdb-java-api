@@ -1,12 +1,13 @@
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory;
+import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi;
 import com.github.m0nk3y2k4.thetvdb.api.constants.Query;
 import com.github.m0nk3y2k4.thetvdb.api.model.*;
@@ -121,31 +122,31 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public JsonNode searchSeriesJSON(Map<String, String> queryParameters) throws APIException {
+    public JsonNode searchSeriesJSON(QueryParameters queryParameters) throws APIException {
         return SearchAPI.series(con, queryParameters);
     }
 
     @Override
-    public List<SeriesAbstract> searchSeries(Map<String, String> queryParameters) throws APIException {
+    public List<SeriesAbstract> searchSeries(QueryParameters queryParameters) throws APIException {
         return JsonDeserializer.createSeriesAbstract(searchSeriesJSON(queryParameters));
     }
 
     @Override
     public List<SeriesAbstract> searchSeriesByName(@Nonnull String name) throws APIException {
         validateNotEmpty(name);
-        return JsonDeserializer.createSeriesAbstract(searchSeriesJSON(Map.of(Query.Search.NAME, name)));
+        return JsonDeserializer.createSeriesAbstract(searchSeriesJSON(query(Map.of(Query.Search.NAME, name))));
     }
 
     @Override
     public List<SeriesAbstract> searchSeriesByImdbId(@Nonnull String imdbId) throws APIException {
         validateNotEmpty(imdbId);
-        return JsonDeserializer.createSeriesAbstract(searchSeriesJSON(Map.of(Query.Search.IMDBID, imdbId)));
+        return JsonDeserializer.createSeriesAbstract(searchSeriesJSON(query(Map.of(Query.Search.IMDBID, imdbId))));
     }
 
     @Override
     public List<SeriesAbstract> searchSeriesByZap2itId(@Nonnull String zap2itId) throws APIException {
         validateNotEmpty(zap2itId);
-        return JsonDeserializer.createSeriesAbstract(searchSeriesJSON(Map.of(Query.Search.ZAP2ITID, zap2itId)));
+        return JsonDeserializer.createSeriesAbstract(searchSeriesJSON(query(Map.of(Query.Search.ZAP2ITID, zap2itId))));
     }
 
     @Override
@@ -189,53 +190,53 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public JsonNode getEpisodesJSON(long seriesId, Map<String, String> queryParameters) throws APIException {
+    public JsonNode getEpisodesJSON(long seriesId, QueryParameters queryParameters) throws APIException {
         return SeriesAPI.getEpisodes(con, seriesId, queryParameters);
     }
 
     @Override
-    public List<EpisodeAbstract> getEpisodes(long seriesId, Map<String, String> queryParameters) throws APIException {
+    public List<EpisodeAbstract> getEpisodes(long seriesId, QueryParameters queryParameters) throws APIException {
         return JsonDeserializer.createEpisodeAbstract(getEpisodesJSON(seriesId, queryParameters));
     }
 
     @Override
     public List<EpisodeAbstract> getEpisodes(long seriesId) throws APIException {
-        return JsonDeserializer.createEpisodeAbstract(getEpisodesJSON(seriesId, Collections.emptyMap()));
+        return JsonDeserializer.createEpisodeAbstract(getEpisodesJSON(seriesId, emptyQuery()));
     }
 
     @Override
     public List<EpisodeAbstract> getEpisodes(long seriesId, long page) throws APIException {
-        return JsonDeserializer.createEpisodeAbstract(getEpisodesJSON(seriesId, Map.of(Query.Series.PAGE, String.valueOf(page))));
+        return JsonDeserializer.createEpisodeAbstract(getEpisodesJSON(seriesId, query(Map.of(Query.Series.PAGE, String.valueOf(page)))));
     }
 
     @Override
-    public JsonNode queryEpisodesJSON(long seriesId, Map<String, String> queryParameters) throws APIException {
+    public JsonNode queryEpisodesJSON(long seriesId, QueryParameters queryParameters) throws APIException {
         return SeriesAPI.queryEpisodes(con, seriesId, queryParameters);
     }
 
     @Override
-    public List<EpisodeAbstract> queryEpisodes(long seriesId, Map<String, String> queryParameters) throws APIException {
+    public List<EpisodeAbstract> queryEpisodes(long seriesId, QueryParameters queryParameters) throws APIException {
         return JsonDeserializer.createEpisodeAbstract(queryEpisodesJSON(seriesId, queryParameters));
     }
 
     @Override
     public List<EpisodeAbstract> queryEpisodesByAiredSeason(long seriesId, long airedSeason) throws APIException {
-        return JsonDeserializer.createEpisodeAbstract(queryEpisodesJSON(seriesId, Map.of(Query.Series.AIREDSEASON, String.valueOf(airedSeason))));
+        return JsonDeserializer.createEpisodeAbstract(queryEpisodesJSON(seriesId, query(Map.of(Query.Series.AIREDSEASON, String.valueOf(airedSeason)))));
     }
 
     @Override
     public List<EpisodeAbstract> queryEpisodesByAiredSeason(long seriesId, long airedSeason, long page) throws APIException {
-        return JsonDeserializer.createEpisodeAbstract(queryEpisodesJSON(seriesId, Map.of(Query.Series.AIREDSEASON, String.valueOf(airedSeason), Query.Series.PAGE, String.valueOf(page))));
+        return JsonDeserializer.createEpisodeAbstract(queryEpisodesJSON(seriesId, query(Map.of(Query.Series.AIREDSEASON, String.valueOf(airedSeason), Query.Series.PAGE, String.valueOf(page)))));
     }
 
     @Override
     public List<EpisodeAbstract> queryEpisodesByAiredEpisode(long seriesId, long airedEpisode) throws APIException {
-        return JsonDeserializer.createEpisodeAbstract(queryEpisodesJSON(seriesId, Map.of(Query.Series.AIREDEPISODE, String.valueOf(airedEpisode))));
+        return JsonDeserializer.createEpisodeAbstract(queryEpisodesJSON(seriesId, query(Map.of(Query.Series.AIREDEPISODE, String.valueOf(airedEpisode)))));
     }
 
     @Override
     public List<EpisodeAbstract> queryEpisodesByAbsoluteNumber(long seriesId, long absoluteNumber) throws APIException {
-        return JsonDeserializer.createEpisodeAbstract(queryEpisodesJSON(seriesId, Map.of(Query.Series.ABSOLUTENUMBER, String.valueOf(absoluteNumber))));
+        return JsonDeserializer.createEpisodeAbstract(queryEpisodesJSON(seriesId, query(Map.of(Query.Series.ABSOLUTENUMBER, String.valueOf(absoluteNumber)))));
     }
 
     @Override
@@ -259,19 +260,19 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public JsonNode filterSeriesJSON(long seriesId, Map<String, String> queryParameters) throws APIException {
+    public JsonNode filterSeriesJSON(long seriesId, QueryParameters queryParameters) throws APIException {
         return SeriesAPI.filter(con, seriesId, queryParameters);
     }
 
     @Override
-    public Series filterSeries(long seriesId, Map<String, String> queryParameters) throws APIException {
+    public Series filterSeries(long seriesId, QueryParameters queryParameters) throws APIException {
         return JsonDeserializer.createSeries(filterSeriesJSON(seriesId, queryParameters));
     }
 
     @Override
     public Series filterSeries(long seriesId, @Nonnull String filterKeys) throws APIException {
         validateNotEmpty(filterKeys);
-        return JsonDeserializer.createSeries(filterSeriesJSON(seriesId, Map.of(Query.Series.KEYS, filterKeys)));
+        return JsonDeserializer.createSeries(filterSeriesJSON(seriesId, query(Map.of(Query.Series.KEYS, filterKeys))));
     }
 
     @Override
@@ -295,43 +296,43 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public JsonNode queryImagesJSON(long seriesId, Map<String, String> queryParameters) throws APIException {
+    public JsonNode queryImagesJSON(long seriesId, QueryParameters queryParameters) throws APIException {
         return SeriesAPI.queryImages(con, seriesId, queryParameters);
     }
 
     @Override
-    public List<Image> queryImages(long seriesId, Map<String, String> queryParameters) throws APIException {
+    public List<Image> queryImages(long seriesId, QueryParameters queryParameters) throws APIException {
         return JsonDeserializer.createImages(queryImagesJSON(seriesId, queryParameters));
     }
 
     @Override
     public List<Image> queryImages(long seriesId, String keyType, String resolution) throws APIException {
         validateNotEmpty(keyType, resolution);
-        return JsonDeserializer.createImages(queryImagesJSON(seriesId, Map.of(Query.Series.KEYTYPE, keyType, Query.Series.RESOLUTION, resolution)));
+        return JsonDeserializer.createImages(queryImagesJSON(seriesId, query(Map.of(Query.Series.KEYTYPE, keyType, Query.Series.RESOLUTION, resolution))));
     }
 
     @Override
     public List<Image> queryImages(long seriesId, String keyType, String resolution, String subKey) throws APIException {
         validateNotEmpty(keyType, resolution, subKey);
-        return JsonDeserializer.createImages(queryImagesJSON(seriesId, Map.of(Query.Series.KEYTYPE, keyType, Query.Series.RESOLUTION, resolution, Query.Series.SUBKEY, subKey)));
+        return JsonDeserializer.createImages(queryImagesJSON(seriesId, query(Map.of(Query.Series.KEYTYPE, keyType, Query.Series.RESOLUTION, resolution, Query.Series.SUBKEY, subKey))));
     }
 
     @Override
     public List<Image> queryImagesByKeyType(long seriesId, String keyType) throws APIException {
         validateNotEmpty(keyType);
-        return JsonDeserializer.createImages(queryImagesJSON(seriesId, Map.of(Query.Series.KEYTYPE, keyType)));
+        return JsonDeserializer.createImages(queryImagesJSON(seriesId, query(Map.of(Query.Series.KEYTYPE, keyType))));
     }
 
     @Override
     public List<Image> queryImagesByResolution(long seriesId, String resolution) throws APIException {
         validateNotEmpty(resolution);
-        return JsonDeserializer.createImages(queryImagesJSON(seriesId, Map.of(Query.Series.RESOLUTION, resolution)));
+        return JsonDeserializer.createImages(queryImagesJSON(seriesId, query(Map.of(Query.Series.RESOLUTION, resolution))));
     }
 
     @Override
     public List<Image> queryImagesBySubKey(long seriesId, String subKey) throws APIException {
         validateNotEmpty(subKey);
-        return JsonDeserializer.createImages(queryImagesJSON(seriesId, Map.of(Query.Series.SUBKEY, subKey)));
+        return JsonDeserializer.createImages(queryImagesJSON(seriesId, query(Map.of(Query.Series.SUBKEY, subKey))));
     }
 
     @Override
@@ -345,25 +346,25 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public JsonNode queryLastUpdatedJSON(Map<String, String> queryParameters) throws APIException {
+    public JsonNode queryLastUpdatedJSON(QueryParameters queryParameters) throws APIException {
         return UpdatesAPI.query(con, queryParameters);
     }
 
     @Override
-    public Map<Long, Long> queryLastUpdated(Map<String, String> queryParameters) throws APIException {
+    public Map<Long, Long> queryLastUpdated(QueryParameters queryParameters) throws APIException {
         return JsonDeserializer.createUpdated(queryLastUpdatedJSON(queryParameters));
     }
 
     @Override
     public Map<Long, Long> queryLastUpdated(@Nonnull String fromTime) throws APIException {
         validateNotEmpty(fromTime);
-        return JsonDeserializer.createUpdated(queryLastUpdatedJSON(Map.of(Query.Updates.FROMTIME, fromTime)));
+        return JsonDeserializer.createUpdated(queryLastUpdatedJSON(query(Map.of(Query.Updates.FROMTIME, fromTime))));
     }
 
     @Override
     public Map<Long, Long> queryLastUpdated(@Nonnull String fromTime, @Nonnull String toTime) throws APIException {
         validateNotEmpty(fromTime, toTime);
-        return JsonDeserializer.createUpdated(queryLastUpdatedJSON(Map.of(Query.Updates.FROMTIME, fromTime, Query.Updates.TOTIME, toTime)));
+        return JsonDeserializer.createUpdated(queryLastUpdatedJSON(query(Map.of(Query.Updates.FROMTIME, fromTime, Query.Updates.TOTIME, toTime))));
     }
 
     @Override
@@ -432,20 +433,20 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public JsonNode queryRatingsJSON(Map<String, String> queryParameters) throws APIException {
+    public JsonNode queryRatingsJSON(QueryParameters queryParameters) throws APIException {
         validateUserAuthentication();
         return UsersAPI.queryRatings(con, queryParameters);
     }
 
     @Override
-    public List<Rating> queryRatings(Map<String, String> queryParameters) throws APIException {
+    public List<Rating> queryRatings(QueryParameters queryParameters) throws APIException {
         return JsonDeserializer.createRatings(queryRatingsJSON(queryParameters));
     }
 
     @Override
     public List<Rating> queryRatingsByItemType(@Nonnull String itemType) throws APIException {
         validateNotEmpty(itemType);
-        return JsonDeserializer.createRatings(queryRatingsJSON(Map.of(Query.Users.ITEMTYPE, itemType)));
+        return JsonDeserializer.createRatings(queryRatingsJSON(query(Map.of(Query.Users.ITEMTYPE, itemType))));
     }
 
     @Override
@@ -493,5 +494,26 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         if (!con.userAuthentication()) {
             throw new IllegalArgumentException("API call requires userKey/userName to be set!");
         }
+    }
+
+    /**
+     * Creates an empty query parameters object with no individual parameters set
+     *
+     * @return Empty query parameters object
+     */
+    private QueryParameters emptyQuery() {
+        return TheTVDBApiFactory.createQueryParameters();
+    }
+
+    /**
+     * Creates a new query parameters object with preset parameters based on the given map of key/value pairs
+     *
+     * @param parameters Map of parameter key/value pairs. For each entry in the map an appropriate parameter will be added
+     *                   in the object returned by this method
+     *
+     * @return New query parameters object with a preset collection of individual query parameters
+     */
+    private QueryParameters query(@Nonnull Map<String, String> parameters) {
+        return TheTVDBApiFactory.createQueryParameters(parameters);
     }
 }

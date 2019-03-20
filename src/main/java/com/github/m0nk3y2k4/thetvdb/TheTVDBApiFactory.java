@@ -1,9 +1,12 @@
 package com.github.m0nk3y2k4.thetvdb;
 
+import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.QueryParametersImpl;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.TheTVDBApiImpl;
 
 import javax.annotation.Nonnull;
+import java.util.Map;
 
 public class TheTVDBApiFactory {
 
@@ -34,5 +37,30 @@ public class TheTVDBApiFactory {
      */
     public static TheTVDBApi createApi(@Nonnull String apiKey, @Nonnull String userName, @Nonnull String userKey) {
         return new TheTVDBApiImpl(apiKey, userName, userKey);
+    }
+
+    /**
+     * Creates a new query parameter objects to be used with some of the API calls. The returned object is empty and does
+     * not contain any preset query parameters. Those parameters have to be added manually by using the
+     * {@link QueryParameters#addParameter(String, String) QueryParameters#addParameter(key, value)} method.
+     *
+     * @return A new, empty query parameter object
+     */
+    public static QueryParameters createQueryParameters() {
+        return new QueryParametersImpl();
+    }
+
+    /**
+     * Creates a new query parameter objects to be used with some of the API calls. The returned object is contain a preset
+     * collection of query parameters based on the given map of key/value pairs. Additional parameters may be added manually
+     * to this object by using the {@link QueryParameters#addParameter(String, String) QueryParameters#addParameter(key, value)} method.
+     *
+     * @param parameters Map containing key/value pairs of query parameters to be initially added to the object returned by this
+     *                   method. Might be empty but not <code>null</code>.
+     *
+     * @return A new query parameter object with a preset collection of individual parameters
+     */
+    public static QueryParameters createQueryParameters(@Nonnull Map<String, String> parameters) {
+        return new QueryParametersImpl(parameters);
     }
 }

@@ -1,12 +1,12 @@
 package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
 import java.util.Arrays;
-import java.util.Map;
 import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.validation.ParamValidator;
@@ -46,7 +46,7 @@ public final class UsersAPI extends QueryResource {
         return con.sendGET(createResource(BASE, "/ratings"));
     }
 
-    public static JsonNode queryRatings(@Nonnull APIConnection con, Map<String, String> params) throws APIException {
+    public static JsonNode queryRatings(@Nonnull APIConnection con, QueryParameters params) throws APIException {
         return con.sendGET(createQueryResource(BASE, "/ratings/query", params));
     }
 

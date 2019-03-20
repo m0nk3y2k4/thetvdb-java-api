@@ -3,45 +3,41 @@ package com.github.m0nk3y2k4.thetvdb.internal.resource;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
+import com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory;
+import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIRuntimeException;
 import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
 
 public abstract class QueryResource extends Resource {
 
-    protected static String createQuery(@CheckForNull Map<String, String> queryParams) {
-        Map<String, String> validParams = Optional.ofNullable(queryParams).orElse(Collections.emptyMap()).entrySet()
-                .stream().filter(QueryResource::isValidQueryParameter).collect(Collectors.toMap(Entry::getKey, Entry::getValue));
+    protected static String createQuery(@CheckForNull QueryParameters queryParams) {
+        List<QueryParameters.Parameter> validParams = Optional.ofNullable(queryParams).orElse(TheTVDBApiFactory.createQueryParameters())
+                .stream().filter(QueryResource::isValidQueryParameter).collect(Collectors.toList());
 
         if (!validParams.isEmpty()) {
             // .../resource?param1=value1&param2=value2&...
-            return validParams.entrySet().stream().map(e -> e.getKey() + "=" + encode(e.getValue())).collect(Collectors.joining("&", "?", ""));
+            return validParams.stream().map(e -> e.getKey() + "=" + encode(e.getValue())).collect(Collectors.joining("&", "?", ""));
         }
 
         return "";
     }
 
-    protected static String createQueryResource(@Nonnull String base, @CheckForNull Map<String, String> queryParams) {
+    protected static String createQueryResource(@Nonnull String base, @CheckForNull QueryParameters queryParams) {
         return base + createQuery(queryParams);
     }
 
-    protected static String createQueryResource(@Nonnull String base, @Nonnull String specific, @CheckForNull Map<String, String> queryParams) {
+    protected static String createQueryResource(@Nonnull String base, @Nonnull String specific, @CheckForNull QueryParameters queryParams) {
         return createResource(base, specific) + createQuery(queryParams);
     }
 
-    protected static String createQueryResource(@Nonnull String base, @Nonnull String specific, @CheckForNull Map<String, String> queryParams, Object... pathParams) {
-        return createResource(base, specific, pathParams) + createQuery(queryParams);
-    }
-
-    private static Boolean isValidQueryParameter(Entry<String, String> param) {
+    private static Boolean isValidQueryParameter(QueryParameters.Parameter param) {
         return APIUtil.hasValue(param.getKey(), param.getValue());
     }
 

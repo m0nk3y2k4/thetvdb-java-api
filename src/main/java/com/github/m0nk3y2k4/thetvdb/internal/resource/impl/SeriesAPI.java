@@ -1,10 +1,9 @@
 package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
-import java.util.Map;
-
 import javax.annotation.Nonnull;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.api.constants.Query;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
@@ -32,12 +31,12 @@ public final class SeriesAPI extends QueryResource {
         return con.sendGET(createResource(BASE, id, "/actors"));
     }
 
-    public static JsonNode getEpisodes(@Nonnull APIConnection con, long id, Map<String, String> params) throws APIException {
+    public static JsonNode getEpisodes(@Nonnull APIConnection con, long id, QueryParameters params) throws APIException {
         ParamValidator.requiresPathParam(PATH_ID, id, ID_VALIDATOR);
         return con.sendGET(createResource(BASE, id, "/episodes", params));
     }
 
-    public static JsonNode queryEpisodes(@Nonnull APIConnection con, long id, Map<String, String> params) throws APIException {
+    public static JsonNode queryEpisodes(@Nonnull APIConnection con, long id, QueryParameters params) throws APIException {
         ParamValidator.requiresPathParam(PATH_ID, id, ID_VALIDATOR);
         return con.sendGET(createResource(BASE, id, "/episodes/query", params));
     }
@@ -52,7 +51,7 @@ public final class SeriesAPI extends QueryResource {
         return con.sendGET(createResource(BASE, id, "/episodes/summary"));
     }
 
-    public static JsonNode filter(@Nonnull APIConnection con, long id, Map<String, String> params) throws APIException {
+    public static JsonNode filter(@Nonnull APIConnection con, long id, QueryParameters params) throws APIException {
         ParamValidator.requiresPathParam(PATH_ID, id, ID_VALIDATOR);
         ParamValidator.requiresQueryParam(Query.Series.KEYS, params);
         return con.sendGET(createResource(BASE, id, "/filter", params));
@@ -68,7 +67,7 @@ public final class SeriesAPI extends QueryResource {
         return con.sendGET(createResource(BASE, id, "/images"));
     }
 
-    public static JsonNode queryImages(@Nonnull APIConnection con, long id, Map<String, String> params) throws APIException {
+    public static JsonNode queryImages(@Nonnull APIConnection con, long id, QueryParameters params) throws APIException {
         ParamValidator.requiresPathParam(PATH_ID, id, ID_VALIDATOR);
         return con.sendGET(createResource(BASE, id, "/images/query", params));
     }
@@ -82,7 +81,7 @@ public final class SeriesAPI extends QueryResource {
         return createResource(base, id, specific, null);
     }
 
-    private static String createResource(String base, long id, String specific, Map<String, String> params) {
+    private static String createResource(String base, long id, String specific, QueryParameters params) {
         String baseWithId = base + "/" + id;
         if (params != null) {
             return createQueryResource(baseWithId, specific, params);
