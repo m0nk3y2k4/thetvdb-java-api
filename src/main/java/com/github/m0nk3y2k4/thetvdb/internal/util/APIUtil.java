@@ -32,6 +32,16 @@ public final class APIUtil {
         return true;
     }
 
+    /**
+     * Checks if at least one of the given strings is an empty character sequence
+     * @param strings The strings to check
+     *
+     * @return {@link Boolean#TRUE} if at least one of the given Strings is <code>null</code> or contains only blanks.
+     */
+    public static Boolean hasNoValue(String... strings) {
+        return !hasValue(strings);
+    }
+
     public static String prettyPrint(@Nonnull JsonNode obj) throws IOException {
         return MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
     }

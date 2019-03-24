@@ -2,8 +2,15 @@ package com.github.m0nk3y2k4.thetvdb.internal.connection;
 
 import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
 
+import javax.annotation.Nonnull;
+import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Session used for remote API communication. All connections to the TheTVDB API are backed by an instance of this class. These sessions
+ * contain all information required for client authentication on the remote service, locale settings as well as session tokens used for
+ * remote service communication.
+ */
 public final class APISession {
 
     /**
@@ -34,11 +41,41 @@ public final class APISession {
     /** The current status of this session in terms of authorization */
     private Status status = Status.NOT_AUTHORIZED;
 
-    public APISession(String apiKey) {
-        this(apiKey, null, null);
+    /**
+     * Creates a new API session with the given API key. The <code>apiKey</code> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a> which will
+     * be used for remote service authentication.
+     * <p/>
+     * <b>NOTE:</b> Sessions created with this constructor <u>can not</u> be used for calls to the remote API's <a href="https://api.thetvdb.com/swagger#/Users">/users</a>
+     * routes. These calls require extended authentication using an additional <code>userKey</code> and <code>userName</code>.
+     *
+     * @see APISession#APISession(String, String, String) APISession(apiKey, userKey, userName)
+     *
+     * @param apiKey The API key used to request a session token
+     */
+    public APISession(@Nonnull String apiKey) {
+        Objects.requireNonNull(apiKey, "API key must not be NULL or empty!");
+
+        this.apiKey = apiKey;
+        this.userKey = null;
+        this.userName = null;
     }
 
-    public APISession(String apiKey, String userKey, String userName) {
+    /**
+     * Creates a new API session. The given <code>apiKey</code> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a>. The <code>userKey</code>
+     * and <code>userName</code> must refer to a registered TheTVDB user account. The given parameters will be used for the initial remote service authentication. Sessions
+     * created with this constructor can be used for calls to the remote API's <a href="https://api.thetvdb.com/swagger#/Users">/users</a> routes.
+     *
+     * @see APISession#APISession(String) APISession(apiKey)
+     *
+     * @param apiKey The API key used to request a session token
+     * @param userKey User key for authentication (also referred to as "Unique ID")
+     * @param userName User name for authentication
+     */
+    public APISession(@Nonnull String apiKey, @Nonnull String userKey, @Nonnull String userName) {
+        Objects.requireNonNull(apiKey, "API key must not be NULL or empty!");
+        Objects.requireNonNull(userKey, "User key must not be NULL or empty!");
+        Objects.requireNonNull(userName, "User name must not be NULL or empty!");
+
         this.apiKey = apiKey;
         this.userKey = userKey;
         this.userName = userName;
@@ -76,7 +113,9 @@ public final class APISession {
      *
      * @param token The new session token
      */
-    public void setToken(String token) {
+    public void setToken(@Nonnull String token) {
+        Objects.requireNonNull(token, "Token must not be NULL or empty!");
+
         this.token = token;
     }
 
