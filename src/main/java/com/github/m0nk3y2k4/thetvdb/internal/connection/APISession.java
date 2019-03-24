@@ -2,6 +2,8 @@ package com.github.m0nk3y2k4.thetvdb.internal.connection;
 
 import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
 
+import java.util.Optional;
+
 public final class APISession {
 
     /**
@@ -56,8 +58,8 @@ public final class APISession {
      *
      * @return The user key
      */
-    public String getUserKey() {
-        return userKey;
+    public Optional<String> getUserKey() {
+        return Optional.ofNullable(userKey);
     }
 
     /**
@@ -65,8 +67,8 @@ public final class APISession {
      *
      * @return The user name
      */
-    public String getUserName() {
-        return userName;
+    public Optional<String> getUserName() {
+        return Optional.ofNullable(userName);
     }
 
     /**

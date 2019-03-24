@@ -12,6 +12,7 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 import javax.net.ssl.HttpsURLConnection;
@@ -67,11 +68,11 @@ public class APIConnection {
         return session.getApiKey();
     }
 
-    public String getUserKey() {
+    public Optional<String> getUserKey() {
         return session.getUserKey();
     }
 
-    public String getUserName() {
+    public Optional<String> getUserName() {
         return session.getUserName();
     }
 

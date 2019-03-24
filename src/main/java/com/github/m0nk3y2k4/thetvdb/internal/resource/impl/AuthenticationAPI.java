@@ -24,8 +24,8 @@ public final class AuthenticationAPI {
 
         authentication.put("apikey", con.getApiKey());
         if (con.userAuthentication()) {
-            authentication.put("userkey", con.getUserKey());
-            authentication.put("username", con.getUserName());
+            authentication.put("userkey", con.getUserKey().get());
+            authentication.put("username", con.getUserName().get());
         }
 
         setToken(con, () -> con.sendPOST("/login", authentication.toString()));
