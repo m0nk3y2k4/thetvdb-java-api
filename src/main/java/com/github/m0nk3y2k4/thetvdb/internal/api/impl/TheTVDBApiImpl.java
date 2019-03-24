@@ -26,8 +26,6 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.JsonDeserializer;
 /**
  * Objects of this class represent the public interface/entry point for the usage of TheTVDB-API. It provides methods for all sorts of API calls throughout the
  * different API routes. Responses will either be returned as raw, untouch JSON (as received by the remote REST service) or as mapped Java-Objects.
- *
- * @author m0nk3y
  */
 public class TheTVDBApiImpl implements TheTVDBApi {
 
@@ -40,9 +38,9 @@ public class TheTVDBApiImpl implements TheTVDBApi {
      * creating a new instance of this API.
      * <p/>
      * <b>NOTE:</b> Objects created with this constructor <u>can not</u> be used for calls to the remote API's <a href="https://api.thetvdb.com/swagger#/Users">/users</a>
-     * routes. These call require extended authentication using an additional <code>userName</code> and <code>userKey</code>.
+     * routes. These calls require extended authentication using an additional <code>userKey</code> and <code>userName</code>.
      *
-     * @see #TheTVDBApiImpl(String, String, String) TheTVDBApiImpl(apiKey, userName, userKey)
+     * @see #TheTVDBApiImpl(String, String, String) TheTVDBApiImpl(apiKey, userKey, userName)
      *
      * @param apiKey Valid TheTVDB API-Key
      */
@@ -55,15 +53,15 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     /**
-     * Creates a new TheTVDBAPI instance. The given <code>apiKey</code> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a>. The <code>userName</code>
-     * and <code>userKey</code> must refer to a registered TheTVDB user account. The given parameters will be used for the initial remote service authentication. To authenticate
+     * Creates a new TheTVDBAPI instance. The given <code>apiKey</code> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a>. The <code>userKey</code>
+     * and <code>userName</code> must refer to a registered TheTVDB user account. The given parameters will be used for the initial remote service authentication. To authenticate
      * and generate a new session token use the {@link #init()} or {@link #login()} methods right after creating a new instance of this API.
      *
      * @param apiKey Valid TheTVDB API-Key
+     * @param userKey Valid TheTVDB user key (also referred to as "Unique ID")
      * @param userName Registered TheTVDB user name
-     * @param userKey The password for user login
      */
-    public TheTVDBApiImpl(@Nonnull String apiKey, @Nonnull String userName, @Nonnull String userKey) {
+    public TheTVDBApiImpl(@Nonnull String apiKey, @Nonnull String userKey, @Nonnull String userName) {
         if (!APIUtil.hasValue(apiKey, userKey, userName)) {
             throw new IllegalArgumentException("APIKey/UserKey/UserName must not be null or empty!");
         }
