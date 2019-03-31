@@ -8,11 +8,11 @@ import com.github.m0nk3y2k4.thetvdb.internal.exception.APIValidationException;
 
 public final class ParamValidator {
 
-    public static final void requiresPathParam(String paramName, Object paramValue) throws APIValidationException {
+    public static void requiresPathParam(String paramName, Object paramValue) throws APIValidationException {
         requiresPathParam(paramName, paramValue, s -> true);
     }
 
-    public static final void requiresPathParam(String paramName, Object paramValue, Function<Object, Boolean> valueValidator) throws APIValidationException {
+    public static <T> void requiresPathParam(String paramName, T paramValue, Function<T, Boolean> valueValidator) throws APIValidationException {
         if (paramValue == null) {
             throw new APIValidationException(String.format("Path parameter [%s] is required but is not set", paramName));
         }
@@ -22,11 +22,11 @@ public final class ParamValidator {
         }
     }
 
-    public static final void requiresQueryParam(String paramName, QueryParameters params) throws APIValidationException {
+    public static void requiresQueryParam(String paramName, QueryParameters params) throws APIValidationException {
         requiresQueryParam(paramName, params, s -> true);
     }
 
-    public static final void requiresQueryParam(String paramName, QueryParameters params, Function<String, Boolean> valueValidator) throws APIValidationException {
+    public static void requiresQueryParam(String paramName, QueryParameters params, Function<String, Boolean> valueValidator) throws APIValidationException {
         if (!params.containsParameter(paramName)) {
             throw new APIValidationException(String.format("Query parameter [%s] is required but is not set", paramName));
         }

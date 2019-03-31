@@ -13,7 +13,7 @@ import java.util.stream.StreamSupport;
 public class QueryParametersImpl implements QueryParameters {
 
     /** Simple map holding the individual query parameters as key/value pairs */
-    private Map<String, String> params = new LinkedHashMap<>();
+    private final Map<String, String> params = new LinkedHashMap<>();
 
     /**
      * Creates an empty object of this class
@@ -31,15 +31,15 @@ public class QueryParametersImpl implements QueryParameters {
     public QueryParametersImpl(@Nonnull Map<String, String> parameters) {
         super();
 
-        Objects.requireNonNull(parameters);
+        Objects.requireNonNull(parameters, "Parameters map must not be NULL");
 
-        parameters.forEach((key, value) -> this.addParameter(key, value));
+        parameters.forEach(this::addParameter);
     }
 
     @Override
     public QueryParameters addParameter(@Nonnull String key, @Nonnull String value) {
-        Objects.requireNonNull(key);
-        Objects.requireNonNull(value);
+        Objects.requireNonNull(key, "Parameter key must not be NULL");
+        Objects.requireNonNull(value, "Parameter value must not be NULL");
 
         params.put(key, value);
         return this;
@@ -59,11 +59,11 @@ public class QueryParametersImpl implements QueryParameters {
     }
 
     @Override
-    public Iterator<Parameter> iterator() {
+    @Nonnull public Iterator<Parameter> iterator() {
         return new Iterator<>() {
 
             /** Iterator of the query parameters hold by this object */
-            private Iterator<Map.Entry<String, String>> iterator = params.entrySet().iterator();
+            private final Iterator<Map.Entry<String, String>> iterator = params.entrySet().iterator();
 
             @Override
             public boolean hasNext() {
@@ -75,7 +75,7 @@ public class QueryParametersImpl implements QueryParameters {
                 return new Parameter() {
 
                     /** The next key/value pair from the parameters map */
-                    private Map.Entry<String, String> entry = iterator.next();
+                    private final Map.Entry<String, String> entry = iterator.next();
 
                     @Override
                     public String getKey() {

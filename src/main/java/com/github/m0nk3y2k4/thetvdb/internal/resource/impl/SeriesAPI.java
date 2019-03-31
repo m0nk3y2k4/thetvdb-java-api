@@ -28,61 +28,61 @@ public final class SeriesAPI extends QueryResource {
 
     public static JsonNode getActors(@Nonnull APIConnection con, long id) throws APIException {
         ParamValidator.requiresPathParam(PATH_ID, id, ID_VALIDATOR);
-        return con.sendGET(createResource(BASE, id, "/actors"));
+        return con.sendGET(createResource(id, "/actors"));
     }
 
     public static JsonNode getEpisodes(@Nonnull APIConnection con, long id, QueryParameters params) throws APIException {
         ParamValidator.requiresPathParam(PATH_ID, id, ID_VALIDATOR);
-        return con.sendGET(createResource(BASE, id, "/episodes", params));
+        return con.sendGET(createResource(id, "/episodes", params));
     }
 
     public static JsonNode queryEpisodes(@Nonnull APIConnection con, long id, QueryParameters params) throws APIException {
         ParamValidator.requiresPathParam(PATH_ID, id, ID_VALIDATOR);
-        return con.sendGET(createResource(BASE, id, "/episodes/query", params));
+        return con.sendGET(createResource(id, "/episodes/query", params));
     }
 
     public static JsonNode getEpisodesQueryParams(@Nonnull APIConnection con, long id) throws APIException {
         ParamValidator.requiresPathParam(PATH_ID, id, ID_VALIDATOR);
-        return con.sendGET(createResource(BASE, id, "/episodes/query/params"));
+        return con.sendGET(createResource(id, "/episodes/query/params"));
     }
 
     public static JsonNode getEpisodesSummary(@Nonnull APIConnection con, long id) throws APIException {
         ParamValidator.requiresPathParam(PATH_ID, id, ID_VALIDATOR);
-        return con.sendGET(createResource(BASE, id, "/episodes/summary"));
+        return con.sendGET(createResource(id, "/episodes/summary"));
     }
 
     public static JsonNode filter(@Nonnull APIConnection con, long id, QueryParameters params) throws APIException {
         ParamValidator.requiresPathParam(PATH_ID, id, ID_VALIDATOR);
         ParamValidator.requiresQueryParam(Query.Series.KEYS, params);
-        return con.sendGET(createResource(BASE, id, "/filter", params));
+        return con.sendGET(createResource(id, "/filter", params));
     }
 
     public static JsonNode getFilterParams(@Nonnull APIConnection con, long id) throws APIException {
         ParamValidator.requiresPathParam(PATH_ID, id, ID_VALIDATOR);
-        return con.sendGET(createResource(BASE, id, "/filter/params"));
+        return con.sendGET(createResource(id, "/filter/params"));
     }
 
     public static JsonNode getImages(@Nonnull APIConnection con, long id) throws APIException {
         ParamValidator.requiresPathParam(PATH_ID, id, ID_VALIDATOR);
-        return con.sendGET(createResource(BASE, id, "/images"));
+        return con.sendGET(createResource(id, "/images"));
     }
 
     public static JsonNode queryImages(@Nonnull APIConnection con, long id, QueryParameters params) throws APIException {
         ParamValidator.requiresPathParam(PATH_ID, id, ID_VALIDATOR);
-        return con.sendGET(createResource(BASE, id, "/images/query", params));
+        return con.sendGET(createResource(id, "/images/query", params));
     }
 
     public static JsonNode getImagesQueryParams(@Nonnull APIConnection con, long id) throws APIException {
         ParamValidator.requiresPathParam(PATH_ID, id, ID_VALIDATOR);
-        return con.sendGET(createResource(BASE, id, "/images/query/params"));
+        return con.sendGET(createResource(id, "/images/query/params"));
     }
 
-    private static String createResource(String base, long id, String specific) {
-        return createResource(base, id, specific, null);
+    private static String createResource(long id, String specific) {
+        return createResource(id, specific, null);
     }
 
-    private static String createResource(String base, long id, String specific, QueryParameters params) {
-        String baseWithId = base + "/" + id;
+    private static String createResource(long id, String specific, QueryParameters params) {
+        String baseWithId = BASE + "/" + id;
         if (params != null) {
             return createQueryResource(baseWithId, specific, params);
         }

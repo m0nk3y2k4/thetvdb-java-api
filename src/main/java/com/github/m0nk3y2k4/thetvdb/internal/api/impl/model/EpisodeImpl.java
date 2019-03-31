@@ -34,9 +34,9 @@ public class EpisodeImpl extends EpisodeAbstractImpl implements Episode {
 
     public EpisodeImpl() {
         super();
-        this.directors = Collections.<String>emptyList();
-        this.guestStars = Collections.<String>emptyList();
-        this.writers = Collections.<String>emptyList();
+        this.directors = Collections.emptyList();
+        this.guestStars = Collections.emptyList();
+        this.writers = Collections.emptyList();
     }
 
     @Override

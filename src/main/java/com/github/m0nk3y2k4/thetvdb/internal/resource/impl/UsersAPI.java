@@ -16,7 +16,7 @@ public final class UsersAPI extends QueryResource {
 
     private static final String BASE = "/user";
 
-    private static final Function<Object, Boolean> ITEMTYPE_VALIDATOR = value -> Arrays.asList("series", "episode", "image").contains(value);
+    private static final Function<String, Boolean> ITEMTYPE_VALIDATOR = value -> Arrays.asList("series", "episode", "image").contains(value);
 
     private static final String PATH_ITEMTYPE = "itemType";
     private static final String PATH_ITEMID = "itemId";

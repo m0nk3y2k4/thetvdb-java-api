@@ -7,9 +7,9 @@ import javax.annotation.Nonnull;
 
 public abstract class Resource {
 
-    protected static final Function<Object, Boolean> ID_VALIDATOR = value -> Long.compare((long)value, 0) > 0;
+    protected static final Function<Long, Boolean> ID_VALIDATOR = value -> value > 0;
 
-    public static final String PATH_ID = "id";
+    protected static final String PATH_ID = "id";
 
     protected static String createResource(@Nonnull String base, Object... pathParams) {
         return createResource(base, null, pathParams);

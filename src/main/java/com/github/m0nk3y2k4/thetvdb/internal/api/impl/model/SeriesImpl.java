@@ -25,7 +25,7 @@ public class SeriesImpl extends SeriesAbstractImpl implements Series {
 
     public SeriesImpl() {
         super();
-        this.genre = Collections.<String>emptyList();
+        this.genre = Collections.emptyList();
     }
 
     @Override

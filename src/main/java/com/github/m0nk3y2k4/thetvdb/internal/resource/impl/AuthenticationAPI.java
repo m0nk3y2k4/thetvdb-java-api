@@ -33,7 +33,7 @@ public final class AuthenticationAPI {
         ObjectNode authentication = new ObjectMapper().getNodeFactory().objectNode();
 
         authentication.put("apikey", con.getApiKey());
-        if (con.userAuthentication()) {
+        if (con.userAuthentication()) {                                         // Assures that UserKey/UserName are not empty
             authentication.put("userkey", con.getUserKey().get());
             authentication.put("username", con.getUserName().get());
         }

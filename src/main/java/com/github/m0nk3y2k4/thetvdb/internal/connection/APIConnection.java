@@ -138,11 +138,16 @@ abstract class APIRequest {
     /** User agent */
     private static final String USER_AGENT = "Mozilla/5.0";
 
+    /** Session for remote API authentication */
     private APISession session;
-    protected HttpsURLConnection con;
-    protected final String resource;
 
-    public APIRequest(@Nonnull String resource) {
+    /** HTTPS connection for this API request */
+    HttpsURLConnection con;
+
+    /** Resource/Route to be called on remote service */
+    final String resource;
+
+    APIRequest(@Nonnull String resource) {
         this.resource = resource;
     }
 
@@ -150,7 +155,7 @@ abstract class APIRequest {
         this.session = session;
     }
 
-    protected HttpsURLConnection openConnection(@Nonnull String resource, @Nonnull String requestMethod) throws IOException {
+    void openConnection(@Nonnull String resource, @Nonnull String requestMethod) throws IOException {
         con = (HttpsURLConnection) new URL(API_URL + resource).openConnection();
 
         // POST or GET
@@ -165,17 +170,15 @@ abstract class APIRequest {
             con.setRequestProperty("Authorization", "Bearer " + session.getToken());
             con.setRequestProperty("Accept-Language", session.getLanguage());
         }
-
-        return con;
     }
 
-    protected void disconnect() {
+    void disconnect() {
         if (con != null) {
             con.disconnect();
         }
     }
 
-    protected JsonNode getResponse() throws APIException, IOException {
+    JsonNode getResponse() throws APIException, IOException {
         int responseCode = con.getResponseCode();
 
         switch (responseCode) {
@@ -311,7 +314,7 @@ final class HeadRequest extends APIRequest {
                 root.put(key, values.get(0));
             } else {
                 ArrayNode arrayNode = factory.arrayNode();
-                values.stream().forEach(arrayNode::add);
+                values.forEach(arrayNode::add);
                 root.set(key, arrayNode);
             }
         }

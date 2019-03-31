@@ -1,6 +1,7 @@
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -9,14 +10,14 @@ import com.github.m0nk3y2k4.thetvdb.api.model.SeriesSummary;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SeriesSummaryImpl implements SeriesSummary {
 
-    public String airedEpisodes;
-    public List<String> airedSeasons;
-    public String dvdEpisodes;
-    public List<String> dvdSeasons;
+    private String airedEpisodes;
+    private List<String> airedSeasons;
+    private String dvdEpisodes;
+    private List<String> dvdSeasons;
 
     public SeriesSummaryImpl() {
-        this.airedSeasons = new ArrayList<>();
-        this.dvdSeasons = new ArrayList<>();
+        this.airedSeasons = Collections.emptyList();
+        this.dvdSeasons = Collections.emptyList();
     }
 
     @Override

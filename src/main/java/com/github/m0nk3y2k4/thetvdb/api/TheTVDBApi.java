@@ -15,18 +15,18 @@ public interface TheTVDBApi {
      * remote service by this API instance. The initialization will be performed based on the constructor parameters used to create this API instance. Actually this method
      * will do the same as {@link #login()}.
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     void init() throws APIException;
 
     /**
      * Sets the preferred language to be used for communication with the remote service. Some of the API calls might use this setting in order to only return results that
-     * match the given language. If available, the data returned by the remote API will translated to the given language. The default language code is <b>"en"</b>. For a list
+     * match the given language. If available, the data returned by the remote API will be translated to the given language. The default language code is <b>"en"</b>. For a list
      * of supported languages see {@link #getAvailableLanguages()}.
      *
      * @see #getAvailableLanguages()
      *
-     * @param languageCode
+     * @param languageCode The language in which the results are to be returned
      */
     void setLanguage(String languageCode);
 
@@ -37,7 +37,7 @@ public interface TheTVDBApi {
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Authentication/post_login">/login</a>
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     void login() throws APIException;
 
@@ -47,7 +47,7 @@ public interface TheTVDBApi {
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Authentication/get_refresh_token">/refresh_token</a>
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     void refreshToken() throws APIException;
 
@@ -62,7 +62,7 @@ public interface TheTVDBApi {
      *
      * @return JSON object containing the full episode information
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     JsonNode getEpisodeJSON(long episodeId) throws APIException;
 
@@ -77,7 +77,7 @@ public interface TheTVDBApi {
      *
      * @return Mapped Java object containing the full episode information based on the JSON data returned by the remote service
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     Episode getEpisode(long episodeId) throws APIException;
 
@@ -91,7 +91,7 @@ public interface TheTVDBApi {
      *
      * @return JSON object containing all languages that are supported by the remote service
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     JsonNode getAvailableLanguagesJSON() throws APIException;
 
@@ -105,7 +105,7 @@ public interface TheTVDBApi {
      *
      * @return List of available languages mapped as Java objects based on the JSON data returned by the remote service
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<Language> getAvailableLanguages() throws APIException;
 
@@ -121,7 +121,7 @@ public interface TheTVDBApi {
      *
      * @return JSON object containing detailed language information
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     JsonNode getLanguageJSON(long languageId) throws APIException;
 
@@ -137,7 +137,7 @@ public interface TheTVDBApi {
      *
      * @return Mapped Java object containing detailed language information based on the JSON data returned by the remote service
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     Language getLanguage(long languageId) throws APIException;
 
@@ -154,7 +154,7 @@ public interface TheTVDBApi {
      *
      * @return JSON object containing the series search results
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     JsonNode searchSeriesJSON(QueryParameters queryParameters) throws APIException;
 
@@ -171,7 +171,7 @@ public interface TheTVDBApi {
      *
      * @return List of series search results mapped as Java objects based on the JSON data returned by the remote service
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<SeriesAbstract> searchSeries(QueryParameters queryParameters) throws APIException;
 
@@ -183,7 +183,7 @@ public interface TheTVDBApi {
      *
      * @return List of series search results mapped as Java objects based on the JSON data returned by the remote service
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<SeriesAbstract> searchSeriesByName(@Nonnull String name) throws APIException;
 
@@ -195,7 +195,7 @@ public interface TheTVDBApi {
      *
      * @return List of series search results mapped as Java objects based on the JSON data returned by the remote service
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<SeriesAbstract> searchSeriesByImdbId(@Nonnull String imdbId) throws APIException;
 
@@ -207,7 +207,7 @@ public interface TheTVDBApi {
      *
      * @return List of series search results mapped as Java objects based on the JSON data returned by the remote service
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<SeriesAbstract> searchSeriesByZap2itId(@Nonnull String zap2itId) throws APIException;
 
@@ -222,7 +222,7 @@ public interface TheTVDBApi {
      *
      * @return JSON object containing possible parameters to query by in the series search
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     JsonNode getAvailableSeriesSearchParametersJSON() throws APIException;
 
@@ -237,7 +237,7 @@ public interface TheTVDBApi {
      *
      * @return List of possible parameters to query by in the series search
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<String> getAvailableSeriesSearchParameters() throws APIException;
 
@@ -252,7 +252,7 @@ public interface TheTVDBApi {
      *
      * @return JSON object containing detailed information for a specific series
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     JsonNode getSeriesJSON(long seriesId) throws APIException;
 
@@ -267,7 +267,7 @@ public interface TheTVDBApi {
      *
      * @return Detailed information for a specific series mapped as Java object based on the JSON data returned by the remote service
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     Series getSeries(long seriesId) throws APIException;
 
@@ -283,7 +283,7 @@ public interface TheTVDBApi {
      *
      * @return Artificial JSON object based on the HTML header information returned by the remote service
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     JsonNode getSeriesHeaderInformationJSON(long seriesId) throws APIException;
 
@@ -299,7 +299,7 @@ public interface TheTVDBApi {
      *
      * @return HTML header information returned by the remote service mapped as key/value pairs
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     Map<String, String> getSeriesHeaderInformation(long seriesId) throws APIException;
 
@@ -314,7 +314,7 @@ public interface TheTVDBApi {
      *
      * @return JSON object containing the actors for a specific series
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     JsonNode getActorsJSON(long seriesId) throws APIException;
 
@@ -329,7 +329,7 @@ public interface TheTVDBApi {
      *
      * @return List of actors mapped as Java objects based on the JSON data returned by the remote service
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<Actor> getActors(long seriesId) throws APIException;
 
@@ -347,7 +347,7 @@ public interface TheTVDBApi {
      *
      * @return JSON object containing a single result page of episodes
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     JsonNode getEpisodesJSON(long seriesId, QueryParameters queryParameters) throws APIException;
 
@@ -365,7 +365,7 @@ public interface TheTVDBApi {
      *
      * @return List of basic episode information mapped as Java objects based on the JSON data returned by the remote service
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<EpisodeAbstract> getEpisodes(long seriesId, QueryParameters queryParameters) throws APIException;
 
@@ -380,7 +380,7 @@ public interface TheTVDBApi {
      *
      * @return List of basic episode information mapped as Java objects based on the JSON data returned by the remote service
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<EpisodeAbstract> getEpisodes(long seriesId) throws APIException;
 
@@ -396,7 +396,7 @@ public interface TheTVDBApi {
      *
      * @return List of basic episode information mapped as Java objects based on the JSON data returned by the remote service
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<EpisodeAbstract> getEpisodes(long seriesId, long page) throws APIException;
 
@@ -414,7 +414,7 @@ public interface TheTVDBApi {
      *
      * @return JSON object containing a single result page of queried episode records
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     JsonNode queryEpisodesJSON(long seriesId, QueryParameters queryParameters) throws APIException;
 
@@ -432,7 +432,7 @@ public interface TheTVDBApi {
      *
      * @return List of basic episode information matching the query parameters, mapped as Java objects based on the JSON data returned by the remote service
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<EpisodeAbstract> queryEpisodes(long seriesId, QueryParameters queryParameters) throws APIException;
 
@@ -448,7 +448,7 @@ public interface TheTVDBApi {
      *
      * @return List of basic episode information for a specific season, mapped as Java objects based on the JSON data returned by the remote service
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<EpisodeAbstract> queryEpisodesByAiredSeason(long seriesId, long airedSeason) throws APIException;
 
@@ -465,7 +465,7 @@ public interface TheTVDBApi {
      *
      * @return List of basic episode information for a specific season, mapped as Java objects based on the JSON data returned by the remote service
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<EpisodeAbstract> queryEpisodesByAiredSeason(long seriesId, long airedSeason, long page) throws APIException;
 
@@ -483,7 +483,7 @@ public interface TheTVDBApi {
      *
      * @return List of basic episode information for a specific season and aired episode number, mapped as Java objects based on the JSON data returned by the remote service
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<EpisodeAbstract> queryEpisodesByAiredEpisode(long seriesId, long airedEpisode) throws APIException;
 
@@ -502,7 +502,7 @@ public interface TheTVDBApi {
      *
      * @return List of basic episode information for an absolute episode number, mapped as Java objects based on the JSON data returned by the remote service
      *
-     * @throws APIException
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<EpisodeAbstract> queryEpisodesByAbsoluteNumber(long seriesId, long absoluteNumber) throws APIException;
 

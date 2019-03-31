@@ -17,7 +17,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
 
 public abstract class QueryResource extends Resource {
 
-    protected static String createQuery(@CheckForNull QueryParameters queryParams) {
+    private static String createQuery(@CheckForNull QueryParameters queryParams) {
         List<QueryParameters.Parameter> validParams = Optional.ofNullable(queryParams).orElse(TheTVDBApiFactory.createQueryParameters())
                 .stream().filter(QueryResource::isValidQueryParameter).collect(Collectors.toList());
 

@@ -19,7 +19,7 @@ public class SeriesAbstractImpl implements SeriesAbstract {
     private String status;
 
     public SeriesAbstractImpl() {
-        this.aliases = Collections.<String>emptyList();
+        this.aliases = Collections.emptyList();
     }
 
     @Override

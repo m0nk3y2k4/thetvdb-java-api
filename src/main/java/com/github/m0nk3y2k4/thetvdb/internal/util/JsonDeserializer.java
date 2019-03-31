@@ -46,15 +46,15 @@ public final class JsonDeserializer {
     public static List<String> createQueryParameters(@Nonnull JsonNode json) throws APIException {
         JsonNode dataNode = json.get("data");
         JsonNode params = dataNode.has("params") ? dataNode.get("params") : dataNode;   // Sometimes the parameters are nested in an sub-node
-        return readValue(params, new TypeReference<List<String>>(){});
+        return readValue(params, new TypeReference<>(){});
     }
 
     public static List<String> createFavorites(@Nonnull JsonNode json) throws APIException {
-        return readValue(json.get("data").get("favorites"), new TypeReference<List<String>>(){});
+        return readValue(json.get("data").get("favorites"), new TypeReference<>(){});
     }
 
     public static Map<String, String> createSeriesHeader(@Nonnull JsonNode json) throws APIException {
-        return readValue(json, new TypeReference<Map<String, String>>(){});
+        return readValue(json, new TypeReference<>(){});
     }
 
     public static List<SeriesAbstract> createSeriesAbstract(@Nonnull JsonNode json) throws APIException {
