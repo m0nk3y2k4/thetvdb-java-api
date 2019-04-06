@@ -29,6 +29,9 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.JsonDeserializer;
  */
 public class TheTVDBApiImpl implements TheTVDBApi {
 
+    /** Wrapper API: Consolidates TheTVDB-API calls which return raw JSON */
+    private final TheTVDBApiJSONImpl jsonApi;
+
     /** The actual connection to the remote API */
     private final APIConnection con;
 
@@ -49,6 +52,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
             throw new IllegalArgumentException("APIKey must not be null or empty!");
         }
 
+        this.jsonApi = new TheTVDBApiJSONImpl();
         this.con = new APIConnection(apiKey);
     }
 
@@ -66,6 +70,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
             throw new IllegalArgumentException("APIKey/UserKey/UserName must not be null or empty!");
         }
 
+        this.jsonApi = new TheTVDBApiJSONImpl();
         this.con = new APIConnection(apiKey, userKey, userName);
     }
 
@@ -90,396 +95,406 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public JsonNode getEpisodeJSON(long episodeId) throws APIException {
-        return EpisodesAPI.get(con, episodeId);
-    }
-
-    @Override
     public Episode getEpisode(long episodeId) throws APIException {
-        return JsonDeserializer.mapEpisode(getEpisodeJSON(episodeId));
-    }
-
-    @Override
-    public JsonNode getAvailableLanguagesJSON() throws APIException {
-        return LanguagesAPI.getAllAvailable(con);
+        return JsonDeserializer.mapEpisode(json().getEpisode(episodeId));
     }
 
     @Override
     public List<Language> getAvailableLanguages() throws APIException {
-        return JsonDeserializer.mapLanguages(getAvailableLanguagesJSON());
-    }
-
-    @Override
-    public JsonNode getLanguageJSON(long languageId) throws APIException {
-        return LanguagesAPI.get(con, languageId);
+        return JsonDeserializer.mapLanguages(json().getAvailableLanguages());
     }
 
     @Override
     public Language getLanguage(long languageId) throws APIException {
-        return JsonDeserializer.mapLanguage(getLanguageJSON(languageId));
-    }
-
-    @Override
-    public JsonNode searchSeriesJSON(QueryParameters queryParameters) throws APIException {
-        return SearchAPI.series(con, queryParameters);
+        return JsonDeserializer.mapLanguage(json().getLanguage(languageId));
     }
 
     @Override
     public List<SeriesSearchResult> searchSeries(QueryParameters queryParameters) throws APIException {
-        return JsonDeserializer.mapSeriesSearchResult(searchSeriesJSON(queryParameters));
+        return JsonDeserializer.mapSeriesSearchResult(json().searchSeries(queryParameters));
     }
 
     @Override
     public List<SeriesSearchResult> searchSeriesByName(@Nonnull String name) throws APIException {
         validateNotEmpty(name);
-        return JsonDeserializer.mapSeriesSearchResult(searchSeriesJSON(query(Map.of(Query.Search.NAME, name))));
+        return searchSeries(query(Map.of(Query.Search.NAME, name)));
     }
 
     @Override
     public List<SeriesSearchResult> searchSeriesByImdbId(@Nonnull String imdbId) throws APIException {
         validateNotEmpty(imdbId);
-        return JsonDeserializer.mapSeriesSearchResult(searchSeriesJSON(query(Map.of(Query.Search.IMDBID, imdbId))));
+        return searchSeries(query(Map.of(Query.Search.IMDBID, imdbId)));
     }
 
     @Override
     public List<SeriesSearchResult> searchSeriesByZap2itId(@Nonnull String zap2itId) throws APIException {
         validateNotEmpty(zap2itId);
-        return JsonDeserializer.mapSeriesSearchResult(searchSeriesJSON(query(Map.of(Query.Search.ZAP2ITID, zap2itId))));
-    }
-
-    @Override
-    public JsonNode getAvailableSeriesSearchParametersJSON() throws APIException {
-        return SearchAPI.getAvailableSearchParameters(con);
+        return searchSeries(query(Map.of(Query.Search.ZAP2ITID, zap2itId)));
     }
 
     @Override
     public List<String> getAvailableSeriesSearchParameters() throws APIException {
-        return JsonDeserializer.mapQueryParameters(getAvailableSeriesSearchParametersJSON());
-    }
-
-    @Override
-    public JsonNode getSeriesJSON(long seriesId) throws APIException {
-        return SeriesAPI.get(con, seriesId);
+        return JsonDeserializer.mapQueryParameters(json().getAvailableSeriesSearchParameters());
     }
 
     @Override
     public Series getSeries(long seriesId) throws APIException {
-        return JsonDeserializer.mapSeries(getSeriesJSON(seriesId));
-    }
-
-    @Override
-    public JsonNode getSeriesHeaderInformationJSON(long seriesId) throws APIException {
-        return SeriesAPI.getHead(con, seriesId);
+        return JsonDeserializer.mapSeries(json().getSeries(seriesId));
     }
 
     @Override
     public Map<String, String> getSeriesHeaderInformation(long seriesId) throws APIException {
-        return JsonDeserializer.mapSeriesHeader(getSeriesHeaderInformationJSON(seriesId));
-    }
-
-    @Override
-    public JsonNode getActorsJSON(long seriesId) throws APIException {
-        return SeriesAPI.getActors(con, seriesId);
+        return JsonDeserializer.mapSeriesHeader(json().getSeriesHeaderInformation(seriesId));
     }
 
     @Override
     public List<Actor> getActors(long seriesId) throws APIException {
-        return JsonDeserializer.mapActors(getActorsJSON(seriesId));
-    }
-
-    @Override
-    public JsonNode getEpisodesJSON(long seriesId, QueryParameters queryParameters) throws APIException {
-        return SeriesAPI.getEpisodes(con, seriesId, queryParameters);
+        return JsonDeserializer.mapActors(json().getActors(seriesId));
     }
 
     @Override
     public List<Episode> getEpisodes(long seriesId, QueryParameters queryParameters) throws APIException {
-        return JsonDeserializer.mapEpisodes(getEpisodesJSON(seriesId, queryParameters));
+        return JsonDeserializer.mapEpisodes(json().getEpisodes(seriesId, queryParameters));
     }
 
     @Override
     public List<Episode> getEpisodes(long seriesId) throws APIException {
-        return JsonDeserializer.mapEpisodes(getEpisodesJSON(seriesId, emptyQuery()));
+        return getEpisodes(seriesId, emptyQuery());
     }
 
     @Override
     public List<Episode> getEpisodes(long seriesId, long page) throws APIException {
-        return JsonDeserializer.mapEpisodes(getEpisodesJSON(seriesId, query(Map.of(Query.Series.PAGE, String.valueOf(page)))));
-    }
-
-    @Override
-    public JsonNode queryEpisodesJSON(long seriesId, QueryParameters queryParameters) throws APIException {
-        return SeriesAPI.queryEpisodes(con, seriesId, queryParameters);
+        return getEpisodes(seriesId, query(Map.of(Query.Series.PAGE, String.valueOf(page))));
     }
 
     @Override
     public List<Episode> queryEpisodes(long seriesId, QueryParameters queryParameters) throws APIException {
-        return JsonDeserializer.mapEpisodes(queryEpisodesJSON(seriesId, queryParameters));
+        return JsonDeserializer.mapEpisodes(json().queryEpisodes(seriesId, queryParameters));
     }
 
     @Override
     public List<Episode> queryEpisodesByAiredSeason(long seriesId, long airedSeason) throws APIException {
-        return JsonDeserializer.mapEpisodes(queryEpisodesJSON(seriesId, query(Map.of(Query.Series.AIREDSEASON, String.valueOf(airedSeason)))));
+        return queryEpisodes(seriesId, query(Map.of(Query.Series.AIREDSEASON, String.valueOf(airedSeason))));
     }
 
     @Override
     public List<Episode> queryEpisodesByAiredSeason(long seriesId, long airedSeason, long page) throws APIException {
-        return JsonDeserializer.mapEpisodes(queryEpisodesJSON(seriesId, query(Map.of(Query.Series.AIREDSEASON, String.valueOf(airedSeason), Query.Series.PAGE, String.valueOf(page)))));
+        return queryEpisodes(seriesId, query(Map.of(Query.Series.AIREDSEASON, String.valueOf(airedSeason), Query.Series.PAGE, String.valueOf(page))));
     }
 
     @Override
     public List<Episode> queryEpisodesByAiredEpisode(long seriesId, long airedEpisode) throws APIException {
-        return JsonDeserializer.mapEpisodes(queryEpisodesJSON(seriesId, query(Map.of(Query.Series.AIREDEPISODE, String.valueOf(airedEpisode)))));
+        return queryEpisodes(seriesId, query(Map.of(Query.Series.AIREDEPISODE, String.valueOf(airedEpisode))));
     }
 
     @Override
     public List<Episode> queryEpisodesByAbsoluteNumber(long seriesId, long absoluteNumber) throws APIException {
-        return JsonDeserializer.mapEpisodes(queryEpisodesJSON(seriesId, query(Map.of(Query.Series.ABSOLUTENUMBER, String.valueOf(absoluteNumber)))));
-    }
-
-    @Override
-    public JsonNode getAvailableEpisodeQueryParametersJSON(long seriesId) throws APIException {
-        return SeriesAPI.getEpisodesQueryParams(con, seriesId);
+        return queryEpisodes(seriesId, query(Map.of(Query.Series.ABSOLUTENUMBER, String.valueOf(absoluteNumber))));
     }
 
     @Override
     public List<String> getAvailableEpisodeQueryParameters(long seriesId) throws APIException {
-        return JsonDeserializer.mapQueryParameters(getAvailableEpisodeQueryParametersJSON(seriesId));
-    }
-
-    @Override
-    public JsonNode getSeriesEpisodesSummaryJSON(long seriesId) throws APIException {
-        return SeriesAPI.getEpisodesSummary(con, seriesId);
+        return JsonDeserializer.mapQueryParameters(json().getAvailableEpisodeQueryParameters(seriesId));
     }
 
     @Override
     public SeriesSummary getSeriesEpisodesSummary(long seriesId) throws APIException {
-        return JsonDeserializer.mapSeriesSummary(getSeriesEpisodesSummaryJSON(seriesId));
-    }
-
-    @Override
-    public JsonNode filterSeriesJSON(long seriesId, QueryParameters queryParameters) throws APIException {
-        return SeriesAPI.filter(con, seriesId, queryParameters);
+        return JsonDeserializer.mapSeriesSummary(json().getSeriesEpisodesSummary(seriesId));
     }
 
     @Override
     public Series filterSeries(long seriesId, QueryParameters queryParameters) throws APIException {
-        return JsonDeserializer.mapSeries(filterSeriesJSON(seriesId, queryParameters));
+        return JsonDeserializer.mapSeries(json().filterSeries(seriesId, queryParameters));
     }
 
     @Override
     public Series filterSeries(long seriesId, @Nonnull String filterKeys) throws APIException {
         validateNotEmpty(filterKeys);
-        return JsonDeserializer.mapSeries(filterSeriesJSON(seriesId, query(Map.of(Query.Series.KEYS, filterKeys))));
-    }
-
-    @Override
-    public JsonNode getAvailableSeriesFilterParametersJSON(long seriesId) throws APIException {
-        return SeriesAPI.getFilterParams(con, seriesId);
+        return filterSeries(seriesId, query(Map.of(Query.Series.KEYS, filterKeys)));
     }
 
     @Override
     public List<String> getAvailableSeriesFilterParameters(long seriesId) throws APIException {
-        return JsonDeserializer.mapQueryParameters(getAvailableSeriesFilterParametersJSON(seriesId));
-    }
-
-    @Override
-    public JsonNode getSeriesImagesSummaryJSON(long seriesId) throws APIException {
-        return SeriesAPI.getImages(con, seriesId);
+        return JsonDeserializer.mapQueryParameters(json().getAvailableSeriesFilterParameters(seriesId));
     }
 
     @Override
     public ImageSummary getSeriesImagesSummary(long seriesId) throws APIException {
-        return JsonDeserializer.mapSeriesImageSummary(getSeriesImagesSummaryJSON(seriesId));
-    }
-
-    @Override
-    public JsonNode queryImagesJSON(long seriesId, QueryParameters queryParameters) throws APIException {
-        return SeriesAPI.queryImages(con, seriesId, queryParameters);
+        return JsonDeserializer.mapSeriesImageSummary(json().getSeriesImagesSummary(seriesId));
     }
 
     @Override
     public List<Image> queryImages(long seriesId, QueryParameters queryParameters) throws APIException {
-        return JsonDeserializer.mapImages(queryImagesJSON(seriesId, queryParameters));
+        return JsonDeserializer.mapImages(json().queryImages(seriesId, queryParameters));
     }
 
     @Override
     public List<Image> queryImages(long seriesId, String keyType, String resolution) throws APIException {
         validateNotEmpty(keyType, resolution);
-        return JsonDeserializer.mapImages(queryImagesJSON(seriesId, query(Map.of(Query.Series.KEYTYPE, keyType, Query.Series.RESOLUTION, resolution))));
+        return queryImages(seriesId, query(Map.of(Query.Series.KEYTYPE, keyType, Query.Series.RESOLUTION, resolution)));
     }
 
     @Override
     public List<Image> queryImages(long seriesId, String keyType, String resolution, String subKey) throws APIException {
         validateNotEmpty(keyType, resolution, subKey);
-        return JsonDeserializer.mapImages(queryImagesJSON(seriesId, query(Map.of(Query.Series.KEYTYPE, keyType, Query.Series.RESOLUTION, resolution, Query.Series.SUBKEY, subKey))));
+        return queryImages(seriesId, query(Map.of(Query.Series.KEYTYPE, keyType, Query.Series.RESOLUTION, resolution, Query.Series.SUBKEY, subKey)));
     }
 
     @Override
     public List<Image> queryImagesByKeyType(long seriesId, String keyType) throws APIException {
         validateNotEmpty(keyType);
-        return JsonDeserializer.mapImages(queryImagesJSON(seriesId, query(Map.of(Query.Series.KEYTYPE, keyType))));
+        return queryImages(seriesId, query(Map.of(Query.Series.KEYTYPE, keyType)));
     }
 
     @Override
     public List<Image> queryImagesByResolution(long seriesId, String resolution) throws APIException {
         validateNotEmpty(resolution);
-        return JsonDeserializer.mapImages(queryImagesJSON(seriesId, query(Map.of(Query.Series.RESOLUTION, resolution))));
+        return queryImages(seriesId, query(Map.of(Query.Series.RESOLUTION, resolution)));
     }
 
     @Override
     public List<Image> queryImagesBySubKey(long seriesId, String subKey) throws APIException {
         validateNotEmpty(subKey);
-        return JsonDeserializer.mapImages(queryImagesJSON(seriesId, query(Map.of(Query.Series.SUBKEY, subKey))));
-    }
-
-    @Override
-    public JsonNode getAvailableImageQueryParametersJSON(long seriesId) throws APIException {
-        return SeriesAPI.getImagesQueryParams(con, seriesId);
+        return queryImages(seriesId, query(Map.of(Query.Series.SUBKEY, subKey)));
     }
 
     @Override
     public List<ImageQueryParameter> getAvailableImageQueryParameters(long seriesId) throws APIException {
-        return JsonDeserializer.mapImageQueryParameters(getAvailableImageQueryParametersJSON(seriesId));
-    }
-
-    @Override
-    public JsonNode queryLastUpdatedJSON(QueryParameters queryParameters) throws APIException {
-        return UpdatesAPI.query(con, queryParameters);
+        return JsonDeserializer.mapImageQueryParameters(json().getAvailableImageQueryParameters(seriesId));
     }
 
     @Override
     public Map<Long, Long> queryLastUpdated(QueryParameters queryParameters) throws APIException {
-        return JsonDeserializer.mapUpdates(queryLastUpdatedJSON(queryParameters));
+        return JsonDeserializer.mapUpdates(json().queryLastUpdated(queryParameters));
     }
 
     @Override
     public Map<Long, Long> queryLastUpdated(@Nonnull String fromTime) throws APIException {
         validateNotEmpty(fromTime);
-        return JsonDeserializer.mapUpdates(queryLastUpdatedJSON(query(Map.of(Query.Updates.FROMTIME, fromTime))));
+        return queryLastUpdated(query(Map.of(Query.Updates.FROMTIME, fromTime)));
     }
 
     @Override
     public Map<Long, Long> queryLastUpdated(@Nonnull String fromTime, @Nonnull String toTime) throws APIException {
         validateNotEmpty(fromTime, toTime);
-        return JsonDeserializer.mapUpdates(queryLastUpdatedJSON(query(Map.of(Query.Updates.FROMTIME, fromTime, Query.Updates.TOTIME, toTime))));
-    }
-
-    @Override
-    public JsonNode getAvailableLastUpdatedQueryParametersJSON() throws APIException {
-        return UpdatesAPI.getQueryParams(con);
+        return queryLastUpdated(query(Map.of(Query.Updates.FROMTIME, fromTime, Query.Updates.TOTIME, toTime)));
     }
 
     @Override
     public List<String> getAvailableLastUpdatedQueryParameters() throws APIException {
-        return JsonDeserializer.mapQueryParameters(getAvailableLastUpdatedQueryParametersJSON());
-    }
-
-    @Override
-    public JsonNode getUserJSON() throws APIException {
-        validateUserAuthentication();
-        return UsersAPI.get(con);
+        return JsonDeserializer.mapQueryParameters(json().getAvailableLastUpdatedQueryParameters());
     }
 
     @Override
     public User getUser() throws APIException {
-        return JsonDeserializer.mapUser(getUserJSON());
-    }
-
-    @Override
-    public JsonNode getFavoritesJSON() throws APIException {
-        validateUserAuthentication();
-        return UsersAPI.getFavorites(con);
+        return JsonDeserializer.mapUser(json().getUser());
     }
 
     @Override
     public List<String> getFavorites() throws APIException {
-        return JsonDeserializer.mapFavorites(getFavoritesJSON());
-    }
-
-    @Override
-    public JsonNode deleteFromFavoritesJSON(long seriesId) throws APIException {
-        validateUserAuthentication();
-        return UsersAPI.deleteFromFavorites(con, seriesId);
+        return JsonDeserializer.mapFavorites(json().getFavorites());
     }
 
     @Override
     public List<String> deleteFromFavorites(long seriesId) throws APIException {
-        return JsonDeserializer.mapFavorites(deleteFromFavoritesJSON(seriesId));
-    }
-
-    @Override
-    public JsonNode addToFavoritesJSON(long seriesId) throws APIException {
-        validateUserAuthentication();
-        return UsersAPI.addToFavorites(con, seriesId);
+        return JsonDeserializer.mapFavorites(json().deleteFromFavorites(seriesId));
     }
 
     @Override
     public List<String> addToFavorites(long seriesId) throws APIException {
-        return JsonDeserializer.mapFavorites(addToFavoritesJSON(seriesId));
-    }
-
-    @Override
-    public JsonNode getRatingsJSON() throws APIException {
-        validateUserAuthentication();
-        return UsersAPI.getRatings(con);
+        return JsonDeserializer.mapFavorites(json().addToFavorites(seriesId));
     }
 
     @Override
     public List<Rating> getRatings() throws APIException {
-        return JsonDeserializer.mapRatings(getRatingsJSON());
-    }
-
-    @Override
-    public JsonNode queryRatingsJSON(QueryParameters queryParameters) throws APIException {
-        validateUserAuthentication();
-        return UsersAPI.queryRatings(con, queryParameters);
+        return JsonDeserializer.mapRatings(json().getRatings());
     }
 
     @Override
     public List<Rating> queryRatings(QueryParameters queryParameters) throws APIException {
-        return JsonDeserializer.mapRatings(queryRatingsJSON(queryParameters));
+        return JsonDeserializer.mapRatings(json().queryRatings(queryParameters));
     }
 
     @Override
     public List<Rating> queryRatingsByItemType(@Nonnull String itemType) throws APIException {
         validateNotEmpty(itemType);
-        return JsonDeserializer.mapRatings(queryRatingsJSON(query(Map.of(Query.Users.ITEMTYPE, itemType))));
-    }
-
-    @Override
-    public JsonNode getAvailableRatingsQueryParametersJSON() throws APIException {
-        validateUserAuthentication();
-        return UsersAPI.getRatingsQueryParams(con);
+        return queryRatings(query(Map.of(Query.Users.ITEMTYPE, itemType)));
     }
 
     @Override
     public List<String> getAvailableRatingsQueryParameters() throws APIException {
-        return JsonDeserializer.mapQueryParameters(getAvailableRatingsQueryParametersJSON());
-    }
-
-    @Override
-    public JsonNode deleteFromRatingsJSON(@Nonnull String itemType, long itemId) throws APIException {
-        validateNotEmpty(itemType);
-        validateUserAuthentication();
-        return UsersAPI.deleteFromRatings(con, itemType, itemId);
+        return JsonDeserializer.mapQueryParameters(json().getAvailableRatingsQueryParameters());
     }
 
     @Override
     public void deleteFromRatings(@Nonnull String itemType, long itemId) throws APIException {
-        deleteFromRatingsJSON(itemType, itemId);
-    }
-
-    @Override
-    public JsonNode addToRatingsJSON(@Nonnull String itemType, long itemId, long itemRating) throws APIException {
-        validateNotEmpty(itemType);
-        validateUserAuthentication();
-        return UsersAPI.addToRatings(con, itemType, itemId, itemRating);
+        json().deleteFromRatings(itemType, itemId);
     }
 
     @Override
     public List<Rating> addToRatings(@Nonnull String itemType, long itemId, long itemRating) throws APIException {
-        return JsonDeserializer.mapRatings(addToRatingsJSON(itemType, itemId, itemRating));
+        return JsonDeserializer.mapRatings(json().addToRatings(itemType, itemId, itemRating));
+    }
+
+    @Override
+    public TheTVDBApiJSON json() {
+        return jsonApi;
+    }
+
+    class TheTVDBApiJSONImpl implements TheTVDBApiJSON {
+
+        TheTVDBApiJSONImpl() {}
+
+        @Override
+        public JsonNode getEpisode(long episodeId) throws APIException {
+            return EpisodesAPI.get(con, episodeId);
+        }
+
+        @Override
+        public JsonNode getAvailableLanguages() throws APIException {
+            return LanguagesAPI.getAllAvailable(con);
+        }
+
+        @Override
+        public JsonNode getLanguage(long languageId) throws APIException {
+            return LanguagesAPI.get(con, languageId);
+        }
+
+        @Override
+        public JsonNode searchSeries(QueryParameters queryParameters) throws APIException {
+            return SearchAPI.series(con, queryParameters);
+        }
+
+        @Override
+        public JsonNode getAvailableSeriesSearchParameters() throws APIException {
+            return SearchAPI.getAvailableSearchParameters(con);
+        }
+
+        @Override
+        public JsonNode getSeries(long seriesId) throws APIException {
+            return SeriesAPI.get(con, seriesId);
+        }
+
+        @Override
+        public JsonNode getSeriesHeaderInformation(long seriesId) throws APIException {
+            return SeriesAPI.getHead(con, seriesId);
+        }
+
+        @Override
+        public JsonNode getActors(long seriesId) throws APIException {
+            return SeriesAPI.getActors(con, seriesId);
+        }
+
+        @Override
+        public JsonNode getEpisodes(long seriesId, QueryParameters queryParameters) throws APIException {
+            return SeriesAPI.getEpisodes(con, seriesId, queryParameters);
+        }
+
+        @Override
+        public JsonNode queryEpisodes(long seriesId, QueryParameters queryParameters) throws APIException {
+            return SeriesAPI.queryEpisodes(con, seriesId, queryParameters);
+        }
+
+        @Override
+        public JsonNode getAvailableEpisodeQueryParameters(long seriesId) throws APIException {
+            return SeriesAPI.getEpisodesQueryParams(con, seriesId);
+        }
+
+        @Override
+        public JsonNode getSeriesEpisodesSummary(long seriesId) throws APIException {
+            return SeriesAPI.getEpisodesSummary(con, seriesId);
+        }
+
+        @Override
+        public JsonNode filterSeries(long seriesId, QueryParameters queryParameters) throws APIException {
+            return SeriesAPI.filter(con, seriesId, queryParameters);
+        }
+
+        @Override
+        public JsonNode getAvailableSeriesFilterParameters(long seriesId) throws APIException {
+            return SeriesAPI.getFilterParams(con, seriesId);
+        }
+
+        @Override
+        public JsonNode getSeriesImagesSummary(long seriesId) throws APIException {
+            return SeriesAPI.getImages(con, seriesId);
+        }
+
+        @Override
+        public JsonNode queryImages(long seriesId, QueryParameters queryParameters) throws APIException {
+            return SeriesAPI.queryImages(con, seriesId, queryParameters);
+        }
+
+        @Override
+        public JsonNode getAvailableImageQueryParameters(long seriesId) throws APIException {
+            return SeriesAPI.getImagesQueryParams(con, seriesId);
+        }
+
+        @Override
+        public JsonNode queryLastUpdated(QueryParameters queryParameters) throws APIException {
+            return UpdatesAPI.query(con, queryParameters);
+        }
+
+        @Override
+        public JsonNode getAvailableLastUpdatedQueryParameters() throws APIException {
+            return UpdatesAPI.getQueryParams(con);
+        }
+
+        @Override
+        public JsonNode getUser() throws APIException {
+            validateUserAuthentication();
+            return UsersAPI.get(con);
+        }
+
+        @Override
+        public JsonNode getFavorites() throws APIException {
+            validateUserAuthentication();
+            return UsersAPI.getFavorites(con);
+        }
+
+        @Override
+        public JsonNode deleteFromFavorites(long seriesId) throws APIException {
+            validateUserAuthentication();
+            return UsersAPI.deleteFromFavorites(con, seriesId);
+        }
+
+        @Override
+        public JsonNode addToFavorites(long seriesId) throws APIException {
+            validateUserAuthentication();
+            return UsersAPI.addToFavorites(con, seriesId);
+        }
+
+        @Override
+        public JsonNode getRatings() throws APIException {
+            validateUserAuthentication();
+            return UsersAPI.getRatings(con);
+        }
+
+        @Override
+        public JsonNode queryRatings(QueryParameters queryParameters) throws APIException {
+            validateUserAuthentication();
+            return UsersAPI.queryRatings(con, queryParameters);
+        }
+
+        @Override
+        public JsonNode getAvailableRatingsQueryParameters() throws APIException {
+            validateUserAuthentication();
+            return UsersAPI.getRatingsQueryParams(con);
+        }
+
+        @Override
+        public JsonNode deleteFromRatings(@Nonnull String itemType, long itemId) throws APIException {
+            validateNotEmpty(itemType);
+            validateUserAuthentication();
+            return UsersAPI.deleteFromRatings(con, itemType, itemId);
+        }
+
+        @Override
+        public JsonNode addToRatings(@Nonnull String itemType, long itemId, long itemRating) throws APIException {
+            validateNotEmpty(itemType);
+            validateUserAuthentication();
+            return UsersAPI.addToRatings(con, itemType, itemId, itemRating);
+        }
     }
 
     private void validateNotEmpty(String... params) {
