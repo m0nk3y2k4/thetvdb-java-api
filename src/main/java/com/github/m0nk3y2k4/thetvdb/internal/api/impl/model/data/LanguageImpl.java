@@ -1,7 +1,7 @@
-package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model;
+package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.github.m0nk3y2k4.thetvdb.api.model.Language;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Language;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LanguageImpl implements Language {

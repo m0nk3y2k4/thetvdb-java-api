@@ -1,10 +1,10 @@
-package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model;
+package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.m0nk3y2k4.thetvdb.api.model.Image;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Image;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ImageImpl implements Image {

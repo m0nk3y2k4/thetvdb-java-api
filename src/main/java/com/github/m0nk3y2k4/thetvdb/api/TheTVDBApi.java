@@ -2,7 +2,7 @@ package com.github.m0nk3y2k4.thetvdb.api;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
-import com.github.m0nk3y2k4.thetvdb.api.model.*;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.*;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -54,7 +54,7 @@ public interface TheTVDBApi {
     /**
      * Returns the full information for a given episode id as raw JSON.
      * <p/>
-     * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Episodes/get_episodes_id">/episods/{id}</a>
+     * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Episodes/get_episodes_id">/episodes/{id}</a>
      *
      * @see #getEpisode(long) getEpisode(episodeId)
      *
@@ -69,7 +69,7 @@ public interface TheTVDBApi {
     /**
      * Returns the full information for a given episode id as mapped Java object.
      * <p/>
-     * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Episodes/get_episodes_id">/episods/{id}</a>
+     * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Episodes/get_episodes_id">/episodes/{id}</a>
      *
      * @see #getEpisodeJSON(long) getEpisodeJSON(episodeId)
      *
@@ -173,7 +173,7 @@ public interface TheTVDBApi {
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
-    List<SeriesAbstract> searchSeries(QueryParameters queryParameters) throws APIException;
+    List<SeriesSearchResult> searchSeries(QueryParameters queryParameters) throws APIException;
 
     /**
      * Search for series by name. Returns a list of series search results mapped as Java object. The search results contain basic information
@@ -185,7 +185,7 @@ public interface TheTVDBApi {
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
-    List<SeriesAbstract> searchSeriesByName(@Nonnull String name) throws APIException;
+    List<SeriesSearchResult> searchSeriesByName(@Nonnull String name) throws APIException;
 
     /**
      * Search for series by IMDB-Id. Returns a list of series search results mapped as Java object. The search results contain basic information
@@ -197,7 +197,7 @@ public interface TheTVDBApi {
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
-    List<SeriesAbstract> searchSeriesByImdbId(@Nonnull String imdbId) throws APIException;
+    List<SeriesSearchResult> searchSeriesByImdbId(@Nonnull String imdbId) throws APIException;
 
     /**
      * Search for series by Zap2it-Id. Returns a list of series search results mapped as Java object. The search results contain basic information
@@ -209,7 +209,7 @@ public interface TheTVDBApi {
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
-    List<SeriesAbstract> searchSeriesByZap2itId(@Nonnull String zap2itId) throws APIException;
+    List<SeriesSearchResult> searchSeriesByZap2itId(@Nonnull String zap2itId) throws APIException;
 
     /**
      * Returns possible query parameters, which can be used to search for series, as raw JSON.
@@ -334,7 +334,7 @@ public interface TheTVDBApi {
     List<Actor> getActors(long seriesId) throws APIException;
 
     /**
-     * Returns basic information for all episodes of a specific series as raw JSON. Results will be paginated with 100 results per page.
+     * Returns all episodes of a specific series as raw JSON. Results will be paginated with 100 results per page.
      * Use <code>queryParameters</code> to select a specific result page.
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes">/series/{id}/episodes</a>
@@ -352,7 +352,7 @@ public interface TheTVDBApi {
     JsonNode getEpisodesJSON(long seriesId, QueryParameters queryParameters) throws APIException;
 
     /**
-     * Returns a list of basic information for all episodes of a specific series mapped as Java objects. Results will be paginated with 100 results per page.
+     * Returns all episodes of a specific series mapped as Java objects. Results will be paginated with 100 results per page.
      * Use <code>queryParameters</code> to select a specific result page.
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes">/series/{id}/episodes</a>
@@ -363,29 +363,29 @@ public interface TheTVDBApi {
      * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible search parameters
      *                        see the API documentation.
      *
-     * @return List of basic episode information mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of episodes mapped as Java objects based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
-    List<EpisodeAbstract> getEpisodes(long seriesId, QueryParameters queryParameters) throws APIException;
+    List<Episode> getEpisodes(long seriesId, QueryParameters queryParameters) throws APIException;
 
     /**
-     * Returns a list of basic information for the first 100 episodes of a specific series mapped as Java objects. Note that this method is deterministic and
-     * will always return the <b>first</b> result page of the available episodes. This is a shortcut-method for {@link #getEpisodes(long, QueryParameters)} with an empty query
-     * parameter map.
+     * Returns the first 100 episodes of a specific series mapped as Java objects. Note that this method is deterministic and
+     * will always return the <b>first</b> result page of the available episodes. This is a shortcut-method for {@link #getEpisodes(long, QueryParameters)}
+     * with an empty query parameter.
      *
      * @see #getEpisodes(long, long) getEpisodes(seriesId, page)
      *
      * @param seriesId The TheTVDB series ID
      *
-     * @return List of basic episode information mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of episodes mapped as Java objects based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
-    List<EpisodeAbstract> getEpisodes(long seriesId) throws APIException;
+    List<Episode> getEpisodes(long seriesId) throws APIException;
 
     /**
-     * Returns a list of basic information for all episodes of a specific series mapped as Java objects. The result list will contain 100 episodes at most. For
+     * Returns a list of episodes of a specific series mapped as Java objects. The result list will contain 100 episodes at most. For
      * series with more episodes use the <code>page</code> parameter to browse to a specific result page. This is a shortcut-method for
      * {@link #getEpisodes(long, QueryParameters)} with a single "page" query parameter.
      *
@@ -394,14 +394,14 @@ public interface TheTVDBApi {
      * @param seriesId The TheTVDB series ID
      * @param page The result page to be returned
      *
-     * @return List of basic episode information mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of episodes mapped as Java objects based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
-    List<EpisodeAbstract> getEpisodes(long seriesId, long page) throws APIException;
+    List<Episode> getEpisodes(long seriesId, long page) throws APIException;
 
     /**
-     * Returns basic information for all matching episodes of a specific series as raw JSON. Results will be paginated. Use <code>queryParameters</code> to filter
+     * Returns all matching episodes of a specific series as raw JSON. Results will be paginated. Use <code>queryParameters</code> to filter
      * for specific episodes or to select a specific result page.
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_query">/series/{id}/episodes/query</a>
@@ -419,7 +419,7 @@ public interface TheTVDBApi {
     JsonNode queryEpisodesJSON(long seriesId, QueryParameters queryParameters) throws APIException;
 
     /**
-     * Returns a list of basic information for all matching episodes of a specific series mapped as Java objects. Results will be paginated. Note that this method
+     * Returns all matching episodes of a specific series mapped as Java objects. Results will be paginated. Note that this method
      * is deterministic and will always return the <b>first</b> result page of the available episodes.
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_query">/series/{id}/episodes/query</a>
@@ -430,14 +430,14 @@ public interface TheTVDBApi {
      * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible search parameters
      *                        see the API documentation.
      *
-     * @return List of basic episode information matching the query parameters, mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of episodes matching the query parameters, mapped as Java objects based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
-    List<EpisodeAbstract> queryEpisodes(long seriesId, QueryParameters queryParameters) throws APIException;
+    List<Episode> queryEpisodes(long seriesId, QueryParameters queryParameters) throws APIException;
 
     /**
-     * Returns a list of basic information for all episodes of a specific series and season mapped as Java objects. Results will be paginated. Note that this method
+     * Returns all episodes of a specific series and season mapped as Java objects. Results will be paginated. Note that this method
      * is deterministic and will always return the <b>first</b> result page of the available episodes. This is a shortcut-method for {@link #queryEpisodesJSON(long, QueryParameters)}
      * with a single "airedSeason" query parameter.
      *
@@ -446,14 +446,14 @@ public interface TheTVDBApi {
      * @param seriesId The TheTVDB series ID
      * @param airedSeason The number of the aired season to query for
      *
-     * @return List of basic episode information for a specific season, mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of episodes for a specific season, mapped as Java objects based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
-    List<EpisodeAbstract> queryEpisodesByAiredSeason(long seriesId, long airedSeason) throws APIException;
+    List<Episode> queryEpisodesByAiredSeason(long seriesId, long airedSeason) throws APIException;
 
     /**
-     * Returns a list of basic information for all episodes of a specific series and season mapped as Java objects. Results will be paginated. For seasons with
+     * Returns all episodes of a specific series and season mapped as Java objects. Results will be paginated. For seasons with
      * a high number of episodes use the <code>page</code> parameter to browse to a specific result page. This is a shortcut-method for {@link #queryEpisodesJSON(long, QueryParameters)}
      * with a "airedSeason" and "page" query parameter.
      *
@@ -463,14 +463,14 @@ public interface TheTVDBApi {
      * @param airedSeason The number of the aired season to query for
      * @param page The result page to be returned
      *
-     * @return List of basic episode information for a specific season, mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of episodes for a specific season, mapped as Java objects based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
-    List<EpisodeAbstract> queryEpisodesByAiredSeason(long seriesId, long airedSeason, long page) throws APIException;
+    List<Episode> queryEpisodesByAiredSeason(long seriesId, long airedSeason, long page) throws APIException;
 
     /**
-     * Returns a list of basic information for all episodes of a specific series, matching the <code>airedEpisode</code> parameter, mapped as Java objects. Results will be paginated.
+     * Returns all episodes of a specific series, matching the <code>airedEpisode</code> parameter, mapped as Java objects. Results will be paginated.
      * This is a shortcut-method for {@link #queryEpisodesJSON(long, QueryParameters)} with a single "airedEpisode" query parameter.
      * <p/>
      * Note that an aired episode number might be associated with a specific season. If the series consists of more than one season this method will return the matching aired episodes
@@ -481,14 +481,14 @@ public interface TheTVDBApi {
      * @param seriesId The TheTVDB series ID
      * @param airedEpisode The number of the aired episode to query for
      *
-     * @return List of basic episode information for a specific season and aired episode number, mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of episodes for a specific season and aired episode number, mapped as Java objects based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
-    List<EpisodeAbstract> queryEpisodesByAiredEpisode(long seriesId, long airedEpisode) throws APIException;
+    List<Episode> queryEpisodesByAiredEpisode(long seriesId, long airedEpisode) throws APIException;
 
     /**
-     * Returns basic information for a specific episode of a series, mapped as Java object. Results will be paginated.
+     * Returns a specific episode of a series, mapped as Java object. Results will be paginated.
      * This is a shortcut-method for {@link #queryEpisodesJSON(long, QueryParameters)} with a single "absoluteNumber" query parameter.
      * <p/>
      * Note that (unlike an aired episode number) an absolute episode number should most likely be unique throughout all episodes of a specific series. So in most cases the returned
@@ -500,11 +500,11 @@ public interface TheTVDBApi {
      * @param seriesId The TheTVDB series ID
      * @param absoluteNumber The absolute number of the episode to query for (this is not the episode ID!)
      *
-     * @return List of basic episode information for an absolute episode number, mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of episodes for an absolute episode number, mapped as Java objects based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
-    List<EpisodeAbstract> queryEpisodesByAbsoluteNumber(long seriesId, long absoluteNumber) throws APIException;
+    List<Episode> queryEpisodesByAbsoluteNumber(long seriesId, long absoluteNumber) throws APIException;
 
     JsonNode getAvailableEpisodeQueryParametersJSON(long seriesId) throws APIException;
 
@@ -520,9 +520,9 @@ public interface TheTVDBApi {
 
     Series filterSeries(long seriesId, @Nonnull String filterKeys) throws APIException;
 
-    JsonNode getAvailableFilterParametersJSON(long seriesId) throws APIException;
+    JsonNode getAvailableSeriesFilterParametersJSON(long seriesId) throws APIException;
 
-    List<String> getAvailableFilterParameters(long seriesId) throws APIException;
+    List<String> getAvailableSeriesFilterParameters(long seriesId) throws APIException;
 
     JsonNode getSeriesImagesSummaryJSON(long seriesId) throws APIException;
 

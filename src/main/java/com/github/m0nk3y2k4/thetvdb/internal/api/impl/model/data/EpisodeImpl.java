@@ -1,15 +1,17 @@
-package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model;
+package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
 import java.util.Collections;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.github.m0nk3y2k4.thetvdb.api.model.Episode;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class EpisodeImpl extends EpisodeAbstractImpl implements Episode {
+public class EpisodeImpl implements Episode {
 
-    private Long airedSeasonID;
+    private Long absoluteNumber;
+    private Long airedEpisodeNumber;
+    private Long airedSeason;
     private Long airsAfterSeason;
     private Long airsBeforeEpisode;
     private Long airsBeforeSeason;
@@ -17,10 +19,17 @@ public class EpisodeImpl extends EpisodeAbstractImpl implements Episode {
     private List<String> directors;
     private Long dvdChapter;
     private String dvdDiscid;
+    private Long dvdEpisodeNumber;
+    private Long dvdSeason;
+    private String episodeName;
     private String filename;
+    private String firstAired;
     private List<String> guestStars;
+    private Long id;
     private String imdbId;
+    private Long lastUpdated;
     private String lastUpdatedBy;
+    private String overview;
     private String productionCode;
     private String seriesId;
     private String showUrl;
@@ -40,17 +49,45 @@ public class EpisodeImpl extends EpisodeAbstractImpl implements Episode {
     }
 
     @Override
-    public Long getAiredSeasonID() {
-        return airedSeasonID;
+    public Long getAbsoluteNumber() {
+        return absoluteNumber;
     }
 
     /**
-     * Set the airedSeasonID
+     * Set the absoluteNumber
      *
-     * @param airedSeasonID the airedSeasonID to set
+     * @param absoluteNumber the absoluteNumber to set
      */
-    public void setAiredSeasonID(Long airedSeasonID) {
-        this.airedSeasonID = airedSeasonID;
+    public void setAbsoluteNumber(Long absoluteNumber) {
+        this.absoluteNumber = absoluteNumber;
+    }
+
+    @Override
+    public Long getAiredEpisodeNumber() {
+        return airedEpisodeNumber;
+    }
+
+    /**
+     * Set the airedEpisodeNumber
+     *
+     * @param airedEpisodeNumber the airedEpisodeNumber to set
+     */
+    public void setAiredEpisodeNumber(Long airedEpisodeNumber) {
+        this.airedEpisodeNumber = airedEpisodeNumber;
+    }
+
+    @Override
+    public Long getAiredSeason() {
+        return airedSeason;
+    }
+
+    /**
+     * Set the airedSeason
+     *
+     * @param airedSeason the airedSeason to set
+     */
+    public void setAiredSeason(Long airedSeason) {
+        this.airedSeason = airedSeason;
     }
 
     @Override
@@ -155,6 +192,48 @@ public class EpisodeImpl extends EpisodeAbstractImpl implements Episode {
     }
 
     @Override
+    public Long getDvdEpisodeNumber() {
+        return dvdEpisodeNumber;
+    }
+
+    /**
+     * Set the dvdEpisodeNumber
+     *
+     * @param dvdEpisodeNumber the dvdEpisodeNumber to set
+     */
+    public void setDvdEpisodeNumber(Long dvdEpisodeNumber) {
+        this.dvdEpisodeNumber = dvdEpisodeNumber;
+    }
+
+    @Override
+    public Long getDvdSeason() {
+        return dvdSeason;
+    }
+
+    /**
+     * Set the dvdSeason
+     *
+     * @param dvdSeason the dvdSeason to set
+     */
+    public void setDvdSeason(Long dvdSeason) {
+        this.dvdSeason = dvdSeason;
+    }
+
+    @Override
+    public String getEpisodeName() {
+        return episodeName;
+    }
+
+    /**
+     * Set the episodeName
+     *
+     * @param episodeName the episodeName to set
+     */
+    public void setEpisodeName(String episodeName) {
+        this.episodeName = episodeName;
+    }
+
+    @Override
     public String getFilename() {
         return filename;
     }
@@ -166,6 +245,20 @@ public class EpisodeImpl extends EpisodeAbstractImpl implements Episode {
      */
     public void setFilename(String filename) {
         this.filename = filename;
+    }
+
+    @Override
+    public String getFirstAired() {
+        return firstAired;
+    }
+
+    /**
+     * Set the firstAired
+     *
+     * @param firstAired the firstAired to set
+     */
+    public void setFirstAired(String firstAired) {
+        this.firstAired = firstAired;
     }
 
     @Override
@@ -183,6 +276,20 @@ public class EpisodeImpl extends EpisodeAbstractImpl implements Episode {
     }
 
     @Override
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * Set the id
+     *
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
     public String getImdbId() {
         return imdbId;
     }
@@ -197,6 +304,20 @@ public class EpisodeImpl extends EpisodeAbstractImpl implements Episode {
     }
 
     @Override
+    public Long getLastUpdated() {
+        return lastUpdated;
+    }
+
+    /**
+     * Set the lastUpdated
+     *
+     * @param lastUpdated the lastUpdated to set
+     */
+    public void setLastUpdated(Long lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
+    @Override
     public String getLastUpdatedBy() {
         return lastUpdatedBy;
     }
@@ -208,6 +329,20 @@ public class EpisodeImpl extends EpisodeAbstractImpl implements Episode {
      */
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
+    }
+
+    @Override
+    public String getOverview() {
+        return overview;
+    }
+
+    /**
+     * Set the overview
+     *
+     * @param overview the overview to set
+     */
+    public void setOverview(String overview) {
+        this.overview = overview;
     }
 
     @Override

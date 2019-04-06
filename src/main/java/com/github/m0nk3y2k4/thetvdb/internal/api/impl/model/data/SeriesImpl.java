@@ -1,13 +1,13 @@
-package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model;
+package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
 import java.util.Collections;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.github.m0nk3y2k4.thetvdb.api.model.Series;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SeriesImpl extends SeriesAbstractImpl implements Series {
+public class SeriesImpl extends SeriesSearchResultImpl implements Series {
 
     private String added;
     private String airsDayOfWeek;

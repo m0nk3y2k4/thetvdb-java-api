@@ -1,10 +1,10 @@
-package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model;
+package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.github.m0nk3y2k4.thetvdb.api.model.ImageQueryParameter;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.ImageQueryParameter;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ImageQueryParameterImpl implements ImageQueryParameter {

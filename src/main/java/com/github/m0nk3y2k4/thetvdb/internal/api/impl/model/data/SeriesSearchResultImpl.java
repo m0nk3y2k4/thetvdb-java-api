@@ -1,13 +1,13 @@
-package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model;
+package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
 import java.util.Collections;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.github.m0nk3y2k4.thetvdb.api.model.SeriesAbstract;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesSearchResult;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SeriesAbstractImpl implements SeriesAbstract {
+public class SeriesSearchResultImpl implements SeriesSearchResult {
 
     private List<String> aliases;
     private String banner;
@@ -16,9 +16,10 @@ public class SeriesAbstractImpl implements SeriesAbstract {
     private String network;
     private String overview;
     private String seriesName;
+    private String slug;
     private String status;
 
-    public SeriesAbstractImpl() {
+    public SeriesSearchResultImpl() {
         this.aliases = Collections.emptyList();
     }
 
@@ -118,6 +119,20 @@ public class SeriesAbstractImpl implements SeriesAbstract {
      */
     public void setSeriesName(String seriesName) {
         this.seriesName = seriesName;
+    }
+
+    @Override
+    public String getSlug() {
+        return slug;
+    }
+
+    /**
+     * Set the slug
+     *
+     * @param slug the slug to set
+     */
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     @Override
