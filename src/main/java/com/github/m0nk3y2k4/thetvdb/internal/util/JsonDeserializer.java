@@ -14,6 +14,8 @@ import javax.annotation.Nonnull;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Actor;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
@@ -40,6 +42,27 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.UserImpl;
 
 public final class JsonDeserializer {
 
+    /** Object mapper module used to extend the mappers functionality in terms of properly mapping the APIs interfaces */
+    private static final SimpleModule MODULE = new SimpleModule();
+
+    static {
+        // Add Interface <-> Implementation mappings to the module. The object mapper will use these mappings to
+        // determine and instantiate the proper implementation class for a specific interface.
+        MODULE.setAbstractTypes(new SimpleAbstractTypeResolver()
+                .addMapping(SeriesSearchResult.class, SeriesSearchResultImpl.class)
+                .addMapping(Series.class, SeriesImpl.class)
+                .addMapping(Episode.class, EpisodeImpl.class)
+                .addMapping(Language.class, LanguageImpl.class)
+                .addMapping(Actor.class, ActorImpl.class)
+                .addMapping(SeriesSummary.class, SeriesSummaryImpl.class)
+                .addMapping(ImageQueryParameter.class, ImageQueryParameterImpl.class)
+                .addMapping(ImageSummary.class, ImageSummaryImpl.class)
+                .addMapping(Image.class, ImageImpl.class)
+                .addMapping(Rating.class, RatingImpl.class)
+                .addMapping(User.class, UserImpl.class)
+        );
+    }
+
     private JsonDeserializer() {}     // Private constructor. Only static methods
 
     public static List<String> mapQueryParameters(@Nonnull JsonNode json) throws APIException {
@@ -57,47 +80,47 @@ public final class JsonDeserializer {
     }
 
     public static List<SeriesSearchResult> mapSeriesSearchResult(@Nonnull JsonNode json) throws APIException {
-        return mapObjects(getData(json), SeriesSearchResultImpl.class);
+        return mapObjects(getData(json), SeriesSearchResult.class);
     }
 
     public static Series mapSeries(@Nonnull JsonNode json) throws APIException {
-        return mapObject(getData(json), SeriesImpl.class);
+        return mapObject(getData(json), Series.class);
     }
 
     public static Episode mapEpisode(@Nonnull JsonNode json) throws APIException {
-        return mapObject(getData(json), EpisodeImpl.class);
+        return mapObject(getData(json), Episode.class);
     }
 
     public static List<Episode> mapEpisodes(@Nonnull JsonNode json) throws APIException {
-        return mapObjects(getData(json), EpisodeImpl.class);
+        return mapObjects(getData(json), Episode.class);
     }
 
     public static List<Language> mapLanguages(@Nonnull JsonNode json) throws APIException {
-        return mapObjects(getData(json), LanguageImpl.class);
+        return mapObjects(getData(json), Language.class);
     }
 
     public static Language mapLanguage(@Nonnull JsonNode json) throws APIException {
-        return mapObject(getData(json), LanguageImpl.class);
+        return mapObject(getData(json), Language.class);
     }
 
     public static List<Actor> mapActors(@Nonnull JsonNode json) throws APIException {
-        return mapObjects(getData(json), ActorImpl.class);
+        return mapObjects(getData(json), Actor.class);
     }
 
     public static SeriesSummary mapSeriesSummary(@Nonnull JsonNode json) throws APIException {
-        return mapObject(getData(json), SeriesSummaryImpl.class);
+        return mapObject(getData(json), SeriesSummary.class);
     }
 
     public static List<ImageQueryParameter> mapImageQueryParameters(@Nonnull JsonNode json) throws APIException {
-        return mapObjects(getData(json), ImageQueryParameterImpl.class);
+        return mapObjects(getData(json), ImageQueryParameter.class);
     }
 
     public static ImageSummary mapSeriesImageSummary(@Nonnull JsonNode json) throws APIException {
-        return mapObject(getData(json), ImageSummaryImpl.class);
+        return mapObject(getData(json), ImageSummary.class);
     }
 
     public static List<Image> mapImages(@Nonnull JsonNode json) throws APIException {
-        return mapObjects(getData(json), ImageImpl.class);
+        return mapObjects(getData(json), Image.class);
     }
 
     public static Map<Long, Long> mapUpdates(@Nonnull JsonNode json) {
@@ -105,11 +128,11 @@ public final class JsonDeserializer {
     }
 
     public static List<Rating> mapRatings(@Nonnull JsonNode json) throws APIException {
-        return mapObjects(getData(json), RatingImpl.class);
+        return mapObjects(getData(json), Rating.class);
     }
 
     public static User mapUser(@Nonnull JsonNode json) throws APIException {
-        return mapObject(getData(json), UserImpl.class);
+        return mapObject(getData(json), User.class);
     }
 
     private static JsonNode getData(@Nonnull JsonNode json) {
@@ -128,7 +151,7 @@ public final class JsonDeserializer {
 
     private static <T> T mapObject(@Nonnull JsonNode json, @Nonnull Class<T> clazz) throws APIException {
         try {
-            return new ObjectMapper().readValue(json.toString(), clazz);
+            return new ObjectMapper().registerModule(MODULE).readValue(json.toString(), clazz);
         } catch (IOException ex) {
             throw new APIException(API_JSON_PARSE_ERROR, ex);
         }
