@@ -56,7 +56,7 @@ public interface TheTVDBApi {
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Episodes/get_episodes_id">/episodes/{id}</a>
      *
-     * @see TheTVDBApiJSON#getEpisode(long) TheTVDBApi.TheTVDBApiJSON.getEpisode(episodeId)
+     * @see JSON#getEpisode(long) TheTVDBApi.JSON.getEpisode(episodeId)
      *
      * @param episodeId The ID of the episode
      *
@@ -72,7 +72,7 @@ public interface TheTVDBApi {
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Languages/get_languages">/languages</a>
      *
-     * @see TheTVDBApiJSON#getAvailableLanguages()
+     * @see JSON#getAvailableLanguages()
      *
      * @return List of available languages mapped as Java objects based on the JSON data returned by the remote service
      *
@@ -86,7 +86,7 @@ public interface TheTVDBApi {
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Languages/get_languages_id">/languages/{id}</a>
      *
-     * @see TheTVDBApiJSON#getLanguage(long) TheTVDBApi.TheTVDBApiJSON.getLanguage(languageId)
+     * @see JSON#getLanguage(long) TheTVDBApi.JSON.getLanguage(languageId)
      *
      * @param languageId The ID of the language
      *
@@ -102,7 +102,7 @@ public interface TheTVDBApi {
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Search/get_search_series">/search/series</a>
      *
-     * @see TheTVDBApiJSON#searchSeries(QueryParameters) TheTVDBApi.TheTVDBApiJSON.searchSeries(queryParameters)
+     * @see JSON#searchSeries(QueryParameters) TheTVDBApi.JSON.searchSeries(queryParameters)
      *
      * @param queryParameters Object containing key/value pairs of query search parameters. For a complete list of possible search parameters
      *                        see the API documentation or use {@link #getAvailableSeriesSearchParameters()}.
@@ -154,8 +154,8 @@ public interface TheTVDBApi {
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Search/get_search_series_params">/search/series/params</a>
      *
-     * @see TheTVDBApiJSON#getAvailableSeriesSearchParameters()
-     * @see TheTVDBApiJSON#searchSeries(QueryParameters) TheTVDBApi.TheTVDBApiJSON.searchSeries(queryParams)
+     * @see JSON#getAvailableSeriesSearchParameters()
+     * @see JSON#searchSeries(QueryParameters) TheTVDBApi.JSON.searchSeries(queryParams)
      * @see #searchSeries(QueryParameters) searchSeries(queryParams)
      *
      * @return List of possible parameters to query by in the series search
@@ -169,7 +169,7 @@ public interface TheTVDBApi {
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id">/series/{id}</a>
      *
-     * @see TheTVDBApiJSON#getSeries(long) TheTVDBApi.TheTVDBApiJSON.getSeries(seriesId)
+     * @see JSON#getSeries(long) TheTVDBApi.JSON.getSeries(seriesId)
      *
      * @param seriesId The TheTVDB series ID
      *
@@ -185,7 +185,7 @@ public interface TheTVDBApi {
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/head_series_id">/series/{id}</a>
      *
-     * @see TheTVDBApiJSON#getSeriesHeaderInformation(long) TheTVDBApi.TheTVDBApiJSON.getSeriesHeaderInformation(seriesId)
+     * @see JSON#getSeriesHeaderInformation(long) TheTVDBApi.JSON.getSeriesHeaderInformation(seriesId)
      *
      * @param seriesId The TheTVDB series ID
      *
@@ -200,7 +200,7 @@ public interface TheTVDBApi {
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_actors">/series/{id}/actors</a>
      *
-     * @see TheTVDBApiJSON#getActors(long) TheTVDBApi.TheTVDBApiJSON.getActors(seriesId)
+     * @see JSON#getActors(long) TheTVDBApi.JSON.getActors(seriesId)
      *
      * @param seriesId The TheTVDB series ID
      *
@@ -216,7 +216,7 @@ public interface TheTVDBApi {
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes">/series/{id}/episodes</a>
      *
-     * @see TheTVDBApiJSON#getEpisodes(long, QueryParameters) TheTVDBApi.TheTVDBApiJSON.getEpisodes(seriesId, queryParameters)
+     * @see JSON#getEpisodes(long, QueryParameters) TheTVDBApi.JSON.getEpisodes(seriesId, queryParameters)
      *
      * @param seriesId The TheTVDB series ID
      * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible search parameters
@@ -265,7 +265,7 @@ public interface TheTVDBApi {
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_query">/series/{id}/episodes/query</a>
      *
-     * @see TheTVDBApiJSON#queryEpisodes(long, QueryParameters) TheTVDBApi.TheTVDBApiJSON.queryEpisodes(seriesId, queryParameters)
+     * @see JSON#queryEpisodes(long, QueryParameters) TheTVDBApi.JSON.queryEpisodes(seriesId, queryParameters)
      *
      * @param seriesId The TheTVDB series ID
      * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible search parameters
@@ -279,7 +279,7 @@ public interface TheTVDBApi {
 
     /**
      * Returns all episodes of a specific series and season mapped as Java objects. Results will be paginated. Note that this method
-     * is deterministic and will always return the <b>first</b> result page of the available episodes. This is a shortcut-method for {@link TheTVDBApiJSON#queryEpisodes(long, QueryParameters)}
+     * is deterministic and will always return the <b>first</b> result page of the available episodes. This is a shortcut-method for {@link JSON#queryEpisodes(long, QueryParameters)}
      * with a single "airedSeason" query parameter.
      *
      * @see #queryEpisodesByAiredSeason(long, long, long) queryEpisodesByAiredSeason(seriesId, airedSeason, page)
@@ -295,7 +295,7 @@ public interface TheTVDBApi {
 
     /**
      * Returns all episodes of a specific series and season mapped as Java objects. Results will be paginated. For seasons with
-     * a high number of episodes use the <code>page</code> parameter to browse to a specific result page. This is a shortcut-method for {@link TheTVDBApiJSON#queryEpisodes(long, QueryParameters)}
+     * a high number of episodes use the <code>page</code> parameter to browse to a specific result page. This is a shortcut-method for {@link JSON#queryEpisodes(long, QueryParameters)}
      * with a "airedSeason" and "page" query parameter.
      *
      * @see #queryEpisodesByAiredSeason(long, long) queryEpisodesByAiredSeason(seriesId, airedSeason)
@@ -312,7 +312,7 @@ public interface TheTVDBApi {
 
     /**
      * Returns all episodes of a specific series, matching the <code>airedEpisode</code> parameter, mapped as Java objects. Results will be paginated.
-     * This is a shortcut-method for {@link TheTVDBApiJSON#queryEpisodes(long, QueryParameters)} with a single "airedEpisode" query parameter.
+     * This is a shortcut-method for {@link JSON#queryEpisodes(long, QueryParameters)} with a single "airedEpisode" query parameter.
      * <p/>
      * Note that an aired episode number might be associated with a specific season. If the series consists of more than one season this method will return the matching aired episodes
      * from all the seasons. Use {@link #queryEpisodesByAbsoluteNumber(long, long)} in order to query for a single episode.
@@ -330,7 +330,7 @@ public interface TheTVDBApi {
 
     /**
      * Returns a specific episode of a series, mapped as Java object. Results will be paginated.
-     * This is a shortcut-method for {@link TheTVDBApiJSON#queryEpisodes(long, QueryParameters)} with a single "absoluteNumber" query parameter.
+     * This is a shortcut-method for {@link JSON#queryEpisodes(long, QueryParameters)} with a single "absoluteNumber" query parameter.
      * <p/>
      * Note that (unlike an aired episode number) an absolute episode number should most likely be unique throughout all episodes of a specific series. So in most cases the returned
      * list will consist of only one element. However, as the remote API doesn't give any guarantees that querying with an "absoluteNumber" parameter always returns one episode record
@@ -401,9 +401,9 @@ public interface TheTVDBApi {
 
     List<Rating> addToRatings(@Nonnull String itemType, long itemId, long itemRating) throws APIException;
 
-    TheTVDBApiJSON json();
+    JSON json();
 
-    interface TheTVDBApiJSON {
+    interface JSON {
 
         /**
          * Returns the full information for a given episode id as raw JSON.

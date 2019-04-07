@@ -30,7 +30,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.JsonDeserializer;
 public class TheTVDBApiImpl implements TheTVDBApi {
 
     /** Wrapper API: Consolidates TheTVDB-API calls which return raw JSON */
-    private final TheTVDBApiJSONImpl jsonApi;
+    private final JSONApi jsonApi = new JSONApi();
 
     /** The actual connection to the remote API */
     private final APIConnection con;
@@ -52,7 +52,6 @@ public class TheTVDBApiImpl implements TheTVDBApi {
             throw new IllegalArgumentException("APIKey must not be null or empty!");
         }
 
-        this.jsonApi = new TheTVDBApiJSONImpl();
         this.con = new APIConnection(apiKey);
     }
 
@@ -70,7 +69,6 @@ public class TheTVDBApiImpl implements TheTVDBApi {
             throw new IllegalArgumentException("APIKey/UserKey/UserName must not be null or empty!");
         }
 
-        this.jsonApi = new TheTVDBApiJSONImpl();
         this.con = new APIConnection(apiKey, userKey, userName);
     }
 
@@ -337,13 +335,13 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public TheTVDBApiJSON json() {
+    public JSON json() {
         return jsonApi;
     }
 
-    class TheTVDBApiJSONImpl implements TheTVDBApiJSON {
+    private class JSONApi implements JSON {
 
-        TheTVDBApiJSONImpl() {}
+        private JSONApi() {}
 
         @Override
         public JsonNode getEpisode(long episodeId) throws APIException {
