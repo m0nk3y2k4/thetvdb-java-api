@@ -38,7 +38,9 @@ public final class AuthenticationAPI {
             authentication.put("username", con.getUserName().get());
         }
 
+        con.setStatus(APISession.Status.AUTHORIZATION_IN_PROGRESS);
         setToken(con, () -> con.sendPOST("/login", authentication.toString()));
+        con.setStatus(APISession.Status.AUTHORIZED);
     }
 
     public static void refreshSession(@Nonnull APIConnection con) throws APIException {
@@ -46,8 +48,6 @@ public final class AuthenticationAPI {
     }
 
     private static void setToken(APIConnection con, ThrowingSupplier<JsonNode> sendRequest) throws APIException {
-        con.setStatus(APISession.Status.AUTHORIZATION_IN_PROGRESS);
-
         // Request token
         JsonNode response = sendRequest.get();              // Throws exception if authorization fails
         String token = response.get("token").asText();
@@ -57,8 +57,6 @@ public final class AuthenticationAPI {
 
         // Set token on connection
         con.setToken(token);
-
-        con.setStatus(APISession.Status.AUTHORIZED);
     }
 
     /**
