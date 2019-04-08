@@ -10,6 +10,7 @@ import com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory;
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi;
 import com.github.m0nk3y2k4.thetvdb.api.constants.Query;
+import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.*;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
@@ -30,7 +31,10 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.JsonDeserializer;
 public class TheTVDBApiImpl implements TheTVDBApi {
 
     /** Wrapper API: Consolidates TheTVDB-API calls which return raw JSON */
-    private final JSONApi jsonApi = new JSONApi();
+    private final JSON jsonApi = new JSONApi();
+
+    /** Wrapper API: Consolidates TheTVDB-API calls which return extended response information */
+    private final Extended extendedApi = new ExtendedApi();
 
     /** The actual connection to the remote API */
     private final APIConnection con;
@@ -94,22 +98,22 @@ public class TheTVDBApiImpl implements TheTVDBApi {
 
     @Override
     public Episode getEpisode(long episodeId) throws APIException {
-        return JsonDeserializer.mapEpisode(json().getEpisode(episodeId));
+        return extended().getEpisode(episodeId).getData();
     }
 
     @Override
     public List<Language> getAvailableLanguages() throws APIException {
-        return JsonDeserializer.mapLanguages(json().getAvailableLanguages());
+        return extended().getAvailableLanguages().getData();
     }
 
     @Override
     public Language getLanguage(long languageId) throws APIException {
-        return JsonDeserializer.mapLanguage(json().getLanguage(languageId));
+        return extended().getLanguage(languageId).getData();
     }
 
     @Override
     public List<SeriesSearchResult> searchSeries(QueryParameters queryParameters) throws APIException {
-        return JsonDeserializer.mapSeriesSearchResult(json().searchSeries(queryParameters));
+        return extended().searchSeries(queryParameters).getData();
     }
 
     @Override
@@ -132,12 +136,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
 
     @Override
     public List<String> getAvailableSeriesSearchParameters() throws APIException {
-        return JsonDeserializer.mapQueryParameters(json().getAvailableSeriesSearchParameters());
+        return extended().getAvailableSeriesSearchParameters().getData();
     }
 
     @Override
     public Series getSeries(long seriesId) throws APIException {
-        return JsonDeserializer.mapSeries(json().getSeries(seriesId));
+        return extended().getSeries(seriesId).getData();
     }
 
     @Override
@@ -147,12 +151,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
 
     @Override
     public List<Actor> getActors(long seriesId) throws APIException {
-        return JsonDeserializer.mapActors(json().getActors(seriesId));
+        return extended().getActors(seriesId).getData();
     }
 
     @Override
     public List<Episode> getEpisodes(long seriesId, QueryParameters queryParameters) throws APIException {
-        return JsonDeserializer.mapEpisodes(json().getEpisodes(seriesId, queryParameters));
+        return extended().getEpisodes(seriesId, queryParameters).getData();
     }
 
     @Override
@@ -167,7 +171,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
 
     @Override
     public List<Episode> queryEpisodes(long seriesId, QueryParameters queryParameters) throws APIException {
-        return JsonDeserializer.mapEpisodes(json().queryEpisodes(seriesId, queryParameters));
+        return extended().queryEpisodes(seriesId, queryParameters).getData();
     }
 
     @Override
@@ -192,17 +196,17 @@ public class TheTVDBApiImpl implements TheTVDBApi {
 
     @Override
     public List<String> getAvailableEpisodeQueryParameters(long seriesId) throws APIException {
-        return JsonDeserializer.mapQueryParameters(json().getAvailableEpisodeQueryParameters(seriesId));
+        return extended().getAvailableEpisodeQueryParameters(seriesId).getData();
     }
 
     @Override
     public SeriesSummary getSeriesEpisodesSummary(long seriesId) throws APIException {
-        return JsonDeserializer.mapSeriesSummary(json().getSeriesEpisodesSummary(seriesId));
+        return extended().getSeriesEpisodesSummary(seriesId).getData();
     }
 
     @Override
     public Series filterSeries(long seriesId, QueryParameters queryParameters) throws APIException {
-        return JsonDeserializer.mapSeries(json().filterSeries(seriesId, queryParameters));
+        return extended().filterSeries(seriesId, queryParameters).getData();
     }
 
     @Override
@@ -213,17 +217,17 @@ public class TheTVDBApiImpl implements TheTVDBApi {
 
     @Override
     public List<String> getAvailableSeriesFilterParameters(long seriesId) throws APIException {
-        return JsonDeserializer.mapQueryParameters(json().getAvailableSeriesFilterParameters(seriesId));
+        return extended().getAvailableSeriesFilterParameters(seriesId).getData();
     }
 
     @Override
     public ImageSummary getSeriesImagesSummary(long seriesId) throws APIException {
-        return JsonDeserializer.mapSeriesImageSummary(json().getSeriesImagesSummary(seriesId));
+        return extended().getSeriesImagesSummary(seriesId).getData();
     }
 
     @Override
     public List<Image> queryImages(long seriesId, QueryParameters queryParameters) throws APIException {
-        return JsonDeserializer.mapImages(json().queryImages(seriesId, queryParameters));
+        return extended().queryImages(seriesId, queryParameters).getData();
     }
 
     @Override
@@ -258,12 +262,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
 
     @Override
     public List<ImageQueryParameter> getAvailableImageQueryParameters(long seriesId) throws APIException {
-        return JsonDeserializer.mapImageQueryParameters(json().getAvailableImageQueryParameters(seriesId));
+        return extended().getAvailableImageQueryParameters(seriesId).getData();
     }
 
     @Override
     public Map<Long, Long> queryLastUpdated(QueryParameters queryParameters) throws APIException {
-        return JsonDeserializer.mapUpdates(json().queryLastUpdated(queryParameters));
+        return extended().queryLastUpdated(queryParameters).getData();
     }
 
     @Override
@@ -280,37 +284,37 @@ public class TheTVDBApiImpl implements TheTVDBApi {
 
     @Override
     public List<String> getAvailableLastUpdatedQueryParameters() throws APIException {
-        return JsonDeserializer.mapQueryParameters(json().getAvailableLastUpdatedQueryParameters());
+        return extended().getAvailableLastUpdatedQueryParameters().getData();
     }
 
     @Override
     public User getUser() throws APIException {
-        return JsonDeserializer.mapUser(json().getUser());
+        return extended().getUser().getData();
     }
 
     @Override
     public List<String> getFavorites() throws APIException {
-        return JsonDeserializer.mapFavorites(json().getFavorites());
+        return extended().getFavorites().getData();
     }
 
     @Override
     public List<String> deleteFromFavorites(long seriesId) throws APIException {
-        return JsonDeserializer.mapFavorites(json().deleteFromFavorites(seriesId));
+        return extended().deleteFromFavorites(seriesId).getData();
     }
 
     @Override
     public List<String> addToFavorites(long seriesId) throws APIException {
-        return JsonDeserializer.mapFavorites(json().addToFavorites(seriesId));
+        return extended().addToFavorites(seriesId).getData();
     }
 
     @Override
     public List<Rating> getRatings() throws APIException {
-        return JsonDeserializer.mapRatings(json().getRatings());
+        return extended().getRatings().getData();
     }
 
     @Override
     public List<Rating> queryRatings(QueryParameters queryParameters) throws APIException {
-        return JsonDeserializer.mapRatings(json().queryRatings(queryParameters));
+        return extended().queryRatings(queryParameters).getData();
     }
 
     @Override
@@ -321,7 +325,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
 
     @Override
     public List<String> getAvailableRatingsQueryParameters() throws APIException {
-        return JsonDeserializer.mapQueryParameters(json().getAvailableRatingsQueryParameters());
+        return extended().getAvailableRatingsQueryParameters().getData();
     }
 
     @Override
@@ -331,12 +335,17 @@ public class TheTVDBApiImpl implements TheTVDBApi {
 
     @Override
     public List<Rating> addToRatings(@Nonnull String itemType, long itemId, long itemRating) throws APIException {
-        return JsonDeserializer.mapRatings(json().addToRatings(itemType, itemId, itemRating));
+        return extended().addToRatings(itemType, itemId, itemRating).getData();
     }
 
     @Override
     public JSON json() {
         return jsonApi;
+    }
+
+    @Override
+    public Extended extended() {
+        return extendedApi;
     }
 
     private class JSONApi implements JSON {
@@ -492,6 +501,141 @@ public class TheTVDBApiImpl implements TheTVDBApi {
             validateNotEmpty(itemType);
             validateUserAuthentication();
             return UsersAPI.addToRatings(con, itemType, itemId, itemRating);
+        }
+    }
+
+    private class ExtendedApi implements Extended {
+
+        private ExtendedApi() {}
+
+        @Override
+        public APIResponse<Episode> getEpisode(long episodeId) throws APIException {
+            return JsonDeserializer.mapEpisode(json().getEpisode(episodeId));
+        }
+
+        @Override
+        public APIResponse<List<Language>> getAvailableLanguages() throws APIException {
+            return JsonDeserializer.mapLanguages(json().getAvailableLanguages());
+        }
+
+        @Override
+        public APIResponse<Language> getLanguage(long languageId) throws APIException {
+            return JsonDeserializer.mapLanguage(json().getLanguage(languageId));
+        }
+
+        @Override
+        public APIResponse<List<SeriesSearchResult>> searchSeries(QueryParameters queryParameters) throws APIException {
+            return JsonDeserializer.mapSeriesSearchResult(json().searchSeries(queryParameters));
+        }
+
+        @Override
+        public APIResponse<List<String>> getAvailableSeriesSearchParameters() throws APIException {
+            return JsonDeserializer.mapQueryParameters(json().getAvailableSeriesSearchParameters());
+        }
+
+        @Override
+        public APIResponse<Series> getSeries(long seriesId) throws APIException {
+            return JsonDeserializer.mapSeries(json().getSeries(seriesId));
+        }
+
+        @Override
+        public APIResponse<List<Actor>> getActors(long seriesId) throws APIException {
+            return JsonDeserializer.mapActors(json().getActors(seriesId));
+        }
+
+        @Override
+        public APIResponse<List<Episode>> getEpisodes(long seriesId, QueryParameters queryParameters) throws APIException {
+            return JsonDeserializer.mapEpisodes(json().getEpisodes(seriesId, queryParameters));
+        }
+
+        @Override
+        public APIResponse<List<Episode>> queryEpisodes(long seriesId, QueryParameters queryParameters) throws APIException {
+            return JsonDeserializer.mapEpisodes(json().queryEpisodes(seriesId, queryParameters));
+        }
+
+        @Override
+        public APIResponse<List<String>> getAvailableEpisodeQueryParameters(long seriesId) throws APIException {
+            return JsonDeserializer.mapQueryParameters(json().getAvailableEpisodeQueryParameters(seriesId));
+        }
+
+        @Override
+        public APIResponse<SeriesSummary> getSeriesEpisodesSummary(long seriesId) throws APIException {
+            return JsonDeserializer.mapSeriesSummary(json().getSeriesEpisodesSummary(seriesId));
+        }
+
+        @Override
+        public APIResponse<Series> filterSeries(long seriesId, QueryParameters queryParameters) throws APIException {
+            return JsonDeserializer.mapSeries(json().filterSeries(seriesId, queryParameters));
+        }
+
+        @Override
+        public APIResponse<List<String>> getAvailableSeriesFilterParameters(long seriesId) throws APIException {
+            return JsonDeserializer.mapQueryParameters(json().getAvailableSeriesFilterParameters(seriesId));
+        }
+
+        @Override
+        public APIResponse<ImageSummary> getSeriesImagesSummary(long seriesId) throws APIException {
+            return JsonDeserializer.mapSeriesImageSummary(json().getSeriesImagesSummary(seriesId));
+        }
+
+        @Override
+        public APIResponse<List<Image>> queryImages(long seriesId, QueryParameters queryParameters) throws APIException {
+            return JsonDeserializer.mapImages(json().queryImages(seriesId, queryParameters));
+        }
+
+        @Override
+        public APIResponse<List<ImageQueryParameter>> getAvailableImageQueryParameters(long seriesId) throws APIException {
+            return JsonDeserializer.mapImageQueryParameters(json().getAvailableImageQueryParameters(seriesId));
+        }
+
+        @Override
+        public APIResponse<Map<Long, Long>> queryLastUpdated(QueryParameters queryParameters) throws APIException {
+            return JsonDeserializer.mapUpdates(json().queryLastUpdated(queryParameters));
+        }
+
+        @Override
+        public APIResponse<List<String>> getAvailableLastUpdatedQueryParameters() throws APIException {
+            return JsonDeserializer.mapQueryParameters(json().getAvailableLastUpdatedQueryParameters());
+        }
+
+        @Override
+        public APIResponse<User> getUser() throws APIException {
+            return JsonDeserializer.mapUser(json().getUser());
+        }
+
+        @Override
+        public APIResponse<List<String>> getFavorites() throws APIException {
+            return JsonDeserializer.mapFavorites(json().getFavorites());
+        }
+
+        @Override
+        public APIResponse<List<String>> deleteFromFavorites(long seriesId) throws APIException {
+            return JsonDeserializer.mapFavorites(json().deleteFromFavorites(seriesId));
+        }
+
+        @Override
+        public APIResponse<List<String>> addToFavorites(long seriesId) throws APIException {
+            return JsonDeserializer.mapFavorites(json().addToFavorites(seriesId));
+        }
+
+        @Override
+        public APIResponse<List<Rating>> getRatings() throws APIException {
+            return JsonDeserializer.mapRatings(json().getRatings());
+        }
+
+        @Override
+        public APIResponse<List<Rating>> queryRatings(QueryParameters queryParameters) throws APIException {
+            return JsonDeserializer.mapRatings(json().queryRatings(queryParameters));
+        }
+
+        @Override
+        public APIResponse<List<String>> getAvailableRatingsQueryParameters() throws APIException {
+            return JsonDeserializer.mapQueryParameters(json().getAvailableRatingsQueryParameters());
+        }
+
+        @Override
+        public APIResponse<List<Rating>> addToRatings(@Nonnull String itemType, long itemId, long itemRating) throws APIException {
+            return JsonDeserializer.mapRatings(json().addToRatings(itemType, itemId, itemRating));
         }
     }
 

@@ -2,6 +2,7 @@ package com.github.m0nk3y2k4.thetvdb.api;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
+import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.*;
 
 import javax.annotation.Nonnull;
@@ -57,6 +58,7 @@ public interface TheTVDBApi {
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Episodes/get_episodes_id">/episodes/{id}</a>
      *
      * @see JSON#getEpisode(long) TheTVDBApi.JSON.getEpisode(episodeId)
+     * @see Extended#getEpisode(long) TheTVDBApi.Extended.getEpisode(episodeId)
      *
      * @param episodeId The ID of the episode
      *
@@ -73,6 +75,7 @@ public interface TheTVDBApi {
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Languages/get_languages">/languages</a>
      *
      * @see JSON#getAvailableLanguages()
+     * @see Extended#getAvailableLanguages()
      *
      * @return List of available languages mapped as Java objects based on the JSON data returned by the remote service
      *
@@ -87,12 +90,14 @@ public interface TheTVDBApi {
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Languages/get_languages_id">/languages/{id}</a>
      *
      * @see JSON#getLanguage(long) TheTVDBApi.JSON.getLanguage(languageId)
+     * @see Extended#getLanguage(long) TheTVDBApi.Extended.getLanguage(languageId)
      *
      * @param languageId The ID of the language
      *
      * @return Mapped Java object containing detailed language information based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+     *                      if the given language ID does not exist.
      */
     Language getLanguage(long languageId) throws APIException;
 
@@ -103,13 +108,15 @@ public interface TheTVDBApi {
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Search/get_search_series">/search/series</a>
      *
      * @see JSON#searchSeries(QueryParameters) TheTVDBApi.JSON.searchSeries(queryParameters)
+     * @see Extended#searchSeries(QueryParameters) TheTVDBApi.Extended.searchSeries(queryParameters)
      *
      * @param queryParameters Object containing key/value pairs of query search parameters. For a complete list of possible search parameters
      *                        see the API documentation or use {@link #getAvailableSeriesSearchParameters()}.
      *
      * @return List of series search results mapped as Java objects based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+     *                      if no records are found that match your query.
      */
     List<SeriesSearchResult> searchSeries(QueryParameters queryParameters) throws APIException;
 
@@ -121,7 +128,8 @@ public interface TheTVDBApi {
      *
      * @return List of series search results mapped as Java objects based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+     *                      if no records are found that match your query.
      */
     List<SeriesSearchResult> searchSeriesByName(@Nonnull String name) throws APIException;
 
@@ -133,7 +141,8 @@ public interface TheTVDBApi {
      *
      * @return List of series search results mapped as Java objects based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+     *                      if no records are found that match your query.
      */
     List<SeriesSearchResult> searchSeriesByImdbId(@Nonnull String imdbId) throws APIException;
 
@@ -145,7 +154,8 @@ public interface TheTVDBApi {
      *
      * @return List of series search results mapped as Java objects based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+     *                      if no records are found that match your query.
      */
     List<SeriesSearchResult> searchSeriesByZap2itId(@Nonnull String zap2itId) throws APIException;
 
@@ -155,7 +165,9 @@ public interface TheTVDBApi {
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Search/get_search_series_params">/search/series/params</a>
      *
      * @see JSON#getAvailableSeriesSearchParameters()
+     * @see Extended#getAvailableSeriesSearchParameters()
      * @see JSON#searchSeries(QueryParameters) TheTVDBApi.JSON.searchSeries(queryParams)
+     * @see Extended#searchSeries(QueryParameters) TheTVDBApi.Extended.searchSeries(queryParams)
      * @see #searchSeries(QueryParameters) searchSeries(queryParams)
      *
      * @return List of possible parameters to query by in the series search
@@ -170,6 +182,7 @@ public interface TheTVDBApi {
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id">/series/{id}</a>
      *
      * @see JSON#getSeries(long) TheTVDBApi.JSON.getSeries(seriesId)
+     * @see Extended#getSeries(long) TheTVDBApi.Extended.getSeries(seriesId)
      *
      * @param seriesId The TheTVDB series ID
      *
@@ -201,6 +214,7 @@ public interface TheTVDBApi {
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_actors">/series/{id}/actors</a>
      *
      * @see JSON#getActors(long) TheTVDBApi.JSON.getActors(seriesId)
+     * @see Extended#getActors(long) TheTVDBApi.Extended.getActors(seriesId)
      *
      * @param seriesId The TheTVDB series ID
      *
@@ -217,6 +231,7 @@ public interface TheTVDBApi {
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes">/series/{id}/episodes</a>
      *
      * @see JSON#getEpisodes(long, QueryParameters) TheTVDBApi.JSON.getEpisodes(seriesId, queryParameters)
+     * @see Extended#getEpisodes(long, QueryParameters) TheTVDBApi.Extended.getEpisodes(seriesId, queryParameters)
      *
      * @param seriesId The TheTVDB series ID
      * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible search parameters
@@ -266,6 +281,7 @@ public interface TheTVDBApi {
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_query">/series/{id}/episodes/query</a>
      *
      * @see JSON#queryEpisodes(long, QueryParameters) TheTVDBApi.JSON.queryEpisodes(seriesId, queryParameters)
+     * @see Extended#queryEpisodes(long, QueryParameters) TheTVDBApi.Extended.queryEpisodes(seriesId, queryParameters)
      *
      * @param seriesId The TheTVDB series ID
      * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible search parameters
@@ -403,6 +419,8 @@ public interface TheTVDBApi {
 
     JSON json();
 
+    Extended extended();
+
     interface JSON {
 
         /**
@@ -411,6 +429,7 @@ public interface TheTVDBApi {
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Episodes/get_episodes_id">/episodes/{id}</a>
          *
          * @see TheTVDBApi#getEpisode(long) TheTVDBApi.getEpisode(episodeId)
+         * @see Extended#getEpisode(long) TheTVDBApi.Extended.getEpisode(episodeId)
          *
          * @param episodeId The ID of the episode
          *
@@ -426,7 +445,8 @@ public interface TheTVDBApi {
          * <p/>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Languages/get_languages">/languages</a>
          *
-         * @see TheTVDBApi#getAvailableLanguages()
+         * @see TheTVDBApi#getAvailableLanguages() TheTVDBApi.getAvailableLanguages()
+         * @see Extended#getAvailableLanguages()
          *
          * @return JSON object containing all languages that are supported by the remote service
          *
@@ -441,12 +461,14 @@ public interface TheTVDBApi {
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Languages/get_languages_id">/languages/{id}</a>
          *
          * @see TheTVDBApi#getLanguage(long) TheTVDBApi.getLanguage(languageId)
+         * @see Extended#getLanguage(long) TheTVDBApi.Extended.getLanguage(languageId)
          *
          * @param languageId The ID of the language
          *
          * @return JSON object containing detailed language information
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+         *                      if the given language ID does not exist.
          */
         JsonNode getLanguage(long languageId) throws APIException;
 
@@ -457,13 +479,15 @@ public interface TheTVDBApi {
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Search/get_search_series">/search/series</a>
          *
          * @see TheTVDBApi#searchSeries(QueryParameters) TheTVDBApi.searchSeries(queryParameters)
+         * @see Extended#searchSeries(QueryParameters) TheTVDBApi.Extended.searchSeries(queryParameters)
          *
          * @param queryParameters Object containing key/value pairs of query search parameters. For a complete list of possible search parameters
          *                        see the API documentation or use {@link #getAvailableSeriesSearchParameters()}.
          *
          * @return JSON object containing the series search results
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+         *                      if no records are found that match your query.
          */
         JsonNode searchSeries(QueryParameters queryParameters) throws APIException;
 
@@ -473,6 +497,7 @@ public interface TheTVDBApi {
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id">/series/{id}</a>
          *
          * @see TheTVDBApi#getSeries(long) TheTVDBApi.getSeries(seriesId)
+         * @see Extended#getSeries(long) TheTVDBApi.Extended.getSeries(seriesId)
          *
          * @param seriesId The TheTVDB series ID
          *
@@ -488,9 +513,11 @@ public interface TheTVDBApi {
          * <p/>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Search/get_search_series_params">/search/series/params</a>
          *
-         * @see TheTVDBApi#getAvailableSeriesSearchParameters()
-         * @see #searchSeries(QueryParameters) searchSeriesJSON(queryParams)
+         * @see TheTVDBApi#getAvailableSeriesSearchParameters() TheTVDBApi.getAvailableSeriesSearchParameters()
+         * @see Extended#getAvailableSeriesSearchParameters()
+         * @see #searchSeries(QueryParameters) searchSeries(queryParams)
          * @see TheTVDBApi#searchSeries(QueryParameters) TheTVDBApi.searchSeries(queryParams)
+         * @see Extended#searchSeries(QueryParameters) TheTVDBApi.Extended.searchSeries(queryParams)
          *
          * @return JSON object containing possible parameters to query by in the series search
          *
@@ -520,6 +547,7 @@ public interface TheTVDBApi {
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_actors">/series/{id}/actors</a>
          *
          * @see TheTVDBApi#getActors(long) TheTVDBApi.getActors(seriesId)
+         * @see Extended#getActors(long) TheTVDBApi.Extended.getActors(seriesId)
          *
          * @param seriesId The TheTVDB series ID
          *
@@ -536,6 +564,7 @@ public interface TheTVDBApi {
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes">/series/{id}/episodes</a>
          *
          * @see TheTVDBApi#getEpisodes(long, QueryParameters) TheTVDBApi.getEpisodes(seriesId, queryParameters)
+         * @see Extended#getEpisodes(long, QueryParameters) TheTVDBApi.Extended.getEpisodes(seriesId, queryParameters)
          *
          * @param seriesId The TheTVDB series ID
          * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible search parameters
@@ -554,6 +583,7 @@ public interface TheTVDBApi {
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_query">/series/{id}/episodes/query</a>
          *
          * @see TheTVDBApi#queryEpisodes(long, QueryParameters) TheTVDBApi.queryEpisodes(seriesId, queryParameters)
+         * @see Extended#queryEpisodes(long, QueryParameters) TheTVDBApi.Extended.queryEpisodes(seriesId, queryParameters)
          *
          * @param seriesId The TheTVDB series ID
          * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible search parameters
@@ -600,5 +630,205 @@ public interface TheTVDBApi {
         JsonNode deleteFromRatings(@Nonnull String itemType, long itemId) throws APIException;
 
         JsonNode addToRatings(@Nonnull String itemType, long itemId, long itemRating) throws APIException;
+    }
+
+    interface Extended {
+
+        /**
+         * Returns a response object containing the full information for a given episode id as mapped Java object.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Episodes/get_episodes_id">/episodes/{id}</a>
+         *
+         * @see JSON#getEpisode(long) TheTVDBApi.JSON.getEpisode(episodeId)
+         * @see TheTVDBApi#getEpisode(long) TheTVDBApi.getEpisode(episodeId)
+         *
+         * @param episodeId The ID of the episode
+         *
+         * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
+         *         that not all API routes provide additional information so this type of data might be empty.
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
+        APIResponse<Episode> getEpisode(long episodeId) throws APIException;
+
+        /**
+         * Returns a response object containing a list of all supported languages mapped as Java object. These language abbreviations can be used to set the preferred language
+         * for the communication with the remote service (see {@link #setLanguage(String)}.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Languages/get_languages">/languages</a>
+         *
+         * @see JSON#getAvailableLanguages()
+         * @see TheTVDBApi#getAvailableLanguages() TheTVDBApi.getAvailableLanguages()
+         *
+         * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
+         *         that not all API routes provide additional information so this type of data might be empty.
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
+        APIResponse<List<Language>> getAvailableLanguages() throws APIException;
+
+        /**
+         * Returns a response object containing further language information for a given language ID mapped as Java object. The language abbreviation can be used to set the preferred language
+         * for the communication with the remote service (see {@link #setLanguage(String)}.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Languages/get_languages_id">/languages/{id}</a>
+         *
+         * @see JSON#getLanguage(long) TheTVDBApi.JSON.getLanguage(languageId)
+         * @see TheTVDBApi#getLanguage(long) TheTVDBApi.getLanguage(languageId)
+         *
+         * @param languageId The ID of the language
+         *
+         * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
+         *         that not all API routes provide additional information so this type of data might be empty.
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+         *                      if the given language ID does not exist.
+         */
+        APIResponse<Language> getLanguage(long languageId) throws APIException;
+
+        /**
+         * Returns a response object containing a list of series search results based on the given query parameters mapped as Java object. The list contains
+         * basic information of all series matching the query parameters.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Search/get_search_series">/search/series</a>
+         *
+         * @see JSON#searchSeries(QueryParameters) TheTVDBApi.JSON.searchSeries(queryParameters)
+         * @see TheTVDBApi#searchSeries(QueryParameters) TheTVDBApi.searchSeries(queryParameters)
+         *
+         * @param queryParameters Object containing key/value pairs of query search parameters. For a complete list of possible search parameters
+         *                        see the API documentation or use {@link #getAvailableSeriesSearchParameters()}.
+         *
+         * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
+         *         that not all API routes provide additional information so this type of data might be empty.
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+         *                      if no records are found that match your query.
+         */
+        APIResponse<List<SeriesSearchResult>> searchSeries(QueryParameters queryParameters) throws APIException;
+
+        /**
+         * Returns a response object containing possible query parameters, which can be used to search for series, mapped as Java object.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Search/get_search_series_params">/search/series/params</a>
+         *
+         * @see JSON#getAvailableSeriesSearchParameters()
+         * @see TheTVDBApi#getAvailableSeriesSearchParameters() TheTVDBApi.getAvailableSeriesSearchParameters()
+         * @see JSON#searchSeries(QueryParameters) TheTVDBApi.JSON.searchSeries(queryParams)
+         * @see TheTVDBApi#searchSeries(QueryParameters) TheTVDBApi.searchSeries(queryParams)
+         *
+         * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
+         *         that not all API routes provide additional information so this type of data might be empty.
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
+        APIResponse<List<String>> getAvailableSeriesSearchParameters() throws APIException;
+
+        /**
+         * Returns a response object containing detailed information for a specific series mapped as Java object.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id">/series/{id}</a>
+         *
+         * @see JSON#getSeries(long) TheTVDBApi.JSON.getSeries(seriesId)
+         * @see TheTVDBApi#getSeries(long) TheTVDBApi.getSeries(seriesId)
+         *
+         * @param seriesId The TheTVDB series ID
+         *
+         * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
+         *         that not all API routes provide additional information so this type of data might be empty.
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
+        APIResponse<Series> getSeries(long seriesId) throws APIException;
+
+        /**
+         * Returns a response object containing a list of actors for a specific series mapped as Java objects.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_actors">/series/{id}/actors</a>
+         *
+         * @see JSON#getActors(long) TheTVDBApi.JSON.getActors(seriesId)
+         * @see TheTVDBApi#getActors(long) TheTVDBApi.getActors(seriesId)
+         *
+         * @param seriesId The TheTVDB series ID
+         *
+         * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
+         *         that not all API routes provide additional information so this type of data might be empty.
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
+        APIResponse<List<Actor>> getActors(long seriesId) throws APIException;
+
+        /**
+         * Returns a response object containing all episodes of a specific series mapped as Java objects. Results will be paginated with 100 results per page.
+         * Use <code>queryParameters</code> to select a specific result page.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes">/series/{id}/episodes</a>
+         *
+         * @see JSON#getEpisodes(long, QueryParameters) TheTVDBApi.JSON.getEpisodes(seriesId, queryParameters)
+         * @see TheTVDBApi#getEpisodes(long, QueryParameters) TheTVDBApi.getEpisodes(seriesId, queryParameters)
+         *
+         * @param seriesId The TheTVDB series ID
+         * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible search parameters
+         *                        see the API documentation.
+         *
+         * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
+         *         that not all API routes provide additional information so this type of data might be empty.
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
+        APIResponse<List<Episode>> getEpisodes(long seriesId, QueryParameters queryParameters) throws APIException;
+
+        /**
+         * Returns a response object containing all matching episodes of a specific series mapped as Java objects. Results will be paginated. Note that this method
+         * is deterministic and will always return the <b>first</b> result page of the available episodes.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_query">/series/{id}/episodes/query</a>
+         *
+         * @see JSON#queryEpisodes(long, QueryParameters) TheTVDBApi.JSON.queryEpisodes(seriesId, queryParameters)
+         * @see TheTVDBApi#queryEpisodes(long, QueryParameters) TheTVDBApi.queryEpisodes(seriesId, queryParameters)
+         *
+         * @param seriesId The TheTVDB series ID
+         * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible search parameters
+         *                        see the API documentation.
+         *
+         * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
+         *         that not all API routes provide additional information so this type of data might be empty.
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
+        APIResponse<List<Episode>> queryEpisodes(long seriesId, QueryParameters queryParameters) throws APIException;
+
+        APIResponse<List<String>> getAvailableEpisodeQueryParameters(long seriesId) throws APIException;
+
+        APIResponse<SeriesSummary> getSeriesEpisodesSummary(long seriesId) throws APIException;
+
+        APIResponse<Series> filterSeries(long seriesId, QueryParameters queryParameters) throws APIException;
+
+        APIResponse<List<String>> getAvailableSeriesFilterParameters(long seriesId) throws APIException;
+
+        APIResponse<ImageSummary> getSeriesImagesSummary(long seriesId) throws APIException;
+
+        APIResponse<List<Image>> queryImages(long seriesId, QueryParameters queryParameters) throws APIException;
+
+        APIResponse<List<ImageQueryParameter>> getAvailableImageQueryParameters(long seriesId) throws APIException;
+
+        APIResponse<Map<Long, Long>> queryLastUpdated(QueryParameters queryParameters) throws APIException;
+
+        APIResponse<List<String>> getAvailableLastUpdatedQueryParameters() throws APIException;
+
+        APIResponse<User> getUser() throws APIException;
+
+        APIResponse<List<String>> getFavorites() throws APIException;
+
+        APIResponse<List<String>> deleteFromFavorites(long seriesId) throws APIException;
+
+        APIResponse<List<String>> addToFavorites(long seriesId) throws APIException;
+
+        APIResponse<List<Rating>> getRatings() throws APIException;
+
+        APIResponse<List<Rating>> queryRatings(QueryParameters queryParameters) throws APIException;
+
+        APIResponse<List<String>> getAvailableRatingsQueryParameters() throws APIException;
+
+        APIResponse<List<Rating>> addToRatings(@Nonnull String itemType, long itemId, long itemRating) throws APIException;
     }
 }
