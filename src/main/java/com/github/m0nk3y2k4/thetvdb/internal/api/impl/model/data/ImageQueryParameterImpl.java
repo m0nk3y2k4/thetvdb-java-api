@@ -74,4 +74,9 @@ public class ImageQueryParameterImpl implements ImageQueryParameter {
     public void setSubKey(List<String> subKey) {
         this.subKey = subKey;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s", this.keyType, this.resolution);
+    }
 }

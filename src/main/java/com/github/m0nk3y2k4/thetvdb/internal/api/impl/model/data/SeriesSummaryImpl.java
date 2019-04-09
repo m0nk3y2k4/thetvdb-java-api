@@ -74,4 +74,9 @@ public class SeriesSummaryImpl implements SeriesSummary {
     public void setDvdSeasons(List<String> dvdSeasons) {
         this.dvdSeasons = dvdSeasons;
     }
+
+    @Override
+    public String toString() {
+        return String.format("[Seasons/Episodes] Aired: %s/%s, DVD: %s/%s", this.airedSeasons, this.airedEpisodes, this.dvdSeasons, this.dvdEpisodes);
+    }
 }

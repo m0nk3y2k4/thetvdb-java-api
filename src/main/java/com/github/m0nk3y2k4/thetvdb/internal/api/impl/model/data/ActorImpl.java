@@ -141,4 +141,9 @@ public class ActorImpl implements Actor {
     public void setSortOrder(Long sortOrder) {
         this.sortOrder = sortOrder;
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }

@@ -51,4 +51,9 @@ public class RatingImpl implements Rating {
     public void setRatingType(String ratingType) {
         this.ratingType = ratingType;
     }
+
+    @Override
+    public String toString() {
+        return String.format("[%s] %s", this.ratingType, this.rating);
+    }
 }

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ImageSummary;
 
+import java.util.Objects;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ImageSummaryImpl implements ImageSummary {
 
@@ -86,5 +88,16 @@ public class ImageSummaryImpl implements ImageSummary {
      */
     public void setSeriesCount(Long seriesCount) {
         this.seriesCount = seriesCount;
+    }
+
+    @Override
+    public String toString() {
+        final String def = "0";
+        return String.format("[Fanart] %s, [Poster] %s, [Season] %s, [Seasonwide] %s, [Series] %s",
+                Objects.toString(this.fanartCount, def),
+                Objects.toString(this.posterCount, def),
+                Objects.toString(this.seasonCount, def),
+                Objects.toString(this.seasonwideCount, def),
+                Objects.toString(this.seriesCount, def));
     }
 }

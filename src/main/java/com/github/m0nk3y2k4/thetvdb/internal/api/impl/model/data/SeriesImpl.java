@@ -209,4 +209,9 @@ public class SeriesImpl extends SeriesSearchResultImpl implements Series {
     public void setZap2itId(String zap2itId) {
         this.zap2itId = zap2itId;
     }
+
+    @Override
+    public String toString() {
+        return this.getSeriesName();
+    }
 }

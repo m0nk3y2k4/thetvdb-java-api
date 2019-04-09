@@ -67,9 +67,6 @@ public class LanguageImpl implements Language {
         this.name = name;
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
         return this.name;

@@ -51,4 +51,9 @@ public class UserImpl implements User {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    @Override
+    public String toString() {
+        return this.userName;
+    }
 }

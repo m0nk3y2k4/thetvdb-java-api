@@ -150,4 +150,9 @@ public class ImageImpl implements Image {
         this.ratingAverage = Double.valueOf(ratingInfo.get("average").toString());
         this.ratingCount = (Integer)ratingInfo.get("count");
     }
+
+    @Override
+    public String toString() {
+        return String.format("[%s] %s", this.keyType, this.fileName);
+    }
 }

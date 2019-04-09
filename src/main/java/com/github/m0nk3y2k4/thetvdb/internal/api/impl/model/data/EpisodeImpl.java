@@ -485,4 +485,8 @@ public class EpisodeImpl implements Episode {
         this.writers = writers;
     }
 
+    @Override
+    public String toString() {
+        return this.episodeName;
+    }
 }
