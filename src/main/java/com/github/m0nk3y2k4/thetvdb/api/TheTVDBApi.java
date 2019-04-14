@@ -8,6 +8,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.*;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public interface TheTVDBApi {
 
@@ -19,6 +20,27 @@ public interface TheTVDBApi {
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     void init() throws APIException;
+
+    /**
+     * Initializes the current API with the given token. This token will be used for authentication of all requests that are sent to the remote service by this API instance.
+     * The given string must be a valid Base64 encoded token in the regular JWT format <i>"{header}.{payload}.{signature}"</i>.
+     * <p/>
+     * If the given token is (or becomes) expired it will be replaced by a new JWT automatically. The new token will be requested from the remove service based
+     * on the constructor parameters used to create this API instance.
+     *
+     * @param token JSON Web Token to be used for remote API communication/authorization
+     *
+     * @throws APIException If the given string does not match the JSON Web Token format
+     */
+    void init(@Nonnull String token) throws APIException;
+
+    /**
+     * Returns the JSON Web Token used for authentication of all requests that are sent to the remote service by this API instance. If the current API has not yet been
+     * initialized an empty <i>Optional</i> instance will be returned.
+     *
+     * @return The JWT used by this API or an empty <i>Optional</i> if the API has not been initialized
+     */
+    Optional<String> getToken();
 
     /**
      * Sets the preferred language to be used for communication with the remote service. Some of the API calls might use this setting in order to only return results that

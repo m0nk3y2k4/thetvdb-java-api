@@ -64,6 +64,18 @@ public class APIConnection {
         return sendRequest(new PutRequest(resource));
     }
 
+    public void setToken(@Nonnull String token) throws APIException {
+        session.setToken(token);
+    }
+
+    public void setStatus(Status status) {
+        session.setStatus(status);
+    }
+
+    public void setLanguage(String language) {
+        session.setLanguage(language);
+    }
+
     public String getApiKey() {
         return session.getApiKey();
     }
@@ -76,20 +88,12 @@ public class APIConnection {
         return session.getUserName();
     }
 
+    public Optional<String> getToken() {
+        return session.getToken();
+    }
+
     public boolean userAuthentication() {
         return session.userAuthentication();
-    }
-
-    public void setStatus(Status status) {
-        session.setStatus(status);
-    }
-
-    public void setToken(String token) {
-        session.setToken(token);
-    }
-
-    public void setLanguage(String language) {
-        this.session.setLanguage(language);
     }
 
     private synchronized JsonNode sendRequest(APIRequest request) throws APIException {
@@ -110,10 +114,8 @@ public class APIConnection {
     private void authorizeSession() throws APIException {
         switch (session.getStatus()) {
             case NOT_AUTHORIZED:
-                AuthenticationAPI.login(this);              // Request a new token
-                break;
             case AUTHORIZED:
-                AuthenticationAPI.refreshSession(this);     // Refresh the existing token
+                AuthenticationAPI.login(this);              // Not yet authorized or authorization expired: Request a new token
                 break;
             default:
                 // Authorization is already in progress but could not be completed. Do not retry to authorize this session
@@ -151,7 +153,7 @@ abstract class APIRequest {
         this.resource = resource;
     }
 
-    public void setSession(@Nonnull APISession session) {
+    void setSession(@Nonnull APISession session) {
         this.session = session;
     }
 
@@ -167,7 +169,7 @@ abstract class APIRequest {
         con.setRequestProperty("User-Agent", USER_AGENT);
         if (session != null && session.isInitialized()) {
             // If session has already been initialized, add token information and language key to each request
-            con.setRequestProperty("Authorization", "Bearer " + session.getToken());
+            con.setRequestProperty("Authorization", "Bearer " + session.getToken().get());
             con.setRequestProperty("Accept-Language", session.getLanguage());
         }
     }
@@ -212,7 +214,7 @@ abstract class APIRequest {
         return parseResponse(con.getErrorStream()).get(API_ERROR).asText("");
     }
 
-    public abstract JsonNode send() throws APIException;
+    abstract JsonNode send() throws APIException;
 }
 
 final class GetRequest extends APIRequest {
@@ -220,12 +222,12 @@ final class GetRequest extends APIRequest {
     /** Messages for error/exception handling */
     private static final String ERR_GET = "An exception occurred while sending GET request to API";
 
-    public GetRequest(@Nonnull String resource) {
+    GetRequest(@Nonnull String resource) {
         super(resource);
     }
 
     @Override
-    public JsonNode send() throws APIException {
+    JsonNode send() throws APIException {
         try {
             openConnection(resource, "GET");
 
@@ -244,13 +246,13 @@ final class PostRequest extends APIRequest {
 
     private final String data;
 
-    public PostRequest(@Nonnull String resource, @Nonnull String data) {
+    PostRequest(@Nonnull String resource, @Nonnull String data) {
         super(resource);
         this.data = data;
     }
 
     @Override
-    public JsonNode send() throws APIException {
+    JsonNode send() throws APIException {
         try {
             openConnection(resource, "POST");
 
@@ -279,12 +281,12 @@ final class HeadRequest extends APIRequest {
     /** Messages for error/exception handling */
     private static final String ERR_HEAD = "An exception occurred while sending HEAD request to API";
 
-    public HeadRequest(@Nonnull String resource) {
+    HeadRequest(@Nonnull String resource) {
         super(resource);
     }
 
     @Override
-    public JsonNode send() throws APIException {
+    JsonNode send() throws APIException {
         try {
             openConnection(resource, "HEAD");
 
@@ -327,12 +329,12 @@ final class DeleteRequest extends APIRequest {
         /** Messages for error/exception handling */
         private static final String ERR_DELETE = "An exception occurred while sending DELETE request to API";
 
-        public DeleteRequest(@Nonnull String resource) {
+        DeleteRequest(@Nonnull String resource) {
             super(resource);
         }
 
         @Override
-        public JsonNode send() throws APIException {
+        JsonNode send() throws APIException {
             try {
                 openConnection(resource, "DELETE");
 
@@ -349,12 +351,12 @@ final class PutRequest extends APIRequest {
     /** Messages for error/exception handling */
     private static final String ERR_PUT = "An exception occurred while sending PUT request to API";
 
-    public PutRequest(@Nonnull String resource) {
+    PutRequest(@Nonnull String resource) {
         super(resource);
     }
 
     @Override
-    public JsonNode send() throws APIException {
+    JsonNode send() throws APIException {
         try {
             openConnection(resource, "PUT");
 

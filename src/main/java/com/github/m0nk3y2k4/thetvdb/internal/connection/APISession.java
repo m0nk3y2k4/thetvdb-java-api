@@ -1,10 +1,12 @@
 package com.github.m0nk3y2k4.thetvdb.internal.connection;
 
+import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
 
 import javax.annotation.Nonnull;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 /**
  * Session used for remote API communication. All connections to the TheTVDB API are backed by an instance of this class. These sessions
@@ -12,6 +14,13 @@ import java.util.Optional;
  * remote service communication.
  */
 public final class APISession {
+
+    /** Pattern for JSON Web Token validation */
+    private static final Pattern JWT_PATTERN = Pattern.compile("^[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*$");
+
+    /** Error messages */
+    private static final String ERR_JWT_EMPTY = "Remote API authorization failed: Token must not be NULL or empty";
+    private static final String ERR_JWT_INVALID = "Remote API authorization failed: Invalid token format [%s]";
 
     /**
      * Represents the different states of a session. By default, sessions are not authorized for general API communication. Only
@@ -52,7 +61,7 @@ public final class APISession {
      *
      * @param apiKey The API key used to request a session token
      */
-    public APISession(@Nonnull String apiKey) {
+    APISession(@Nonnull String apiKey) {
         Objects.requireNonNull(apiKey, "API key must not be NULL or empty!");
 
         this.apiKey = apiKey;
@@ -71,7 +80,7 @@ public final class APISession {
      * @param userKey User key for authentication (also referred to as "Unique ID")
      * @param userName User name for authentication
      */
-    public APISession(@Nonnull String apiKey, @Nonnull String userKey, @Nonnull String userName) {
+    APISession(@Nonnull String apiKey, @Nonnull String userKey, @Nonnull String userName) {
         Objects.requireNonNull(apiKey, "API key must not be NULL or empty!");
         Objects.requireNonNull(userKey, "User key must not be NULL or empty!");
         Objects.requireNonNull(userName, "User name must not be NULL or empty!");
@@ -86,7 +95,7 @@ public final class APISession {
      *
      * @return API key of the session
      */
-    public String getApiKey() {
+    String getApiKey() {
         return this.apiKey;
     }
 
@@ -95,7 +104,7 @@ public final class APISession {
      *
      * @return The user key
      */
-    public Optional<String> getUserKey() {
+    Optional<String> getUserKey() {
         return Optional.ofNullable(userKey);
     }
 
@@ -104,8 +113,17 @@ public final class APISession {
      *
      * @return The user name
      */
-    public Optional<String> getUserName() {
+    Optional<String> getUserName() {
         return Optional.ofNullable(userName);
+    }
+
+    /**
+     * Returns the current session token. Might be empty if the session has not yet been initialized.
+     *
+     * @return Current API session token
+     */
+    Optional<String> getToken() {
+        return Optional.ofNullable(token);
     }
 
     /**
@@ -113,19 +131,12 @@ public final class APISession {
      *
      * @param token The new session token
      */
-    public void setToken(@Nonnull String token) {
-        Objects.requireNonNull(token, "Token must not be NULL or empty!");
+    void setToken(@Nonnull String token) throws APIException {
+        // Validate token - throws an exception if not a valid JWT
+        validateJWT(token);
 
         this.token = token;
-    }
-
-    /**
-     * Returns the current session token
-     *
-     * @return Current API session token
-     */
-    public String getToken() {
-        return token;
+        this.status = Status.AUTHORIZED;
     }
 
     /**
@@ -133,7 +144,7 @@ public final class APISession {
      *
      * @param language The language for API communication
      */
-    public void setLanguage(String language) {
+    void setLanguage(String language) {
         this.language = language;
     }
 
@@ -142,7 +153,7 @@ public final class APISession {
      *
      * @return The language used for API communication
      */
-    public String getLanguage() {
+    String getLanguage() {
         return language;
     }
 
@@ -151,7 +162,7 @@ public final class APISession {
      *
      * @param status The new session status
      */
-    public void setStatus(Status status) { this.status = status; }
+    void setStatus(Status status) { this.status = status; }
     /**
      * Returns the current {@link Status} of this session. This status indicates that...
      * <p/>
@@ -161,14 +172,14 @@ public final class APISession {
      *
      * @return The current status of this session
      */
-    public Status getStatus() { return status; }
+    Status getStatus() { return status; }
 
     /**
      * Check if this session has already been initialized
      *
      * @return {@link Boolean#TRUE} if the session is initialized or {@link Boolean#FALSE} if the session is not yet initialized.
      */
-    public Boolean isInitialized() {
+    Boolean isInitialized() {
         return getStatus() == Status.AUTHORIZED;
     }
 
@@ -177,7 +188,24 @@ public final class APISession {
      *
      * @return {@link Boolean#TRUE} if both, userKey and userName are not empty or {@link Boolean#FALSE} if not.
      */
-    public Boolean userAuthentication() {
+    Boolean userAuthentication() {
         return APIUtil.hasValue(userKey) && APIUtil.hasValue(userName);
+    }
+
+    /**
+     * Checks if the given token is a valid JSON Web Token
+     *
+     * @param token The token to check
+     *
+     * @throws APIException If the given token is <code>null</code>, an empty character sequence or does not match the regular JWT format
+     */
+    private static void validateJWT(String token) throws APIException {
+        if (APIUtil.hasNoValue(token)) {
+            throw new APIException(ERR_JWT_EMPTY);
+        }
+
+        if (!JWT_PATTERN.matcher(token).matches()) {
+            throw new APIException(String.format(ERR_JWT_INVALID, token));
+        }
     }
 }

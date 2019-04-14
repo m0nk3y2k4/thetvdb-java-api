@@ -2,6 +2,7 @@ package com.github.m0nk3y2k4.thetvdb.internal.api.impl;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
@@ -79,6 +80,16 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     @Override
     public void init() throws APIException {
         this.login();
+    }
+
+    @Override
+    public void init(@Nonnull String token) throws APIException {
+        con.setToken(token);
+    }
+
+    @Override
+    public Optional<String> getToken() {
+        return con.getToken();
     }
 
     @Override
