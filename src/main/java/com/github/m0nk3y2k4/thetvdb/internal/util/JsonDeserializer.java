@@ -159,7 +159,7 @@ public final class JsonDeserializer {
         return json.get("data");
     }
 
-    private static <T> Module createFunctionalModule(Function<JsonNode, T> dataFunction) {
+    private static <T> Module createFunctionalModule(@Nonnull Function<JsonNode, T> dataFunction) {
         return new SimpleModule().addDeserializer(APIResponse.class, new FunctionalDeserializer<>(dataFunction));
     }
 
@@ -180,7 +180,7 @@ class FunctionalDeserializer<T> extends com.fasterxml.jackson.databind.JsonDeser
 
     private final Function<JsonNode, T> dataFunction;
 
-    FunctionalDeserializer(Function<JsonNode, T> dataFunction) {
+    FunctionalDeserializer(@Nonnull Function<JsonNode, T> dataFunction) {
         this.dataFunction = dataFunction;
     }
 

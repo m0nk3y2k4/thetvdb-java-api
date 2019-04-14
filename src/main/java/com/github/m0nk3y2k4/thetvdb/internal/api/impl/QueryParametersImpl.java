@@ -1,8 +1,10 @@
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl;
 
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.validation.ObjectValidator;
 
 import javax.annotation.Nonnull;
+
 import java.util.*;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -31,25 +33,27 @@ public class QueryParametersImpl implements QueryParameters {
     public QueryParametersImpl(@Nonnull Map<String, String> parameters) {
         super();
 
-        Objects.requireNonNull(parameters, "Parameters map must not be NULL");
+        ObjectValidator.requireNonNull(parameters, "Parameters map must not be NULL");
 
         parameters.forEach(this::addParameter);
     }
 
     @Override
     public QueryParameters addParameter(@Nonnull String key, @Nonnull String value) {
-        Objects.requireNonNull(key, "Parameter key must not be NULL");
-        Objects.requireNonNull(value, "Parameter value must not be NULL");
+        ObjectValidator.requireNonNull(key, "Parameter key must not be NULL");
+        ObjectValidator.requireNonNull(value, "Parameter value must not be NULL");
 
         params.put(key, value);
         return this;
     }
 
     @Override
-    public Optional<String> getParameterValue(String key) { return Optional.ofNullable(params.get(key)); }
+    public Optional<String> getParameterValue(@Nonnull String key) {
+        return Optional.ofNullable(params.get(key));
+    }
 
     @Override
-    public boolean containsParameter(String key) {
+    public boolean containsParameter(@Nonnull String key) {
         return params.containsKey(key);
     }
 

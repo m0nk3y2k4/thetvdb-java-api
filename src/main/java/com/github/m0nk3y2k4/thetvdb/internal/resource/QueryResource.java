@@ -17,6 +17,14 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
 
 public abstract class QueryResource extends Resource {
 
+    protected static String createQueryResource(@Nonnull String base, @CheckForNull QueryParameters queryParams) {
+        return base + createQuery(queryParams);
+    }
+
+    protected static String createQueryResource(@Nonnull String base, @Nonnull String specific, @CheckForNull QueryParameters queryParams) {
+        return createResource(base, specific) + createQuery(queryParams);
+    }
+
     private static String createQuery(@CheckForNull QueryParameters queryParams) {
         List<QueryParameters.Parameter> validParams = Optional.ofNullable(queryParams).orElse(TheTVDBApiFactory.createQueryParameters())
                 .stream().filter(QueryResource::isValidQueryParameter).collect(Collectors.toList());
@@ -29,19 +37,11 @@ public abstract class QueryResource extends Resource {
         return "";
     }
 
-    protected static String createQueryResource(@Nonnull String base, @CheckForNull QueryParameters queryParams) {
-        return base + createQuery(queryParams);
-    }
-
-    protected static String createQueryResource(@Nonnull String base, @Nonnull String specific, @CheckForNull QueryParameters queryParams) {
-        return createResource(base, specific) + createQuery(queryParams);
-    }
-
-    private static Boolean isValidQueryParameter(QueryParameters.Parameter param) {
+    private static Boolean isValidQueryParameter(@Nonnull QueryParameters.Parameter param) {
         return APIUtil.hasValue(param.getKey(), param.getValue());
     }
 
-    private static String encode(String value) throws APIRuntimeException {
+    private static String encode(@Nonnull String value) throws APIRuntimeException {
         try {
             return URLEncoder.encode(value, Charset.defaultCharset().name());
         } catch (UnsupportedEncodingException ex) {

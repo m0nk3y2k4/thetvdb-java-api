@@ -399,15 +399,15 @@ public interface TheTVDBApi {
 
     List<Image> queryImages(long seriesId, QueryParameters queryParameters) throws APIException;
 
-    List<Image> queryImages(long seriesId, String keyType, String resolution) throws APIException;
+    List<Image> queryImages(long seriesId, @Nonnull String keyType, @Nonnull String resolution) throws APIException;
 
-    List<Image> queryImages(long seriesId, String keyType, String resolution, String subKey) throws APIException;
+    List<Image> queryImages(long seriesId, @Nonnull String keyType, @Nonnull String resolution, @Nonnull String subKey) throws APIException;
 
-    List<Image> queryImagesByKeyType(long seriesId, String keyType) throws APIException;
+    List<Image> queryImagesByKeyType(long seriesId, @Nonnull String keyType) throws APIException;
 
-    List<Image> queryImagesByResolution(long seriesId, String resolution) throws APIException;
+    List<Image> queryImagesByResolution(long seriesId, @Nonnull String resolution) throws APIException;
 
-    List<Image> queryImagesBySubKey(long seriesId, String subKey) throws APIException;
+    List<Image> queryImagesBySubKey(long seriesId, @Nonnull String subKey) throws APIException;
 
     List<ImageQueryParameter> getAvailableImageQueryParameters(long seriesId) throws APIException;
 
@@ -850,6 +850,8 @@ public interface TheTVDBApi {
         APIResponse<List<Rating>> queryRatings(QueryParameters queryParameters) throws APIException;
 
         APIResponse<List<String>> getAvailableRatingsQueryParameters() throws APIException;
+
+        void deleteFromRatings(@Nonnull String itemType, long itemId) throws APIException;
 
         APIResponse<List<Rating>> addToRatings(@Nonnull String itemType, long itemId, long itemRating) throws APIException;
     }

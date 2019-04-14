@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.Resource;
-import com.github.m0nk3y2k4.thetvdb.internal.resource.validation.ParamValidator;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.validation.PathValidator;
 
 public final class LanguagesAPI extends Resource {
 
@@ -19,7 +19,7 @@ public final class LanguagesAPI extends Resource {
     }
 
     public static JsonNode get(@Nonnull APIConnection con, long id) throws APIException {
-        ParamValidator.requiresPathParam(PATH_ID, id, ID_VALIDATOR);
+        PathValidator.requiresPathParam(PATH_ID, id, ID_VALIDATOR);
         return con.sendGET(createResource(BASE, id));
     }
 }

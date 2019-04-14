@@ -37,7 +37,7 @@ public final class AuthenticationAPI {
         setToken(con, () -> con.sendGET("/refresh_token"));
     }
 
-    private static void setToken(APIConnection con, ThrowingSupplier<JsonNode> sendRequest) throws APIException {
+    private static void setToken(@Nonnull APIConnection con, @Nonnull ThrowingSupplier<JsonNode> sendRequest) throws APIException {
         // Request token
         JsonNode response = sendRequest.get();              // Throws exception if authorization fails
         String token = response.get("token").asText();

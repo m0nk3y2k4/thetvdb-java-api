@@ -39,7 +39,7 @@ public interface QueryParameters extends Iterable<QueryParameters.Parameter> {
      *
      * @return Optional containing the current value for the given key or {@link Optional#empty()} if no parameter with this key exists
      */
-    Optional<String> getParameterValue(String key);
+    Optional<String> getParameterValue(@Nonnull String key);
 
     /**
      * Returns <code>true</code> if an individual parameter with the given key exists in this very object or <code>false</code> if no such parameter has been added yet.
@@ -48,7 +48,7 @@ public interface QueryParameters extends Iterable<QueryParameters.Parameter> {
      *
      * @return <code>True</code> if a parameter with the given key has already been added to this object or <code>false</code> if not
      */
-    boolean containsParameter(String key);
+    boolean containsParameter(@Nonnull String key);
 
     /**
      * Returns a Stream of individual query parameters hold by this class.

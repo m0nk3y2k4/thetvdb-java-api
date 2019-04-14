@@ -1,10 +1,10 @@
 package com.github.m0nk3y2k4.thetvdb.internal.connection;
 
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.validation.ObjectValidator;
 import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
 
 import javax.annotation.Nonnull;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -27,7 +27,16 @@ public final class APISession {
      * login/refresh requests may be allowed. During the execution of these kind of requests, the session authorization is in progress.
      * In case the login/refresh were successful the session is authorized and ready for general API communication.
      */
-    public enum Status {NOT_AUTHORIZED, AUTHORIZATION_IN_PROGRESS, AUTHORIZED}
+    public enum Status {
+        /** Session authorization is pending */
+        NOT_AUTHORIZED,
+
+        /** Session authorization is currently in progress */
+        AUTHORIZATION_IN_PROGRESS,
+
+        /** Session authorization completed successfully */
+        AUTHORIZED
+    }
 
     /** Accept english by default if no language was specified */
     private static final String DEFAULT_LANGUAGE = "en";
@@ -62,7 +71,7 @@ public final class APISession {
      * @param apiKey The API key used to request a session token
      */
     APISession(@Nonnull String apiKey) {
-        Objects.requireNonNull(apiKey, "API key must not be NULL or empty!");
+        ObjectValidator.requireNonEmpty(apiKey, "API key must not be NULL or empty!");
 
         this.apiKey = apiKey;
         this.userKey = null;
@@ -81,9 +90,9 @@ public final class APISession {
      * @param userName User name for authentication
      */
     APISession(@Nonnull String apiKey, @Nonnull String userKey, @Nonnull String userName) {
-        Objects.requireNonNull(apiKey, "API key must not be NULL or empty!");
-        Objects.requireNonNull(userKey, "User key must not be NULL or empty!");
-        Objects.requireNonNull(userName, "User name must not be NULL or empty!");
+        ObjectValidator.requireNonEmpty(apiKey, "API key must not be NULL or empty!");
+        ObjectValidator.requireNonEmpty(userKey, "User key must not be NULL or empty!");
+        ObjectValidator.requireNonEmpty(userName, "User name must not be NULL or empty!");
 
         this.apiKey = apiKey;
         this.userKey = userKey;
@@ -140,12 +149,13 @@ public final class APISession {
     }
 
     /**
-     * Set the preferred language used for API communication. Search results will be based on this language.
+     * Set the preferred language used for API communication. Search results will be based on this language. If the given
+     * language parameter is <code>Null</code> the sessions language will be reset to {@link #DEFAULT_LANGUAGE}.
      *
      * @param language The language for API communication
      */
     void setLanguage(String language) {
-        this.language = language;
+        this.language = language != null ? language : DEFAULT_LANGUAGE;
     }
 
     /**
@@ -158,11 +168,14 @@ public final class APISession {
     }
 
     /**
-     * Sets the current status of this session
+     * Sets the current status of this session. If the given status parameter is <code>Null</code> the sessions
+     * status will be reset to {@link Status#NOT_AUTHORIZED}.
      *
      * @param status The new session status
      */
-    void setStatus(Status status) { this.status = status; }
+    void setStatus(Status status) {
+        this.status = status != null ? status : Status.NOT_AUTHORIZED;
+    }
     /**
      * Returns the current {@link Status} of this session. This status indicates that...
      * <p/>

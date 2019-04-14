@@ -1,5 +1,6 @@
 package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -7,7 +8,7 @@ import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.api.constants.Query;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
-import com.github.m0nk3y2k4.thetvdb.internal.resource.validation.ParamValidator;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.validation.QueryValidator;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.QueryResource;
 
 public final class UpdatesAPI extends QueryResource {
@@ -16,8 +17,8 @@ public final class UpdatesAPI extends QueryResource {
 
     private UpdatesAPI() {}     // Private constructor. Only static methods
 
-    public static JsonNode query(@Nonnull APIConnection con, QueryParameters params) throws APIException {
-        ParamValidator.requiresQueryParam(Query.Updates.FROMTIME, params, value -> value.matches("\\d+") && Long.valueOf(value).compareTo(0L) > 0);
+    public static JsonNode query(@Nonnull APIConnection con, @CheckForNull QueryParameters params) throws APIException {
+        QueryValidator.requiresQueryParam(Query.Updates.FROMTIME, params, value -> value.matches("\\d+") && Long.valueOf(value).compareTo(0L) > 0);
         return con.sendGET(createQueryResource(BASE, params));
     }
 

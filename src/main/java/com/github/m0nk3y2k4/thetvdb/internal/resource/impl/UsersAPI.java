@@ -3,13 +3,14 @@ package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 import java.util.Arrays;
 import java.util.function.Function;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
-import com.github.m0nk3y2k4.thetvdb.internal.resource.validation.ParamValidator;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.validation.PathValidator;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.QueryResource;
 
 public final class UsersAPI extends QueryResource {
@@ -33,12 +34,12 @@ public final class UsersAPI extends QueryResource {
     }
 
     public static JsonNode deleteFromFavorites(@Nonnull APIConnection con, long id) throws APIException {
-        ParamValidator.requiresPathParam(PATH_ID, id, ID_VALIDATOR);
+        PathValidator.requiresPathParam(PATH_ID, id, ID_VALIDATOR);
         return con.sendDELETE(createResource(BASE, "/favorites", id));
     }
 
     public static JsonNode addToFavorites(@Nonnull APIConnection con, long id) throws APIException {
-        ParamValidator.requiresPathParam(PATH_ID, id, ID_VALIDATOR);
+        PathValidator.requiresPathParam(PATH_ID, id, ID_VALIDATOR);
         return con.sendPUT(createResource(BASE, "/favorites", id));
     }
 
@@ -46,7 +47,7 @@ public final class UsersAPI extends QueryResource {
         return con.sendGET(createResource(BASE, "/ratings"));
     }
 
-    public static JsonNode queryRatings(@Nonnull APIConnection con, QueryParameters params) throws APIException {
+    public static JsonNode queryRatings(@Nonnull APIConnection con, @CheckForNull QueryParameters params) throws APIException {
         return con.sendGET(createQueryResource(BASE, "/ratings/query", params));
     }
 
@@ -55,15 +56,15 @@ public final class UsersAPI extends QueryResource {
     }
 
     public static JsonNode deleteFromRatings(@Nonnull APIConnection con, @Nonnull String itemType, long itemId) throws APIException {
-        ParamValidator.requiresPathParam(PATH_ITEMTYPE, itemType, ITEMTYPE_VALIDATOR);
-        ParamValidator.requiresPathParam(PATH_ITEMID, itemId, ID_VALIDATOR);
+        PathValidator.requiresPathParam(PATH_ITEMTYPE, itemType, ITEMTYPE_VALIDATOR);
+        PathValidator.requiresPathParam(PATH_ITEMID, itemId, ID_VALIDATOR);
         return con.sendDELETE(createResource(BASE, "/ratings", itemType, itemId));
     }
 
     public static JsonNode addToRatings(@Nonnull APIConnection con, @Nonnull String itemType, long itemId, long itemRating) throws APIException {
-        ParamValidator.requiresPathParam(PATH_ITEMTYPE, itemType, ITEMTYPE_VALIDATOR);
-        ParamValidator.requiresPathParam(PATH_ITEMID, itemId, ID_VALIDATOR);
-        ParamValidator.requiresPathParam(PATH_ITEMRATING, itemRating, ID_VALIDATOR);
+        PathValidator.requiresPathParam(PATH_ITEMTYPE, itemType, ITEMTYPE_VALIDATOR);
+        PathValidator.requiresPathParam(PATH_ITEMID, itemId, ID_VALIDATOR);
+        PathValidator.requiresPathParam(PATH_ITEMRATING, itemRating, ID_VALIDATOR);
         return con.sendPUT(createResource(BASE, "/ratings", itemType, itemId, itemRating));
     }
 }

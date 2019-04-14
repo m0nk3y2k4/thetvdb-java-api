@@ -242,31 +242,31 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public List<Image> queryImages(long seriesId, String keyType, String resolution) throws APIException {
+    public List<Image> queryImages(long seriesId, @Nonnull String keyType, @Nonnull String resolution) throws APIException {
         validateNotEmpty(keyType, resolution);
         return queryImages(seriesId, query(Map.of(Query.Series.KEYTYPE, keyType, Query.Series.RESOLUTION, resolution)));
     }
 
     @Override
-    public List<Image> queryImages(long seriesId, String keyType, String resolution, String subKey) throws APIException {
+    public List<Image> queryImages(long seriesId, @Nonnull String keyType, @Nonnull String resolution, @Nonnull String subKey) throws APIException {
         validateNotEmpty(keyType, resolution, subKey);
         return queryImages(seriesId, query(Map.of(Query.Series.KEYTYPE, keyType, Query.Series.RESOLUTION, resolution, Query.Series.SUBKEY, subKey)));
     }
 
     @Override
-    public List<Image> queryImagesByKeyType(long seriesId, String keyType) throws APIException {
+    public List<Image> queryImagesByKeyType(long seriesId, @Nonnull String keyType) throws APIException {
         validateNotEmpty(keyType);
         return queryImages(seriesId, query(Map.of(Query.Series.KEYTYPE, keyType)));
     }
 
     @Override
-    public List<Image> queryImagesByResolution(long seriesId, String resolution) throws APIException {
+    public List<Image> queryImagesByResolution(long seriesId, @Nonnull String resolution) throws APIException {
         validateNotEmpty(resolution);
         return queryImages(seriesId, query(Map.of(Query.Series.RESOLUTION, resolution)));
     }
 
     @Override
-    public List<Image> queryImagesBySubKey(long seriesId, String subKey) throws APIException {
+    public List<Image> queryImagesBySubKey(long seriesId, @Nonnull String subKey) throws APIException {
         validateNotEmpty(subKey);
         return queryImages(seriesId, query(Map.of(Query.Series.SUBKEY, subKey)));
     }
@@ -341,7 +341,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
 
     @Override
     public void deleteFromRatings(@Nonnull String itemType, long itemId) throws APIException {
-        json().deleteFromRatings(itemType, itemId);
+        extended().deleteFromRatings(itemType, itemId);
     }
 
     @Override
@@ -642,6 +642,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public APIResponse<List<String>> getAvailableRatingsQueryParameters() throws APIException {
             return JsonDeserializer.mapQueryParameters(json().getAvailableRatingsQueryParameters());
+        }
+
+        @Override
+        public void deleteFromRatings(@Nonnull String itemType, long itemId) throws APIException {
+            json().deleteFromRatings(itemType, itemId);
         }
 
         @Override

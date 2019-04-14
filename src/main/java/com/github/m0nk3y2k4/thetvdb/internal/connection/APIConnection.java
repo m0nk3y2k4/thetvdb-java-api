@@ -27,6 +27,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.exception.APICommunicationException
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APINotAuthorizedException;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.AuthenticationAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.validation.ConnectionValidator;
 
 public class APIConnection {
 
@@ -158,10 +159,13 @@ abstract class APIRequest {
     }
 
     void openConnection(@Nonnull String resource, @Nonnull String requestMethod) throws IOException {
+        ConnectionValidator.validateResource(resource);
+        ConnectionValidator.validateRequestMethod(requestMethod);
+
         con = (HttpsURLConnection) new URL(API_URL + resource).openConnection();
 
-        // POST or GET
-        con.setRequestMethod(requestMethod);
+        // POST, GET, DELETE, PUT,...
+        con.setRequestMethod(requestMethod.toUpperCase());
 
         // Request properties for API
         con.setRequestProperty("Content-Type", "application/json; charset=utf-8");
@@ -241,6 +245,7 @@ final class GetRequest extends APIRequest {
 }
 
 final class PostRequest extends APIRequest {
+
     /** Messages for error/exception handling */
     private static final String ERR_POST = "An exception occurred while sending POST request to API";
 
@@ -268,6 +273,8 @@ final class PostRequest extends APIRequest {
     }
 
     private void writeRequestBody(@Nonnull String data) throws IOException {
+        ConnectionValidator.validatePayload(data);
+
         con.setDoOutput(true);
 
         try (OutputStream os = con.getOutputStream()) {
@@ -278,6 +285,7 @@ final class PostRequest extends APIRequest {
 }
 
 final class HeadRequest extends APIRequest {
+
     /** Messages for error/exception handling */
     private static final String ERR_HEAD = "An exception occurred while sending HEAD request to API";
 
@@ -326,6 +334,7 @@ final class HeadRequest extends APIRequest {
 }
 
 final class DeleteRequest extends APIRequest {
+
         /** Messages for error/exception handling */
         private static final String ERR_DELETE = "An exception occurred while sending DELETE request to API";
 
@@ -348,6 +357,7 @@ final class DeleteRequest extends APIRequest {
 }
 
 final class PutRequest extends APIRequest {
+
     /** Messages for error/exception handling */
     private static final String ERR_PUT = "An exception occurred while sending PUT request to API";
 
