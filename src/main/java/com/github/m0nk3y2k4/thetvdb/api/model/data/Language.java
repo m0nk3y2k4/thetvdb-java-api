@@ -21,7 +21,7 @@ public interface Language {
      *
      * @return the id
      */
-    long getId();
+    Long getId();
 
     /**
      * Get the name

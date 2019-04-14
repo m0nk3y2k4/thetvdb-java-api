@@ -120,13 +120,13 @@ public class APIResponseImpl<T> implements APIResponse<T> {
     public static class LinksImpl implements Links {
 
         /** JSON properties mapped as Java types */
-        private int first;
-        private int last;
-        private int next;
-        private int previous;
+        private Integer first;
+        private Integer last;
+        private Integer next;
+        private Integer previous;
 
         @Override
-        public int getFirst() {
+        public Integer getFirst() {
             return first;
         }
 
@@ -135,12 +135,12 @@ public class APIResponseImpl<T> implements APIResponse<T> {
          *
          * @param first the first to set
          */
-        public void setFirst(int first) {
+        public void setFirst(Integer first) {
             this.first = first;
         }
 
         @Override
-        public int getLast() {
+        public Integer getLast() {
             return last;
         }
 
@@ -149,12 +149,12 @@ public class APIResponseImpl<T> implements APIResponse<T> {
          *
          * @param last the last to set
          */
-        public void setLast(int last) {
+        public void setLast(Integer last) {
             this.last = last;
         }
 
         @Override
-        public int getNext() {
+        public Integer getNext() {
             return next;
         }
 
@@ -163,12 +163,12 @@ public class APIResponseImpl<T> implements APIResponse<T> {
          *
          * @param next the next to set
          */
-        public void setNext(int next) {
+        public void setNext(Integer next) {
             this.next = next;
         }
 
         @Override
-        public int getPrevious() {
+        public Integer getPrevious() {
             return previous;
         }
 
@@ -177,7 +177,7 @@ public class APIResponseImpl<T> implements APIResponse<T> {
          *
          * @param previous the previous to set
          */
-        public void setPrevious(int previous) {
+        public void setPrevious(Integer previous) {
             this.previous = previous;
         }
     }

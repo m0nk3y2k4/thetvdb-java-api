@@ -78,27 +78,27 @@ public interface APIResponse<T> {
          *
          * @return the number of the first available page
          */
-        int getFirst();
+        Integer getFirst();
 
         /**
          * Get the number of the last available page
          *
          * @return the number of the last available page
          */
-        int getLast();
+        Integer getLast();
 
         /**
          * Get the number of the next page (if available)
          *
          * @return the number of the next page
          */
-        int getNext();
+        Integer getNext();
 
         /**
          * Get the number of the previous page (if available)
          *
          * @return the number of the previous page
          */
-        int getPrevious();
+        Integer getPrevious();
     }
 }

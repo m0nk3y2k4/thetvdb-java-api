@@ -8,7 +8,7 @@ public class LanguageImpl implements Language {
 
     private String abbreviation;
     private String englishName;
-    private long id;
+    private Long id;
     private String name;
 
     @Override
@@ -40,7 +40,7 @@ public class LanguageImpl implements Language {
     }
 
     @Override
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -49,7 +49,7 @@ public class LanguageImpl implements Language {
      *
      * @param id the id to set
      */
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
