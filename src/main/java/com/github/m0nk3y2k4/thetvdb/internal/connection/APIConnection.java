@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.net.ssl.HttpsURLConnection;
 
@@ -131,6 +132,7 @@ abstract class APIRequest {
 
     /** Messages for error/exception handling */
     private static final String ERR_UNEXPECTED_RESPONSE = "Receiver returned an unexpected error: HTTP-%d \nOriginal API error message: %s";
+    private static final String ERR_SEND = "An exception occurred while sending %s request to API";
 
     /** Constants for API error handling */
     private static final String API_ERROR = "Error";
@@ -144,25 +146,45 @@ abstract class APIRequest {
     /** Session for remote API authentication */
     private APISession session;
 
-    /** HTTPS connection for this API request */
-    HttpsURLConnection con;
-
     /** Resource/Route to be called on remote service */
-    final String resource;
+    private final String resource;
 
-    APIRequest(@Nonnull String resource) {
+    /** HTTP request method to be used for this request*/
+    private final String requestMethod;
+
+    APIRequest(@Nonnull String resource, @Nonnull String requestMethod) {
         this.resource = resource;
+        this.requestMethod = requestMethod;
     }
 
     void setSession(@Nonnull APISession session) {
         this.session = session;
     }
 
-    void openConnection(@Nonnull String resource, @Nonnull String requestMethod) throws IOException {
+    final JsonNode send() throws APIException {
+        HttpsURLConnection con = null;
+
+        try {
+            // Create new HTTP connection to the remove service
+            con = openConnection();
+
+            // Special preparations for the request to send, e.g. specific connection settings, body for POST request,...
+            prepareRequest(con);
+
+            // Parse response from HTTP connection
+            return getResponse(con);
+        } catch (IOException ex) {
+            throw new APICommunicationException(String.format(ERR_SEND, requestMethod), ex);
+        } finally {
+            disconnect(con);
+        }
+    }
+
+    private HttpsURLConnection openConnection() throws IOException {
         ConnectionValidator.validateResource(resource);
         ConnectionValidator.validateRequestMethod(requestMethod);
 
-        con = (HttpsURLConnection) new URL(API_URL + resource).openConnection();
+        HttpsURLConnection con = (HttpsURLConnection) new URL(API_URL + resource).openConnection();
 
         // POST, GET, DELETE, PUT,...
         con.setRequestMethod(requestMethod.toUpperCase());
@@ -176,103 +198,74 @@ abstract class APIRequest {
             con.setRequestProperty("Authorization", "Bearer " + session.getToken().get());
             con.setRequestProperty("Accept-Language", session.getLanguage());
         }
+
+        return con;
     }
 
-    void disconnect() {
+    private void disconnect(@CheckForNull HttpsURLConnection con) {
         if (con != null) {
             con.disconnect();
         }
     }
 
-    JsonNode getResponse() throws APIException, IOException {
+    void prepareRequest(@Nonnull HttpsURLConnection con) throws IOException {
+        // No default preparation. Overwrite this method in any sub-class to add type specific request preparations.
+    }
+
+    JsonNode getResponse(@Nonnull HttpsURLConnection con) throws APIException, IOException {
         int responseCode = con.getResponseCode();
 
         switch (responseCode) {
             case HttpsURLConnection.HTTP_OK:
-                return parseResponse();
+                return parseResponse(con);
             case HttpsURLConnection.HTTP_UNAUTHORIZED:
-                throw new APINotAuthorizedException(getError());
+                throw new APINotAuthorizedException(getError(con));
             case HttpsURLConnection.HTTP_NOT_FOUND:
-                throw new APIException(API_NOT_FOUND_ERROR, getError());
+                throw new APIException(API_NOT_FOUND_ERROR, getError(con));
             case HttpsURLConnection.HTTP_CONFLICT:
-                throw new APIException(API_CONFLICT_ERROR, getError());
+                throw new APIException(API_CONFLICT_ERROR, getError(con));
             case HttpsURLConnection.HTTP_UNAVAILABLE:
                 throw new APIException(API_SERVICE_UNAVAILABLE);
             default:
-                throw new APICommunicationException(String.format(ERR_UNEXPECTED_RESPONSE, responseCode, getError()));
+                throw new APICommunicationException(String.format(ERR_UNEXPECTED_RESPONSE, responseCode, getError(con)));
         }
     }
 
-    private JsonNode parseResponse(InputStream inputStream) throws IOException {
+    private JsonNode parseResponse(@Nonnull HttpsURLConnection con) throws IOException {
+        return parseResponse(con.getInputStream());
+    }
+
+    private String getError(@Nonnull HttpsURLConnection con) throws IOException {
+        return parseResponse(con.getErrorStream()).get(API_ERROR).asText("");
+    }
+
+    private JsonNode parseResponse(@Nonnull InputStream inputStream) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         try (JsonParser parser = mapper.getFactory().createParser(inputStream)) {
             return mapper.readTree(parser);
         }
     }
-
-    private JsonNode parseResponse() throws IOException {
-        return parseResponse(con.getInputStream());
-    }
-
-    private String getError() throws IOException {
-        return parseResponse(con.getErrorStream()).get(API_ERROR).asText("");
-    }
-
-    abstract JsonNode send() throws APIException;
 }
 
 final class GetRequest extends APIRequest {
 
-    /** Messages for error/exception handling */
-    private static final String ERR_GET = "An exception occurred while sending GET request to API";
-
     GetRequest(@Nonnull String resource) {
-        super(resource);
-    }
-
-    @Override
-    JsonNode send() throws APIException {
-        try {
-            openConnection(resource, "GET");
-
-            return getResponse();
-        } catch (IOException ex) {
-            throw new APICommunicationException(ERR_GET, ex);
-        } finally {
-            disconnect();
-        }
+        super(resource, "GET");
     }
 }
 
 final class PostRequest extends APIRequest {
 
-    /** Messages for error/exception handling */
-    private static final String ERR_POST = "An exception occurred while sending POST request to API";
-
     private final String data;
 
     PostRequest(@Nonnull String resource, @Nonnull String data) {
-        super(resource);
+        super(resource, "POST");
         this.data = data;
     }
 
     @Override
-    JsonNode send() throws APIException {
-        try {
-            openConnection(resource, "POST");
-
-            // POST data
-            writeRequestBody(data);
-
-            return getResponse();
-        } catch (IOException ex) {
-            throw new APICommunicationException(ERR_POST, ex);
-        } finally {
-            disconnect();
-        }
-    }
-
-    private void writeRequestBody(@Nonnull String data) throws IOException {
+    void prepareRequest(@Nonnull HttpsURLConnection con) throws IOException {
+        // Write request body (payload) for POST request
         ConnectionValidator.validatePayload(data);
 
         con.setDoOutput(true);
@@ -286,27 +279,13 @@ final class PostRequest extends APIRequest {
 
 final class HeadRequest extends APIRequest {
 
-    /** Messages for error/exception handling */
-    private static final String ERR_HEAD = "An exception occurred while sending HEAD request to API";
-
     HeadRequest(@Nonnull String resource) {
-        super(resource);
+        super(resource, "HEAD");
     }
 
     @Override
-    JsonNode send() throws APIException {
-        try {
-            openConnection(resource, "HEAD");
-
-            return createJsonFromHeaderFields();
-        } catch (IOException ex) {
-            throw new APICommunicationException(ERR_HEAD, ex);
-        } finally {
-            disconnect();
-        }
-    }
-
-    private JsonNode createJsonFromHeaderFields() {
+    JsonNode getResponse(@Nonnull HttpsURLConnection con) {
+        // Create JSON object from response header fields
         JsonNodeFactory factory = new ObjectMapper().getNodeFactory();
         ObjectNode root = factory.objectNode();
 
@@ -335,46 +314,14 @@ final class HeadRequest extends APIRequest {
 
 final class DeleteRequest extends APIRequest {
 
-        /** Messages for error/exception handling */
-        private static final String ERR_DELETE = "An exception occurred while sending DELETE request to API";
-
-        DeleteRequest(@Nonnull String resource) {
-            super(resource);
-        }
-
-        @Override
-        JsonNode send() throws APIException {
-            try {
-                openConnection(resource, "DELETE");
-
-                return getResponse();
-            } catch (IOException ex) {
-                throw new APICommunicationException(ERR_DELETE, ex);
-            } finally {
-                disconnect();
-            }
-        }
+    DeleteRequest(@Nonnull String resource) {
+        super(resource, "DELETE");
+    }
 }
 
 final class PutRequest extends APIRequest {
 
-    /** Messages for error/exception handling */
-    private static final String ERR_PUT = "An exception occurred while sending PUT request to API";
-
     PutRequest(@Nonnull String resource) {
-        super(resource);
-    }
-
-    @Override
-    JsonNode send() throws APIException {
-        try {
-            openConnection(resource, "PUT");
-
-            return getResponse();
-        } catch (IOException ex) {
-            throw new APICommunicationException(ERR_PUT, ex);
-        } finally {
-            disconnect();
-        }
+        super(resource, "PUT");
     }
 }
