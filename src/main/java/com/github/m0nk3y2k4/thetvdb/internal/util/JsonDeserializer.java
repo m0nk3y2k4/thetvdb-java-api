@@ -3,9 +3,11 @@ package com.github.m0nk3y2k4.thetvdb.internal.util;
 import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_JSON_PARSE_ERROR;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -86,10 +88,15 @@ public final class JsonDeserializer {
     }
 
     public static APIResponse<List<String>> mapFavorites(@Nonnull JsonNode json) throws APIException {
-        Function<JsonNode, List<String>> dataFunction =
-                node -> StreamSupport.stream(getData(node).get("favorites").spliterator(), false)
-                        .map(JsonNode::asText).collect(Collectors.toList());
-        return mapObject(json, new TypeReference<>(){}, createFunctionalModule(dataFunction));
+        if (getData(json).has("favorites")) {
+            // If the user has no favorites just an empty data-node might be returned
+            Function<JsonNode, List<String>> dataFunction =
+                    node -> StreamSupport.stream(getData(node).get("favorites").spliterator(), false)
+                            .map(JsonNode::asText).collect(Collectors.toList());
+            return mapObject(json, new TypeReference<>() {}, createFunctionalModule(dataFunction));
+        }
+
+        return mapObject(json, new TypeReference<>(){}, createFunctionalModule(Collections::emptyList));
     }
 
     public static Map<String, String> mapSeriesHeader(@Nonnull JsonNode json) throws APIException {
@@ -160,6 +167,11 @@ public final class JsonDeserializer {
     }
 
     private static <T> Module createFunctionalModule(@Nonnull Function<JsonNode, T> dataFunction) {
+        return new SimpleModule().addDeserializer(APIResponse.class, new FunctionalDeserializer<>(dataFunction));
+    }
+
+    private static <T> Module createFunctionalModule(@Nonnull Supplier<T> supplier) {
+        Function<JsonNode, T> dataFunction = node -> supplier.get();
         return new SimpleModule().addDeserializer(APIResponse.class, new FunctionalDeserializer<>(dataFunction));
     }
 
