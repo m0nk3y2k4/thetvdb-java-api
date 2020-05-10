@@ -54,6 +54,6 @@ public class RatingImpl implements Rating {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", this.ratingType, this.rating);
+        return String.format("[%s] %s: %s", this.ratingType, this.ratingItemId, this.rating);
     }
 }

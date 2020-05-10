@@ -628,7 +628,7 @@ public interface TheTVDBApi {
      * @see Extended#queryLastUpdated(QueryParameters) TheTVDBApi.Extended.queryLastUpdated(queryParameters)
      *
      * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
-     *                        see the API documentation or use {@link #getAvailableLastUpdatedQueryParameters()}}.
+     *                        see the API documentation or use {@link #getAvailableLastUpdatedQueryParameters()}.
      *
      * @return A map of updated objects that match the given timeframe, based on the JSON data returned by the remote service
      *
@@ -685,24 +685,164 @@ public interface TheTVDBApi {
      */
     List<String> getAvailableLastUpdatedQueryParameters() throws APIException;
 
+    /**
+     * Returns basic information about the currently authenticated user, mapped as Java object.
+     * <p/>
+     * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user">/user</a>
+     *
+     * @see JSON#getUser()
+     * @see Extended#getUser()
+     *
+     * @return Basic user information, mapped as Java object based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     */
     User getUser() throws APIException;
 
+    /**
+     * Returns a list of favorite series for a given user, as plain Strings. Will be an empty list if no favorites exist.
+     * <p/>
+     * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_favorites">/user/favorites</a>
+     *
+     * @see JSON#getFavorites()
+     * @see Extended#getFavorites()
+     *
+     * @return The user favorites, based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     */
     List<String> getFavorites() throws APIException;
 
+    /**
+     * Deletes the given series ID from the user’s favorite’s list and returns the updated list as plain Strings.
+     * <p/>
+     * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/delete_user_favorites_id">/user/favorites/{id}</a>
+     *
+     * @see #addToFavorites(long) addToFavorites(seriesId)
+     * @see JSON#deleteFromFavorites(long) TheTVDBApi.JSON.deleteFromFavorites(seriesId)
+     * @see Extended#deleteFromFavorites(long) TheTVDBApi.Extended.deleteFromFavorites(seriesId)
+     *
+     * @param seriesId The TheTVDB series ID
+     *
+     * @return Updated list of user favorites, based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     */
     List<String> deleteFromFavorites(long seriesId) throws APIException;
 
+    /**
+     * Adds the supplied series ID to the user’s favorite’s list and returns the updated list as plain Strings.
+     * <p/>
+     * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/put_user_favorites_id">/user/favorites/{id}</a>
+     *
+     * @see #deleteFromFavorites(long) deleteFromFavorites(seriesId)
+     * @see JSON#addToFavorites(long) TheTVDBApi.JSON.addToFavorites(seriesId)
+     * @see Extended#addToFavorites(long) TheTVDBApi.Extended.addToFavorites(seriesId)
+     *
+     * @param seriesId The TheTVDB series ID
+     *
+     * @return Updated list of user favorites, based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     */
     List<String> addToFavorites(long seriesId) throws APIException;
 
+    /**
+     * Returns a list of ratings for the given user, mapped as Java object.
+     * <p/>
+     * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings">/user/ratings</a>
+     *
+     * @see JSON#getRatings()
+     * @see Extended#getRatings()
+     *
+     * @return List of user ratings, mapped as Java objects based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     */
     List<Rating> getRatings() throws APIException;
 
+    /**
+     * Returns a list of ratings for a given user that match the query, mapped as Java object.
+     * <p/>
+     * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings_query">/user/ratings/query</a>
+     *
+     * @see JSON#queryRatings(QueryParameters) TheTVDBApi.JSON.queryRatings(queryParameters)
+     * @see Extended#queryRatings(QueryParameters) TheTVDBApi.Extended.queryRatings(queryParameters)
+     *
+     * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
+     *                        see the API documentation or use {@link #getAvailableRatingsQueryParameters()}.
+     *
+     * @return List of user ratings that match the given query, mapped as Java objects based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     */
     List<Rating> queryRatings(QueryParameters queryParameters) throws APIException;
 
+    /**
+     * Returns a list of ratings for a given user that match the <code>itemType</code> parameter, mapped as Java object. This is a shortcut-method for
+     * {@link #queryRatings(QueryParameters) queryRatings(queryParameters)} with a single "itemType" query parameter.
+     *
+     * @param itemType Item to query. Can be either 'series', 'episode', or 'banner'.
+     *
+     * @return List of user ratings with the given item type, mapped as Java objects based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     */
     List<Rating> queryRatingsByItemType(@Nonnull String itemType) throws APIException;
 
+    /**
+     * Returns a list of valid parameters for querying user ratings, as plain Strings. These keys are permitted to be used in {@link QueryParameters}
+     * objects when querying for ratings.
+     * <p/>
+     * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings_query_params">/user/ratings/query/params</a>
+     *
+     * @see #queryRatings(QueryParameters) queryRatings(queryParameters)
+     * @see JSON#getAvailableRatingsQueryParameters()
+     * @see Extended#getAvailableRatingsQueryParameters()
+     *
+     * @return A list of possible parameters which may be used to query for user ratings, based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     */
     List<String> getAvailableRatingsQueryParameters() throws APIException;
 
+    /**
+     * Deletes a given rating of a given type.
+     * <p/>
+     * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/delete_user_ratings_itemType_itemId">/user/ratings/{itemType}/{itemId}</a>
+     *
+     * @see #addToRatings(String, long, long) addToRatings(itemType, itemId, itemRating)
+     * @see JSON#deleteFromRatings(String, long) TheTVDBApi.JSON.deleteFromRatings(itemType, itemId)
+     * @see Extended#deleteFromRatings(String, long) TheTVDBApi.Extended.deleteFromRatings(itemType, itemId)
+     *
+     * @param itemType Item to update. Can be either 'series', 'episode', or 'image'.
+     * @param itemId ID of the ratings record that you wish to delete
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     */
     void deleteFromRatings(@Nonnull String itemType, long itemId) throws APIException;
 
+    /**
+     * Updates a given rating of a given type and returns the modified rating, mapped as Java object. If no rating exists yet, a new rating
+     * will be created.
+     * <p/>
+     * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/put_user_ratings_itemType_itemId_itemRating">/user/ratings/{itemType}/{itemId}/{itemRating}</a>
+     *
+     * @see #deleteFromRatings(String, long) deleteFromRatings(itemType, itemId)
+     * @see JSON#addToRatings(String, long, long) TheTVDBApi.JSON.addToRatings(itemType, itemId, itemRating)
+     * @see Extended#addToRatings(String, long, long) TheTVDBApi.Extended.addToRatings(itemType, itemId, itemRating)
+     *
+     * @param itemType Item to update. Can be either 'series', 'episode', or 'image'.
+     * @param itemId ID of the ratings record that you wish to modify
+     * @param itemRating The updated rating number
+     *
+     * @return The modified rating (whether it was added or updated), mapped as Java object based on the JSON data returned by the remote service
+     *         <br/>
+     *         <b>Note:</b> It seems that the data returned by the remote service for this route is quite unreliable! It might not always return the
+     *         modified rating but an empty data array instead.
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     */
     List<Rating> addToRatings(@Nonnull String itemType, long itemId, long itemRating) throws APIException;
 
     JSON json();
@@ -1020,7 +1160,7 @@ public interface TheTVDBApi {
          * @see Extended#queryLastUpdated(QueryParameters) TheTVDBApi.Extended.queryLastUpdated(queryParameters)
          *
          * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
-         *                        see the API documentation or use {@link #getAvailableLastUpdatedQueryParameters()}}.
+         *                        see the API documentation or use {@link #getAvailableLastUpdatedQueryParameters()}.
          *
          * @return JSON object containing a list of updated objects that match the given timeframe
          *
@@ -1044,22 +1184,154 @@ public interface TheTVDBApi {
          */
         JsonNode getAvailableLastUpdatedQueryParameters() throws APIException;
 
+        /**
+         * Returns basic information about the currently authenticated user, as raw JSON.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user">/user</a>
+         *
+         * @see TheTVDBApi#getUser()
+         * @see Extended#getUser()
+         *
+         * @return JSON object containing basic user information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
         JsonNode getUser() throws APIException;
 
+        /**
+         * Returns an array of favorite series for a given user, as raw JSON. Will be a blank array if no favorites exist.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_favorites">/user/favorites</a>
+         *
+         * @see TheTVDBApi#getFavorites()
+         * @see Extended#getFavorites()
+         *
+         * @return JSON object containing the user favorites
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
         JsonNode getFavorites() throws APIException;
 
+        /**
+         * Deletes the given series ID from the user’s favorite’s list and returns the updated list as raw JSON.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/delete_user_favorites_id">/user/favorites/{id}</a>
+         *
+         * @see #addToFavorites(long) addToFavorites(seriesId)
+         * @see TheTVDBApi#deleteFromFavorites(long) TheTVDBApi.deleteFromFavorites(seriesId)
+         * @see Extended#deleteFromFavorites(long) TheTVDBApi.Extended.deleteFromFavorites(seriesId)
+         *
+         * @param seriesId The TheTVDB series ID
+         *
+         * @return JSON object containing the updated list of user favorites
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
         JsonNode deleteFromFavorites(long seriesId) throws APIException;
 
+        /**
+         * Adds the supplied series ID to the user’s favorite’s list and returns the updated list as raw JSON.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/put_user_favorites_id">/user/favorites/{id}</a>
+         *
+         * @see #deleteFromFavorites(long) deleteFromFavorites(seriesId)
+         * @see TheTVDBApi#addToFavorites(long) TheTVDBApi.addToFavorites(seriesId)
+         * @see Extended#addToFavorites(long) TheTVDBApi.Extended.addToFavorites(seriesId)
+         *
+         * @param seriesId The TheTVDB series ID
+         *
+         * @return JSON object containing the updated list of user favorites
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
         JsonNode addToFavorites(long seriesId) throws APIException;
 
+        /**
+         * Returns a list of ratings for the given user, as raw JSON.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings">/user/ratings</a>
+         *
+         * @see TheTVDBApi#getRatings()
+         * @see Extended#getRatings()
+         *
+         * @return JSON object containing a list of user ratings
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
         JsonNode getRatings() throws APIException;
 
+        /**
+         * Returns a list of ratings for a given user that match the query, as raw JSON.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings_query">/user/ratings/query</a>
+         *
+         * @see TheTVDBApi#queryRatings(QueryParameters) TheTVDBApi.queryRatings(queryParameters)
+         * @see Extended#queryRatings(QueryParameters) TheTVDBApi.Extended.queryRatings(queryParameters)
+         *
+         * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
+         *                        see the API documentation or use {@link #getAvailableRatingsQueryParameters()}.
+         *
+         * @return JSON object containing a list of user ratings that match the given query
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
         JsonNode queryRatings(QueryParameters queryParameters) throws APIException;
 
+        /**
+         * Returns a list of valid parameters for querying user ratings, as raw JSON. These keys are permitted to be used in {@link QueryParameters}
+         * objects when querying for ratings.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings_query_params">/user/ratings/query/params</a>
+         *
+         * @see #queryRatings(QueryParameters) queryRatings(queryParameters)
+         * @see TheTVDBApi#getAvailableRatingsQueryParameters()
+         * @see Extended#getAvailableRatingsQueryParameters()
+         *
+         * @return JSON object containing a list of possible parameters which may be used to query for user ratings
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
         JsonNode getAvailableRatingsQueryParameters() throws APIException;
 
+        /**
+         * Deletes a given rating of a given type.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/delete_user_ratings_itemType_itemId">/user/ratings/{itemType}/{itemId}</a>
+         *
+         * @see #addToRatings(String, long, long) addToRatings(itemType, itemId, itemRating)
+         * @see TheTVDBApi#deleteFromRatings(String, long) TheTVDBApi.deleteFromRatings(itemType, itemId)
+         * @see Extended#deleteFromRatings(String, long) TheTVDBApi.Extended.deleteFromRatings(itemType, itemId)
+         *
+         * @param itemType Item to update. Can be either 'series', 'episode', or 'image'.
+         * @param itemId ID of the ratings record that you wish to delete
+         *
+         * @return JSON object as returned by the remote service (probably containing an empty data block)
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
         JsonNode deleteFromRatings(@Nonnull String itemType, long itemId) throws APIException;
 
+        /**
+         * Updates a given rating of a given type and returns the modified rating, mapped as raw JSON. If no rating exists yet, a new rating
+         * will be created.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/put_user_ratings_itemType_itemId_itemRating">/user/ratings/{itemType}/{itemId}/{itemRating}</a>
+         *
+         * @see #deleteFromRatings(String, long) deleteFromRatings(itemType, itemId)
+         * @see TheTVDBApi#addToRatings(String, long, long) TheTVDBApi.addToRatings(itemType, itemId, itemRating)
+         * @see Extended#addToRatings(String, long, long) TheTVDBApi.Extended.addToRatings(itemType, itemId, itemRating)
+         *
+         * @param itemType Item to update. Can be either 'series', 'episode', or 'image'.
+         * @param itemId ID of the ratings record that you wish to modify
+         * @param itemRating The updated rating number
+         *
+         * @return JSON object containing the modified rating (whether it was added or updated)
+         *         <br/>
+         *         <b>Note:</b> It seems that the data returned by the remote service for this route is quite unreliable! It might not always return the
+         *         modified rating but an empty data array instead.
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
         JsonNode addToRatings(@Nonnull String itemType, long itemId, long itemRating) throws APIException;
     }
 
@@ -1374,7 +1646,7 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#queryLastUpdated(QueryParameters) TheTVDBApi.queryLastUpdated(queryParameters)
          *
          * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
-         *                        see the API documentation or use {@link #getAvailableLastUpdatedQueryParameters()}}.
+         *                        see the API documentation or use {@link #getAvailableLastUpdatedQueryParameters()}.
          *
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
@@ -1400,22 +1672,161 @@ public interface TheTVDBApi {
          */
         APIResponse<List<String>> getAvailableLastUpdatedQueryParameters() throws APIException;
 
+        /**
+         * Returns a response object containing basic information about the currently authenticated user, mapped as Java object.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user">/user</a>
+         *
+         * @see JSON#getUser()
+         * @see TheTVDBApi#getUser()
+         *
+         * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
+         *         that not all API routes provide additional information so this type of data might be empty.
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
         APIResponse<User> getUser() throws APIException;
 
+        /**
+         * Returns a response object containing a list of favorite series for a given user, as plain Strings. The data object of the returned response
+         * will contain an empty list if no favorites exist.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_favorites">/user/favorites</a>
+         *
+         * @see JSON#getFavorites()
+         * @see TheTVDBApi#getFavorites()
+         *
+         * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
+         *         that not all API routes provide additional information so this type of data might be empty.
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
         APIResponse<List<String>> getFavorites() throws APIException;
 
+        /**
+         * Deletes the given series ID from the user’s favorite’s list and returns a response object containing the updated list as plain Strings.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/delete_user_favorites_id">/user/favorites/{id}</a>
+         *
+         * @see #addToFavorites(long) addToFavorites(seriesId)
+         * @see JSON#deleteFromFavorites(long) TheTVDBApi.JSON.deleteFromFavorites(seriesId)
+         * @see TheTVDBApi#deleteFromFavorites(long) TheTVDBApi.deleteFromFavorites(seriesId)
+         *
+         * @param seriesId The TheTVDB series ID
+         *
+         * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
+         *         that not all API routes provide additional information so this type of data might be empty.
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
         APIResponse<List<String>> deleteFromFavorites(long seriesId) throws APIException;
 
+        /**
+         * Adds the supplied series ID to the user’s favorite’s list and returns a response object containing the updated list as plain Strings.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/put_user_favorites_id">/user/favorites/{id}</a>
+         *
+         * @see #deleteFromFavorites(long) deleteFromFavorites(seriesId)
+         * @see JSON#addToFavorites(long) TheTVDBApi.JSON.addToFavorites(seriesId)
+         * @see TheTVDBApi#addToFavorites(long) TheTVDBApi.addToFavorites(seriesId)
+         *
+         * @param seriesId The TheTVDB series ID
+         *
+         * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
+         *         that not all API routes provide additional information so this type of data might be empty.
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
         APIResponse<List<String>> addToFavorites(long seriesId) throws APIException;
 
+        /**
+         * Returns a response object containing a list of ratings for the given user, mapped as Java object.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings">/user/ratings</a>
+         *
+         * @see JSON#getRatings()
+         * @see TheTVDBApi#getRatings()
+         *
+         * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
+         *         that not all API routes provide additional information so this type of data might be empty.
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
         APIResponse<List<Rating>> getRatings() throws APIException;
 
+        /**
+         * Returns a response object containing a list of ratings for a given user that match the query, mapped as Java object.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings_query">/user/ratings/query</a>
+         *
+         * @see JSON#queryRatings(QueryParameters) TheTVDBApi.JSON.queryRatings(queryParameters)
+         * @see TheTVDBApi#queryRatings(QueryParameters) TheTVDBApi.queryRatings(queryParameters)
+         *
+         * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
+         *                        see the API documentation or use {@link #getAvailableRatingsQueryParameters()}.
+         *
+         * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
+         *         that not all API routes provide additional information so this type of data might be empty.
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
         APIResponse<List<Rating>> queryRatings(QueryParameters queryParameters) throws APIException;
 
+        /**
+         * Returns a response object containing a list of valid parameters for querying user ratings, as plain Strings. These keys are permitted to be
+         * used in {@link QueryParameters} objects when querying for ratings.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings_query_params">/user/ratings/query/params</a>
+         *
+         * @see #queryRatings(QueryParameters) queryRatings(queryParameters)
+         * @see JSON#getAvailableRatingsQueryParameters()
+         * @see TheTVDBApi#getAvailableRatingsQueryParameters()
+         *
+         * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
+         *         that not all API routes provide additional information so this type of data might be empty.
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
         APIResponse<List<String>> getAvailableRatingsQueryParameters() throws APIException;
 
+        /**
+         * Deletes a given rating of a given type.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/delete_user_ratings_itemType_itemId">/user/ratings/{itemType}/{itemId}</a>
+         *
+         * @see #addToRatings(String, long, long) addToRatings(itemType, itemId, itemRating)
+         * @see JSON#deleteFromRatings(String, long) TheTVDBApi.JSON.deleteFromRatings(itemType, itemId)
+         * @see TheTVDBApi#deleteFromRatings(String, long) TheTVDBApi.deleteFromRatings(itemType, itemId)
+         *
+         * @param itemType Item to update. Can be either 'series', 'episode', or 'image'.
+         * @param itemId ID of the ratings record that you wish to delete
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
         void deleteFromRatings(@Nonnull String itemType, long itemId) throws APIException;
 
+        /**
+         * Updates a given rating of a given type and return a response object containing the modified rating, mapped as Java object. If no rating exists
+         * yet, a new rating will be created.
+         * <p/>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/put_user_ratings_itemType_itemId_itemRating">/user/ratings/{itemType}/{itemId}/{itemRating}</a>
+         *
+         * @see #deleteFromRatings(String, long) deleteFromRatings(itemType, itemId)
+         * @see JSON#addToRatings(String, long, long) TheTVDBApi.JSON.addToRatings(itemType, itemId, itemRating)
+         * @see TheTVDBApi#addToRatings(String, long, long) TheTVDBApi.addToRatings(itemType, itemId, itemRating)
+         *
+         * @param itemType Item to update. Can be either 'series', 'episode', or 'image'.
+         * @param itemId ID of the ratings record that you wish to modify
+         * @param itemRating The updated rating number
+         *
+         * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
+         *         that not all API routes provide additional information so this type of data might be empty.
+         *         <br/>
+         *         <b>Note:</b> It seems that the data returned by the remote service for this route is quite unreliable! It might not always return the
+         *         modified rating but an empty data array instead.
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
         APIResponse<List<Rating>> addToRatings(@Nonnull String itemType, long itemId, long itemRating) throws APIException;
     }
 }
