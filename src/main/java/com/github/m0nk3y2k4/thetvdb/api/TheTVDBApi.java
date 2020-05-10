@@ -10,6 +10,44 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Main interface of the <i>TheTDVB</i> API connector.
+ * <p/>
+ * This interface provides access to all available routes of the remote <i>TheTVDB</i> REST API. Routes which accept additional optional and mandatory
+ * query parameters can either be invoked with a given set of {@link QueryParameters} or via some predefined shortcut-methods. These shortcut-methods
+ * will accept certain values as direct method parameters which will then be forwarded to the REST API as regular URL query parameters. Please note
+ * that shortcut-methods exist for most of the common query scenarios but maybe not for all. In case of more complex query setups the user has to
+ * take care of creating a properly configured <code>QueryParameters</code> object, which is slightly more effort than using the shortcut-methods
+ * but gives the user unlimited configuration options.
+ * <p/>
+ * In order to create a new API instance the {@link com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory TheTVDBApiFactory} should be used. This factory
+ * also provides additional helper methods, for example to easily create new <code>QueryParameters</code>.
+ * <p/>
+ * To cover a wide range of possible applications, this API connector provides multiple layouts in order to allow an easy integration regardless
+ * of your actual project requirements. It gives you the option to use prefabbed DTO's which will be parsed from the actual JSON returned by the
+ * remote service. In case you need advanced exception handling or you prefer to parse the JSON into your own data models (or don't want to parse
+ * it at all), other API layouts will provide you with extended API response DTO's or even with the raw JSON. The following API layouts are currently
+ * available:
+ * <ul>
+ * <li>{@link TheTVDBApi}</li>
+ * This is probably the most common layout. It provides various shortcut-methods and automatically maps the received JSON <b><i>data</i></b> content
+ * into simple Java DTO's (at least for more complex response data). The user does not have to worry about JSON parsing but can simply work with the
+ * returned DTO's like he works with every other Java object. However, these objects do only contain the actually requested data and will not include
+ * any additional contextual informations that may be returned by the remote service (e.g. Pagination information, additional validation or error data)
+ * <li>{@link Extended}</li>
+ * This layout may be used for slightly advance API integration. Like the common layout it'll take care of parsing the recieved JSON into Java DTO's
+ * but it will also provide access to any additional contextual information. Methods of this layout will always return a single {@link APIResponse}
+ * object which consists of the actual data, parsed as DTO, as well as all additional information which is available in the given context, like
+ * additional error or pagination information. This layout does not provide any shortcut-methods.
+ * <li>{@link JSON}</li>
+ * This layout may be used if you do not want any post-processing being applied to the actual remote service response data. All methods within this
+ * layout will return the raw, unmodified JSON data as it was received from the API. This might be useful if you prefer to map the JSON data yourself,
+ * want to use your own Java data models or if you don't want to parse the JSON data at all (but forward it to some other service for example). This layout
+ * does not provide any shortcut-methods though.
+ * </ul>
+ * <p/>
+ * Once an API instance has been created, the additional layouts can be accessed via the {@link #extended()} or {@link #json()} method.
+ */
 public interface TheTVDBApi {
 
     /**
@@ -75,7 +113,7 @@ public interface TheTVDBApi {
     void refreshToken() throws APIException;
 
     /**
-     * Returns the full information for a given episode id as mapped Java object.
+     * Returns the full information for a given episode id as mapped Java DTO.
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Episodes/get_episodes_id">/episodes/{id}</a>
      *
@@ -84,14 +122,14 @@ public interface TheTVDBApi {
      *
      * @param episodeId The ID of the episode
      *
-     * @return Mapped Java object containing the full episode information based on the JSON data returned by the remote service
+     * @return Mapped Java DTO containing the full episode information based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     Episode getEpisode(long episodeId) throws APIException;
 
     /**
-     * Returns a list of all supported languages mapped as Java object. These language abbreviations can be used to set the preferred language
+     * Returns a list of all supported languages mapped as Java DTO. These language abbreviations can be used to set the preferred language
      * for the communication with the remote service (see {@link #setLanguage(String)}.
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Languages/get_languages">/languages</a>
@@ -99,14 +137,14 @@ public interface TheTVDBApi {
      * @see JSON#getAvailableLanguages()
      * @see Extended#getAvailableLanguages()
      *
-     * @return List of available languages mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of available languages mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<Language> getAvailableLanguages() throws APIException;
 
     /**
-     * Returns further language information for a given language ID mapped as Java object. The language abbreviation can be used to set the preferred language
+     * Returns further language information for a given language ID mapped as Java DTO. The language abbreviation can be used to set the preferred language
      * for the communication with the remote service (see {@link #setLanguage(String)}.
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Languages/get_languages_id">/languages/{id}</a>
@@ -116,7 +154,7 @@ public interface TheTVDBApi {
      *
      * @param languageId The ID of the language
      *
-     * @return Mapped Java object containing detailed language information based on the JSON data returned by the remote service
+     * @return Mapped Java DTO containing detailed language information based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
      *                      if the given language ID does not exist.
@@ -124,7 +162,7 @@ public interface TheTVDBApi {
     Language getLanguage(long languageId) throws APIException;
 
     /**
-     * Returns a list of series search results based on the given query parameters mapped as Java object. The list contains basic information
+     * Returns a list of series search results based on the given query parameters mapped as Java DTO. The list contains basic information
      * of all series matching the query parameters.
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Search/get_search_series">/search/series</a>
@@ -135,7 +173,7 @@ public interface TheTVDBApi {
      * @param queryParameters Object containing key/value pairs of query search parameters. For a complete list of possible search parameters
      *                        see the API documentation or use {@link #getAvailableSeriesSearchParameters()}.
      *
-     * @return List of series search results mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of series search results mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
      *                      if no records are found that match your query.
@@ -143,13 +181,13 @@ public interface TheTVDBApi {
     List<SeriesSearchResult> searchSeries(QueryParameters queryParameters) throws APIException;
 
     /**
-     * Search for series by name. Returns a list of series search results mapped as Java object. The search results contain basic information
+     * Search for series by name. Returns a list of series search results mapped as Java DTO. The search results contain basic information
      * of all series matching the given name. This is a shortcut-method for {@link #searchSeries(QueryParameters) searchSeries(queryParameters)}
      * with a single "name" query parameter.
      *
      * @param name The name of the series to search for
      *
-     * @return List of series search results mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of series search results mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
      *                      if no records are found that match your query.
@@ -157,13 +195,13 @@ public interface TheTVDBApi {
     List<SeriesSearchResult> searchSeriesByName(@Nonnull String name) throws APIException;
 
     /**
-     * Search for series by IMDB-Id. Returns a list of series search results mapped as Java object. The search results contain basic information
+     * Search for series by IMDB-Id. Returns a list of series search results mapped as Java DTO. The search results contain basic information
      * of all series matching the given IMDB-Id. This is a shortcut-method for {@link #searchSeries(QueryParameters) searchSeries(queryParameters)}
      * with a single "imdbId" query parameter.
      *
      * @param imdbId The IMDB-Id of the series to search for
      *
-     * @return List of series search results mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of series search results mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
      *                      if no records are found that match your query.
@@ -171,13 +209,13 @@ public interface TheTVDBApi {
     List<SeriesSearchResult> searchSeriesByImdbId(@Nonnull String imdbId) throws APIException;
 
     /**
-     * Search for series by Zap2it-Id. Returns a list of series search results mapped as Java object. The search results contain basic information
+     * Search for series by Zap2it-Id. Returns a list of series search results mapped as Java DTO. The search results contain basic information
      * of all series matching the given Zap2it-Id. This is a shortcut-method for {@link #searchSeries(QueryParameters) searchSeries(queryParameters)}
      * with a single "zap2itId" query parameter.
      *
      * @param zap2itId The Zap2it-Id of the series to search for
      *
-     * @return List of series search results mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of series search results mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
      *                      if no records are found that match your query.
@@ -185,7 +223,7 @@ public interface TheTVDBApi {
     List<SeriesSearchResult> searchSeriesByZap2itId(@Nonnull String zap2itId) throws APIException;
 
     /**
-     * Returns possible query parameters, which can be used to search for series, mapped as Java object.
+     * Returns possible query parameters, which can be used to search for series, mapped as Java DTO.
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Search/get_search_series_params">/search/series/params</a>
      *
@@ -202,7 +240,7 @@ public interface TheTVDBApi {
     List<String> getAvailableSeriesSearchParameters() throws APIException;
 
     /**
-     * Returns detailed information for a specific series mapped as Java object.
+     * Returns detailed information for a specific series mapped as Java DTO.
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id">/series/{id}</a>
      *
@@ -211,7 +249,7 @@ public interface TheTVDBApi {
      *
      * @param seriesId The TheTVDB series ID
      *
-     * @return Detailed information for a specific series mapped as Java object based on the JSON data returned by the remote service
+     * @return Detailed information for a specific series mapped as Java DTO based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
@@ -234,7 +272,7 @@ public interface TheTVDBApi {
     Map<String, String> getSeriesHeaderInformation(long seriesId) throws APIException;
 
     /**
-     * Returns a list of actors for a specific series mapped as Java objects.
+     * Returns a list of actors for a specific series mapped as Java DTO.
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_actors">/series/{id}/actors</a>
      *
@@ -243,14 +281,14 @@ public interface TheTVDBApi {
      *
      * @param seriesId The TheTVDB series ID
      *
-     * @return List of actors mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of actors mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<Actor> getActors(long seriesId) throws APIException;
 
     /**
-     * Returns all episodes of a specific series mapped as Java objects. Results will be paginated with 100 results per page.
+     * Returns all episodes of a specific series mapped as Java DTO. Results will be paginated with 100 results per page.
      * Use <code>queryParameters</code> to select a specific result page.
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes">/series/{id}/episodes</a>
@@ -262,14 +300,14 @@ public interface TheTVDBApi {
      * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible parameters
      *                        see the API documentation.
      *
-     * @return List of episodes mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of episodes mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<Episode> getEpisodes(long seriesId, QueryParameters queryParameters) throws APIException;
 
     /**
-     * Returns the first 100 episodes of a specific series mapped as Java objects. Note that this method is deterministic and
+     * Returns the first 100 episodes of a specific series mapped as Java DTO. Note that this method is deterministic and
      * will always return the <b>first</b> result page of the available episodes. This is a shortcut-method for
      * {@link #getEpisodes(long, QueryParameters) getEpisodes(seriesId, queryParameters)} with an empty query parameter.
      *
@@ -277,14 +315,14 @@ public interface TheTVDBApi {
      *
      * @param seriesId The TheTVDB series ID
      *
-     * @return List of episodes mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of episodes mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<Episode> getEpisodes(long seriesId) throws APIException;
 
     /**
-     * Returns a list of episodes of a specific series mapped as Java objects. The result list will contain 100 episodes at most. For
+     * Returns a list of episodes of a specific series mapped as Java DTO. The result list will contain 100 episodes at most. For
      * series with more episodes use the <code>page</code> parameter to browse to a specific result page. This is a shortcut-method for
      * {@link #getEpisodes(long, QueryParameters) getEpisodes(seriesId, queryParameters)} with a single "page" query parameter.
      *
@@ -293,14 +331,14 @@ public interface TheTVDBApi {
      * @param seriesId The TheTVDB series ID
      * @param page The result page to be returned
      *
-     * @return List of episodes mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of episodes mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<Episode> getEpisodes(long seriesId, long page) throws APIException;
 
     /**
-     * Returns all matching episodes of a specific series mapped as Java objects. Results will be paginated. Note that this method
+     * Returns all matching episodes of a specific series mapped as Java DTO. Results will be paginated. Note that this method
      * is deterministic and will always return the <b>first</b> result page of the available episodes.
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_query">/series/{id}/episodes/query</a>
@@ -312,14 +350,14 @@ public interface TheTVDBApi {
      * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
      *                        see the API documentation or use {@link #getAvailableEpisodeQueryParameters(long) getAvailableEpisodeQueryParameters(seriesId)}.
      *
-     * @return List of episodes matching the query parameters, mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of episodes matching the query parameters, mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<Episode> queryEpisodes(long seriesId, QueryParameters queryParameters) throws APIException;
 
     /**
-     * Returns all episodes of a specific series and season mapped as Java objects. Results will be paginated. Note that this method
+     * Returns all episodes of a specific series and season mapped as Java DTO. Results will be paginated. Note that this method
      * is deterministic and will always return the <b>first</b> result page of the available episodes. This is a shortcut-method for
      * {@link #queryEpisodes(long, QueryParameters) queryEpisodes(seriesId, queryParameters)} with a single "airedSeason" query parameter.
      *
@@ -328,14 +366,14 @@ public interface TheTVDBApi {
      * @param seriesId The TheTVDB series ID
      * @param airedSeason The number of the aired season to query for
      *
-     * @return List of episodes for a specific season, mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of episodes for a specific season, mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<Episode> queryEpisodesByAiredSeason(long seriesId, long airedSeason) throws APIException;
 
     /**
-     * Returns all episodes of a specific series and season mapped as Java objects. Results will be paginated. For seasons with
+     * Returns all episodes of a specific series and season mapped as Java DTO. Results will be paginated. For seasons with
      * a high number of episodes use the <code>page</code> parameter to browse to a specific result page. This is a shortcut-method for
      * {@link #queryEpisodes(long, QueryParameters) queryEpisodes(seriesId, queryParameters)} with a "airedSeason" and "page" query parameter.
      *
@@ -345,14 +383,14 @@ public interface TheTVDBApi {
      * @param airedSeason The number of the aired season to query for
      * @param page The result page to be returned
      *
-     * @return List of episodes for a specific season, mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of episodes for a specific season, mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<Episode> queryEpisodesByAiredSeason(long seriesId, long airedSeason, long page) throws APIException;
 
     /**
-     * Returns all episodes of a specific series, matching the <code>airedEpisode</code> parameter, mapped as Java objects. Results will be paginated.
+     * Returns all episodes of a specific series, matching the <code>airedEpisode</code> parameter, mapped as Java DTO. Results will be paginated.
      * This is a shortcut-method for {@link #queryEpisodes(long, QueryParameters) queryEpisodes(seriesId, queryParameters)} with a single "airedEpisode"
      * query parameter.
      * <p/>
@@ -364,14 +402,14 @@ public interface TheTVDBApi {
      * @param seriesId The TheTVDB series ID
      * @param airedEpisode The number of the aired episode to query for
      *
-     * @return List of episodes for a specific season and aired episode number, mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of episodes for a specific season and aired episode number, mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<Episode> queryEpisodesByAiredEpisode(long seriesId, long airedEpisode) throws APIException;
 
     /**
-     * Returns a specific episode of a series, mapped as Java object. Results will be paginated.
+     * Returns a specific episode of a series, mapped as Java DTO. Results will be paginated.
      * This is a shortcut-method for {@link #queryEpisodes(long, QueryParameters) queryEpisodes(seriesId, queryParameters)} with a single "absoluteNumber"
      * query parameter.
      * <p/>
@@ -384,7 +422,7 @@ public interface TheTVDBApi {
      * @param seriesId The TheTVDB series ID
      * @param absoluteNumber The absolute number of the episode to query for (this is not the episode ID!)
      *
-     * @return List of episodes for an absolute episode number, mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of episodes for an absolute episode number, mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
@@ -409,7 +447,7 @@ public interface TheTVDBApi {
     List<String> getAvailableEpisodeQueryParameters(long seriesId) throws APIException;
 
     /**
-     * Returns a summary of the episodes and seasons available for a series, mapped as Java object.
+     * Returns a summary of the episodes and seasons available for a series, mapped as Java DTO.
      * <br/>
      * <b>Note:</b> Season "0" is for all episodes that are considered to be specials.
      * <p/>
@@ -420,14 +458,14 @@ public interface TheTVDBApi {
      *
      * @param seriesId The TheTVDB series ID
      *
-     * @return A summary of the episodes and seasons avaialable for the given series, mapped as Java object based on the JSON data returned by the remote service
+     * @return A summary of the episodes and seasons avaialable for the given series, mapped as Java DTO based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     SeriesSummary getSeriesEpisodesSummary(long seriesId) throws APIException;
 
     /**
-     * Returns a filtered series record based on the given parameters, mapped as Java object.
+     * Returns a filtered series record based on the given parameters, mapped as Java DTO.
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_filter">/series/{id}/filter</a>
      *
@@ -438,20 +476,20 @@ public interface TheTVDBApi {
      * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
      *                        see the API documentation or use {@link #getAvailableSeriesFilterParameters(long)} getAvailableSeriesFilterParameters(seriesId)}.
      *
-     * @return A filtered series record, mapped as Java object based on the JSON data returned by the remote service
+     * @return A filtered series record, mapped as Java DTO based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     Series filterSeries(long seriesId, QueryParameters queryParameters) throws APIException;
 
     /**
-     * Returns a series records, filtered by the supplied comma-separated list of keys, mapped as Java object. This is a shortcut-method for
+     * Returns a series records, filtered by the supplied comma-separated list of keys, mapped as Java DTO. This is a shortcut-method for
      * {@link #filterSeries(long, QueryParameters) filterSeries(seriesId, queryParameters)} with a single "keys" query parameter.
      *
      * @param seriesId The TheTVDB series ID
      * @param filterKeys Comma-separated list of keys to filter by
      *
-     * @return A filtered series record, mapped as Java object based on the JSON data returned by the remote service
+     * @return A filtered series record, mapped as Java DTO based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
@@ -476,7 +514,7 @@ public interface TheTVDBApi {
     List<String> getAvailableSeriesFilterParameters(long seriesId) throws APIException;
 
     /**
-     * Returns a summary of the images types and counts available for a particular series, mapped as Java object.
+     * Returns a summary of the images types and counts available for a particular series, mapped as Java DTO.
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images">/series/{id}/images</a>
      *
@@ -485,14 +523,14 @@ public interface TheTVDBApi {
      *
      * @param seriesId The TheTVDB series ID
      *
-     * @return A summary of the image types and counts available for the given series, mapped as Java object based on the JSON data returned by the remote service
+     * @return A summary of the image types and counts available for the given series, mapped as Java DTO based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     ImageSummary getSeriesImagesSummary(long seriesId) throws APIException;
 
     /**
-     * Returns the matching result of querying images for a specific series, mapped as Java object.
+     * Returns the matching result of querying images for a specific series, mapped as Java DTO.
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images_query">/series/{id}/images/query</a>
      *
@@ -503,14 +541,14 @@ public interface TheTVDBApi {
      * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
      *                        see the API documentation or use {@link #getAvailableImageQueryParameters(long)} getAvailableImageQueryParameters(seriesId)}.
      *
-     * @return List of images that matched the query, mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of images that matched the query, mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<Image> queryImages(long seriesId, QueryParameters queryParameters) throws APIException;
 
     /**
-     * Returns all images for a specific series, matching the given parameters, mapped as Java object. This is a shortcut-method for
+     * Returns all images for a specific series, matching the given parameters, mapped as Java DTO. This is a shortcut-method for
      * {@link #queryImages(long, QueryParameters) queryImages(seriesId, queryParameters)} with a "keyType" and "resolution" query parameter.
      * <p/>
      * Note: For more details regarding valid values for the method specific query parameters see the API documentation or use
@@ -522,14 +560,14 @@ public interface TheTVDBApi {
      * @param keyType Type of image you're querying for (fanart, poster, etc.)
      * @param resolution Resolution to filter by (1280x1024, for example)
      *
-     * @return List of images that matched the given parameters, mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of images that matched the given parameters, mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<Image> queryImages(long seriesId, @Nonnull String keyType, @Nonnull String resolution) throws APIException;
 
     /**
-     * Returns all images for a specific series, matching the given parameters, mapped as Java object. This is a shortcut-method for
+     * Returns all images for a specific series, matching the given parameters, mapped as Java DTO. This is a shortcut-method for
      * {@link #queryImages(long, QueryParameters) queryImages(seriesId, queryParameters)} with a "keyType", a "resolution" and a "subKey" query parameter.
      * <p/>
      * Note: For more details regarding valid values for the method specific query parameters see the API documentation or use
@@ -542,14 +580,14 @@ public interface TheTVDBApi {
      * @param resolution Resolution to filter by (1280x1024, for example)
      * @param subKey Subkey for the other method query parameters
      *
-     * @return List of images that matched the given parameters, mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of images that matched the given parameters, mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<Image> queryImages(long seriesId, @Nonnull String keyType, @Nonnull String resolution, @Nonnull String subKey) throws APIException;
 
     /**
-     * Returns all images of a specific type for a series, mapped as Java object. This is a shortcut-method for
+     * Returns all images of a specific type for a series, mapped as Java DTO. This is a shortcut-method for
      * {@link #queryImages(long, QueryParameters) queryImages(seriesId, queryParameters)} with a single "keyType" query parameter.
      * <p/>
      * Note: For more details regarding valid values for the method specific query parameters see the API documentation or use
@@ -558,14 +596,14 @@ public interface TheTVDBApi {
      * @param seriesId The TheTVDB series ID
      * @param keyType Type of image you're querying for (fanart, poster, etc.)
      *
-     * @return List of images of the given key type, mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of images of the given key type, mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<Image> queryImagesByKeyType(long seriesId, @Nonnull String keyType) throws APIException;
 
     /**
-     * Returns all images of a specific resolution for a series, mapped as Java object. This is a shortcut-method for
+     * Returns all images of a specific resolution for a series, mapped as Java DTO. This is a shortcut-method for
      * {@link #queryImages(long, QueryParameters) queryImages(seriesId, queryParameters)} with a single "resolution" query parameter.
      * <p/>
      * Note: For more details regarding valid values for the method specific query parameters see the API documentation or use
@@ -574,14 +612,14 @@ public interface TheTVDBApi {
      * @param seriesId The TheTVDB series ID
      * @param resolution Resolution to filter by (1280x1024, for example)
      *
-     * @return List of images with the given resolution, mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of images with the given resolution, mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<Image> queryImagesByResolution(long seriesId, @Nonnull String resolution) throws APIException;
 
     /**
-     * Returns all images of a specific sub key for a series, mapped as Java object. This is a shortcut-method for
+     * Returns all images of a specific sub key for a series, mapped as Java DTO. This is a shortcut-method for
      * {@link #queryImages(long, QueryParameters) queryImages(seriesId, queryParameters)} with a single "subKey" query parameter.
      * <p/>
      * Note: For more details regarding valid values for the method specific query parameters see the API documentation or use
@@ -590,14 +628,14 @@ public interface TheTVDBApi {
      * @param seriesId The TheTVDB series ID
      * @param subKey Subkey to query for
      *
-     * @return List of images matching the given sub key, mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of images matching the given sub key, mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<Image> queryImagesBySubKey(long seriesId, @Nonnull String subKey) throws APIException;
 
     /**
-     * Returns a list of valid parameters for querying a series images, mapped as Java object. Unlike other routes, querying for a series images may be resticted
+     * Returns a list of valid parameters for querying a series images, mapped as Java DTO. Unlike other routes, querying for a series images may be resticted
      * to certain combinations of query keys. The allowed combinations are clustered in the single {@link ImageQueryParameter} objects returned by this method.
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images_query_params">/series/{id}/images/query/params</a>
@@ -608,7 +646,7 @@ public interface TheTVDBApi {
      *
      * @param seriesId The TheTVDB series ID
      *
-     * @return A list of possible parameters which may be used to query a series images, mapped as Java objects based on the JSON data returned by the remote service
+     * @return A list of possible parameters which may be used to query a series images, mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
@@ -686,14 +724,14 @@ public interface TheTVDBApi {
     List<String> getAvailableLastUpdatedQueryParameters() throws APIException;
 
     /**
-     * Returns basic information about the currently authenticated user, mapped as Java object.
+     * Returns basic information about the currently authenticated user, mapped as Java DTO.
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user">/user</a>
      *
      * @see JSON#getUser()
      * @see Extended#getUser()
      *
-     * @return Basic user information, mapped as Java object based on the JSON data returned by the remote service
+     * @return Basic user information, mapped as Java DTO based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
@@ -748,21 +786,21 @@ public interface TheTVDBApi {
     List<String> addToFavorites(long seriesId) throws APIException;
 
     /**
-     * Returns a list of ratings for the given user, mapped as Java object.
+     * Returns a list of ratings for the given user, mapped as Java DTO.
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings">/user/ratings</a>
      *
      * @see JSON#getRatings()
      * @see Extended#getRatings()
      *
-     * @return List of user ratings, mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of user ratings, mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<Rating> getRatings() throws APIException;
 
     /**
-     * Returns a list of ratings for a given user that match the query, mapped as Java object.
+     * Returns a list of ratings for a given user that match the query, mapped as Java DTO.
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings_query">/user/ratings/query</a>
      *
@@ -772,19 +810,19 @@ public interface TheTVDBApi {
      * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
      *                        see the API documentation or use {@link #getAvailableRatingsQueryParameters()}.
      *
-     * @return List of user ratings that match the given query, mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of user ratings that match the given query, mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
     List<Rating> queryRatings(QueryParameters queryParameters) throws APIException;
 
     /**
-     * Returns a list of ratings for a given user that match the <code>itemType</code> parameter, mapped as Java object. This is a shortcut-method for
+     * Returns a list of ratings for a given user that match the <code>itemType</code> parameter, mapped as Java DTO. This is a shortcut-method for
      * {@link #queryRatings(QueryParameters) queryRatings(queryParameters)} with a single "itemType" query parameter.
      *
      * @param itemType Item to query. Can be either 'series', 'episode', or 'banner'.
      *
-     * @return List of user ratings with the given item type, mapped as Java objects based on the JSON data returned by the remote service
+     * @return List of user ratings with the given item type, mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
@@ -823,7 +861,7 @@ public interface TheTVDBApi {
     void deleteFromRatings(@Nonnull String itemType, long itemId) throws APIException;
 
     /**
-     * Updates a given rating of a given type and returns the modified rating, mapped as Java object. If no rating exists yet, a new rating
+     * Updates a given rating of a given type and returns the modified rating, mapped as Java DTO. If no rating exists yet, a new rating
      * will be created.
      * <p/>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/put_user_ratings_itemType_itemId_itemRating">/user/ratings/{itemType}/{itemId}/{itemRating}</a>
@@ -836,7 +874,7 @@ public interface TheTVDBApi {
      * @param itemId ID of the ratings record that you wish to modify
      * @param itemRating The updated rating number
      *
-     * @return The modified rating (whether it was added or updated), mapped as Java object based on the JSON data returned by the remote service
+     * @return The modified rating (whether it was added or updated), mapped as Java DTO based on the JSON data returned by the remote service
      *         <br/>
      *         <b>Note:</b> It seems that the data returned by the remote service for this route is quite unreliable! It might not always return the
      *         modified rating but an empty data array instead.
@@ -845,10 +883,35 @@ public interface TheTVDBApi {
      */
     List<Rating> addToRatings(@Nonnull String itemType, long itemId, long itemRating) throws APIException;
 
+    /**
+     * Provides access to the API's {@link JSON JSON} layout.
+     * <p/>
+     * In this layout, all methods will return the raw, unmodified JSON as received from the remove service.
+     *
+     * @return Instance representing the the API's <code>JSON</code> layout
+     */
     JSON json();
 
+    /**
+     * Provides access to the API's {@link Extended Extended} layout.
+     * <p/>
+     * In this layout, all methods will return a single {@link APIResponse} object, containing the actual request data, mapped as DTO, as well as
+     * all additional information that is available in the corresponding context.
+     *
+     * @return Instance representing the the API's <code>Extended</code> layout
+     */
     Extended extended();
 
+    /**
+     * Interface representing the API's <code>JSON</code> layout.
+     * <p/>
+     * This layout may be used if you do not want any post-processing being applied to the actual remote service response data. All methods within this
+     * layout will return the raw, unmodified JSON data as it was received from the API. This might be useful if you prefer to map the JSON data yourself,
+     * want to use your own Java data models or if you don't want to parse the JSON data at all (but forward it to some other service for example). This layout
+     * does not provide any shortcut-methods though.
+     *
+     * @see #json()
+     */
     interface JSON {
 
         /**
@@ -1335,10 +1398,20 @@ public interface TheTVDBApi {
         JsonNode addToRatings(@Nonnull String itemType, long itemId, long itemRating) throws APIException;
     }
 
+    /**
+     * Interface representing the API's <code>Extended</code> layout.
+     * <p/>
+     * This layout may be used for slightly advance API integration. Like the common layout it'll take care of parsing the recieved JSON into Java DTO's
+     * but it will also provide access to any additional contextual information. Methods of this layout will always return a single {@link APIResponse}
+     * object which consists of the actual data, parsed as DTO, as well as all additional information which is available in the given context, like
+     * additional error or pagination information. This layout does not provide any shortcut-methods.
+     *
+     * @see #extended()
+     */
     interface Extended {
 
         /**
-         * Returns a response object containing the full information for a given episode id as mapped Java object.
+         * Returns a response object containing the full information for a given episode id as mapped Java DTO.
          * <p/>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Episodes/get_episodes_id">/episodes/{id}</a>
          *
@@ -1355,7 +1428,7 @@ public interface TheTVDBApi {
         APIResponse<Episode> getEpisode(long episodeId) throws APIException;
 
         /**
-         * Returns a response object containing a list of all supported languages mapped as Java object. These language abbreviations can be used to set the preferred language
+         * Returns a response object containing a list of all supported languages mapped as Java DTO. These language abbreviations can be used to set the preferred language
          * for the communication with the remote service (see {@link #setLanguage(String)}.
          * <p/>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Languages/get_languages">/languages</a>
@@ -1371,7 +1444,7 @@ public interface TheTVDBApi {
         APIResponse<List<Language>> getAvailableLanguages() throws APIException;
 
         /**
-         * Returns a response object containing further language information for a given language ID mapped as Java object. The language abbreviation can be used to set the preferred language
+         * Returns a response object containing further language information for a given language ID mapped as Java DTO. The language abbreviation can be used to set the preferred language
          * for the communication with the remote service (see {@link #setLanguage(String)}.
          * <p/>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Languages/get_languages_id">/languages/{id}</a>
@@ -1390,7 +1463,7 @@ public interface TheTVDBApi {
         APIResponse<Language> getLanguage(long languageId) throws APIException;
 
         /**
-         * Returns a response object containing a list of series search results based on the given query parameters mapped as Java object. The list contains
+         * Returns a response object containing a list of series search results based on the given query parameters mapped as Java DTO. The list contains
          * basic information of all series matching the query parameters.
          * <p/>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Search/get_search_series">/search/series</a>
@@ -1410,7 +1483,7 @@ public interface TheTVDBApi {
         APIResponse<List<SeriesSearchResult>> searchSeries(QueryParameters queryParameters) throws APIException;
 
         /**
-         * Returns a response object containing possible query parameters, which can be used to search for series, mapped as Java object.
+         * Returns a response object containing possible query parameters, which can be used to search for series, mapped as Java DTO.
          * <p/>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Search/get_search_series_params">/search/series/params</a>
          *
@@ -1427,7 +1500,7 @@ public interface TheTVDBApi {
         APIResponse<List<String>> getAvailableSeriesSearchParameters() throws APIException;
 
         /**
-         * Returns a response object containing detailed information for a specific series mapped as Java object.
+         * Returns a response object containing detailed information for a specific series mapped as Java DTO.
          * <p/>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id">/series/{id}</a>
          *
@@ -1444,7 +1517,7 @@ public interface TheTVDBApi {
         APIResponse<Series> getSeries(long seriesId) throws APIException;
 
         /**
-         * Returns a response object containing a list of actors for a specific series mapped as Java objects.
+         * Returns a response object containing a list of actors for a specific series mapped as Java DTO.
          * <p/>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_actors">/series/{id}/actors</a>
          *
@@ -1461,7 +1534,7 @@ public interface TheTVDBApi {
         APIResponse<List<Actor>> getActors(long seriesId) throws APIException;
 
         /**
-         * Returns a response object containing all episodes of a specific series mapped as Java objects. Results will be paginated with 100 results per page.
+         * Returns a response object containing all episodes of a specific series mapped as Java DTO. Results will be paginated with 100 results per page.
          * Use <code>queryParameters</code> to select a specific result page.
          * <p/>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes">/series/{id}/episodes</a>
@@ -1481,7 +1554,7 @@ public interface TheTVDBApi {
         APIResponse<List<Episode>> getEpisodes(long seriesId, QueryParameters queryParameters) throws APIException;
 
         /**
-         * Returns a response object containing all matching episodes of a specific series mapped as Java objects. Results will be paginated. Note that this method
+         * Returns a response object containing all matching episodes of a specific series mapped as Java DTO. Results will be paginated. Note that this method
          * is deterministic and will always return the <b>first</b> result page of the available episodes.
          * <p/>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_query">/series/{id}/episodes/query</a>
@@ -1520,7 +1593,7 @@ public interface TheTVDBApi {
         APIResponse<List<String>> getAvailableEpisodeQueryParameters(long seriesId) throws APIException;
 
         /**
-         * Returns a response object containing a summary of the episodes and seasons available for a series, mapped as Java object.
+         * Returns a response object containing a summary of the episodes and seasons available for a series, mapped as Java DTO.
          * <br/>
          * <b>Note:</b> Season "0" is for all episodes that are considered to be specials.
          * <p/>
@@ -1539,7 +1612,7 @@ public interface TheTVDBApi {
         APIResponse<SeriesSummary> getSeriesEpisodesSummary(long seriesId) throws APIException;
 
         /**
-         * Returns a response object containing a filtered series record based on the given parameters, mapped as Java object.
+         * Returns a response object containing a filtered series record based on the given parameters, mapped as Java DTO.
          * <p/>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_filter">/series/{id}/filter</a>
          *
@@ -1577,7 +1650,7 @@ public interface TheTVDBApi {
         APIResponse<List<String>> getAvailableSeriesFilterParameters(long seriesId) throws APIException;
 
         /**
-         * Returns a response object containing a summary of the images types and counts available for a particular series, mapped as Java object.
+         * Returns a response object containing a summary of the images types and counts available for a particular series, mapped as Java DTO.
          * <p/>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images">/series/{id}/images</a>
          *
@@ -1594,7 +1667,7 @@ public interface TheTVDBApi {
         APIResponse<ImageSummary> getSeriesImagesSummary(long seriesId) throws APIException;
 
         /**
-         * Returns a response object containing the matching result of querying images for a specific series, mapped as Java object.
+         * Returns a response object containing the matching result of querying images for a specific series, mapped as Java DTO.
          * <p/>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images_query">/series/{id}/images/query</a>
          *
@@ -1613,7 +1686,7 @@ public interface TheTVDBApi {
         APIResponse<List<Image>> queryImages(long seriesId, QueryParameters queryParameters) throws APIException;
 
         /**
-         * Returns a response object containing a list of valid parameters for querying a series images, mapped as Java object. Unlike other routes, querying for
+         * Returns a response object containing a list of valid parameters for querying a series images, mapped as Java DTO. Unlike other routes, querying for
          * a series images may be resticted to certain combinations of query keys. The allowed combinations are clustered in the single {@link ImageQueryParameter}
          * objects of the returned API responses data object.
          * <p/>
@@ -1673,7 +1746,7 @@ public interface TheTVDBApi {
         APIResponse<List<String>> getAvailableLastUpdatedQueryParameters() throws APIException;
 
         /**
-         * Returns a response object containing basic information about the currently authenticated user, mapped as Java object.
+         * Returns a response object containing basic information about the currently authenticated user, mapped as Java DTO.
          * <p/>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user">/user</a>
          *
@@ -1740,7 +1813,7 @@ public interface TheTVDBApi {
         APIResponse<List<String>> addToFavorites(long seriesId) throws APIException;
 
         /**
-         * Returns a response object containing a list of ratings for the given user, mapped as Java object.
+         * Returns a response object containing a list of ratings for the given user, mapped as Java DTO.
          * <p/>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings">/user/ratings</a>
          *
@@ -1755,7 +1828,7 @@ public interface TheTVDBApi {
         APIResponse<List<Rating>> getRatings() throws APIException;
 
         /**
-         * Returns a response object containing a list of ratings for a given user that match the query, mapped as Java object.
+         * Returns a response object containing a list of ratings for a given user that match the query, mapped as Java DTO.
          * <p/>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings_query">/user/ratings/query</a>
          *
@@ -1806,7 +1879,7 @@ public interface TheTVDBApi {
         void deleteFromRatings(@Nonnull String itemType, long itemId) throws APIException;
 
         /**
-         * Updates a given rating of a given type and return a response object containing the modified rating, mapped as Java object. If no rating exists
+         * Updates a given rating of a given type and return a response object containing the modified rating, mapped as Java DTO. If no rating exists
          * yet, a new rating will be created.
          * <p/>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/put_user_ratings_itemType_itemId_itemRating">/user/ratings/{itemType}/{itemId}/{itemRating}</a>
