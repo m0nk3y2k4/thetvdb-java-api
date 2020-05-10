@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class APIResponseImpl<T> implements APIResponse<T> {
+public class APIResponseDTO<T> implements APIResponse<T> {
 
     /** Requested record data */
     private T data;
@@ -60,14 +60,14 @@ public class APIResponseImpl<T> implements APIResponse<T> {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class JSONErrorsImpl implements JSONErrors {
+    public static class JSONErrorsDTO implements JSONErrors {
 
         /** JSON properties mapped as Java types */
         private List<String> invalidFilters;
         private String invalidLanguage;
         private List<String> invalidQueryParams;
 
-        public JSONErrorsImpl() {
+        public JSONErrorsDTO() {
             super();
             this.invalidFilters = Collections.emptyList();
             this.invalidQueryParams = Collections.emptyList();
@@ -117,7 +117,7 @@ public class APIResponseImpl<T> implements APIResponse<T> {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class LinksImpl implements Links {
+    public static class LinksDTO implements Links {
 
         /** JSON properties mapped as Java types */
         private Integer first;

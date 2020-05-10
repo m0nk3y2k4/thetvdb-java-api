@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class EpisodeImpl implements Episode {
+public class EpisodeDTO implements Episode {
 
     private Long absoluteNumber;
     private Long airedEpisodeNumber;
@@ -41,7 +41,7 @@ public class EpisodeImpl implements Episode {
     private String thumbWidth;
     private List<String> writers;
 
-    public EpisodeImpl() {
+    public EpisodeDTO() {
         super();
         this.directors = Collections.emptyList();
         this.guestStars = Collections.emptyList();

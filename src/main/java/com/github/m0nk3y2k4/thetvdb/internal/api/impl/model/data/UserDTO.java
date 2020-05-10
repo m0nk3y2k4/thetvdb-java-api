@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.User;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserImpl implements User {
+public class UserDTO implements User {
 
     private String favoritesDisplaymode;
     private String language;

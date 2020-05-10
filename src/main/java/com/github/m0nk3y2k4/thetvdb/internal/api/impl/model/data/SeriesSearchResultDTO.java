@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesSearchResult;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SeriesSearchResultImpl implements SeriesSearchResult {
+public class SeriesSearchResultDTO implements SeriesSearchResult {
 
     private List<String> aliases;
     private String banner;
@@ -19,7 +19,7 @@ public class SeriesSearchResultImpl implements SeriesSearchResult {
     private String slug;
     private String status;
 
-    public SeriesSearchResultImpl() {
+    public SeriesSearchResultDTO() {
         this.aliases = Collections.emptyList();
     }
 

@@ -7,14 +7,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ImageQueryParameter;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ImageQueryParameterImpl implements ImageQueryParameter {
+public class ImageQueryParameterDTO implements ImageQueryParameter {
 
     private String keyType;
     private String languageId;
     private List<String> resolution;
     private List<String> subKey;
 
-    public ImageQueryParameterImpl() {
+    public ImageQueryParameterDTO() {
         this.resolution = new ArrayList<>();
         this.subKey = new ArrayList<>();
     }

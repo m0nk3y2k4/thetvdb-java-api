@@ -34,18 +34,18 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesSearchResult;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesSummary;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.User;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.APIResponseImpl;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ActorImpl;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EpisodeImpl;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ImageImpl;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ImageQueryParameterImpl;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ImageSummaryImpl;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.LanguageImpl;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.RatingImpl;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesImpl;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesSearchResultImpl;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesSummaryImpl;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.UserImpl;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.APIResponseDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ActorDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EpisodeDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ImageDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ImageQueryParameterDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ImageSummaryDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.LanguageDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.RatingDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesSearchResultDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesSummaryDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.UserDTO;
 
 public final class JsonDeserializer {
 
@@ -56,20 +56,20 @@ public final class JsonDeserializer {
         // Add Interface <-> Implementation mappings to the module. The object mapper will use these mappings to
         // determine and instantiate the proper implementation class for a specific interface.
         DFAULT_MODULE.setAbstractTypes(new SimpleAbstractTypeResolver()
-                .addMapping(SeriesSearchResult.class, SeriesSearchResultImpl.class)
-                .addMapping(Series.class, SeriesImpl.class)
-                .addMapping(Episode.class, EpisodeImpl.class)
-                .addMapping(Language.class, LanguageImpl.class)
-                .addMapping(Actor.class, ActorImpl.class)
-                .addMapping(SeriesSummary.class, SeriesSummaryImpl.class)
-                .addMapping(ImageQueryParameter.class, ImageQueryParameterImpl.class)
-                .addMapping(ImageSummary.class, ImageSummaryImpl.class)
-                .addMapping(Image.class, ImageImpl.class)
-                .addMapping(Rating.class, RatingImpl.class)
-                .addMapping(User.class, UserImpl.class)
-                .addMapping(APIResponse.class, APIResponseImpl.class)
-                .addMapping(APIResponse.JSONErrors.class, APIResponseImpl.JSONErrorsImpl.class)
-                .addMapping(APIResponse.Links.class, APIResponseImpl.LinksImpl.class)
+                .addMapping(SeriesSearchResult.class, SeriesSearchResultDTO.class)
+                .addMapping(Series.class, SeriesDTO.class)
+                .addMapping(Episode.class, EpisodeDTO.class)
+                .addMapping(Language.class, LanguageDTO.class)
+                .addMapping(Actor.class, ActorDTO.class)
+                .addMapping(SeriesSummary.class, SeriesSummaryDTO.class)
+                .addMapping(ImageQueryParameter.class, ImageQueryParameterDTO.class)
+                .addMapping(ImageSummary.class, ImageSummaryDTO.class)
+                .addMapping(Image.class, ImageDTO.class)
+                .addMapping(Rating.class, RatingDTO.class)
+                .addMapping(User.class, UserDTO.class)
+                .addMapping(APIResponse.class, APIResponseDTO.class)
+                .addMapping(APIResponse.JSONErrors.class, APIResponseDTO.JSONErrorsDTO.class)
+                .addMapping(APIResponse.Links.class, APIResponseDTO.LinksDTO.class)
         );
     }
 
@@ -201,16 +201,16 @@ class FunctionalDeserializer<T> extends com.fasterxml.jackson.databind.JsonDeser
         ObjectMapper mapper = new ObjectMapper();
         JsonNode json = mapper.readTree(p);
 
-        APIResponseImpl<T> response = new APIResponseImpl<>();
+        APIResponseDTO<T> response = new APIResponseDTO<>();
 
         if (json.has("data")) {
             response.setData(dataFunction.apply(json));
         }
         if (json.has("errors")) {
-            response.setErrors(mapper.readValue(json.get("errors").toString(), APIResponseImpl.JSONErrorsImpl.class));
+            response.setErrors(mapper.readValue(json.get("errors").toString(), APIResponseDTO.JSONErrorsDTO.class));
         }
         if (json.has("links")) {
-            response.setLinks(mapper.readValue(json.get("links").toString(), APIResponseImpl.LinksImpl.class));
+            response.setLinks(mapper.readValue(json.get("links").toString(), APIResponseDTO.LinksDTO.class));
         }
 
         return response;

@@ -7,7 +7,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.ImageSummary;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ImageSummaryImpl implements ImageSummary {
+public class ImageSummaryDTO implements ImageSummary {
 
     @JsonProperty("fanart")
     private Long fanartCount;

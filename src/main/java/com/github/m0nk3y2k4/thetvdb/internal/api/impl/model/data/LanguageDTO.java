@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Language;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class LanguageImpl implements Language {
+public class LanguageDTO implements Language {
 
     private String abbreviation;
     private String englishName;

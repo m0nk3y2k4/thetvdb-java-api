@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Image;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ImageImpl implements Image {
+public class ImageDTO implements Image {
 
     private String fileName;
     private Long id;

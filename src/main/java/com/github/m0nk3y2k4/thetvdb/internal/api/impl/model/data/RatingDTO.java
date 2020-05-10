@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Rating;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RatingImpl implements Rating {
+public class RatingDTO implements Rating {
 
     private Double rating;
     private Long ratingItemId;

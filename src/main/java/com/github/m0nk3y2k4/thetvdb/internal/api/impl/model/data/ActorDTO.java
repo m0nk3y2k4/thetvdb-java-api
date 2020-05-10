@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Actor;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ActorImpl implements Actor {
+public class ActorDTO implements Actor {
 
     private Long id;
     private String image;

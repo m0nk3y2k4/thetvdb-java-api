@@ -7,14 +7,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesSummary;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SeriesSummaryImpl implements SeriesSummary {
+public class SeriesSummaryDTO implements SeriesSummary {
 
     private String airedEpisodes;
     private List<String> airedSeasons;
     private String dvdEpisodes;
     private List<String> dvdSeasons;
 
-    public SeriesSummaryImpl() {
+    public SeriesSummaryDTO() {
         this.airedSeasons = Collections.emptyList();
         this.dvdSeasons = Collections.emptyList();
     }

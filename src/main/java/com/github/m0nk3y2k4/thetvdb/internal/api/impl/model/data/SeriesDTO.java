@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SeriesImpl extends SeriesSearchResultImpl implements Series {
+public class SeriesDTO extends SeriesSearchResultDTO implements Series {
 
     private String added;
     private String airsDayOfWeek;
@@ -23,7 +23,7 @@ public class SeriesImpl extends SeriesSearchResultImpl implements Series {
     private Long siteRatingCount;
     private String zap2itId;
 
-    public SeriesImpl() {
+    public SeriesDTO() {
         super();
         this.genre = Collections.emptyList();
     }
