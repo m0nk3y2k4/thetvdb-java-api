@@ -1,15 +1,18 @@
 package com.github.m0nk3y2k4.thetvdb.internal.resource;
 
-import java.util.function.Function;
+import java.util.function.Predicate;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
 public abstract class Resource {
 
-    protected static final Function<Long, Boolean> ID_VALIDATOR = value -> value > 0;
+    protected static final Predicate<Long> ID_VALIDATOR = value -> value > 0;
 
     protected static final String PATH_ID = "id";
+
+    protected Resource() {
+    }
 
     protected static String createResource(@Nonnull String base, Object... pathParams) {
         return createResource(base, null, pathParams);

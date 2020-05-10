@@ -144,7 +144,7 @@ public class EpisodeDTO implements Episode {
      *
      * @param director the director to set
      */
-    @Deprecated
+    @Deprecated(since = "0.0.1", forRemoval = true)
     public void setDirector(String director) {
         this.director = director;
     }

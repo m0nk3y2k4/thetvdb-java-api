@@ -513,6 +513,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
             validateUserAuthentication();
             return UsersAPI.addToRatings(con, itemType, itemId, itemRating);
         }
+
+        private void validateUserAuthentication() {
+            if (!con.userAuthentication()) {
+                throw new IllegalArgumentException("API call requires userKey/userName to be set!");
+            }
+        }
     }
 
     private class ExtendedApi implements Extended {
@@ -658,12 +664,6 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     private void validateNotEmpty(String... params) {
         if (!APIUtil.hasValue(params)) {
             throw new IllegalArgumentException("Method parameters must not be null or empty!");
-        }
-    }
-
-    private void validateUserAuthentication() {
-        if (!con.userAuthentication()) {
-            throw new IllegalArgumentException("API call requires userKey/userName to be set!");
         }
     }
 

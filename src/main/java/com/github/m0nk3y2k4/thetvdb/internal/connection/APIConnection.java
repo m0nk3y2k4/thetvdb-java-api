@@ -9,6 +9,7 @@ import static com.github.m0nk3y2k4.thetvdb.internal.connection.APISession.Status
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 import java.util.Map.Entry;
@@ -216,15 +217,15 @@ abstract class APIRequest {
         int responseCode = con.getResponseCode();
 
         switch (responseCode) {
-            case HttpsURLConnection.HTTP_OK:
+            case HttpURLConnection.HTTP_OK:
                 return parseResponse(con);
-            case HttpsURLConnection.HTTP_UNAUTHORIZED:
+            case HttpURLConnection.HTTP_UNAUTHORIZED:
                 throw new APINotAuthorizedException(getError(con));
-            case HttpsURLConnection.HTTP_NOT_FOUND:
+            case HttpURLConnection.HTTP_NOT_FOUND:
                 throw new APIException(API_NOT_FOUND_ERROR, getError(con));
-            case HttpsURLConnection.HTTP_CONFLICT:
+            case HttpURLConnection.HTTP_CONFLICT:
                 throw new APIException(API_CONFLICT_ERROR, getError(con));
-            case HttpsURLConnection.HTTP_UNAVAILABLE:
+            case HttpURLConnection.HTTP_UNAVAILABLE:
                 throw new APIException(API_SERVICE_UNAVAILABLE);
             default:
                 throw new APICommunicationException(String.format(ERR_UNEXPECTED_RESPONSE, responseCode, getError(con)));

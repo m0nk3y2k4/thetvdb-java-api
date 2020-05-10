@@ -41,7 +41,7 @@ public abstract class QueryResource extends Resource {
         return APIUtil.hasValue(param.getKey(), param.getValue());
     }
 
-    private static String encode(@Nonnull String value) throws APIRuntimeException {
+    private static String encode(@Nonnull String value) {
         try {
             return URLEncoder.encode(value, Charset.defaultCharset().name());
         } catch (UnsupportedEncodingException ex) {

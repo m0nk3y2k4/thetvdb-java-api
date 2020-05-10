@@ -10,6 +10,9 @@ import java.util.Map;
 
 public class TheTVDBApiFactory {
 
+    private TheTVDBApiFactory() {
+    }
+
     /**
      * Creates a new TheTVDBApi instance. The given <code>apiKey</code> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a> which will
      * be used for remote service authentication. To authenticate and generate a new session token use the {@link TheTVDBApi#init()} or {@link TheTVDBApi#login()}

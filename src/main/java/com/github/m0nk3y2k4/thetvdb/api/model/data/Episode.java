@@ -52,7 +52,7 @@ public interface Episode {
      *
      * @return the director
      */
-    @Deprecated
+    @Deprecated(since = "0.0.1", forRemoval = true)
     String getDirector();
 
     /**

@@ -1,7 +1,7 @@
 package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
 import java.util.Arrays;
-import java.util.function.Function;
+import java.util.function.Predicate;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
@@ -17,7 +17,7 @@ public final class UsersAPI extends QueryResource {
 
     private static final String BASE = "/user";
 
-    private static final Function<String, Boolean> ITEMTYPE_VALIDATOR = value -> Arrays.asList("series", "episode", "image").contains(value);
+    private static final Predicate<String> ITEMTYPE_VALIDATOR = value -> Arrays.asList("series", "episode", "image").contains(value);
 
     private static final String PATH_ITEMTYPE = "itemType";
     private static final String PATH_ITEMID = "itemId";
