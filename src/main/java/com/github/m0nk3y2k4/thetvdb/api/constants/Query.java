@@ -1,11 +1,18 @@
 package com.github.m0nk3y2k4.thetvdb.api.constants;
 
 /**
- * Collction of query parameter constants used throughout the various TheTVDB routes
+ * Collction of query parameter constants used throughout the various TheTVDB routes.
+ * <ul>
+ *     <li>{@link Search}</li>
+ *     <li>{@link Series}</li>
+ *     <li>{@link Updates}</li>
+ *     <li>{@link Users}</li>
+ * </ul>
+ * The parameters of this class may be used to create own {@link com.github.m0nk3y2k4.thetvdb.api.QueryParameters QueryParameters} objects.
  */
 public final class Query {
 
-    /** Constant classes should not be instantiated */
+    /** Constant class. Should not be instantiated */
     private Query() {}
 
     /**
@@ -23,6 +30,9 @@ public final class Query {
 
         /** Query parameter "<i>zap2itId</i>" - Zap2it ID of the series to search for */
         public static final String ZAP2ITID = "zap2itId";
+
+        /** Query parameter "<i>slug</i>" - Slug from site URL of series (<a href="https://www.thetvdb.com/series/$SLUG">https://www.thetvdb.com/series/$SLUG</a>) */
+        public static final String SLUG = "slug";
     }
 
     /**

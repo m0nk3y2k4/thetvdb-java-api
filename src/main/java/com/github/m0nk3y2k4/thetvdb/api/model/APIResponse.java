@@ -10,16 +10,16 @@ import java.util.Optional;
  * <p/>
  * <b>Note:</b><br/>
  * The type and amount of additional information returned by the remote service depends on the actual API route. Some will only return the requested
- * records, other will also report additional error information in case invalid parameters of filters have been used by the client. API calls that
+ * records, other will also report additional error information in case invalid filter parameters have been used by the client. API calls that
  * support pagination might also add some additional information which can be used to navigate through the "pages".
  * <p/>
  *
- * @param <T> Type of actual payload data returned by the remote service
+ * @param <T> The actual payload DTO based on the data returned by the remote service
  */
 public interface APIResponse<T> {
 
     /**
-     * Returns the actually requested records mapped as Java object.
+     * Returns the actually requested records mapped as Java DTO.
      *
      * @return Data returned by the API call
      */
