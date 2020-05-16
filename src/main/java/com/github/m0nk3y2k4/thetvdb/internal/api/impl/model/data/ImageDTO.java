@@ -1,158 +1,37 @@
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Image;
+import org.immutables.value.Value.Immutable;
+import org.immutables.value.Value.Style;
 
+import javax.annotation.Nullable;
+import java.util.Map;
+import java.util.Optional;
+
+@Immutable
+@Style(visibility = Style.ImplementationVisibility.PRIVATE)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ImageDTO implements Image {
-
-    private String fileName;
-    private Long id;
-    private String keyType;
-    private Long languageId;
-    private Double ratingAverage;
-    private Integer ratingCount;
-    private String resolution;
-    private String subKey;
-    private String thumbnail;
+@JsonDeserialize(builder = com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ImageDTOBuilder.class)
+public abstract class ImageDTO implements Image {
 
     @Override
-    public String getFileName() {
-        return fileName;
-    }
-
-    /**
-     * Set the fileName
-     *
-     * @param fileName the fileName to set
-     */
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    @Nullable public Double getRatingAverage() {
+        return Optional.ofNullable(getRatingsInfo()).map(ri -> ri.get("average")).map(Integer.class::cast).map(Double::valueOf).orElse(null);
     }
 
     @Override
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * Set the id
-     *
-     * @param id the id to set
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public String getKeyType() {
-        return keyType;
-    }
-
-    /**
-     * Set the keyType
-     *
-     * @param keyType the keyType to set
-     */
-    public void setKeyType(String keyType) {
-        this.keyType = keyType;
-    }
-
-    @Override
-    public Long getLanguageId() {
-        return languageId;
-    }
-
-    /**
-     * Set the languageId
-     *
-     * @param languageId the languageId to set
-     */
-    public void setLanguageId(Long languageId) {
-        this.languageId = languageId;
-    }
-
-    @Override
-    public Double getRatingAverage() {
-        return ratingAverage;
-    }
-
-    /**
-     * Set the ratingAverage
-     *
-     * @param ratingAverage the ratingAverage to set
-     */
-    public void setRatingAverage(Double ratingAverage) {
-        this.ratingAverage = ratingAverage;
-    }
-
-    @Override
-    public Integer getRatingCount() {
-        return ratingCount;
-    }
-
-    /**
-     * Set the ratingCount
-     *
-     * @param ratingCount the ratingCount to set
-     */
-    public void setRatingCount(Integer ratingCount) {
-        this.ratingCount = ratingCount;
-    }
-
-    @Override
-    public String getResolution() {
-        return resolution;
-    }
-
-    /**
-     * Set the resolution
-     *
-     * @param resolution the resolution to set
-     */
-    public void setResolution(String resolution) {
-        this.resolution = resolution;
-    }
-
-    @Override
-    public String getSubKey() {
-        return subKey;
-    }
-
-    /**
-     * Set the subKey
-     *
-     * @param subKey the subKey to set
-     */
-    public void setSubKey(String subKey) {
-        this.subKey = subKey;
-    }
-
-    @Override
-    public String getThumbnail() {
-        return thumbnail;
-    }
-
-    /**
-     * Set the thumbnail
-     *
-     * @param thumbnail the thumbnail to set
-     */
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
+    @Nullable public Integer getRatingCount() {
+        return Optional.ofNullable(getRatingsInfo()).map(ri -> ri.get("count")).map(Integer.class::cast).orElse(null);
     }
 
     @JsonProperty("ratingsInfo")
-    public void mapLanguage(Map<String,Object> ratingInfo) {
-        this.ratingAverage = Double.valueOf(ratingInfo.get("average").toString());
-        this.ratingCount = (Integer)ratingInfo.get("count");
-    }
+    abstract Map<String,Object> getRatingsInfo();
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", this.keyType, this.fileName);
+        return String.format("[%s] %s", getKeyType(), getFileName());
     }
 }

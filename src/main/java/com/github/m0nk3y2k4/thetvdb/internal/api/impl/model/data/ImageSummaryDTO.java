@@ -2,102 +2,43 @@ package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ImageSummary;
+import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
+import org.immutables.value.Value.Immutable;
+import org.immutables.value.Value.Style;
 
-import java.util.Objects;
+import javax.annotation.Nullable;
 
+@Immutable
+@Style(visibility = Style.ImplementationVisibility.PRIVATE)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ImageSummaryDTO implements ImageSummary {
+@JsonDeserialize(builder = com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ImageSummaryDTOBuilder.class)
+public abstract class ImageSummaryDTO implements ImageSummary {
 
-    @JsonProperty("fanart")
-    private Long fanartCount;
-    @JsonProperty("poster")
-    private Long posterCount;
-    @JsonProperty("season")
-    private Long seasonCount;
-    @JsonProperty("seasonwide")
-    private Long seasonwideCount;
-    @JsonProperty("series")
-    private Long seriesCount;
+    @Override @JsonProperty("fanart")
+    @Nullable public abstract Long getFanartCount();
 
-    @Override
-    public Long getFanartCount() {
-        return fanartCount;
-    }
+    @Override @JsonProperty("poster")
+    @Nullable public abstract Long getPosterCount();
 
-    /**
-     * Set the fanartCount
-     *
-     * @param fanartCount the fanartCount to set
-     */
-    public void setFanartCount(Long fanartCount) {
-        this.fanartCount = fanartCount;
-    }
+    @Override @JsonProperty("season")
+    @Nullable public abstract Long getSeasonCount();
 
-    @Override
-    public Long getPosterCount() {
-        return posterCount;
-    }
+    @Override @JsonProperty("seasonwide")
+    @Nullable public abstract Long getSeasonwideCount();
 
-    /**
-     * Set the posterCount
-     *
-     * @param posterCount the posterCount to set
-     */
-    public void setPosterCount(Long posterCount) {
-        this.posterCount = posterCount;
-    }
-
-    @Override
-    public Long getSeasonCount() {
-        return seasonCount;
-    }
-
-    /**
-     * Set the seasonCount
-     *
-     * @param seasonCount the seasonCount to set
-     */
-    public void setSeasonCount(Long seasonCount) {
-        this.seasonCount = seasonCount;
-    }
-
-    @Override
-    public Long getSeasonwideCount() {
-        return seasonwideCount;
-    }
-
-    /**
-     * Set the seasonwideCount
-     *
-     * @param seasonwideCount the seasonwideCount to set
-     */
-    public void setSeasonwideCount(Long seasonwideCount) {
-        this.seasonwideCount = seasonwideCount;
-    }
-
-    @Override
-    public Long getSeriesCount() {
-        return seriesCount;
-    }
-
-    /**
-     * Set the seriesCount
-     *
-     * @param seriesCount the seriesCount to set
-     */
-    public void setSeriesCount(Long seriesCount) {
-        this.seriesCount = seriesCount;
-    }
+    @Override @JsonProperty("series")
+    @Nullable public abstract Long getSeriesCount();
 
     @Override
     public String toString() {
         final String def = "0";
         return String.format("[Fanart] %s, [Poster] %s, [Season] %s, [Seasonwide] %s, [Series] %s",
-                Objects.toString(this.fanartCount, def),
-                Objects.toString(this.posterCount, def),
-                Objects.toString(this.seasonCount, def),
-                Objects.toString(this.seasonwideCount, def),
-                Objects.toString(this.seriesCount, def));
+                APIUtil.toString(this::getFanartCount, def),
+                APIUtil.toString(this::getPosterCount, def),
+                APIUtil.toString(this::getSeasonCount, def),
+                APIUtil.toString(this::getSeasonwideCount, def),
+                APIUtil.toString(this::getSeriesCount, def));
     }
 }

@@ -44,6 +44,11 @@ public interface APIResponse<T> {
 
     /**
      * Interface representing optional soft errors that might occur while requesting data from the remote service
+     * <p/>
+     * Please note that, as the remote service declares all of the properties to be optional, most of the methods are marked
+     * as {@link Nullable}. Methods returning collection-based values however will return an empty collection in case no corresponding
+     * data was receieved.
+     *
      */
     interface JSONErrors {
 
@@ -52,7 +57,7 @@ public interface APIResponse<T> {
          *
          * @return the invalidFilters
          */
-        @Nullable List<String> getInvalidFilters();
+        List<String> getInvalidFilters();
 
         /**
          * Returns invalid language or translation missing
@@ -66,11 +71,15 @@ public interface APIResponse<T> {
          *
          * @return the invalidQueryParams
          */
-        @Nullable List<String> getInvalidQueryParams();
+        List<String> getInvalidQueryParams();
     }
 
     /**
      * Interface representing optional paging information for remote service requests supporting pagination
+     * <p/>
+     * Please note that, as the remote service declares all of the properties to be optional, most of the methods are marked
+     * as {@link Nullable}. Methods returning collection-based values however will return an empty collection in case no corresponding
+     * data was receieved.
      */
     interface Links {
 

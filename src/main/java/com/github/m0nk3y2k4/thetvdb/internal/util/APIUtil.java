@@ -2,6 +2,10 @@ package com.github.m0nk3y2k4.thetvdb.internal.util;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Optional;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 
@@ -42,5 +46,24 @@ public final class APIUtil {
 
     public static String prettyPrint(@Nonnull JsonNode obj) throws IOException {
         return MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
+    }
+
+    public static <T> String toString(Supplier<T> valueSupplier) {
+        return toString(valueSupplier, "");
+    }
+
+    public static <T> String toString(Supplier<T> valueSupplier, String nullDefault) {
+        Optional<T> optValue = Optional.ofNullable(valueSupplier).map(Supplier::get);
+        if (optValue.isPresent()) {
+            T value = optValue.get();
+            if (value instanceof Collection<?>) {
+                return ((Collection<?>)value).stream().map(Object::toString).collect(Collectors.joining(", "));
+            } else if (value instanceof Optional<?>) {
+                return ((Optional<?>)value).map(Object::toString).orElse(nullDefault);
+            } else {
+                return value.toString();
+            }
+        }
+        return nullDefault;
     }
 }

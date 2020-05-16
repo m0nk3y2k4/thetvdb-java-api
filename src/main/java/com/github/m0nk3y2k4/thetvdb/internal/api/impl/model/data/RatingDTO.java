@@ -1,59 +1,19 @@
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Rating;
+import org.immutables.value.Value.Immutable;
+import org.immutables.value.Value.Style;
 
+@Immutable
+@Style(visibility = Style.ImplementationVisibility.PRIVATE)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RatingDTO implements Rating {
-
-    private Double rating;
-    private Long ratingItemId;
-    private String ratingType;
-
-    @Override
-    public Double getRating() {
-        return rating;
-    }
-
-    /**
-     * Set the rating
-     *
-     * @param rating the rating to set
-     */
-    public void setRating(Double rating) {
-        this.rating = rating;
-    }
-
-    @Override
-    public Long getRatingItemId() {
-        return ratingItemId;
-    }
-
-    /**
-     * Set the ratingItemId
-     *
-     * @param ratingItemId the ratingItemId to set
-     */
-    public void setRatingItemId(Long ratingItemId) {
-        this.ratingItemId = ratingItemId;
-    }
-
-    @Override
-    public String getRatingType() {
-        return ratingType;
-    }
-
-    /**
-     * Set the ratingType
-     *
-     * @param ratingType the ratingType to set
-     */
-    public void setRatingType(String ratingType) {
-        this.ratingType = ratingType;
-    }
+@JsonDeserialize(builder = com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.RatingDTOBuilder.class)
+public abstract class RatingDTO implements Rating {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s: %s", this.ratingType, this.ratingItemId, this.rating);
+        return String.format("[%s] %s: %s", getRatingType(), getRatingItemId(), getRating());
     }
 }

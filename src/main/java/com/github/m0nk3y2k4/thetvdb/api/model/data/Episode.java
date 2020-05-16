@@ -7,8 +7,9 @@ import java.util.List;
  * Interface representing an <i>Episode</i> data transfert object.
  * <p/>
  * The methods of this class provide easy access to all episode related data which was returned by the remote service in JSON format.
- * Please note that, as the remote service declares all of the properties to be optional, all methods of this interface are marked
- * as {@link Nullable}.
+ * Please note that, as the remote service declares all of the properties to be optional, most of the methods are marked
+ * as {@link Nullable}. Methods returning collection-based values however will return an empty collection in case no corresponding
+ * data was receieved.
  * <p/>
  * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service in order to
  * facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although there will be no intense
@@ -73,7 +74,7 @@ public interface Episode {
      *
      * @return the directors
      */
-    @Nullable List<String> getDirectors();
+    List<String> getDirectors();
 
     /**
      * Get the dvdChapter
@@ -129,7 +130,7 @@ public interface Episode {
      *
      * @return the guestStars
      */
-    @Nullable List<String> getGuestStars();
+    List<String> getGuestStars();
 
     /**
      * Get the id
@@ -234,5 +235,5 @@ public interface Episode {
      *
      * @return the writers
      */
-    @Nullable List<String> getWriters();
+    List<String> getWriters();
 }
