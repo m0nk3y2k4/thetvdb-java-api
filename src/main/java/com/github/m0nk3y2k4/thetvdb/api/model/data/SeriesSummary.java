@@ -1,11 +1,14 @@
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
  * Interface representing a <i>Series summary</i> data transfert object.
  * <p/>
  * The methods of this class provide easy access to all series summary related data which was returned by the remote service in JSON format.
+ * Please note that, as the remote service declares all of the properties to be optional, all methods of this interface are marked
+ * as {@link Nullable}.
  * <p/>
  * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service in order to
  * facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although there will be no intense
@@ -15,30 +18,30 @@ import java.util.List;
 public interface SeriesSummary {
 
     /**
-     * Get the airedEpisodes
+     * Get the number of all aired episodes for this series
      *
      * @return the airedEpisodes
      */
-    String getAiredEpisodes();
+    @Nullable String getAiredEpisodes();
 
     /**
      * Get the airedSeasons
      *
      * @return the airedSeasons
      */
-    List<String> getAiredSeasons();
+    @Nullable List<String> getAiredSeasons();
 
     /**
-     * Get the dvdEpisodes
+     * Get the number of all dvd episodes for this series
      *
      * @return the dvdEpisodes
      */
-    String getDvdEpisodes();
+    @Nullable String getDvdEpisodes();
 
     /**
      * Get the dvdSeasons
      *
      * @return the dvdSeasons
      */
-    List<String> getDvdSeasons();
+    @Nullable List<String> getDvdSeasons();
 }

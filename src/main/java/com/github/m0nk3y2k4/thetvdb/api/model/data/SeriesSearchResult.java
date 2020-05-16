@@ -1,11 +1,14 @@
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
  * Interface representing a <i>Series search result</i> data transfert object.
  * <p/>
  * The methods of this class provide easy access to all series search result related data which was returned by the remote service in JSON format.
+ * Please note that, as the remote service declares all of the properties to be optional, all methods of this interface are marked
+ * as {@link Nullable}.
  * <p/>
  * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service in order to
  * facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although there will be no intense
@@ -19,60 +22,60 @@ public interface SeriesSearchResult {
      *
      * @return the aliases
      */
-    List<String> getAliases();
+    @Nullable List<String> getAliases();
 
     /**
      * Get the banner
      *
      * @return the banner
      */
-    String getBanner();
+    @Nullable String getBanner();
 
     /**
      * Get the firstAired
      *
      * @return the firstAired
      */
-    String getFirstAired();
+    @Nullable String getFirstAired();
 
     /**
      * Get the id
      *
      * @return the id
      */
-    Long getId();
+    @Nullable Long getId();
 
     /**
      * Get the network
      *
      * @return the network
      */
-    String getNetwork();
+    @Nullable String getNetwork();
 
     /**
      * Get the overview
      *
      * @return the overview
      */
-    String getOverview();
+    @Nullable String getOverview();
 
     /**
      * Get the seriesName
      *
      * @return the seriesName
      */
-    String getSeriesName();
+    @Nullable String getSeriesName();
 
     /**
      * Get the slug
      *
      * @return the slug
      */
-    String getSlug();
+    @Nullable String getSlug();
     /**
      * Get the status
      *
      * @return the status
      */
-    String getStatus();
+    @Nullable String getStatus();
 }

@@ -1,6 +1,7 @@
 package com.github.m0nk3y2k4.thetvdb.api.model;
 
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +24,7 @@ public interface APIResponse<T> {
      *
      * @return Data returned by the API call
      */
-    T getData();
+    @Nullable T getData();
 
     /**
      * Returns an Optional representing the additional error information returned by the remote service. If the request was fully compliant or if the
@@ -47,25 +48,25 @@ public interface APIResponse<T> {
     interface JSONErrors {
 
         /**
-         * Get the invalidFilters
+         * Returns invalid filters passed to the route
          *
          * @return the invalidFilters
          */
-        List<String> getInvalidFilters();
+        @Nullable List<String> getInvalidFilters();
 
         /**
-         * Get the invalidLanguage
+         * Returns invalid language or translation missing
          *
          * @return the invalidLanguage
          */
-        String getInvalidLanguage();
+        @Nullable String getInvalidLanguage();
 
         /**
-         * Get the invalidQueryParams
+         * Returns invalid query params passed to the route
          *
          * @return the invalidQueryParams
          */
-        List<String> getInvalidQueryParams();
+        @Nullable List<String> getInvalidQueryParams();
     }
 
     /**
@@ -78,27 +79,27 @@ public interface APIResponse<T> {
          *
          * @return the number of the first available page
          */
-        Integer getFirst();
+        @Nullable Integer getFirst();
 
         /**
          * Get the number of the last available page
          *
          * @return the number of the last available page
          */
-        Integer getLast();
+        @Nullable Integer getLast();
 
         /**
          * Get the number of the next page (if available)
          *
          * @return the number of the next page
          */
-        Integer getNext();
+        @Nullable Integer getNext();
 
         /**
          * Get the number of the previous page (if available)
          *
          * @return the number of the previous page
          */
-        Integer getPrevious();
+        @Nullable Integer getPrevious();
     }
 }

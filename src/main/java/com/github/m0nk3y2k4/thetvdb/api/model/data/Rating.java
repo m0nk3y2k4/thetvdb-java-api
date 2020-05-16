@@ -1,9 +1,13 @@
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
+import javax.annotation.Nullable;
+
 /**
  * Interface representing a <i>Rating</i> data transfert object.
  * <p/>
  * The methods of this class provide easy access to all rating related data which was returned by the remote service in JSON format.
+ * Please note that, as the remote service declares all of the properties to be optional, all methods of this interface are marked
+ * as {@link Nullable}.
  * <p/>
  * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service in order to
  * facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although there will be no intense
@@ -17,19 +21,19 @@ public interface Rating {
      *
      * @return the rating
      */
-    Double getRating();
+    @Nullable Double getRating();
 
     /**
      * Get the ratingItemId
      *
      * @return the ratingItemId
      */
-    Long getRatingItemId();
+    @Nullable Long getRatingItemId();
 
     /**
      * Get the ratingType
      *
      * @return the ratingType
      */
-    String getRatingType();
+    @Nullable String getRatingType();
 }

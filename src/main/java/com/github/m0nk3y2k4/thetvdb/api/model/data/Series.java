@@ -1,11 +1,14 @@
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
  * Interface representing a <i>Series</i> data transfert object.
  * <p/>
  * The methods of this class provide easy access to all series related data which was returned by the remote service in JSON format.
+ * Please note that, as the remote service declares all of the properties to be optional, all methods of this interface are marked
+ * as {@link Nullable}.
  * <p/>
  * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service in order to
  * facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although there will be no intense
@@ -19,89 +22,89 @@ public interface Series extends SeriesSearchResult {
      *
      * @return the added
      */
-    String getAdded();
+    @Nullable String getAdded();
 
     /**
      * Get the airsDayOfWeek
      *
      * @return the airsDayOfWeek
      */
-    String getAirsDayOfWeek();
+    @Nullable String getAirsDayOfWeek();
 
     /**
      * Get the arisTime
      *
      * @return the arisTime
      */
-    String getArisTime();
+    @Nullable String getArisTime();
 
     /**
      * Get the genre
      *
      * @return the genre
      */
-    List<String> getGenre();
+    @Nullable List<String> getGenre();
 
     /**
      * Get the imdbId
      *
      * @return the imdbId
      */
-    String getImdbId();
+    @Nullable String getImdbId();
 
     /**
      * Get the lastUpdated
      *
      * @return the lastUpdated
      */
-    Long getLastUpdated();
+    @Nullable Long getLastUpdated();
 
     /**
      * Get the networkId
      *
      * @return the networkId
      */
-    String getNetworkId();
+    @Nullable String getNetworkId();
 
     /**
      * Get the rating
      *
      * @return the rating
      */
-    String getRating();
+    @Nullable String getRating();
 
     /**
      * Get the runtime
      *
      * @return the runtime
      */
-    String getRuntime();
+    @Nullable String getRuntime();
 
     /**
      * Get the seriesId
      *
      * @return the seriesId
      */
-    String getSeriesId();
+    @Nullable String getSeriesId();
 
     /**
      * Get the siteRating
      *
      * @return the siteRating
      */
-    Double getSiteRating();
+    @Nullable Double getSiteRating();
 
     /**
      * Get the siteRatingCount
      *
      * @return the siteRatingCount
      */
-    Long getSiteRatingCount();
+    @Nullable Long getSiteRatingCount();
 
     /**
      * Get the zap2itId
      *
      * @return the zap2itId
      */
-    String getZap2itId();
+    @Nullable String getZap2itId();
 }

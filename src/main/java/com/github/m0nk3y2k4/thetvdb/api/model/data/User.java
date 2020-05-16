@@ -1,9 +1,13 @@
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
+import javax.annotation.Nullable;
+
 /**
  * Interface representing an <i>User</i> data transfert object.
  * <p/>
  * The methods of this class provide easy access to all user related data which was returned by the remote service in JSON format.
+ * Please note that, as the remote service declares all of the properties to be optional, all methods of this interface are marked
+ * as {@link Nullable}.
  * <p/>
  * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service in order to
  * facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although there will be no intense
@@ -17,19 +21,19 @@ public interface User {
      *
      * @return the favoritesDisplaymode
      */
-    String getFavoritesDisplaymode();
+    @Nullable String getFavoritesDisplaymode();
 
     /**
      * Get the language
      *
      * @return the language
      */
-    String getLanguage();
+    @Nullable String getLanguage();
 
     /**
      * Get the userName
      *
      * @return the userName
      */
-    String getUserName();
+    @Nullable String getUserName();
 }

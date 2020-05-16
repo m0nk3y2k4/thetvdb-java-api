@@ -1,9 +1,13 @@
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
+import javax.annotation.Nullable;
+
 /**
  * Interface representing an <i>Actor</i> data transfert object.
  * <p/>
  * The methods of this class provide easy access to all actor related data which was returned by the remote service in JSON format.
+ * Please note that, as the remote service declares all of the properties to be optional, all methods of this interface are marked
+ * as {@link Nullable}.
  * <p/>
  * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service in order to
  * facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although there will be no intense
@@ -17,61 +21,61 @@ public interface Actor {
      *
      * @return the id
      */
-    Long getId();
+    @Nullable Long getId();
 
     /**
      * Get the image
      *
      * @return the image
      */
-    String getImage();
+    @Nullable String getImage();
 
     /**
      * Get the imageAdded
      *
      * @return the imageAdded
      */
-    String getImageAdded();
+    @Nullable String getImageAdded();
 
     /**
      * Get the imageAuthor
      *
      * @return the imageAuthor
      */
-    Long getImageAuthor();
+    @Nullable Long getImageAuthor();
 
     /**
      * Get the lastUpdated
      *
      * @return the lastUpdated
      */
-    String getLastUpdated();
+    @Nullable String getLastUpdated();
 
     /**
      * Get the name
      *
      * @return the name
      */
-    String getName();
+    @Nullable String getName();
 
     /**
      * Get the role
      *
      * @return the role
      */
-    String getRole();
+    @Nullable String getRole();
 
     /**
      * Get the seriesId
      *
      * @return the seriesId
      */
-    Long getSeriesId();
+    @Nullable Long getSeriesId();
 
     /**
      * Get the sortOrder
      *
      * @return the sortOrder
      */
-    Long getSortOrder();
+    @Nullable Long getSortOrder();
 }
