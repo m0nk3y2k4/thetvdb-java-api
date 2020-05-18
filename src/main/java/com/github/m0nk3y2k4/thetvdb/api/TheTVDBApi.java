@@ -33,7 +33,9 @@ import java.util.Optional;
  * This is probably the most common layout. It provides various shortcut-methods and automatically maps the received JSON <b><i>data</i></b> content
  * into simple Java DTO's (at least for more complex response data). The user does not have to worry about JSON parsing but can simply work with the
  * returned DTO's like he works with every other Java object. However, these objects do only contain the actually requested data and will not include
- * any additional contextual informations that may be returned by the remote service (e.g. Pagination information, additional validation or error data)
+ * any additional contextual informations that may be returned by the remote service (e.g. Pagination information, additional validation or error data).
+ * Furthermore they will only provide access to properties that are <a href="https://api.thetvdb.com/swagger">formally declared by the API</a>
+ * (version v3.0.0).
  * <li>{@link Extended}</li>
  * This layout may be used for slightly advance API integration. Like the common layout it'll take care of parsing the recieved JSON into Java DTO's
  * but it will also provide access to any additional contextual information. Methods of this layout will always return a single {@link APIResponse}
@@ -42,8 +44,9 @@ import java.util.Optional;
  * <li>{@link JSON}</li>
  * This layout may be used if you do not want any post-processing being applied to the actual remote service response data. All methods within this
  * layout will return the raw, unmodified JSON data as it was received from the API. This might be useful if you prefer to map the JSON data yourself,
- * want to use your own Java data models or if you don't want to parse the JSON data at all (but forward it to some other service for example). This layout
- * does not provide any shortcut-methods though.
+ * want to use your own Java data models or if you don't want to parse the JSON data at all (but forward it to some other service for example). It would
+ * also be the preferred layout in case you need access to additional (e.g. experimental) properties that are not yet officially declared by the formal
+ * API description. This layout does not provide any shortcut-methods though.
  * </ul>
  * <p/>
  * Once an API instance has been created, the additional layouts can be accessed via the {@link #extended()} or {@link #json()} method.
