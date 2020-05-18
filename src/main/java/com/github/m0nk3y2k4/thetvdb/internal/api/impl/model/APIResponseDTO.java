@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
 import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
-import org.immutables.value.Value.Style;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.WithHiddenImplementation;
 import org.immutables.value.Value.Immutable;
 
 @Immutable
-@Style(visibility = Style.ImplementationVisibility.PRIVATE)
+@WithHiddenImplementation
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonDeserialize(builder = com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.APIResponseDTOBuilder.class)
+@JsonDeserialize(builder = APIResponseDTO.Builder.class)
 public abstract class APIResponseDTO<T> implements APIResponse<T> {
 
     @Override
@@ -21,9 +21,12 @@ public abstract class APIResponseDTO<T> implements APIResponse<T> {
                 APIUtil.toString(this::getLinks));
     }
 
+    public static class Builder<T> extends APIResponseDTOBuilder<T> {}
+
     @Immutable
+    @WithHiddenImplementation
     @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonDeserialize(builder = com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.JSONErrorsDTOBuilder.class)
+    @JsonDeserialize(builder = JSONErrorsDTO.Builder.class)
     public abstract static class JSONErrorsDTO implements JSONErrors {
 
         @Override
@@ -33,11 +36,14 @@ public abstract class APIResponseDTO<T> implements APIResponse<T> {
                     APIUtil.toString(this::getInvalidLanguage),
                     APIUtil.toString(this::getInvalidQueryParams));
         }
+
+        public static class Builder extends JSONErrorsDTOBuilder {}
     }
 
     @Immutable
+    @WithHiddenImplementation
     @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonDeserialize(builder = com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.LinksDTOBuilder.class)
+    @JsonDeserialize(builder = LinksDTO.Builder.class)
     public abstract static class LinksDTO implements Links {
 
         @Override
@@ -48,5 +54,7 @@ public abstract class APIResponseDTO<T> implements APIResponse<T> {
                     APIUtil.toString(this::getNext),
                     APIUtil.toString(this::getPrevious));
         }
+
+        public static class Builder extends LinksDTOBuilder {}
     }
 }

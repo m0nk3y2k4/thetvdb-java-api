@@ -5,15 +5,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ImageSummary;
 import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.WithHiddenImplementation;
 import org.immutables.value.Value.Immutable;
-import org.immutables.value.Value.Style;
 
 import javax.annotation.Nullable;
 
 @Immutable
-@Style(visibility = Style.ImplementationVisibility.PRIVATE)
+@WithHiddenImplementation
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonDeserialize(builder = com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ImageSummaryDTOBuilder.class)
+@JsonDeserialize(builder = ImageSummaryDTO.Builder.class)
 public abstract class ImageSummaryDTO implements ImageSummary {
 
     @Override @JsonProperty("fanart")
@@ -41,4 +41,6 @@ public abstract class ImageSummaryDTO implements ImageSummary {
                 APIUtil.toString(this::getSeasonwideCount, def),
                 APIUtil.toString(this::getSeriesCount, def));
     }
+
+    public static class Builder extends ImageSummaryDTOBuilder {}
 }

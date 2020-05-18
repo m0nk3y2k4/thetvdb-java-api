@@ -4,17 +4,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Image;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.WithHiddenImplementation;
 import org.immutables.value.Value.Immutable;
-import org.immutables.value.Value.Style;
 
 import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Optional;
 
 @Immutable
-@Style(visibility = Style.ImplementationVisibility.PRIVATE)
+@WithHiddenImplementation
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonDeserialize(builder = com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ImageDTOBuilder.class)
+@JsonDeserialize(builder = ImageDTO.Builder.class)
 public abstract class ImageDTO implements Image {
 
     @Override
@@ -34,4 +34,6 @@ public abstract class ImageDTO implements Image {
     public String toString() {
         return String.format("[%s] %s", getKeyType(), getFileName());
     }
+
+    public static class Builder extends ImageDTOBuilder {}
 }

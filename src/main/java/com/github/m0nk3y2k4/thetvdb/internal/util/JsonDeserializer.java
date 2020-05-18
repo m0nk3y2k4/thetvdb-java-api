@@ -38,7 +38,6 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesSearchResult;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesSummary;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.User;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.APIResponseDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.APIResponseDTOBuilder;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ActorDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EpisodeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ImageDTO;
@@ -250,7 +249,7 @@ class FunctionalDeserializer<T, X extends IOException> extends com.fasterxml.jac
         ObjectMapper mapper = new ObjectMapper();
         JsonNode json = mapper.readTree(p);
 
-        APIResponseDTOBuilder<T> response = new APIResponseDTOBuilder<>();
+        APIResponseDTO.Builder<T> response = new APIResponseDTO.Builder<>();
 
         if (json.has("data")) {
             response.data(dataFunction.apply(json));
