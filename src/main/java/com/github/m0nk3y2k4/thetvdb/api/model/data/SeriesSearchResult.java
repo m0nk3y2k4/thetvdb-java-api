@@ -47,6 +47,13 @@ public interface SeriesSearchResult {
     @Nullable Long getId();
 
     /**
+     * Get the image
+     *
+     * @return the image
+     */
+    @Nullable String getImage();
+
+    /**
      * Get the network
      *
      * @return the network
