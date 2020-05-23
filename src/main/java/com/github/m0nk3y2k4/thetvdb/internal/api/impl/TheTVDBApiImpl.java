@@ -23,7 +23,8 @@ import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.UpdatesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.UsersAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
-import com.github.m0nk3y2k4.thetvdb.internal.util.JsonDeserializer;
+import com.github.m0nk3y2k4.thetvdb.internal.util.json.JsonDeserializer;
+import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 /**
  * Implementation of the {@link TheTVDBApi} API layout. It provides methods for all sorts of API calls throughout the different API routes. Responses will
@@ -53,9 +54,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
      * @param apiKey Valid TheTVDB API-Key
      */
     public TheTVDBApiImpl(@Nonnull String apiKey) {
-        if (!APIUtil.hasValue(apiKey)) {
-            throw new IllegalArgumentException("APIKey must not be null or empty!");
-        }
+        Parameters.validateNotEmpty(apiKey, "APIKey must not be NULL or empty!");
 
         this.con = new APIConnection(apiKey);
     }
@@ -70,9 +69,9 @@ public class TheTVDBApiImpl implements TheTVDBApi {
      * @param userName Registered TheTVDB user name
      */
     public TheTVDBApiImpl(@Nonnull String apiKey, @Nonnull String userKey, @Nonnull String userName) {
-        if (!APIUtil.hasValue(apiKey, userKey, userName)) {
-            throw new IllegalArgumentException("APIKey/UserKey/UserName must not be null or empty!");
-        }
+        Parameters.validateNotEmpty(apiKey, "APIKey must not be NULL or empty!");
+        Parameters.validateNotEmpty(userKey, "UserKey must not be NULL or empty!");
+        Parameters.validateNotEmpty(userName, "UserName must not be NULL or empty!");
 
         this.con = new APIConnection(apiKey, userKey, userName);
     }
@@ -678,10 +677,15 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
     }
 
+    /**
+     * Validates that none of the given method String parameters is NULL or empty
+     *
+     * @param params Array of method String parameter to check
+     *
+     * @throws IllegalArgumentException If at least one of the given parameters is NULL or empty
+     */
     private void validateNotEmpty(String... params) {
-        if (!APIUtil.hasValue(params)) {
-            throw new IllegalArgumentException("Method parameters must not be null or empty!");
-        }
+        Parameters.validateCondition(APIUtil::hasValue, params, new IllegalArgumentException("Method parameters must not be NULL or empty!"));
     }
 
     /**

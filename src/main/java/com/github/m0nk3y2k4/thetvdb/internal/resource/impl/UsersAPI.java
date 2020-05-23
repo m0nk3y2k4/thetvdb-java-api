@@ -10,8 +10,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
-import com.github.m0nk3y2k4.thetvdb.internal.resource.validation.PathValidator;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.QueryResource;
+import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 public final class UsersAPI extends QueryResource {
 
@@ -34,12 +34,12 @@ public final class UsersAPI extends QueryResource {
     }
 
     public static JsonNode deleteFromFavorites(@Nonnull APIConnection con, long id) throws APIException {
-        PathValidator.requiresPathParam(PATH_ID, id, ID_VALIDATOR);
+        Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
         return con.sendDELETE(createResource(BASE, "/favorites", id));
     }
 
     public static JsonNode addToFavorites(@Nonnull APIConnection con, long id) throws APIException {
-        PathValidator.requiresPathParam(PATH_ID, id, ID_VALIDATOR);
+        Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
         return con.sendPUT(createResource(BASE, "/favorites", id));
     }
 
@@ -56,15 +56,15 @@ public final class UsersAPI extends QueryResource {
     }
 
     public static JsonNode deleteFromRatings(@Nonnull APIConnection con, @Nonnull String itemType, long itemId) throws APIException {
-        PathValidator.requiresPathParam(PATH_ITEMTYPE, itemType, ITEMTYPE_VALIDATOR);
-        PathValidator.requiresPathParam(PATH_ITEMID, itemId, ID_VALIDATOR);
+        Parameters.validatePathParam(PATH_ITEMTYPE, itemType, ITEMTYPE_VALIDATOR);
+        Parameters.validatePathParam(PATH_ITEMID, itemId, ID_VALIDATOR);
         return con.sendDELETE(createResource(BASE, "/ratings", itemType, itemId));
     }
 
     public static JsonNode addToRatings(@Nonnull APIConnection con, @Nonnull String itemType, long itemId, long itemRating) throws APIException {
-        PathValidator.requiresPathParam(PATH_ITEMTYPE, itemType, ITEMTYPE_VALIDATOR);
-        PathValidator.requiresPathParam(PATH_ITEMID, itemId, ID_VALIDATOR);
-        PathValidator.requiresPathParam(PATH_ITEMRATING, itemRating, ID_VALIDATOR);
+        Parameters.validatePathParam(PATH_ITEMTYPE, itemType, ITEMTYPE_VALIDATOR);
+        Parameters.validatePathParam(PATH_ITEMID, itemId, ID_VALIDATOR);
+        Parameters.validatePathParam(PATH_ITEMRATING, itemRating, ID_VALIDATOR);
         return con.sendPUT(createResource(BASE, "/ratings", itemType, itemId, itemRating));
     }
 }

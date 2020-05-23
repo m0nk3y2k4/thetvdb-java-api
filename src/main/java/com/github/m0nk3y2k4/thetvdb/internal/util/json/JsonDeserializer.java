@@ -1,4 +1,4 @@
-package com.github.m0nk3y2k4.thetvdb.internal.util;
+package com.github.m0nk3y2k4.thetvdb.internal.util.json;
 
 import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_JSON_PARSE_ERROR;
 
@@ -49,6 +49,8 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesSearchResultDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesSummaryDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.UserDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.util.functional.ThrowableFunctionalInterfaces;
+import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 public final class JsonDeserializer {
 
@@ -95,7 +97,7 @@ public final class JsonDeserializer {
          * @param baseTypeReference The parameterized base type reference
          */
         DataTypeReference(TypeReference<T> baseTypeReference) {
-            Preconditions.requires(ref -> ParameterizedType.class.isAssignableFrom(ref.getType().getClass()), baseTypeReference,
+            Parameters.validateCondition(ref -> ParameterizedType.class.isAssignableFrom(ref.getType().getClass()), baseTypeReference,
                     new APIRuntimeException("Base type is required to be parameterized!"));
             this.typeSupplier = () -> ((ParameterizedType)baseTypeReference.getType()).getActualTypeArguments()[0];
         }

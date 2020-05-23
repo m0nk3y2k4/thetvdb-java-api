@@ -1,4 +1,4 @@
-package com.github.m0nk3y2k4.thetvdb.internal.util;
+package com.github.m0nk3y2k4.thetvdb.internal.util.functional;
 
 /**
  * Collection of {@link FunctionalInterface FunctionalInterfaces} which allow simple exception handling.

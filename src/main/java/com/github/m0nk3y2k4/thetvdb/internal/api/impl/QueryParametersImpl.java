@@ -1,7 +1,7 @@
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl;
 
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
-import com.github.m0nk3y2k4.thetvdb.internal.resource.validation.ObjectValidator;
+import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 import javax.annotation.Nonnull;
 
@@ -35,15 +35,15 @@ public class QueryParametersImpl implements QueryParameters {
     public QueryParametersImpl(@Nonnull Map<String, String> parameters) {
         super();
 
-        ObjectValidator.requireNonNull(parameters, "Parameters map must not be NULL");
+        Parameters.validateNotNull(parameters, "Parameters map must not be NULL");
 
         parameters.forEach(this::addParameter);
     }
 
     @Override
     public QueryParameters addParameter(@Nonnull String key, @Nonnull String value) {
-        ObjectValidator.requireNonNull(key, "Parameter key must not be NULL");
-        ObjectValidator.requireNonNull(value, "Parameter value must not be NULL");
+        Parameters.validateNotNull(key, "Parameter key must not be NULL");
+        Parameters.validateNotNull(value, "Parameter value must not be NULL");
 
         params.put(key, value);
         return this;

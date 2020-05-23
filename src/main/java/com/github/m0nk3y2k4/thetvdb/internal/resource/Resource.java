@@ -7,6 +7,7 @@ import javax.annotation.Nonnull;
 
 public abstract class Resource {
 
+    @SuppressWarnings("java:S4276")         // Validators must be of type Precicate<T> to comply with the general validation logic
     protected static final Predicate<Long> ID_VALIDATOR = value -> value > 0;
 
     protected static final String PATH_ID = "id";

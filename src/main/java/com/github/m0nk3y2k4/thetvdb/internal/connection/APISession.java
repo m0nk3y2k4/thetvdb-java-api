@@ -1,8 +1,8 @@
 package com.github.m0nk3y2k4.thetvdb.internal.connection;
 
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
-import com.github.m0nk3y2k4.thetvdb.internal.resource.validation.ObjectValidator;
 import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
+import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
@@ -71,7 +71,7 @@ public final class APISession {
      * @param apiKey The API key used to request a session token
      */
     APISession(@Nonnull String apiKey) {
-        ObjectValidator.requireNonEmpty(apiKey, "API key must not be NULL or empty!");
+        Parameters.validateNotEmpty(apiKey, "API key must not be NULL or empty!");
 
         this.apiKey = apiKey;
         this.userKey = null;
@@ -90,9 +90,9 @@ public final class APISession {
      * @param userName User name for authentication
      */
     APISession(@Nonnull String apiKey, @Nonnull String userKey, @Nonnull String userName) {
-        ObjectValidator.requireNonEmpty(apiKey, "API key must not be NULL or empty!");
-        ObjectValidator.requireNonEmpty(userKey, "User key must not be NULL or empty!");
-        ObjectValidator.requireNonEmpty(userName, "User name must not be NULL or empty!");
+        Parameters.validateNotEmpty(apiKey, "API key must not be NULL or empty!");
+        Parameters.validateNotEmpty(userKey, "User key must not be NULL or empty!");
+        Parameters.validateNotEmpty(userName, "User name must not be NULL or empty!");
 
         this.apiKey = apiKey;
         this.userKey = userKey;

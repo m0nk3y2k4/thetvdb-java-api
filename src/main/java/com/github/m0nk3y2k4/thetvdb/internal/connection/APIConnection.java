@@ -29,7 +29,9 @@ import com.github.m0nk3y2k4.thetvdb.internal.exception.APICommunicationException
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APINotAuthorizedException;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.AuthenticationAPI;
-import com.github.m0nk3y2k4.thetvdb.internal.resource.validation.ConnectionValidator;
+import com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod;
+import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
+import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Preconditions;
 
 public class APIConnection {
 
@@ -151,9 +153,12 @@ abstract class APIRequest {
     private final String resource;
 
     /** HTTP request method to be used for this request*/
-    private final String requestMethod;
+    private final HttpRequestMethod requestMethod;
 
-    APIRequest(@Nonnull String resource, @Nonnull String requestMethod) {
+    APIRequest(@Nonnull String resource, @Nonnull HttpRequestMethod requestMethod) {
+        Parameters.validateNotEmpty(resource, "API resource must not be NULL or empty");
+        Parameters.validateNotNull(requestMethod, "HTTP request method must not be NULL");
+
         this.resource = resource;
         this.requestMethod = requestMethod;
     }
@@ -182,13 +187,13 @@ abstract class APIRequest {
     }
 
     private HttpsURLConnection openConnection() throws IOException {
-        ConnectionValidator.validateResource(resource);
-        ConnectionValidator.validateRequestMethod(requestMethod);
+        Preconditions.requireNonEmpty(resource, "No API resource specified");
+        Preconditions.requireNonNull(requestMethod, "No HTTP request method specified");
 
         HttpsURLConnection con = (HttpsURLConnection) new URL(API_URL + resource).openConnection();
 
         // POST, GET, DELETE, PUT,...
-        con.setRequestMethod(requestMethod.toUpperCase());
+        con.setRequestMethod(requestMethod.getName());
 
         // Request properties for API
         con.setRequestProperty("Content-Type", "application/json; charset=utf-8");
@@ -251,7 +256,7 @@ abstract class APIRequest {
 final class GetRequest extends APIRequest {
 
     GetRequest(@Nonnull String resource) {
-        super(resource, "GET");
+        super(resource, HttpRequestMethod.GET);
     }
 }
 
@@ -260,14 +265,14 @@ final class PostRequest extends APIRequest {
     private final String data;
 
     PostRequest(@Nonnull String resource, @Nonnull String data) {
-        super(resource, "POST");
+        super(resource, HttpRequestMethod.POST);
         this.data = data;
     }
 
     @Override
     void prepareRequest(@Nonnull HttpsURLConnection con) throws IOException {
         // Write request body (payload) for POST request
-        ConnectionValidator.validatePayload(data);
+        Preconditions.requireNonNull(data, "Request payload data is not set");
 
         con.setDoOutput(true);
 
@@ -281,7 +286,7 @@ final class PostRequest extends APIRequest {
 final class HeadRequest extends APIRequest {
 
     HeadRequest(@Nonnull String resource) {
-        super(resource, "HEAD");
+        super(resource, HttpRequestMethod.HEAD);
     }
 
     @Override
@@ -316,13 +321,13 @@ final class HeadRequest extends APIRequest {
 final class DeleteRequest extends APIRequest {
 
     DeleteRequest(@Nonnull String resource) {
-        super(resource, "DELETE");
+        super(resource, HttpRequestMethod.DELETE);
     }
 }
 
 final class PutRequest extends APIRequest {
 
     PutRequest(@Nonnull String resource) {
-        super(resource, "PUT");
+        super(resource, HttpRequestMethod.PUT);
     }
 }

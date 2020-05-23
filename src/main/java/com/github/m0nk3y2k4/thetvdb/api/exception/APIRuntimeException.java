@@ -8,8 +8,8 @@ import javax.annotation.Nonnull;
  */
 public class APIRuntimeException extends RuntimeException {
 
-    /** Indicates that some of the users input data did not match the requirements */
-    protected static final String API_VALIDATION_ERROR = "Request could not be processed due to invalid/missing parameters: %s";
+    /** Indicates a failed precondition check */
+    protected static final String API_PRECONDITION_ERROR = "Precondition check failed. Object is not in a proper state to process the requested task: %s";
 
     /**
      * Creates a new unchecked API runtime exception with the given error message
