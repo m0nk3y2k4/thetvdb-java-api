@@ -26,8 +26,8 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
 import com.github.m0nk3y2k4.thetvdb.internal.util.JsonDeserializer;
 
 /**
- * Objects of this class represent the public interface/entry point for the usage of TheTVDB-API. It provides methods for all sorts of API calls throughout the
- * different API routes. Responses will either be returned as raw, untouch JSON (as received by the remote REST service) or as mapped Java-Objects.
+ * Implementation of the {@link TheTVDBApi} API layout. It provides methods for all sorts of API calls throughout the different API routes. Responses will
+ * be returned as mapped Java DTO objects.
  */
 public class TheTVDBApiImpl implements TheTVDBApi {
 
@@ -41,8 +41,8 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     private final APIConnection con;
 
     /**
-     * Creates a new TheTVDBAPI instance. The given <code>apiKey</code> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a> which will
-     * be used for remote service authentication. To authenticate and generate a new session token use the {@link #init()} or {@link #login()} methods right after
+     * Creates a new TheTVDBAPI instance. The given <code>apiKey</code> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a> as it will
+     * be used for remote service authentication. To authenticate and generate a new session token use the {@link #init()} or {@link #login()} method right after
      * creating a new instance of this API.
      * <p/>
      * <b>NOTE:</b> Objects created with this constructor <u>can not</u> be used for calls to the remote API's <a href="https://api.thetvdb.com/swagger#/Users">/users</a>
@@ -63,7 +63,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     /**
      * Creates a new TheTVDBAPI instance. The given <code>apiKey</code> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a>. The <code>userKey</code>
      * and <code>userName</code> must refer to a registered TheTVDB user account. The given parameters will be used for the initial remote service authentication. To authenticate
-     * and generate a new session token use the {@link #init()} or {@link #login()} methods right after creating a new instance of this API.
+     * and generate a new session token use the {@link #init()} or {@link #login()} method right after creating a new instance of this API.
      *
      * @param apiKey Valid TheTVDB API-Key
      * @param userKey Valid TheTVDB user key (also referred to as "Unique ID")
@@ -359,8 +359,15 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         return extendedApi;
     }
 
+    /**
+     * Implementation of the {@link TheTVDBApi.JSON} API layout. It provides methods for all sorts of API calls throughout the different API routes. Responses will
+     * be returned as raw, untouch JSON as it has been received by the remote REST service.
+     */
     private class JSONApi implements JSON {
 
+        /**
+         * Creates a new instance of the {@link TheTVDBApi.JSON} API layout
+         */
         private JSONApi() {}
 
         @Override
@@ -514,6 +521,9 @@ public class TheTVDBApiImpl implements TheTVDBApi {
             return UsersAPI.addToRatings(con, itemType, itemId, itemRating);
         }
 
+        /**
+         * Verifies that the underlying connection to the remote API is associated with a valid user authentication
+         */
         private void validateUserAuthentication() {
             if (!con.userAuthentication()) {
                 throw new IllegalArgumentException("API call requires userKey/userName to be set!");
@@ -521,8 +531,15 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
     }
 
+    /**
+     * Implementation of the {@link TheTVDBApi.Extended} API layout. It provides methods for all sorts of API calls throughout the different API routes. Responses will
+     * be returned as wrapped {@link APIResponse APIResponse&lt;DTO&gt;} objects containing additional error and paging information.
+     */
     private class ExtendedApi implements Extended {
 
+        /**
+         * Creates a new instance of the {@link TheTVDBApi.Extended} API layout
+         */
         private ExtendedApi() {}
 
         @Override

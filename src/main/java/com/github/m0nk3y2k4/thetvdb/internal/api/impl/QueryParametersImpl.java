@@ -18,9 +18,11 @@ public class QueryParametersImpl implements QueryParameters {
     private final Map<String, String> params = new LinkedHashMap<>();
 
     /**
-     * Creates an empty object of this class
+     * Creates a new empty set of query parameters
      */
-    public QueryParametersImpl() { super(); }
+    public QueryParametersImpl() {
+        super();
+    }
 
     /**
      * Creates an object of this class with a pre-defined set of individual query parameters
