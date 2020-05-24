@@ -62,7 +62,7 @@ public final class APISession {
     /**
      * Creates a new API session with the given API key. The <code>apiKey</code> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a> which will
      * be used for remote service authentication.
-     * <p/>
+     * <p>
      * <b>NOTE:</b> Sessions created with this constructor <u>can not</u> be used for calls to the remote API's <a href="https://api.thetvdb.com/swagger#/Users">/users</a>
      * routes. These calls require extended authentication using an additional <code>userKey</code> and <code>userName</code>.
      *
@@ -139,6 +139,8 @@ public final class APISession {
      * Sets the token of this session
      *
      * @param token The new session token
+     *
+     * @throws APIException If the given token is <code>null</code>, an empty character sequence or does not match the regular JWT format
      */
     void setToken(@Nonnull String token) throws APIException {
         // Validate token - throws an exception if not a valid JWT
@@ -176,12 +178,14 @@ public final class APISession {
     void setStatus(Status status) {
         this.status = status != null ? status : Status.NOT_AUTHORIZED;
     }
+
     /**
      * Returns the current {@link Status} of this session. This status indicates that...
-     * <p/>
-     * <p>{@link Status#NOT_AUTHORIZED}: The session has not yet been initialized. API communication is restricted to login/refresh requests.</p>
-     * <p>{@link Status#AUTHORIZATION_IN_PROGRESS}: The initialization of this session is currently in progress</p>
-     * <p>{@link Status#AUTHORIZED}: The session is initialized and ready for further API communication</p>
+     * <ul>
+     * <li>{@link Status#NOT_AUTHORIZED}: The session has not yet been initialized. API communication is restricted to login/refresh requests.</li>
+     * <li>{@link Status#AUTHORIZATION_IN_PROGRESS}: The initialization of this session is currently in progress</li>
+     * <li>{@link Status#AUTHORIZED}: The session is initialized and ready for further API communication</li>
+     * </ul>
      *
      * @return The current status of this session
      */

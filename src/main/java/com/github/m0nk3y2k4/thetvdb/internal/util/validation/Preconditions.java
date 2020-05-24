@@ -7,11 +7,11 @@ import java.util.function.Predicate;
 
 /**
  * Collection of simple checks to be used to check for method invocation preconditions
- * <p/>
+ * <p>
  * The default behavior for precondition checks provided by this class is to throw an {@link APIPreconditionException} in case the given
  * arguments do not match the requirements. Some of the methods may support extended control over the actual type of exception that
  * will be thrown by allowing the calling instance to privide it's onw runtime exception instance.
- * <p/>
+ * <p>
  * Please note that this class should primarily be used for non-method parameter related precondition/object state checks as the default
  * <code>APIPreconditionException</code> indicates that resolving the failed validation isn't necessarily within the responsibility of the
  * calling instance (although it can be). A common precondition check would be for example to check whether the invoked object is in a proper

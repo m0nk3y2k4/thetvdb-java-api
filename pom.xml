@@ -17,6 +17,11 @@
       </license>
   </licenses>
 
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <generated.sources.annotations>${project.build.directory}/generated-sources/annotations</generated.sources.annotations>
+  </properties>
+
   <build>
     <plugins>
         <plugin>
@@ -33,8 +38,27 @@
             <artifactId>maven-javadoc-plugin</artifactId>
             <version>3.1.0</version>
             <configuration>
-                <doclint>none</doclint>
+                <doclint>all</doclint>
+                <doctitle>TheTVDB Java ${project.version} API</doctitle>
+                <windowtitle>Index(TheTVDB Java ${project.version} API)</windowtitle>
                 <additionalOptions>-html5</additionalOptions>
+                <sourcepath>${project.build.sourceDirectory};${generated.sources.annotations}</sourcepath>
+                <groups>
+                    <group>
+                        <title>API Packages</title>
+                        <packages>com.github.m0nk3y2k4.thetvdb.api*</packages>
+                    </group>
+                    <group>
+                        <title>Internal Packages</title>
+                        <packages>com.github.m0nk3y2k4.thetvdb.internal*</packages>
+                    </group>
+                    <group>
+                        <title>Root Package</title>
+                        <packages>com.github.m0nk3y2k4.thetvdb</packages>
+                    </group>
+                </groups>
+                <notimestamp>true</notimestamp>
+                <show>protected</show>
             </configuration>
         </plugin>
         <plugin>
@@ -73,10 +97,6 @@
     </plugins>
   </build>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-  
   <dependencies>
     <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>

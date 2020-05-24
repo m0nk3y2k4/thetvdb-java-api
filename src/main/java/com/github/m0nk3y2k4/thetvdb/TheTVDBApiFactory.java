@@ -17,13 +17,15 @@ public class TheTVDBApiFactory {
      * Creates a new TheTVDBApi instance. The given <code>apiKey</code> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a> which will
      * be used for remote service authentication. To authenticate and generate a new session token use the {@link TheTVDBApi#init()} or {@link TheTVDBApi#login()}
      * methods right after creating a new instance of this API.
-     * <p/>
+     * <p>
      * <b>NOTE:</b> Objects created with this constructor <u>can not</u> be used for calls to the remote API's <a href="https://api.thetvdb.com/swagger#/Users">/users</a>
      * routes. These calls require extended authentication using an additional <code>userKey</code> and <code>userName</code>.
      *
      * @see #createApi(String, String, String) createApi(apiKey, userName, userKey)
      *
      * @param apiKey Valid TheTVDB API-Key
+     *
+     * @return A new TheTVDBApi instance using the given API key for authentication
      */
     public static TheTVDBApi createApi(@Nonnull String apiKey) {
         return new TheTVDBApiImpl(apiKey);
@@ -37,6 +39,8 @@ public class TheTVDBApiFactory {
      * @param apiKey Valid TheTVDB API-Key
      * @param userKey Valid TheTVDB user key (also referred to as "Unique ID")
      * @param userName Registered TheTVDB user name
+     *
+     * @return A new TheTVDBApi instance using the given API key, user key and user name for authentication
      */
     public static TheTVDBApi createApi(@Nonnull String apiKey, @Nonnull String userKey, @Nonnull String userName) {
         return new TheTVDBApiImpl(apiKey, userKey, userName);

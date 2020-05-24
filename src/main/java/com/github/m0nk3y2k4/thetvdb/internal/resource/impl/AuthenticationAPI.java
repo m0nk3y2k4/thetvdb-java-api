@@ -11,7 +11,7 @@ import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 
 public final class AuthenticationAPI {
 
-    /** Special functional interface to avoid exception handling in lambda expressions (Supplier<T> does not declare a throw-clause) */
+    /** Special functional interface to avoid exception handling in lambda expressions (Supplier&lt;T&gt; does not declare a throw-clause) */
     @FunctionalInterface
     private interface ThrowingSupplier<T> {
         T get() throws APIException;

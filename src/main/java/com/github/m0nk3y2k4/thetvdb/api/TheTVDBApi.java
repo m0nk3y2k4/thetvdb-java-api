@@ -12,43 +12,43 @@ import java.util.Optional;
 
 /**
  * Main interface of the <i>TheTDVB</i> API connector.
- * <p/>
+ * <p>
  * This interface provides access to all available routes of the remote <i>TheTVDB</i> REST API. Routes which accept additional optional and mandatory
  * query parameters can either be invoked with a given set of {@link QueryParameters} or via some predefined shortcut-methods. These shortcut-methods
  * will accept certain values as direct method parameters which will then be forwarded to the REST API as regular URL query parameters. Please note
  * that shortcut-methods exist for most of the common query scenarios but maybe not for all. In case of more complex query setups the user has to
  * take care of creating a properly configured <code>QueryParameters</code> object, which is slightly more effort than using the shortcut-methods
  * but gives the user unlimited configuration options.
- * <p/>
+ * <p>
  * In order to create a new API instance the {@link com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory TheTVDBApiFactory} should be used. This factory
  * also provides additional helper methods, for example to easily create new <code>QueryParameters</code>.
- * <p/>
+ * <p>
  * To cover a wide range of possible applications, this API connector provides multiple layouts in order to allow an easy integration regardless
  * of your actual project requirements. It gives you the option to use prefabbed DTO's which will be parsed from the actual JSON returned by the
  * remote service. In case you need advanced exception handling or you prefer to parse the JSON into your own data models (or don't want to parse
  * it at all), other API layouts will provide you with extended API response DTO's or even with the raw JSON. The following API layouts are currently
  * available:
  * <ul>
- * <li>{@link TheTVDBApi}</li>
+ * <li>{@link TheTVDBApi}<br>
  * This is probably the most common layout. It provides various shortcut-methods and automatically maps the received JSON <b><i>data</i></b> content
  * into simple Java DTO's (at least for more complex response data). The user does not have to worry about JSON parsing but can simply work with the
  * returned DTO's like he works with every other Java object. However, these objects do only contain the actually requested data and will not include
  * any additional contextual informations that may be returned by the remote service (e.g. Pagination information, additional validation or error data).
  * Furthermore they will only provide access to properties that are <a href="https://api.thetvdb.com/swagger">formally declared by the API</a>
- * (version v3.0.0).
- * <li>{@link Extended}</li>
+ * (version v3.0.0).</li>
+ * <li>{@link Extended}<br>
  * This layout may be used for slightly advance API integration. Like the common layout it'll take care of parsing the recieved JSON into Java DTO's
  * but it will also provide access to any additional contextual information. Methods of this layout will always return a single {@link APIResponse}
  * object which consists of the actual data, parsed as DTO, as well as all additional information which is available in the given context, like
- * additional error or pagination information. This layout does not provide any shortcut-methods.
- * <li>{@link JSON}</li>
+ * additional error or pagination information. This layout does not provide any shortcut-methods.</li>
+ * <li>{@link JSON}<br>
  * This layout may be used if you do not want any post-processing being applied to the actual remote service response data. All methods within this
  * layout will return the raw, unmodified JSON data as it was received from the API. This might be useful if you prefer to map the JSON data yourself,
  * want to use your own Java data models or if you don't want to parse the JSON data at all (but forward it to some other service for example). It would
  * also be the preferred layout in case you need access to additional (e.g. experimental) properties that are not yet officially declared by the formal
- * API description. This layout does not provide any shortcut-methods though.
+ * API description. This layout does not provide any shortcut-methods though.</li>
  * </ul>
- * <p/>
+ * <p>
  * Once an API instance has been created, the additional layouts can be accessed via the {@link #extended()} or {@link #json()} method.
  */
 public interface TheTVDBApi {
@@ -65,7 +65,7 @@ public interface TheTVDBApi {
     /**
      * Initializes the current API with the given token. This token will be used for authentication of all requests that are sent to the remote service by this API instance.
      * The given string must be a valid Base64 encoded token in the regular JWT format <i>"{header}.{payload}.{signature}"</i>.
-     * <p/>
+     * <p>
      * If the given token is (or becomes) expired it will be replaced by a new JWT automatically. The new token will be requested from the remove service based
      * on the constructor parameters used to create this API instance.
      *
@@ -98,7 +98,7 @@ public interface TheTVDBApi {
      * Initializes the current API session by requesting a new token from the remote API. This token will be used for authentication of all requests that are sent to the
      * remote service by this API instance. The initialization will be performed based on the constructor parameters used to create this API instance. It is recommended to
      * login/initialize the session before making the first API call. However, if an API call is made without proper initialization, an implicit login will be performed.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Authentication/post_login"><b>[POST]</b> /login</a>
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
@@ -108,7 +108,7 @@ public interface TheTVDBApi {
     /**
      * Refreshes the current, valid JWT session token. This method can be used to extend the expiration date (24 hours) of the current session token without the need of a
      * complete new login. This method will be called automatically if an API call is made using an expired JWT session token.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Authentication/get_refresh_token"><b>[GET]</b> /refresh_token</a>
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
@@ -117,7 +117,7 @@ public interface TheTVDBApi {
 
     /**
      * Returns the full information for a given episode id as mapped Java DTO.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Episodes/get_episodes_id"><b>[GET]</b> /episodes/{id}</a>
      *
      * @see JSON#getEpisode(long) TheTVDBApi.JSON.getEpisode(episodeId)
@@ -134,7 +134,7 @@ public interface TheTVDBApi {
     /**
      * Returns a list of all supported languages mapped as Java DTO. These language abbreviations can be used to set the preferred language
      * for the communication with the remote service (see {@link #setLanguage(String)}.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Languages/get_languages"><b>[GET]</b> /languages</a>
      *
      * @see JSON#getAvailableLanguages()
@@ -149,7 +149,7 @@ public interface TheTVDBApi {
     /**
      * Returns further language information for a given language ID mapped as Java DTO. The language abbreviation can be used to set the preferred language
      * for the communication with the remote service (see {@link #setLanguage(String)}.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Languages/get_languages_id"><b>[GET]</b> /languages/{id}</a>
      *
      * @see JSON#getLanguage(long) TheTVDBApi.JSON.getLanguage(languageId)
@@ -167,7 +167,7 @@ public interface TheTVDBApi {
     /**
      * Returns a list of series search results based on the given query parameters mapped as Java DTO. The list contains basic information
      * of all series matching the query parameters.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Search/get_search_series"><b>[GET]</b> /search/series</a>
      *
      * @see JSON#searchSeries(QueryParameters) TheTVDBApi.JSON.searchSeries(queryParameters)
@@ -227,7 +227,7 @@ public interface TheTVDBApi {
 
     /**
      * Returns possible query parameters, which can be used to search for series, mapped as Java DTO.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Search/get_search_series_params"><b>[GET]</b> /search/series/params</a>
      *
      * @see JSON#getAvailableSeriesSearchParameters()
@@ -244,7 +244,7 @@ public interface TheTVDBApi {
 
     /**
      * Returns detailed information for a specific series mapped as Java DTO.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id"><b>[GET]</b> /series/{id}</a>
      *
      * @see JSON#getSeries(long) TheTVDBApi.JSON.getSeries(seriesId)
@@ -261,7 +261,7 @@ public interface TheTVDBApi {
     /**
      * Returns header information for a specific series as key/value pairs. Good for getting the Last-Updated header to find out
      * when the series was last modified.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/head_series_id"><b>[HEAD]</b> /series/{id}</a>
      *
      * @see JSON#getSeriesHeaderInformation(long) TheTVDBApi.JSON.getSeriesHeaderInformation(seriesId)
@@ -276,7 +276,7 @@ public interface TheTVDBApi {
 
     /**
      * Returns a list of actors for a specific series mapped as Java DTO.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_actors"><b>[GET]</b> /series/{id}/actors</a>
      *
      * @see JSON#getActors(long) TheTVDBApi.JSON.getActors(seriesId)
@@ -293,7 +293,7 @@ public interface TheTVDBApi {
     /**
      * Returns all episodes of a specific series mapped as Java DTO. Results will be paginated with 100 results per page.
      * Use <code>queryParameters</code> to select a specific result page.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes"><b>[GET]</b> /series/{id}/episodes</a>
      *
      * @see JSON#getEpisodes(long, QueryParameters) TheTVDBApi.JSON.getEpisodes(seriesId, queryParameters)
@@ -343,7 +343,7 @@ public interface TheTVDBApi {
     /**
      * Returns all matching episodes of a specific series mapped as Java DTO. Results will be paginated. Note that this method
      * is deterministic and will always return the <b>first</b> result page of the available episodes.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_query"><b>[GET]</b> /series/{id}/episodes/query</a>
      *
      * @see JSON#queryEpisodes(long, QueryParameters) TheTVDBApi.JSON.queryEpisodes(seriesId, queryParameters)
@@ -396,7 +396,7 @@ public interface TheTVDBApi {
      * Returns all episodes of a specific series, matching the <code>airedEpisode</code> parameter, mapped as Java DTO. Results will be paginated.
      * This is a shortcut-method for {@link #queryEpisodes(long, QueryParameters) queryEpisodes(seriesId, queryParameters)} with a single "airedEpisode"
      * query parameter.
-     * <p/>
+     * <p>
      * Note that an aired episode number might be associated with a specific season. If the series consists of more than one season this method will return the matching aired episodes
      * from all the seasons. Use {@link #queryEpisodesByAbsoluteNumber(long, long)} in order to query for a single episode.
      *
@@ -415,7 +415,7 @@ public interface TheTVDBApi {
      * Returns a specific episode of a series, mapped as Java DTO. Results will be paginated.
      * This is a shortcut-method for {@link #queryEpisodes(long, QueryParameters) queryEpisodes(seriesId, queryParameters)} with a single "absoluteNumber"
      * query parameter.
-     * <p/>
+     * <p>
      * Note that (unlike an aired episode number) an absolute episode number should most likely be unique throughout all episodes of a specific series. So in most cases the returned
      * list will consist of only one element. However, as the remote API doesn't give any guarantees that querying with an "absoluteNumber" parameter always returns one episode record
      * <b>at most</b> this method will return all episode data as received from the remote service.
@@ -434,7 +434,7 @@ public interface TheTVDBApi {
     /**
      * Returns a list of keys which are valid parameters for querying episodes, as plain Strings. These keys are permitted to be used in
      * {@link QueryParameters} objects when querying for specific episodes of a series.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_query_params"><b>[GET]</b> /series/{id}/episodes/query/params</a>
      *
      * @see #queryEpisodes(long, QueryParameters) queryEpisodes(seriesId, queryParameters)
@@ -451,9 +451,9 @@ public interface TheTVDBApi {
 
     /**
      * Returns a summary of the episodes and seasons available for a series, mapped as Java DTO.
-     * <br/>
+     * <br>
      * <b>Note:</b> Season "0" is for all episodes that are considered to be specials.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_summary"><b>[GET]</b> /series/{id}/episodes/summary</a>
      *
      * @see JSON#getSeriesEpisodesSummary(long) TheTVDBApi.JSON.getSeriesEpisodesSummary(seriesId)
@@ -469,7 +469,7 @@ public interface TheTVDBApi {
 
     /**
      * Returns a filtered series record based on the given parameters, mapped as Java DTO.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_filter"><b>[GET]</b> /series/{id}/filter</a>
      *
      * @see JSON#filterSeries(long, QueryParameters) TheTVDBApi.JSON.filterSeries(seriesId, queryParameters)
@@ -501,7 +501,7 @@ public interface TheTVDBApi {
     /**
      * Returns a list of keys which are valid parameters for filtering series, as plain Strings. These keys are permitted to be used in
      * {@link QueryParameters} objects when filtering for a specific series.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_filter_params"><b>[GET]</b> /series/{id}/filter/params</a>
      *
      * @see #filterSeries(long, QueryParameters) filterSeries(seriesId, queryParameters)
@@ -518,7 +518,7 @@ public interface TheTVDBApi {
 
     /**
      * Returns a summary of the images types and counts available for a particular series, mapped as Java DTO.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images"><b>[GET]</b> /series/{id}/images</a>
      *
      * @see JSON#getSeriesImagesSummary(long) TheTVDBApi.JSON.getSeriesImagesSummary(seriesId)
@@ -534,7 +534,7 @@ public interface TheTVDBApi {
 
     /**
      * Returns the matching result of querying images for a specific series, mapped as Java DTO.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images_query"><b>[GET]</b> /series/{id}/images/query</a>
      *
      * @see JSON#queryImages(long, QueryParameters) TheTVDBApi.JSON.queryImages(seriesId, queryParameters)
@@ -553,7 +553,7 @@ public interface TheTVDBApi {
     /**
      * Returns all images for a specific series, matching the given parameters, mapped as Java DTO. This is a shortcut-method for
      * {@link #queryImages(long, QueryParameters) queryImages(seriesId, queryParameters)} with a "keyType" and "resolution" query parameter.
-     * <p/>
+     * <p>
      * Note: For more details regarding valid values for the method specific query parameters see the API documentation or use
      * {@link #getAvailableImageQueryParameters(long)} getAvailableImageQueryParameters(seriesId)}
      *
@@ -572,7 +572,7 @@ public interface TheTVDBApi {
     /**
      * Returns all images for a specific series, matching the given parameters, mapped as Java DTO. This is a shortcut-method for
      * {@link #queryImages(long, QueryParameters) queryImages(seriesId, queryParameters)} with a "keyType", a "resolution" and a "subKey" query parameter.
-     * <p/>
+     * <p>
      * Note: For more details regarding valid values for the method specific query parameters see the API documentation or use
      * {@link #getAvailableImageQueryParameters(long)} getAvailableImageQueryParameters(seriesId)}
      *
@@ -592,7 +592,7 @@ public interface TheTVDBApi {
     /**
      * Returns all images of a specific type for a series, mapped as Java DTO. This is a shortcut-method for
      * {@link #queryImages(long, QueryParameters) queryImages(seriesId, queryParameters)} with a single "keyType" query parameter.
-     * <p/>
+     * <p>
      * Note: For more details regarding valid values for the method specific query parameters see the API documentation or use
      * {@link #getAvailableImageQueryParameters(long)} getAvailableImageQueryParameters(seriesId)}
      *
@@ -608,7 +608,7 @@ public interface TheTVDBApi {
     /**
      * Returns all images of a specific resolution for a series, mapped as Java DTO. This is a shortcut-method for
      * {@link #queryImages(long, QueryParameters) queryImages(seriesId, queryParameters)} with a single "resolution" query parameter.
-     * <p/>
+     * <p>
      * Note: For more details regarding valid values for the method specific query parameters see the API documentation or use
      * {@link #getAvailableImageQueryParameters(long)} getAvailableImageQueryParameters(seriesId)}
      *
@@ -624,7 +624,7 @@ public interface TheTVDBApi {
     /**
      * Returns all images of a specific sub key for a series, mapped as Java DTO. This is a shortcut-method for
      * {@link #queryImages(long, QueryParameters) queryImages(seriesId, queryParameters)} with a single "subKey" query parameter.
-     * <p/>
+     * <p>
      * Note: For more details regarding valid values for the method specific query parameters see the API documentation or use
      * {@link #getAvailableImageQueryParameters(long)} getAvailableImageQueryParameters(seriesId)}
      *
@@ -640,7 +640,7 @@ public interface TheTVDBApi {
     /**
      * Returns a list of valid parameters for querying a series images, mapped as Java DTO. Unlike other routes, querying for a series images may be resticted
      * to certain combinations of query keys. The allowed combinations are clustered in the single {@link ImageQueryParameter} objects returned by this method.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images_query_params"><b>[GET]</b> /series/{id}/images/query/params</a>
      *
      * @see #queryImages(long, QueryParameters) queryImages(seriesId, queryParameters)
@@ -659,10 +659,10 @@ public interface TheTVDBApi {
      * Returns a map of series that have changed in a maximum of one week blocks since the provided <code>fromTime</code> query parameter. The key/value pairs of the
      * returned map represent a TheTVDB series ID (key) and when it was updated the last time (value) as Epoch time. Note that the given query parameters must
      * always contain a valid <code>fromTime</code> Epoch timestamp key.
-     * <p/>
+     * <p>
      * The user may specify an additional <code>toTime</code> query key to grab results for less than a week. Any timespan larger than a week will be reduced
      * down to one week automatically.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Updates/get_updated_query"><b>[GET]</b> /updated/query</a>
      *
      * @see JSON#queryLastUpdated(QueryParameters) TheTVDBApi.JSON.queryLastUpdated(queryParameters)
@@ -713,7 +713,7 @@ public interface TheTVDBApi {
     /**
      * Returns a list of valid parameters for querying series which have been updated lately, as plain Strings. These keys are permitted to be used in
      * {@link QueryParameters} objects when querying for recently updated series.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Updates/get_updated_query_params"><b>[GET]</b> /updated/query/params</a>
      *
      * @see #queryLastUpdated(QueryParameters) queryLastUpdated(queryParameters)
@@ -728,7 +728,7 @@ public interface TheTVDBApi {
 
     /**
      * Returns basic information about the currently authenticated user, mapped as Java DTO.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user"><b>[GET]</b> /user</a>
      *
      * @see JSON#getUser()
@@ -742,7 +742,7 @@ public interface TheTVDBApi {
 
     /**
      * Returns a list of favorite series for a given user, as plain Strings. Will be an empty list if no favorites exist.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_favorites"><b>[GET]</b> /user/favorites</a>
      *
      * @see JSON#getFavorites()
@@ -756,7 +756,7 @@ public interface TheTVDBApi {
 
     /**
      * Deletes the given series ID from the user’s favorite’s list and returns the updated list as plain Strings.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/delete_user_favorites_id"><b>[DELETE]</b> /user/favorites/{id}</a>
      *
      * @see #addToFavorites(long) addToFavorites(seriesId)
@@ -773,7 +773,7 @@ public interface TheTVDBApi {
 
     /**
      * Adds the supplied series ID to the user’s favorite’s list and returns the updated list as plain Strings.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/put_user_favorites_id"><b>[PUT]</b> /user/favorites/{id}</a>
      *
      * @see #deleteFromFavorites(long) deleteFromFavorites(seriesId)
@@ -790,7 +790,7 @@ public interface TheTVDBApi {
 
     /**
      * Returns a list of ratings for the given user, mapped as Java DTO.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings"><b>[GET]</b> /user/ratings</a>
      *
      * @see JSON#getRatings()
@@ -804,7 +804,7 @@ public interface TheTVDBApi {
 
     /**
      * Returns a list of ratings for a given user that match the query, mapped as Java DTO.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings_query"><b>[GET]</b> /user/ratings/query</a>
      *
      * @see JSON#queryRatings(QueryParameters) TheTVDBApi.JSON.queryRatings(queryParameters)
@@ -834,7 +834,7 @@ public interface TheTVDBApi {
     /**
      * Returns a list of valid parameters for querying user ratings, as plain Strings. These keys are permitted to be used in {@link QueryParameters}
      * objects when querying for ratings.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings_query_params"><b>[GET]</b> /user/ratings/query/params</a>
      *
      * @see #queryRatings(QueryParameters) queryRatings(queryParameters)
@@ -849,7 +849,7 @@ public interface TheTVDBApi {
 
     /**
      * Deletes a given rating of a given type.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/delete_user_ratings_itemType_itemId"><b>[DELETE]</b> /user/ratings/{itemType}/{itemId}</a>
      *
      * @see #addToRatings(String, long, long) addToRatings(itemType, itemId, itemRating)
@@ -866,7 +866,7 @@ public interface TheTVDBApi {
     /**
      * Updates a given rating of a given type and returns the modified rating, mapped as Java DTO. If no rating exists yet, a new rating
      * will be created.
-     * <p/>
+     * <p>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/put_user_ratings_itemType_itemId_itemRating"><b>[PUT]</b> /user/ratings/{itemType}/{itemId}/{itemRating}</a>
      *
      * @see #deleteFromRatings(String, long) deleteFromRatings(itemType, itemId)
@@ -878,7 +878,7 @@ public interface TheTVDBApi {
      * @param itemRating The updated rating number
      *
      * @return The modified rating (whether it was added or updated), mapped as Java DTO based on the JSON data returned by the remote service
-     *         <br/>
+     *         <br>
      *         <b>Note:</b> It seems that the data returned by the remote service for this route is quite unreliable! It might not always return the
      *         modified rating but an empty data array instead.
      *
@@ -888,7 +888,7 @@ public interface TheTVDBApi {
 
     /**
      * Provides access to the API's {@link JSON JSON} layout.
-     * <p/>
+     * <p>
      * In this layout, all methods will return the raw, unmodified JSON as received from the remove service.
      *
      * @return Instance representing the the API's <code>JSON</code> layout
@@ -897,7 +897,7 @@ public interface TheTVDBApi {
 
     /**
      * Provides access to the API's {@link Extended Extended} layout.
-     * <p/>
+     * <p>
      * In this layout, all methods will return a single {@link APIResponse} object, containing the actual request data, mapped as DTO, as well as
      * all additional information that is available in the corresponding context.
      *
@@ -907,7 +907,7 @@ public interface TheTVDBApi {
 
     /**
      * Interface representing the API's <code>JSON</code> layout.
-     * <p/>
+     * <p>
      * This layout may be used if you do not want any post-processing being applied to the actual remote service response data. All methods within this
      * layout will return the raw, unmodified JSON data as it was received from the API. This might be useful if you prefer to map the JSON data yourself,
      * want to use your own Java data models or if you don't want to parse the JSON data at all (but forward it to some other service for example). This layout
@@ -919,7 +919,7 @@ public interface TheTVDBApi {
 
         /**
          * Returns the full information for a given episode id as raw JSON.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Episodes/get_episodes_id"><b>[GET]</b> /episodes/{id}</a>
          *
          * @see TheTVDBApi#getEpisode(long) TheTVDBApi.getEpisode(episodeId)
@@ -936,7 +936,7 @@ public interface TheTVDBApi {
         /**
          * Returns an overview of all supported languages as raw JSON. These language abbreviations can be used to set the preferred language
          * for the communication with the remote service (see {@link #setLanguage(String)}.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Languages/get_languages"><b>[GET]</b> /languages</a>
          *
          * @see TheTVDBApi#getAvailableLanguages() TheTVDBApi.getAvailableLanguages()
@@ -951,7 +951,7 @@ public interface TheTVDBApi {
         /**
          * Returns further language information for a given language ID as raw JSON. The language abbreviation can be used to set the preferred language
          * for the communication with the remote service (see {@link #setLanguage(String)}.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Languages/get_languages_id"><b>[GET]</b> /languages/{id}</a>
          *
          * @see TheTVDBApi#getLanguage(long) TheTVDBApi.getLanguage(languageId)
@@ -969,7 +969,7 @@ public interface TheTVDBApi {
         /**
          * Returns series search results based on the given query parameters as raw JSON. The result contains basic information of all series
          * matching the query parameters.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Search/get_search_series"><b>[GET]</b> /search/series</a>
          *
          * @see TheTVDBApi#searchSeries(QueryParameters) TheTVDBApi.searchSeries(queryParameters)
@@ -987,7 +987,7 @@ public interface TheTVDBApi {
 
         /**
          * Returns detailed information for a specific series as raw JSON.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id"><b>[GET]</b> /series/{id}</a>
          *
          * @see TheTVDBApi#getSeries(long) TheTVDBApi.getSeries(seriesId)
@@ -1004,7 +1004,7 @@ public interface TheTVDBApi {
 
         /**
          * Returns possible query parameters, which can be used to search for series, as raw JSON.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Search/get_search_series_params"><b>[GET]</b> /search/series/params</a>
          *
          * @see TheTVDBApi#getAvailableSeriesSearchParameters() TheTVDBApi.getAvailableSeriesSearchParameters()
@@ -1022,7 +1022,7 @@ public interface TheTVDBApi {
         /**
          * Returns header information for a specific series as raw JSON. Good for getting the Last-Updated header to find out
          * when the series was last modified.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/head_series_id"><b>[HEAD]</b> /series/{id}</a>
          *
          * @see TheTVDBApi#getSeriesHeaderInformation(long) TheTVDBApi.getSeriesHeaderInformation(seriesId)
@@ -1037,7 +1037,7 @@ public interface TheTVDBApi {
 
         /**
          * Returns the actors for a specific series as raw JSON.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_actors"><b>[GET]</b> /series/{id}/actors</a>
          *
          * @see TheTVDBApi#getActors(long) TheTVDBApi.getActors(seriesId)
@@ -1054,7 +1054,7 @@ public interface TheTVDBApi {
         /**
          * Returns all episodes of a specific series as raw JSON. Results will be paginated with 100 results per page.
          * Use <code>queryParameters</code> to select a specific result page.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes"><b>[GET]</b> /series/{id}/episodes</a>
          *
          * @see TheTVDBApi#getEpisodes(long, QueryParameters) TheTVDBApi.getEpisodes(seriesId, queryParameters)
@@ -1073,7 +1073,7 @@ public interface TheTVDBApi {
         /**
          * Returns all matching episodes of a specific series as raw JSON. Results will be paginated. Use <code>queryParameters</code> to filter
          * for specific episodes or to select a specific result page.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_query"><b>[GET]</b> /series/{id}/episodes/query</a>
          *
          * @see TheTVDBApi#queryEpisodes(long, QueryParameters) TheTVDBApi.queryEpisodes(seriesId, queryParameters)
@@ -1092,7 +1092,7 @@ public interface TheTVDBApi {
         /**
          * Returns a list of keys which are valid parameters for querying episodes, as raw JSON. These keys are permitted to be used in
          * {@link QueryParameters} objects when querying for specific episodes of a series.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_query_params"><b>[GET]</b> /series/{id}/episodes/query/params</a>
          *
          * @see #queryEpisodes(long, QueryParameters) queryEpisodes(seriesId, queryParameters)
@@ -1109,9 +1109,9 @@ public interface TheTVDBApi {
 
         /**
          * Returns a summary of the episodes and seasons available for a series, as raw JSON.
-         * <br/>
+         * <br>
          * <b>Note:</b> Season "0" is for all episodes that are considered to be specials.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_summary"><b>[GET]</b> /series/{id}/episodes/summary</a>
          *
          * @see TheTVDBApi#getSeriesEpisodesSummary(long) TheTVDBApi.getSeriesEpisodesSummary(seriesId)
@@ -1127,7 +1127,7 @@ public interface TheTVDBApi {
 
         /**
          * Returns a filtered series record based on the given parameters, as raw JSON.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_filter"><b>[GET]</b> /series/{id}/filter</a>
          *
          * @see TheTVDBApi#filterSeries(long, QueryParameters) TheTVDBApi.filterSeries(seriesId, queryParameters)
@@ -1146,7 +1146,7 @@ public interface TheTVDBApi {
         /**
          * Returns a list of keys which are valid parameters for filtering series, as raw JSON. These keys are permitted to be used in
          * {@link QueryParameters} objects when filtering for a specific series.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_filter_params"><b>[GET]</b> /series/{id}/filter/params</a>
          *
          * @see #filterSeries(long, QueryParameters) filterSeries(seriesId, queryParameters)
@@ -1163,7 +1163,7 @@ public interface TheTVDBApi {
 
         /**
          * Returns a summary of the images types and counts available for a particular series, as raw JSON.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images"><b>[GET]</b> /series/{id}/images</a>
          *
          * @see TheTVDBApi#getSeriesImagesSummary(long) TheTVDBApi.getSeriesImagesSummary(seriesId)
@@ -1179,7 +1179,7 @@ public interface TheTVDBApi {
 
         /**
          * Returns the matching result of querying images for a specific series, as raw JSON.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images_query"><b>[GET]</b> /series/{id}/images/query</a>
          *
          * @see TheTVDBApi#queryImages(long, QueryParameters) TheTVDBApi.queryImages(seriesId, queryParameters)
@@ -1198,7 +1198,7 @@ public interface TheTVDBApi {
         /**
          * Returns a list of valid parameters for querying a series images, as raw JSON. Unlike other routes, querying for a series images may be resticted
          * to certain combinations of query keys. The allowed combinations are clustered in the data array of the returned JSON object.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images_query_params"><b>[GET]</b> /series/{id}/images/query/params</a>
          *
          * @see #queryImages(long, QueryParameters) queryImages(seriesId, queryParameters)
@@ -1216,10 +1216,10 @@ public interface TheTVDBApi {
         /**
          * Returns an array of series that have changed in a maximum of one week blocks since the provided <code>fromTime</code> query parameter, as raw JSON. Note
          * that the given query parameters must always contain a valid <code>fromTime</code> Epoch timestamp key.
-         * <p/>
+         * <p>
          * The user may specify an additional <code>toTime</code> query key to grab results for less than a week. Any timespan larger than a week will be reduced
          * down to one week automatically.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Updates/get_updated_query"><b>[GET]</b> /updated/query</a>
          *
          * @see TheTVDBApi#queryLastUpdated(QueryParameters) TheTVDBApi.queryLastUpdated(queryParameters)
@@ -1237,7 +1237,7 @@ public interface TheTVDBApi {
         /**
          * Returns a list of valid parameters for querying series which have been updated lately, as raw JSON. These keys are permitted to be used in
          * {@link QueryParameters} objects when querying for recently updated series.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Updates/get_updated_query_params"><b>[GET]</b> /updated/query/params</a>
          *
          * @see #queryLastUpdated(QueryParameters) queryLastUpdated(queryParameters)
@@ -1252,7 +1252,7 @@ public interface TheTVDBApi {
 
         /**
          * Returns basic information about the currently authenticated user, as raw JSON.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user"><b>[GET]</b> /user</a>
          *
          * @see TheTVDBApi#getUser()
@@ -1266,7 +1266,7 @@ public interface TheTVDBApi {
 
         /**
          * Returns an array of favorite series for a given user, as raw JSON. Will be a blank array if no favorites exist.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_favorites"><b>[GET]</b> /user/favorites</a>
          *
          * @see TheTVDBApi#getFavorites()
@@ -1280,7 +1280,7 @@ public interface TheTVDBApi {
 
         /**
          * Deletes the given series ID from the user’s favorite’s list and returns the updated list as raw JSON.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/delete_user_favorites_id"><b>[DELETE]</b> /user/favorites/{id}</a>
          *
          * @see #addToFavorites(long) addToFavorites(seriesId)
@@ -1297,7 +1297,7 @@ public interface TheTVDBApi {
 
         /**
          * Adds the supplied series ID to the user’s favorite’s list and returns the updated list as raw JSON.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/put_user_favorites_id"><b>[PUT]</b> /user/favorites/{id}</a>
          *
          * @see #deleteFromFavorites(long) deleteFromFavorites(seriesId)
@@ -1314,7 +1314,7 @@ public interface TheTVDBApi {
 
         /**
          * Returns a list of ratings for the given user, as raw JSON.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings"><b>[GET]</b> /user/ratings</a>
          *
          * @see TheTVDBApi#getRatings()
@@ -1328,7 +1328,7 @@ public interface TheTVDBApi {
 
         /**
          * Returns a list of ratings for a given user that match the query, as raw JSON.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings_query"><b>[GET]</b> /user/ratings/query</a>
          *
          * @see TheTVDBApi#queryRatings(QueryParameters) TheTVDBApi.queryRatings(queryParameters)
@@ -1346,7 +1346,7 @@ public interface TheTVDBApi {
         /**
          * Returns a list of valid parameters for querying user ratings, as raw JSON. These keys are permitted to be used in {@link QueryParameters}
          * objects when querying for ratings.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings_query_params"><b>[GET]</b> /user/ratings/query/params</a>
          *
          * @see #queryRatings(QueryParameters) queryRatings(queryParameters)
@@ -1361,7 +1361,7 @@ public interface TheTVDBApi {
 
         /**
          * Deletes a given rating of a given type.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/delete_user_ratings_itemType_itemId"><b>[DELETE]</b> /user/ratings/{itemType}/{itemId}</a>
          *
          * @see #addToRatings(String, long, long) addToRatings(itemType, itemId, itemRating)
@@ -1380,7 +1380,7 @@ public interface TheTVDBApi {
         /**
          * Updates a given rating of a given type and returns the modified rating, mapped as raw JSON. If no rating exists yet, a new rating
          * will be created.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/put_user_ratings_itemType_itemId_itemRating"><b>[PUT]</b> /user/ratings/{itemType}/{itemId}/{itemRating}</a>
          *
          * @see #deleteFromRatings(String, long) deleteFromRatings(itemType, itemId)
@@ -1392,7 +1392,7 @@ public interface TheTVDBApi {
          * @param itemRating The updated rating number
          *
          * @return JSON object containing the modified rating (whether it was added or updated)
-         *         <br/>
+         *         <br>
          *         <b>Note:</b> It seems that the data returned by the remote service for this route is quite unreliable! It might not always return the
          *         modified rating but an empty data array instead.
          *
@@ -1403,7 +1403,7 @@ public interface TheTVDBApi {
 
     /**
      * Interface representing the API's <code>Extended</code> layout.
-     * <p/>
+     * <p>
      * This layout may be used for slightly advance API integration. Like the common layout it'll take care of parsing the recieved JSON into Java DTO's
      * but it will also provide access to any additional contextual information. Methods of this layout will always return a single {@link APIResponse}
      * object which consists of the actual data, parsed as DTO, as well as all additional information which is available in the given context, like
@@ -1415,7 +1415,7 @@ public interface TheTVDBApi {
 
         /**
          * Returns a response object containing the full information for a given episode id as mapped Java DTO.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Episodes/get_episodes_id"><b>[GET]</b> /episodes/{id}</a>
          *
          * @see JSON#getEpisode(long) TheTVDBApi.JSON.getEpisode(episodeId)
@@ -1433,7 +1433,7 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a list of all supported languages mapped as Java DTO. These language abbreviations can be used to set the preferred language
          * for the communication with the remote service (see {@link #setLanguage(String)}.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Languages/get_languages"><b>[GET]</b> /languages</a>
          *
          * @see JSON#getAvailableLanguages()
@@ -1449,7 +1449,7 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing further language information for a given language ID mapped as Java DTO. The language abbreviation can be used to set the preferred language
          * for the communication with the remote service (see {@link #setLanguage(String)}.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Languages/get_languages_id"><b>[GET]</b> /languages/{id}</a>
          *
          * @see JSON#getLanguage(long) TheTVDBApi.JSON.getLanguage(languageId)
@@ -1468,7 +1468,7 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a list of series search results based on the given query parameters mapped as Java DTO. The list contains
          * basic information of all series matching the query parameters.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Search/get_search_series"><b>[GET]</b> /search/series</a>
          *
          * @see JSON#searchSeries(QueryParameters) TheTVDBApi.JSON.searchSeries(queryParameters)
@@ -1487,7 +1487,7 @@ public interface TheTVDBApi {
 
         /**
          * Returns a response object containing possible query parameters, which can be used to search for series, mapped as Java DTO.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Search/get_search_series_params"><b>[GET]</b> /search/series/params</a>
          *
          * @see JSON#getAvailableSeriesSearchParameters()
@@ -1504,7 +1504,7 @@ public interface TheTVDBApi {
 
         /**
          * Returns a response object containing detailed information for a specific series mapped as Java DTO.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id"><b>[GET]</b> /series/{id}</a>
          *
          * @see JSON#getSeries(long) TheTVDBApi.JSON.getSeries(seriesId)
@@ -1521,7 +1521,7 @@ public interface TheTVDBApi {
 
         /**
          * Returns a response object containing a list of actors for a specific series mapped as Java DTO.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_actors"><b>[GET]</b> /series/{id}/actors</a>
          *
          * @see JSON#getActors(long) TheTVDBApi.JSON.getActors(seriesId)
@@ -1539,7 +1539,7 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing all episodes of a specific series mapped as Java DTO. Results will be paginated with 100 results per page.
          * Use <code>queryParameters</code> to select a specific result page.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes"><b>[GET]</b> /series/{id}/episodes</a>
          *
          * @see JSON#getEpisodes(long, QueryParameters) TheTVDBApi.JSON.getEpisodes(seriesId, queryParameters)
@@ -1559,7 +1559,7 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing all matching episodes of a specific series mapped as Java DTO. Results will be paginated. Note that this method
          * is deterministic and will always return the <b>first</b> result page of the available episodes.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_query"><b>[GET]</b> /series/{id}/episodes/query</a>
          *
          * @see JSON#queryEpisodes(long, QueryParameters) TheTVDBApi.JSON.queryEpisodes(seriesId, queryParameters)
@@ -1579,7 +1579,7 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a list of keys which are valid parameters for querying episodes, as plain Strings. These keys are permitted to be used
          * in {@link QueryParameters} objects when querying for specific episodes of a series.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_query_params"><b>[GET]</b> /series/{id}/episodes/query/params</a>
          *
          * @see #queryEpisodes(long, QueryParameters) queryEpisodes(seriesId, queryParameters)
@@ -1597,9 +1597,9 @@ public interface TheTVDBApi {
 
         /**
          * Returns a response object containing a summary of the episodes and seasons available for a series, mapped as Java DTO.
-         * <br/>
+         * <br>
          * <b>Note:</b> Season "0" is for all episodes that are considered to be specials.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_summary"><b>[GET]</b> /series/{id}/episodes/summary</a>
          *
          * @see JSON#getSeriesEpisodesSummary(long) TheTVDBApi.JSON.getSeriesEpisodesSummary(seriesId)
@@ -1616,7 +1616,7 @@ public interface TheTVDBApi {
 
         /**
          * Returns a response object containing a filtered series record based on the given parameters, mapped as Java DTO.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_filter"><b>[GET]</b> /series/{id}/filter</a>
          *
          * @see JSON#filterSeries(long, QueryParameters) TheTVDBApi.JSON.filterSeries(seriesId, queryParameters)
@@ -1636,7 +1636,7 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a list of keys which are valid parameters for filtering series, as plain Strings. These keys are permitted
          * to be used in {@link QueryParameters} objects when filtering for a specific series.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_filter_params"><b>[GET]</b> /series/{id}/filter/params</a>
          *
          * @see #filterSeries(long, QueryParameters) filterSeries(seriesId, queryParameters)
@@ -1654,7 +1654,7 @@ public interface TheTVDBApi {
 
         /**
          * Returns a response object containing a summary of the images types and counts available for a particular series, mapped as Java DTO.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images"><b>[GET]</b> /series/{id}/images</a>
          *
          * @see JSON#getSeriesImagesSummary(long) TheTVDBApi.JSON.getSeriesImagesSummary(seriesId)
@@ -1671,7 +1671,7 @@ public interface TheTVDBApi {
 
         /**
          * Returns a response object containing the matching result of querying images for a specific series, mapped as Java DTO.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images_query"><b>[GET]</b> /series/{id}/images/query</a>
          *
          * @see JSON#queryImages(long, QueryParameters) TheTVDBApi.JSON.queryImages(seriesId, queryParameters)
@@ -1692,7 +1692,7 @@ public interface TheTVDBApi {
          * Returns a response object containing a list of valid parameters for querying a series images, mapped as Java DTO. Unlike other routes, querying for
          * a series images may be resticted to certain combinations of query keys. The allowed combinations are clustered in the single {@link ImageQueryParameter}
          * objects of the returned API responses data object.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images_query_params"><b>[GET]</b> /series/{id}/images/query/params</a>
          *
          * @see #queryImages(long, QueryParameters) queryImages(seriesId, queryParameters)
@@ -1712,10 +1712,10 @@ public interface TheTVDBApi {
          * Returns a response object containing a map of series that have changed in a maximum of one week blocks since the provided <code>fromTime</code>
          * query parameter, as plain Strings. The key/value pairs of the returned data object's map represent a TheTVDB series ID (key) and when it was updated
          * the last time (value) as Epoch time. Note that the given query parameters must always contain a valid <code>fromTime</code> Epoch timestamp key.
-         * <p/>
+         * <p>
          * The user may specify an additional <code>toTime</code> query key to grab results for less than a week. Any timespan larger than a week will be reduced
          * down to one week automatically.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Updates/get_updated_query"><b>[GET]</b> /updated/query</a>
          *
          * @see JSON#queryLastUpdated(QueryParameters) TheTVDBApi.JSON.queryLastUpdated(queryParameters)
@@ -1734,7 +1734,7 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a list of valid parameters for querying series which have been updated lately, as plain Strings. These keys
          * are permitted to be used in {@link QueryParameters} objects when querying for recently updated series.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Updates/get_updated_query_params"><b>[GET]</b> /updated/query/params</a>
          *
          * @see #queryLastUpdated(QueryParameters) queryLastUpdated(queryParameters)
@@ -1750,7 +1750,7 @@ public interface TheTVDBApi {
 
         /**
          * Returns a response object containing basic information about the currently authenticated user, mapped as Java DTO.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user"><b>[GET]</b> /user</a>
          *
          * @see JSON#getUser()
@@ -1766,7 +1766,7 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a list of favorite series for a given user, as plain Strings. The data object of the returned response
          * will contain an empty list if no favorites exist.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_favorites"><b>[GET]</b> /user/favorites</a>
          *
          * @see JSON#getFavorites()
@@ -1781,7 +1781,7 @@ public interface TheTVDBApi {
 
         /**
          * Deletes the given series ID from the user’s favorite’s list and returns a response object containing the updated list as plain Strings.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/delete_user_favorites_id"><b>[DELETE]</b> /user/favorites/{id}</a>
          *
          * @see #addToFavorites(long) addToFavorites(seriesId)
@@ -1799,7 +1799,7 @@ public interface TheTVDBApi {
 
         /**
          * Adds the supplied series ID to the user’s favorite’s list and returns a response object containing the updated list as plain Strings.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/put_user_favorites_id"><b>[PUT]</b> /user/favorites/{id}</a>
          *
          * @see #deleteFromFavorites(long) deleteFromFavorites(seriesId)
@@ -1817,7 +1817,7 @@ public interface TheTVDBApi {
 
         /**
          * Returns a response object containing a list of ratings for the given user, mapped as Java DTO.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings"><b>[GET]</b> /user/ratings</a>
          *
          * @see JSON#getRatings()
@@ -1832,7 +1832,7 @@ public interface TheTVDBApi {
 
         /**
          * Returns a response object containing a list of ratings for a given user that match the query, mapped as Java DTO.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings_query"><b>[GET]</b> /user/ratings/query</a>
          *
          * @see JSON#queryRatings(QueryParameters) TheTVDBApi.JSON.queryRatings(queryParameters)
@@ -1851,7 +1851,7 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a list of valid parameters for querying user ratings, as plain Strings. These keys are permitted to be
          * used in {@link QueryParameters} objects when querying for ratings.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings_query_params"><b>[GET]</b> /user/ratings/query/params</a>
          *
          * @see #queryRatings(QueryParameters) queryRatings(queryParameters)
@@ -1867,7 +1867,7 @@ public interface TheTVDBApi {
 
         /**
          * Deletes a given rating of a given type.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/delete_user_ratings_itemType_itemId"><b>[DELETE]</b> /user/ratings/{itemType}/{itemId}</a>
          *
          * @see #addToRatings(String, long, long) addToRatings(itemType, itemId, itemRating)
@@ -1884,7 +1884,7 @@ public interface TheTVDBApi {
         /**
          * Updates a given rating of a given type and return a response object containing the modified rating, mapped as Java DTO. If no rating exists
          * yet, a new rating will be created.
-         * <p/>
+         * <p>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/put_user_ratings_itemType_itemId_itemRating"><b>[PUT]</b> /user/ratings/{itemType}/{itemId}/{itemRating}</a>
          *
          * @see #deleteFromRatings(String, long) deleteFromRatings(itemType, itemId)
@@ -1897,7 +1897,7 @@ public interface TheTVDBApi {
          *
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
-         *         <br/>
+         *         <br>
          *         <b>Note:</b> It seems that the data returned by the remote service for this route is quite unreliable! It might not always return the
          *         modified rating but an empty data array instead.
          *

@@ -9,11 +9,11 @@ import java.util.function.Predicate;
 
 /**
  * Collection of simple checks to be used for method parameter validation
- * <p/>
+ * <p>
  * The default behavior for parameter checks provided by this class is to throw an {@link IllegalArgumentException} in case the given
  * arguments do not match the requirements. Some of the methods may support extended control over the actual type of exception that
  * will be thrown by allowing the calling instance to privide it's onw runtime exception instance.
- * <p/>
+ * <p>
  * Please note that this class should primarily be used for method parameter validation as the default <code>IllegalAgrumentException</code>
  * typically indicates that resolving the failed validation lies within the responsibility of the calling instance. To check for additional,
  * non-method parameter related preconditions use {@link Preconditions}.
@@ -88,6 +88,8 @@ public final class Parameters {
      * @param paramName The name of the URL path parameter to check
      * @param paramValue The corresponding value of the path parameter
      * @param condition Condition to be matched by the given parameter value
+     *
+     * @param <T> Type of the parameter value to check
      *
      * @throws IllegalArgumentException If the given parameter name is <i>null</i> or the parameter value does not match the given condition
      */

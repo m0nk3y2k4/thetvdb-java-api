@@ -2,7 +2,7 @@ package com.github.m0nk3y2k4.thetvdb.internal.util.functional;
 
 /**
  * Collection of {@link FunctionalInterface FunctionalInterfaces} which allow simple exception handling.
- * <p/>
+ * <p>
  * Provides a set of commonly used functional interfaces that enables the actual implementation to throw
  * a single exception. Simplyfies the usage of lambda-expressions by not being forced to include exception
  * handling into the expression itself.
@@ -19,6 +19,7 @@ public interface ThrowableFunctionalInterfaces {
      */
     @FunctionalInterface
     interface Function<T, R, X extends Exception> {
+
         /**
          * Wraps the given function into a throwable function
          *

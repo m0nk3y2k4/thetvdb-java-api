@@ -8,12 +8,12 @@ import java.util.Optional;
 /**
  * Interface for extended remote API responses. Some API routes will not only return the actually requested data but will also report additional
  * information with regards to error and pagination handling.
- * <p/>
- * <b>Note:</b><br/>
+ * <p>
+ * <b>Note:</b><br>
  * The type and amount of additional information returned by the remote service depends on the actual API route. Some will only return the requested
  * records, other will also report additional error information in case invalid filter parameters have been used by the client. API calls that
  * support pagination might also add some additional information which can be used to navigate through the "pages".
- * <p/>
+ * <p>
  *
  * @param <T> The actual payload DTO based on the data returned by the remote service
  */
@@ -44,7 +44,7 @@ public interface APIResponse<T> {
 
     /**
      * Interface representing optional soft errors that might occur while requesting data from the remote service
-     * <p/>
+     * <p>
      * Please note that, as the remote service declares all of the properties to be optional, most of the methods are marked
      * as {@link Nullable}. Methods returning collection-based values however will return an empty collection in case no corresponding
      * data was receieved.
@@ -76,7 +76,7 @@ public interface APIResponse<T> {
 
     /**
      * Interface representing optional paging information for remote service requests supporting pagination
-     * <p/>
+     * <p>
      * Please note that, as the remote service declares all of the properties to be optional, most of the methods are marked
      * as {@link Nullable}. Methods returning collection-based values however will return an empty collection in case no corresponding
      * data was receieved.
