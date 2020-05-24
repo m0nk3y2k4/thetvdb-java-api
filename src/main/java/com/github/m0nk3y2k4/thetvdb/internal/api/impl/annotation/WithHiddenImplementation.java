@@ -7,9 +7,9 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 
 /**
- * Forces <code>Immutables</code> to restrict the visibility of auto-generated DTO implementations in order to "hide" them.
- * <p>
- * This is a composed annotation providing some commonly used preconfiguration for DTO's with regards to the <code>Immutables</code> API.
+ * Forces <em>{@code Immutables}</em> to restrict the visibility of auto-generated DTO implementations in order to "hide" them.
+ * <p><br>
+ * This is a composed annotation providing some commonly used preconfiguration for DTO's with regards to the <em>{@code Immutables}</em> API.
  * It forces the actual immutable implementation to be private and the corresponding builder to be package-private.
  */
 @Documented

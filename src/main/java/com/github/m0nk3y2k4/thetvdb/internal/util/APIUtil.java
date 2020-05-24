@@ -23,7 +23,7 @@ public final class APIUtil {
      *
      * @param strings The strings to check
      *
-     * @return {@link Boolean#FALSE} if at least one of the given Strings is <code>null</code> or contains only blanks.
+     * @return {@link Boolean#FALSE} if at least one of the given Strings is <em>{@code null}</em> or contains only blanks.
      */
     public static boolean hasValue(String... strings) {
         if (strings == null) {
@@ -38,7 +38,7 @@ public final class APIUtil {
      *
      * @param strings The strings to check
      *
-     * @return {@link Boolean#TRUE} if at least one of the given Strings is <code>null</code> or contains only blanks.
+     * @return {@link Boolean#TRUE} if at least one of the given Strings is <em>{@code null}</em> or contains only blanks.
      */
     public static boolean hasNoValue(String... strings) {
         return !hasValue(strings);

@@ -24,7 +24,7 @@ public class APIRuntimeException extends RuntimeException {
      * Creates a new unchecked API runtime exception with an extended error message
      *
      * @param message Brief error message describing the general problem. This message may contain a single <i>%s</i> conversion which will be
-     *                automatically replaced with the given <code>details</code> message text.
+     *                automatically replaced with the given <em>{@code details}</em> message text.
      * @param details A more detailed error description
      */
     public APIRuntimeException(@Nonnull String message, @Nonnull String details) {

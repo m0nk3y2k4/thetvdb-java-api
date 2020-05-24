@@ -9,12 +9,12 @@ import java.util.function.Predicate;
 
 /**
  * Collection of simple checks to be used for method parameter validation
- * <p>
+ * <p><br>
  * The default behavior for parameter checks provided by this class is to throw an {@link IllegalArgumentException} in case the given
  * arguments do not match the requirements. Some of the methods may support extended control over the actual type of exception that
  * will be thrown by allowing the calling instance to privide it's onw runtime exception instance.
- * <p>
- * Please note that this class should primarily be used for method parameter validation as the default <code>IllegalAgrumentException</code>
+ * <p><br>
+ * Please note that this class should primarily be used for method parameter validation as the default <em>{@code IllegalAgrumentException}</em>
  * typically indicates that resolving the failed validation lies within the responsibility of the calling instance. To check for additional,
  * non-method parameter related preconditions use {@link Preconditions}.
  */
@@ -39,13 +39,13 @@ public final class Parameters {
     }
 
     /**
-     * Checks that the given <code>obj</code> is not <i>null</i>. Otherwise an exception with the given error message
+     * Checks that the given <em>{@code obj}</em> is not <i>null</i>. Otherwise an exception with the given error message
      * will be thrown.
      *
      * @param obj The object to check
      * @param message Error message to be propagated to the exception in case of a failed validation
      *
-     * @throws IllegalArgumentException If the given <code>obj</code> is <i>null</i>
+     * @throws IllegalArgumentException If the given <em>{@code obj}</em> is <i>null</i>
      */
     public static void validateNotNull(Object obj, String message) {
         if (obj == null) {
@@ -100,7 +100,7 @@ public final class Parameters {
     }
 
     /**
-     * Checks if the given <code>params</code> query parameter collection contains a non-empty <code>paramName</code> parameter. Otherwise an
+     * Checks if the given <em>{@code params}</em> query parameter collection contains a non-empty <em>{@code paramName}</em> parameter. Otherwise an
      * exception will be thrown.
      *
      * @param paramName The name of the URL query parameter to check for
@@ -113,7 +113,7 @@ public final class Parameters {
     }
 
     /**
-     * Checks if the given <code>params</code> query parameter collection contains a non-empty <code>paramName</code> parameter which matches the
+     * Checks if the given <em>{@code params}</em> query parameter collection contains a non-empty <em>{@code paramName}</em> parameter which matches the
      * given condition. Otherwise an exception will be thrown.
      *
      * @param paramName The name of the URL query parameter to check for

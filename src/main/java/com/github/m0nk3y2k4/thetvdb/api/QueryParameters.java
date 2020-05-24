@@ -11,7 +11,7 @@ import com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory;
  * Interface representing a set of query parameters. These parameters can be used for some of the API
  * calls in order to narrow the results being returned by the remote service. Instances of this interface
  * might be created by using the {@link TheTVDBApiFactory} class.
- * <p>
+ * <p><br>
  * Individual parameters hold by this object can be accessed as Iterator or Stream.
  */
 public interface QueryParameters extends Iterable<QueryParameters.Parameter> {
@@ -23,7 +23,7 @@ public interface QueryParameters extends Iterable<QueryParameters.Parameter> {
      *
      * @param key The new parameters key. The class {@link Query} prvides a basic set of parameter constants
      *            for the various API routes, which can be used at this point.
-     * @param value The new parameters value. Should not be <code>null</code> or empty. These values will be encoded before being added to the URI.
+     * @param value The new parameters value. Should not be <em>{@code null}</em> or empty. These values will be encoded before being added to the URI.
      *
      * @return Reference to this very instance. Can be used to add multiple parameters in a fluent notation.
      */
@@ -42,11 +42,11 @@ public interface QueryParameters extends Iterable<QueryParameters.Parameter> {
     Optional<String> getParameterValue(@Nonnull String key);
 
     /**
-     * Returns <code>true</code> if an individual parameter with the given key exists in this very object or <code>false</code> if no such parameter has been added yet.
+     * Returns <em>{@code true}</em> if an individual parameter with the given key exists in this very object or <em>{@code false}</em> if no such parameter has been added yet.
      *
      * @param key The parameter key to check for
      *
-     * @return <code>True</code> if a parameter with the given key has already been added to this object or <code>false</code> if not
+     * @return <em>{@code True}</em> if a parameter with the given key has already been added to this object or <em>{@code false}</em> if not
      */
     boolean containsParameter(@Nonnull String key);
 

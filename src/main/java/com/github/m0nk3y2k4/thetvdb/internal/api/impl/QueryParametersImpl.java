@@ -30,7 +30,7 @@ public class QueryParametersImpl implements QueryParameters {
      * will be added to this instance.
      *
      * @param parameters Map containing key/value pairs of query parameters to be initially added to this instance. Might
-     *                   be empty but not <code>null</code>.
+     *                   be empty but not <em>{@code null}</em>.
      */
     public QueryParametersImpl(@Nonnull Map<String, String> parameters) {
         super();

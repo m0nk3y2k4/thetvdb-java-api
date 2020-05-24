@@ -79,11 +79,11 @@ public final class JsonDeserializer {
     }
 
     /**
-     * A specific type reference for the JSON's <code>data</code> node.
-     * <p>
+     * A specific type reference for the JSON's <em>{@code data}</em> node.
+     * <p><br>
      * Objects of this class provide access to T's type argument. For example, if T represents a class
-     * <code>APIResponseDTO&lt;Episode&gt;</code>, so an API response whose actual payload/data is an episode,
-     * then an object of this class represents an <code>Episode</code> type argument.
+     * <em>{@code APIResponseDTO&lt;Episode&gt;}</em>, so an API response whose actual payload/data is an episode,
+     * then an object of this class represents an <em>{@code Episode}</em> type argument.
      *
      * @param <T> the type of objects that is representing the base type reference (e.g. APIResponseDTO&lt;?&gt;)
      */

@@ -7,13 +7,13 @@ import java.util.function.Predicate;
 
 /**
  * Collection of simple checks to be used to check for method invocation preconditions
- * <p>
+ * <p><br>
  * The default behavior for precondition checks provided by this class is to throw an {@link APIPreconditionException} in case the given
  * arguments do not match the requirements. Some of the methods may support extended control over the actual type of exception that
  * will be thrown by allowing the calling instance to privide it's onw runtime exception instance.
- * <p>
+ * <p><br>
  * Please note that this class should primarily be used for non-method parameter related precondition/object state checks as the default
- * <code>APIPreconditionException</code> indicates that resolving the failed validation isn't necessarily within the responsibility of the
+ * <em>{@code APIPreconditionException}</em> indicates that resolving the failed validation isn't necessarily within the responsibility of the
  * calling instance (although it can be). A common precondition check would be for example to check whether the invoked object is in a proper
  * state in order to process the invocation. If not, this may possibly be resolved by the calling instance by e.g. some additional object
  * initialization. However, it may also prove to be unresolvable for example when the invoked method is only supported for certain object
@@ -40,13 +40,13 @@ public final class Preconditions {
     }
 
     /**
-     * Checks that the given <code>obj</code> is not <i>null</i>. Otherwise an exception with the given error message
+     * Checks that the given <em>{@code obj}</em> is not <i>null</i>. Otherwise an exception with the given error message
      * will be thrown.
      *
      * @param obj The object to check
      * @param message Error message to be propagated to the exception in case of a failed validation
      *
-     * @throws APIPreconditionException If the given <code>obj</code> is <i>null</i>
+     * @throws APIPreconditionException If the given <em>{@code obj}</em> is <i>null</i>
      */
     public static void requireNonNull(Object obj, String message) {
         if (obj == null) {

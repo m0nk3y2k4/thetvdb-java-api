@@ -60,11 +60,11 @@ public final class APISession {
     private Status status = Status.NOT_AUTHORIZED;
 
     /**
-     * Creates a new API session with the given API key. The <code>apiKey</code> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a> which will
+     * Creates a new API session with the given API key. The <em>{@code apiKey}</em> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a> which will
      * be used for remote service authentication.
-     * <p>
+     * <p><br>
      * <b>NOTE:</b> Sessions created with this constructor <u>can not</u> be used for calls to the remote API's <a href="https://api.thetvdb.com/swagger#/Users">/users</a>
-     * routes. These calls require extended authentication using an additional <code>userKey</code> and <code>userName</code>.
+     * routes. These calls require extended authentication using an additional <em>{@code userKey}</em> and <em>{@code userName}</em>.
      *
      * @see APISession#APISession(String, String, String) APISession(apiKey, userKey, userName)
      *
@@ -79,8 +79,8 @@ public final class APISession {
     }
 
     /**
-     * Creates a new API session. The given <code>apiKey</code> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a>. The <code>userKey</code>
-     * and <code>userName</code> must refer to a registered TheTVDB user account. The given parameters will be used for the initial remote service authentication. Sessions
+     * Creates a new API session. The given <em>{@code apiKey}</em> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a>. The <em>{@code userKey}</em>
+     * and <em>{@code userName}</em> must refer to a registered TheTVDB user account. The given parameters will be used for the initial remote service authentication. Sessions
      * created with this constructor can be used for calls to the remote API's <a href="https://api.thetvdb.com/swagger#/Users">/users</a> routes.
      *
      * @see APISession#APISession(String) APISession(apiKey)
@@ -109,7 +109,7 @@ public final class APISession {
     }
 
     /**
-     * Returns the user key used for authentication. If set to <code>null</code> user authentication will be skipped.
+     * Returns the user key used for authentication. If set to <em>{@code null}</em> user authentication will be skipped.
      *
      * @return The user key
      */
@@ -118,7 +118,7 @@ public final class APISession {
     }
 
     /**
-     * Returns the user name used for authentication. If set to <code>null</code> user authentication will be skipped.
+     * Returns the user name used for authentication. If set to <em>{@code null}</em> user authentication will be skipped.
      *
      * @return The user name
      */
@@ -140,7 +140,7 @@ public final class APISession {
      *
      * @param token The new session token
      *
-     * @throws APIException If the given token is <code>null</code>, an empty character sequence or does not match the regular JWT format
+     * @throws APIException If the given token is <em>{@code null}</em>, an empty character sequence or does not match the regular JWT format
      */
     void setToken(@Nonnull String token) throws APIException {
         // Validate token - throws an exception if not a valid JWT
@@ -152,7 +152,7 @@ public final class APISession {
 
     /**
      * Set the preferred language used for API communication. Search results will be based on this language. If the given
-     * language parameter is <code>Null</code> the sessions language will be reset to {@link #DEFAULT_LANGUAGE}.
+     * language parameter is <em>{@code null}</em> the sessions language will be reset to {@link #DEFAULT_LANGUAGE}.
      *
      * @param language The language for API communication
      */
@@ -170,7 +170,7 @@ public final class APISession {
     }
 
     /**
-     * Sets the current status of this session. If the given status parameter is <code>Null</code> the sessions
+     * Sets the current status of this session. If the given status parameter is <em>{@code null}</em> the sessions
      * status will be reset to {@link Status#NOT_AUTHORIZED}.
      *
      * @param status The new session status
@@ -214,7 +214,7 @@ public final class APISession {
      *
      * @param token The token to check
      *
-     * @throws APIException If the given token is <code>null</code>, an empty character sequence or does not match the regular JWT format
+     * @throws APIException If the given token is <em>{@code null}</em>, an empty character sequence or does not match the regular JWT format
      */
     private static void validateJWT(String token) throws APIException {
         if (APIUtil.hasNoValue(token)) {

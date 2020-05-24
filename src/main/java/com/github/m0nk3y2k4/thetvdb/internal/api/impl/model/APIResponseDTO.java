@@ -9,7 +9,7 @@ import org.immutables.value.Value.Immutable;
 
 /**
  * DTO implementation of the {@link APIResponse} interface
- * <p>
+ * <p><br>
  * Objects of this class reflect the data received by the remote service and are immutable so that their content can
  * not be changed once an instance has been created. New objects of this class may be created by using the corresponding
  * {@link Builder}.
@@ -30,7 +30,7 @@ public abstract class APIResponseDTO<T> implements APIResponse<T> {
 
     /**
      * Builder used to create a new immutable {@link APIResponseDTO} implementation
-     * <p>
+     * <p><br>
      * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link APIResponseDTO} instance
      * based on these properties. New builders may be initialized with some existing DTO instance, which presets the builders properties
      * to the values of the given DTO, still retaining the option to make additional changes before actually building a new immutable object.
@@ -39,7 +39,7 @@ public abstract class APIResponseDTO<T> implements APIResponse<T> {
 
     /**
      * DTO implementation of the {@link JSONErrors} interface
-     * <p>
+     * <p><br>
      * Objects of this class reflect the data received by the remote service and are immutable so that their content can
      * not be changed once an instance has been created. New objects of this class may be created by using the corresponding
      * {@link Builder}.
@@ -60,7 +60,7 @@ public abstract class APIResponseDTO<T> implements APIResponse<T> {
 
         /**
          * Builder used to create a new immutable {@link JSONErrorsDTO} implementation
-         * <p>
+         * <p><br>
          * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link JSONErrorsDTO} instance
          * based on these properties. New builders may be initialized with some existing DTO instance, which presets the builders properties
          * to the values of the given DTO, still retaining the option to make additional changes before actually building a new immutable object.
@@ -70,7 +70,7 @@ public abstract class APIResponseDTO<T> implements APIResponse<T> {
 
     /**
      * DTO implementation of the {@link Links} interface
-     * <p>
+     * <p><br>
      * Objects of this class reflect the data received by the remote service and are immutable so that their content can
      * not be changed once an instance has been created. New objects of this class may be created by using the corresponding
      * {@link Builder}.
@@ -92,7 +92,7 @@ public abstract class APIResponseDTO<T> implements APIResponse<T> {
 
         /**
          * Builder used to create a new immutable {@link LinksDTO} implementation
-         * <p>
+         * <p><br>
          * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link LinksDTO} instance
          * based on these properties. New builders may be initialized with some existing DTO instance, which presets the builders properties
          * to the values of the given DTO, still retaining the option to make additional changes before actually building a new immutable object.

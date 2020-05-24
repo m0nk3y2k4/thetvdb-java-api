@@ -2,7 +2,7 @@ package com.github.m0nk3y2k4.thetvdb.internal.util.functional;
 
 /**
  * Collection of {@link FunctionalInterface FunctionalInterfaces} which allow simple exception handling.
- * <p>
+ * <p><br>
  * Provides a set of commonly used functional interfaces that enables the actual implementation to throw
  * a single exception. Simplyfies the usage of lambda-expressions by not being forced to include exception
  * handling into the expression itself.
@@ -10,7 +10,7 @@ package com.github.m0nk3y2k4.thetvdb.internal.util.functional;
 public interface ThrowableFunctionalInterfaces {
 
     /**
-     * Extended {@link java.util.function.Supplier Supplier&lt;T&gt;} functional interface which allows the <code>get</code> method
+     * Extended {@link java.util.function.Supplier Supplier&lt;T&gt;} functional interface which allows the <em>{@code get}</em> method
      * to throw an exception of type X.
      *
      * @param <T> the type of results supplied by this supplier
@@ -44,7 +44,7 @@ public interface ThrowableFunctionalInterfaces {
     }
 
     /**
-     * Extended {@link java.util.function.Function Function&lt;T, R&gt;} functional interface which allows the <code>apply</code> method
+     * Extended {@link java.util.function.Function Function&lt;T, R&gt;} functional interface which allows the <em>{@code apply}</em> method
      * to throw an exception of type X.
      *
      * @param <T> the type of the input to the function

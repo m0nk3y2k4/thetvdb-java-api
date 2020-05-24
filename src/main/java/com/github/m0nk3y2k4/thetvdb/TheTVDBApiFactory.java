@@ -14,12 +14,12 @@ public class TheTVDBApiFactory {
     }
 
     /**
-     * Creates a new TheTVDBApi instance. The given <code>apiKey</code> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a> which will
+     * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a> which will
      * be used for remote service authentication. To authenticate and generate a new session token use the {@link TheTVDBApi#init()} or {@link TheTVDBApi#login()}
      * methods right after creating a new instance of this API.
-     * <p>
+     * <p><br>
      * <b>NOTE:</b> Objects created with this constructor <u>can not</u> be used for calls to the remote API's <a href="https://api.thetvdb.com/swagger#/Users">/users</a>
-     * routes. These calls require extended authentication using an additional <code>userKey</code> and <code>userName</code>.
+     * routes. These calls require extended authentication using an additional <em>{@code userKey}</em> and <em>{@code userName}</em>.
      *
      * @see #createApi(String, String, String) createApi(apiKey, userName, userKey)
      *
@@ -32,8 +32,8 @@ public class TheTVDBApiFactory {
     }
 
     /**
-     * Creates a new TheTVDBApi instance. The given <code>apiKey</code> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a>. The <code>userKey</code>
-     * and <code>userName</code> must refer to a registered TheTVDB user account. The given parameters will be used for the initial remote service authentication. To authenticate
+     * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a>. The <em>{@code userKey}</em>
+     * and <em>{@code userName}</em> must refer to a registered TheTVDB user account. The given parameters will be used for the initial remote service authentication. To authenticate
      * and generate a new session token use the {@link TheTVDBApi#init()} or {@link TheTVDBApi#login()} methods right after creating a new instance of this API.
      *
      * @param apiKey Valid TheTVDB API-Key
@@ -63,7 +63,7 @@ public class TheTVDBApiFactory {
      * to this object by using the {@link QueryParameters#addParameter(String, String) QueryParameters#addParameter(key, value)} method.
      *
      * @param parameters Map containing key/value pairs of query parameters to be initially added to the object returned by this
-     *                   method. Might be empty but not <code>null</code>.
+     *                   method. Might be empty but not <em>{@code null}</em>.
      *
      * @return A new query parameter object with a preset collection of individual parameters
      */

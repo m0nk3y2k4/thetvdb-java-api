@@ -42,12 +42,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     private final APIConnection con;
 
     /**
-     * Creates a new TheTVDBAPI instance. The given <code>apiKey</code> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a> as it will
+     * Creates a new TheTVDBAPI instance. The given <em>{@code apiKey}</em> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a> as it will
      * be used for remote service authentication. To authenticate and generate a new session token use the {@link #init()} or {@link #login()} method right after
      * creating a new instance of this API.
-     * <p>
+     * <p><br>
      * <b>NOTE:</b> Objects created with this constructor <u>can not</u> be used for calls to the remote API's <a href="https://api.thetvdb.com/swagger#/Users">/users</a>
-     * routes. These calls require extended authentication using an additional <code>userKey</code> and <code>userName</code>.
+     * routes. These calls require extended authentication using an additional <em>{@code userKey}</em> and <em>{@code userName}</em>.
      *
      * @see #TheTVDBApiImpl(String, String, String) TheTVDBApiImpl(apiKey, userKey, userName)
      *
@@ -60,8 +60,8 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     /**
-     * Creates a new TheTVDBAPI instance. The given <code>apiKey</code> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a>. The <code>userKey</code>
-     * and <code>userName</code> must refer to a registered TheTVDB user account. The given parameters will be used for the initial remote service authentication. To authenticate
+     * Creates a new TheTVDBAPI instance. The given <em>{@code apiKey}</em> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a>. The <em>{@code userKey}</em>
+     * and <em>{@code userName}</em> must refer to a registered TheTVDB user account. The given parameters will be used for the initial remote service authentication. To authenticate
      * and generate a new session token use the {@link #init()} or {@link #login()} method right after creating a new instance of this API.
      *
      * @param apiKey Valid TheTVDB API-Key

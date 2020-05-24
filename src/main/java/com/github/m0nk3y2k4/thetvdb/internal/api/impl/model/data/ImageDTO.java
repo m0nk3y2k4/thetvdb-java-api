@@ -13,7 +13,7 @@ import java.util.Optional;
 
 /**
  * DTO implementation of the {@link Image} interface
- * <p>
+ * <p><br>
  * Objects of this class reflect the data received by the remote service and are immutable so that their content can
  * not be changed once an instance has been created. New objects of this class may be created by using the corresponding
  * {@link Builder}.
@@ -35,12 +35,12 @@ public abstract class ImageDTO implements Image {
     }
 
     /**
-     * Wraps the content of the Images' nested <code>ratingsInfo</code> JSON node in order to flatten the hierarchy of this DTO.
+     * Wraps the content of the Images' nested <em>{@code ratingsInfo}</em> JSON node in order to flatten the hierarchy of this DTO.
      *
      * @see #getRatingAverage()
      * @see #getRatingCount()
      *
-     * @return Content of <code>ratingsInfo</code> as key/value pairs
+     * @return Content of <em>{@code ratingsInfo}</em> as key/value pairs
      */
     @JsonProperty("ratingsInfo")
     abstract Map<String,Object> getRatingsInfo();
@@ -52,7 +52,7 @@ public abstract class ImageDTO implements Image {
 
     /**
      * Builder used to create a new immutable {@link ImageDTO} implementation
-     * <p>
+     * <p><br>
      * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link ImageDTO} instance
      * based on these properties. New builders may be initialized with some existing DTO instance, which presets the builders properties
      * to the values of the given DTO, still retaining the option to make additional changes before actually building a new immutable object.

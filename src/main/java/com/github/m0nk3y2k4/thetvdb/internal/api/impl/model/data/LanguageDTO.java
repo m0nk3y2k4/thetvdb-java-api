@@ -8,7 +8,7 @@ import org.immutables.value.Value.Immutable;
 
 /**
  * DTO implementation of the {@link Language} interface
- * <p>
+ * <p><br>
  * Objects of this class reflect the data received by the remote service and are immutable so that their content can
  * not be changed once an instance has been created. New objects of this class may be created by using the corresponding
  * {@link Builder}.
@@ -26,7 +26,7 @@ public abstract class LanguageDTO implements Language {
 
     /**
      * Builder used to create a new immutable {@link LanguageDTO} implementation
-     * <p>
+     * <p><br>
      * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link LanguageDTO} instance
      * based on these properties. New builders may be initialized with some existing DTO instance, which presets the builders properties
      * to the values of the given DTO, still retaining the option to make additional changes before actually building a new immutable object.
