@@ -8,14 +8,9 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APISession;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
+import com.github.m0nk3y2k4.thetvdb.internal.util.functional.ThrowableFunctionalInterfaces;
 
 public final class AuthenticationAPI {
-
-    /** Special functional interface to avoid exception handling in lambda expressions (Supplier&lt;T&gt; does not declare a throw-clause) */
-    @FunctionalInterface
-    private interface ThrowingSupplier<T> {
-        T get() throws APIException;
-    }
 
     private AuthenticationAPI() {}     // Private constructor. Only static methods
 
@@ -37,7 +32,7 @@ public final class AuthenticationAPI {
         setToken(con, () -> con.sendGET("/refresh_token"));
     }
 
-    private static void setToken(@Nonnull APIConnection con, @Nonnull ThrowingSupplier<JsonNode> sendRequest) throws APIException {
+    private static void setToken(@Nonnull APIConnection con, @Nonnull ThrowableFunctionalInterfaces.Supplier<JsonNode, APIException> sendRequest) throws APIException {
         // Request token
         JsonNode response = sendRequest.get();              // Throws exception if authorization fails
         String token = response.get("token").asText();

@@ -10,6 +10,40 @@ package com.github.m0nk3y2k4.thetvdb.internal.util.functional;
 public interface ThrowableFunctionalInterfaces {
 
     /**
+     * Extended {@link java.util.function.Supplier Supplier&lt;T&gt;} functional interface which allows the <code>get</code> method
+     * to throw an exception of type X.
+     *
+     * @param <T> the type of results supplied by this supplier
+     * @param <X> the type of exception to be thrown by the supplier
+     */
+    @FunctionalInterface
+    interface Supplier<T, X extends Exception> {
+
+        /**
+         * Wraps the given supplier into a throwable supplier
+         *
+         * @param supplier The supplier to wrap
+         *
+         * @param <T> the type of results supplied by this supplier
+         * @param <X> the type of exception to be thrown by the supplier
+         *
+         * @return The given supplier wrapped as a throwable supplier object
+         */
+        static <T, X extends Exception> Supplier<T, X> of(java.util.function.Supplier<T> supplier) {
+            return supplier::get;
+        }
+
+        /**
+         * Gets a result.
+         *
+         * @return a result
+         *
+         * @throws X When an exception occurred during invocation
+         */
+        T get() throws X;
+    }
+
+    /**
      * Extended {@link java.util.function.Function Function&lt;T, R&gt;} functional interface which allows the <code>apply</code> method
      * to throw an exception of type X.
      *
