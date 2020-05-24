@@ -9,7 +9,9 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 /**
- * Session used for remote API communication. All connections to the TheTVDB API are backed by an instance of this class. These sessions
+ * Session used for remote API communication.
+ * <p><br>
+ * All connections to the TheTVDB API are backed by an instance of this class. These sessions
  * contain all information required for client authentication on the remote service, locale settings as well as session tokens used for
  * remote service communication.
  */
@@ -18,14 +20,16 @@ public final class APISession {
     /** Pattern for JSON Web Token validation */
     private static final Pattern JWT_PATTERN = Pattern.compile("^[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*$");
 
-    /** Error messages */
+    /** JWT related error messages */
     private static final String ERR_JWT_EMPTY = "Remote API authorization failed: Token must not be NULL or empty";
     private static final String ERR_JWT_INVALID = "Remote API authorization failed: Invalid token format [%s]";
 
     /**
-     * Represents the different states of a session. By default, sessions are not authorized for general API communication. Only
+     * Represents the different states of a session.
+     * <p><br>
+     * By default, sessions are not authorized for general API communication. Only
      * login/refresh requests may be allowed. During the execution of these kind of requests, the session authorization is in progress.
-     * In case the login/refresh were successful the session is authorized and ready for general API communication.
+     * In case the login/refresh was successful the session is authorized and ready for general API communication.
      */
     public enum Status {
         /** Session authorization is pending */
@@ -50,7 +54,7 @@ public final class APISession {
     /** Optional userName for authentication */
     private final String userName;
 
-    /** Token valid for this session */
+    /** The JWT token for this session, issued by the remote service */
     private volatile String token;
 
     /** The preferred language for API communication based on this session */
@@ -102,25 +106,25 @@ public final class APISession {
     /**
      * Returns the API key of this session
      *
-     * @return API key of the session
+     * @return API key of this session
      */
     String getApiKey() {
         return this.apiKey;
     }
 
     /**
-     * Returns the user key used for authentication. If set to <em>{@code null}</em> user authentication will be skipped.
+     * Returns the user key used for authentication. If no value is present then user authentication will be skipped.
      *
-     * @return The user key
+     * @return Optional user key for this session
      */
     Optional<String> getUserKey() {
         return Optional.ofNullable(userKey);
     }
 
     /**
-     * Returns the user name used for authentication. If set to <em>{@code null}</em> user authentication will be skipped.
+     * Returns the user name used for authentication. If no value is present then user authentication will be skipped.
      *
-     * @return The user name
+     * @return Optional user name for this session
      */
     Optional<String> getUserName() {
         return Optional.ofNullable(userName);
@@ -129,16 +133,16 @@ public final class APISession {
     /**
      * Returns the current session token. Might be empty if the session has not yet been initialized.
      *
-     * @return Current API session token
+     * @return Current API session token or empty Optional if not yet authorized
      */
     Optional<String> getToken() {
         return Optional.ofNullable(token);
     }
 
     /**
-     * Sets the token of this session
+     * Sets the JWT token for this session which will then be used further communication authentication
      *
-     * @param token The new session token
+     * @param token The new JWT session token issued by the remote service
      *
      * @throws APIException If the given token is <em>{@code null}</em>, an empty character sequence or does not match the regular JWT format
      */
@@ -151,10 +155,10 @@ public final class APISession {
     }
 
     /**
-     * Set the preferred language used for API communication. Search results will be based on this language. If the given
+     * Set the preferred language used for API communication. If available, search results will be returned in this language. If the given
      * language parameter is <em>{@code null}</em> the sessions language will be reset to {@link #DEFAULT_LANGUAGE}.
      *
-     * @param language The language for API communication
+     * @param language The preferred language of the data returned by the remote service
      */
     void setLanguage(String language) {
         this.language = language != null ? language : DEFAULT_LANGUAGE;
@@ -163,7 +167,7 @@ public final class APISession {
     /**
      * Returns the language code currently set for this session
      *
-     * @return The language used for API communication
+     * @return The preferred language used for API communication
      */
     String getLanguage() {
         return language;
@@ -201,9 +205,9 @@ public final class APISession {
     }
 
     /**
-     * Checks whether user authentication is available or not. User authentication is optional and only required for specific API calls (USER*).
+     * Checks whether user authentication is available or not. A distinct user authentication is optional and only required for specific API calls (USER*).
      *
-     * @return {@link Boolean#TRUE} if both, userKey and userName are not empty or {@link Boolean#FALSE} if not.
+     * @return {@link Boolean#TRUE} if both, userKey and userName are <b>not</b> empty or {@link Boolean#FALSE} if not.
      */
     Boolean userAuthentication() {
         return APIUtil.hasValue(userKey) && APIUtil.hasValue(userName);
