@@ -107,7 +107,7 @@ public interface TheTVDBApi {
 
     /**
      * Refreshes the current, valid JWT session token. This method can be used to extend the expiration date (24 hours) of the current session token without the need of a
-     * complete new login. This method will be called automatically if an API call is made using an expired JWT session token.
+     * complete new login.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Authentication/get_refresh_token"><b>[GET]</b> /refresh_token</a>
      *
@@ -127,7 +127,7 @@ public interface TheTVDBApi {
      *
      * @return Mapped Java DTO containing the full episode information based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given episode ID does not exist, etc.
      */
     Episode getEpisode(long episodeId) throws APIException;
 
@@ -236,7 +236,7 @@ public interface TheTVDBApi {
      * @see Extended#searchSeries(QueryParameters) TheTVDBApi.Extended.searchSeries(queryParams)
      * @see #searchSeries(QueryParameters) searchSeries(queryParams)
      *
-     * @return List of possible parameters to query by in the series search
+     * @return List of possible parameters to query by in the series search route
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
      */
@@ -254,7 +254,7 @@ public interface TheTVDBApi {
      *
      * @return Detailed information for a specific series mapped as Java DTO based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
      */
     Series getSeries(long seriesId) throws APIException;
 
@@ -270,7 +270,7 @@ public interface TheTVDBApi {
      *
      * @return HTML header information returned by the remote service mapped as key/value pairs
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
      */
     Map<String, String> getSeriesHeaderInformation(long seriesId) throws APIException;
 
@@ -286,7 +286,7 @@ public interface TheTVDBApi {
      *
      * @return List of actors mapped as Java DTO's based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
      */
     List<Actor> getActors(long seriesId) throws APIException;
 
@@ -305,7 +305,7 @@ public interface TheTVDBApi {
      *
      * @return List of episodes mapped as Java DTO's based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
      */
     List<Episode> getEpisodes(long seriesId, QueryParameters queryParameters) throws APIException;
 
@@ -320,7 +320,7 @@ public interface TheTVDBApi {
      *
      * @return List of episodes mapped as Java DTO's based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
      */
     List<Episode> getEpisodes(long seriesId) throws APIException;
 
@@ -336,7 +336,7 @@ public interface TheTVDBApi {
      *
      * @return List of episodes mapped as Java DTO's based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
      */
     List<Episode> getEpisodes(long seriesId, long page) throws APIException;
 
@@ -355,7 +355,8 @@ public interface TheTVDBApi {
      *
      * @return List of episodes matching the query parameters, mapped as Java DTO's based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does
+     *                      not exist, etc. or if no records are found that match your query.
      */
     List<Episode> queryEpisodes(long seriesId, QueryParameters queryParameters) throws APIException;
 
@@ -371,7 +372,8 @@ public interface TheTVDBApi {
      *
      * @return List of episodes for a specific season, mapped as Java DTO's based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does
+     *                      not exist, etc. or if no records are found that match your query.
      */
     List<Episode> queryEpisodesByAiredSeason(long seriesId, long airedSeason) throws APIException;
 
@@ -388,7 +390,8 @@ public interface TheTVDBApi {
      *
      * @return List of episodes for a specific season, mapped as Java DTO's based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does
+     *                      not exist, etc. or if no records are found that match your query.
      */
     List<Episode> queryEpisodesByAiredSeason(long seriesId, long airedSeason, long page) throws APIException;
 
@@ -407,7 +410,8 @@ public interface TheTVDBApi {
      *
      * @return List of episodes for a specific season and aired episode number, mapped as Java DTO's based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does
+     *                      not exist, etc. or if no records are found that match your query.
      */
     List<Episode> queryEpisodesByAiredEpisode(long seriesId, long airedEpisode) throws APIException;
 
@@ -427,7 +431,8 @@ public interface TheTVDBApi {
      *
      * @return List of episodes for an absolute episode number, mapped as Java DTO's based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does
+     *                      not exist, etc. or if no records are found that match your query.
      */
     List<Episode> queryEpisodesByAbsoluteNumber(long seriesId, long absoluteNumber) throws APIException;
 
@@ -445,7 +450,7 @@ public interface TheTVDBApi {
      *
      * @return List of allowed keys to be used for querying episodes, based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
      */
     List<String> getAvailableEpisodeQueryParameters(long seriesId) throws APIException;
 
@@ -463,7 +468,7 @@ public interface TheTVDBApi {
      *
      * @return A summary of the episodes and seasons avaialable for the given series, mapped as Java DTO based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
      */
     SeriesSummary getSeriesEpisodesSummary(long seriesId) throws APIException;
 
@@ -477,11 +482,11 @@ public interface TheTVDBApi {
      *
      * @param seriesId The TheTVDB series ID
      * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
-     *                        see the API documentation or use {@link #getAvailableSeriesFilterParameters(long)} getAvailableSeriesFilterParameters(seriesId)}.
+     *                        see the API documentation or use {@link #getAvailableSeriesFilterParameters(long) getAvailableSeriesFilterParameters(seriesId)}.
      *
      * @return A filtered series record, mapped as Java DTO based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
      */
     Series filterSeries(long seriesId, QueryParameters queryParameters) throws APIException;
 
@@ -494,7 +499,7 @@ public interface TheTVDBApi {
      *
      * @return A filtered series record, mapped as Java DTO based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
      */
     Series filterSeries(long seriesId, @Nonnull String filterKeys) throws APIException;
 
@@ -512,7 +517,7 @@ public interface TheTVDBApi {
      *
      * @return A list of keys to filter by, based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
      */
     List<String> getAvailableSeriesFilterParameters(long seriesId) throws APIException;
 
@@ -528,7 +533,7 @@ public interface TheTVDBApi {
      *
      * @return A summary of the image types and counts available for the given series, mapped as Java DTO based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
      */
     ImageSummary getSeriesImagesSummary(long seriesId) throws APIException;
 
@@ -542,11 +547,12 @@ public interface TheTVDBApi {
      *
      * @param seriesId The TheTVDB series ID
      * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
-     *                        see the API documentation or use {@link #getAvailableImageQueryParameters(long)} getAvailableImageQueryParameters(seriesId)}.
+     *                        see the API documentation or use {@link #getAvailableImageQueryParameters(long) getAvailableImageQueryParameters(seriesId)}.
      *
      * @return List of images that matched the query, mapped as Java DTO's based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does
+     *                      not exist, etc. or if no records are found that match your query.
      */
     List<Image> queryImages(long seriesId, QueryParameters queryParameters) throws APIException;
 
@@ -555,7 +561,7 @@ public interface TheTVDBApi {
      * {@link #queryImages(long, QueryParameters) queryImages(seriesId, queryParameters)} with a "keyType" and "resolution" query parameter.
      * <p><br>
      * Note: For more details regarding valid values for the method specific query parameters see the API documentation or use
-     * {@link #getAvailableImageQueryParameters(long)} getAvailableImageQueryParameters(seriesId)}
+     * {@link #getAvailableImageQueryParameters(long) getAvailableImageQueryParameters(seriesId)}
      *
      * @see #queryImages(long, String, String, String) queryImages(seriesId, keyType, resolution, subKey)
      *
@@ -565,7 +571,8 @@ public interface TheTVDBApi {
      *
      * @return List of images that matched the given parameters, mapped as Java DTO's based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does
+     *                      not exist, etc. or if no records are found that match your query.
      */
     List<Image> queryImages(long seriesId, @Nonnull String keyType, @Nonnull String resolution) throws APIException;
 
@@ -574,7 +581,7 @@ public interface TheTVDBApi {
      * {@link #queryImages(long, QueryParameters) queryImages(seriesId, queryParameters)} with a "keyType", a "resolution" and a "subKey" query parameter.
      * <p><br>
      * Note: For more details regarding valid values for the method specific query parameters see the API documentation or use
-     * {@link #getAvailableImageQueryParameters(long)} getAvailableImageQueryParameters(seriesId)}
+     * {@link #getAvailableImageQueryParameters(long) getAvailableImageQueryParameters(seriesId)}
      *
      * @see #queryImages(long, String, String) queryImages(seriesId, keyType, resolution)
      *
@@ -585,7 +592,8 @@ public interface TheTVDBApi {
      *
      * @return List of images that matched the given parameters, mapped as Java DTO's based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does
+     *                      not exist, etc. or if no records are found that match your query.
      */
     List<Image> queryImages(long seriesId, @Nonnull String keyType, @Nonnull String resolution, @Nonnull String subKey) throws APIException;
 
@@ -594,14 +602,15 @@ public interface TheTVDBApi {
      * {@link #queryImages(long, QueryParameters) queryImages(seriesId, queryParameters)} with a single "keyType" query parameter.
      * <p><br>
      * Note: For more details regarding valid values for the method specific query parameters see the API documentation or use
-     * {@link #getAvailableImageQueryParameters(long)} getAvailableImageQueryParameters(seriesId)}
+     * {@link #getAvailableImageQueryParameters(long) getAvailableImageQueryParameters(seriesId)}
      *
      * @param seriesId The TheTVDB series ID
      * @param keyType Type of image you're querying for (fanart, poster, etc.)
      *
      * @return List of images of the given key type, mapped as Java DTO's based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does
+     *                      not exist, etc. or if no records are found that match your query.
      */
     List<Image> queryImagesByKeyType(long seriesId, @Nonnull String keyType) throws APIException;
 
@@ -610,14 +619,15 @@ public interface TheTVDBApi {
      * {@link #queryImages(long, QueryParameters) queryImages(seriesId, queryParameters)} with a single "resolution" query parameter.
      * <p><br>
      * Note: For more details regarding valid values for the method specific query parameters see the API documentation or use
-     * {@link #getAvailableImageQueryParameters(long)} getAvailableImageQueryParameters(seriesId)}
+     * {@link #getAvailableImageQueryParameters(long) getAvailableImageQueryParameters(seriesId)}
      *
      * @param seriesId The TheTVDB series ID
      * @param resolution Resolution to filter by (1280x1024, for example)
      *
      * @return List of images with the given resolution, mapped as Java DTO's based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does
+     *                      not exist, etc. or if no records are found that match your query.
      */
     List<Image> queryImagesByResolution(long seriesId, @Nonnull String resolution) throws APIException;
 
@@ -626,14 +636,15 @@ public interface TheTVDBApi {
      * {@link #queryImages(long, QueryParameters) queryImages(seriesId, queryParameters)} with a single "subKey" query parameter.
      * <p><br>
      * Note: For more details regarding valid values for the method specific query parameters see the API documentation or use
-     * {@link #getAvailableImageQueryParameters(long)} getAvailableImageQueryParameters(seriesId)}
+     * {@link #getAvailableImageQueryParameters(long) getAvailableImageQueryParameters(seriesId)}
      *
      * @param seriesId The TheTVDB series ID
      * @param subKey Subkey to query for
      *
      * @return List of images matching the given sub key, mapped as Java DTO's based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does
+     *                      not exist, etc. or if no records are found that match your query.
      */
     List<Image> queryImagesBySubKey(long seriesId, @Nonnull String subKey) throws APIException;
 
@@ -651,7 +662,7 @@ public interface TheTVDBApi {
      *
      * @return A list of possible parameters which may be used to query a series images, mapped as Java DTO's based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
      */
     List<ImageQueryParameter> getAvailableImageQueryParameters(long seriesId) throws APIException;
 
@@ -673,7 +684,8 @@ public interface TheTVDBApi {
      *
      * @return A map of updated objects that match the given timeframe, based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+     *                      no records exist for the given timespan.
      */
     Map<Long, Long> queryLastUpdated(QueryParameters queryParameters) throws APIException;
 
@@ -688,7 +700,8 @@ public interface TheTVDBApi {
      *
      * @return A map of updated objects beginning at the given <em>{@code fromTime}</em>, based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+     *                      no records exist for the given timespan.
      */
     Map<Long, Long> queryLastUpdated(@Nonnull String fromTime) throws APIException;
 
@@ -706,7 +719,8 @@ public interface TheTVDBApi {
      *
      * @return A map of updated objects matching the given timeframe, based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+     *                      no records exist for the given timespan.
      */
     Map<Long, Long> queryLastUpdated(@Nonnull String fromTime, @Nonnull String toTime) throws APIException;
 
@@ -736,7 +750,8 @@ public interface TheTVDBApi {
      *
      * @return Basic user information, mapped as Java DTO based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+     *                      if no information exists for the current user
      */
     User getUser() throws APIException;
 
@@ -750,7 +765,8 @@ public interface TheTVDBApi {
      *
      * @return The user favorites, based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+     *                      if no information exists for the current user
      */
     List<String> getFavorites() throws APIException;
 
@@ -767,7 +783,8 @@ public interface TheTVDBApi {
      *
      * @return Updated list of user favorites, based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+     *                      if no information exists for the current user or the requested record could not be deleted
      */
     List<String> deleteFromFavorites(long seriesId) throws APIException;
 
@@ -784,7 +801,8 @@ public interface TheTVDBApi {
      *
      * @return Updated list of user favorites, based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+     *                      if no information exists for the current user or the requested record could not be updated
      */
     List<String> addToFavorites(long seriesId) throws APIException;
 
@@ -798,7 +816,8 @@ public interface TheTVDBApi {
      *
      * @return List of user ratings, mapped as Java DTO's based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+     *                      if no information exists for the current user
      */
     List<Rating> getRatings() throws APIException;
 
@@ -815,7 +834,8 @@ public interface TheTVDBApi {
      *
      * @return List of user ratings that match the given query, mapped as Java DTO's based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+     *                      if no information exists for the current user
      */
     List<Rating> queryRatings(QueryParameters queryParameters) throws APIException;
 
@@ -843,7 +863,8 @@ public interface TheTVDBApi {
      *
      * @return A list of possible parameters which may be used to query for user ratings, based on the JSON data returned by the remote service
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+     *                      if no information exists for the current user
      */
     List<String> getAvailableRatingsQueryParameters() throws APIException;
 
@@ -859,7 +880,8 @@ public interface TheTVDBApi {
      * @param itemType Item to update. Can be either 'series', 'episode', or 'image'.
      * @param itemId ID of the ratings record that you wish to delete
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+     *                      if no rating is found that matches your given parameters
      */
     void deleteFromRatings(@Nonnull String itemType, long itemId) throws APIException;
 
@@ -882,7 +904,8 @@ public interface TheTVDBApi {
      *         <b>Note:</b> It seems that the data returned by the remote service for this route is quite unreliable! It might not always return the
      *         modified rating but an empty data array instead.
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+     *                      if no rating is found that matches your given parameters
      */
     List<Rating> addToRatings(@Nonnull String itemType, long itemId, long itemRating) throws APIException;
 
@@ -929,7 +952,7 @@ public interface TheTVDBApi {
          *
          * @return JSON object containing the full episode information
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given episode ID does not exist, etc.
          */
         JsonNode getEpisode(long episodeId) throws APIException;
 
@@ -986,6 +1009,23 @@ public interface TheTVDBApi {
         JsonNode searchSeries(QueryParameters queryParameters) throws APIException;
 
         /**
+         * Returns possible query parameters, which can be used to search for series, as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Search/get_search_series_params"><b>[GET]</b> /search/series/params</a>
+         *
+         * @see TheTVDBApi#getAvailableSeriesSearchParameters() TheTVDBApi.getAvailableSeriesSearchParameters()
+         * @see Extended#getAvailableSeriesSearchParameters()
+         * @see #searchSeries(QueryParameters) searchSeries(queryParams)
+         * @see TheTVDBApi#searchSeries(QueryParameters) TheTVDBApi.searchSeries(queryParams)
+         * @see Extended#searchSeries(QueryParameters) TheTVDBApi.Extended.searchSeries(queryParams)
+         *
+         * @return JSON object containing possible parameters to query by in the series search route
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
+        JsonNode getAvailableSeriesSearchParameters() throws APIException;
+
+        /**
          * Returns detailed information for a specific series as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id"><b>[GET]</b> /series/{id}</a>
@@ -997,27 +1037,9 @@ public interface TheTVDBApi {
          *
          * @return JSON object containing detailed information for a specific series
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
          */
         JsonNode getSeries(long seriesId) throws APIException;
-
-
-        /**
-         * Returns possible query parameters, which can be used to search for series, as raw JSON.
-         * <p><br>
-         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Search/get_search_series_params"><b>[GET]</b> /search/series/params</a>
-         *
-         * @see TheTVDBApi#getAvailableSeriesSearchParameters() TheTVDBApi.getAvailableSeriesSearchParameters()
-         * @see Extended#getAvailableSeriesSearchParameters()
-         * @see #searchSeries(QueryParameters) searchSeries(queryParams)
-         * @see TheTVDBApi#searchSeries(QueryParameters) TheTVDBApi.searchSeries(queryParams)
-         * @see Extended#searchSeries(QueryParameters) TheTVDBApi.Extended.searchSeries(queryParams)
-         *
-         * @return JSON object containing possible parameters to query by in the series search
-         *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
-         */
-        JsonNode getAvailableSeriesSearchParameters() throws APIException;
 
         /**
          * Returns header information for a specific series as raw JSON. Good for getting the Last-Updated header to find out
@@ -1031,7 +1053,7 @@ public interface TheTVDBApi {
          *
          * @return Artificial JSON object based on the HTML header information returned by the remote service
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
          */
         JsonNode getSeriesHeaderInformation(long seriesId) throws APIException;
 
@@ -1047,7 +1069,7 @@ public interface TheTVDBApi {
          *
          * @return JSON object containing the actors for a specific series
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
          */
         JsonNode getActors(long seriesId) throws APIException;
 
@@ -1066,7 +1088,7 @@ public interface TheTVDBApi {
          *
          * @return JSON object containing a single result page of episodes
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
          */
         JsonNode getEpisodes(long seriesId, QueryParameters queryParameters) throws APIException;
 
@@ -1085,7 +1107,8 @@ public interface TheTVDBApi {
          *
          * @return JSON object containing a single result page of queried episode records
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does
+         *                      not exist, etc. or if no records are found that match your query.
          */
         JsonNode queryEpisodes(long seriesId, QueryParameters queryParameters) throws APIException;
 
@@ -1103,7 +1126,7 @@ public interface TheTVDBApi {
          *
          * @return JSON object containing all allowed keys to be used for querying episodes
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
          */
         JsonNode getAvailableEpisodeQueryParameters(long seriesId) throws APIException;
 
@@ -1121,7 +1144,7 @@ public interface TheTVDBApi {
          *
          * @return JSON object containing a summary of the episodes and seasons avaialable for the given series
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
          */
         JsonNode getSeriesEpisodesSummary(long seriesId) throws APIException;
 
@@ -1135,11 +1158,11 @@ public interface TheTVDBApi {
          *
          * @param seriesId The TheTVDB series ID
          * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
-         *                        see the API documentation or use {@link #getAvailableSeriesFilterParameters(long)} getAvailableSeriesFilterParameters(seriesId)}.
+         *                        see the API documentation or use {@link #getAvailableSeriesFilterParameters(long) getAvailableSeriesFilterParameters(seriesId)}.
          *
          * @return JSON object containing a filtered series record
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
          */
         JsonNode filterSeries(long seriesId, QueryParameters queryParameters) throws APIException;
 
@@ -1157,7 +1180,7 @@ public interface TheTVDBApi {
          *
          * @return JSON object containing a list of all keys allowed to filter by
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
          */
         JsonNode getAvailableSeriesFilterParameters(long seriesId) throws APIException;
 
@@ -1173,7 +1196,7 @@ public interface TheTVDBApi {
          *
          * @return JSON object containing a summary of the image types and counts available for the given series
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
          */
         JsonNode getSeriesImagesSummary(long seriesId) throws APIException;
 
@@ -1187,11 +1210,12 @@ public interface TheTVDBApi {
          *
          * @param seriesId The TheTVDB series ID
          * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
-         *                        see the API documentation or use {@link #getAvailableImageQueryParameters(long)} getAvailableImageQueryParameters(seriesId)}.
+         *                        see the API documentation or use {@link #getAvailableImageQueryParameters(long) getAvailableImageQueryParameters(seriesId)}.
          *
          * @return JSON object containing images that matched the query
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does
+         *                      not exist, etc. or if no records are found that match your query.
          */
         JsonNode queryImages(long seriesId, QueryParameters queryParameters) throws APIException;
 
@@ -1209,7 +1233,7 @@ public interface TheTVDBApi {
          *
          * @return JSON object containing a list of possible parameters which may be used to query a series images
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
          */
         JsonNode getAvailableImageQueryParameters(long seriesId) throws APIException;
 
@@ -1230,7 +1254,8 @@ public interface TheTVDBApi {
          *
          * @return JSON object containing a list of updated objects that match the given timeframe
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+         *                      no records exist for the given timespan.
          */
         JsonNode queryLastUpdated(QueryParameters queryParameters) throws APIException;
 
@@ -1260,7 +1285,8 @@ public interface TheTVDBApi {
          *
          * @return JSON object containing basic user information
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+         *                      if no information exists for the current user
          */
         JsonNode getUser() throws APIException;
 
@@ -1274,7 +1300,8 @@ public interface TheTVDBApi {
          *
          * @return JSON object containing the user favorites
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+         *                      if no information exists for the current user
          */
         JsonNode getFavorites() throws APIException;
 
@@ -1291,7 +1318,8 @@ public interface TheTVDBApi {
          *
          * @return JSON object containing the updated list of user favorites
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+         *                      if no information exists for the current user or the requested record could not be deleted
          */
         JsonNode deleteFromFavorites(long seriesId) throws APIException;
 
@@ -1308,7 +1336,8 @@ public interface TheTVDBApi {
          *
          * @return JSON object containing the updated list of user favorites
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+         *                      if no information exists for the current user or the requested record could not be updated
          */
         JsonNode addToFavorites(long seriesId) throws APIException;
 
@@ -1322,7 +1351,8 @@ public interface TheTVDBApi {
          *
          * @return JSON object containing a list of user ratings
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+         *                      if no information exists for the current user
          */
         JsonNode getRatings() throws APIException;
 
@@ -1339,7 +1369,8 @@ public interface TheTVDBApi {
          *
          * @return JSON object containing a list of user ratings that match the given query
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+         *                      if no information exists for the current user
          */
         JsonNode queryRatings(QueryParameters queryParameters) throws APIException;
 
@@ -1355,7 +1386,8 @@ public interface TheTVDBApi {
          *
          * @return JSON object containing a list of possible parameters which may be used to query for user ratings
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+         *                      if no information exists for the current user
          */
         JsonNode getAvailableRatingsQueryParameters() throws APIException;
 
@@ -1373,7 +1405,8 @@ public interface TheTVDBApi {
          *
          * @return JSON object as returned by the remote service (probably containing an empty data block)
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+         *                      if no rating is found that matches your given parameters
          */
         JsonNode deleteFromRatings(@Nonnull String itemType, long itemId) throws APIException;
 
@@ -1396,7 +1429,8 @@ public interface TheTVDBApi {
          *         <b>Note:</b> It seems that the data returned by the remote service for this route is quite unreliable! It might not always return the
          *         modified rating but an empty data array instead.
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+         *                      if no rating is found that matches your given parameters
          */
         JsonNode addToRatings(@Nonnull String itemType, long itemId, long itemRating) throws APIException;
     }
@@ -1426,7 +1460,7 @@ public interface TheTVDBApi {
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given episode ID does not exist, etc.
          */
         APIResponse<Episode> getEpisode(long episodeId) throws APIException;
 
@@ -1515,7 +1549,7 @@ public interface TheTVDBApi {
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
          */
         APIResponse<Series> getSeries(long seriesId) throws APIException;
 
@@ -1532,7 +1566,7 @@ public interface TheTVDBApi {
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
          */
         APIResponse<List<Actor>> getActors(long seriesId) throws APIException;
 
@@ -1552,7 +1586,7 @@ public interface TheTVDBApi {
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
          */
         APIResponse<List<Episode>> getEpisodes(long seriesId, QueryParameters queryParameters) throws APIException;
 
@@ -1572,7 +1606,8 @@ public interface TheTVDBApi {
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does
+         *                      not exist, etc. or if no records are found that match your query.
          */
         APIResponse<List<Episode>> queryEpisodes(long seriesId, QueryParameters queryParameters) throws APIException;
 
@@ -1591,7 +1626,7 @@ public interface TheTVDBApi {
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
          */
         APIResponse<List<String>> getAvailableEpisodeQueryParameters(long seriesId) throws APIException;
 
@@ -1610,7 +1645,7 @@ public interface TheTVDBApi {
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
          */
         APIResponse<SeriesSummary> getSeriesEpisodesSummary(long seriesId) throws APIException;
 
@@ -1624,12 +1659,12 @@ public interface TheTVDBApi {
          *
          * @param seriesId The TheTVDB series ID
          * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
-         *                        see the API documentation or use {@link #getAvailableSeriesFilterParameters(long)} getAvailableSeriesFilterParameters(seriesId)}.
+         *                        see the API documentation or use {@link #getAvailableSeriesFilterParameters(long) getAvailableSeriesFilterParameters(seriesId)}.
          *
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
          */
         APIResponse<Series> filterSeries(long seriesId, QueryParameters queryParameters) throws APIException;
 
@@ -1648,7 +1683,7 @@ public interface TheTVDBApi {
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
          */
         APIResponse<List<String>> getAvailableSeriesFilterParameters(long seriesId) throws APIException;
 
@@ -1665,7 +1700,7 @@ public interface TheTVDBApi {
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
          */
         APIResponse<ImageSummary> getSeriesImagesSummary(long seriesId) throws APIException;
 
@@ -1679,12 +1714,13 @@ public interface TheTVDBApi {
          *
          * @param seriesId The TheTVDB series ID
          * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
-         *                        see the API documentation or use {@link #getAvailableImageQueryParameters(long)} getAvailableImageQueryParameters(seriesId)}.
+         *                        see the API documentation or use {@link #getAvailableImageQueryParameters(long) getAvailableImageQueryParameters(seriesId)}.
          *
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does
+         *                      not exist, etc. or if no records are found that match your query.
          */
         APIResponse<List<Image>> queryImages(long seriesId, QueryParameters queryParameters) throws APIException;
 
@@ -1704,7 +1740,7 @@ public interface TheTVDBApi {
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
          */
         APIResponse<List<ImageQueryParameter>> getAvailableImageQueryParameters(long seriesId) throws APIException;
 
@@ -1727,7 +1763,8 @@ public interface TheTVDBApi {
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+         *                      no records exist for the given timespan.
          */
         APIResponse<Map<Long, Long>> queryLastUpdated(QueryParameters queryParameters) throws APIException;
 
@@ -1759,7 +1796,8 @@ public interface TheTVDBApi {
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+         *                      if no information exists for the current user
          */
         APIResponse<User> getUser() throws APIException;
 
@@ -1775,7 +1813,8 @@ public interface TheTVDBApi {
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+         *                      if no information exists for the current user
          */
         APIResponse<List<String>> getFavorites() throws APIException;
 
@@ -1793,7 +1832,8 @@ public interface TheTVDBApi {
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+         *                      if no information exists for the current user or the requested record could not be deleted
          */
         APIResponse<List<String>> deleteFromFavorites(long seriesId) throws APIException;
 
@@ -1811,7 +1851,8 @@ public interface TheTVDBApi {
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+         *                      if no information exists for the current user or the requested record could not be updated
          */
         APIResponse<List<String>> addToFavorites(long seriesId) throws APIException;
 
@@ -1826,7 +1867,8 @@ public interface TheTVDBApi {
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+         *                      if no information exists for the current user
          */
         APIResponse<List<Rating>> getRatings() throws APIException;
 
@@ -1844,7 +1886,8 @@ public interface TheTVDBApi {
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+         *                      if no information exists for the current user
          */
         APIResponse<List<Rating>> queryRatings(QueryParameters queryParameters) throws APIException;
 
@@ -1861,7 +1904,8 @@ public interface TheTVDBApi {
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+         *                      if no information exists for the current user
          */
         APIResponse<List<String>> getAvailableRatingsQueryParameters() throws APIException;
 
@@ -1877,7 +1921,8 @@ public interface TheTVDBApi {
          * @param itemType Item to update. Can be either 'series', 'episode', or 'image'.
          * @param itemId ID of the ratings record that you wish to delete
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+         *                      if no rating is found that matches your given parameters
          */
         void deleteFromRatings(@Nonnull String itemType, long itemId) throws APIException;
 
@@ -1901,7 +1946,8 @@ public interface TheTVDBApi {
          *         <b>Note:</b> It seems that the data returned by the remote service for this route is quite unreliable! It might not always return the
          *         modified rating but an empty data array instead.
          *
-         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
+         *                      if no rating is found that matches your given parameters
          */
         APIResponse<List<Rating>> addToRatings(@Nonnull String itemType, long itemId, long itemRating) throws APIException;
     }
