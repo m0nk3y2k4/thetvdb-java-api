@@ -8,6 +8,7 @@ import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -140,7 +141,7 @@ public final class JsonDeserializer {
         if (getData(json).has("params")) {
             // Sometimes the parameters are nested in an sub-node
             Function<JsonNode, List<String>> dataFunction =
-                    node -> StreamSupport.stream(getData(node).get("params").spliterator(), false)
+                    dataNode -> StreamSupport.stream(dataNode.get("params").spliterator(), false)
                             .map(JsonNode::asText).collect(Collectors.toList());
             return mapObject(json, new TypeReference<>(){}, createFunctionalModule(dataFunction));
         }
@@ -167,7 +168,7 @@ public final class JsonDeserializer {
         if (getData(json).has("favorites")) {
             // If the user has no favorites just an empty data-node might be returned
             Function<JsonNode, List<String>> dataFunction =
-                    node -> StreamSupport.stream(getData(node).get("favorites").spliterator(), false)
+                    dataNode -> StreamSupport.stream(dataNode.get("favorites").spliterator(), false)
                             .map(JsonNode::asText).collect(Collectors.toList());
             return mapObject(json, new TypeReference<>() {}, createFunctionalModule(dataFunction));
         }
@@ -365,7 +366,7 @@ public final class JsonDeserializer {
      */
     public static APIResponse<Map<Long, Long>> mapUpdates(@Nonnull JsonNode json) throws APIException {
         Function<JsonNode, Map<Long, Long>> dataFunction =
-                node -> StreamSupport.stream(getData(node).spliterator(), false)
+                dataNode -> StreamSupport.stream(dataNode.spliterator(), false)
                         .collect(Collectors.toMap(x -> x.get("id").asLong(), x -> x.get("lastUpdated").asLong()));
         return mapObject(json, new TypeReference<>(){}, createFunctionalModule(dataFunction));
     }
@@ -510,7 +511,7 @@ public final class JsonDeserializer {
      * Deserializes the given <em>{@code dataNode}</em> based on the given type reference to a new object of type <b>T</b> by
      * using the default mapping module.
      *
-     * @param json The JSON object containing the <em>{@code data}</em> node to be parsed
+     * @param dataNode The node which should be parsed
      * @param dataTypeReference The data type reference used for deserialization
      * @param <T> The type of object that the node should be mapped to
      *
@@ -518,8 +519,8 @@ public final class JsonDeserializer {
      *
      * @throws IOException If an IO error occurred during the deserialization of the given JSON object
      */
-    private static <T> T mapDataObject(@Nonnull JsonNode json, @Nonnull DataTypeReference<T> dataTypeReference) throws IOException {
-        return new ObjectMapper().registerModule(DEFAULT_MODULE).readValue(getData(json).toString(), dataTypeReference);
+    private static <T> T mapDataObject(@Nonnull JsonNode dataNode, @Nonnull DataTypeReference<T> dataTypeReference) throws IOException {
+        return new ObjectMapper().registerModule(DEFAULT_MODULE).readValue(dataNode.toString(), dataTypeReference);
     }
 
     /**
@@ -559,6 +560,9 @@ public final class JsonDeserializer {
  */
 class FunctionalDeserializer<T, X extends IOException> extends com.fasterxml.jackson.databind.JsonDeserializer<APIResponse<T>>{
 
+    /** Mapper used to read the JSON */
+    private final ObjectMapper mapper = new ObjectMapper();
+
     /** The mapping function to be invoked in order to parse the <em>{@code data}</em> node */
     private final ThrowableFunctionalInterfaces.Function<JsonNode, T, X> dataFunction;
 
@@ -573,21 +577,49 @@ class FunctionalDeserializer<T, X extends IOException> extends com.fasterxml.jac
 
     @Override
     public APIResponse<T> deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
         JsonNode json = mapper.readTree(p);
 
-        APIResponseDTO.Builder<T> response = new APIResponseDTO.Builder<>();
+        T data = parseNode(json, "data", dataFunction::apply).orElse(null);
+        Optional<APIResponseDTO.JSONErrorsDTO> errors = parseNode(json, "errors", APIResponseDTO.JSONErrorsDTO.class);
+        Optional<APIResponseDTO.LinksDTO> links = parseNode(json, "links", APIResponseDTO.LinksDTO.class);
 
-        if (json.has("data")) {
-            response.data(dataFunction.apply(json));
-        }
-        if (json.has("errors")) {
-            response.errors(mapper.readValue(json.get("errors").toString(), APIResponseDTO.JSONErrorsDTO.class));
-        }
-        if (json.has("links")) {
-            response.links(mapper.readValue(json.get("links").toString(), APIResponseDTO.LinksDTO.class));
-        }
+        return new APIResponseDTO.Builder<T>().data(data).errors(errors).links(links).build();
+    }
 
-        return response.build();
+    /**
+     * Checks if the specified field exists in the given JSON. If so, the node will be deserialized based on the given type class. The result of
+     * the deserialization will be wrapped into an Optional. If the JSON does not contain a node with the specified name an empty Optional will
+     * be returned.
+     *
+     * @param json Base JSON object used for parsing
+     * @param fieldName Name of the top-level node to be deserialized
+     * @param valueType The class of the type of object that the JSON node should be mapped to
+     * @param <U> The type of object that the JSON node should be mapped to
+     *
+     * @return Optional containing the result of deserializing the sub-node element or empty Optional if no node with the given name
+     *         exists on top-level of this JSON object.
+     *
+     * @throws IOException If an IO error occurred during the deserialization of the given JSON object
+     */
+    private <U> Optional<U> parseNode(JsonNode json, String fieldName, Class<U> valueType) throws IOException {
+        return parseNode(json, fieldName, node -> mapper.readValue(node.toString(), valueType));
+    }
+
+    /**
+     * Checks if the specified field exists in the given JSON. If so, the node will be applied to the given mapping function and it's result will
+     * be wrapped into an Optional. If the JSON does not contain a node with the specified name an empty Optional will be returned.
+     *
+     * @param json Base JSON object used for parsing
+     * @param fieldName Name of the top-level node to be deserialized
+     * @param mapping Mapping function returning the deserialized object of type <b>U</b>
+     * @param <U> The type of object that the JSON node should be mapped to
+     *
+     * @return Optional containing the result of deserializing the sub-node element or empty Optional if no node with the given name
+     *         exists on top-level of this JSON object.
+     *
+     * @throws IOException If an IO error occurred during the deserialization of the given JSON object
+     */
+    private <U> Optional<U> parseNode(JsonNode json, String fieldName, ThrowableFunctionalInterfaces.Function<JsonNode, U, IOException> mapping) throws IOException {
+        return json.has(fieldName) ? Optional.of(mapping.apply(json.get(fieldName))) : Optional.empty();
     }
 }
