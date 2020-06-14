@@ -298,6 +298,9 @@ abstract class APIRequest {
     /** The API base URL */
     private static final String API_URL = "https://api.thetvdb.com";
 
+    /** The fix API version to be used */
+    private static final String API_VERSION = "v3.0.0";
+
     /** User agent */
     private static final String USER_AGENT = "Mozilla/5.0";
 
@@ -382,6 +385,7 @@ abstract class APIRequest {
         // Request properties for API
         con.setRequestProperty("Content-Type", "application/json; charset=utf-8");
         con.setRequestProperty("Accept", "application/json");
+        con.setRequestProperty("Accept", "application/vnd.thetvdb." + API_VERSION);
         con.setRequestProperty("User-Agent", USER_AGENT);
         if (session != null && session.isInitialized()) {
             // If session has already been initialized, add token information and language key to each request
