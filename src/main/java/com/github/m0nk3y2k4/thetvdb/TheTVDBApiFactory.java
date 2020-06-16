@@ -8,10 +8,15 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.TheTVDBApiImpl;
 import javax.annotation.Nonnull;
 import java.util.Map;
 
+/**
+ * Factory used to create new API instances
+ * <p><br>
+ * Provides methods to create new {@link TheTVDBApi} instances with a given set of initialization parameters. Also offers factory methods
+ * for creating additional objects that are commonly used in the context of working with the API.
+ */
 public class TheTVDBApiFactory {
 
-    private TheTVDBApiFactory() {
-    }
+    private TheTVDBApiFactory() {}      // Hidden constructor. Only static methods
 
     /**
      * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a> which will
