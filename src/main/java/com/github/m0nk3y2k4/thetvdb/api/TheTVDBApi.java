@@ -13,7 +13,7 @@ import java.util.Optional;
 /**
  * Main interface of the <i>TheTDVB</i> API connector.
  * <p><br>
- * This interface provides access to all available routes of the remote <i>TheTVDB</i> REST API. Routes which accept additional optional and mandatory
+ * This interface provides access to all available routes of the remote <i>TheTVDB.com</i> REST API. Routes which accept additional optional and mandatory
  * query parameters can either be invoked with a given set of {@link QueryParameters} or via some predefined shortcut-methods. These shortcut-methods
  * will accept certain values as direct method parameters which will then be forwarded to the REST API as regular URL query parameters. Please note
  * that shortcut-methods exist for most of the common query scenarios but maybe not for all. In case of more complex query setups the user has to
@@ -250,7 +250,7 @@ public interface TheTVDBApi {
      * @see JSON#getSeries(long) TheTVDBApi.JSON.getSeries(seriesId)
      * @see Extended#getSeries(long) TheTVDBApi.Extended.getSeries(seriesId)
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      *
      * @return Detailed information for a specific series mapped as Java DTO based on the JSON data returned by the remote service
      *
@@ -266,7 +266,7 @@ public interface TheTVDBApi {
      *
      * @see JSON#getSeriesHeaderInformation(long) TheTVDBApi.JSON.getSeriesHeaderInformation(seriesId)
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      *
      * @return HTML header information returned by the remote service mapped as key/value pairs
      *
@@ -282,7 +282,7 @@ public interface TheTVDBApi {
      * @see JSON#getActors(long) TheTVDBApi.JSON.getActors(seriesId)
      * @see Extended#getActors(long) TheTVDBApi.Extended.getActors(seriesId)
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      *
      * @return List of actors mapped as Java DTO's based on the JSON data returned by the remote service
      *
@@ -299,7 +299,7 @@ public interface TheTVDBApi {
      * @see JSON#getEpisodes(long, QueryParameters) TheTVDBApi.JSON.getEpisodes(seriesId, queryParameters)
      * @see Extended#getEpisodes(long, QueryParameters) TheTVDBApi.Extended.getEpisodes(seriesId, queryParameters)
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible parameters
      *                        see the API documentation.
      *
@@ -316,7 +316,7 @@ public interface TheTVDBApi {
      *
      * @see #getEpisodes(long, long) getEpisodes(seriesId, page)
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      *
      * @return List of episodes mapped as Java DTO's based on the JSON data returned by the remote service
      *
@@ -331,7 +331,7 @@ public interface TheTVDBApi {
      *
      * @see #getEpisodes(long) getEpisodes(seriesId)
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      * @param page The result page to be returned
      *
      * @return List of episodes mapped as Java DTO's based on the JSON data returned by the remote service
@@ -349,7 +349,7 @@ public interface TheTVDBApi {
      * @see JSON#queryEpisodes(long, QueryParameters) TheTVDBApi.JSON.queryEpisodes(seriesId, queryParameters)
      * @see Extended#queryEpisodes(long, QueryParameters) TheTVDBApi.Extended.queryEpisodes(seriesId, queryParameters)
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
      *                        see the API documentation or use {@link #getAvailableEpisodeQueryParameters(long) getAvailableEpisodeQueryParameters(seriesId)}.
      *
@@ -367,7 +367,7 @@ public interface TheTVDBApi {
      *
      * @see #queryEpisodesByAiredSeason(long, long, long) queryEpisodesByAiredSeason(seriesId, airedSeason, page)
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      * @param airedSeason The number of the aired season to query for
      *
      * @return List of episodes for a specific season, mapped as Java DTO's based on the JSON data returned by the remote service
@@ -384,7 +384,7 @@ public interface TheTVDBApi {
      *
      * @see #queryEpisodesByAiredSeason(long, long) queryEpisodesByAiredSeason(seriesId, airedSeason)
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      * @param airedSeason The number of the aired season to query for
      * @param page The result page to be returned
      *
@@ -405,7 +405,7 @@ public interface TheTVDBApi {
      *
      * @see #queryEpisodesByAbsoluteNumber(long, long) queryEpisodesByAbsoluteNumber(seriesId, absoluteNumber)
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      * @param airedEpisode The number of the aired episode to query for
      *
      * @return List of episodes for a specific season and aired episode number, mapped as Java DTO's based on the JSON data returned by the remote service
@@ -426,7 +426,7 @@ public interface TheTVDBApi {
      *
      * @see #getEpisode(long) getEpisode(episodeId)
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      * @param absoluteNumber The absolute number of the episode to query for (this is not the episode ID!)
      *
      * @return List of episodes for an absolute episode number, mapped as Java DTO's based on the JSON data returned by the remote service
@@ -446,7 +446,7 @@ public interface TheTVDBApi {
      * @see JSON#getAvailableEpisodeQueryParameters(long) TheTVDBApi.JSON.getAvailableEpisodeQueryParameters(seriesId)
      * @see Extended#getAvailableEpisodeQueryParameters(long) TheTVDBApi.Extended.getAvailableEpisodeQueryParameters(seriesId)
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      *
      * @return List of allowed keys to be used for querying episodes, based on the JSON data returned by the remote service
      *
@@ -464,7 +464,7 @@ public interface TheTVDBApi {
      * @see JSON#getSeriesEpisodesSummary(long) TheTVDBApi.JSON.getSeriesEpisodesSummary(seriesId)
      * @see Extended#getSeriesEpisodesSummary(long) TheTVDBApi.Extended.getSeriesEpisodesSummary(seriesId)
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      *
      * @return A summary of the episodes and seasons avaialable for the given series, mapped as Java DTO based on the JSON data returned by the remote service
      *
@@ -480,7 +480,7 @@ public interface TheTVDBApi {
      * @see JSON#filterSeries(long, QueryParameters) TheTVDBApi.JSON.filterSeries(seriesId, queryParameters)
      * @see Extended#filterSeries(long, QueryParameters) TheTVDBApi.Extended.filterSeries(seriesId, queryParameters)
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
      *                        see the API documentation or use {@link #getAvailableSeriesFilterParameters(long) getAvailableSeriesFilterParameters(seriesId)}.
      *
@@ -494,7 +494,7 @@ public interface TheTVDBApi {
      * Returns a series records, filtered by the supplied comma-separated list of keys, mapped as Java DTO. This is a shortcut-method for
      * {@link #filterSeries(long, QueryParameters) filterSeries(seriesId, queryParameters)} with a single "keys" query parameter.
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      * @param filterKeys Comma-separated list of keys to filter by
      *
      * @return A filtered series record, mapped as Java DTO based on the JSON data returned by the remote service
@@ -513,7 +513,7 @@ public interface TheTVDBApi {
      * @see JSON#getAvailableSeriesFilterParameters(long) TheTVDBApi.JSON.getAvailableSeriesFilterParameters(seriesId)
      * @see Extended#getAvailableSeriesFilterParameters(long) TheTVDBApi.Extended.getAvailableSeriesFilterParameters(seriesId)
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      *
      * @return A list of keys to filter by, based on the JSON data returned by the remote service
      *
@@ -529,7 +529,7 @@ public interface TheTVDBApi {
      * @see JSON#getSeriesImagesSummary(long) TheTVDBApi.JSON.getSeriesImagesSummary(seriesId)
      * @see Extended#getSeriesImagesSummary(long) TheTVDBApi.Extended.getSeriesImagesSummary(seriesId)
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      *
      * @return A summary of the image types and counts available for the given series, mapped as Java DTO based on the JSON data returned by the remote service
      *
@@ -545,7 +545,7 @@ public interface TheTVDBApi {
      * @see JSON#queryImages(long, QueryParameters) TheTVDBApi.JSON.queryImages(seriesId, queryParameters)
      * @see Extended#queryImages(long, QueryParameters) TheTVDBApi.Extended.queryImages(seriesId, queryParameters)
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
      *                        see the API documentation or use {@link #getAvailableImageQueryParameters(long) getAvailableImageQueryParameters(seriesId)}.
      *
@@ -565,7 +565,7 @@ public interface TheTVDBApi {
      *
      * @see #queryImages(long, String, String, String) queryImages(seriesId, keyType, resolution, subKey)
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      * @param keyType Type of image you're querying for (fanart, poster, etc.)
      * @param resolution Resolution to filter by (1280x1024, for example)
      *
@@ -585,7 +585,7 @@ public interface TheTVDBApi {
      *
      * @see #queryImages(long, String, String) queryImages(seriesId, keyType, resolution)
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      * @param keyType Type of image you're querying for (fanart, poster, etc.)
      * @param resolution Resolution to filter by (1280x1024, for example)
      * @param subKey Subkey for the other method query parameters
@@ -604,7 +604,7 @@ public interface TheTVDBApi {
      * Note: For more details regarding valid values for the method specific query parameters see the API documentation or use
      * {@link #getAvailableImageQueryParameters(long) getAvailableImageQueryParameters(seriesId)}
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      * @param keyType Type of image you're querying for (fanart, poster, etc.)
      *
      * @return List of images of the given key type, mapped as Java DTO's based on the JSON data returned by the remote service
@@ -621,7 +621,7 @@ public interface TheTVDBApi {
      * Note: For more details regarding valid values for the method specific query parameters see the API documentation or use
      * {@link #getAvailableImageQueryParameters(long) getAvailableImageQueryParameters(seriesId)}
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      * @param resolution Resolution to filter by (1280x1024, for example)
      *
      * @return List of images with the given resolution, mapped as Java DTO's based on the JSON data returned by the remote service
@@ -638,7 +638,7 @@ public interface TheTVDBApi {
      * Note: For more details regarding valid values for the method specific query parameters see the API documentation or use
      * {@link #getAvailableImageQueryParameters(long) getAvailableImageQueryParameters(seriesId)}
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      * @param subKey Subkey to query for
      *
      * @return List of images matching the given sub key, mapped as Java DTO's based on the JSON data returned by the remote service
@@ -658,7 +658,7 @@ public interface TheTVDBApi {
      * @see JSON#getAvailableImageQueryParameters(long) TheTVDBApi.JSON.getAvailableImageQueryParameters(seriesId)
      * @see Extended#getAvailableImageQueryParameters(long) TheTVDBApi.Extended.getAvailableImageQueryParameters(seriesId)
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      *
      * @return A list of possible parameters which may be used to query a series images, mapped as Java DTO's based on the JSON data returned by the remote service
      *
@@ -668,7 +668,7 @@ public interface TheTVDBApi {
 
     /**
      * Returns a map of series that have changed in a maximum of one week blocks since the provided <em>{@code fromTime}</em> query parameter. The key/value pairs of the
-     * returned map represent a TheTVDB series ID (key) and when it was updated the last time (value) as Epoch time. Note that the given query parameters must
+     * returned map represent a <i>TheTVDB.com</i> series ID (key) and when it was updated the last time (value) as Epoch time. Note that the given query parameters must
      * always contain a valid <em>{@code fromTime}</em> Epoch timestamp key.
      * <p><br>
      * The user may specify an additional <em>{@code toTime}</em> query key to grab results for less than a week. Any timespan larger than a week will be reduced
@@ -691,7 +691,7 @@ public interface TheTVDBApi {
 
     /**
      * Returns a map of series that have changed in the (one) week since the provided <em>{@code fromTime}</em> query parameter. The key/value pairs
-     * of the returned map represent a TheTVDB series ID (key) and when it was updated the last time (value) as Epoch time. This is a shortcut-method for
+     * of the returned map represent a <i>TheTVDB.com</i> series ID (key) and when it was updated the last time (value) as Epoch time. This is a shortcut-method for
      * {@link #queryLastUpdated(QueryParameters) queryLastUpdated(queryParameters)} with a single "fromTime" query parameter.
      *
      * @see #queryLastUpdated(String, String) queryLastUpdated(fromTime, toTime)
@@ -708,7 +708,7 @@ public interface TheTVDBApi {
     /**
      * Returns a map of series that have changed inbetween the given timeframe, but with a maximum of one week, starting at the provided <em>{@code fromTime}</em>
      * query parameter. The <em>{@code toTime}</em> parameter may be specified to grab results for less than a week. Any timespan larger than a week will be
-     * reduced down to one week automatically. The key/value pairs of the returned map represent a TheTVDB series ID (key) and when it was updated the last
+     * reduced down to one week automatically. The key/value pairs of the returned map represent a <i>TheTVDB.com</i> series ID (key) and when it was updated the last
      * time (value) as Epoch time. This is a shortcut-method for {@link #queryLastUpdated(QueryParameters) queryLastUpdated(queryParameters)} with a "fromTime"
      * and a "toTime" query parameter.
      *
@@ -779,7 +779,7 @@ public interface TheTVDBApi {
      * @see JSON#deleteFromFavorites(long) TheTVDBApi.JSON.deleteFromFavorites(seriesId)
      * @see Extended#deleteFromFavorites(long) TheTVDBApi.Extended.deleteFromFavorites(seriesId)
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      *
      * @return Updated list of user favorites, based on the JSON data returned by the remote service
      *
@@ -797,7 +797,7 @@ public interface TheTVDBApi {
      * @see JSON#addToFavorites(long) TheTVDBApi.JSON.addToFavorites(seriesId)
      * @see Extended#addToFavorites(long) TheTVDBApi.Extended.addToFavorites(seriesId)
      *
-     * @param seriesId The TheTVDB series ID
+     * @param seriesId The <i>TheTVDB.com</i> series ID
      *
      * @return Updated list of user favorites, based on the JSON data returned by the remote service
      *
@@ -1033,7 +1033,7 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getSeries(long) TheTVDBApi.getSeries(seriesId)
          * @see Extended#getSeries(long) TheTVDBApi.Extended.getSeries(seriesId)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          *
          * @return JSON object containing detailed information for a specific series
          *
@@ -1049,7 +1049,7 @@ public interface TheTVDBApi {
          *
          * @see TheTVDBApi#getSeriesHeaderInformation(long) TheTVDBApi.getSeriesHeaderInformation(seriesId)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          *
          * @return Artificial JSON object based on the HTML header information returned by the remote service
          *
@@ -1065,7 +1065,7 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getActors(long) TheTVDBApi.getActors(seriesId)
          * @see Extended#getActors(long) TheTVDBApi.Extended.getActors(seriesId)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          *
          * @return JSON object containing the actors for a specific series
          *
@@ -1082,7 +1082,7 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getEpisodes(long, QueryParameters) TheTVDBApi.getEpisodes(seriesId, queryParameters)
          * @see Extended#getEpisodes(long, QueryParameters) TheTVDBApi.Extended.getEpisodes(seriesId, queryParameters)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible parameters
          *                        see the API documentation.
          *
@@ -1101,7 +1101,7 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#queryEpisodes(long, QueryParameters) TheTVDBApi.queryEpisodes(seriesId, queryParameters)
          * @see Extended#queryEpisodes(long, QueryParameters) TheTVDBApi.Extended.queryEpisodes(seriesId, queryParameters)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
          *                        see the API documentation or use {@link #getAvailableEpisodeQueryParameters(long) getAvailableEpisodeQueryParameters(seriesId)}.
          *
@@ -1122,7 +1122,7 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getAvailableEpisodeQueryParameters(long) TheTVDBApi.getAvailableEpisodeQueryParameters(seriesId)
          * @see Extended#getAvailableEpisodeQueryParameters(long) TheTVDBApi.Extended.getAvailableEpisodeQueryParameters(seriesId)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          *
          * @return JSON object containing all allowed keys to be used for querying episodes
          *
@@ -1140,7 +1140,7 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getSeriesEpisodesSummary(long) TheTVDBApi.getSeriesEpisodesSummary(seriesId)
          * @see Extended#getSeriesEpisodesSummary(long) TheTVDBApi.Extended.getSeriesEpisodesSummary(seriesId)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          *
          * @return JSON object containing a summary of the episodes and seasons avaialable for the given series
          *
@@ -1156,7 +1156,7 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#filterSeries(long, QueryParameters) TheTVDBApi.filterSeries(seriesId, queryParameters)
          * @see Extended#filterSeries(long, QueryParameters) TheTVDBApi.Extended.filterSeries(seriesId, queryParameters)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
          *                        see the API documentation or use {@link #getAvailableSeriesFilterParameters(long) getAvailableSeriesFilterParameters(seriesId)}.
          *
@@ -1176,7 +1176,7 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getAvailableSeriesFilterParameters(long) TheTVDBApi.getAvailableSeriesFilterParameters(seriesId)
          * @see Extended#getAvailableSeriesFilterParameters(long) TheTVDBApi.Extended.getAvailableSeriesFilterParameters(seriesId)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          *
          * @return JSON object containing a list of all keys allowed to filter by
          *
@@ -1192,7 +1192,7 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getSeriesImagesSummary(long) TheTVDBApi.getSeriesImagesSummary(seriesId)
          * @see Extended#getSeriesImagesSummary(long) TheTVDBApi.Extended.getSeriesImagesSummary(seriesId)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          *
          * @return JSON object containing a summary of the image types and counts available for the given series
          *
@@ -1208,7 +1208,7 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#queryImages(long, QueryParameters) TheTVDBApi.queryImages(seriesId, queryParameters)
          * @see Extended#queryImages(long, QueryParameters) TheTVDBApi.Extended.queryImages(seriesId, queryParameters)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
          *                        see the API documentation or use {@link #getAvailableImageQueryParameters(long) getAvailableImageQueryParameters(seriesId)}.
          *
@@ -1229,7 +1229,7 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getAvailableImageQueryParameters(long) TheTVDBApi.getAvailableImageQueryParameters(seriesId)
          * @see Extended#getAvailableImageQueryParameters(long) TheTVDBApi.Extended.getAvailableImageQueryParameters(seriesId)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          *
          * @return JSON object containing a list of possible parameters which may be used to query a series images
          *
@@ -1314,7 +1314,7 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#deleteFromFavorites(long) TheTVDBApi.deleteFromFavorites(seriesId)
          * @see Extended#deleteFromFavorites(long) TheTVDBApi.Extended.deleteFromFavorites(seriesId)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          *
          * @return JSON object containing the updated list of user favorites
          *
@@ -1332,7 +1332,7 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#addToFavorites(long) TheTVDBApi.addToFavorites(seriesId)
          * @see Extended#addToFavorites(long) TheTVDBApi.Extended.addToFavorites(seriesId)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          *
          * @return JSON object containing the updated list of user favorites
          *
@@ -1544,7 +1544,7 @@ public interface TheTVDBApi {
          * @see JSON#getSeries(long) TheTVDBApi.JSON.getSeries(seriesId)
          * @see TheTVDBApi#getSeries(long) TheTVDBApi.getSeries(seriesId)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          *
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
@@ -1561,7 +1561,7 @@ public interface TheTVDBApi {
          * @see JSON#getActors(long) TheTVDBApi.JSON.getActors(seriesId)
          * @see TheTVDBApi#getActors(long) TheTVDBApi.getActors(seriesId)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          *
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
@@ -1579,7 +1579,7 @@ public interface TheTVDBApi {
          * @see JSON#getEpisodes(long, QueryParameters) TheTVDBApi.JSON.getEpisodes(seriesId, queryParameters)
          * @see TheTVDBApi#getEpisodes(long, QueryParameters) TheTVDBApi.getEpisodes(seriesId, queryParameters)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible parameters
          *                        see the API documentation.
          *
@@ -1599,7 +1599,7 @@ public interface TheTVDBApi {
          * @see JSON#queryEpisodes(long, QueryParameters) TheTVDBApi.JSON.queryEpisodes(seriesId, queryParameters)
          * @see TheTVDBApi#queryEpisodes(long, QueryParameters) TheTVDBApi.queryEpisodes(seriesId, queryParameters)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
          *                        see the API documentation or use {@link #getAvailableEpisodeQueryParameters(long) getAvailableEpisodeQueryParameters(seriesId)}.
          *
@@ -1621,7 +1621,7 @@ public interface TheTVDBApi {
          * @see JSON#getAvailableEpisodeQueryParameters(long) TheTVDBApi.JSON.getAvailableEpisodeQueryParameters(seriesId)
          * @see TheTVDBApi#getAvailableEpisodeQueryParameters(long) TheTVDBApi.getAvailableEpisodeQueryParameters(seriesId)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          *
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
@@ -1640,7 +1640,7 @@ public interface TheTVDBApi {
          * @see JSON#getSeriesEpisodesSummary(long) TheTVDBApi.JSON.getSeriesEpisodesSummary(seriesId)
          * @see TheTVDBApi#getSeriesEpisodesSummary(long) TheTVDBApi.getSeriesEpisodesSummary(seriesId)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          *
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
@@ -1657,7 +1657,7 @@ public interface TheTVDBApi {
          * @see JSON#filterSeries(long, QueryParameters) TheTVDBApi.JSON.filterSeries(seriesId, queryParameters)
          * @see TheTVDBApi#filterSeries(long, QueryParameters) TheTVDBApi.filterSeries(seriesId, queryParameters)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
          *                        see the API documentation or use {@link #getAvailableSeriesFilterParameters(long) getAvailableSeriesFilterParameters(seriesId)}.
          *
@@ -1678,7 +1678,7 @@ public interface TheTVDBApi {
          * @see JSON#getAvailableSeriesFilterParameters(long) TheTVDBApi.JSON.getAvailableSeriesFilterParameters(seriesId)
          * @see TheTVDBApi#getAvailableSeriesFilterParameters(long) TheTVDBApi.getAvailableSeriesFilterParameters(seriesId)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          *
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
@@ -1695,7 +1695,7 @@ public interface TheTVDBApi {
          * @see JSON#getSeriesImagesSummary(long) TheTVDBApi.JSON.getSeriesImagesSummary(seriesId)
          * @see TheTVDBApi#getSeriesImagesSummary(long) TheTVDBApi.getSeriesImagesSummary(seriesId)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          *
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
@@ -1712,7 +1712,7 @@ public interface TheTVDBApi {
          * @see JSON#queryImages(long, QueryParameters) TheTVDBApi.JSON.queryImages(seriesId, queryParameters)
          * @see TheTVDBApi#queryImages(long, QueryParameters) TheTVDBApi.queryImages(seriesId, queryParameters)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          * @param queryParameters Object containing key/value pairs of query parameters. For a complete list of possible query parameters
          *                        see the API documentation or use {@link #getAvailableImageQueryParameters(long) getAvailableImageQueryParameters(seriesId)}.
          *
@@ -1735,7 +1735,7 @@ public interface TheTVDBApi {
          * @see JSON#getAvailableImageQueryParameters(long) TheTVDBApi.JSON.getAvailableImageQueryParameters(seriesId)
          * @see TheTVDBApi#getAvailableImageQueryParameters(long) TheTVDBApi.getAvailableImageQueryParameters(seriesId)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          *
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
@@ -1746,7 +1746,7 @@ public interface TheTVDBApi {
 
         /**
          * Returns a response object containing a map of series that have changed in a maximum of one week blocks since the provided <em>{@code fromTime}</em>
-         * query parameter, as plain Strings. The key/value pairs of the returned data object's map represent a TheTVDB series ID (key) and when it was updated
+         * query parameter, as plain Strings. The key/value pairs of the returned data object's map represent a <i>TheTVDB.com</i> series ID (key) and when it was updated
          * the last time (value) as Epoch time. Note that the given query parameters must always contain a valid <em>{@code fromTime}</em> Epoch timestamp key.
          * <p><br>
          * The user may specify an additional <em>{@code toTime}</em> query key to grab results for less than a week. Any timespan larger than a week will be reduced
@@ -1827,7 +1827,7 @@ public interface TheTVDBApi {
          * @see JSON#deleteFromFavorites(long) TheTVDBApi.JSON.deleteFromFavorites(seriesId)
          * @see TheTVDBApi#deleteFromFavorites(long) TheTVDBApi.deleteFromFavorites(seriesId)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          *
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.
@@ -1846,7 +1846,7 @@ public interface TheTVDBApi {
          * @see JSON#addToFavorites(long) TheTVDBApi.JSON.addToFavorites(seriesId)
          * @see TheTVDBApi#addToFavorites(long) TheTVDBApi.addToFavorites(seriesId)
          *
-         * @param seriesId The TheTVDB series ID
+         * @param seriesId The <i>TheTVDB.com</i> series ID
          *
          * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
          *         that not all API routes provide additional information so this type of data might be empty.

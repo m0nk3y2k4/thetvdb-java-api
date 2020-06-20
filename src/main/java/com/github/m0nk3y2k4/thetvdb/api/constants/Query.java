@@ -1,7 +1,7 @@
 package com.github.m0nk3y2k4.thetvdb.api.constants;
 
 /**
- * Collction of query parameter constants used throughout the various TheTVDB routes.
+ * Collction of query parameter constants used throughout the various <i>TheTVDB.com</i> routes.
  * <ul>
  *     <li>{@link Search}</li>
  *     <li>{@link Series}</li>

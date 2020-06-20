@@ -34,7 +34,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Preconditions;
 
 /**
- * Main class for handling communication with the TheTVDB REST remote service on a technical level
+ * Main class for handling communication with the <i>TheTVDB.com</i> REST remote service on a technical level
  * <p><br>
  * It provides options to invoke differnt types of HTTP requests to any given API route. It will also maintain additional session
  * information like API key, the JWT token and authentication status and will handle the Bearer authentication for each request.
@@ -56,19 +56,19 @@ public class APIConnection {
     /** Session used for API communication */
     private final APISession session;
 
-    /** Remote enpoint used for API communication (default: TheTVDB.com) */
+    /** Remote enpoint used for API communication (default: <i>TheTVDB.com</i>) */
     private final RemoteAPI remote;
 
     /**
      * Creates a new <i>TheTVDB.com</i> API connection using the given <em>{@code apiKey}</em> for remote service authentication. The given key must be a valid
-     * <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a>.
+     * <a href="https://www.thetvdb.com/member/api">TheTVDB.com API Key</a>.
      * <p><br>
      * <b>NOTE:</b> Objects created with this constructor <u>can not</u> be used for calls to the remote API's <a href="https://api.thetvdb.com/swagger#/Users">/users</a>
      * routes. These calls require extended authentication using an additional <em>{@code userKey}</em> and <em>{@code userName}</em>.
      *
      * @see #APIConnection(String, String, String) APIConnection(apiKey, userName, userKey)
      *
-     * @param apiKey Valid TheTVDB API-Key
+     * @param apiKey Valid <i>TheTVDB.com</i> API-Key
      */
     public APIConnection(@Nonnull String apiKey) {
         this(new APISession(apiKey));
@@ -76,14 +76,14 @@ public class APIConnection {
 
     /**
      * Creates a new API connection using the given <em>{@code apiKey}</em> for remote service authentication. The given key must be a valid
-     * <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a>. All outgoing communication will be directed towards the given remote endpoint.
+     * <a href="https://www.thetvdb.com/member/api">TheTVDB.com API Key</a>. All outgoing communication will be directed towards the given remote endpoint.
      * <p><br>
      * <b>NOTE:</b> Objects created with this constructor <u>can not</u> be used for calls to the remote API's <a href="https://api.thetvdb.com/swagger#/Users">/users</a>
      * routes. These calls require extended authentication using an additional <em>{@code userKey}</em> and <em>{@code userName}</em>.
      *
      * @see #APIConnection(String, String, String, Supplier) APIConnection(apiKey, userName, userKey, remote)
      *
-     * @param apiKey Valid TheTVDB API-Key
+     * @param apiKey Valid <i>TheTVDB.com</i> API-Key
      * @param remote Supplier providing the remote API endpoint to be used by this connection
      */
     public APIConnection(@Nonnull String apiKey, @Nonnull Supplier<RemoteAPI> remote) {
@@ -92,14 +92,14 @@ public class APIConnection {
 
     /**
      * Creates a new <i>TheTVDB.com</i> API connection using the given credentials for remote service authentication. The given <em>{@code apiKey}</em> must be a valid
-     * <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a>. The <em>{@code userKey}</em> and <em>{@code userName}</em> must refer to a
-     * registered TheTVDB user account.
+     * <a href="https://www.thetvdb.com/member/api">TheTVDB.com API Key</a>. The <em>{@code userKey}</em> and <em>{@code userName}</em> must refer to a
+     * registered <i>TheTVDB.com</i> user account.
      *
      * @see #APIConnection(String) APIConnection(apiKey)
      *
-     * @param apiKey Valid TheTVDB API-Key
-     * @param userKey Valid TheTVDB user key (also referred to as "Unique ID")
-     * @param userName Registered TheTVDB user name
+     * @param apiKey Valid <i>TheTVDB.com</i> API-Key
+     * @param userKey Valid <i>TheTVDB.com</i> user key (also referred to as "Unique ID")
+     * @param userName Registered <i>TheTVDB.com</i> user name
      */
     public APIConnection(@Nonnull String apiKey, @Nonnull String userKey, @Nonnull String userName) {
         this(new APISession(apiKey, userKey, userName));
@@ -107,14 +107,14 @@ public class APIConnection {
 
     /**
      * Creates a new API connection using the given credentials for remote service authentication. The given <em>{@code apiKey}</em> must be a valid
-     * <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a>. The <em>{@code userKey}</em> and <em>{@code userName}</em> must refer to a
-     * registered TheTVDB user account. All outgoing communication will be directed towards the given remote endpoint.
+     * <a href="https://www.thetvdb.com/member/api">TheTVDB.com API Key</a>. The <em>{@code userKey}</em> and <em>{@code userName}</em> must refer to a
+     * registered <i>TheTVDB.com</i> user account. All outgoing communication will be directed towards the given remote endpoint.
      *
      * @see #APIConnection(String, Supplier) APIConnection(apiKey, remote)
      *
-     * @param apiKey Valid TheTVDB API-Key
-     * @param userKey Valid TheTVDB user key (also referred to as "Unique ID")
-     * @param userName Registered TheTVDB user name
+     * @param apiKey Valid <i>TheTVDB.com</i> API-Key
+     * @param userKey Valid <i>TheTVDB.com</i> user key (also referred to as "Unique ID")
+     * @param userName Registered <i>TheTVDB.com</i> user name
      * @param remote Supplier providing the remote API endpoint to be used by this connection
      */
     public APIConnection(@Nonnull String apiKey, @Nonnull String userKey, @Nonnull String userName, @Nonnull Supplier<RemoteAPI> remote) {
@@ -441,7 +441,7 @@ abstract class APIRequest {
      * Opens a new HTTPS connection to this requests resource URI using a specific request method. The returned connection comes with some
      * common configuration regarding content types and Bearer authentication.
      *
-     * @return A preconfigured HTTPS connection pointing to some TheTVDB remote endpoint
+     * @return A preconfigured HTTPS connection pointing to some remote API endpoint
      *
      * @throws IOException Thrown in case of communcation issues like malformed URL, invalid request method, etc.
      */

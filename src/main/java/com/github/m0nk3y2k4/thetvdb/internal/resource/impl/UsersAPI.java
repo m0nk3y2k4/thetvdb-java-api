@@ -71,7 +71,7 @@ public final class UsersAPI extends QueryResource {
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/delete_user_favorites_id"><b>[DELETE]</b> /user/favorites/{id}</a>
      *
      * @param con Initialized connection to be used for API communication
-     * @param id The TheTVDB series ID
+     * @param id The <i>TheTVDB.com</i> series ID
      *
      * @return JSON object containing the updated list of user favorites
      *
@@ -89,7 +89,7 @@ public final class UsersAPI extends QueryResource {
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Users/put_user_favorites_id"><b>[PUT]</b> /user/favorites/{id}</a>
      *
      * @param con Initialized connection to be used for API communication
-     * @param id The TheTVDB series ID
+     * @param id The <i>TheTVDB.com</i> series ID
      *
      * @return JSON object containing the updated list of user favorites
      *

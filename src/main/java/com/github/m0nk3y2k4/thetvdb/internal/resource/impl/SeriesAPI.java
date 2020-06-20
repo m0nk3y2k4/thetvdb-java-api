@@ -29,7 +29,7 @@ public final class SeriesAPI extends QueryResource {
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id"><b>[GET]</b> /series/{id}</a>
      *
      * @param con Initialized connection to be used for API communication
-     * @param id The TheTVDB series ID
+     * @param id The <i>TheTVDB.com</i> series ID
      *
      * @return JSON object containing detailed information for a specific series
      *
@@ -48,7 +48,7 @@ public final class SeriesAPI extends QueryResource {
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/head_series_id"><b>[HEAD]</b> /series/{id}</a>
      *
      * @param con Initialized connection to be used for API communication
-     * @param id The TheTVDB series ID
+     * @param id The <i>TheTVDB.com</i> series ID
      *
      * @return Artificial JSON object based on the HTML header information returned by the remote service
      *
@@ -66,7 +66,7 @@ public final class SeriesAPI extends QueryResource {
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_actors"><b>[GET]</b> /series/{id}/actors</a>
      *
      * @param con Initialized connection to be used for API communication
-     * @param id The TheTVDB series ID
+     * @param id The <i>TheTVDB.com</i> series ID
      *
      * @return JSON object containing the actors for a specific series
      *
@@ -85,7 +85,7 @@ public final class SeriesAPI extends QueryResource {
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes"><b>[GET]</b> /series/{id}/episodes</a>
      *
      * @param con Initialized connection to be used for API communication
-     * @param id The TheTVDB series ID
+     * @param id The <i>TheTVDB.com</i> series ID
      * @param params Object containing key/value pairs of query parameters. For a complete list of possible parameters
      *               see the API documentation.
      *
@@ -106,7 +106,7 @@ public final class SeriesAPI extends QueryResource {
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_query"><b>[GET]</b> /series/{id}/episodes/query</a>
      *
      * @param con Initialized connection to be used for API communication
-     * @param id The TheTVDB series ID
+     * @param id The <i>TheTVDB.com</i> series ID
      * @param params Object containing key/value pairs of query parameters. For a complete list of possible query parameters
      *               see the API documentation or use {@link #getEpisodesQueryParams(APIConnection, long) getEpisodesQueryParams(con, id)}.
      *
@@ -127,7 +127,7 @@ public final class SeriesAPI extends QueryResource {
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_query_params"><b>[GET]</b> /series/{id}/episodes/query/params</a>
      *
      * @param con Initialized connection to be used for API communication
-     * @param id The TheTVDB series ID
+     * @param id The <i>TheTVDB.com</i> series ID
      *
      * @return JSON object containing all allowed keys to be used for querying episodes
      *
@@ -147,7 +147,7 @@ public final class SeriesAPI extends QueryResource {
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_summary"><b>[GET]</b> /series/{id}/episodes/summary</a>
      *
      * @param con Initialized connection to be used for API communication
-     * @param id The TheTVDB series ID
+     * @param id The <i>TheTVDB.com</i> series ID
      *
      * @return JSON object containing a summary of the episodes and seasons avaialable for the given series
      *
@@ -165,7 +165,7 @@ public final class SeriesAPI extends QueryResource {
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_filter"><b>[GET]</b> /series/{id}/filter</a>
      *
      * @param con Initialized connection to be used for API communication
-     * @param id The TheTVDB series ID
+     * @param id The <i>TheTVDB.com</i> series ID
      * @param params Object containing key/value pairs of query parameters. For a complete list of possible query parameters
      *               see the API documentation or use {@link #getFilterParams(APIConnection, long) getFilterParams(con, seriesId)}.
      *
@@ -187,7 +187,7 @@ public final class SeriesAPI extends QueryResource {
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_filter_params"><b>[GET]</b> /series/{id}/filter/params</a>
      *
      * @param con Initialized connection to be used for API communication
-     * @param id The TheTVDB series ID
+     * @param id The <i>TheTVDB.com</i> series ID
      *
      * @return JSON object containing a list of all keys allowed to filter by
      *
@@ -205,7 +205,7 @@ public final class SeriesAPI extends QueryResource {
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images"><b>[GET]</b> /series/{id}/images</a>
      *
      * @param con Initialized connection to be used for API communication
-     * @param id The TheTVDB series ID
+     * @param id The <i>TheTVDB.com</i> series ID
      *
      * @return JSON object containing a summary of the image types and counts available for the given series
      *
@@ -223,7 +223,7 @@ public final class SeriesAPI extends QueryResource {
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images_query"><b>[GET]</b> /series/{id}/images/query</a>
      *
      * @param con Initialized connection to be used for API communication
-     * @param id The TheTVDB series ID
+     * @param id The <i>TheTVDB.com</i> series ID
      * @param params Object containing key/value pairs of query parameters. For a complete list of possible query parameters
      *               see the API documentation or use {@link #getImagesQueryParams(APIConnection, long) getImagesQueryParams(con, seriesId)}.
      *
@@ -244,7 +244,7 @@ public final class SeriesAPI extends QueryResource {
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images_query_params"><b>[GET]</b> /series/{id}/images/query/params</a>
      *
      * @param con Initialized connection to be used for API communication
-     * @param id The TheTVDB series ID
+     * @param id The <i>TheTVDB.com</i> series ID
      *
      * @return JSON object containing a list of possible parameters which may be used to query a series images
      *

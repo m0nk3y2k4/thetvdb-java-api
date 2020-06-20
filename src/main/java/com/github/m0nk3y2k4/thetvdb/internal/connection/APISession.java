@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 /**
  * Session used for remote API communication.
  * <p><br>
- * All connections to the TheTVDB API are backed by an instance of this class. These sessions
+ * All connections to the <i>TheTVDB.com</i> API are backed by an instance of this class. These sessions
  * contain all information required for client authentication on the remote service, locale settings as well as session tokens used for
  * remote service communication.
  */
@@ -64,7 +64,7 @@ public final class APISession {
     private Status status = Status.NOT_AUTHORIZED;
 
     /**
-     * Creates a new API session with the given API key. The <em>{@code apiKey}</em> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a> which will
+     * Creates a new API session with the given API key. The <em>{@code apiKey}</em> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB.com API Key</a> which will
      * be used for remote service authentication.
      * <p><br>
      * <b>NOTE:</b> Sessions created with this constructor <u>can not</u> be used for calls to the remote API's <a href="https://api.thetvdb.com/swagger#/Users">/users</a>
@@ -83,8 +83,8 @@ public final class APISession {
     }
 
     /**
-     * Creates a new API session. The given <em>{@code apiKey}</em> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a>. The <em>{@code userKey}</em>
-     * and <em>{@code userName}</em> must refer to a registered TheTVDB user account. The given parameters will be used for the initial remote service authentication. Sessions
+     * Creates a new API session. The given <em>{@code apiKey}</em> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB.com API Key</a>. The <em>{@code userKey}</em>
+     * and <em>{@code userName}</em> must refer to a registered <i>TheTVDB.com</i> user account. The given parameters will be used for the initial remote service authentication. Sessions
      * created with this constructor can be used for calls to the remote API's <a href="https://api.thetvdb.com/swagger#/Users">/users</a> routes.
      *
      * @see APISession#APISession(String) APISession(apiKey)
