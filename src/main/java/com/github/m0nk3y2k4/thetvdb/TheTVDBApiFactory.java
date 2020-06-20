@@ -1,9 +1,11 @@
 package com.github.m0nk3y2k4.thetvdb;
 
+import com.github.m0nk3y2k4.thetvdb.api.Proxy;
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.QueryParametersImpl;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.TheTVDBApiImpl;
+import com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
@@ -19,9 +21,9 @@ public class TheTVDBApiFactory {
     private TheTVDBApiFactory() {}      // Hidden constructor. Only static methods
 
     /**
-     * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a> which will
-     * be used for remote service authentication. To authenticate and generate a new session token use the {@link TheTVDBApi#init()} or {@link TheTVDBApi#login()}
-     * methods right after creating a new instance of this API.
+     * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a>
+     * which will be used for remote service authentication. To authenticate and generate a new session token use the {@link TheTVDBApi#init()}
+     * or {@link TheTVDBApi#login()} methods right after creating a new instance of this API.
      * <p><br>
      * <b>NOTE:</b> Objects created with this constructor <u>can not</u> be used for calls to the remote API's <a href="https://api.thetvdb.com/swagger#/Users">/users</a>
      * routes. These calls require extended authentication using an additional <em>{@code userKey}</em> and <em>{@code userName}</em>.
@@ -37,9 +39,30 @@ public class TheTVDBApiFactory {
     }
 
     /**
-     * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a>. The <em>{@code userKey}</em>
-     * and <em>{@code userName}</em> must refer to a registered TheTVDB user account. The given parameters will be used for the initial remote service authentication. To authenticate
-     * and generate a new session token use the {@link TheTVDBApi#init()} or {@link TheTVDBApi#login()} methods right after creating a new instance of this API.
+     * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a>
+     * which will be used for remote service authentication. To authenticate and generate a new session token use the {@link TheTVDBApi#init()}
+     * or {@link TheTVDBApi#login()} methods right after creating a new instance of this API. All communication to the remote API will be forwarded
+     * to the given <em>{@code proxy}</em>.
+     * <p><br>
+     * <b>NOTE:</b> Objects created with this constructor <u>can not</u> be used for calls to the remote API's <a href="https://api.thetvdb.com/swagger#/Users">/users</a>
+     * routes. These calls require extended authentication using an additional <em>{@code userKey}</em> and <em>{@code userName}</em>.
+     *
+     * @see #createApi(String, String, String, Proxy) createApi(apiKey, userName, userKey, proxy)
+     *
+     * @param apiKey Valid TheTVDB API-Key
+     * @param proxy The proxy service to be used for remote API communication
+     *
+     * @return A new TheTVDBApi instance using the given API key for authentication
+     */
+    public static TheTVDBApi createApi(@Nonnull String apiKey, @Nonnull Proxy proxy) {
+        return new TheTVDBApiImpl(apiKey, proxy);
+    }
+
+    /**
+     * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a>.
+     * The <em>{@code userKey}</em> and <em>{@code userName}</em> must refer to a registered TheTVDB user account. The given parameters will be used
+     * for the initial remote service authentication. To authenticate and generate a new session token use the {@link TheTVDBApi#init()} or
+     * {@link TheTVDBApi#login()} methods right after creating a new instance of this API.
      *
      * @param apiKey Valid TheTVDB API-Key
      * @param userKey Valid TheTVDB user key (also referred to as "Unique ID")
@@ -49,6 +72,24 @@ public class TheTVDBApiFactory {
      */
     public static TheTVDBApi createApi(@Nonnull String apiKey, @Nonnull String userKey, @Nonnull String userName) {
         return new TheTVDBApiImpl(apiKey, userKey, userName);
+    }
+
+    /**
+     * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a>.
+     * The <em>{@code userKey}</em> and <em>{@code userName}</em> must refer to a registered TheTVDB user account. The given parameters will be used
+     * for the initial remote service authentication. To authenticate and generate a new session token use the {@link TheTVDBApi#init()}
+     * or {@link TheTVDBApi#login()} methods right after creating a new instance of this API. All communication to the remote API will be
+     * forwarded to the given <em>{@code proxy}</em>.
+     *
+     * @param apiKey Valid TheTVDB API-Key
+     * @param userKey Valid TheTVDB user key (also referred to as "Unique ID")
+     * @param userName Registered TheTVDB user name
+     * @param proxy The proxy service to be used for remote API communication
+     *
+     * @return A new TheTVDBApi instance using the given API key, user key and user name for authentication
+     */
+    public static TheTVDBApi createApi(@Nonnull String apiKey, @Nonnull String userKey, @Nonnull String userName, @Nonnull Proxy proxy) {
+        return new TheTVDBApiImpl(apiKey, userKey, userName, proxy);
     }
 
     /**
@@ -74,5 +115,19 @@ public class TheTVDBApiFactory {
      */
     public static QueryParameters createQueryParameters(@Nonnull Map<String, String> parameters) {
         return new QueryParametersImpl(parameters);
+    }
+
+    /**
+     * Creates a new proxy object based on the given parameters. A proxy may be provided when creating a new TheTVDBApi instance in order
+     * to forward all communication towards this proxy instead of directly communicating with the remote <i>TheTVDB.com</i> API.
+     *
+     * @param protocol The protocol used by the proxy
+     * @param host The host name of the proxy
+     * @param port The port number to be used for communication
+     *
+     * @return New immutable proxy object based on the given parameters
+     */
+    public static Proxy createProxy(@Nonnull String protocol, @Nonnull String host, int port) {
+        return new RemoteAPI.Builder().protocol(protocol).host(host).port(port).build();
     }
 }

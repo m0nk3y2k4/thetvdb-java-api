@@ -10,10 +10,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
@@ -56,8 +56,11 @@ public class APIConnection {
     /** Session used for API communication */
     private final APISession session;
 
+    /** Remote enpoint used for API communication (default: TheTVDB.com) */
+    private final RemoteAPI remote;
+
     /**
-     * Creates a new API connection using the given <em>{@code apiKey}</em> for remote service authentication. The given key must be a valid
+     * Creates a new <i>TheTVDB.com</i> API connection using the given <em>{@code apiKey}</em> for remote service authentication. The given key must be a valid
      * <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a>.
      * <p><br>
      * <b>NOTE:</b> Objects created with this constructor <u>can not</u> be used for calls to the remote API's <a href="https://api.thetvdb.com/swagger#/Users">/users</a>
@@ -68,11 +71,27 @@ public class APIConnection {
      * @param apiKey Valid TheTVDB API-Key
      */
     public APIConnection(@Nonnull String apiKey) {
-        this.session = new APISession(apiKey);
+        this(new APISession(apiKey));
     }
 
     /**
-     * Creates a new API connection using the given credentials for remote service authentication. The given <em>{@code apiKey}</em> must be a valid
+     * Creates a new API connection using the given <em>{@code apiKey}</em> for remote service authentication. The given key must be a valid
+     * <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a>. All outgoing communication will be directed towards the given remote endpoint.
+     * <p><br>
+     * <b>NOTE:</b> Objects created with this constructor <u>can not</u> be used for calls to the remote API's <a href="https://api.thetvdb.com/swagger#/Users">/users</a>
+     * routes. These calls require extended authentication using an additional <em>{@code userKey}</em> and <em>{@code userName}</em>.
+     *
+     * @see #APIConnection(String, String, String, Supplier) APIConnection(apiKey, userName, userKey, remote)
+     *
+     * @param apiKey Valid TheTVDB API-Key
+     * @param remote Supplier providing the remote API endpoint to be used by this connection
+     */
+    public APIConnection(@Nonnull String apiKey, @Nonnull Supplier<RemoteAPI> remote) {
+        this(new APISession(apiKey), remote);
+    }
+
+    /**
+     * Creates a new <i>TheTVDB.com</i> API connection using the given credentials for remote service authentication. The given <em>{@code apiKey}</em> must be a valid
      * <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a>. The <em>{@code userKey}</em> and <em>{@code userName}</em> must refer to a
      * registered TheTVDB user account.
      *
@@ -83,7 +102,49 @@ public class APIConnection {
      * @param userName Registered TheTVDB user name
      */
     public APIConnection(@Nonnull String apiKey, @Nonnull String userKey, @Nonnull String userName) {
-        this.session = new APISession(apiKey, userKey, userName);
+        this(new APISession(apiKey, userKey, userName));
+    }
+
+    /**
+     * Creates a new API connection using the given credentials for remote service authentication. The given <em>{@code apiKey}</em> must be a valid
+     * <a href="https://www.thetvdb.com/member/api">TheTVDB API Key</a>. The <em>{@code userKey}</em> and <em>{@code userName}</em> must refer to a
+     * registered TheTVDB user account. All outgoing communication will be directed towards the given remote endpoint.
+     *
+     * @see #APIConnection(String, Supplier) APIConnection(apiKey, remote)
+     *
+     * @param apiKey Valid TheTVDB API-Key
+     * @param userKey Valid TheTVDB user key (also referred to as "Unique ID")
+     * @param userName Registered TheTVDB user name
+     * @param remote Supplier providing the remote API endpoint to be used by this connection
+     */
+    public APIConnection(@Nonnull String apiKey, @Nonnull String userKey, @Nonnull String userName, @Nonnull Supplier<RemoteAPI> remote) {
+        this(new APISession(apiKey, userKey, userName), remote);
+    }
+
+    /**
+     * Creates a new <i>TheTVDB.com</i> API connection using the given <em>{@code session}</em> for remote service authentication. The functionality offered
+     * by this API connection strongly depends on the current configuration of the given session object.
+     *
+     * @param session Session used for API communication and authentication
+     */
+    private APIConnection(@Nonnull APISession session) {
+        this(session, () -> new RemoteAPI.Builder().build());       // Default: regular TheTVDB.com remote
+    }
+
+    /**
+     * Creates a new connection to the given <em>{@code remote}</em> API using the given <em>{@code session}</em> for remote service authentication. The
+     * functionality offered by this API connection strongly depends on the current configuration of the given session object.
+     *
+     * @param session Session used for API communication and authentication
+     * @param remote Specific remote communication endpoint (e.g. if the <i>TheTVDB.com</i> API should be accessed via proxy)
+     */
+    private APIConnection(@Nonnull APISession session, @Nonnull Supplier<RemoteAPI> remote) {
+        Parameters.validateNotNull(session, "API session must not be NULL");
+        Parameters.validateCondition(remoteSupplier -> Optional.ofNullable(remoteSupplier).map(Supplier::get).isPresent(), remote,
+                new IllegalArgumentException("Remote endpoint for this connection needs to be specified"));
+
+        this.session = session;
+        this.remote = remote.get();
     }
 
     /**
@@ -245,6 +306,7 @@ public class APIConnection {
      */
     private synchronized JsonNode sendRequest(APIRequest request) throws APIException {
         request.setSession(session);
+        request.setRemoteAPI(remote);
 
         for (int retry = 0; retry < MAX_AUTHENTICATION_RETRY_COUNT; retry++) {
             try {
@@ -295,9 +357,6 @@ abstract class APIRequest {
     /** Constants for API error handling */
     private static final String API_ERROR = "Error";
 
-    /** The API base URL */
-    private static final String API_URL = "https://api.thetvdb.com";
-
     /** The fix API version to be used */
     private static final String API_VERSION = "v3.0.0";
 
@@ -306,6 +365,9 @@ abstract class APIRequest {
 
     /** Session for remote API authentication */
     private APISession session;
+
+    /** Remote enpoint used for API communication */
+    private RemoteAPI remote;
 
     /** Resource/Route to be called on remote service */
     private final String resource;
@@ -335,6 +397,16 @@ abstract class APIRequest {
      */
     void setSession(@Nonnull APISession session) {
         this.session = session;
+    }
+
+    /**
+     * Specifies the remote endpoint (URI) to which the request should be addressed to. Typically this is the <i>TheTVDB.com</i> RESTful API but It may also be set
+     * to some proxy for example.
+     *
+     * @param remote The remote enpoint used for API communication
+     */
+    void setRemoteAPI(@Nonnull RemoteAPI remote) {
+        this.remote = remote;
     }
 
     /**
@@ -374,10 +446,11 @@ abstract class APIRequest {
      * @throws IOException Thrown in case of communcation issues like malformed URL, invalid request method, etc.
      */
     private HttpsURLConnection openConnection() throws IOException {
+        Preconditions.requireNonNull(remote, "No remote endpoint specified");
         Preconditions.requireNonEmpty(resource, "No API resource specified");
         Preconditions.requireNonNull(requestMethod, "No HTTP request method specified");
 
-        HttpsURLConnection con = (HttpsURLConnection) new URL(API_URL + resource).openConnection();
+        HttpsURLConnection con = (HttpsURLConnection) remote.forResource(resource).openConnection();
 
         // POST, GET, DELETE, PUT,...
         con.setRequestMethod(requestMethod.getName());
