@@ -1,14 +1,15 @@
 package com.github.m0nk3y2k4.thetvdb;
 
+import java.util.Map;
+
+import javax.annotation.Nonnull;
+
 import com.github.m0nk3y2k4.thetvdb.api.Proxy;
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.QueryParametersImpl;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.TheTVDBApiImpl;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI;
-
-import javax.annotation.Nonnull;
-import java.util.Map;
 
 /**
  * Factory used to create new API instances

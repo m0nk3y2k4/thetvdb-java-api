@@ -1,7 +1,8 @@
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
-import javax.annotation.Nullable;
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 /**
  * Interface representing an <i>Image query parameter</i> data transfert object.

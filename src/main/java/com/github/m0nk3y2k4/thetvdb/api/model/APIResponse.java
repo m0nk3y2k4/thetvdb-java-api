@@ -1,9 +1,9 @@
 package com.github.m0nk3y2k4.thetvdb.api.model;
 
-
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
+
+import javax.annotation.Nullable;
 
 /**
  * Interface for extended remote API responses. Some API routes will not only return the actually requested data but will also report additional

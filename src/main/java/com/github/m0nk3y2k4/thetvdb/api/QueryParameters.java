@@ -1,11 +1,12 @@
 package com.github.m0nk3y2k4.thetvdb.api;
 
-import javax.annotation.Nonnull;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import com.github.m0nk3y2k4.thetvdb.api.constants.Query;
+import javax.annotation.Nonnull;
+
 import com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory;
+import com.github.m0nk3y2k4.thetvdb.api.constants.Query;
 
 /**
  * Interface representing a set of query parameters. These parameters can be used for some of the API

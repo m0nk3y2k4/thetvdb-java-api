@@ -1,15 +1,16 @@
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
+import java.util.Map;
+import java.util.Optional;
+
+import javax.annotation.Nullable;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Image;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.WithHiddenImplementation;
 import org.immutables.value.Value.Immutable;
-
-import javax.annotation.Nullable;
-import java.util.Map;
-import java.util.Optional;
 
 /**
  * DTO implementation of the {@link Image} interface

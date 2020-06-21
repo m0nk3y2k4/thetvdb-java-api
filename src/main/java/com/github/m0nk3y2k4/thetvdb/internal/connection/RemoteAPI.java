@@ -1,13 +1,14 @@
 package com.github.m0nk3y2k4.thetvdb.internal.connection;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.annotation.Nonnull;
+
 import com.github.m0nk3y2k4.thetvdb.api.Proxy;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.WithHiddenImplementation;
 import org.immutables.value.Value.Default;
 import org.immutables.value.Value.Immutable;
-
-import javax.annotation.Nonnull;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 /**
  * Object representing the technical remote endpoint of the RESTful remote API. It defines the remote service from which

@@ -1,8 +1,8 @@
 package com.github.m0nk3y2k4.thetvdb.internal.exception;
 
-import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
-
 import javax.annotation.Nonnull;
+
+import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 
 /**
  * Exception indicating problems while communicating with the remote API. This includes general IO issues as well as checked communication

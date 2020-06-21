@@ -1,12 +1,13 @@
 package com.github.m0nk3y2k4.thetvdb.internal.connection;
 
+import java.util.Optional;
+import java.util.regex.Pattern;
+
+import javax.annotation.Nonnull;
+
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
-
-import javax.annotation.Nonnull;
-import java.util.Optional;
-import java.util.regex.Pattern;
 
 /**
  * Session used for remote API communication.

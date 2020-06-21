@@ -1,13 +1,18 @@
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl;
 
-import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
-import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Spliterator;
+import java.util.Spliterators;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import javax.annotation.Nonnull;
 
-import java.util.*;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
+import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
+import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 /**
  * Internal implementation of the {@link QueryParameters} interface

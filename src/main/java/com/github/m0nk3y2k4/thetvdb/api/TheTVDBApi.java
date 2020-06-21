@@ -1,14 +1,25 @@
 package com.github.m0nk3y2k4.thetvdb.api;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
-import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.*;
-
-import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import javax.annotation.Nonnull;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
+import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Actor;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Image;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.ImageQueryParameter;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.ImageSummary;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Language;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Rating;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesSearchResult;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesSummary;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.User;
 
 /**
  * Main interface of the <i>TheTDVB</i> API connector.

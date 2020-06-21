@@ -1,10 +1,10 @@
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation;
 
-import org.immutables.value.Value;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
+
+import org.immutables.value.Value;
 
 /**
  * Forces <em>{@code Immutables}</em> to restrict the visibility of auto-generated DTO implementations in order to "hide" them.

@@ -1,8 +1,5 @@
 package com.github.m0nk3y2k4.thetvdb.internal.resource;
 
-import static java.util.Arrays.stream;
-import static java.util.stream.Collectors.joining;
-
 import java.util.Optional;
 import java.util.function.Predicate;
 

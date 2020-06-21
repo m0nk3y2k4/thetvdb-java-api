@@ -1,8 +1,8 @@
 package com.github.m0nk3y2k4.thetvdb.internal.exception;
 
-import com.github.m0nk3y2k4.thetvdb.api.exception.APIRuntimeException;
-
 import javax.annotation.Nonnull;
+
+import com.github.m0nk3y2k4.thetvdb.api.exception.APIRuntimeException;
 
 /**
  * Exceptions of this type represent a failed precondition check. Such checks are carried out throughout processing to check

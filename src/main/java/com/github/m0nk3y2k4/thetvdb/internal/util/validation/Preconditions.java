@@ -1,9 +1,9 @@
 package com.github.m0nk3y2k4.thetvdb.internal.util.validation;
 
+import java.util.function.Predicate;
+
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APIPreconditionException;
 import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
-
-import java.util.function.Predicate;
 
 /**
  * Collection of simple checks to be used to check for method invocation preconditions

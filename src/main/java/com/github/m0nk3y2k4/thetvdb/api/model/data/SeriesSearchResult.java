@@ -1,7 +1,8 @@
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
-import javax.annotation.Nullable;
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 /**
  * Interface representing a <i>Series search result</i> data transfert object.

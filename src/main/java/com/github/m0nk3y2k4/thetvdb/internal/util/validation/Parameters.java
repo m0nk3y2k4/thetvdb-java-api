@@ -1,11 +1,12 @@
 package com.github.m0nk3y2k4.thetvdb.internal.util.validation;
 
-import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
-import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
-
-import javax.annotation.Nonnull;
 import java.util.Optional;
 import java.util.function.Predicate;
+
+import javax.annotation.Nonnull;
+
+import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
+import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
 
 /**
  * Collection of simple checks to be used for method parameter validation
