@@ -254,6 +254,24 @@ public class APIConnection {
     }
 
     /**
+     * Returns the connections underlying API session
+     *
+     * @return API session associated with this connection
+     */
+    APISession getSession() {
+        return session;
+    }
+
+    /**
+     * Returns the endpoint which will be invoked for all remote API request
+     *
+     * @return Remote API associated with this connection
+     */
+    RemoteAPI getRemoteAPI() {
+        return remote;
+    }
+
+    /**
      * Returns the API key related to this connection
      *
      * @return API key of this connection
