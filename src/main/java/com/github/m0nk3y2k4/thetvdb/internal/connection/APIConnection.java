@@ -5,6 +5,11 @@ import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_NOT_FO
 import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_SERVICE_UNAVAILABLE;
 import static com.github.m0nk3y2k4.thetvdb.internal.connection.APISession.Status;
 import static com.github.m0nk3y2k4.thetvdb.internal.connection.APISession.Status.NOT_AUTHORIZED;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.ACCEPT;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.ACCEPT_LANGUAGE;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.AUTHORIZATION;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.CONTENT_TYPE;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.USER_AGENT;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -361,7 +366,7 @@ abstract class APIRequest {
     private static final String API_VERSION = "v3.0.0";
 
     /** User agent */
-    private static final String USER_AGENT = "Mozilla/5.0";
+    private static final String USERAGENT_MOZILLA = "Mozilla/5.0";
 
     /** Session for remote API authentication */
     private APISession session;
@@ -456,14 +461,14 @@ abstract class APIRequest {
         con.setRequestMethod(requestMethod.getName());
 
         // Request properties for API
-        con.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-        con.setRequestProperty("Accept", "application/json");
-        con.setRequestProperty("Accept", "application/vnd.thetvdb." + API_VERSION);
-        con.setRequestProperty("User-Agent", USER_AGENT);
+        con.setRequestProperty(CONTENT_TYPE, "application/json; charset=utf-8");
+        con.setRequestProperty(ACCEPT, "application/json");
+        con.setRequestProperty(ACCEPT, "application/vnd.thetvdb." + API_VERSION);
+        con.setRequestProperty(USER_AGENT, USERAGENT_MOZILLA);
         if (session != null && session.isInitialized()) {
             // If session has already been initialized, add token information and language key to each request
-            con.setRequestProperty("Authorization", "Bearer " + session.getToken().get());
-            con.setRequestProperty("Accept-Language", session.getLanguage());
+            con.setRequestProperty(AUTHORIZATION, "Bearer " + session.getToken().get());
+            con.setRequestProperty(ACCEPT_LANGUAGE, session.getLanguage());
         }
 
         return con;
