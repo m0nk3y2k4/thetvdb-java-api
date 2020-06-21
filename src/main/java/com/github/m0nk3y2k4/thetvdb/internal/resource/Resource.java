@@ -20,8 +20,7 @@ public abstract class Resource {
     /** Identifiers for common dynamic URL path parameters */
     protected static final String PATH_ID = "id";
 
-    protected Resource() {
-    }
+    protected Resource() {}
 
     /**
      * Creates a new resource string consisting of the given <em>{@code base}</em> URL path parameter prepended by some optional

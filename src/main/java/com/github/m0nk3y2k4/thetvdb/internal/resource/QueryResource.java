@@ -23,6 +23,8 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
  */
 public abstract class QueryResource extends Resource {
 
+    protected QueryResource() {}
+
     /**
      * Creates a new query resource string consisting of the given <em>{@code base}</em> and <em>{@code specific}</em> URL path paramters
      * preprended by the given query parameters in the following format: <b><code>/BASE/specific?query1=value1&amp;query2=value2&amp;...</code></b>
