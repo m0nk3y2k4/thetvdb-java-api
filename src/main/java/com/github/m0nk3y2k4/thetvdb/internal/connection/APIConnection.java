@@ -383,9 +383,6 @@ abstract class APIRequest {
     /** The fix API version to be used */
     private static final String API_VERSION = "v3.0.0";
 
-    /** User agent */
-    private static final String USERAGENT_MOZILLA = "Mozilla/5.0";
-
     /** Session for remote API authentication */
     private APISession session;
 
@@ -418,7 +415,7 @@ abstract class APIRequest {
      *
      * @param session The API session bound to this request
      */
-    void setSession(@Nonnull APISession session) {
+    void setSession(APISession session) {
         this.session = session;
     }
 
@@ -480,9 +477,8 @@ abstract class APIRequest {
 
         // Request properties for API
         con.setRequestProperty(CONTENT_TYPE, "application/json; charset=utf-8");
-        con.setRequestProperty(ACCEPT, "application/json");
-        con.setRequestProperty(ACCEPT, "application/vnd.thetvdb." + API_VERSION);
-        con.setRequestProperty(USER_AGENT, USERAGENT_MOZILLA);
+        con.setRequestProperty(ACCEPT, "application/json, application/vnd.thetvdb." + API_VERSION);
+        con.setRequestProperty(USER_AGENT, "Mozilla/5.0");
         if (session != null && session.isInitialized()) {
             // If session has already been initialized, add token information and language key to each request
             con.setRequestProperty(AUTHORIZATION, "Bearer " + session.getToken().get());
