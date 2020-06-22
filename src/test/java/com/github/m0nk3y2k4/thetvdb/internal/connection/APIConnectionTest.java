@@ -10,16 +10,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowableOfType;
 import static org.mockserver.model.HttpRequest.request;
 
-import java.util.Arrays;
-
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
-import com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod;
 import com.github.m0nk3y2k4.thetvdb.testutils.HttpsMockServer;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockserver.client.MockServerClient;
 import org.mockserver.matchers.Times;
-import org.mockserver.mock.Expectation;
 import org.mockserver.verify.VerificationTimes;
 
 @WithMockServerExtension
@@ -28,11 +23,6 @@ class APIConnectionTest extends HttpsMockServer {
     private static final String PATH_METHOD = "/method";
 
     final APIConnection con = new APIConnection("API-Key", HttpsMockServer::remoteAPI);
-
-    @BeforeAll
-    static void initMethodExpectations(MockServerClient client) {
-        Arrays.stream(HttpRequestMethod.values()).forEach(m -> addMethodExpectation(client, m.getName()));
-    }
 
     @Test
     void newAPIConnection_withSimpleCredentials_verifySessionProperties() {
@@ -84,35 +74,35 @@ class APIConnectionTest extends HttpsMockServer {
     void sendGET_verifyHTTPMethodInRequest(MockServerClient client) throws Exception {
         final String resource = PATH_METHOD + GET.getName();
         con.sendGET(resource);
-        client.verify(request().withMethod(GET.getName()).withPath(resource), VerificationTimes.exactly(1));
+        client.verify(request().withMethod(GET.getName()).withPath(resource), VerificationTimes.once());
     }
 
     @Test
     void sendPOST_verifyHTTPMethodInRequest(MockServerClient client) throws Exception {
         final String resource = PATH_METHOD + POST.getName();
         con.sendPOST(resource, JSON_DATA);
-        client.verify(request().withMethod(POST.getName()).withPath(resource), VerificationTimes.exactly(1));
+        client.verify(request().withMethod(POST.getName()).withPath(resource), VerificationTimes.once());
     }
 
     @Test
     void sendHEAD_verifyHTTPMethodInRequest(MockServerClient client) throws Exception {
         final String resource = PATH_METHOD + HEAD.getName();
         con.sendHEAD(resource);
-        client.verify(request().withMethod(HEAD.getName()).withPath(resource), VerificationTimes.exactly(1));
+        client.verify(request().withMethod(HEAD.getName()).withPath(resource), VerificationTimes.once());
     }
 
     @Test
     void sendDELETE_verifyHTTPMethodInRequest(MockServerClient client) throws Exception {
         final String resource = PATH_METHOD + DELETE.getName();
         con.sendDELETE(resource);
-        client.verify(request().withMethod(DELETE.getName()).withPath(resource), VerificationTimes.exactly(1));
+        client.verify(request().withMethod(DELETE.getName()).withPath(resource), VerificationTimes.once());
     }
 
     @Test
     void sendPUT_verifyHTTPMethodInRequest(MockServerClient client) throws Exception {
         final String resource = PATH_METHOD + PUT.getName();
         con.sendPUT(resource);
-        client.verify(request().withMethod(PUT.getName()).withPath(resource), VerificationTimes.exactly(1));
+        client.verify(request().withMethod(PUT.getName()).withPath(resource), VerificationTimes.once());
     }
 
     @Test
@@ -139,7 +129,7 @@ class APIConnectionTest extends HttpsMockServer {
     void sendRequest_abortAfterMaxRetryCount(MockServerClient client) {
         final String resource = "/retry";
         con.getSession().setStatus(APISession.Status.NOT_AUTHORIZED);       // Allow to trigger auto-authorization
-        client.when(request(resource)).respond(createUnauthorizedResponse());
+        client.when(request(resource), Times.exactly(3)).respond(createUnauthorizedResponse());
         APIException exception = catchThrowableOfType(() -> con.sendGET(resource), APIException.class);
         assertThat(exception).hasMessageContaining("after 3 retries");
     }
@@ -149,7 +139,6 @@ class APIConnectionTest extends HttpsMockServer {
         final String resource = "/autoAuthSuccess";
         con.getSession().setStatus(APISession.Status.NOT_AUTHORIZED);       // Allow to trigger auto-authorization
         client.when(request(resource), Times.once()).respond(createUnauthorizedResponse());
-        client.when(request(resource), Times.once()).respond(createSuccessResponse());
         con.sendGET(resource);
         client.verify(request(resource), VerificationTimes.exactly(2));
     }
@@ -159,12 +148,9 @@ class APIConnectionTest extends HttpsMockServer {
         final String resource = "/autoAuthFailed";
         con.getSession().setStatus(APISession.Status.NOT_AUTHORIZED);       // Allow to trigger auto-authorization
         client.when(request(resource), Times.once()).respond(createUnauthorizedResponse());
-        client.upsert(new Expectation(request("/login")).withId(EXP_LOGIN).thenRespond(createUnauthorizedResponse()));
+        client.when(request("/login"), Times.once()).respond(createUnauthorizedResponse());
         APIException exception = catchThrowableOfType(() -> con.sendGET(resource), APIException.class);
         assertThat(exception).hasMessageContaining("authorization failed");
     }
 
-    private static void addMethodExpectation(MockServerClient client, String method) {
-        client.when(request().withMethod(method).withPath(PATH_METHOD + method)).respond(createSuccessResponse());
-    }
 }

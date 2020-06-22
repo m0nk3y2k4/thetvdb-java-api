@@ -1,18 +1,23 @@
 package com.github.m0nk3y2k4.thetvdb.testutils;
 
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.ACCEPT;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.ACCEPT_LANGUAGE;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.AUTHORIZATION;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.CONTENT_LENGTH;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.CONTENT_TYPE;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.USER_AGENT;
 import static org.mockserver.model.Header.header;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 import static org.mockserver.model.HttpStatusCode.OK_200;
 import static org.mockserver.model.HttpStatusCode.UNAUTHORIZED_401;
+import static org.mockserver.model.NottableString.not;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.UUID;
 
 import javax.annotation.Nonnull;
 import javax.net.ssl.HttpsURLConnection;
@@ -21,15 +26,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockserver.client.MockServerClient;
 import org.mockserver.junit.jupiter.MockServerExtension;
 import org.mockserver.junit.jupiter.MockServerSettings;
 import org.mockserver.logging.MockServerLogger;
+import org.mockserver.matchers.TimeToLive;
+import org.mockserver.matchers.Times;
 import org.mockserver.mock.Expectation;
 import org.mockserver.model.Header;
 import org.mockserver.model.HttpResponse;
+import org.mockserver.model.HttpStatusCode;
 import org.mockserver.socket.tls.KeyStoreFactory;
 
 /**
@@ -64,6 +71,26 @@ import org.mockserver.socket.tls.KeyStoreFactory;
  *         TheTVDBApi api = TheTVDBApiFactory.createApi("bar", remoteAPI());
  *     }
  * }
+ * }</pre>
+ * <p><br>
+ * The mock server is configured to return a <i>HTTP-200 OK</i> response for all requests by default. However, this behavior
+ * can be overwritten by the specific tests if needed:
+ * <pre>{@code
+ *     @Test
+ *     void mockResponseTest(MockServerClient client) {
+ *         final String resource = "/someResource";
+ *
+ *         // Default response for all requests: HTTP-200
+ *         assertThat(sendRequest(resource)).extracting(Response::getResponseCode).isEqualTo(200);
+ *
+ *         // Cover the default response for the next two requests to "resource" and return a HTTP-401 instead
+ *         client.when(request(resource), Times.exactly(2)).respond(createUnauthorizedResponse());
+ *         assertThat(sendRequest(resource)).extracting(Response::getResponseCode).isEqualTo(401);
+ *         assertThat(sendRequest(resource)).extracting(Response::getResponseCode).isEqualTo(401);
+ *
+ *         // After two requests the specified HTTP-401 expectation expires and the default response is visible again
+ *         assertThat(sendRequest(resource)).extracting(Response::getResponseCode).isEqualTo(200);
+ *     }
  * }</pre>
  */
 public abstract class HttpsMockServer {
@@ -101,8 +128,10 @@ public abstract class HttpsMockServer {
     /** JSON String representing a dummy JWT response. It's not a real token but the content is valid with regards to the JWT format. */
     protected static final String JSON_JWT = new ObjectMapper().createObjectNode().put("token", "Header.Payload.Signature").toString();
 
-    /** ID of the <i>/login</i> routes default expectation */
-    protected static final String EXP_LOGIN = UUID.randomUUID().toString();
+    /** Priority for the mocks general default response behavior */
+    private static final int PRIO_DEFAULT = -10;
+    /** Priority for specific route default response behavior */
+    private static final int PRIO_ROUTE = -9;
 
     /**
      * Setup some specific setting required for using HTTPS as remote API protocol. Will be triggered once for the whole test class
@@ -118,14 +147,15 @@ public abstract class HttpsMockServer {
     }
 
     /**
-     * Setup some expectations describing the default behavior for specific resources. This behavior can be overwritten by a specific
-     * test if required. However, it will be reset prior to the next test execution.
+     * Setup some expectations describing the default behavior for specific resources. These expectations have negative priorities and
+     * can be overwritten by a specific test if required.
      *
      * @param client Injected client for accessing the mock server
      */
-    @BeforeEach
-    void initDefaultExpectations(MockServerClient client) {
-        client.upsert(new Expectation(request("/login")).withId(EXP_LOGIN).thenRespond(response().withHeader(contentLenghth(JSON_JWT)).withBody(JSON_JWT)));
+    @BeforeAll
+    static void initDefaultExpectations(MockServerClient client) {
+        client.upsert(new Expectation(request("/.*"), Times.unlimited(), TimeToLive.unlimited(), PRIO_DEFAULT).thenRespond(createSuccessResponse()));
+        client.upsert(new Expectation(request("/login"), Times.unlimited(), TimeToLive.unlimited(), PRIO_ROUTE).thenRespond(createJWTResponse()));
     }
 
     /**
@@ -162,13 +192,39 @@ public abstract class HttpsMockServer {
     }
 
     /**
+     * Returns matchers for the default HTTP headers which will be set when communicating with the remote API. Which haders are actually
+     * set depends on whether the underlying API session has already been authorized or not. If <em>{@code withAuthorization}</em> is
+     * set to TRUE, the returned array will contain matchers verifying that the authentication related headers exist and contain some reasonable
+     * values. If set to FALSE the array will contain matchers verifying that no authentication related headers exist at all.
+     *
+     * @param withAuthorization Authorization related headers should be present or not
+     *
+     * @return Array of HTTP header matchers according to the given parameters
+     */
+    protected Header[] defaultAPIHttpHeaders(boolean withAuthorization) {
+        return new Header[] {header(CONTENT_TYPE, "application/json; charset=utf-8"),
+                header(ACCEPT, "application/json, application/vnd.thetvdb.v3.0.0"),
+                header(USER_AGENT, "Mozilla/5.0"),
+                withAuthorization ? header(AUTHORIZATION, "Bearer [A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*$") : header(not(AUTHORIZATION)),
+                withAuthorization ? header(ACCEPT_LANGUAGE, "^[a-z]{2}|[A-Z]{2}$") : header(not(ACCEPT_LANGUAGE))};
+    }
+
+    /**
      * Creates a simple HTTP-200 <i>"OK"</i> response. The response body contains some dummy JSON success message.
      *
      * @return New preconfigured HTTP response with a HTTP-200 status
      */
     protected static HttpResponse createSuccessResponse() {
-        return response().withHeader(contentLenghth(JSON_SUCCESS)).withStatusCode(OK_200.code()).withReasonPhrase(OK_200.reasonPhrase())
-                .withBody(JSON_SUCCESS);
+        return createResponse(OK_200, JSON_SUCCESS);
+    }
+
+    /**
+     * Creates a simple HTTP-200 <i>"OK"</i> response. The response body contains some dummy token in a valid JWT format.
+     *
+     * @return New preconfigured HTTP response with a HTTP-200 status
+     */
+    protected static HttpResponse createJWTResponse() {
+        return createResponse(OK_200, JSON_JWT);
     }
 
     /**
@@ -177,8 +233,19 @@ public abstract class HttpsMockServer {
      * @return New preconfigured HTTP response with a HTTP-401 status
      */
     protected static HttpResponse createUnauthorizedResponse() {
-        return response().withHeader(contentLenghth(JSON_ERROR_NOTAUTHORIZED)).withStatusCode(UNAUTHORIZED_401.code())
-                .withReasonPhrase(UNAUTHORIZED_401.reasonPhrase()).withBody(JSON_ERROR_NOTAUTHORIZED);
+        return createResponse(UNAUTHORIZED_401, JSON_ERROR_NOTAUTHORIZED);
+    }
+
+    /**
+     * Creates a simple response with the given HTTP <em>{@code status}</em> and the given <em>{@code content}</em> set to it's body.
+     *
+     * @param status The status of the response
+     * @param content The content to be contained in the responses body section
+     *
+     * @return New preconfigured HTTP response with the given status and content
+     */
+    protected static HttpResponse createResponse(HttpStatusCode status, String content) {
+        return response().withHeader(contentLenghth(content)).withStatusCode(status.code()).withReasonPhrase(status.reasonPhrase()).withBody(content);
     }
 
 }
