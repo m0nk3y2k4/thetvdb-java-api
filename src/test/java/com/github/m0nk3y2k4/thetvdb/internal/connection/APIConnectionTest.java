@@ -5,24 +5,29 @@ import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.HEAD;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.POST;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.PUT;
-import static com.github.m0nk3y2k4.thetvdb.testutils.HttpsMockServer.WithMockServerExtension;
+import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.JSON_DATA;
+import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.createUnauthorizedResponse;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowableOfType;
 import static org.mockserver.model.HttpRequest.request;
 
+import java.util.function.Supplier;
+
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
-import com.github.m0nk3y2k4.thetvdb.testutils.HttpsMockServer;
+import com.github.m0nk3y2k4.thetvdb.junit.jupiter.WithHttpsMockServer;
 import org.junit.jupiter.api.Test;
 import org.mockserver.client.MockServerClient;
 import org.mockserver.matchers.Times;
 import org.mockserver.verify.VerificationTimes;
 
-@WithMockServerExtension
-class APIConnectionTest extends HttpsMockServer {
+@WithHttpsMockServer
+class APIConnectionTest {
 
-    private static final String PATH_METHOD = "/method";
+    private final APIConnection con;
 
-    final APIConnection con = new APIConnection("API-Key", HttpsMockServer::remoteAPI);
+    public APIConnectionTest(Supplier<RemoteAPI> remoteAPI) {
+        con = new APIConnection("API-Key", remoteAPI);
+    }
 
     @Test
     void newAPIConnection_withSimpleCredentials_verifySessionProperties() {
@@ -72,35 +77,35 @@ class APIConnectionTest extends HttpsMockServer {
 
     @Test
     void sendGET_verifyHTTPMethodInRequest(MockServerClient client) throws Exception {
-        final String resource = PATH_METHOD + GET.getName();
+        final String resource = "/methodGET";
         con.sendGET(resource);
         client.verify(request().withMethod(GET.getName()).withPath(resource), VerificationTimes.once());
     }
 
     @Test
     void sendPOST_verifyHTTPMethodInRequest(MockServerClient client) throws Exception {
-        final String resource = PATH_METHOD + POST.getName();
+        final String resource = "/methodPOST";
         con.sendPOST(resource, JSON_DATA);
         client.verify(request().withMethod(POST.getName()).withPath(resource), VerificationTimes.once());
     }
 
     @Test
     void sendHEAD_verifyHTTPMethodInRequest(MockServerClient client) throws Exception {
-        final String resource = PATH_METHOD + HEAD.getName();
+        final String resource = "/methodHEAD";
         con.sendHEAD(resource);
         client.verify(request().withMethod(HEAD.getName()).withPath(resource), VerificationTimes.once());
     }
 
     @Test
     void sendDELETE_verifyHTTPMethodInRequest(MockServerClient client) throws Exception {
-        final String resource = PATH_METHOD + DELETE.getName();
+        final String resource = "/methodDELETE";
         con.sendDELETE(resource);
         client.verify(request().withMethod(DELETE.getName()).withPath(resource), VerificationTimes.once());
     }
 
     @Test
     void sendPUT_verifyHTTPMethodInRequest(MockServerClient client) throws Exception {
-        final String resource = PATH_METHOD + PUT.getName();
+        final String resource = "/methodPUT";
         con.sendPUT(resource);
         client.verify(request().withMethod(PUT.getName()).withPath(resource), VerificationTimes.once());
     }
