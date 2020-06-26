@@ -12,12 +12,15 @@ import org.junit.jupiter.api.Test;
 class APISessionTest {
 
     @Test
-    void newAPISession_simpleWithParameters_verifyParameterValidation() {
+    void newAPISession_withSimpleCredentials_verifyProperties() {
         final String apiKey = "ZS2F8EW2I5W8F3";
         APISession session = new APISession(apiKey);
         assertThat(session.getApiKey()).isEqualTo(apiKey);
         assertThat(session.getUserKey()).isEmpty();
         assertThat(session.getUserName()).isEmpty();
+        assertThat(session.getLanguage()).isEqualTo("en");
+        assertThat(session.getStatus()).isEqualTo(APISession.Status.NOT_AUTHORIZED);
+        assertThat(session.getToken()).isEmpty();
     }
 
     @Test
@@ -26,7 +29,7 @@ class APISessionTest {
     }
 
     @Test
-    void newAPISession_extendedWithParameters_verifyParameterValidation() {
+    void newAPISession_withExtendedCredentials_verifyProperties() {
         final String apiKey = "D7G51DAW8H5A87";
         final String userKey = "yetAnotherKey";
         final String userName = "ArthurDent";
@@ -34,6 +37,9 @@ class APISessionTest {
         assertThat(session.getApiKey()).isEqualTo(apiKey);
         assertThat(session.getUserKey()).contains(userKey);
         assertThat(session.getUserName()).contains(userName);
+        assertThat(session.getLanguage()).isEqualTo("en");
+        assertThat(session.getStatus()).isEqualTo(APISession.Status.NOT_AUTHORIZED);
+        assertThat(session.getToken()).isEmpty();
     }
 
     @Test
@@ -41,15 +47,6 @@ class APISessionTest {
         assertThatIllegalArgumentException().isThrownBy(() -> new APISession(null, "myUserKey", "HummaKavula"));
         assertThatIllegalArgumentException().isThrownBy(() -> new APISession("SZWD8F9N4JF5G", null, "FordPrefect"));
         assertThatIllegalArgumentException().isThrownBy(() -> new APISession("5DA323J3I42D", "myOtherUserKey", null));
-    }
-
-    @Test
-    void newAPISession_simpleWithParameters_verifyDefaultSettings() {
-        final String apiKey = "OIE513DUWRSD5";
-        APISession session = new APISession(apiKey);
-        assertThat(session.getLanguage()).isEqualTo("en");
-        assertThat(session.getStatus()).isEqualTo(APISession.Status.NOT_AUTHORIZED);
-        assertThat(session.getToken()).isEmpty();
     }
 
     @Test
