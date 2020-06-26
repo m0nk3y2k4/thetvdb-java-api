@@ -1,5 +1,7 @@
 package com.github.m0nk3y2k4.thetvdb.internal.connection;
 
+import static com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection.ERR_MAX_RETRY_EXCEEDED;
+import static com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection.MAX_AUTHENTICATION_RETRY_COUNT;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.DELETE;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.HEAD;
@@ -136,7 +138,7 @@ class APIConnectionTest {
         con.getSession().setStatus(APISession.Status.NOT_AUTHORIZED);       // Allow to trigger auto-authorization
         client.when(request(resource), Times.exactly(3)).respond(createUnauthorizedResponse());
         APIException exception = catchThrowableOfType(() -> con.sendGET(resource), APIException.class);
-        assertThat(exception).hasMessageContaining("after 3 retries");
+        assertThat(exception).hasMessageContaining(ERR_MAX_RETRY_EXCEEDED, MAX_AUTHENTICATION_RETRY_COUNT);
     }
 
     @Test

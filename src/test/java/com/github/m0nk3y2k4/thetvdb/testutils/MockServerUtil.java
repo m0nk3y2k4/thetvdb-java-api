@@ -17,6 +17,7 @@ import javax.annotation.Nonnull;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 import org.mockserver.model.Header;
+import org.mockserver.model.Headers;
 import org.mockserver.model.HttpResponse;
 import org.mockserver.model.HttpStatusCode;
 
@@ -77,12 +78,12 @@ public abstract class MockServerUtil {
      *
      * @return Array of HTTP header matchers according to the given parameters
      */
-    public static Header[] defaultAPIHttpHeaders(boolean withAuthorization) {
-        return new Header[] {header(CONTENT_TYPE, "application/json; charset=utf-8"),
+    public static Headers defaultAPIHttpHeaders(boolean withAuthorization) {
+        return new Headers(header(CONTENT_TYPE, "application/json; charset=utf-8"),
                 header(ACCEPT, "application/json, application/vnd.thetvdb.v3.0.0"),
                 header(USER_AGENT, "Mozilla/5.0"),
                 withAuthorization ? header(AUTHORIZATION, "Bearer [A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*$") : header(not(AUTHORIZATION)),
-                withAuthorization ? header(ACCEPT_LANGUAGE, "^[a-z]{2}|[A-Z]{2}$") : header(not(ACCEPT_LANGUAGE))};
+                withAuthorization ? header(ACCEPT_LANGUAGE, "^[a-z]{2}|[A-Z]{2}$") : header(not(ACCEPT_LANGUAGE)));
     }
 
     /**

@@ -1,10 +1,10 @@
 package com.github.m0nk3y2k4.thetvdb.junit.jupiter;
 
-import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.createJWTResponse;
-import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.createSuccessResponse;
 import static com.github.m0nk3y2k4.thetvdb.junit.jupiter.WithHttpsMockServer.HOST;
 import static com.github.m0nk3y2k4.thetvdb.junit.jupiter.WithHttpsMockServer.PORT;
 import static com.github.m0nk3y2k4.thetvdb.junit.jupiter.WithHttpsMockServer.PROTOCOL;
+import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.createJWTResponse;
+import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.createSuccessResponse;
 import static org.mockserver.model.HttpRequest.request;
 
 import java.lang.reflect.ParameterizedType;

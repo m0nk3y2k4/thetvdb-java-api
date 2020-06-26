@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
 public class APIException extends Exception {
 
     /** Indicates that an attempt to communicate with some API route was made without proper authorization */
-    protected static final String API_NOT_AUTHORIZED_ERROR = "Missing authorization or expired JWT token (HTTP-401). Original API error message: %s";
+    public static final String API_NOT_AUTHORIZED_ERROR = "Missing authorization or expired JWT token (HTTP-401). Original API error message: %s";
 
     /** Indicates that the requested resource is unknown for the remote service (e.g. wrong seriesId) */
     public static final String API_NOT_FOUND_ERROR = "Requested resource could not be found (HTTP-404). Original API error message: %s";
