@@ -53,10 +53,10 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Preconditions;
 public class APIConnection {
 
     /** Error message for max on-demand authentication retries exceeded */
-    public static final String ERR_MAX_RETRY_EXCEEDED = "Could not connect to API service after %d retries. Please check your API-Key.";
+    static final String ERR_MAX_RETRY_EXCEEDED = "Could not connect to API service after %d retries. Please check your API-Key.";
 
     /** Maximum number of retries for automatic on-demand authentication */
-    public static final int MAX_AUTHENTICATION_RETRY_COUNT = 3;
+    static final int MAX_AUTHENTICATION_RETRY_COUNT = 3;
 
     /** Session used for API communication */
     private final APISession session;
@@ -374,8 +374,8 @@ public class APIConnection {
 abstract class APIRequest {
 
     /** Messages for error/exception handling */
-    public static final String ERR_UNEXPECTED_RESPONSE = "Receiver returned an unexpected error: HTTP-%d \nOriginal API error message: %s";
-    public static final String ERR_SEND = "An exception occurred while sending %s request to API";
+    static final String ERR_UNEXPECTED_RESPONSE = "Receiver returned an unexpected error: HTTP-%d \nOriginal API error message: %s";
+    static final String ERR_SEND = "An exception occurred while sending %s request to API";
 
     /** Constants for API error handling */
     private static final String API_ERROR = "Error";

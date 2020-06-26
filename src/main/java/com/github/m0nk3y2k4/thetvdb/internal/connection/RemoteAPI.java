@@ -24,13 +24,13 @@ import org.immutables.value.Value.Immutable;
 public abstract class RemoteAPI implements Proxy {
 
     /** The default communication protocol */
-    private static final String HTTPS = "https";
+    static final String HTTPS = "https";
 
     /** The <i>TheTVDB.com</i> API base host */
-    private static final String THE_TVDB_DOT_COM = "api.thetvdb.com";
+    static final String THE_TVDB_DOT_COM = "api.thetvdb.com";
 
     /** The default HTTPS port number */
-    private static final int HTTPS_DEFAULT = 443;
+    static final int HTTPS_DEFAULT = 443;
 
     /**
      * Returns the name of the communication protocol used for this remote. The default value is <em>{@value #HTTPS}</em>.

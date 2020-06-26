@@ -22,8 +22,8 @@ public final class APISession {
     private static final Pattern JWT_PATTERN = Pattern.compile("^[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*$");
 
     /** JWT related error messages */
-    private static final String ERR_JWT_EMPTY = "Remote API authorization failed: Token must not be NULL or empty";
-    private static final String ERR_JWT_INVALID = "Remote API authorization failed: Invalid token format [%s]";
+    static final String ERR_JWT_EMPTY = "Remote API authorization failed: Token must not be NULL or empty";
+    static final String ERR_JWT_INVALID = "Remote API authorization failed: Invalid token format [%s]";
 
     /**
      * Represents the different states of a session.
