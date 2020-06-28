@@ -20,7 +20,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 public class QueryParametersImpl implements QueryParameters {
 
     /** Simple map holding the individual query parameters as key/value pairs */
-    private final Map<String, String> params = new LinkedHashMap<>();
+    protected final Map<String, String> params = new LinkedHashMap<>();
 
     /**
      * Creates a new empty set of query parameters

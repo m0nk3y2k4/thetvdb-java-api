@@ -95,7 +95,7 @@ public final class Parameters {
      * @throws IllegalArgumentException If the given parameter name is <i>null</i> or the parameter value does not match the given condition
      */
     public static <T> void validatePathParam(String paramName, T paramValue, Predicate<T> condition) {
-        Parameters.validateNotNull(paramName, String.format("Path parameter [%s] is required but is not set", paramName));
+        Parameters.validateNotNull(paramValue, String.format("Path parameter [%s] is required but is not set", paramName));
         Parameters.validateCondition(condition, paramValue,
                 new IllegalArgumentException(String.format("Path parameter [%s] is set to an invalid value: %s", paramName, paramValue)));
     }
