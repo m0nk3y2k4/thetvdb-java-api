@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
 public class APIRuntimeException extends RuntimeException {
 
     /** Indicates a failed precondition check */
-    protected static final String API_PRECONDITION_ERROR = "Precondition check failed. Object is not in a proper state to process the requested task: %s";
+    public static final String API_PRECONDITION_ERROR = "Precondition check failed. Object is not in a proper state to process the requested task: %s";
 
     /**
      * Creates a new unchecked API runtime exception with the given error message
