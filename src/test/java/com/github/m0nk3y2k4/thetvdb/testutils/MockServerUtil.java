@@ -14,12 +14,12 @@ import static org.mockserver.model.NottableString.not;
 
 import javax.annotation.Nonnull;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 import org.mockserver.model.Header;
 import org.mockserver.model.Headers;
 import org.mockserver.model.HttpResponse;
 import org.mockserver.model.HttpStatusCode;
+import org.mockserver.model.JsonSchemaBody;
 
 /**
  * Utilility class providing useful methods for working with mock servers
@@ -31,16 +31,16 @@ import org.mockserver.model.HttpStatusCode;
 public abstract class MockServerUtil {
 
     /** JSON String representing a simple <i>Success</i> response content */
-    public static final String JSON_SUCCESS = new ObjectMapper().createObjectNode().put("Success", true).toString();
+    public static final String JSON_SUCCESS = "{\"Success\":true}";
 
     /** JSON String representing a HTTP-401 <i>Not Authorized</i> response content */
-    public static final String JSON_ERROR_NOTAUTHORIZED = new ObjectMapper().createObjectNode().put("Error", "Not Authorized").toString();
+    public static final String JSON_ERROR_NOTAUTHORIZED = "{\"Error\":\"Not Authorized\"}";
 
     /** JSON String representing some dummy payload data e.g. to be used for POST requests */
-    public static final String JSON_DATA = new ObjectMapper().createObjectNode().put("Some", "JSON payload").toString();
+    public static final String JSON_DATA = "{\"Some\":\"JSON payload\"}";
 
     /** JSON String representing a dummy JWT response. It's not a real token but the content is valid with regards to the JWT format. */
-    public static final String JSON_JWT = new ObjectMapper().createObjectNode().put("token", "Header.Payload.Signature").toString();
+    public static final String JSON_JWT = "{\"token\":\"Header.Payload.Signature\"}";
 
     private MockServerUtil() {}         // Hidden constructor. Only static methods
 
@@ -125,4 +125,14 @@ public abstract class MockServerUtil {
         return response().withHeader(contentLenghth(content)).withStatusCode(status.code()).withReasonPhrase(status.reasonPhrase()).withBody(content);
     }
 
+    /**
+     * Creates a new JSON schema body based on the given schema resource file
+     *
+     * @param schemaName Name of the JSON schema resource file
+     *
+     * @return Mock server JSON schema body based on the given resource file
+     */
+    public static JsonSchemaBody jsonSchemaFromResource(String schemaName) {
+        return JsonSchemaBody.jsonSchemaFromResource("json/schema/" + schemaName);
+    }
 }

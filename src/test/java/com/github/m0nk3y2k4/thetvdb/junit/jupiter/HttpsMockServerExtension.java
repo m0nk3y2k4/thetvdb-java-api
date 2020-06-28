@@ -5,6 +5,7 @@ import static com.github.m0nk3y2k4.thetvdb.junit.jupiter.WithHttpsMockServer.POR
 import static com.github.m0nk3y2k4.thetvdb.junit.jupiter.WithHttpsMockServer.PROTOCOL;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.createJWTResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.createSuccessResponse;
+import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonSchemaFromResource;
 import static org.mockserver.model.HttpRequest.request;
 
 import java.lang.reflect.ParameterizedType;
@@ -73,8 +74,10 @@ public class HttpsMockServerExtension implements ParameterResolver, BeforeAllCal
         HttpsURLConnection.setDefaultSSLSocketFactory(new KeyStoreFactory(new MockServerLogger()).sslContext().getSocketFactory());
 
         // Setup some expectations describing the default behavior for specific resources
-        client.upsert(new Expectation(request("/.*"), Times.unlimited(), TimeToLive.unlimited(), PRIO_DEFAULT).thenRespond(createSuccessResponse()));
-        client.upsert(new Expectation(request("/login"), Times.unlimited(), TimeToLive.unlimited(), PRIO_ROUTE).thenRespond(createJWTResponse()));
+        client.upsert(new Expectation(request("/.*"),
+                Times.unlimited(), TimeToLive.unlimited(), PRIO_DEFAULT).thenRespond(createSuccessResponse()));
+        client.upsert(new Expectation(request("/login").withBody(jsonSchemaFromResource("login.json")),
+                Times.unlimited(), TimeToLive.unlimited(), PRIO_ROUTE).thenRespond(createJWTResponse()));
     }
 
     @Override

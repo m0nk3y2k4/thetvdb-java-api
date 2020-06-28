@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockserver.model.HttpRequest.request;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod;
 import com.github.m0nk3y2k4.thetvdb.junit.jupiter.WithHttpsMockServer;
 import org.junit.jupiter.api.Test;
@@ -29,6 +28,6 @@ public class PutRequestTest {
         PutRequest request = new PutRequest("/putRequestContent");
         request.setRemoteAPI(remoteAPI);
         JsonNode response = request.send();
-        assertThat(response).isEqualTo(new ObjectMapper().createParser(JSON_SUCCESS).readValueAsTree());
+        assertThat(response.toString()).isEqualTo(JSON_SUCCESS);
     }
 }

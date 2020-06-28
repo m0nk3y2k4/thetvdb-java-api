@@ -24,7 +24,6 @@ import javax.annotation.Nonnull;
 import javax.net.ssl.HttpsURLConnection;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APICommunicationException;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APINotAuthorizedException;
@@ -39,6 +38,8 @@ import org.mockserver.verify.VerificationTimes;
 
 @WithHttpsMockServer
 class APIRequestTest {
+
+    private static final String JSON_ERROR = "{\"Error\":\"%s\"}";
 
     @Test
     void newAPIRequest_withoutResource_verifyParameterValidation() {
@@ -125,7 +126,7 @@ class APIRequestTest {
         final String resource = "/success";
         APIRequest request = createAPIRequestWith(resource, HttpRequestMethod.GET, APISession.Status.NOT_AUTHORIZED, remoteAPI);
         JsonNode response = request.send();
-        assertThat(response).isEqualTo(new ObjectMapper().createParser(JSON_SUCCESS).readValueAsTree());
+        assertThat(response.toString()).isEqualTo(JSON_SUCCESS);
     }
 
     @Test
@@ -133,8 +134,7 @@ class APIRequestTest {
         final String resource = "/unauthorized";
         final HttpStatusCode status = HttpStatusCode.UNAUTHORIZED_401;
         APIRequest request = createAPIRequestWith(resource, HttpRequestMethod.DELETE, APISession.Status.NOT_AUTHORIZED, remoteAPI);
-        client.when(request(resource)).respond(createResponse(status,
-                new ObjectMapper().createObjectNode().put("Error", status.reasonPhrase()).toString()));
+        client.when(request(resource)).respond(createResponse(status, String.format(JSON_ERROR, status.reasonPhrase())));
         APINotAuthorizedException exception = catchThrowableOfType(request::send, APINotAuthorizedException.class);
         assertThat(exception).hasMessageContaining(API_NOT_AUTHORIZED_ERROR, status.reasonPhrase());
     }
@@ -144,8 +144,7 @@ class APIRequestTest {
         final String resource = "/notFound";
         final HttpStatusCode status = HttpStatusCode.NOT_FOUND_404;
         APIRequest request = createAPIRequestWith(resource, HttpRequestMethod.POST, APISession.Status.NOT_AUTHORIZED, remoteAPI);
-        client.when(request(resource)).respond(createResponse(status,
-                new ObjectMapper().createObjectNode().put("Error", status.reasonPhrase()).toString()));
+        client.when(request(resource)).respond(createResponse(status, String.format(JSON_ERROR, status.reasonPhrase())));
         APIException exception = catchThrowableOfType(request::send, APIException.class);
         assertThat(exception).hasMessageContaining(API_NOT_FOUND_ERROR, status.reasonPhrase());
     }
@@ -155,8 +154,7 @@ class APIRequestTest {
         final String resource = "/conflict";
         final HttpStatusCode status = HttpStatusCode.CONFLICT_409;
         APIRequest request = createAPIRequestWith(resource, HttpRequestMethod.PUT, APISession.Status.NOT_AUTHORIZED, remoteAPI);
-        client.when(request(resource)).respond(createResponse(status,
-                new ObjectMapper().createObjectNode().put("Error", status.reasonPhrase()).toString()));
+        client.when(request(resource)).respond(createResponse(status, String.format(JSON_ERROR, status.reasonPhrase())));
         APIException exception = catchThrowableOfType(request::send, APIException.class);
         assertThat(exception).hasMessageContaining(API_CONFLICT_ERROR, status.reasonPhrase());
     }
@@ -166,8 +164,7 @@ class APIRequestTest {
         final String resource = "/unavailable";
         final HttpStatusCode status = HttpStatusCode.SERVICE_UNAVAILABLE_503;
         APIRequest request = createAPIRequestWith(resource, HttpRequestMethod.GET, APISession.Status.NOT_AUTHORIZED, remoteAPI);
-        client.when(request(resource)).respond(createResponse(status,
-                new ObjectMapper().createObjectNode().put("Error", status.reasonPhrase()).toString()));
+        client.when(request(resource)).respond(createResponse(status, String.format(JSON_ERROR, status.reasonPhrase())));
         APIException exception = catchThrowableOfType(request::send, APIException.class);
         assertThat(exception).hasMessageContaining(API_SERVICE_UNAVAILABLE);
     }
@@ -177,8 +174,7 @@ class APIRequestTest {
         final String resource = "/methodNotAllowed";
         final HttpStatusCode status = HttpStatusCode.METHOD_NOT_ALLOWED_405;
         APIRequest request = createAPIRequestWith(resource, HttpRequestMethod.DELETE, APISession.Status.NOT_AUTHORIZED, remoteAPI);
-        client.when(request(resource)).respond(createResponse(status,
-                new ObjectMapper().createObjectNode().put("Error", status.reasonPhrase()).toString()));
+        client.when(request(resource)).respond(createResponse(status, String.format(JSON_ERROR, status.reasonPhrase())));
         APICommunicationException exception = catchThrowableOfType(request::send, APICommunicationException.class);
         assertThat(exception).hasMessageContaining(ERR_UNEXPECTED_RESPONSE, status.code(), status.reasonPhrase());
     }
