@@ -12,6 +12,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.defaultAPIHt
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.assertj.core.api.Assertions.catchThrowableOfType;
 import static org.mockserver.model.Header.header;
 import static org.mockserver.model.HttpError.error;
@@ -19,6 +20,7 @@ import static org.mockserver.model.HttpRequest.request;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.net.ssl.HttpsURLConnection;
@@ -31,6 +33,12 @@ import com.github.m0nk3y2k4.thetvdb.internal.exception.APIPreconditionException;
 import com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod;
 import com.github.m0nk3y2k4.thetvdb.junit.jupiter.WithHttpsMockServer;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.NullSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockserver.client.MockServerClient;
 import org.mockserver.model.Header;
 import org.mockserver.model.HttpStatusCode;
@@ -41,15 +49,31 @@ class APIRequestTest {
 
     private static final String JSON_ERROR = "{\"Error\":\"%s\"}";
 
-    @Test
-    void newAPIRequest_withoutResource_verifyParameterValidation() {
-        assertThatIllegalArgumentException().isThrownBy(() -> new APIRequest(null, HttpRequestMethod.GET) {});
-        assertThatIllegalArgumentException().isThrownBy(() -> new APIRequest("   ", HttpRequestMethod.DELETE) {});
+    private static Stream<Arguments> getResponse_respondWithHTTPErrorCode_verifyExceptionHandling() {
+        return Stream.of(
+                Arguments.of("/unauthorized", HttpStatusCode.UNAUTHORIZED_401, APINotAuthorizedException.class,
+                        String.format(API_NOT_AUTHORIZED_ERROR, HttpStatusCode.UNAUTHORIZED_401.reasonPhrase())),
+                Arguments.of("/notFound", HttpStatusCode.NOT_FOUND_404, APIException.class,
+                        String.format(API_NOT_FOUND_ERROR, HttpStatusCode.NOT_FOUND_404.reasonPhrase())),
+                Arguments.of("/conflict", HttpStatusCode.CONFLICT_409, APIException.class,
+                        String.format(API_CONFLICT_ERROR, HttpStatusCode.CONFLICT_409.reasonPhrase())),
+                Arguments.of("/unavailable", HttpStatusCode.SERVICE_UNAVAILABLE_503, APIException.class,
+                        API_SERVICE_UNAVAILABLE),
+                Arguments.of("/methodNotAllowed", HttpStatusCode.METHOD_NOT_ALLOWED_405, APICommunicationException.class,
+                        String.format(ERR_UNEXPECTED_RESPONSE, HttpStatusCode.METHOD_NOT_ALLOWED_405.code(), HttpStatusCode.METHOD_NOT_ALLOWED_405.reasonPhrase()))
+        );
     }
 
-    @Test
-    void newAPIRequest_withoutRequestMethod_verifyParameterValidation() {
-        assertThatIllegalArgumentException().isThrownBy(() -> new APIRequest("/missingMethod", null) {});
+    @ParameterizedTest(name = "{index} String \"{0}\" is not a valid resource")
+    @NullAndEmptySource @ValueSource(strings = {"   "})
+    void newAPIRequest_withoutResource_verifyParameterValidation(String resource) {
+        assertThatIllegalArgumentException().isThrownBy(() -> new APIRequest(resource, HttpRequestMethod.DELETE) {});
+    }
+
+    @ParameterizedTest(name = "{index} Value \"{0}\" is not a valid request method")
+    @NullSource
+    void newAPIRequest_withoutRequestMethod_verifyParameterValidation(HttpRequestMethod method) {
+        assertThatIllegalArgumentException().isThrownBy(() -> new APIRequest("/missingMethod", method) {});
     }
 
     @Test
@@ -129,54 +153,14 @@ class APIRequestTest {
         assertThat(response.toString()).isEqualTo(JSON_SUCCESS);
     }
 
-    @Test
-    void getResponse_respondWithHTTP401_verifyExceptionHandling(MockServerClient client, RemoteAPI remoteAPI) {
-        final String resource = "/unauthorized";
-        final HttpStatusCode status = HttpStatusCode.UNAUTHORIZED_401;
+    @ParameterizedTest(name = "{index} Code {1} is mapped into \"{2}\" with error message \"{3}\"")
+    @MethodSource
+    void getResponse_respondWithHTTPErrorCode_verifyExceptionHandling(String resource, HttpStatusCode status, Class<?> expectedException,
+                String expectedErrorMessage, MockServerClient client, RemoteAPI remoteAPI) {
         APIRequest request = createAPIRequestWith(resource, HttpRequestMethod.DELETE, APISession.Status.NOT_AUTHORIZED, remoteAPI);
         client.when(request(resource)).respond(createResponse(status, String.format(JSON_ERROR, status.reasonPhrase())));
-        APINotAuthorizedException exception = catchThrowableOfType(request::send, APINotAuthorizedException.class);
-        assertThat(exception).hasMessageContaining(API_NOT_AUTHORIZED_ERROR, status.reasonPhrase());
-    }
-
-    @Test
-    void getResponse_respondWithHTTP404_verifyExceptionHandling(MockServerClient client, RemoteAPI remoteAPI) {
-        final String resource = "/notFound";
-        final HttpStatusCode status = HttpStatusCode.NOT_FOUND_404;
-        APIRequest request = createAPIRequestWith(resource, HttpRequestMethod.POST, APISession.Status.NOT_AUTHORIZED, remoteAPI);
-        client.when(request(resource)).respond(createResponse(status, String.format(JSON_ERROR, status.reasonPhrase())));
-        APIException exception = catchThrowableOfType(request::send, APIException.class);
-        assertThat(exception).hasMessageContaining(API_NOT_FOUND_ERROR, status.reasonPhrase());
-    }
-
-    @Test
-    void getResponse_respondWithHTTP409_verifyExceptionHandling(MockServerClient client, RemoteAPI remoteAPI) {
-        final String resource = "/conflict";
-        final HttpStatusCode status = HttpStatusCode.CONFLICT_409;
-        APIRequest request = createAPIRequestWith(resource, HttpRequestMethod.PUT, APISession.Status.NOT_AUTHORIZED, remoteAPI);
-        client.when(request(resource)).respond(createResponse(status, String.format(JSON_ERROR, status.reasonPhrase())));
-        APIException exception = catchThrowableOfType(request::send, APIException.class);
-        assertThat(exception).hasMessageContaining(API_CONFLICT_ERROR, status.reasonPhrase());
-    }
-
-    @Test
-    void getResponse_respondWithHTTP503_verifyExceptionHandling(MockServerClient client, RemoteAPI remoteAPI) {
-        final String resource = "/unavailable";
-        final HttpStatusCode status = HttpStatusCode.SERVICE_UNAVAILABLE_503;
-        APIRequest request = createAPIRequestWith(resource, HttpRequestMethod.GET, APISession.Status.NOT_AUTHORIZED, remoteAPI);
-        client.when(request(resource)).respond(createResponse(status, String.format(JSON_ERROR, status.reasonPhrase())));
-        APIException exception = catchThrowableOfType(request::send, APIException.class);
-        assertThat(exception).hasMessageContaining(API_SERVICE_UNAVAILABLE);
-    }
-
-    @Test
-    void getResponse_respondWithHTTP405_verifyExceptionHandling(MockServerClient client, RemoteAPI remoteAPI) {
-        final String resource = "/methodNotAllowed";
-        final HttpStatusCode status = HttpStatusCode.METHOD_NOT_ALLOWED_405;
-        APIRequest request = createAPIRequestWith(resource, HttpRequestMethod.DELETE, APISession.Status.NOT_AUTHORIZED, remoteAPI);
-        client.when(request(resource)).respond(createResponse(status, String.format(JSON_ERROR, status.reasonPhrase())));
-        APICommunicationException exception = catchThrowableOfType(request::send, APICommunicationException.class);
-        assertThat(exception).hasMessageContaining(ERR_UNEXPECTED_RESPONSE, status.code(), status.reasonPhrase());
+        Throwable exception = catchThrowable(request::send);
+        assertThat(exception).isInstanceOf(expectedException).hasMessageContaining(expectedErrorMessage);
     }
 
     @Test

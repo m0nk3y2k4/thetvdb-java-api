@@ -3,44 +3,30 @@ package com.github.m0nk3y2k4.thetvdb.internal.connection;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URL;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class RemoteAPITest {
 
-    @Test
-    void buildNewRemoteAPI_withSpecificProtocol_verifyAPISettings() {
-        final String protocol = "ftp";
-        RemoteAPI remote = new RemoteAPI.Builder().protocol(protocol).build();
+    private static Stream<Arguments> buildNewRemoteAPI_withSpecificOrDefaultSettings_verifyAPISettings() {
+        return Stream.of(
+                Arguments.of(new RemoteAPI.Builder().protocol("ftp").build(), "ftp", RemoteAPI.THE_TVDB_DOT_COM, RemoteAPI.HTTPS_DEFAULT),
+                Arguments.of(new RemoteAPI.Builder().host("some.host.com").build(), RemoteAPI.HTTPS, "some.host.com", RemoteAPI.HTTPS_DEFAULT),
+                Arguments.of(new RemoteAPI.Builder().port(8457).build(), RemoteAPI.HTTPS, RemoteAPI.THE_TVDB_DOT_COM, 8457),
+                Arguments.of(new RemoteAPI.Builder().build(), RemoteAPI.HTTPS, RemoteAPI.THE_TVDB_DOT_COM, RemoteAPI.HTTPS_DEFAULT)
+        );
+    }
+
+    @ParameterizedTest(name = "{index} Remote API \"{0}\" has settings [protocol={1}, host={2}, port={3}]")
+    @MethodSource
+    void buildNewRemoteAPI_withSpecificOrDefaultSettings_verifyAPISettings(RemoteAPI remote, String protocol, String host, int port) {
         assertThat(remote.getProtocol()).isEqualTo(protocol);
-        assertThat(remote.getHost()).isEqualTo(RemoteAPI.THE_TVDB_DOT_COM);
-        assertThat(remote.getPort()).isEqualTo(RemoteAPI.HTTPS_DEFAULT);
-    }
-
-    @Test
-    void buildNewRemoteAPI_withSpecificHost_verifyAPISettings() {
-        final String host = "some.host.com";
-        RemoteAPI remote = new RemoteAPI.Builder().host(host).build();
-        assertThat(remote.getProtocol()).isEqualTo(RemoteAPI.HTTPS);
         assertThat(remote.getHost()).isEqualTo(host);
-        assertThat(remote.getPort()).isEqualTo(RemoteAPI.HTTPS_DEFAULT);
-    }
-
-    @Test
-    void buildNewRemoteAPI_withSpecificPort_verifyAPISettings() {
-        final int port = 8457;
-        RemoteAPI remote = new RemoteAPI.Builder().port(port).build();
-        assertThat(remote.getProtocol()).isEqualTo(RemoteAPI.HTTPS);
-        assertThat(remote.getHost()).isEqualTo(RemoteAPI.THE_TVDB_DOT_COM);
         assertThat(remote.getPort()).isEqualTo(port);
-    }
-
-    @Test
-    void buildNewRemoteAPI_withoutSettings_verifyAPISettings() {
-        RemoteAPI remote = new RemoteAPI.Builder().build();
-        assertThat(remote.getProtocol()).isEqualTo(RemoteAPI.HTTPS);
-        assertThat(remote.getHost()).isEqualTo(RemoteAPI.THE_TVDB_DOT_COM);
-        assertThat(remote.getPort()).isEqualTo(RemoteAPI.HTTPS_DEFAULT);
     }
 
     @Test

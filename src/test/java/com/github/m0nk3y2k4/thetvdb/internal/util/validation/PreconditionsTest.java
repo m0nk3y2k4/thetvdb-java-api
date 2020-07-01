@@ -5,55 +5,63 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowableOfType;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
+import java.util.Objects;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APIPreconditionException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.NullSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class PreconditionsTest {
 
-    @Test
-    void requires_conditionMatched_noExceptionThrown() {
-        assertDoesNotThrow(() -> Preconditions.requires(age -> age > 18, 42, new APIPreconditionException("Should not be thrown")));
+    private static Stream<Arguments> requires_conditionNotMatched_exceptionRethrown() {
+        return Stream.of(
+                Arguments.of((Predicate<Integer>)age -> age > 18, 14, new APIPreconditionException("Not old enough!")),
+                Arguments.of((Predicate<Object>)Objects::nonNull, null, new APIPreconditionException("No null values allowed!"))
+        );
     }
 
     @Test
-    void requires_conditionNotMatched_exceptionRethrown() {
-        final APIPreconditionException exception = new APIPreconditionException("Not old enough!");
-        APIPreconditionException thrown = catchThrowableOfType(() -> Preconditions.requires(age -> age > 18, 14, exception),
-                APIPreconditionException.class);
+    void requires_happyDay() {
+        assertDoesNotThrow(() -> Preconditions.requires(age -> age > 18, 42, new APIPreconditionException("Should not be thrown")));
+    }
+
+    @ParameterizedTest(name = "{index} Value \"{1}\" is invlaid as it does not match the condition")
+    @MethodSource
+    <T> void requires_conditionNotMatched_exceptionRethrown(Predicate<T> predicate, T value, RuntimeException exception) {
+        APIPreconditionException thrown = catchThrowableOfType(() -> Preconditions.requires(predicate, value, exception), APIPreconditionException.class);
         assertThat(thrown).isEqualTo(exception);
     }
 
     @Test
-    void requireNonNull_parameterIsNotNull_noExceptionThrown() {
+    void requireNonNull_happyDay() {
         assertDoesNotThrow(() -> Preconditions.requireNonNull("   ", "Keep it to yourself"));
     }
 
-    @Test
-    void requireNonNull_parameterIsNull_exceptionThrown() {
+    @ParameterizedTest(name = "{index} String \"{0}\" is null")
+    @NullSource
+    void requireNonNull_withNullValue_exceptionThrown(String obj) {
         final String message = "I said no null-values!";
-        APIPreconditionException thrown = catchThrowableOfType(() -> Preconditions.requireNonNull(null, message),
-                APIPreconditionException.class);
+        APIPreconditionException thrown = catchThrowableOfType(() -> Preconditions.requireNonNull(obj, message), APIPreconditionException.class);
         assertThat(thrown).hasMessage(API_PRECONDITION_ERROR, message);
     }
 
     @Test
-    void requireNonEmpty_parameterIsNotEmpty_noExceptionThrown() {
+    void requireNonEmpty_happyDay() {
         assertDoesNotThrow(() -> Preconditions.requireNonEmpty("Neither null nor empty", "Never thrown..."));
     }
 
-    @Test
-    void requireNonEmpty_parameterIsNull_exceptionThrown() {
+    @ParameterizedTest(name = "{index} String \"{0}\" is null or empty")
+    @NullAndEmptySource @ValueSource(strings = {"      "})
+    void requireNonEmpty_withNullOrEmptyValue_exceptionThrown(String obj) {
         final String message = "Grrr...";
-        APIPreconditionException thrown = catchThrowableOfType(() -> Preconditions.requireNonEmpty(null, message),
-                APIPreconditionException.class);
-        assertThat(thrown).hasMessage(API_PRECONDITION_ERROR, message);
-    }
-
-    @Test
-    void requireNonEmpty_parameterIsEmpty_exceptionThrown() {
-        final String message = "No empty values, please";
-        APIPreconditionException thrown = catchThrowableOfType(() -> Preconditions.requireNonEmpty("      ", message),
-                APIPreconditionException.class);
+        APIPreconditionException thrown = catchThrowableOfType(() -> Preconditions.requireNonEmpty(obj, message), APIPreconditionException.class);
         assertThat(thrown).hasMessage(API_PRECONDITION_ERROR, message);
     }
 }

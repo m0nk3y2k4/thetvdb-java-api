@@ -6,10 +6,43 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.catchThrowableOfType;
 
+import java.util.stream.Stream;
+
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.NullSource;
 
 class APISessionTest {
+
+    private static Stream<Arguments> newAPISession_extendedWithMissingParameters_verifyParameterValidation() {
+        return Stream.of(
+                Arguments.of(null, "myUserKey", "HummaKavula"),
+                Arguments.of("SZWD8F9N4JF5G", null, "FordPrefect"),
+                Arguments.of("5DA323J3I42D", "myOtherUserKey", null)
+        );
+    }
+
+    private static Stream<Arguments> setLanguage_verifyLanguage() {
+        return Stream.of(Arguments.of(null, "en"), Arguments.of("es", "es"));
+    }
+
+    private static Stream<Arguments> setStatus_verifyStatus() {
+        return Stream.of(
+                Arguments.of(null, APISession.Status.NOT_AUTHORIZED),
+                Arguments.of(APISession.Status.AUTHORIZED, APISession.Status.AUTHORIZED)
+        );
+    }
+
+    private static Stream<Arguments> isInitialized_setStatusAndVerifyInitialized() {
+        return Stream.of(
+                Arguments.of(APISession.Status.NOT_AUTHORIZED, false),
+                Arguments.of(APISession.Status.AUTHORIZATION_IN_PROGRESS, false),
+                Arguments.of(APISession.Status.AUTHORIZED, true)
+        );
+    }
 
     @Test
     void newAPISession_withSimpleCredentials_verifyProperties() {
@@ -23,9 +56,10 @@ class APISessionTest {
         assertThat(session.getToken()).isEmpty();
     }
 
-    @Test
-    void newAPISession_simpleWithMissingParameters_verifyParameterValidation() {
-        assertThatIllegalArgumentException().isThrownBy(() -> new APISession(null));
+    @ParameterizedTest(name = "{index} Value {0} is not a valid API key")
+    @NullSource
+    void newAPISession_simpleWithMissingParameters_verifyParameterValidation(String apiKey) {
+        assertThatIllegalArgumentException().isThrownBy(() -> new APISession(apiKey));
     }
 
     @Test
@@ -42,11 +76,10 @@ class APISessionTest {
         assertThat(session.getToken()).isEmpty();
     }
 
-    @Test
-    void newAPISession_extendedWithMissingParameters_verifyParameterValidation() {
-        assertThatIllegalArgumentException().isThrownBy(() -> new APISession(null, "myUserKey", "HummaKavula"));
-        assertThatIllegalArgumentException().isThrownBy(() -> new APISession("SZWD8F9N4JF5G", null, "FordPrefect"));
-        assertThatIllegalArgumentException().isThrownBy(() -> new APISession("5DA323J3I42D", "myOtherUserKey", null));
+    @ParameterizedTest(name = "{index} Verify unable to create session with [apiKey={0}, userKey={1}, userName={2}]")
+    @MethodSource
+    void newAPISession_extendedWithMissingParameters_verifyParameterValidation(String apiKey, String userKey, String userName) {
+        assertThatIllegalArgumentException().isThrownBy(() -> new APISession(apiKey, userKey, userName));
     }
 
     @Test
@@ -74,54 +107,28 @@ class APISessionTest {
         assertThat(exception).hasMessageContaining(ERR_JWT_INVALID, token);
     }
 
-    @Test
-    void setLanguage_verifyLanguage() {
-        final String language = "es";
+    @ParameterizedTest(name = "{index} Setting language to \"{0}\" results in \"{1}\"")
+    @MethodSource
+    void setLanguage_verifyLanguage(String language, String expected) {
         APISession session = new APISession("K512E3A7F8SWRT");
         session.setLanguage(language);
-        assertThat(session.getLanguage()).isEqualTo(language);
+        assertThat(session.getLanguage()).isEqualTo(expected);
     }
 
-    @Test
-    void setLanguage_noLanguage_verifyDefaultLanguageIsSet() {
-        APISession session = new APISession("93DAS5KJ4A5S");
-        session.setLanguage(null);
-        assertThat(session.getLanguage()).isEqualTo("en");
-    }
-
-    @Test
-    void setStatus_verifyStatus() {
+    @ParameterizedTest(name = "{index} Setting status to \"{0}\" results in \"{1}\"")
+    @MethodSource
+    void setStatus_verifyStatus(APISession.Status status, APISession.Status expected) {
         APISession session = new APISession("LDIWQ532D7WQ");
-        session.setStatus(APISession.Status.AUTHORIZATION_IN_PROGRESS);
-        assertThat(session.getStatus()).isEqualTo(APISession.Status.AUTHORIZATION_IN_PROGRESS);
+        session.setStatus(status);
+        assertThat(session.getStatus()).isEqualTo(expected);
     }
 
-    @Test
-    void setStatus_noStatus_verifyDefaultStatusIsSet() {
-        APISession session = new APISession("P5F4U5K2FDLDD");
-        session.setStatus(null);
-        assertThat(session.getStatus()).isEqualTo(APISession.Status.NOT_AUTHORIZED);
-    }
-
-    @Test
-    void isInitialized_statusNOTAUTHORIZED_sessionIsNotInitialized() {
+    @ParameterizedTest(name = "{index} Setting status to \"{0}\" results in isInitialized={1}")
+    @MethodSource
+    void isInitialized_setStatusAndVerifyInitialized(APISession.Status status, boolean expected) {
         APISession session = new APISession("32DLFO5W4F2S");
-        session.setStatus(APISession.Status.NOT_AUTHORIZED);
-        assertThat(session.isInitialized()).isFalse();
-    }
-
-    @Test
-    void isInitialized_statusAUTHORIZATIONINPROGRESS_sessionIsNotInitialized() {
-        APISession session = new APISession("LPFO5D7JU5TG1");
-        session.setStatus(APISession.Status.AUTHORIZATION_IN_PROGRESS);
-        assertThat(session.isInitialized()).isFalse();
-    }
-
-    @Test
-    void isInitialized_statusAUTHORIZED_sessionIsInitialized() {
-        APISession session = new APISession("X1G8Q4G5RFW6");
-        session.setStatus(APISession.Status.AUTHORIZED);
-        assertThat(session.isInitialized()).isTrue();
+        session.setStatus(status);
+        assertThat(session.isInitialized()).isEqualTo(expected);
     }
 
     @Test

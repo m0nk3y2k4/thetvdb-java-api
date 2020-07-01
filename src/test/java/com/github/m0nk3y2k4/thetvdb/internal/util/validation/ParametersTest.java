@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
@@ -14,88 +16,81 @@ import javax.annotation.Nonnull;
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.QueryParametersImpl;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.NullSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class ParametersTest {
 
-    @Test
-    void validateCondition_conditionMatched_noExceptionThrown() {
-        assertDoesNotThrow(() -> Parameters.validateCondition(Objects::nonNull, "I am not null!",
-                new IllegalArgumentException("Should not be thrown")));
+    private static Stream<Arguments> validateCondition_withConditionNotMatched_exceptionRethrown() {
+        return Stream.of(
+                Arguments.of((Predicate<Integer>)age -> age > 21, 19, new IllegalArgumentException("No booze for you!")),
+                Arguments.of((Predicate<Object>)Objects::nonNull, null, new IllegalArgumentException("Should not be null!"))
+        );
+    }
+
+    private static Stream<Optional<?>> validateNotEmptyOptional_withInvalidOptional_exceptionThrown() {
+        return Stream.of(Optional.empty(), Optional.ofNullable(null), Optional.of(" "));
     }
 
     @Test
-    void validateCondition_conditionNotMatched_exceptionRethrown() {
-        final IllegalArgumentException exception = new IllegalArgumentException("Should not be null!");
-        IllegalArgumentException thrown = catchThrowableOfType(() -> Parameters.validateCondition(Objects::nonNull, null, exception),
-                IllegalArgumentException.class);
+    void validateCondition_happyDay() {
+        assertDoesNotThrow(() -> Parameters.validateCondition(Objects::nonNull, "I am not null!", new IllegalArgumentException("Should not be thrown")));
+    }
+
+    @ParameterizedTest(name = "{index} Value \"{1}\" is invlaid as it does not match the condition")
+    @MethodSource
+    <T> void validateCondition_withConditionNotMatched_exceptionRethrown(Predicate<T> predicate, T value, RuntimeException exception) {
+        IllegalArgumentException thrown = catchThrowableOfType(() -> Parameters.validateCondition(predicate, value, exception), IllegalArgumentException.class);
         assertThat(thrown).isEqualTo(exception);
     }
 
     @Test
-    void validateNotNull_parameterIsNotNull_noExceptionThrown() {
+    void validateNotNull_happyDay() {
         assertDoesNotThrow(() -> Parameters.validateNotNull(7, "Error in case of null-value"));
     }
 
-    @Test
-    void validateNotNull_parameterIsNull_exceptionThrown() {
+    @ParameterizedTest(name = "{index} String \"{0}\" is null")
+    @NullSource
+    void validateNotNull_withNullValue_exceptionThrown(String obj) {
         final String validationFailedMessage = "Value must not be null!";
-        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters.validateNotNull(null, validationFailedMessage),
-                IllegalArgumentException.class);
+        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters.validateNotNull(obj, validationFailedMessage), IllegalArgumentException.class);
         assertThat(exception).isInstanceOf(IllegalArgumentException.class).hasMessage(validationFailedMessage);
     }
 
     @Test
-    void validateNotEmpty_withNonEmptyString_noExceptionThrown() {
+    void validateNotEmptyString_happyDay() {
         assertDoesNotThrow(() -> Parameters.validateNotEmpty("Not empty!", "Error in case of empty string"));
     }
 
-    @Test
-    void validateNotEmpty_withNullString_exceptionThrown() {
-        final String validationFailedMessage = "String must not be null!";
-        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters.validateNotEmpty((String)null, validationFailedMessage),
+    @ParameterizedTest(name = "{index} String \"{0}\" is null or empty")
+    @NullAndEmptySource @ValueSource(strings = {"      "})
+    void validateNotEmptyString_withNullOrEmptyString_exceptionThrown(String obj) {
+        final String validationFailedMessage = "String is null or empty!";
+        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters.validateNotEmpty(obj, validationFailedMessage),
                 IllegalArgumentException.class);
         assertThat(exception).isInstanceOf(IllegalArgumentException.class).hasMessage(validationFailedMessage);
     }
 
     @Test
-    void validateNotEmpty_withEmptyString_exceptionThrown() {
-        final String validationFailedMessage = "String must not be empty!";
-        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters.validateNotEmpty("   ", validationFailedMessage),
-                IllegalArgumentException.class);
-        assertThat(exception).isInstanceOf(IllegalArgumentException.class).hasMessage(validationFailedMessage);
-    }
-
-    @Test
-    void validateNotEmpty_withNonEmptyOptional_noExceptionThrown() {
+    void validateNotEmptyOptional_happyDay() {
         assertDoesNotThrow(() -> Parameters.validateNotEmpty(Optional.of("Some String"), "Error in case of empty Optional"));
     }
 
-    @Test
-    void validateNotEmpty_withEmptyOptional_exceptionThrown() {
-        final String validationFailedMessage = "Optional must not be empty!";
-        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters.validateNotEmpty(Optional.empty(), validationFailedMessage),
+    @ParameterizedTest(name = "{index} \"{0}\" contains null or empty value")
+    @MethodSource
+    void validateNotEmptyOptional_withInvalidOptional_exceptionThrown(Optional<String> obj) {
+        final String validationFailedMessage = "Optional is null or empty!";
+        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters.validateNotEmpty(obj, validationFailedMessage),
                 IllegalArgumentException.class);
         assertThat(exception).isInstanceOf(IllegalArgumentException.class).hasMessage(validationFailedMessage);
     }
 
     @Test
-    void validateNotEmpty_withOptionalContainingNullString_exceptionThrown() {
-        final String validationFailedMessage = "String must not be null!";
-        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters.validateNotEmpty(Optional.ofNullable(null), validationFailedMessage),
-                IllegalArgumentException.class);
-        assertThat(exception).isInstanceOf(IllegalArgumentException.class).hasMessage(validationFailedMessage);
-    }
-
-    @Test
-    void validateNotEmpty_withOptionalContainingEmptyString_exceptionThrown() {
-        final String validationFailedMessage = "String must not be empty!";
-        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters.validateNotEmpty(Optional.of(" "), validationFailedMessage),
-                IllegalArgumentException.class);
-        assertThat(exception).isInstanceOf(IllegalArgumentException.class).hasMessage(validationFailedMessage);
-    }
-
-    @Test
-    void validatePathParam_withValidPathParameter_noExceptionThrown() {
+    void validatePathParam_happyDay() {
         assertDoesNotThrow(() -> Parameters.validatePathParam("ValidPathParam", "en", p -> p.length() <= 2));
     }
 
@@ -116,7 +111,7 @@ class ParametersTest {
     }
 
     @Test
-    void validateQueryParam_withValidQueryParameter_noExceptionThrown() {
+    void validateQueryParam_happyDay() {
         final String queryParamName = "department";
         final QueryParameters queryParameters = new QueryParametersImpl(Map.of(queryParamName, "Sales"));
         assertDoesNotThrow(() -> Parameters.validateQueryParam(queryParamName, queryParameters));
@@ -131,19 +126,11 @@ class ParametersTest {
         assertThat(exception).isInstanceOf(IllegalArgumentException.class).hasMessageContaining("[%s] is required but is not set", queryParamName);
     }
 
-    @Test
-    void validateQueryParam_withMandatoryQueryParameterSetToNull_exceptionThrown() {
+    @ParameterizedTest(name = "{index} Parameter \"{0}\" is null or empty")
+    @NullAndEmptySource @ValueSource(strings = {"   "})
+    void validateQueryParam_withInvalidMandatoryQueryParameter_exceptionThrown(String queryParamNameValue) {
         final String queryParamName = "region";
-        final QueryParameters queryParameters = new QueryParametersWithDisabledValueChecks(queryParamName, null);
-        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters.validateQueryParam(queryParamName, queryParameters),
-                IllegalArgumentException.class);
-        assertThat(exception).isInstanceOf(IllegalArgumentException.class).hasMessageContaining("[%s] must not be empty", queryParamName);
-    }
-
-    @Test
-    void validateQueryParam_withMandatoryQueryParameterBeingEmpty_exceptionThrown() {
-        final String queryParamName = "gender";
-        final QueryParameters queryParameters = new QueryParametersWithDisabledValueChecks(queryParamName, "        ");
+        final QueryParameters queryParameters = new QueryParametersWithDisabledValueChecks(queryParamName, queryParamNameValue);
         IllegalArgumentException exception = catchThrowableOfType(() -> Parameters.validateQueryParam(queryParamName, queryParameters),
                 IllegalArgumentException.class);
         assertThat(exception).isInstanceOf(IllegalArgumentException.class).hasMessageContaining("[%s] must not be empty", queryParamName);
