@@ -3,6 +3,7 @@ package com.github.m0nk3y2k4.thetvdb.internal.api.impl;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Spliterator;
 import java.util.Spliterators;
@@ -65,6 +66,11 @@ public class QueryParametersImpl implements QueryParameters {
     }
 
     @Override
+    public int size() {
+        return params.size();
+    }
+
+    @Override
     public Stream<Parameter> stream() {
         return StreamSupport.stream(Spliterators.spliteratorUnknownSize(this.iterator(), Spliterator.ORDERED), false);
     }
@@ -96,6 +102,23 @@ public class QueryParametersImpl implements QueryParameters {
                     @Override
                     public String getValue() {
                         return entry.getValue();
+                    }
+
+                    @Override
+                    public boolean equals(Object o) {
+                        if (this == o) {
+                            return true;
+                        }
+                        if (o == null || getClass() != o.getClass()) {
+                            return false;
+                        }
+                        Parameter that = (Parameter) o;
+                        return Objects.equals(entry.getKey(), that.getKey()) && Objects.equals(entry.getValue(), that.getValue());
+                    }
+
+                    @Override
+                    public int hashCode() {
+                        return Objects.hash(entry.getKey(), entry.getValue());
                     }
                 };
             }

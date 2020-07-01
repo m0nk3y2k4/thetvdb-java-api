@@ -52,6 +52,13 @@ public interface QueryParameters extends Iterable<QueryParameters.Parameter> {
     boolean containsParameter(@Nonnull String key);
 
     /**
+     * Returns the count of single parameter elements held by this container
+     *
+     * @return Number of single query parameters contained in this parameter set
+     */
+    int size();
+
+    /**
      * Returns a Stream of individual query parameters held by this class.
      *
      * @return Stream of all query parameters that have been added to this object
