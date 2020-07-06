@@ -15,7 +15,7 @@ import org.mockserver.client.MockServerClient;
 import org.mockserver.verify.VerificationTimes;
 
 @WithHttpsMockServer
-public class PostRequestTest {
+class PostRequestTest {
 
     @Test
     void send_verfiyHttpMethodIsSet(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
@@ -50,6 +50,6 @@ public class PostRequestTest {
         PostRequest request = new PostRequest("/postRequestContent", JSON_DATA);
         request.setRemoteAPI(remoteAPI);
         JsonNode response = request.send();
-        assertThat(response.toString()).isEqualTo(JSON_SUCCESS);
+        assertThat(response).hasToString(JSON_SUCCESS);
     }
 }

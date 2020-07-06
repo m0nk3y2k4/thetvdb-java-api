@@ -140,8 +140,9 @@ class ParametersTest {
     void validateQueryParam_withInvalidQueryParameter_exceptionThrown() {
         final String queryParamName = "languageCode";
         final String queryParamValue = "french";
-        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters.validateQueryParam(queryParamName,
-                new QueryParametersImpl(Map.of(queryParamName, queryParamValue)), code -> code.length() <= 2), IllegalArgumentException.class);
+        final QueryParameters params = new QueryParametersImpl(Map.of(queryParamName, queryParamValue));
+        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters.validateQueryParam(queryParamName, params,
+                code -> code.length() <= 2), IllegalArgumentException.class);
         assertThat(exception).isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("[%s] is set to an invalid value: %s", queryParamName, queryParamValue);
     }

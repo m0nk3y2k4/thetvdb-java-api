@@ -78,7 +78,8 @@ class APIRequestTest {
 
     @Test
     void send_missingRemoteEndpoint_verifyPreconditionsCheck() {
-        assertThatExceptionOfType(APIPreconditionException.class).isThrownBy(() -> new APIRequest("/missingEndpoint", HttpRequestMethod.GET) {}.send());
+        final APIRequest request = new APIRequest("/missingEndpoint", HttpRequestMethod.GET) {};
+        assertThatExceptionOfType(APIPreconditionException.class).isThrownBy(request::send);
     }
 
     @Test
@@ -150,7 +151,7 @@ class APIRequestTest {
         final String resource = "/success";
         APIRequest request = createAPIRequestWith(resource, HttpRequestMethod.GET, APISession.Status.NOT_AUTHORIZED, remoteAPI);
         JsonNode response = request.send();
-        assertThat(response.toString()).isEqualTo(JSON_SUCCESS);
+        assertThat(response).hasToString(JSON_SUCCESS);
     }
 
     @ParameterizedTest(name = "{index} Code {1} is mapped into \"{2}\" with error message \"{3}\"")

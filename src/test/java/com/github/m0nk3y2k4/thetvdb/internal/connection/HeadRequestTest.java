@@ -16,7 +16,7 @@ import org.mockserver.model.HttpStatusCode;
 import org.mockserver.verify.VerificationTimes;
 
 @WithHttpsMockServer
-public class HeadRequestTest {
+class HeadRequestTest {
 
     @Test
     void send_verfiyHttpMethodIsSet(MockServerClient client, RemoteAPI remoteAPI) throws Exception {

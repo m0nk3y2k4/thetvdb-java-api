@@ -26,8 +26,7 @@ class APIRuntimeExceptionTest {
         final String message = "Some wrapped exception";
         final Exception cause = new Exception();
         APIRuntimeException exception = new APIRuntimeException(message, cause);
-        assertThat(exception).hasMessage(message);
-        assertThat(exception).hasCause(cause);
+        assertThat(exception).hasMessage(message).hasCause(cause);
     }
 
     @Test

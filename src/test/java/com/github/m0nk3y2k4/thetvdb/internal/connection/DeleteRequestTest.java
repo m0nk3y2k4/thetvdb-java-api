@@ -12,7 +12,7 @@ import org.mockserver.client.MockServerClient;
 import org.mockserver.verify.VerificationTimes;
 
 @WithHttpsMockServer
-public class DeleteRequestTest {
+class DeleteRequestTest {
 
     @Test
     void send_verfiyHttpMethodIsSet(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
@@ -28,6 +28,6 @@ public class DeleteRequestTest {
         DeleteRequest request = new DeleteRequest("/deleteRequestContent");
         request.setRemoteAPI(remoteAPI);
         JsonNode response = request.send();
-        assertThat(response.toString()).isEqualTo(JSON_SUCCESS);
+        assertThat(response).hasToString(JSON_SUCCESS);
     }
 }

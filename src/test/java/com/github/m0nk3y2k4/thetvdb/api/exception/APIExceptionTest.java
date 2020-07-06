@@ -26,8 +26,7 @@ class APIExceptionTest {
         final String message = "Some wrapped exception";
         final Exception cause = new Exception();
         APIException exception = new APIException(message, cause);
-        assertThat(exception).hasMessage(message);
-        assertThat(exception).hasCause(cause);
+        assertThat(exception).hasMessage(message).hasCause(cause);
     }
 
     @Test

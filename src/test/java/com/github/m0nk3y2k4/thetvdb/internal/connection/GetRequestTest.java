@@ -12,7 +12,7 @@ import org.mockserver.client.MockServerClient;
 import org.mockserver.verify.VerificationTimes;
 
 @WithHttpsMockServer
-public class GetRequestTest {
+class GetRequestTest {
 
     @Test
     void send_verfiyHttpMethodIsSet(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
@@ -28,6 +28,6 @@ public class GetRequestTest {
         GetRequest request = new GetRequest("/getRequestContent");
         request.setRemoteAPI(remoteAPI);
         JsonNode response = request.send();
-        assertThat(response.toString()).isEqualTo(JSON_SUCCESS);
+        assertThat(response).hasToString(JSON_SUCCESS);
     }
 }
