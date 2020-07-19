@@ -1,0 +1,96 @@
+{
+  "data": [
+    {
+      "absoluteNumber": 70,
+      "airedEpisodeNumber": 13,
+      "airedSeason": 4,
+      "airsAfterSeason": 3,
+      "airsBeforeEpisode": 14,
+      "airsBeforeSeason": 5,
+      "director": "Director1",
+      "directors": [
+        "Director2", "Director3"
+      ],
+      "dvdChapter": 10,
+      "dvdDiscid": "DvdDiscId1",
+      "dvdEpisodeNumber": 7,
+      "dvdSeason": 6,
+      "episodeName": "EpisodeName1",
+      "filename": "FileName1",
+      "firstAired": "FirstAired1",
+      "guestStars": [
+        "GuestStar1", "GuestStar2"
+      ],
+      "id": 6955,
+      "imdbId": "ImdbId1",
+      "lastUpdated": 451475,
+      "lastUpdatedBy": "LastUpdatedBy1",
+      "overview": "Overview1",
+      "productionCode": "ProductionCode1",
+      "seriesId": "SeriesId1",
+      "showUrl": "ShowUrl1",
+      "siteRating": 9,
+      "siteRatingCount": 126,
+      "thumbAdded": "ThumbAdded1",
+      "thumbAuthor": 56875,
+      "thumbHeight": "ThumbHeight1",
+      "thumbWidth": "ThumbWidth1",
+      "writers": [
+        "Writer1", "Writer2"
+      ]
+    }, {
+      "absoluteNumber": 71,
+      "airedEpisodeNumber": 14,
+      "airedSeason": 5,
+      "airsAfterSeason": 4,
+      "airsBeforeEpisode": 15,
+      "airsBeforeSeason": 6,
+      "director": "Director4",
+      "directors": [
+        "Director5", "Director6"
+      ],
+      "dvdChapter": 11,
+      "dvdDiscid": "DvdDiscId2",
+      "dvdEpisodeNumber": 8,
+      "dvdSeason": 7,
+      "episodeName": "EpisodeName2",
+      "filename": "FileName2",
+      "firstAired": "FirstAired2",
+      "guestStars": [
+        "GuestStar3", "GuestStar4"
+      ],
+      "id": 6956,
+      "imdbId": "ImdbId2",
+      "lastUpdated": 451476,
+      "lastUpdatedBy": "LastUpdatedBy2",
+      "overview": "Overview2",
+      "productionCode": "ProductionCode2",
+      "seriesId": "SeriesId2",
+      "showUrl": "ShowUrl2",
+      "siteRating": 10,
+      "siteRatingCount": 127,
+      "thumbAdded": "ThumbAdded2",
+      "thumbAuthor": 56876,
+      "thumbHeight": "ThumbHeight2",
+      "thumbWidth": "ThumbWidth2",
+      "writers": [
+        "Writer3", "Writer4"
+      ]
+    }
+  ],
+  "errors": {
+    "invalidFilters": [
+      "InvalidFilter1", "InvalidFilter2"
+    ],
+    "invalidLanguage": "elvish",
+    "invalidQueryParams": [
+      "InvalidQueryParam1", "InvalidQueryParam2"
+    ]
+  },
+  "links": {
+    "first": 1,
+    "last": 7,
+    "next": 5,
+    "previous": 3
+  }
+}

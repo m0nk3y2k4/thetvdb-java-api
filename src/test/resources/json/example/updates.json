@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "id": 5487,
+      "lastUpdated": 6354874
+    }, {
+      "id": 5488,
+      "lastUpdated": 6354875
+    }
+  ],
+  "errors": {
+    "invalidFilters": [
+      "InvalidFilter1", "InvalidFilter2"
+    ],
+    "invalidLanguage": "elvish",
+    "invalidQueryParams": [
+      "InvalidQueryParam1", "InvalidQueryParam2"
+    ]
+  }
+}

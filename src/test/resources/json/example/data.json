@@ -1,0 +1,20 @@
+{
+  "data": {
+    "content": "Some content"
+  },
+  "errors": {
+    "invalidFilters": [
+      "InvalidFilter1", "InvalidFilter2"
+    ],
+    "invalidLanguage": "elvish",
+    "invalidQueryParams": [
+      "InvalidQueryParam1", "InvalidQueryParam2"
+    ]
+  },
+  "links": {
+    "first": 1,
+    "last": 7,
+    "next": 5,
+    "previous": 3
+  }
+}

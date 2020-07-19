@@ -1,0 +1,38 @@
+{
+  "data": [
+    {
+      "fileName": "FileName1",
+      "id": 9965,
+      "keyType": "KeyType1",
+      "languageId": 365,
+      "ratingsInfo": {
+        "average": 6,
+        "count": 674
+      },
+      "resolution": "Resolution1",
+      "subKey": "SubKey1",
+      "thumbnail": "Thumbnail1"
+    }, {
+      "fileName": "FileName2",
+      "id": 9966,
+      "keyType": "KeyType2",
+      "languageId": 366,
+      "ratingsInfo": {
+        "average": 7,
+        "count": 675
+      },
+      "resolution": "Resolution2",
+      "subKey": "SubKey2",
+      "thumbnail": "Thumbnail2"
+    }
+  ],
+  "errors": {
+    "invalidFilters": [
+      "InvalidFilter1", "InvalidFilter2"
+    ],
+    "invalidLanguage": "elvish",
+    "invalidQueryParams": [
+      "InvalidQueryParam1", "InvalidQueryParam2"
+    ]
+  }
+}

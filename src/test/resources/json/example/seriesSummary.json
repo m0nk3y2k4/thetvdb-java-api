@@ -1,0 +1,12 @@
+{
+  "data": {
+    "airedEpisodes": "AiredEpisodes",
+    "airedSeasons": [
+      "AiredSeasons1", "AiredSeasons2"
+    ],
+    "dvdEpisodes": "DvdEpisodes",
+    "dvdSeasons": [
+      "DvdSeasons1", "DvdSeasons2"
+    ]
+  }
+}

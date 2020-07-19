@@ -1,0 +1,13 @@
+{
+  "data": {
+  },
+  "errors": {
+    "invalidFilters": [
+      "InvalidFilter1", "InvalidFilter2"
+    ],
+    "invalidLanguage": "elvish",
+    "invalidQueryParams": [
+      "InvalidQueryParam1", "InvalidQueryParam2"
+    ]
+  }
+}

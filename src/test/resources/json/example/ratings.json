@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "rating": 5,
+      "ratingItemId": 6584,
+      "ratingType": "RatingType1"
+    }, {
+      "rating": 6,
+      "ratingItemId": 6585,
+      "ratingType": "RatingType2"
+    }
+  ],
+  "errors": {
+    "invalidFilters": [
+      "InvalidFilter1", "InvalidFilter2"
+    ],
+    "invalidLanguage": "elvish",
+    "invalidQueryParams": [
+      "InvalidQueryParam1", "InvalidQueryParam2"
+    ]
+  },
+  "links": {
+    "first": 1,
+    "last": 7,
+    "next": 5,
+    "previous": 3
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "data": [
+    {
+      "id": 3651,
+      "image": "Image1",
+      "imageAdded": "ImageAdded1",
+      "imageAuthor": 547,
+      "lastUpdated": "LastUpdated1",
+      "name": "Name1",
+      "role": "Role1",
+      "seriesId": 5412,
+      "sortOrder": 1
+    }, {
+      "id": 3652,
+      "image": "Image2",
+      "imageAdded": "ImageAdded2",
+      "imageAuthor": 548,
+      "lastUpdated": "LastUpdated2",
+      "name": "Name2",
+      "role": "Role2",
+      "seriesId": 5413,
+      "sortOrder": 2
+    }
+  ],
+  "errors": {
+    "invalidFilters": [
+      "InvalidFilter1", "InvalidFilter2"
+    ],
+    "invalidLanguage": "elvish",
+    "invalidQueryParams": [
+      "InvalidQueryParam1", "InvalidQueryParam2"
+    ]
+  }
+}

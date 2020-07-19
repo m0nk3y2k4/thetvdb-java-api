@@ -1,0 +1,15 @@
+{
+  "data": [
+    {
+      "abbreviation": "Abbrevation1",
+      "englishName": "EnglishName1",
+      "id": 4587,
+      "name": "Name1"
+    }, {
+      "abbreviation": "Abbrevation2",
+      "englishName": "EnglishName2",
+      "id": 4588,
+      "name": "Name2"
+    }
+  ]
+}

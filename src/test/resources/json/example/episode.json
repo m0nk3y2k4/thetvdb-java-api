@@ -1,0 +1,50 @@
+{
+  "data": {
+    "absoluteNumber": 69,
+    "airedEpisodeNumber": 12,
+    "airedSeason": 3,
+    "airsAfterSeason": 2,
+    "airsBeforeEpisode": 13,
+    "airsBeforeSeason": 4,
+    "director": "Director",
+    "directors": [
+      "Director1", "Director2"
+    ],
+    "dvdChapter": 9,
+    "dvdDiscid": "DvdDiscId",
+    "dvdEpisodeNumber": 6,
+    "dvdSeason": 5,
+    "episodeName": "EpisodeName",
+    "filename": "FileName",
+    "firstAired": "FirstAired",
+    "guestStars": [
+      "GuestStar1", "GuestStar2"
+    ],
+    "id": 6954,
+    "imdbId": "ImdbId",
+    "lastUpdated": 451474,
+    "lastUpdatedBy": "LastUpdatedBy",
+    "overview": "Overview",
+    "productionCode": "ProductionCode",
+    "seriesId": "SeriesId",
+    "showUrl": "ShowUrl",
+    "siteRating": 8,
+    "siteRatingCount": 125,
+    "thumbAdded": "ThumbAdded",
+    "thumbAuthor": 56874,
+    "thumbHeight": "ThumbHeight",
+    "thumbWidth": "ThumbWidth",
+    "writers": [
+      "Writer1", "Writer2"
+    ]
+  },
+  "errors": {
+    "invalidFilters": [
+      "InvalidFilter1", "InvalidFilter2"
+    ],
+    "invalidLanguage": "elvish",
+    "invalidQueryParams": [
+      "InvalidQueryParam1", "InvalidQueryParam2"
+    ]
+  }
+}
