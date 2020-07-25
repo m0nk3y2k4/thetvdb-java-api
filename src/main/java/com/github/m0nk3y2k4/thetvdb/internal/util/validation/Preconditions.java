@@ -10,7 +10,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
  * <p><br>
  * The default behavior for precondition checks provided by this class is to throw an {@link APIPreconditionException} in case the given
  * arguments do not match the requirements. Some of the methods may support extended control over the actual type of exception that
- * will be thrown by allowing the calling instance to privide it's onw runtime exception instance.
+ * will be thrown by allowing the calling instance to provide it's onw runtime exception instance.
  * <p><br>
  * Please note that this class should primarily be used for non-method parameter related precondition/object state checks as the default
  * <em>{@code APIPreconditionException}</em> indicates that resolving the failed validation isn't necessarily within the responsibility of the
@@ -27,7 +27,7 @@ public final class Preconditions {
      * Checks the condition and throws the given runtime exception in case the condition is not met.
      *
      * @param condition The condition to check for
-     * @param value The value to check against the codition
+     * @param value The value to check against the condition
      * @param exception The exception to be thrown in case the condition is not met
      *
      * @param <T> the type of the value to check

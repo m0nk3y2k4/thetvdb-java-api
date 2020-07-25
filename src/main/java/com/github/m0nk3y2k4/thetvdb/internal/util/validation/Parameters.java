@@ -13,9 +13,9 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
  * <p><br>
  * The default behavior for parameter checks provided by this class is to throw an {@link IllegalArgumentException} in case the given
  * arguments do not match the requirements. Some of the methods may support extended control over the actual type of exception that
- * will be thrown by allowing the calling instance to privide it's onw runtime exception instance.
+ * will be thrown by allowing the calling instance to provide it's onw runtime exception instance.
  * <p><br>
- * Please note that this class should primarily be used for method parameter validation as the default <em>{@code IllegalAgrumentException}</em>
+ * Please note that this class should primarily be used for method parameter validation as the default <em>{@code IllegalArgumentException}</em>
  * typically indicates that resolving the failed validation lies within the responsibility of the calling instance. To check for additional,
  * non-method parameter related preconditions use {@link Preconditions}.
  */
@@ -27,7 +27,7 @@ public final class Parameters {
      * Checks the condition and throws the given runtime exception in case the condition is not met.
      *
      * @param condition The condition to check for
-     * @param value The value to be checked against the codition
+     * @param value The value to be checked against the condition
      * @param exception The exception to be thrown in case the condition is not met
      *
      * @param <T> the type of the value to check

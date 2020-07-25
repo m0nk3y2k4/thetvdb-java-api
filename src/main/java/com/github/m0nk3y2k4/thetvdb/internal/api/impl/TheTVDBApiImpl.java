@@ -401,7 +401,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
 
     /**
      * Implementation of the {@link TheTVDBApi.JSON} API layout. It provides methods for all sorts of API calls throughout the different API routes. Responses will
-     * be returned as raw, untouch JSON as it has been received by the remote REST service.
+     * be returned as raw, untouched JSON as it has been received by the remote REST service.
      */
     private class JSONApi implements JSON {
 

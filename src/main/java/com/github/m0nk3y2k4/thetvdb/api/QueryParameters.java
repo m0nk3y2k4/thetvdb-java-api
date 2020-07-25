@@ -22,7 +22,7 @@ public interface QueryParameters extends Iterable<QueryParameters.Parameter> {
      * twice will not result in two different parameters. Instead the parameter value from the first addition will be replaced by the
      * new given value. For a predefined list of query parameters see {@link Query}.
      *
-     * @param key The new parameters key. The class {@link Query} prvides a basic set of parameter constants
+     * @param key The new parameters key. The class {@link Query} provides a basic set of parameter constants
      *            for the various API routes, which can be used at this point.
      * @param value The new parameters value. Should not be <em>{@code null}</em> or empty. These values will be encoded before being added to the URI.
      *

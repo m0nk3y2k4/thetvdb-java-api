@@ -51,7 +51,7 @@ public final class APIUtil {
     }
 
     /**
-     * Serializes the given JSON object as String using a pretty print output with identation to produce an easy-to-read
+     * Serializes the given JSON object as String using a pretty print output with indentation to produce an easy-to-read
      * String representation of the JSON object.
      *
      * @param obj The JSON object to be printed in a pretty fashion
@@ -65,7 +65,7 @@ public final class APIUtil {
 
     /**
      * Converts the value returned by the given <em>{@code valueSupplier}</em> into a new String. The output depends on the
-     * actual type argument &lt;T&gt; of the given supplier. If the supplied value is unconvertable an empty String will be
+     * actual type argument &lt;T&gt; of the given supplier. If the supplied value is unconvertible an empty String will be
      * returned instead.
      *
      * @param valueSupplier The supplier whose {@link Supplier#get()} output should be converted into a String
@@ -79,7 +79,7 @@ public final class APIUtil {
 
     /**
      * Converts the value returned by the given <em>{@code valueSupplier}</em> into a new String. The output depends on the
-     * actual type argument &lt;T&gt; of the given supplier. If the supplied value is unconvertable the value of
+     * actual type argument &lt;T&gt; of the given supplier. If the supplied value is unconvertible the value of
      * <em>{@code nullDefault}</em> will be returned instead.
      *
      * @param valueSupplier The supplier whose {@link Supplier#get()} output should be converted into a String

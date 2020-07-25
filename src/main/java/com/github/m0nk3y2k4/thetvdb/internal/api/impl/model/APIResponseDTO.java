@@ -52,7 +52,7 @@ public abstract class APIResponseDTO<T> implements APIResponse<T> {
 
         @Override
         public String toString() {
-            return String.format("Filters: [%s], Laguage: %s, QueryParams: [%s]",
+            return String.format("Filters: [%s], Language: %s, QueryParams: [%s]",
                     APIUtil.toString(this::getInvalidFilters),
                     APIUtil.toString(this::getInvalidLanguage),
                     APIUtil.toString(this::getInvalidQueryParams));

@@ -59,7 +59,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
  * Provides functionality to parse the JSON data returned by the remote API and map it into it's corresponding DTO. These DTO's will
  * be wrapped into {@link APIResponse APIResponse&lt;DTO&gt;} objects together with additional information like advanced error reports
  * or pagination information. Note that the latter depends on the invoked remote route and will not always be available. Simple return
- * types will not be mapped into a dedicated DTO class but will use the corresponding Java native data type. For exmpale, query parameters,
+ * types will not be mapped into a dedicated DTO class but will use the corresponding Java native data type. For example, query parameters,
  * which are a simple collection of strings, will be mapped into a list of {@link String} whereas simple key/value paris will be
  * returned as {@link Map Map&lt;String, String&gt;}.
  */
@@ -153,7 +153,7 @@ public final class JsonDeserializer {
      * Maps the actual favorites returned by the various routes responsible for adding, deleting and obtaining user favorites.
      * <p><br>
      * Note: In case the user has no favorites it is possible that some routes will not return an empty, nested <em>{@code favorites}</em> sub-node
-     * but an empty <em>{@code data}</em> node instead. Such responses will be handled failsafe by this method, resulting in response containing an
+     * but an empty <em>{@code data}</em> node instead. Such responses will be handled fail-safe by this method, resulting in response containing an
      * empty list being returned.
      *
      * @param json The full JSON as returned by the remote service, containing a list of favorites within the <em>{@code favorites}</em> sub-node
@@ -477,7 +477,7 @@ public final class JsonDeserializer {
      * the <em>{@code data}</em> node as input parameter and is required to return a new instance of type <b>T</b>. It's up
      * to the function itself whether it is actually interested in parsing the provided JSON. It may also just return some
      * default value while completely ignoring the JSON's content. The function is permitted to throw an {@link IOException}
-     * as this is a common type of exception to be occuring when parsing JSON data.
+     * as this is a common type of exception to be occurring when parsing JSON data.
      *
      * @see #createFunctionalModule(Function) createFunctionalModule(function)
      *
@@ -551,7 +551,7 @@ public final class JsonDeserializer {
  * <p><br>
  * This class extends the default {@link JsonDeserializer} adding the option to provide some specific handling of the top-level JSON
  * <em>{@code data}</em> node. For this a mapping function has to be provided when creating a new instance of this class. This
- * function will then be invoked in order to deserialize the JSON's <em>{@code data}</em> node and the result of this invokation will
+ * function will then be invoked in order to deserialize the JSON's <em>{@code data}</em> node and the result of this invocation will
  * be set to the returned API response. Technically it means that the object mapper will simply leave it up to the function to deserialize
  * the <em>{@code data}</em> node rather than using it's native deserialization implementation.
  *

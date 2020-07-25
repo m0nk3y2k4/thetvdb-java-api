@@ -44,11 +44,11 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.User;
  * This is probably the most common layout. It provides various shortcut-methods and automatically maps the received JSON <b><i>data</i></b> content
  * into simple Java DTO's (at least for more complex response data). The user does not have to worry about JSON parsing but can simply work with the
  * returned DTO's like he works with every other Java object. However, these objects do only contain the actually requested data and will not include
- * any additional contextual informations that may be returned by the remote service (e.g. Pagination information, additional validation or error data).
+ * any additional contextual information that may be returned by the remote service (e.g. Pagination information, additional validation or error data).
  * Furthermore they will only provide access to properties that are <a href="https://api.thetvdb.com/swagger">formally declared by the API</a>
  * (version v3.0.0).</li>
  * <li>{@link Extended}<br>
- * This layout may be used for slightly advance API integration. Like the common layout it'll take care of parsing the recieved JSON into Java DTO's
+ * This layout may be used for slightly advance API integration. Like the common layout it'll take care of parsing the received JSON into Java DTO's
  * but it will also provide access to any additional contextual information. Methods of this layout will always return a single {@link APIResponse}
  * object which consists of the actual data, parsed as DTO, as well as all additional information which is available in the given context, like
  * additional error or pagination information. This layout does not provide any shortcut-methods.</li>
@@ -477,7 +477,7 @@ public interface TheTVDBApi {
      *
      * @param seriesId The <i>TheTVDB.com</i> series ID
      *
-     * @return A summary of the episodes and seasons avaialable for the given series, mapped as Java DTO based on the JSON data returned by the remote service
+     * @return A summary of the episodes and seasons available for the given series, mapped as Java DTO based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
      */
@@ -660,7 +660,7 @@ public interface TheTVDBApi {
     List<Image> queryImagesBySubKey(long seriesId, @Nonnull String subKey) throws APIException;
 
     /**
-     * Returns a list of valid parameters for querying a series images, mapped as Java DTO. Unlike other routes, querying for a series images may be resticted
+     * Returns a list of valid parameters for querying a series images, mapped as Java DTO. Unlike other routes, querying for a series images may be restricted
      * to certain combinations of query keys. The allowed combinations are clustered in the single {@link ImageQueryParameter} objects returned by this method.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images_query_params"><b>[GET]</b> /series/{id}/images/query/params</a>
@@ -717,7 +717,7 @@ public interface TheTVDBApi {
     Map<Long, Long> queryLastUpdated(@Nonnull String fromTime) throws APIException;
 
     /**
-     * Returns a map of series that have changed inbetween the given timeframe, but with a maximum of one week, starting at the provided <em>{@code fromTime}</em>
+     * Returns a map of series that have changed in between the given timeframe, but with a maximum of one week, starting at the provided <em>{@code fromTime}</em>
      * query parameter. The <em>{@code toTime}</em> parameter may be specified to grab results for less than a week. Any timespan larger than a week will be
      * reduced down to one week automatically. The key/value pairs of the returned map represent a <i>TheTVDB.com</i> series ID (key) and when it was updated the last
      * time (value) as Epoch time. This is a shortcut-method for {@link #queryLastUpdated(QueryParameters) queryLastUpdated(queryParameters)} with a "fromTime"
@@ -1153,7 +1153,7 @@ public interface TheTVDBApi {
          *
          * @param seriesId The <i>TheTVDB.com</i> series ID
          *
-         * @return JSON object containing a summary of the episodes and seasons avaialable for the given series
+         * @return JSON object containing a summary of the episodes and seasons available for the given series
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
          */
@@ -1231,7 +1231,7 @@ public interface TheTVDBApi {
         JsonNode queryImages(long seriesId, QueryParameters queryParameters) throws APIException;
 
         /**
-         * Returns a list of valid parameters for querying a series images, as raw JSON. Unlike other routes, querying for a series images may be resticted
+         * Returns a list of valid parameters for querying a series images, as raw JSON. Unlike other routes, querying for a series images may be restricted
          * to certain combinations of query keys. The allowed combinations are clustered in the data array of the returned JSON object.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images_query_params"><b>[GET]</b> /series/{id}/images/query/params</a>
@@ -1449,7 +1449,7 @@ public interface TheTVDBApi {
     /**
      * Interface representing the API's <em>{@code Extended}</em> layout.
      * <p><br>
-     * This layout may be used for slightly advance API integration. Like the common layout it'll take care of parsing the recieved JSON into Java DTO's
+     * This layout may be used for slightly advance API integration. Like the common layout it'll take care of parsing the received JSON into Java DTO's
      * but it will also provide access to any additional contextual information. Methods of this layout will always return a single {@link APIResponse}
      * object which consists of the actual data, parsed as DTO, as well as all additional information which is available in the given context, like
      * additional error or pagination information. This layout does not provide any shortcut-methods.
@@ -1737,7 +1737,7 @@ public interface TheTVDBApi {
 
         /**
          * Returns a response object containing a list of valid parameters for querying a series images, mapped as Java DTO. Unlike other routes, querying for
-         * a series images may be resticted to certain combinations of query keys. The allowed combinations are clustered in the single {@link ImageQueryParameter}
+         * a series images may be restricted to certain combinations of query keys. The allowed combinations are clustered in the single {@link ImageQueryParameter}
          * objects of the returned API responses data object.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images_query_params"><b>[GET]</b> /series/{id}/images/query/params</a>

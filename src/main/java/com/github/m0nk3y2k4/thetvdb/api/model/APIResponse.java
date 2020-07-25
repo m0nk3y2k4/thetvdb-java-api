@@ -30,7 +30,7 @@ public interface APIResponse<T> {
      * Returns an Optional representing the additional error information returned by the remote service. If the request was fully compliant or if the
      * requested resource does not support additional error reporting the returned Optional might be empty.
      *
-     * @return Optional containing additional error details or empty Optional if no errors occured or error reporting is not supported by the requested resource
+     * @return Optional containing additional error details or empty Optional if no errors occurred or error reporting is not supported by the requested resource
      */
     Optional<JSONErrors> getErrors();
 
@@ -47,7 +47,7 @@ public interface APIResponse<T> {
      * <p><br>
      * Please note that, as the remote service declares all of the properties to be optional, most of the methods are marked
      * as {@link Nullable}. Methods returning collection-based values however will return an empty collection in case no corresponding
-     * data was receieved.
+     * data was received.
      *
      */
     interface JSONErrors {
@@ -79,7 +79,7 @@ public interface APIResponse<T> {
      * <p><br>
      * Please note that, as the remote service declares all of the properties to be optional, most of the methods are marked
      * as {@link Nullable}. Methods returning collection-based values however will return an empty collection in case no corresponding
-     * data was receieved.
+     * data was received.
      */
     interface Links {
 

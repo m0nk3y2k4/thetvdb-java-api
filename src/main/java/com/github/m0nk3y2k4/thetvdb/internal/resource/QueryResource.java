@@ -26,10 +26,10 @@ public abstract class QueryResource extends Resource {
     protected QueryResource() {}
 
     /**
-     * Creates a new query resource string consisting of the given <em>{@code base}</em> and <em>{@code specific}</em> URL path paramters
-     * preprended by the given query parameters in the following format: <b><code>/BASE/specific?query1=value1&amp;query2=value2&amp;...</code></b>
+     * Creates a new query resource string consisting of the given <em>{@code base}</em> and <em>{@code specific}</em> URL path parameters
+     * prepended by the given query parameters in the following format: <b><code>/BASE/specific?query1=value1&amp;query2=value2&amp;...</code></b>
      *
-     * @param base Base URL path parameter which identfies a particular endpoint
+     * @param base Base URL path parameter which identifies a particular endpoint
      * @param specific Specific URL path parameter representing the actual route to be invoked
      * @param queryParams Set of query parameters to be added to the very end of the resource String
      *

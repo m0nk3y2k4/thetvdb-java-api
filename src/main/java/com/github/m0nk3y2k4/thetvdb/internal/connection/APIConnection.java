@@ -41,7 +41,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Preconditions;
 /**
  * Main class for handling communication with the <i>TheTVDB.com</i> REST remote service on a technical level
  * <p><br>
- * It provides options to invoke differnt types of HTTP requests to any given API route. It will also maintain additional session
+ * It provides options to invoke different types of HTTP requests to any given API route. It will also maintain additional session
  * information like API key, the JWT token and authentication status and will handle the Bearer authentication for each request.
  * <p><br>
  * Although it is highly recommended to first off authenticate a newly created API connection manually via the
@@ -61,7 +61,7 @@ public class APIConnection {
     /** Session used for API communication */
     private final APISession session;
 
-    /** Remote enpoint used for API communication (default: <i>TheTVDB.com</i>) */
+    /** Remote endpoint used for API communication (default: <i>TheTVDB.com</i>) */
     private final RemoteAPI remote;
 
     /**
@@ -318,7 +318,7 @@ public class APIConnection {
 
     /**
      * Invokes the given request. If the remote service responds with a HTTP-401 status this method will automatically try to authorize the
-     * underlying session. If the automated on-demand authentication was successfull the given request will be invoked again. Otherwise an
+     * underlying session. If the automated on-demand authentication was successful the given request will be invoked again. Otherwise an
      * exception will be thrown.
      *
      * @param request The request to be invoked
@@ -386,7 +386,7 @@ abstract class APIRequest {
     /** Session for remote API authentication */
     private APISession session;
 
-    /** Remote enpoint used for API communication */
+    /** Remote endpoint used for API communication */
     private RemoteAPI remote;
 
     /** Resource/Route to be called on remote service */
@@ -423,7 +423,7 @@ abstract class APIRequest {
      * Specifies the remote endpoint (URI) to which the request should be addressed to. Typically this is the <i>TheTVDB.com</i> RESTful API but It may also be set
      * to some proxy for example.
      *
-     * @param remote The remote enpoint used for API communication
+     * @param remote The remote endpoint used for API communication
      */
     void setRemoteAPI(@Nonnull RemoteAPI remote) {
         this.remote = remote;
@@ -463,7 +463,7 @@ abstract class APIRequest {
      *
      * @return A preconfigured HTTPS connection pointing to some remote API endpoint
      *
-     * @throws IOException Thrown in case of communcation issues like malformed URL, invalid request method, etc.
+     * @throws IOException Thrown in case of communication issues like malformed URL, invalid request method, etc.
      */
     private HttpsURLConnection openConnection() throws IOException {
         Preconditions.requireNonNull(remote, "No remote endpoint specified");
@@ -506,7 +506,7 @@ abstract class APIRequest {
      *
      * @param con New HTTPS connection with some basic configuration already applied
      *
-     * @throws IOException Thrown in case an I/O error occured while performing request specific preparations
+     * @throws IOException Thrown in case an I/O error occurred while performing request specific preparations
      */
     void prepareRequest(@Nonnull HttpsURLConnection con) throws IOException {
         // No default preparation. Overwrite this method in any sub-class to add type specific request preparations.
@@ -595,7 +595,7 @@ abstract class APIRequest {
 final class GetRequest extends APIRequest {
 
     /**
-     * Creates a new <em>{@code GET}</em> request for the given resouce
+     * Creates a new <em>{@code GET}</em> request for the given resource
      *
      * @param resource Remote service resource to be invoked
      */
@@ -616,7 +616,7 @@ final class PostRequest extends APIRequest {
     private final String data;
 
     /**
-     * Creates a new <em>{@code POST}</em> request for the given resouce
+     * Creates a new <em>{@code POST}</em> request for the given resource
      *
      * @param resource Remote service resource to be invoked
      * @param data The actual payload to be pushed to the remote service
@@ -651,12 +651,12 @@ final class PostRequest extends APIRequest {
  * Implementation for an API <em>{@code HEAD}</em> request
  * <p><br>
  * Invokes a specific remote service resource via the HTTP HEAD request method. This request type will not parse any response stream
- * conent but only the returned connection headers, assembled into a JSON object.
+ * content but only the returned connection headers, assembled into a JSON object.
  */
 final class HeadRequest extends APIRequest {
 
     /**
-     * Creates a new <em>{@code HEAD}</em> request for the given resouce
+     * Creates a new <em>{@code HEAD}</em> request for the given resource
      *
      * @param resource Remote service resource to be invoked
      */
@@ -708,7 +708,7 @@ final class HeadRequest extends APIRequest {
 final class DeleteRequest extends APIRequest {
 
     /**
-     * Creates a new <em>{@code DELETE}</em> request for the given resouce
+     * Creates a new <em>{@code DELETE}</em> request for the given resource
      *
      * @param resource Remote service resource to be invoked
      */
@@ -725,7 +725,7 @@ final class DeleteRequest extends APIRequest {
 final class PutRequest extends APIRequest {
 
     /**
-     * Creates a new <em>{@code PUT}</em> request for the given resouce
+     * Creates a new <em>{@code PUT}</em> request for the given resource
      *
      * @param resource Remote service resource to be invoked
      */

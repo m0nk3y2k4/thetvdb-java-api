@@ -149,7 +149,7 @@ public final class SeriesAPI extends QueryResource {
      * @param con Initialized connection to be used for API communication
      * @param id The <i>TheTVDB.com</i> series ID
      *
-     * @return JSON object containing a summary of the episodes and seasons avaialable for the given series
+     * @return JSON object containing a summary of the episodes and seasons available for the given series
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does
      *                      not exist, etc.
@@ -238,7 +238,7 @@ public final class SeriesAPI extends QueryResource {
     }
 
     /**
-     * Returns a list of valid parameters for querying a series images, as raw JSON. Unlike other routes, querying for a series images may be resticted
+     * Returns a list of valid parameters for querying a series images, as raw JSON. Unlike other routes, querying for a series images may be restricted
      * to certain combinations of query keys. The allowed combinations are clustered in the data array of the returned JSON object.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images_query_params"><b>[GET]</b> /series/{id}/images/query/params</a>
@@ -258,7 +258,7 @@ public final class SeriesAPI extends QueryResource {
 
     /**
      * Creates a new resource string consisting of the <i>Series</i> endpoints base URL path parameter, the given <em>{@code id}</em> and
-     * the <em>{@code specific}</em> URL path paramter in the following format: <b><code>/BASE/id/specific</code></b>
+     * the <em>{@code specific}</em> URL path parameter in the following format: <b><code>/BASE/id/specific</code></b>
      *
      * @param id Series ID to be added to the resource String
      * @param specific Specific URL path parameter representing the actual route to be invoked
@@ -271,7 +271,7 @@ public final class SeriesAPI extends QueryResource {
 
     /**
      * Creates a new query resource string consisting of the <i>Series</i> endpoints base URL path parameter, the given <em>{@code id}</em> and
-     * <em>{@code specific}</em> URL path paramter and additional query parametrs in the following format:
+     * <em>{@code specific}</em> URL path parameter and additional query parameters in the following format:
      * <b><code>/BASE/id/specific?query1=value1&amp;query2=value2&amp;...</code></b>
      *
      * @param id Series ID to be added to the resource String
