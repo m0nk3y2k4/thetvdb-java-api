@@ -69,6 +69,13 @@ public interface SeriesSearchResult {
     @Nullable String getOverview();
 
     /**
+     * Get the poster
+     *
+     * @return the poster
+     */
+    @Nullable String getPoster();
+
+    /**
      * Get the seriesName
      *
      * @return the seriesName
@@ -81,6 +88,7 @@ public interface SeriesSearchResult {
      * @return the slug
      */
     @Nullable String getSlug();
+
     /**
      * Get the status
      *

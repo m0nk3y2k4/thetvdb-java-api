@@ -10,6 +10,7 @@
       "image": "Image1",
       "network": "Network1",
       "overview": "Overview1",
+      "poster": "Poster1",
       "seriesName": "SeriesName1",
       "slug": "Slug1",
       "status": "Status1"
@@ -23,6 +24,7 @@
       "image": "Image2",
       "network": "Network2",
       "overview": "Overview2",
+      "poster": "Poster2",
       "seriesName": "SeriesName2",
       "slug": "Slug2",
       "status": "Status2"

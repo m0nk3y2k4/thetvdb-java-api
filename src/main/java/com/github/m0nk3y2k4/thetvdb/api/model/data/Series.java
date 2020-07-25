@@ -34,11 +34,11 @@ public interface Series extends SeriesSearchResult {
     @Nullable String getAirsDayOfWeek();
 
     /**
-     * Get the arisTime
+     * Get the airsTime
      *
-     * @return the arisTime
+     * @return the airsTime
      */
-    @Nullable String getArisTime();
+    @Nullable String getAirsTime();
 
     /**
      * Get the genre
