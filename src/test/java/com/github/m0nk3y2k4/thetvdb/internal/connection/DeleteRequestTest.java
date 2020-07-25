@@ -15,7 +15,7 @@ import org.mockserver.verify.VerificationTimes;
 class DeleteRequestTest {
 
     @Test
-    void send_verfiyHttpMethodIsSet(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
+    void send_verifyHttpMethodIsSet(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
         final String resource = "/deleteRequestMethod";
         DeleteRequest request = new DeleteRequest(resource);
         request.setRemoteAPI(remoteAPI);

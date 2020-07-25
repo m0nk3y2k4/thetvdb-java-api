@@ -19,7 +19,7 @@ import org.mockserver.verify.VerificationTimes;
 class HeadRequestTest {
 
     @Test
-    void send_verfiyHttpMethodIsSet(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
+    void send_verifyHttpMethodIsSet(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
         final String resource = "/headRequestMethod";
         HeadRequest request = new HeadRequest(resource);
         request.setRemoteAPI(remoteAPI);
@@ -31,7 +31,7 @@ class HeadRequestTest {
     void send_verifyJSONContentParsed(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
         final String resource = "/headRequestContent";
         final String headerKey = "Some-Header";
-        final String headerValue = "singlevalue";
+        final String headerValue = "singleValue";
         final String listHeaderKey = "List-Header";
         final List<String> listHeaderValues = List.of("X", "Y", "Z");
         HeadRequest request = new HeadRequest(resource);

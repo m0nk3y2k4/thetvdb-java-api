@@ -55,15 +55,15 @@ public final class JSONTestUtil {
         QUERYPARAMETERS("queryParameters", JSONTestUtil::queryParameters, "Query parameters JSON response"),
         QUERYPARAMETERS_NESTED("queryParameters_nested", JSONTestUtil::queryParameters, "Nested query parameters JSON response"),
         EPISODE("episode", JSONTestUtil::episode, "Episode JSON response"),
-        LANGUAGE("language", JSONTestUtil::langauge, "Language JSON response"),
-        LANGUAGES("languages", JSONTestUtil::langauges, "Languages JSON response"),
+        LANGUAGE("language", JSONTestUtil::language, "Language JSON response"),
+        LANGUAGES("languages", JSONTestUtil::languages, "Languages JSON response"),
         SERIESSEARCH("seriesSearch", JSONTestUtil::seriesSearch, "Series search JSON response"),
         SERIES("series", JSONTestUtil::series, "Series JSON response"),
         SERIESHEADER("seriesHeader", JSONTestUtil::seriesHeader, "Series header JSON response"),
         ACTORS("actors", JSONTestUtil::actors, "Actors JSON response"),
         EPISODES("episodes", JSONTestUtil::episodes, "Episodes JSON response"),
         SERIESSUMMARY("seriesSummary", JSONTestUtil::seriesSummary, "Series summary JSON response"),
-        IMAGESUMMARY("imageSummary", JSONTestUtil::imageSummary, "Image summary JSON respone"),
+        IMAGESUMMARY("imageSummary", JSONTestUtil::imageSummary, "Image summary JSON response"),
         IMAGES("images", JSONTestUtil::images, "Images JSON response"),
         IMAGEQUERYPARAMETERS("imageQueryParameters", JSONTestUtil::imageQueryParameters, "Image query parameters JSON response"),
         UPDATES("updates", JSONTestUtil::updates, "Updates JSON response"),
@@ -402,10 +402,10 @@ public final class JSONTestUtil {
      *
      * @return New language APIResponse DTO prefilled with default values
      */
-    public static APIResponse<Language> langauge() {
+    public static APIResponse<Language> language() {
         return new APIResponseDTO.Builder<Language>()
                 .data(new LanguageDTO.Builder()
-                        .abbreviation("Abbrevation1")
+                        .abbreviation("Abbreviation1")
                         .englishName("EnglishName1")
                         .id(5487L)
                         .name("Name1")
@@ -418,17 +418,17 @@ public final class JSONTestUtil {
      *
      * @return New languages APIResponse DTO prefilled with default values
      */
-    public static APIResponse<List<Language>> langauges() {
+    public static APIResponse<List<Language>> languages() {
         return new APIResponseDTO.Builder<List<Language>>()
                 .data(List.of(
                         new LanguageDTO.Builder()
-                                .abbreviation("Abbrevation1")
+                                .abbreviation("Abbreviation1")
                                 .englishName("EnglishName1")
                                 .id(4587L)
                                 .name("Name1")
                                 .build(),
                         new LanguageDTO.Builder()
-                                .abbreviation("Abbrevation2")
+                                .abbreviation("Abbreviation2")
                                 .englishName("EnglishName2")
                                 .id(4588L)
                                 .name("Name2")

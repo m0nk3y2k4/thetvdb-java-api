@@ -18,7 +18,7 @@ import org.mockserver.verify.VerificationTimes;
 class PostRequestTest {
 
     @Test
-    void send_verfiyHttpMethodIsSet(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
+    void send_verifyHttpMethodIsSet(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
         final String resource = "/postRequestMethod";
         PostRequest request = new PostRequest(resource, JSON_DATA);
         request.setRemoteAPI(remoteAPI);
@@ -36,7 +36,7 @@ class PostRequestTest {
     }
 
     @Test
-    void send_withData_verfiyOutputIsSet(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
+    void send_withData_verifyOutputIsSet(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
         final String resource = "/postRequestOutput";
         final String json = "{\"Value\":\"Some content of the POST-request\"}";
         PostRequest request = new PostRequest(resource, json);

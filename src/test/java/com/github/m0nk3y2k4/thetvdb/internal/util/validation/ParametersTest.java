@@ -41,7 +41,7 @@ class ParametersTest {
         assertDoesNotThrow(() -> Parameters.validateCondition(Objects::nonNull, "I am not null!", new IllegalArgumentException("Should not be thrown")));
     }
 
-    @ParameterizedTest(name = "[{index}] Value \"{1}\" is invlaid as it does not match the condition")
+    @ParameterizedTest(name = "[{index}] Value \"{1}\" is invalid as it does not match the condition")
     @MethodSource
     <T> void validateCondition_withConditionNotMatched_exceptionRethrown(Predicate<T> predicate, T value, RuntimeException exception) {
         IllegalArgumentException thrown = catchThrowableOfType(() -> Parameters.validateCondition(predicate, value, exception), IllegalArgumentException.class);

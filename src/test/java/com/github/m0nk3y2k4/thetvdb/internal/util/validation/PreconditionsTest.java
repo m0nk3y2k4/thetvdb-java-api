@@ -32,7 +32,7 @@ class PreconditionsTest {
         assertDoesNotThrow(() -> Preconditions.requires(age -> age > 18, 42, new APIPreconditionException("Should not be thrown")));
     }
 
-    @ParameterizedTest(name = "[{index}] Value \"{1}\" is invlaid as it does not match the condition")
+    @ParameterizedTest(name = "[{index}] Value \"{1}\" is invalid as it does not match the condition")
     @MethodSource
     <T> void requires_conditionNotMatched_exceptionRethrown(Predicate<T> predicate, T value, RuntimeException exception) {
         APIPreconditionException thrown = catchThrowableOfType(() -> Preconditions.requires(predicate, value, exception), APIPreconditionException.class);

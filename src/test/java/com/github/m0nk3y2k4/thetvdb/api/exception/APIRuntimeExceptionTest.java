@@ -16,9 +16,9 @@ class APIRuntimeExceptionTest {
     @Test
     void newAPIRuntimeException_withDetailedMessage_verifyProperties() {
         final String message = "Detailed exception message: %s";
-        final String deatils = "Some details";
-        APIRuntimeException exception = new APIRuntimeException(message, deatils);
-        assertThat(exception).hasMessage(message, deatils);
+        final String details = "Some details";
+        APIRuntimeException exception = new APIRuntimeException(message, details);
+        assertThat(exception).hasMessage(message, details);
     }
 
     @Test

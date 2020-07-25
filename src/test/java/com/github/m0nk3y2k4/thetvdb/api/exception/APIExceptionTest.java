@@ -16,9 +16,9 @@ class APIExceptionTest {
     @Test
     void newAPIException_withDetailedMessage_verifyProperties() {
         final String message = "Detailed exception message: %s";
-        final String deatils = "Some details";
-        APIException exception = new APIException(message, deatils);
-        assertThat(exception).hasMessage(message, deatils);
+        final String details = "Some details";
+        APIException exception = new APIException(message, details);
+        assertThat(exception).hasMessage(message, details);
     }
 
     @Test

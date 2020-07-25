@@ -15,7 +15,7 @@ import org.mockserver.verify.VerificationTimes;
 class GetRequestTest {
 
     @Test
-    void send_verfiyHttpMethodIsSet(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
+    void send_verifyHttpMethodIsSet(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
         final String resource = "/getRequestMethod";
         GetRequest request = new GetRequest(resource);
         request.setRemoteAPI(remoteAPI);

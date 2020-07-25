@@ -22,7 +22,7 @@ import org.mockserver.model.HttpStatusCode;
 import org.mockserver.model.JsonSchemaBody;
 
 /**
- * Utilility class providing useful methods for working with mock servers
+ * Utility class providing useful methods for working with mock servers
  * <p><br>
  * This class offers quick access to functionality which is often required when working with mock servers. This includes prepared
  * JSON Strings, creation of common HTTP request headers as well as simple preconfigured responses for example to return a HTTP-200
@@ -52,9 +52,9 @@ public abstract class MockServerUtil {
      *
      * @return Response header specifying the length of the given content String
      */
-    public static Header contentLenghth(@Nonnull String content) {
+    public static Header contentLength(@Nonnull String content) {
         Parameters.validateNotNull(content, "The content String must not be null");
-        return contentLenghth(content.length());
+        return contentLength(content.length());
     }
 
     /**
@@ -64,12 +64,12 @@ public abstract class MockServerUtil {
      *
      * @return Response header specifying the given content length
      */
-    public static Header contentLenghth(int length) {
+    public static Header contentLength(int length) {
         return header(CONTENT_LENGTH, length);
     }
 
     /**
-     * Returns matchers for the default HTTP headers which will be set when communicating with the remote API. Which haders are actually
+     * Returns matchers for the default HTTP headers which will be set when communicating with the remote API. Which headers are actually
      * set depends on whether the underlying API session has already been authorized or not. If <em>{@code withAuthorization}</em> is
      * set to TRUE, the returned array will contain matchers verifying that the authentication related headers exist and contain some reasonable
      * values. If set to FALSE the array will contain matchers verifying that no authentication related headers exist at all.
@@ -122,7 +122,7 @@ public abstract class MockServerUtil {
      * @return New preconfigured HTTP response with the given status and content
      */
     public static HttpResponse createResponse(HttpStatusCode status, String content) {
-        return response().withHeader(contentLenghth(content)).withStatusCode(status.code()).withReasonPhrase(status.reasonPhrase()).withBody(content);
+        return response().withHeader(contentLength(content)).withStatusCode(status.code()).withReasonPhrase(status.reasonPhrase()).withBody(content);
     }
 
     /**

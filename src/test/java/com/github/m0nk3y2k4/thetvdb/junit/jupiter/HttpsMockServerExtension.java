@@ -34,9 +34,9 @@ import org.mockserver.socket.tls.KeyStoreFactory;
  * JUnit5 extension adding some additional features to the regular {@link org.mockserver.junit.jupiter.MockServerExtension MockServerExtension}
  * <p><br>
  * Provides a resolver to let preconfigured {@link RemoteAPI} method parameters being injected in test classes.
- * Also adds settings for handling HTTPS reqeuest as well as some default expectations which enable the mock server
+ * Also adds settings for handling HTTPS request as well as some default expectations which enable the mock server
  * to automatically answer any received HTTPS request with some default response. It will also take care of resetting
- * expactations and recorded requests on the server mock on a regular basis.
+ * expectations and recorded requests on the server mock on a regular basis.
  *
  * @see WithHttpsMockServer
  */
@@ -65,7 +65,7 @@ public class HttpsMockServerExtension implements ParameterResolver, BeforeAllCal
 
     @Override
     public void beforeAll(ExtensionContext extensionContext) {
-        // Reset all expactations and recordings before each test class to avoid test classes interfering with each other
+        // Reset all expectations and recordings before each test class to avoid test classes interfering with each other
         client.reset();
 
         // Set some HTTPS related stuff
