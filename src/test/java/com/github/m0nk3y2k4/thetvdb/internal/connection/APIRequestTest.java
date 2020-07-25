@@ -64,13 +64,13 @@ class APIRequestTest {
         );
     }
 
-    @ParameterizedTest(name = "{index} String \"{0}\" is not a valid resource")
+    @ParameterizedTest(name = "[{index}] String \"{0}\" is not a valid resource")
     @NullAndEmptySource @ValueSource(strings = {"   "})
     void newAPIRequest_withoutResource_verifyParameterValidation(String resource) {
         assertThatIllegalArgumentException().isThrownBy(() -> new APIRequest(resource, HttpRequestMethod.DELETE) {});
     }
 
-    @ParameterizedTest(name = "{index} Value \"{0}\" is not a valid request method")
+    @ParameterizedTest(name = "[{index}] Value \"{0}\" is not a valid request method")
     @NullSource
     void newAPIRequest_withoutRequestMethod_verifyParameterValidation(HttpRequestMethod method) {
         assertThatIllegalArgumentException().isThrownBy(() -> new APIRequest("/missingMethod", method) {});
@@ -154,7 +154,7 @@ class APIRequestTest {
         assertThat(response).hasToString(JSON_SUCCESS);
     }
 
-    @ParameterizedTest(name = "{index} Code {1} is mapped into \"{2}\" with error message \"{3}\"")
+    @ParameterizedTest(name = "[{index}] Code {1} is mapped into \"{2}\" with error message \"{3}\"")
     @MethodSource
     void getResponse_respondWithHTTPErrorCode_verifyExceptionHandling(String resource, HttpStatusCode status, Class<?> expectedException,
                 String expectedErrorMessage, MockServerClient client, RemoteAPI remoteAPI) {

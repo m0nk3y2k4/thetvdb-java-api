@@ -98,7 +98,7 @@ class APIConnectionTest {
         assertThat(extendedConnection.getRemoteAPI()).isEqualTo(remoteAPI);
     }
 
-    @ParameterizedTest(name = "{index} Verifying {1} request")
+    @ParameterizedTest(name = "[{index}] Verifying {1} request")
     @MethodSource
     void sendRequest_verifyHTTPMethodInRequest(Request request, String httpMethod, MockServerClient client) throws Exception {
         request.send(con);

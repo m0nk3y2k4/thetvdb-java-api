@@ -41,7 +41,7 @@ class ParametersTest {
         assertDoesNotThrow(() -> Parameters.validateCondition(Objects::nonNull, "I am not null!", new IllegalArgumentException("Should not be thrown")));
     }
 
-    @ParameterizedTest(name = "{index} Value \"{1}\" is invlaid as it does not match the condition")
+    @ParameterizedTest(name = "[{index}] Value \"{1}\" is invlaid as it does not match the condition")
     @MethodSource
     <T> void validateCondition_withConditionNotMatched_exceptionRethrown(Predicate<T> predicate, T value, RuntimeException exception) {
         IllegalArgumentException thrown = catchThrowableOfType(() -> Parameters.validateCondition(predicate, value, exception), IllegalArgumentException.class);
@@ -53,7 +53,7 @@ class ParametersTest {
         assertDoesNotThrow(() -> Parameters.validateNotNull(7, "Error in case of null-value"));
     }
 
-    @ParameterizedTest(name = "{index} String \"{0}\" is null")
+    @ParameterizedTest(name = "[{index}] String \"{0}\" is null")
     @NullSource
     void validateNotNull_withNullValue_exceptionThrown(String obj) {
         final String validationFailedMessage = "Value must not be null!";
@@ -66,7 +66,7 @@ class ParametersTest {
         assertDoesNotThrow(() -> Parameters.validateNotEmpty("Not empty!", "Error in case of empty string"));
     }
 
-    @ParameterizedTest(name = "{index} String \"{0}\" is null or empty")
+    @ParameterizedTest(name = "[{index}] String \"{0}\" is null or empty")
     @NullAndEmptySource @ValueSource(strings = {"      "})
     void validateNotEmptyString_withNullOrEmptyString_exceptionThrown(String obj) {
         final String validationFailedMessage = "String is null or empty!";
@@ -80,7 +80,7 @@ class ParametersTest {
         assertDoesNotThrow(() -> Parameters.validateNotEmpty(Optional.of("Some String"), "Error in case of empty Optional"));
     }
 
-    @ParameterizedTest(name = "{index} \"{0}\" contains null or empty value")
+    @ParameterizedTest(name = "[{index}] \"{0}\" contains null or empty value")
     @MethodSource
     void validateNotEmptyOptional_withInvalidOptional_exceptionThrown(Optional<String> obj) {
         final String validationFailedMessage = "Optional is null or empty!";
@@ -126,7 +126,7 @@ class ParametersTest {
         assertThat(exception).isInstanceOf(IllegalArgumentException.class).hasMessageContaining("[%s] is required but is not set", queryParamName);
     }
 
-    @ParameterizedTest(name = "{index} Parameter \"{0}\" is null or empty")
+    @ParameterizedTest(name = "[{index}] Parameter \"{0}\" is null or empty")
     @NullAndEmptySource @ValueSource(strings = {"   "})
     void validateQueryParam_withInvalidMandatoryQueryParameter_exceptionThrown(String queryParamNameValue) {
         final String queryParamName = "region";

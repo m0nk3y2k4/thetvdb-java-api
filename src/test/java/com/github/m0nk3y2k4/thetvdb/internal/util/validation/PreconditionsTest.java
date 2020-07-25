@@ -32,7 +32,7 @@ class PreconditionsTest {
         assertDoesNotThrow(() -> Preconditions.requires(age -> age > 18, 42, new APIPreconditionException("Should not be thrown")));
     }
 
-    @ParameterizedTest(name = "{index} Value \"{1}\" is invlaid as it does not match the condition")
+    @ParameterizedTest(name = "[{index}] Value \"{1}\" is invlaid as it does not match the condition")
     @MethodSource
     <T> void requires_conditionNotMatched_exceptionRethrown(Predicate<T> predicate, T value, RuntimeException exception) {
         APIPreconditionException thrown = catchThrowableOfType(() -> Preconditions.requires(predicate, value, exception), APIPreconditionException.class);
@@ -44,7 +44,7 @@ class PreconditionsTest {
         assertDoesNotThrow(() -> Preconditions.requireNonNull("   ", "Keep it to yourself"));
     }
 
-    @ParameterizedTest(name = "{index} String \"{0}\" is null")
+    @ParameterizedTest(name = "[{index}] String \"{0}\" is null")
     @NullSource
     void requireNonNull_withNullValue_exceptionThrown(String obj) {
         final String message = "I said no null-values!";
@@ -57,7 +57,7 @@ class PreconditionsTest {
         assertDoesNotThrow(() -> Preconditions.requireNonEmpty("Neither null nor empty", "Never thrown..."));
     }
 
-    @ParameterizedTest(name = "{index} String \"{0}\" is null or empty")
+    @ParameterizedTest(name = "[{index}] String \"{0}\" is null or empty")
     @NullAndEmptySource @ValueSource(strings = {"      "})
     void requireNonEmpty_withNullOrEmptyValue_exceptionThrown(String obj) {
         final String message = "Grrr...";

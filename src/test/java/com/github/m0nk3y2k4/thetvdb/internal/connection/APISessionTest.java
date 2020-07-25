@@ -56,7 +56,7 @@ class APISessionTest {
         assertThat(session.getToken()).isEmpty();
     }
 
-    @ParameterizedTest(name = "{index} Value {0} is not a valid API key")
+    @ParameterizedTest(name = "[{index}] Value {0} is not a valid API key")
     @NullSource
     void newAPISession_simpleWithMissingParameters_verifyParameterValidation(String apiKey) {
         assertThatIllegalArgumentException().isThrownBy(() -> new APISession(apiKey));
@@ -76,7 +76,7 @@ class APISessionTest {
         assertThat(session.getToken()).isEmpty();
     }
 
-    @ParameterizedTest(name = "{index} Verify unable to create session with [apiKey={0}, userKey={1}, userName={2}]")
+    @ParameterizedTest(name = "[{index}] Verify unable to create session with [apiKey={0}, userKey={1}, userName={2}]")
     @MethodSource
     void newAPISession_extendedWithMissingParameters_verifyParameterValidation(String apiKey, String userKey, String userName) {
         assertThatIllegalArgumentException().isThrownBy(() -> new APISession(apiKey, userKey, userName));
@@ -107,7 +107,7 @@ class APISessionTest {
         assertThat(exception).hasMessageContaining(ERR_JWT_INVALID, token);
     }
 
-    @ParameterizedTest(name = "{index} Setting language to \"{0}\" results in \"{1}\"")
+    @ParameterizedTest(name = "[{index}] Setting language to \"{0}\" results in \"{1}\"")
     @MethodSource
     void setLanguage_verifyLanguage(String language, String expected) {
         APISession session = new APISession("K512E3A7F8SWRT");
@@ -115,7 +115,7 @@ class APISessionTest {
         assertThat(session.getLanguage()).isEqualTo(expected);
     }
 
-    @ParameterizedTest(name = "{index} Setting status to \"{0}\" results in \"{1}\"")
+    @ParameterizedTest(name = "[{index}] Setting status to \"{0}\" results in \"{1}\"")
     @MethodSource
     void setStatus_verifyStatus(APISession.Status status, APISession.Status expected) {
         APISession session = new APISession("LDIWQ532D7WQ");
@@ -123,7 +123,7 @@ class APISessionTest {
         assertThat(session.getStatus()).isEqualTo(expected);
     }
 
-    @ParameterizedTest(name = "{index} Setting status to \"{0}\" results in isInitialized={1}")
+    @ParameterizedTest(name = "[{index}] Setting status to \"{0}\" results in isInitialized={1}")
     @MethodSource
     void isInitialized_setStatusAndVerifyInitialized(APISession.Status status, boolean expected) {
         APISession session = new APISession("32DLFO5W4F2S");

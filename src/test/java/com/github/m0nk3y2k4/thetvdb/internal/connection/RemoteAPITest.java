@@ -21,7 +21,7 @@ class RemoteAPITest {
         );
     }
 
-    @ParameterizedTest(name = "{index} Remote API \"{0}\" has settings [protocol={1}, host={2}, port={3}]")
+    @ParameterizedTest(name = "[{index}] Remote API \"{0}\" has settings [protocol={1}, host={2}, port={3}]")
     @MethodSource
     void buildNewRemoteAPI_withSpecificOrDefaultSettings_verifyAPISettings(RemoteAPI remote, String protocol, String host, int port) {
         assertThat(remote.getProtocol()).isEqualTo(protocol);
