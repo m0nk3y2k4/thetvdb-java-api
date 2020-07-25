@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Spliterator;
 import java.util.Spliterators;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -123,5 +124,10 @@ public class QueryParametersImpl implements QueryParameters {
                 };
             }
         };
+    }
+
+    @Override
+    public String toString() {
+        return params.entrySet().stream().map(e -> e.getKey() + "=" + e.getValue()).collect(Collectors.joining(", ", "[","]"));
     }
 }
