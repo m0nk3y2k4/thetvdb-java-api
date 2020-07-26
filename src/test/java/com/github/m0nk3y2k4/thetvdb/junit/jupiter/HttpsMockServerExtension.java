@@ -16,6 +16,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 import com.github.m0nk3y2k4.thetvdb.api.Proxy;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -76,7 +77,9 @@ public class HttpsMockServerExtension implements ParameterResolver, BeforeAllCal
         // Setup some expectations describing the default behavior for specific resources
         client.upsert(new Expectation(request("/.*"),
                 Times.unlimited(), TimeToLive.unlimited(), PRIO_DEFAULT).thenRespond(createSuccessResponse()));
-        client.upsert(new Expectation(request("/login").withBody(jsonSchemaFromResource("login.json")),
+        client.upsert(new Expectation(request("/login").withMethod(HttpRequestMethod.POST.getName()).withBody(jsonSchemaFromResource("login.json")),
+                Times.unlimited(), TimeToLive.unlimited(), PRIO_ROUTE).thenRespond(createJWTResponse()));
+        client.upsert(new Expectation(request("/refresh_token").withMethod(HttpRequestMethod.GET.getName()),
                 Times.unlimited(), TimeToLive.unlimited(), PRIO_ROUTE).thenRespond(createJWTResponse()));
     }
 

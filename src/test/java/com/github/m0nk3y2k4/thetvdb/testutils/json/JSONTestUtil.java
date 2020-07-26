@@ -1,11 +1,14 @@
 package com.github.m0nk3y2k4.thetvdb.testutils.json;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -92,6 +95,19 @@ public final class JSONTestUtil {
          */
         public JsonNode getJson() throws IOException {
             return new ObjectMapper().readTree(getUrl());
+        }
+
+        /**
+         * Returns this resources JSON content as String
+         *
+         * @return This resource as JSON String
+         *
+         * @throws IOException If an I/O exception occurs
+         */
+        public String getJsonString() throws IOException {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(getUrl().openStream()))) {
+                return reader.lines().collect(Collectors.joining(System.lineSeparator()));
+            }
         }
 
         /**

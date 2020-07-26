@@ -4,8 +4,8 @@
   "type": "object",
   "properties": {
     "apikey": { "type": "string" },
-    "userkey ": { "type": "string" },
-    "username ": { "type": "string" }
+    "userkey": { "type": "string" },
+    "username": { "type": "string" }
   },
   "required": ["apikey"],
   "additionalProperties": false
