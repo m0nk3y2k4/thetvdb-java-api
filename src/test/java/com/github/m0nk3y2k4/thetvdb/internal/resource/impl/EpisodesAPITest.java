@@ -47,7 +47,7 @@ class EpisodesAPITest {
 
     @ParameterizedTest(name = "[{index}] Route EpisodesAPI.{0} rejected")
     @MethodSource(value = "withInvalidParameters")
-    void invokeRoute_WithInvalidParameters_verifyParameterValidation(TestRemoteAPICall route, Supplier<RemoteAPI> remoteAPI) {
+    void invokeRoute_withInvalidParameters_verifyParameterValidation(TestRemoteAPICall route, Supplier<RemoteAPI> remoteAPI) {
         assertThatIllegalArgumentException().isThrownBy(() -> route.invoke(new APIConnection("OIW8E4GT58H8E4W", remoteAPI)));
     }
 
