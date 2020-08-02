@@ -1,6 +1,7 @@
 package com.github.m0nk3y2k4.thetvdb.testutils.json;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -50,5 +51,10 @@ public final class Data {
     @Override
     public int hashCode() {
         return Objects.hash(content);
+    }
+
+    @Override
+    public String toString() {
+        return Optional.ofNullable(content).orElse("");
     }
 }
