@@ -12,13 +12,17 @@ import static org.mockserver.model.HttpStatusCode.OK_200;
 import static org.mockserver.model.HttpStatusCode.UNAUTHORIZED_401;
 import static org.mockserver.model.NottableString.not;
 
+import java.io.IOException;
+
 import javax.annotation.Nonnull;
 
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
+import com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil;
 import org.mockserver.model.Header;
 import org.mockserver.model.Headers;
 import org.mockserver.model.HttpResponse;
 import org.mockserver.model.HttpStatusCode;
+import org.mockserver.model.JsonBody;
 import org.mockserver.model.JsonSchemaBody;
 
 /**
@@ -134,5 +138,18 @@ public abstract class MockServerUtil {
      */
     public static JsonSchemaBody jsonSchemaFromResource(String schemaName) {
         return JsonSchemaBody.jsonSchemaFromResource("json/schema/" + schemaName);
+    }
+
+    /**
+     * Creates a new JSON body based on the given JSON test resource
+     *
+     * @param json Some JSON test resource enumeration
+     *
+     * @return Mock server JSON body based on the given JSON test resource
+     *
+     * @throws IOException If an I/O exception occurs while processing the JSON resource
+     */
+    public static JsonBody json(JSONTestUtil.JsonResource json) throws IOException {
+        return new JsonBody(json.getJsonString());
     }
 }

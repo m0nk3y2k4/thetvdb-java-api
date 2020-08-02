@@ -245,6 +245,20 @@ public class APIConnection {
     }
 
     /**
+     * Returns the current {@link Status} of the underlying session. This status indicates that...
+     * <ul>
+     * <li>{@link Status#NOT_AUTHORIZED}: The session has not yet been initialized. API communication is restricted to login/refresh requests.</li>
+     * <li>{@link Status#AUTHORIZATION_IN_PROGRESS}: The initialization of this session is currently in progress</li>
+     * <li>{@link Status#AUTHORIZED}: The session is initialized and ready for further API communication</li>
+     * </ul>
+     *
+     * @return The current status of the underlying session
+     */
+    protected Status getStatus() {
+        return session.getStatus();
+    }
+
+    /**
      * Set the preferred language used for API communication. If available, search results will returned in this language.
      *
      * @param language The preferred language of the data returned by the remote service

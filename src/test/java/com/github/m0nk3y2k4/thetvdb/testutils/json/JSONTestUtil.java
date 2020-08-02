@@ -215,7 +215,7 @@ public final class JSONTestUtil {
      * @return New series header map prefilled with default values
      */
     public static Map<String, String> seriesHeader() {
-        return Map.of("Header1", "Value1", "Header2", "Value2");
+        return Map.of("content-length", "0", "connection", "keep-alive", "Header1", "Value1", "Header2", "Value2");
     }
 
     /**
