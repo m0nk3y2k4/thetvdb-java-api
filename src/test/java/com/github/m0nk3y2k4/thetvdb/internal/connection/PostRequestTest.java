@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.mockserver.client.MockServerClient;
 import org.mockserver.verify.VerificationTimes;
 
+@SuppressWarnings("ConstantConditions")
 @WithHttpsMockServer
 class PostRequestTest {
 

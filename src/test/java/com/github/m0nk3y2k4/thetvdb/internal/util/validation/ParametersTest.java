@@ -23,6 +23,7 @@ import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+@SuppressWarnings({"ConstantConditions", "ObviousNullCheck"})
 class ParametersTest {
 
     private static Stream<Arguments> validateCondition_withConditionNotMatched_exceptionRethrown() {
