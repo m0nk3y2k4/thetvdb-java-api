@@ -3,12 +3,12 @@ package com.github.m0nk3y2k4.thetvdb.testutils.parameterized;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
-import com.github.m0nk3y2k4.thetvdb.internal.util.functional.ThrowableFunctionalInterfaces;
+import com.github.m0nk3y2k4.thetvdb.internal.util.functional.ThrowableFunctionalInterfaces.Function;
 
 /**
  * Small helper class used to wrap calls to the remote API for easier parameterized JUnit testing
  * <p><br>
- * Accepts routes from classes within the <i>com.github.m0nk3y2k4.thetvdb.internal.resource.impl</i> package. An additional textual
+ * Accepts routes from classes within the <i>{@link com.github.m0nk3y2k4.thetvdb.internal.resource.impl}</i> package. An additional textual
  * description can be added which will be displayed as the default String representation of this object. Provides a single method to
  * invoke the underlying remote API route and to return it's response.
  * <pre>{@code
@@ -34,23 +34,10 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.functional.ThrowableFunctional
  *     }
  * }</pre>
  */
-public class TestRemoteAPICall {
+public class TestRemoteAPICall extends TestAPICall<Function<APIConnection, JsonNode, APIException>> {
 
-    /** The actual API route represented by this object */
-    private final ThrowableFunctionalInterfaces.Function<APIConnection, JsonNode, APIException> route;
-
-    /** Textual description of this remote API call */
-    private final String description;
-
-    /**
-     * Creates a new remote API call for the given route
-     *
-     * @param route The actual remote route to be invoked
-     * @param description Textual description of the given remote route
-     */
-    private TestRemoteAPICall(ThrowableFunctionalInterfaces.Function<APIConnection, JsonNode, APIException> route, String description) {
-        this.route = route;
-        this.description = description;
+    private TestRemoteAPICall(Function<APIConnection, JsonNode, APIException> route, String description) {
+        super(route, description);      // Use TestRemoteAPICall#route instead
     }
 
     /**
@@ -66,11 +53,6 @@ public class TestRemoteAPICall {
         return route.apply(con);
     }
 
-    @Override
-    public String toString() {
-        return description;
-    }
-
     /**
      * Creates a new remote API call for the given route
      *
@@ -79,7 +61,7 @@ public class TestRemoteAPICall {
      *
      * @return New remote API call based on the given parameters
      */
-    public static TestRemoteAPICall route(ThrowableFunctionalInterfaces.Function<APIConnection, JsonNode, APIException> route, String description) {
+    public static TestRemoteAPICall route(Function<APIConnection, JsonNode, APIException> route, String description) {
         return new TestRemoteAPICall(route, description);
     }
 }
