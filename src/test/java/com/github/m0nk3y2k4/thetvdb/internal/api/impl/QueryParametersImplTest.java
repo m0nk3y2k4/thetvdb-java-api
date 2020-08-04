@@ -73,11 +73,14 @@ class QueryParametersImplTest {
         assertThat(bruceBanner).isEqualTo(theHulk).hasSameHashCodeAs(theHulk);
     }
 
+    @SuppressWarnings("java:S5838")
     @Test
     void parameters_withDifferentKeyAndValue_shouldNotBeEqualAndHaveDifferentHashCode() {
         QueryParameters.Parameter captainAmerica = new QueryParametersImpl().addParameter("Steve", "Rogers").iterator().next();
+        QueryParameters.Parameter captainCool = new QueryParametersImpl().addParameter("Steve", "McQueen").iterator().next();
         QueryParameters.Parameter captainMarvel = new QueryParametersImpl().addParameter("Carol", "Danvers").iterator().next();
-        assertThat(captainAmerica).isNotEqualTo(captainMarvel).isNotEqualTo(null).isNotEqualTo("Captain Marvel");
+        assertThat(captainAmerica).isNotEqualTo(captainCool).isNotEqualTo(captainMarvel).isNotEqualTo("Captain Marvel");
+        assertThat(captainAmerica.equals(null)).isFalse();
         assertThat(captainAmerica.hashCode()).isNotEqualTo(captainMarvel.hashCode());
     }
 
