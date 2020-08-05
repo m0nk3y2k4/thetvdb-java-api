@@ -58,7 +58,7 @@ class SeriesAPITest {
     static void setUpRoutes(MockServerClient client) throws Exception {
         client.when(request("/series/84574").withMethod(GET.getName())).respond(response().withBody(json(SERIES)));
         client.when(request("/series/7451").withMethod(HEAD.getName())).respond(response().withHeaders(
-                ((Map<String, String>)SERIESHEADER.getDTO()).entrySet().stream().map(e -> header(e.getKey(), e.getValue())).collect(Collectors.toList())));
+                ((Map<String, String>)SERIESHEADER.getDTO().getData()).entrySet().stream().map(e -> header(e.getKey(), e.getValue())).collect(Collectors.toList())));
         client.when(request("/series/36145/actors").withMethod(GET.getName())).respond(response().withBody(json(ACTORS)));
         client.when(request("/series/84674/episodes").withQueryStringParameter(not(".*"), not(".*")).withMethod(GET.getName())).respond(response().withBody(json(EPISODES)));
         client.when(request("/series/69547/episodes").withQueryStringParameter("page", "4").withMethod(GET.getName())).respond(response().withBody(json(EPISODES)));

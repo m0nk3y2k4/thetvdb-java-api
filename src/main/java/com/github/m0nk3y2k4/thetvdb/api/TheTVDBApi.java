@@ -276,6 +276,7 @@ public interface TheTVDBApi {
      * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/head_series_id"><b>[HEAD]</b> /series/{id}</a>
      *
      * @see JSON#getSeriesHeaderInformation(long) TheTVDBApi.JSON.getSeriesHeaderInformation(seriesId)
+     * @see Extended#getSeriesHeaderInformation(long) TheTVDBApi.Extended.getSeriesHeaderInformation(seriesId)
      *
      * @param seriesId The <i>TheTVDB.com</i> series ID
      *
@@ -1059,6 +1060,7 @@ public interface TheTVDBApi {
          * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/head_series_id"><b>[HEAD]</b> /series/{id}</a>
          *
          * @see TheTVDBApi#getSeriesHeaderInformation(long) TheTVDBApi.getSeriesHeaderInformation(seriesId)
+         * @see Extended#getSeriesHeaderInformation(long) TheTVDBApi.Extended.getSeriesHeaderInformation(seriesId)
          *
          * @param seriesId The <i>TheTVDB.com</i> series ID
          *
@@ -1563,6 +1565,24 @@ public interface TheTVDBApi {
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
          */
         APIResponse<Series> getSeries(long seriesId) throws APIException;
+
+        /**
+         * Returns a response object containing header information for a specific series as key/value pairs. Good for getting the Last-Updated header to find out
+         * when the series was last modified.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Series/head_series_id"><b>[HEAD]</b> /series/{id}</a>
+         *
+         * @see JSON#getSeriesHeaderInformation(long) TheTVDBApi.JSON.getSeriesHeaderInformation(seriesId)
+         * @see TheTVDBApi#getSeriesHeaderInformation(long) TheTVDBApi.getSeriesHeaderInformation(seriesId)
+         *
+         * @param seriesId The <i>TheTVDB.com</i> series ID
+         *
+         * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
+         *         that not all API routes provide additional information so this type of data might be empty.
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given series ID does not exist, etc.
+         */
+        APIResponse<Map<String, String>> getSeriesHeaderInformation(long seriesId) throws APIException;
 
         /**
          * Returns a response object containing a list of actors for a specific series mapped as Java DTO.

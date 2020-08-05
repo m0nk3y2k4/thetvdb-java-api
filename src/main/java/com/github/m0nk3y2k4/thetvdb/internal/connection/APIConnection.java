@@ -479,6 +479,7 @@ abstract class APIRequest {
      *
      * @throws IOException Thrown in case of communication issues like malformed URL, invalid request method, etc.
      */
+    @SuppressWarnings("java:S3655")     // No need to check for existence: Authorization process guarantees that a session in status AUTHORIZED must have a valid token
     private HttpsURLConnection openConnection() throws IOException {
         Preconditions.requireNonNull(remote, "No remote endpoint specified");
         Preconditions.requireNonEmpty(resource, "No API resource specified");
@@ -679,7 +680,7 @@ final class HeadRequest extends APIRequest {
     }
 
     /**
-     * Assembles the response header fields of the given connection into a JSON object and returns it
+     * Assembles the response header fields of the given connection into the data node of a JSON object and returns it
      *
      * @param con Fully initialized HTTPS connection pointing to some remote service endpoint
      *
@@ -689,7 +690,7 @@ final class HeadRequest extends APIRequest {
     JsonNode getResponse(@Nonnull HttpsURLConnection con) {
         // Create JSON object from response header fields
         JsonNodeFactory factory = new ObjectMapper().getNodeFactory();
-        ObjectNode root = factory.objectNode();
+        ObjectNode data = factory.objectNode();
 
         for (Entry<String, List<String>> header : con.getHeaderFields().entrySet()) {
             if (header.getKey() == null) {
@@ -700,17 +701,17 @@ final class HeadRequest extends APIRequest {
             List<String> values = header.getValue();
 
             if (values.isEmpty()) {
-                root.putNull(key);
+                data.putNull(key);
             } else if (values.size() == 1) {
-                root.put(key, values.get(0));
+                data.put(key, values.get(0));
             } else {
                 ArrayNode arrayNode = factory.arrayNode();
                 values.forEach(arrayNode::add);
-                root.set(key, arrayNode);
+                data.set(key, arrayNode);
             }
         }
 
-        return root;
+        return factory.objectNode().set("data", data);
     }
 }
 

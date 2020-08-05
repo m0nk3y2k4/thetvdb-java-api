@@ -197,7 +197,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
 
     @Override
     public Map<String, String> getSeriesHeaderInformation(long seriesId) throws APIException {
-        return JsonDeserializer.mapSeriesHeader(json().getSeriesHeaderInformation(seriesId));
+        return extended().getSeriesHeaderInformation(seriesId).getData();
     }
 
     @Override
@@ -610,6 +610,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public APIResponse<Series> getSeries(long seriesId) throws APIException {
             return JsonDeserializer.mapSeries(json().getSeries(seriesId));
+        }
+
+        @Override
+        public APIResponse<Map<String, String>> getSeriesHeaderInformation(long seriesId) throws APIException {
+            return JsonDeserializer.mapSeriesHeader(json().getSeriesHeaderInformation(seriesId));
         }
 
         @Override

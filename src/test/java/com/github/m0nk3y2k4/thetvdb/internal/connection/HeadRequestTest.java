@@ -38,8 +38,9 @@ class HeadRequestTest {
         request.setRemoteAPI(remoteAPI);
         client.when(request(resource).withMethod(HttpRequestMethod.HEAD.getName())).respond(response().withStatusCode(HttpStatusCode.OK_200.code())
                 .withHeaders(header(headerKey, headerValue), header(listHeaderKey, listHeaderValues)));
-        JsonNode response = request.send();
-        assertThat(response.get(headerKey).textValue()).isEqualTo(headerValue);
-        assertThat(response.get(listHeaderKey)).extracting(JsonNode::textValue).containsExactlyInAnyOrderElementsOf(listHeaderValues);
+        JsonNode dataNode = request.send().get("data");
+        assertThat(dataNode).isNotNull();
+        assertThat(dataNode.get(headerKey).textValue()).isEqualTo(headerValue);
+        assertThat(dataNode.get(listHeaderKey)).extracting(JsonNode::textValue).containsExactlyInAnyOrderElementsOf(listHeaderValues);
     }
 }

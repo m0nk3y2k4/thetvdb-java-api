@@ -178,7 +178,7 @@ public final class JsonDeserializer {
 
     /**
      * Maps the header information for a specific series returned by the remote series HEAD route. The header information properties will be represented
-     * by the key/value pairs of the returned map.
+     * by the key/value pairs of the returned API responses data map.
      *
      * @param json The full JSON as returned by the remote service, containing key/value pairs of header information
      *
@@ -186,7 +186,7 @@ public final class JsonDeserializer {
      *
      * @throws APIException If an IO error occurred during the deserialization of the given JSON object
      */
-    public static Map<String, String> mapSeriesHeader(@Nonnull JsonNode json) throws APIException {
+    public static APIResponse<Map<String, String>> mapSeriesHeader(@Nonnull JsonNode json) throws APIException {
         return mapObject(json, new TypeReference<>(){});
     }
 

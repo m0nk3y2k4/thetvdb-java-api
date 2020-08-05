@@ -42,12 +42,12 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.UserDTO;
  * <p><br>
  * Test utility class offering easy access to predefined JSON files and associated Java DTO's. Resource files and
  * DTO's are aligned in terms of content. In other words, the DTO is the Java data type representation of some JSON
- * resource file, for example:
+ * resource file. For an easier usage corresponding DTO's and resource files are consolidated into enumerations. For example:
  * <pre>{@code
- *     JsonParser errorsJSON = new JsonFactory().createParser(JSONTestUtil.getResource(ERRORS));    // JSON resource file
- *     JSONErrors errorsDTO = parse(errorsJSON);
+ *     JsonParser seriesJSON = new JsonFactory().createParser(JsonResource.SERIES.getUrl());    // JSON resource file via URI
+ *     APIResponse<Series> seriesDTO = parse(seriesJSON);
  *
- *     assertThat(errorsDTO).isEqualTo(JSONTestUtil.errors());      // Resource file as Java object
+ *     assertThat(seriesDTO).isEqualTo(JsonResource.SERIES.getDTO());      // Resource file as Java object
  * }</pre>
  */
 public final class JSONTestUtil {
@@ -77,10 +77,10 @@ public final class JSONTestUtil {
         RATINGS("ratings", JSONTestUtil::ratings, "Ratings JSON response");
 
         private final String fileName;
-        private final Supplier<?> dtoSupplier;
+        private final Supplier<APIResponse<?>> dtoSupplier;
         private final String description;
 
-        JsonResource(String fileName, Supplier<?> dtoSupplier, String description) {
+        JsonResource(String fileName, Supplier<APIResponse<?>> dtoSupplier, String description) {
             this.fileName = fileName;
             this.dtoSupplier = dtoSupplier;
             this.description = description;
@@ -127,8 +127,8 @@ public final class JSONTestUtil {
          * @return DTO representation of this JSON resource
          */
         @SuppressWarnings("unchecked")
-        public <T> T getDTO() {
-            return (T)dtoSupplier.get();
+        public <T> APIResponse<T> getDTO() {
+            return (APIResponse<T>)dtoSupplier.get();
         }
 
         @Override
@@ -210,12 +210,18 @@ public final class JSONTestUtil {
     }
 
     /**
-     * Creates a new series header map with default values set
+     * Creates a new series header APIResponse DTO with default values set
      *
-     * @return New series header map prefilled with default values
+     * @return New series header APIResponse DTO prefilled with default values
      */
-    public static Map<String, String> seriesHeader() {
-        return Map.of("content-length", "0", "connection", "keep-alive", "Header1", "Value1", "Header2", "Value2");
+    public static APIResponse<Map<String, String>> seriesHeader() {
+        return new APIResponseDTO.Builder<Map<String, String>>()
+                .data(Map.of(
+                        "content-length", "0",
+                        "connection", "keep-alive",
+                        "Header1", "Value1",
+                        "Header2", "Value2"))
+                .build();
     }
 
     /**
