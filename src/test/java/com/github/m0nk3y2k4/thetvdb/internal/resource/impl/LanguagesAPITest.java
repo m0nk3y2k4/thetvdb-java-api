@@ -3,6 +3,7 @@ package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.LanguagesAPI.get;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.LanguagesAPI.getAllAvailable;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
+import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.json;
 import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.LANGUAGE;
 import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.LANGUAGES;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPICall.route;
@@ -10,7 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
-import static org.mockserver.model.JsonBody.json;
 
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -31,8 +31,8 @@ class LanguagesAPITest {
 
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
-        client.when(request("/languages").withMethod(GET.getName())).respond(response().withBody(json(LANGUAGES.getJsonString())));
-        client.when(request("/languages/4584").withMethod(GET.getName())).respond(response().withBody(json(LANGUAGE.getJsonString())));
+        client.when(request("/languages").withMethod(GET.getName())).respond(response().withBody(json(LANGUAGES)));
+        client.when(request("/languages/4584").withMethod(GET.getName())).respond(response().withBody(json(LANGUAGE)));
     }
 
     private static Stream<Arguments> withInvalidParameters() {
