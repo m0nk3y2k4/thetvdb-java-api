@@ -154,6 +154,7 @@ class ParametersTest {
      */
     private static class QueryParametersWithDisabledValueChecks extends QueryParametersImpl {
 
+        @SuppressWarnings("SameParameterValue")
         protected QueryParametersWithDisabledValueChecks(@Nonnull String key, @CheckForNull String value) {
             this.addParameter(key, value);
         }

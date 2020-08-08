@@ -97,6 +97,7 @@ class APIUtilTest {
     private static final class SomeObject {
         private final String value;
 
+        @SuppressWarnings("SameParameterValue")
         SomeObject(String value) {
             this.value = value;
         }

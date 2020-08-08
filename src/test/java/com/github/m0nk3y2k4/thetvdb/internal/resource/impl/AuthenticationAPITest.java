@@ -64,6 +64,7 @@ class AuthenticationAPITest {
             super(apiKey, () -> remote);
         }
 
+        @SuppressWarnings("SameParameterValue")
         private Connection(String apiKey, String userKey, String userName) {
             super(apiKey, userKey, userName, () -> remote);
         }
