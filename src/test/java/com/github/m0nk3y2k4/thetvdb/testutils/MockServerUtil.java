@@ -16,14 +16,17 @@ import java.io.IOException;
 
 import javax.annotation.Nonnull;
 
+import com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
-import com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil;
+import com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource;
 import org.mockserver.model.Header;
 import org.mockserver.model.Headers;
+import org.mockserver.model.HttpRequest;
 import org.mockserver.model.HttpResponse;
 import org.mockserver.model.HttpStatusCode;
 import org.mockserver.model.JsonBody;
 import org.mockserver.model.JsonSchemaBody;
+import org.mockserver.model.Parameter;
 
 /**
  * Utility class providing useful methods for working with mock servers
@@ -141,15 +144,40 @@ public abstract class MockServerUtil {
     }
 
     /**
-     * Creates a new JSON body based on the given JSON test resource
+     * Creates a new mock server HTTP request for the given path and request method and without any query parameters
      *
-     * @param json Some JSON test resource enumeration
+     * @param path The requests path
+     * @param method The HTTP request method
      *
-     * @return Mock server JSON body based on the given JSON test resource
+     * @return Mock server HTTP request based on the given parameters
+     */
+    public static HttpRequest request(String path, HttpRequestMethod method) {
+        return request(path, method, Parameter.param(not(".*"), not(".*")));
+    }
+
+    /**
+     * Creates a new mock server HTTP request for the given path, request method and an optional set of query parameters
+     *
+     * @param path The requests path
+     * @param method The HTTP request method
+     * @param parameters Optional query parameters
+     *
+     * @return Mock server HTTP request based on the given parameters
+     */
+    public static HttpRequest request(String path, HttpRequestMethod method, Parameter... parameters) {
+        return HttpRequest.request(path).withMethod(method.getName()).withQueryStringParameters(parameters);
+    }
+
+    /**
+     * Creates a new mock server HTTP response with a JSON body based on the given JSON test resource
+     *
+     * @param resource Some JSON test resource enumeration
+     *
+     * @return Mock server HTTP response with a JSON body based on the given JSON test resource
      *
      * @throws IOException If an I/O exception occurs while processing the JSON resource
      */
-    public static JsonBody json(JSONTestUtil.JsonResource json) throws IOException {
-        return new JsonBody(json.getJsonString());
+    public static HttpResponse jsonResponse(JsonResource resource) throws IOException {
+        return HttpResponse.response().withBody(JsonBody.json(resource.getJsonString()));
     }
 }
