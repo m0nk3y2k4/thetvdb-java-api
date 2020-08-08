@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="EntryPointsManager">
+    <pattern value="com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnectionTest" method="sendRequest_verifyHTTPMethodInRequest" />
+    <pattern value="com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnectionTest" method="APIConnectionTest" />
+    <pattern value="com.github.m0nk3y2k4.thetvdb.internal.connection.APIRequestTest" method="getResponse_respondWithHTTPErrorCode_verifyExceptionHandling" />
+    <pattern value="com.github.m0nk3y2k4.thetvdb.internal.connection.APISessionTest" method="isInitialized_setStatusAndVerifyInitialized" />
+    <pattern value="com.github.m0nk3y2k4.thetvdb.internal.connection.APISessionTest" method="newAPISession_extendedWithMissingParameters_verifyParameterValidation" />
+    <pattern value="com.github.m0nk3y2k4.thetvdb.internal.connection.APISessionTest" method="setLanguage_verifyLanguage" />
+    <pattern value="com.github.m0nk3y2k4.thetvdb.internal.connection.APISessionTest" method="setStatus_verifyStatus" />
+    <pattern value="com.github.m0nk3y2k4.thetvdb.internal.util.APIUtilTest" method="hasNoValue" />
+    <pattern value="com.github.m0nk3y2k4.thetvdb.internal.util.APIUtilTest" method="hasValue" />
+    <pattern value="com.github.m0nk3y2k4.thetvdb.internal.util.APIUtilTest" method="toString_withDefaultValue" />
+    <pattern value="com.github.m0nk3y2k4.thetvdb.internal.util.APIUtilTest" method="toString_withoutDefaultValue" />
+    <pattern value="com.github.m0nk3y2k4.thetvdb.internal.resource.QueryResourceTest" method="createQueryResource_verifyResourceString" />
+    <pattern value="com.github.m0nk3y2k4.thetvdb.internal.util.validation.PreconditionsTest" method="requires_conditionNotMatched_exceptionRethrown" />
+    <pattern value="com.github.m0nk3y2k4.thetvdb.internal.util.validation.ParametersTest" method="validateCondition_withConditionNotMatched_exceptionRethrown" />
+    <pattern value="com.github.m0nk3y2k4.thetvdb.internal.util.validation.ParametersTest" method="validateNotEmptyOptional_withInvalidOptional_exceptionThrown" />
+    <pattern value="com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPITest" method="buildNewRemoteAPI_withSpecificOrDefaultSettings_verifyAPISettings" />
+    <pattern value="com.github.m0nk3y2k4.thetvdb.internal.resource.ResourceTest" method="createBaseResource_verifyResourceString" />
+    <pattern value="com.github.m0nk3y2k4.thetvdb.internal.resource.ResourceTest" method="createSpecificResource_verifyResourceString" />
+  </component>
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/Desktop/TheTVDB_JavaDoc" />
     <option name="OTHER_OPTIONS" value="-noqualifier all" />
