@@ -9,7 +9,7 @@ import static org.mockserver.model.HttpRequest.request;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APIPreconditionException;
 import com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod;
-import com.github.m0nk3y2k4.thetvdb.junit.jupiter.WithHttpsMockServer;
+import com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter.WithHttpsMockServer;
 import org.junit.jupiter.api.Test;
 import org.mockserver.client.MockServerClient;
 import org.mockserver.verify.VerificationTimes;

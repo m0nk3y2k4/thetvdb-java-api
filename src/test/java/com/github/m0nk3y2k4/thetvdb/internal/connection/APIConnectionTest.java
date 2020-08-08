@@ -17,7 +17,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
-import com.github.m0nk3y2k4.thetvdb.junit.jupiter.WithHttpsMockServer;
+import com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter.WithHttpsMockServer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

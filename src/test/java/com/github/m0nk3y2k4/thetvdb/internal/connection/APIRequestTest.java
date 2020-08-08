@@ -31,7 +31,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.exception.APICommunicationException
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APINotAuthorizedException;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APIPreconditionException;
 import com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod;
-import com.github.m0nk3y2k4.thetvdb.junit.jupiter.WithHttpsMockServer;
+import com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter.WithHttpsMockServer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

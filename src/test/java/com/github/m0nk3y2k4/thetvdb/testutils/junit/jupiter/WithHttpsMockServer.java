@@ -1,4 +1,4 @@
-package com.github.m0nk3y2k4.thetvdb.junit.jupiter;
+package com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
