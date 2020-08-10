@@ -15,6 +15,7 @@ import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI.quer
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.HEAD;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.params;
+import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.getHeadersFrom;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
 import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.ACTORS;
@@ -31,13 +32,10 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPI
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.junit.jupiter.params.provider.Arguments.of;
-import static org.mockserver.model.Header.header;
 import static org.mockserver.model.HttpResponse.response;
 import static org.mockserver.model.Parameter.param;
 
-import java.util.Map;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.QueryParametersImpl;
@@ -58,8 +56,7 @@ class SeriesAPITest {
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
         client.when(request("/series/84574", GET)).respond(jsonResponse(SERIES));
-        client.when(request("/series/7451", HEAD)).respond(response().withHeaders(((Map<String, String>)SERIESHEADER.getDTO().getData())
-                .entrySet().stream().map(e -> header(e.getKey(), e.getValue())).collect(Collectors.toList())));
+        client.when(request("/series/7451", HEAD)).respond(response().withHeaders(getHeadersFrom(SERIESHEADER)));
         client.when(request("/series/36145/actors", GET)).respond(jsonResponse(ACTORS));
         client.when(request("/series/84674/episodes", GET)).respond(jsonResponse(EPISODES));
         client.when(request("/series/69547/episodes", GET, param("page", "4"))).respond(jsonResponse(EPISODES));

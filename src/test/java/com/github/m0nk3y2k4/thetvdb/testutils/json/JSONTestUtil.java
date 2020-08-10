@@ -122,13 +122,10 @@ public final class JSONTestUtil {
         /**
          * Returns a DTO representation of this JSON resource
          *
-         * @param <T> The actual type of the DTO
-         *
          * @return DTO representation of this JSON resource
          */
-        @SuppressWarnings("unchecked")
-        public <T> APIResponse<T> getDTO() {
-            return (APIResponse<T>)dtoSupplier.get();
+        public APIResponse<?> getDTO() {
+            return dtoSupplier.get();
         }
 
         @Override

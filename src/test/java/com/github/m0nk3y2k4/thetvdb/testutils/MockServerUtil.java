@@ -13,6 +13,11 @@ import static org.mockserver.model.HttpStatusCode.UNAUTHORIZED_401;
 import static org.mockserver.model.NottableString.not;
 
 import java.io.IOException;
+import java.util.AbstractMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 
@@ -91,6 +96,28 @@ public abstract class MockServerUtil {
                 header(USER_AGENT, "Mozilla/5.0"),
                 withAuthorization ? header(AUTHORIZATION, "Bearer [A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*$") : header(not(AUTHORIZATION)),
                 withAuthorization ? header(ACCEPT_LANGUAGE, "^[a-z]{2}|[A-Z]{2}$") : header(not(ACCEPT_LANGUAGE)));
+    }
+
+    /**
+     * Tries to create a set of mock server headers from the given JSON resource object. For this, the resources {@link JsonResource#getDTO()}
+     * method must return a {@link Map}. The key/value pairs of this map will be converted into their String representation and will be set
+     * as key/value pairs on the returned headers object.
+     *
+     * @param resource The test resource based on which the headers object should be created
+     *
+     * @return Headers object with key/value pairs from the given JSON resource. In case the resources DTO is not compatible an
+     *         empty headers object without any keys or values will be returned.
+     */
+    public static Headers getHeadersFrom(JsonResource resource) {
+        Headers headers = new Headers();
+        if (resource.getDTO().getData() instanceof Map) {
+            Function<Map.Entry<?, ?>, Map.Entry<String, String>> toStringValues = e ->
+                    new AbstractMap.SimpleImmutableEntry<>(Objects.toString(e.getKey(), null), Objects.toString(e.getValue(), null));
+            Consumer<Map.Entry<String, String>> addHeader = e -> headers.withEntry(e.getKey(), e.getValue());
+
+            ((Map<?, ?>)resource.getDTO().getData()).entrySet().stream().map(toStringValues).forEach(addHeader);
+        }
+        return headers;
     }
 
     /**

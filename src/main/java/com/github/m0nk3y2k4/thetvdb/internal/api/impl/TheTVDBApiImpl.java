@@ -27,6 +27,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesSummary;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.User;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.exception.APIPreconditionException;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.AuthenticationAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.EpisodesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.LanguagesAPI;
@@ -566,7 +567,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
          */
         private void validateUserAuthentication() {
             if (!con.userAuthentication()) {
-                throw new IllegalArgumentException("API call requires userKey/userName to be set!");
+                throw new APIPreconditionException("API call requires userKey/userName to be set!");
             }
         }
     }

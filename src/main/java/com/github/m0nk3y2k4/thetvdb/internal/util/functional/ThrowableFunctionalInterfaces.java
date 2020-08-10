@@ -80,4 +80,21 @@ public interface ThrowableFunctionalInterfaces {
          */
         R apply(T t) throws X;
     }
+
+    /**
+     * Procedure functional interface which allows the <em>{@code invoke}</em> method to throw an exception of type X. Can be used
+     * for lambda-representations of a void method that may throw an exception.
+     *
+     * @param <X> the type of exception to be thrown by the procedure
+     */
+    @FunctionalInterface
+    interface Procedure<X extends Exception> {
+
+        /**
+         * Invokes the procedure.
+         *
+         * @throws X When an exception occurred during invocation
+         */
+        void invoke() throws X;
+    }
 }
