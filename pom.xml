@@ -35,8 +35,29 @@
         </plugin>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.2.1</version>
+            <executions>
+                <execution>
+                    <id>attach-sources</id>
+                    <goals>
+                        <goal>jar</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
             <version>3.2.0</version>
+            <executions>
+                <execution>
+                    <id>attach-javadocs</id>
+                    <goals>
+                        <goal>jar</goal>
+                    </goals>
+                </execution>
+            </executions>
             <configuration>
                 <doclint>all</doclint>
                 <doctitle>TheTVDB Java ${project.version} API</doctitle>
@@ -113,7 +134,7 @@
     <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
-        <version>2.11.0</version>
+        <version>2.11.2</version>
     </dependency>
 
     <!--#####################################-->
@@ -164,7 +185,7 @@
     <dependency>
         <groupId>org.mockito</groupId>
         <artifactId>mockito-core</artifactId>
-        <version>3.3.3</version>
+        <version>3.4.6</version>
         <scope>test</scope>
     </dependency>
 
@@ -172,21 +193,21 @@
     <dependency>
         <groupId>org.mock-server</groupId>
         <artifactId>mockserver-netty</artifactId>
-        <version>5.10.0</version>
+        <version>5.11.1</version>
         <scope>test</scope>
     </dependency>
     <!-- Mockserver: Java client -->
     <dependency>
         <groupId>org.mock-server</groupId>
         <artifactId>mockserver-client-java</artifactId>
-        <version>5.10.0</version>
+        <version>5.11.1</version>
         <scope>test</scope>
     </dependency>
     <!-- Mockserver: JUnit 5 extension -->
     <dependency>
         <groupId>org.mock-server</groupId>
         <artifactId>mockserver-junit-jupiter</artifactId>
-        <version>5.10.0</version>
+        <version>5.11.1</version>
         <scope>test</scope>
     </dependency>
 
