@@ -11,6 +11,7 @@ import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.AUTHOR
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.CONTENT_TYPE;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.USER_AGENT;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -540,12 +541,12 @@ abstract class APIRequest {
      * @throws APIException Thrown if a response with a status code other than HTTP-200 was received
      * @throws IOException Thrown if an error occurred connecting to the server
      */
-    JsonNode getResponse(@Nonnull HttpsURLConnection con) throws APIException, IOException {
+    private JsonNode getResponse(@Nonnull HttpsURLConnection con) throws APIException, IOException {
         int responseCode = con.getResponseCode();
 
         switch (responseCode) {
             case HttpURLConnection.HTTP_OK:
-                return parseResponse(con);
+                return getData(con);
             case HttpURLConnection.HTTP_UNAUTHORIZED:
                 throw new APINotAuthorizedException(getError(con));
             case HttpURLConnection.HTTP_NOT_FOUND:
@@ -568,12 +569,12 @@ abstract class APIRequest {
      *
      * @throws IOException Thrown if an I/O error occurs while creating the input stream or parsing the JSON data
      */
-    private JsonNode parseResponse(@Nonnull HttpsURLConnection con) throws IOException {
+    JsonNode getData(@Nonnull HttpsURLConnection con) throws IOException {
         return parseResponse(con.getInputStream());
     }
 
     /**
-     * Fetches the content from the connections <b>error</b> stream and returns it
+     * Fetches the error message from the connections <b>error</b> stream and returns it
      *
      * @param con Fully initialized connection that has returned some HTTP error status code
      *
@@ -582,7 +583,8 @@ abstract class APIRequest {
      * @throws IOException Thrown if an I/O error occurs while creating the input stream or fetching the error data
      */
     private String getError(@Nonnull HttpsURLConnection con) throws IOException {
-        return parseResponse(con.getErrorStream()).get(API_ERROR).asText("");
+        JsonNode response = parseResponse(con.getErrorStream());
+        return response.has(API_ERROR) ? response.get(API_ERROR).asText("") : "n/a";
     }
 
     /**
@@ -594,9 +596,13 @@ abstract class APIRequest {
      *
      * @throws IOException Thrown if an I/O error occurs while parsing the JSON data
      */
-    private JsonNode parseResponse(@Nonnull InputStream inputStream) throws IOException {
+    private JsonNode parseResponse(@CheckForNull InputStream inputStream) throws IOException {
+        // According to the HTTP/1.1 specification, HEAD methods must not return a message-body in the response. In order to harden
+        // the implementation we return an empty JsonNode instead of a null-value.
+        InputStream checkedInputStream = Optional.ofNullable(inputStream).orElseGet(() -> new ByteArrayInputStream("{}".getBytes()));
+
         ObjectMapper mapper = new ObjectMapper();
-        try (JsonParser parser = mapper.getFactory().createParser(inputStream)) {
+        try (JsonParser parser = mapper.getFactory().createParser(checkedInputStream)) {
             return mapper.readTree(parser);
         }
     }
@@ -687,7 +693,7 @@ final class HeadRequest extends APIRequest {
      * @return Artificial JSON object containing the responses header fields
      */
     @Override
-    JsonNode getResponse(@Nonnull HttpsURLConnection con) {
+    JsonNode getData(@Nonnull HttpsURLConnection con) {
         // Create JSON object from response header fields
         JsonNodeFactory factory = new ObjectMapper().getNodeFactory();
         ObjectNode data = factory.objectNode();
