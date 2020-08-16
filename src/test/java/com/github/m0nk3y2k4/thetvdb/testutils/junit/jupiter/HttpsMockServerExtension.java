@@ -1,7 +1,11 @@
 package com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter;
 
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.AUTHORIZATION;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.POST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.createJWTResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.createSuccessResponse;
+import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.createUnauthorizedResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonSchemaFromResource;
 import static com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter.WithHttpsMockServer.HOST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter.WithHttpsMockServer.PORT;
@@ -16,7 +20,6 @@ import javax.net.ssl.HttpsURLConnection;
 
 import com.github.m0nk3y2k4.thetvdb.api.Proxy;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI;
-import com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -61,7 +64,8 @@ public class HttpsMockServerExtension implements ParameterResolver, BeforeAllCal
 
     @Override
     public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
-        return getParameter(parameterContext).orElseThrow(() -> new ParameterResolutionException("XX"));
+        return getParameter(parameterContext).orElseThrow(() ->
+                new ParameterResolutionException(String.format("Could not resolve parameter for class [%s]", parameterContext.getParameter().getType())));
     }
 
     @Override
@@ -74,13 +78,19 @@ public class HttpsMockServerExtension implements ParameterResolver, BeforeAllCal
         // Ensure all connection using HTTPS will use the SSL context defined by MockServer to allow dynamically generated certificates to be accepted
         HttpsURLConnection.setDefaultSSLSocketFactory(new KeyStoreFactory(new MockServerLogger()).sslContext().getSocketFactory());
 
-        // Setup some expectations describing the default behavior for specific resources
+        // Simulate the default behavior of the real TheTVDB.com RESTful API: all routes except for /login require authentication
+        client.upsert(new Expectation(request("/login").withMethod(POST.getName()).withBody(jsonSchemaFromResource("login.json")),
+                Times.unlimited(), TimeToLive.unlimited(), PRIO_ROUTE).thenRespond(createJWTResponse()).withId("LOGIN"));
+        client.upsert(new Expectation(request("/refresh_token").withHeader(AUTHORIZATION).withMethod(GET.getName()),
+                Times.unlimited(), TimeToLive.unlimited(), PRIO_ROUTE).thenRespond(createJWTResponse()).withId("REFRESH_TOKEN"));
+        client.upsert(new Expectation(request("/.*").withHeader(AUTHORIZATION),
+                Times.unlimited(), TimeToLive.unlimited(), PRIO_DEFAULT).thenRespond(createSuccessResponse()).withId("AUTHORIZED"));
         client.upsert(new Expectation(request("/.*"),
-                Times.unlimited(), TimeToLive.unlimited(), PRIO_DEFAULT).thenRespond(createSuccessResponse()));
-        client.upsert(new Expectation(request("/login").withMethod(HttpRequestMethod.POST.getName()).withBody(jsonSchemaFromResource("login.json")),
-                Times.unlimited(), TimeToLive.unlimited(), PRIO_ROUTE).thenRespond(createJWTResponse()));
-        client.upsert(new Expectation(request("/refresh_token").withMethod(HttpRequestMethod.GET.getName()),
-                Times.unlimited(), TimeToLive.unlimited(), PRIO_ROUTE).thenRespond(createJWTResponse()));
+                Times.unlimited(), TimeToLive.unlimited(), PRIO_DEFAULT).thenRespond(createUnauthorizedResponse()).withId("UNAUTHORIZED"));
+
+        // Do not enforce authentication when requesting resources with a test-prefix
+        client.upsert(new Expectation(request("/test/.*"),
+                Times.unlimited(), TimeToLive.unlimited(), PRIO_ROUTE).thenRespond(createSuccessResponse()).withId("TEST"));
     }
 
     @Override

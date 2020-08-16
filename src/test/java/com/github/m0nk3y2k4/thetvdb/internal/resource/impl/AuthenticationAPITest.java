@@ -2,6 +2,7 @@ package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.POST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.createJWTResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonSchemaFromResource;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockserver.model.HttpRequest.request;
@@ -41,7 +42,7 @@ class AuthenticationAPITest {
     @MethodSource(value = "login")
     void login_verifySuccessfullyLoggedIn(Connection con, String jsonSchemaName, MockServerClient client) throws Exception {
         AuthenticationAPI.login(con);
-        client.verify(request().withMethod(POST.getName()).withPath("/login")
+        client.verify(request("/login").withMethod(POST.getName())
                 .withBody(jsonSchemaFromResource(jsonSchemaName)), VerificationTimes.once());
         assertThat(con.getToken()).isPresent();
         assertThat(con.getSessionStatus()).isEqualTo(Status.AUTHORIZED);
@@ -49,9 +50,11 @@ class AuthenticationAPITest {
 
     @Test
     void refreshSession(MockServerClient client) throws Exception {
+        final String resource = "/refresh_token";
         Connection con = new Connection("75G8I5RFFEKR8E75GFF");
+        client.when(request(resource).withMethod(GET.getName())).respond(createJWTResponse());
         AuthenticationAPI.refreshSession(con);
-        client.verify(request().withMethod(GET.getName()).withPath("/refresh_token"), VerificationTimes.once());
+        client.verify(request(resource).withMethod(GET.getName()), VerificationTimes.once());
         assertThat(con.getToken()).isPresent();
         assertThat(con.getSessionStatus()).isEqualTo(Status.AUTHORIZED);
     }

@@ -51,15 +51,15 @@ class APIRequestTest {
 
     private static Stream<Arguments> getResponse_respondWithHTTPErrorCode_verifyExceptionHandling() {
         return Stream.of(
-                Arguments.of("/unauthorized", HttpStatusCode.UNAUTHORIZED_401, APINotAuthorizedException.class,
+                Arguments.of("/test/unauthorized", HttpStatusCode.UNAUTHORIZED_401, APINotAuthorizedException.class,
                         String.format(API_NOT_AUTHORIZED_ERROR, HttpStatusCode.UNAUTHORIZED_401.reasonPhrase())),
-                Arguments.of("/notFound", HttpStatusCode.NOT_FOUND_404, APIException.class,
+                Arguments.of("/test/notFound", HttpStatusCode.NOT_FOUND_404, APIException.class,
                         String.format(API_NOT_FOUND_ERROR, HttpStatusCode.NOT_FOUND_404.reasonPhrase())),
-                Arguments.of("/conflict", HttpStatusCode.CONFLICT_409, APIException.class,
+                Arguments.of("/test/conflict", HttpStatusCode.CONFLICT_409, APIException.class,
                         String.format(API_CONFLICT_ERROR, HttpStatusCode.CONFLICT_409.reasonPhrase())),
-                Arguments.of("/unavailable", HttpStatusCode.SERVICE_UNAVAILABLE_503, APIException.class,
+                Arguments.of("/test/unavailable", HttpStatusCode.SERVICE_UNAVAILABLE_503, APIException.class,
                         API_SERVICE_UNAVAILABLE),
-                Arguments.of("/methodNotAllowed", HttpStatusCode.METHOD_NOT_ALLOWED_405, APICommunicationException.class,
+                Arguments.of("/test/methodNotAllowed", HttpStatusCode.METHOD_NOT_ALLOWED_405, APICommunicationException.class,
                         String.format(ERR_UNEXPECTED_RESPONSE, HttpStatusCode.METHOD_NOT_ALLOWED_405.code(), HttpStatusCode.METHOD_NOT_ALLOWED_405.reasonPhrase()))
         );
     }
@@ -73,18 +73,18 @@ class APIRequestTest {
     @ParameterizedTest(name = "[{index}] Value \"{0}\" is not a valid request method")
     @NullSource
     void newAPIRequest_withoutRequestMethod_verifyParameterValidation(HttpRequestMethod method) {
-        assertThatIllegalArgumentException().isThrownBy(() -> new APIRequest("/missingMethod", method) {});
+        assertThatIllegalArgumentException().isThrownBy(() -> new APIRequest("/test/missingMethod", method) {});
     }
 
     @Test
     void send_missingRemoteEndpoint_verifyPreconditionsCheck() {
-        final APIRequest request = new APIRequest("/missingEndpoint", HttpRequestMethod.GET) {};
+        final APIRequest request = new APIRequest("/test/missingEndpoint", HttpRequestMethod.GET) {};
         assertThatExceptionOfType(APIPreconditionException.class).isThrownBy(request::send);
     }
 
     @Test
     void send_withoutSession_verifyHttpMethodInAPIRequest(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
-        final String resource = "/requestMethod";
+        final String resource = "/test/requestMethod";
         APIRequest request = createAPIRequestWith(resource, HttpRequestMethod.HEAD, null, remoteAPI);
         request.send();
         client.verify(request().withMethod(HttpRequestMethod.HEAD.getName()).withPath(resource), VerificationTimes.exactly(1));
@@ -92,7 +92,7 @@ class APIRequestTest {
 
     @Test
     void send_withoutSession_verifyHttpHeadersInAPIRequest(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
-        final String resource = "/requestHeadersWithoutSession";
+        final String resource = "/test/requestHeadersWithoutSession";
         APIRequest request = createAPIRequestWith(resource, HttpRequestMethod.GET, null, remoteAPI);
         request.send();
         client.verify(request().withMethod(HttpRequestMethod.GET.getName()).withPath(resource)
@@ -102,7 +102,7 @@ class APIRequestTest {
 
     @Test
     void send_withUninitializedSession_verifyHttpHeadersInAPIRequest(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
-        final String resource = "/requestHeadersWithUninitializedSession";
+        final String resource = "/test/requestHeadersWithUninitializedSession";
         APIRequest request = createAPIRequestWith(resource, HttpRequestMethod.DELETE, APISession.Status.NOT_AUTHORIZED, remoteAPI);
         request.send();
         client.verify(request().withMethod(HttpRequestMethod.DELETE.getName()).withPath(resource)
@@ -112,7 +112,7 @@ class APIRequestTest {
 
     @Test
     void send_withFullyInitializedSession_verifyHttpHeadersInAPIRequest(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
-        final String resource = "/requestHeadersWithUninitializedSession";
+        final String resource = "/test/requestHeadersWithUninitializedSession";
         APISession session = new APISession("WIOD548W9DLOF32W5S4DFFW");
         session.setStatus(APISession.Status.AUTHORIZED);
         session.setLanguage("en");
@@ -128,7 +128,7 @@ class APIRequestTest {
 
     @Test
     void send_withSomeRequestPreparation_verifyPreparationIsApplied(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
-        final String resource = "/prepareRequest";
+        final String resource = "/test/prepareRequest";
         final Header preparation = header("Prepared", "true");
         APISession session = new APISession("47D5SF8WWF85K5LZ4GRTZ7512");
         session.setStatus(APISession.Status.NOT_AUTHORIZED);
@@ -148,7 +148,7 @@ class APIRequestTest {
 
     @Test
     void getResponse_respondWithHTTP200_verifyJSONContentParsed(RemoteAPI remoteAPI) throws Exception {
-        final String resource = "/success";
+        final String resource = "/test/success";
         APIRequest request = createAPIRequestWith(resource, HttpRequestMethod.GET, APISession.Status.NOT_AUTHORIZED, remoteAPI);
         JsonNode response = request.send();
         assertThat(response).hasToString(JSON_SUCCESS);
@@ -166,7 +166,7 @@ class APIRequestTest {
 
     @Test
     void getResponse_terminateConnection_verifyExceptionHandling(MockServerClient client, RemoteAPI remoteAPI) {
-        final String resource = "/terminated";
+        final String resource = "/test/terminated";
         APIRequest request = createAPIRequestWith(resource, HttpRequestMethod.PUT, APISession.Status.NOT_AUTHORIZED, remoteAPI);
         client.when(request(resource)).error(error().withDropConnection(true));
         APICommunicationException exception = catchThrowableOfType(request::send, APICommunicationException.class);

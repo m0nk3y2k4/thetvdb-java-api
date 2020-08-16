@@ -16,7 +16,7 @@ class GetRequestTest {
 
     @Test
     void send_verifyHttpMethodIsSet(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
-        final String resource = "/getRequestMethod";
+        final String resource = "/test/getRequestMethod";
         GetRequest request = new GetRequest(resource);
         request.setRemoteAPI(remoteAPI);
         request.send();
@@ -25,7 +25,7 @@ class GetRequestTest {
 
     @Test
     void send_verifyJSONContentParsed(RemoteAPI remoteAPI) throws Exception {
-        GetRequest request = new GetRequest("/getRequestContent");
+        GetRequest request = new GetRequest("/test/getRequestContent");
         request.setRemoteAPI(remoteAPI);
         JsonNode response = request.send();
         assertThat(response).hasToString(JSON_SUCCESS);

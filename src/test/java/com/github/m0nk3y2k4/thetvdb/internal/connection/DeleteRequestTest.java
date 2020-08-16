@@ -16,7 +16,7 @@ class DeleteRequestTest {
 
     @Test
     void send_verifyHttpMethodIsSet(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
-        final String resource = "/deleteRequestMethod";
+        final String resource = "/test/deleteRequestMethod";
         DeleteRequest request = new DeleteRequest(resource);
         request.setRemoteAPI(remoteAPI);
         request.send();
@@ -25,7 +25,7 @@ class DeleteRequestTest {
 
     @Test
     void send_verifyJSONContentParsed(RemoteAPI remoteAPI) throws Exception {
-        DeleteRequest request = new DeleteRequest("/deleteRequestContent");
+        DeleteRequest request = new DeleteRequest("/test/deleteRequestContent");
         request.setRemoteAPI(remoteAPI);
         JsonNode response = request.send();
         assertThat(response).hasToString(JSON_SUCCESS);

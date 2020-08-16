@@ -16,7 +16,7 @@ class PutRequestTest {
 
     @Test
     void send_verifyHttpMethodIsSet(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
-        final String resource = "/putRequestMethod";
+        final String resource = "/test/putRequestMethod";
         PutRequest request = new PutRequest(resource);
         request.setRemoteAPI(remoteAPI);
         request.send();
@@ -25,7 +25,7 @@ class PutRequestTest {
 
     @Test
     void send_verifyJSONContentParsed(RemoteAPI remoteAPI) throws Exception {
-        PutRequest request = new PutRequest("/putRequestContent");
+        PutRequest request = new PutRequest("/test/putRequestContent");
         request.setRemoteAPI(remoteAPI);
         JsonNode response = request.send();
         assertThat(response).hasToString(JSON_SUCCESS);

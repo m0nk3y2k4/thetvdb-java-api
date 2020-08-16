@@ -20,7 +20,7 @@ class PostRequestTest {
 
     @Test
     void send_verifyHttpMethodIsSet(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
-        final String resource = "/postRequestMethod";
+        final String resource = "/test/postRequestMethod";
         PostRequest request = new PostRequest(resource, JSON_DATA);
         request.setRemoteAPI(remoteAPI);
         request.send();
@@ -29,7 +29,7 @@ class PostRequestTest {
 
     @Test
     void send_withoutData_verifyPreparationPreconditionCheck(RemoteAPI remoteAPI) {
-        final String resource = "/postRequestNoData";
+        final String resource = "/test/postRequestNoData";
         PostRequest request = new PostRequest(resource, null);
         request.setRemoteAPI(remoteAPI);
         APIPreconditionException exception = catchThrowableOfType(request::send, APIPreconditionException.class);
@@ -38,7 +38,7 @@ class PostRequestTest {
 
     @Test
     void send_withData_verifyOutputIsSet(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
-        final String resource = "/postRequestOutput";
+        final String resource = "/test/postRequestOutput";
         final String json = "{\"Value\":\"Some content of the POST-request\"}";
         PostRequest request = new PostRequest(resource, json);
         request.setRemoteAPI(remoteAPI);
@@ -47,8 +47,8 @@ class PostRequestTest {
     }
 
     @Test
-    void send_verifyJSONContentParsed(RemoteAPI remoteAPI) throws Exception {
-        PostRequest request = new PostRequest("/postRequestContent", JSON_DATA);
+    void send_withData_verifyJSONContentParsed(RemoteAPI remoteAPI) throws Exception {
+        PostRequest request = new PostRequest("/test/postRequestContent", JSON_DATA);
         request.setRemoteAPI(remoteAPI);
         JsonNode response = request.send();
         assertThat(response).hasToString(JSON_SUCCESS);

@@ -34,7 +34,7 @@ class APIConnectionTest {
         void send(APIConnection con) throws APIException;
     }
 
-    private static final String METHOD_RESOURCE = "/method";
+    private static final String METHOD_RESOURCE = "/test/method";
 
     private final APIConnection con;
 
@@ -127,7 +127,7 @@ class APIConnectionTest {
 
     @Test
     void sendRequest_abortAfterMaxRetryCount(MockServerClient client) {
-        final String resource = "/retry";
+        final String resource = "/auth/retry";
         con.getSession().setStatus(APISession.Status.NOT_AUTHORIZED);       // Allow to trigger auto-authorization
         client.when(request(resource), Times.exactly(3)).respond(createUnauthorizedResponse());
         APIException exception = catchThrowableOfType(() -> con.sendGET(resource), APIException.class);
@@ -136,18 +136,16 @@ class APIConnectionTest {
 
     @Test
     void sendRequest_automaticAuthorizationSuccess(MockServerClient client) throws Exception {
-        final String resource = "/autoAuthSuccess";
+        final String resource = "/auth/autoAuthSuccess";
         con.getSession().setStatus(APISession.Status.NOT_AUTHORIZED);       // Allow to trigger auto-authorization
-        client.when(request(resource), Times.once()).respond(createUnauthorizedResponse());
         con.sendGET(resource);
         client.verify(request(resource), VerificationTimes.exactly(2));
     }
 
     @Test
     void sendRequest_automaticAuthorizationFailed(MockServerClient client) {
-        final String resource = "/autoAuthFailed";
+        final String resource = "/auth/autoAuthFailed";
         con.getSession().setStatus(APISession.Status.NOT_AUTHORIZED);       // Allow to trigger auto-authorization
-        client.when(request(resource), Times.once()).respond(createUnauthorizedResponse());
         client.when(request("/login"), Times.once()).respond(createUnauthorizedResponse());
         APIException exception = catchThrowableOfType(() -> con.sendGET(resource), APIException.class);
         assertThat(exception).hasMessageContaining("authorization failed");

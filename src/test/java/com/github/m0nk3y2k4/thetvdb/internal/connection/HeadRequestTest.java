@@ -20,7 +20,7 @@ class HeadRequestTest {
 
     @Test
     void send_verifyHttpMethodIsSet(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
-        final String resource = "/headRequestMethod";
+        final String resource = "/test/headRequestMethod";
         HeadRequest request = new HeadRequest(resource);
         request.setRemoteAPI(remoteAPI);
         request.send();
@@ -29,7 +29,7 @@ class HeadRequestTest {
 
     @Test
     void send_verifyJSONContentParsed(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
-        final String resource = "/headRequestContent";
+        final String resource = "/test/headRequestContent";
         final String headerKey = "Some-Header";
         final String headerValue = "singleValue";
         final String listHeaderKey = "List-Header";
