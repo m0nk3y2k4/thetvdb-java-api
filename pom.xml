@@ -89,6 +89,51 @@
             <version>3.0.0-M5</version>
         </plugin>
         <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.5</version>
+            <executions>
+                <execution>
+                    <id>coverage-initialize</id>
+                    <goals>
+                        <goal>prepare-agent</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>coverage-report</id>
+                    <phase>post-integration-test</phase>
+                    <goals>
+                        <goal>report</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>coverage-check</id>
+                    <goals>
+                        <goal>check</goal>
+                    </goals>
+                    <configuration>
+                        <rules>
+                            <rule>
+                                <element>CLASS</element>
+                                <limits>
+                                    <limit>
+                                        <counter>LINE</counter>
+                                        <value>COVEREDRATIO</value>
+                                        <minimum>80%</minimum>
+                                    </limit>
+                                    <limit>
+                                        <counter>CLASS</counter>
+                                        <value>MISSEDCOUNT</value>
+                                        <maximum>0</maximum>
+                                    </limit>
+                                </limits>
+                            </rule>
+                        </rules>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+        <plugin>
             <artifactId>maven-assembly-plugin</artifactId>
             <version>3.3.0</version>
             <configuration>
