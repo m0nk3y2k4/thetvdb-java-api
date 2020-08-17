@@ -78,6 +78,7 @@
                         <packages>com.github.m0nk3y2k4.thetvdb</packages>
                     </group>
                 </groups>
+                <quiet>true</quiet>
                 <notimestamp>true</notimestamp>
                 <show>protected</show>
             </configuration>
