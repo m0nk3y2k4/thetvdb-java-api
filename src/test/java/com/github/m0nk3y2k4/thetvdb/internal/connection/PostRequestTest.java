@@ -1,5 +1,6 @@
 package com.github.m0nk3y2k4.thetvdb.internal.connection;
 
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.POST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.JSON_DATA;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.JSON_SUCCESS;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -8,7 +9,6 @@ import static org.mockserver.model.HttpRequest.request;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APIPreconditionException;
-import com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod;
 import com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter.WithHttpsMockServer;
 import org.junit.jupiter.api.Test;
 import org.mockserver.client.MockServerClient;
@@ -24,7 +24,7 @@ class PostRequestTest {
         PostRequest request = new PostRequest(resource, JSON_DATA);
         request.setRemoteAPI(remoteAPI);
         request.send();
-        client.verify(request(resource).withMethod(HttpRequestMethod.POST.getName()), VerificationTimes.once());
+        client.verify(request(resource).withMethod(POST.getName()), VerificationTimes.once());
     }
 
     @Test

@@ -9,6 +9,7 @@ import static org.assertj.core.api.Assertions.catchThrowableOfType;
 import java.util.stream.Stream;
 
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
+import com.github.m0nk3y2k4.thetvdb.internal.connection.APISession.Status;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -32,16 +33,16 @@ class APISessionTest {
 
     private static Stream<Arguments> setStatus_verifyStatus() {
         return Stream.of(
-                Arguments.of(null, APISession.Status.NOT_AUTHORIZED),
-                Arguments.of(APISession.Status.AUTHORIZED, APISession.Status.AUTHORIZED)
+                Arguments.of(null, Status.NOT_AUTHORIZED),
+                Arguments.of(Status.AUTHORIZED, Status.AUTHORIZED)
         );
     }
 
     private static Stream<Arguments> isInitialized_setStatusAndVerifyInitialized() {
         return Stream.of(
-                Arguments.of(APISession.Status.NOT_AUTHORIZED, false),
-                Arguments.of(APISession.Status.AUTHORIZATION_IN_PROGRESS, false),
-                Arguments.of(APISession.Status.AUTHORIZED, true)
+                Arguments.of(Status.NOT_AUTHORIZED, false),
+                Arguments.of(Status.AUTHORIZATION_IN_PROGRESS, false),
+                Arguments.of(Status.AUTHORIZED, true)
         );
     }
 
@@ -53,7 +54,7 @@ class APISessionTest {
         assertThat(session.getUserKey()).isEmpty();
         assertThat(session.getUserName()).isEmpty();
         assertThat(session.getLanguage()).isEqualTo("en");
-        assertThat(session.getStatus()).isEqualTo(APISession.Status.NOT_AUTHORIZED);
+        assertThat(session.getStatus()).isEqualTo(Status.NOT_AUTHORIZED);
         assertThat(session.getToken()).isEmpty();
     }
 
@@ -73,7 +74,7 @@ class APISessionTest {
         assertThat(session.getUserKey()).contains(userKey);
         assertThat(session.getUserName()).contains(userName);
         assertThat(session.getLanguage()).isEqualTo("en");
-        assertThat(session.getStatus()).isEqualTo(APISession.Status.NOT_AUTHORIZED);
+        assertThat(session.getStatus()).isEqualTo(Status.NOT_AUTHORIZED);
         assertThat(session.getToken()).isEmpty();
     }
 
@@ -87,10 +88,10 @@ class APISessionTest {
     void setToken_verifyTokenAndAuthorization() throws Exception {
         final String token = "Some.JSONWeb.Token";
         APISession session = new APISession("OERIFH452DU");
-        session.setStatus(APISession.Status.AUTHORIZATION_IN_PROGRESS);
+        session.setStatus(Status.AUTHORIZATION_IN_PROGRESS);
         session.setToken(token);
         assertThat(session.getToken()).contains(token);
-        assertThat(session.getStatus()).isEqualTo(APISession.Status.AUTHORIZED);
+        assertThat(session.getStatus()).isEqualTo(Status.AUTHORIZED);
     }
 
     @Test

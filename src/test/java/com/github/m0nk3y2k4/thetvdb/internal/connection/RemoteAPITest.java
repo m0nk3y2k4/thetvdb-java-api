@@ -1,5 +1,8 @@
 package com.github.m0nk3y2k4.thetvdb.internal.connection;
 
+import static com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI.HTTPS;
+import static com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI.HTTPS_DEFAULT;
+import static com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI.THE_TVDB_DOT_COM;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URL;
@@ -14,10 +17,10 @@ class RemoteAPITest {
 
     private static Stream<Arguments> buildNewRemoteAPI_withSpecificOrDefaultSettings_verifyAPISettings() {
         return Stream.of(
-                Arguments.of(new RemoteAPI.Builder().protocol("ftp").build(), "ftp", RemoteAPI.THE_TVDB_DOT_COM, RemoteAPI.HTTPS_DEFAULT),
-                Arguments.of(new RemoteAPI.Builder().host("some.host.com").build(), RemoteAPI.HTTPS, "some.host.com", RemoteAPI.HTTPS_DEFAULT),
-                Arguments.of(new RemoteAPI.Builder().port(8457).build(), RemoteAPI.HTTPS, RemoteAPI.THE_TVDB_DOT_COM, 8457),
-                Arguments.of(new RemoteAPI.Builder().build(), RemoteAPI.HTTPS, RemoteAPI.THE_TVDB_DOT_COM, RemoteAPI.HTTPS_DEFAULT)
+                Arguments.of(new RemoteAPI.Builder().protocol("ftp").build(), "ftp", THE_TVDB_DOT_COM, HTTPS_DEFAULT),
+                Arguments.of(new RemoteAPI.Builder().host("some.host.com").build(), HTTPS, "some.host.com", HTTPS_DEFAULT),
+                Arguments.of(new RemoteAPI.Builder().port(8457).build(), HTTPS, THE_TVDB_DOT_COM, 8457),
+                Arguments.of(new RemoteAPI.Builder().build(), HTTPS, THE_TVDB_DOT_COM, HTTPS_DEFAULT)
         );
     }
 

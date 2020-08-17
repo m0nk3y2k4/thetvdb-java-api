@@ -17,6 +17,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
+import com.github.m0nk3y2k4.thetvdb.internal.connection.APISession.Status;
 import com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter.WithHttpsMockServer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -40,11 +41,11 @@ class APIConnectionTest {
 
     private static Stream<Arguments> sendRequest_verifyHTTPMethodInRequest() {
         return Stream.of(
-                Arguments.of((Request)con -> con.sendGET(METHOD_RESOURCE+GET.getName()), GET.getName()),
-                Arguments.of((Request)con -> con.sendPOST(METHOD_RESOURCE+POST.getName(), JSON_DATA), POST.getName()),
-                Arguments.of((Request)con -> con.sendHEAD(METHOD_RESOURCE+HEAD.getName()), HEAD.getName()),
-                Arguments.of((Request)con -> con.sendDELETE(METHOD_RESOURCE+DELETE.getName()), DELETE.getName()),
-                Arguments.of((Request)con -> con.sendPUT(METHOD_RESOURCE+PUT.getName()), PUT.getName())
+                Arguments.of((Request)con -> con.sendGET(METHOD_RESOURCE + GET), GET.getName()),
+                Arguments.of((Request)con -> con.sendPOST(METHOD_RESOURCE + POST, JSON_DATA), POST.getName()),
+                Arguments.of((Request)con -> con.sendHEAD(METHOD_RESOURCE + HEAD), HEAD.getName()),
+                Arguments.of((Request)con -> con.sendDELETE(METHOD_RESOURCE + DELETE), DELETE.getName()),
+                Arguments.of((Request)con -> con.sendPUT(METHOD_RESOURCE + PUT), PUT.getName())
         );
     }
 
@@ -114,8 +115,8 @@ class APIConnectionTest {
 
     @Test
     void setStatus_verifyStatus() {
-        con.setStatus(APISession.Status.AUTHORIZED);
-        assertThat(con.getSession()).extracting(APISession::getStatus).isEqualTo(APISession.Status.AUTHORIZED);
+        con.setStatus(Status.AUTHORIZED);
+        assertThat(con.getSession()).extracting(APISession::getStatus).isEqualTo(Status.AUTHORIZED);
     }
 
     @Test
@@ -128,7 +129,7 @@ class APIConnectionTest {
     @Test
     void sendRequest_abortAfterMaxRetryCount(MockServerClient client) {
         final String resource = "/auth/retry";
-        con.getSession().setStatus(APISession.Status.NOT_AUTHORIZED);       // Allow to trigger auto-authorization
+        con.getSession().setStatus(Status.NOT_AUTHORIZED);       // Allow to trigger auto-authorization
         client.when(request(resource), Times.exactly(3)).respond(createUnauthorizedResponse());
         APIException exception = catchThrowableOfType(() -> con.sendGET(resource), APIException.class);
         assertThat(exception).hasMessageContaining(ERR_MAX_RETRY_EXCEEDED, MAX_AUTHENTICATION_RETRY_COUNT);
@@ -137,7 +138,7 @@ class APIConnectionTest {
     @Test
     void sendRequest_automaticAuthorizationSuccess(MockServerClient client) throws Exception {
         final String resource = "/auth/autoAuthSuccess";
-        con.getSession().setStatus(APISession.Status.NOT_AUTHORIZED);       // Allow to trigger auto-authorization
+        con.getSession().setStatus(Status.NOT_AUTHORIZED);       // Allow to trigger auto-authorization
         con.sendGET(resource);
         client.verify(request(resource), VerificationTimes.exactly(2));
     }
@@ -145,7 +146,7 @@ class APIConnectionTest {
     @Test
     void sendRequest_automaticAuthorizationFailed(MockServerClient client) {
         final String resource = "/auth/autoAuthFailed";
-        con.getSession().setStatus(APISession.Status.NOT_AUTHORIZED);       // Allow to trigger auto-authorization
+        con.getSession().setStatus(Status.NOT_AUTHORIZED);       // Allow to trigger auto-authorization
         client.when(request("/login"), Times.once()).respond(createUnauthorizedResponse());
         APIException exception = catchThrowableOfType(() -> con.sendGET(resource), APIException.class);
         assertThat(exception).hasMessageContaining("authorization failed");

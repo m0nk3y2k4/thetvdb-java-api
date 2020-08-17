@@ -1,11 +1,11 @@
 package com.github.m0nk3y2k4.thetvdb.internal.connection;
 
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.JSON_SUCCESS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockserver.model.HttpRequest.request;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod;
 import com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter.WithHttpsMockServer;
 import org.junit.jupiter.api.Test;
 import org.mockserver.client.MockServerClient;
@@ -20,7 +20,7 @@ class GetRequestTest {
         GetRequest request = new GetRequest(resource);
         request.setRemoteAPI(remoteAPI);
         request.send();
-        client.verify(request(resource).withMethod(HttpRequestMethod.GET.getName()), VerificationTimes.once());
+        client.verify(request(resource).withMethod(GET.getName()), VerificationTimes.once());
     }
 
     @Test

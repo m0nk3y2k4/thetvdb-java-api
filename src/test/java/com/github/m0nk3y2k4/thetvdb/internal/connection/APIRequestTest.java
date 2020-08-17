@@ -6,6 +6,10 @@ import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_NOT_FO
 import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_SERVICE_UNAVAILABLE;
 import static com.github.m0nk3y2k4.thetvdb.internal.connection.APIRequest.ERR_SEND;
 import static com.github.m0nk3y2k4.thetvdb.internal.connection.APIRequest.ERR_UNEXPECTED_RESPONSE;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.DELETE;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.HEAD;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.PUT;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.JSON_SUCCESS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.createResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.defaultAPIHttpHeaders;
@@ -27,6 +31,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
+import com.github.m0nk3y2k4.thetvdb.internal.connection.APISession.Status;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APICommunicationException;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APINotAuthorizedException;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APIPreconditionException;
@@ -67,7 +72,7 @@ class APIRequestTest {
     @ParameterizedTest(name = "[{index}] String \"{0}\" is not a valid resource")
     @NullAndEmptySource @ValueSource(strings = {"   "})
     void newAPIRequest_withoutResource_verifyParameterValidation(String resource) {
-        assertThatIllegalArgumentException().isThrownBy(() -> new APIRequest(resource, HttpRequestMethod.DELETE) {});
+        assertThatIllegalArgumentException().isThrownBy(() -> new APIRequest(resource, DELETE) {});
     }
 
     @ParameterizedTest(name = "[{index}] Value \"{0}\" is not a valid request method")
@@ -78,24 +83,24 @@ class APIRequestTest {
 
     @Test
     void send_missingRemoteEndpoint_verifyPreconditionsCheck() {
-        final APIRequest request = new APIRequest("/test/missingEndpoint", HttpRequestMethod.GET) {};
+        final APIRequest request = new APIRequest("/test/missingEndpoint", GET) {};
         assertThatExceptionOfType(APIPreconditionException.class).isThrownBy(request::send);
     }
 
     @Test
     void send_withoutSession_verifyHttpMethodInAPIRequest(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
         final String resource = "/test/requestMethod";
-        APIRequest request = createAPIRequestWith(resource, HttpRequestMethod.HEAD, null, remoteAPI);
+        APIRequest request = createAPIRequestWith(resource, HEAD, null, remoteAPI);
         request.send();
-        client.verify(request().withMethod(HttpRequestMethod.HEAD.getName()).withPath(resource), VerificationTimes.exactly(1));
+        client.verify(request().withMethod(HEAD.getName()).withPath(resource), VerificationTimes.exactly(1));
     }
 
     @Test
     void send_withoutSession_verifyHttpHeadersInAPIRequest(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
         final String resource = "/test/requestHeadersWithoutSession";
-        APIRequest request = createAPIRequestWith(resource, HttpRequestMethod.GET, null, remoteAPI);
+        APIRequest request = createAPIRequestWith(resource, GET, null, remoteAPI);
         request.send();
-        client.verify(request().withMethod(HttpRequestMethod.GET.getName()).withPath(resource)
+        client.verify(request().withMethod(GET.getName()).withPath(resource)
                         .withHeaders(defaultAPIHttpHeaders(false)),
                 VerificationTimes.exactly(1));
     }
@@ -103,9 +108,9 @@ class APIRequestTest {
     @Test
     void send_withUninitializedSession_verifyHttpHeadersInAPIRequest(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
         final String resource = "/test/requestHeadersWithUninitializedSession";
-        APIRequest request = createAPIRequestWith(resource, HttpRequestMethod.DELETE, APISession.Status.NOT_AUTHORIZED, remoteAPI);
+        APIRequest request = createAPIRequestWith(resource, DELETE, Status.NOT_AUTHORIZED, remoteAPI);
         request.send();
-        client.verify(request().withMethod(HttpRequestMethod.DELETE.getName()).withPath(resource)
+        client.verify(request().withMethod(DELETE.getName()).withPath(resource)
                         .withHeaders(defaultAPIHttpHeaders(false)),
                 VerificationTimes.exactly(1));
     }
@@ -114,14 +119,14 @@ class APIRequestTest {
     void send_withFullyInitializedSession_verifyHttpHeadersInAPIRequest(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
         final String resource = "/test/requestHeadersWithUninitializedSession";
         APISession session = new APISession("WIOD548W9DLOF32W5S4DFFW");
-        session.setStatus(APISession.Status.AUTHORIZED);
+        session.setStatus(Status.AUTHORIZED);
         session.setLanguage("en");
         session.setToken("Some.JSONWeb.Token");
-        APIRequest request = new APIRequest(resource, HttpRequestMethod.PUT) {};
+        APIRequest request = new APIRequest(resource, PUT) {};
         request.setRemoteAPI(remoteAPI);
         request.setSession(session);
         request.send();
-        client.verify(request().withMethod(HttpRequestMethod.PUT.getName()).withPath(resource)
+        client.verify(request().withMethod(PUT.getName()).withPath(resource)
                         .withHeaders(defaultAPIHttpHeaders(true)),
                 VerificationTimes.exactly(1));
     }
@@ -131,8 +136,8 @@ class APIRequestTest {
         final String resource = "/test/prepareRequest";
         final Header preparation = header("Prepared", "true");
         APISession session = new APISession("47D5SF8WWF85K5LZ4GRTZ7512");
-        session.setStatus(APISession.Status.NOT_AUTHORIZED);
-        APIRequest request = new APIRequest(resource, HttpRequestMethod.GET) {
+        session.setStatus(Status.NOT_AUTHORIZED);
+        APIRequest request = new APIRequest(resource, GET) {
             @Override
             void prepareRequest(@Nonnull HttpsURLConnection con) {
                 con.setRequestProperty(preparation.getName().getValue(), preparation.getValues().get(0).getValue());
@@ -141,7 +146,7 @@ class APIRequestTest {
         request.setRemoteAPI(remoteAPI);
         request.setSession(session);
         request.send();
-        client.verify(request().withMethod(HttpRequestMethod.GET.getName()).withPath(resource)
+        client.verify(request().withMethod(GET.getName()).withPath(resource)
                         .withHeaders(defaultAPIHttpHeaders(false).withEntry(preparation)),
                 VerificationTimes.exactly(1));
     }
@@ -149,7 +154,7 @@ class APIRequestTest {
     @Test
     void getResponse_respondWithHTTP200_verifyJSONContentParsed(RemoteAPI remoteAPI) throws Exception {
         final String resource = "/test/success";
-        APIRequest request = createAPIRequestWith(resource, HttpRequestMethod.GET, APISession.Status.NOT_AUTHORIZED, remoteAPI);
+        APIRequest request = createAPIRequestWith(resource, GET, Status.NOT_AUTHORIZED, remoteAPI);
         JsonNode response = request.send();
         assertThat(response).hasToString(JSON_SUCCESS);
     }
@@ -158,7 +163,7 @@ class APIRequestTest {
     @MethodSource
     void getResponse_respondWithHTTPErrorCode_verifyExceptionHandling(String resource, HttpStatusCode status, Class<?> expectedException,
                 String expectedErrorMessage, MockServerClient client, RemoteAPI remoteAPI) {
-        APIRequest request = createAPIRequestWith(resource, HttpRequestMethod.DELETE, APISession.Status.NOT_AUTHORIZED, remoteAPI);
+        APIRequest request = createAPIRequestWith(resource, DELETE, Status.NOT_AUTHORIZED, remoteAPI);
         client.when(request(resource)).respond(createResponse(status, String.format(JSON_ERROR, status.reasonPhrase())));
         Throwable exception = catchThrowable(request::send);
         assertThat(exception).isInstanceOf(expectedException).hasMessageContaining(expectedErrorMessage);
@@ -167,10 +172,10 @@ class APIRequestTest {
     @Test
     void getResponse_terminateConnection_verifyExceptionHandling(MockServerClient client, RemoteAPI remoteAPI) {
         final String resource = "/test/terminated";
-        APIRequest request = createAPIRequestWith(resource, HttpRequestMethod.PUT, APISession.Status.NOT_AUTHORIZED, remoteAPI);
+        APIRequest request = createAPIRequestWith(resource, PUT, Status.NOT_AUTHORIZED, remoteAPI);
         client.when(request(resource)).error(error().withDropConnection(true));
         APICommunicationException exception = catchThrowableOfType(request::send, APICommunicationException.class);
-        assertThat(exception).hasMessageContaining(ERR_SEND, HttpRequestMethod.PUT.getName());
+        assertThat(exception).hasMessageContaining(ERR_SEND, PUT.getName());
     }
 
     private APIRequest createAPIRequestWith(String resource, HttpRequestMethod method, APISession.Status status, RemoteAPI remoteAPI) {
