@@ -12,6 +12,7 @@ import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.PUT;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.JSON_SUCCESS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.createResponse;
+import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.createUnauthorizedResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.defaultAPIHttpHeaders;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -167,6 +168,16 @@ class APIRequestTest {
         client.when(request(resource)).respond(createResponse(status, String.format(JSON_ERROR, status.reasonPhrase())));
         Throwable exception = catchThrowable(request::send);
         assertThat(exception).isInstanceOf(expectedException).hasMessageContaining(expectedErrorMessage);
+    }
+
+    @Test
+    void getResponse_respondWithoutConnectionErrorStream_verifyEmptyJsonNodeIsReturned(MockServerClient client, RemoteAPI remoteAPI) {
+        final String resource = "/test/noErrorStream";
+        // Request method HEAD causes mock server to return NULL as connections error stream
+        APIRequest request = createAPIRequestWith(resource, HEAD, null, remoteAPI);
+        client.when(request(resource)).respond(createUnauthorizedResponse());
+        Throwable exception = catchThrowable(request::send);
+        assertThat(exception).isInstanceOf(APINotAuthorizedException.class).hasMessageContaining(API_NOT_AUTHORIZED_ERROR, "n/a");
     }
 
     @Test
