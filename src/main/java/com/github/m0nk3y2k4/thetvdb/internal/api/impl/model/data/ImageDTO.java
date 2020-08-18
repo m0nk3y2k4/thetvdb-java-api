@@ -6,7 +6,6 @@ import java.util.Optional;
 import javax.annotation.Nullable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Image;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.WithHiddenImplementation;
@@ -43,7 +42,6 @@ public abstract class ImageDTO implements Image {
      *
      * @return Content of <em>{@code ratingsInfo}</em> as key/value pairs
      */
-    @JsonProperty("ratingsInfo")
     abstract Map<String,Object> getRatingsInfo();
 
     @Override
