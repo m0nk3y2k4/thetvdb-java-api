@@ -1,5 +1,6 @@
 package com.github.m0nk3y2k4.thetvdb.internal.connection;
 
+import static com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi.Version.API_VERSION;
 import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_BAD_METHOD_ERROR;
 import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_CONFLICT_ERROR;
 import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_NOT_FOUND_ERROR;
@@ -398,9 +399,6 @@ abstract class APIRequest {
 
     /** Constants for API error handling */
     private static final String API_ERROR = "Error";
-
-    /** The fix API version to be used */
-    private static final String API_VERSION = "v3.0.0";
 
     /** Session for remote API authentication */
     private APISession session;

@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Included _org.jacoco:jacoco-maven-plugin_ `0.8.5` in order to generate a test coverage report at the end of the build process.
 
 ### Changed
+- The remote API version used by this connector is now publicly available via the `TheTVDBApi.Version.API_VERSION` constant.
 - Specific handling of HTTP-405 responses. Enhance error message with additional information.
 - All code now has to have a JUnit test line coverage of at least 80% and no missed class counts.
 - Turned off non-error and non-warning messages for JavaDoc generation during maven build.

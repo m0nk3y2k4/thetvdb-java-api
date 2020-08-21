@@ -47,7 +47,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.User;
  * returned DTO's like he works with every other Java object. However, these objects do only contain the actually requested data and will not include
  * any additional contextual information that may be returned by the remote service (e.g. Pagination information, additional validation or error data).
  * Furthermore they will only provide access to properties that are <a href="https://api.thetvdb.com/swagger">formally declared by the API</a>
- * (version v3.0.0).</li>
+ * (version {@value Version#API_VERSION}).</li>
  * <li>{@link Extended}<br>
  * This layout may be used for slightly advance API integration. Like the common layout it'll take care of parsing the received JSON into Java DTO's
  * but it will also provide access to any additional contextual information. Methods of this layout will always return a single {@link APIResponse}
@@ -64,6 +64,17 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.User;
  * Once an API instance has been created, the additional layouts can be accessed via the {@link #extended()} or {@link #json()} method.
  */
 public interface TheTVDBApi {
+
+    /**
+     * Specifies the version of the <i>TheTVDB.com</i> remote API to be used by this connector
+     */
+    final class Version {
+        /** Constant class. Should not be instantiated */
+        private Version() {}
+
+        /** Version of the <i>TheTVDB.com</i> remote API used by this connector */
+        public static final String API_VERSION = "v3.0.0";
+    }
 
     /**
      * Initializes the current API session by requesting a new token from the remote API. This token will be used for authentication of all requests that are sent to the
