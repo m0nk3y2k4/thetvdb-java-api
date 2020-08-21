@@ -14,6 +14,9 @@ public class APIException extends Exception {
     /** Indicates that the requested resource is unknown for the remote service (e.g. wrong seriesId) */
     public static final String API_NOT_FOUND_ERROR = "Requested resource could not be found (HTTP-404). Original API error message: %s";
 
+    /** Indicates that the requested resource is known by the server but has to be accessed with different settings (e.g. missing query parameters) */
+    public static final String API_BAD_METHOD_ERROR = "Method not allowed for target resource (HTTP-405). Original API error message: %s";
+
     /** Indicates that a requested record could not be updated or deleted */
     public static final String API_CONFLICT_ERROR = "Update request caused a conflict (HTTP-409). Original API error message: %s";
 

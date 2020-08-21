@@ -1,5 +1,6 @@
 package com.github.m0nk3y2k4.thetvdb.internal.connection;
 
+import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_BAD_METHOD_ERROR;
 import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_CONFLICT_ERROR;
 import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_NOT_AUTHORIZED_ERROR;
 import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_NOT_FOUND_ERROR;
@@ -36,6 +37,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.connection.APISession.Status;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APICommunicationException;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APINotAuthorizedException;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APIPreconditionException;
+import com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders;
 import com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod;
 import com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter.WithHttpsMockServer;
 import org.junit.jupiter.api.Test;
@@ -61,12 +63,14 @@ class APIRequestTest {
                         String.format(API_NOT_AUTHORIZED_ERROR, HttpStatusCode.UNAUTHORIZED_401.reasonPhrase())),
                 Arguments.of("/test/notFound", HttpStatusCode.NOT_FOUND_404, APIException.class,
                         String.format(API_NOT_FOUND_ERROR, HttpStatusCode.NOT_FOUND_404.reasonPhrase())),
+                Arguments.of("/test/methodNotAllowed", HttpStatusCode.METHOD_NOT_ALLOWED_405, APIException.class,
+                        String.format(API_BAD_METHOD_ERROR, HttpStatusCode.METHOD_NOT_ALLOWED_405.reasonPhrase())),
                 Arguments.of("/test/conflict", HttpStatusCode.CONFLICT_409, APIException.class,
                         String.format(API_CONFLICT_ERROR, HttpStatusCode.CONFLICT_409.reasonPhrase())),
                 Arguments.of("/test/unavailable", HttpStatusCode.SERVICE_UNAVAILABLE_503, APIException.class,
                         API_SERVICE_UNAVAILABLE),
-                Arguments.of("/test/methodNotAllowed", HttpStatusCode.METHOD_NOT_ALLOWED_405, APICommunicationException.class,
-                        String.format(ERR_UNEXPECTED_RESPONSE, HttpStatusCode.METHOD_NOT_ALLOWED_405.code(), HttpStatusCode.METHOD_NOT_ALLOWED_405.reasonPhrase()))
+                Arguments.of("/test/badGateway", HttpStatusCode.BAD_GATEWAY_502, APICommunicationException.class,
+                        String.format(ERR_UNEXPECTED_RESPONSE, HttpStatusCode.BAD_GATEWAY_502.code(), HttpStatusCode.BAD_GATEWAY_502.reasonPhrase()))
         );
     }
 
@@ -168,6 +172,17 @@ class APIRequestTest {
         client.when(request(resource)).respond(createResponse(status, String.format(JSON_ERROR, status.reasonPhrase())));
         Throwable exception = catchThrowable(request::send);
         assertThat(exception).isInstanceOf(expectedException).hasMessageContaining(expectedErrorMessage);
+    }
+
+    @Test
+    void getResponse_respondWithHTTP405ErrorCode_verifyAllowHeadersArePrependedToErrorMessage(MockServerClient client, RemoteAPI remoteAPI) {
+        final String resource = "/test/methodErrorWithAllowHeader";
+        APIRequest request = createAPIRequestWith(resource, PUT, null, remoteAPI);
+        client.when(request(resource)).respond(
+                createResponse(HttpStatusCode.METHOD_NOT_ALLOWED_405, String.format(JSON_ERROR, HttpStatusCode.METHOD_NOT_ALLOWED_405.reasonPhrase()))
+                .withHeader(HttpHeaders.ALLOW, "GET", "POST", "DELETE"));
+        Throwable exception = catchThrowable(request::send);
+        assertThat(exception).isInstanceOf(APIException.class).hasMessageContaining(" - Response Allow header: [DELETE, GET, POST]");
     }
 
     @Test

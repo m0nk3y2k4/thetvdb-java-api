@@ -23,5 +23,8 @@ public final class HttpHeaders {
     /** <i>User-Agent</i> header according to <a href="https://tools.ietf.org/html/rfc1945#section-10.15">RFC1945</a> */
     public static final String USER_AGENT = "User-Agent";
 
+    /** <i>Allow</i> header according to <a href="https://tools.ietf.org/html/rfc1945#section-10.1">RFC1945</a> */
+    public static final String ALLOW = "Allow";
+
     private HttpHeaders() {}        // Hidden constructor. Only constants
 }

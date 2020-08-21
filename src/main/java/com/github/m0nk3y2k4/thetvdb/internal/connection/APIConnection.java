@@ -1,5 +1,6 @@
 package com.github.m0nk3y2k4.thetvdb.internal.connection;
 
+import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_BAD_METHOD_ERROR;
 import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_CONFLICT_ERROR;
 import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_NOT_FOUND_ERROR;
 import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_SERVICE_UNAVAILABLE;
@@ -7,15 +8,18 @@ import static com.github.m0nk3y2k4.thetvdb.internal.connection.APISession.Status
 import static com.github.m0nk3y2k4.thetvdb.internal.connection.APISession.Status.NOT_AUTHORIZED;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.ACCEPT;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.ACCEPT_LANGUAGE;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.ALLOW;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.AUTHORIZATION;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.CONTENT_TYPE;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.USER_AGENT;
+import static java.util.stream.Collectors.joining;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -551,6 +555,8 @@ abstract class APIRequest {
                 throw new APINotAuthorizedException(getError(con));
             case HttpURLConnection.HTTP_NOT_FOUND:
                 throw new APIException(API_NOT_FOUND_ERROR, getError(con));
+            case HttpURLConnection.HTTP_BAD_METHOD:
+                throw new APIException(API_BAD_METHOD_ERROR, getBadMethodError(con));
             case HttpURLConnection.HTTP_CONFLICT:
                 throw new APIException(API_CONFLICT_ERROR, getError(con));
             case HttpURLConnection.HTTP_UNAVAILABLE:
@@ -571,6 +577,24 @@ abstract class APIRequest {
      */
     JsonNode getData(@Nonnull HttpsURLConnection con) throws IOException {
         return parseResponse(con.getInputStream());
+    }
+
+    /**
+     * Should only be invoked in case of HTTP-405 status response. Fetches the error message from the connections <b>error</b>
+     * stream and returns it. According to the HTTP-405 status code specification, the server MUST generate an Allow header
+     * field in a 405 response containing a list of the target resource's currently supported methods. These supported methods
+     * will - if available - be prepended to the end of the actual error message.
+     *
+     * @param con Fully initialized connection that has returned a HTTP-405 error status code
+     *
+     * @return Content from the error stream plus all available values from the responses Allow header as String
+     *
+     * @throws IOException Thrown if an I/O error occurs while creating the input stream or fetching the error data
+     */
+    private String getBadMethodError(HttpsURLConnection con) throws IOException {
+        String allowedMethods = con.getHeaderFields().getOrDefault(ALLOW, Collections.emptyList())
+                .stream().sorted().collect(joining(", ", "[", "]"));
+        return String.format("%s - Response Allow header: %s", getError(con), allowedMethods);
     }
 
     /**
