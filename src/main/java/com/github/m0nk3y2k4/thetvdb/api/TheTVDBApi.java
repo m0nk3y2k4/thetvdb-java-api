@@ -750,7 +750,7 @@ public interface TheTVDBApi {
      * of the returned map represent a <i>TheTVDB.com</i> series ID (key) and when it was updated the last time (value) as Epoch time. This is a shortcut-method for
      * {@link #queryLastUpdated(QueryParameters) queryLastUpdated(queryParameters)} with a single "fromTime" query parameter.
      *
-     * @see #queryLastUpdated(String, String) queryLastUpdated(fromTime, toTime)
+     * @see #queryLastUpdated(long, long) queryLastUpdated(fromTime, toTime)
      *
      * @param fromTime Epoch time to start your date range
      *
@@ -759,7 +759,7 @@ public interface TheTVDBApi {
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
      *                      no records exist for the given timespan.
      */
-    Map<Long, Long> queryLastUpdated(@Nonnull String fromTime) throws APIException;
+    Map<Long, Long> queryLastUpdated(long fromTime) throws APIException;
 
     /**
      * Returns a map of series that have changed in between the given timeframe, but with a maximum of one week, starting at the provided <em>{@code fromTime}</em>
@@ -768,7 +768,7 @@ public interface TheTVDBApi {
      * time (value) as Epoch time. This is a shortcut-method for {@link #queryLastUpdated(QueryParameters) queryLastUpdated(queryParameters)} with a "fromTime"
      * and a "toTime" query parameter.
      *
-     * @see #queryLastUpdated(String) queryLastUpdated(fromTime)
+     * @see #queryLastUpdated(long) queryLastUpdated(fromTime)
      *
      * @param fromTime Epoch time to start your date range
      * @param toTime Epoch time to end your date range. Must not be greater than one week from <em>{@code fromTime}</em>.
@@ -778,7 +778,7 @@ public interface TheTVDBApi {
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc. or
      *                      no records exist for the given timespan.
      */
-    Map<Long, Long> queryLastUpdated(@Nonnull String fromTime, @Nonnull String toTime) throws APIException;
+    Map<Long, Long> queryLastUpdated(long fromTime, long toTime) throws APIException;
 
     /**
      * Returns a list of valid parameters for querying series which have been updated lately, as plain Strings. These keys are permitted to be used in

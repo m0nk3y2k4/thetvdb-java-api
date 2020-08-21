@@ -335,15 +335,13 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public Map<Long, Long> queryLastUpdated(@Nonnull String fromTime) throws APIException {
-        validateNotEmpty(fromTime);
-        return queryLastUpdated(query(Map.of(Query.Updates.FROMTIME, fromTime)));
+    public Map<Long, Long> queryLastUpdated(long fromTime) throws APIException {
+        return queryLastUpdated(query(Map.of(Query.Updates.FROMTIME, String.valueOf(fromTime))));
     }
 
     @Override
-    public Map<Long, Long> queryLastUpdated(@Nonnull String fromTime, @Nonnull String toTime) throws APIException {
-        validateNotEmpty(fromTime, toTime);
-        return queryLastUpdated(query(Map.of(Query.Updates.FROMTIME, fromTime, Query.Updates.TOTIME, toTime)));
+    public Map<Long, Long> queryLastUpdated(long fromTime, long toTime) throws APIException {
+        return queryLastUpdated(query(Map.of(Query.Updates.FROMTIME, String.valueOf(fromTime), Query.Updates.TOTIME, String.valueOf(toTime))));
     }
 
     @Override
