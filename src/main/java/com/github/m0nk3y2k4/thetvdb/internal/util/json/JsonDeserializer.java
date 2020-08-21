@@ -33,6 +33,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Image;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ImageQueryParameter;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ImageSummary;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Language;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Rating;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesSearchResult;
@@ -45,6 +46,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ImageDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ImageQueryParameterDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ImageSummaryDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.LanguageDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.RatingDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesSearchResultDTO;
@@ -76,6 +78,14 @@ public final class JsonDeserializer {
                 .addMapping(Series.class, SeriesDTO.class)
                 .addMapping(Episode.class, EpisodeDTO.class)
                 .addMapping(Language.class, LanguageDTO.class)
+                .addMapping(Movie.class, MovieDTO.class)
+                .addMapping(Movie.Artwork.class, MovieDTO.ArtworkDTO.class)
+                .addMapping(Movie.Genre.class, MovieDTO.GenreDTO.class)
+                .addMapping(Movie.ReleaseDate.class, MovieDTO.ReleaseDateDTO.class)
+                .addMapping(Movie.RemoteId.class, MovieDTO.RemoteIdDTO.class)
+                .addMapping(Movie.Trailer.class, MovieDTO.TrailerDTO.class)
+                .addMapping(Movie.Translation.class, MovieDTO.TranslationDTO.class)
+                .addMapping(Movie.People.class, MovieDTO.PeopleDTO.class)
                 .addMapping(Actor.class, ActorDTO.class)
                 .addMapping(SeriesSummary.class, SeriesSummaryDTO.class)
                 .addMapping(ImageQueryParameter.class, ImageQueryParameterDTO.class)
@@ -276,6 +286,37 @@ public final class JsonDeserializer {
      */
     public static APIResponse<Language> mapLanguage(@Nonnull JsonNode json) throws APIException {
         return mapObject(json, new TypeReference<>(){});
+    }
+
+    /**
+     * Maps the actual movie data returned by the movies route.
+     *
+     * @param json The full JSON as returned by the remote service, containing the movie information within the <em>{@code data}</em> node
+     *
+     * @return Extended API response containing the movie data parsed from the given JSON. The returned object typically doesn't contain
+     *         any additional error or paging information as such data is usually not available for remote routes used in conjunction with this method.
+     *
+     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
+     */
+    public static APIResponse<Movie> mapMovie(@Nonnull JsonNode json) throws APIException {
+        return mapObject(json, new TypeReference<>(){});
+    }
+
+    /**
+     * Maps the actual updated movies ID's returned by the movie updates route.
+     * <p><br>
+     * Note: This seems to be the only route that doesn't return its content wrapped into a "data" node but into a "movies" node instead. In order
+     * to be able to reuse the general parsing logic this method will remap the content of the given JSON "movies" node into a new objects "data" node.
+     *
+     * @param json The full JSON as returned by the remote service, containing the updated movies ID's within the <em>{@code movies}</em> node
+     *
+     * @return Extended API response containing the updated movies ID's parsed from the given JSON. The returned object typically doesn't contain
+     *         any additional error or paging information as such data is usually not available for remote routes used in conjunction with this method.
+     *
+     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
+     */
+    public static APIResponse<List<Long>> mapMovieUpdates(@Nonnull JsonNode json) throws APIException {
+        return  mapObject(new ObjectMapper().createObjectNode().set("data", json.get("movies")), new TypeReference<>(){});
     }
 
     /**

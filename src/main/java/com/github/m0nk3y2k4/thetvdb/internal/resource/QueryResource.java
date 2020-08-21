@@ -35,7 +35,7 @@ public abstract class QueryResource extends Resource {
      *
      * @return Composed query resource String based on the given parameters
      */
-    protected static String createQueryResource(@Nonnull String base, @Nonnull String specific, @CheckForNull QueryParameters queryParams) {
+    protected static String createQueryResource(@Nonnull String base, @CheckForNull String specific, @CheckForNull QueryParameters queryParams) {
         return createResource(base, specific) + createQuery(queryParams);
     }
 

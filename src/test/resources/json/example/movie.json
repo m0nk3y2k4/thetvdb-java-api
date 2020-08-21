@@ -1,0 +1,199 @@
+{
+  "data": {
+    "artworks": [
+      {
+        "artwork_type": "ArtworkType1",
+        "height": 587,
+        "id": "Id1",
+        "is_primary": true,
+        "tags": "Tags1",
+        "thumb_url": "ThumbUrl1",
+        "url": "Url1",
+        "width": 845
+      }, {
+        "artwork_type": "ArtworkType2",
+        "height": 588,
+        "id": "Id2",
+        "is_primary": false,
+        "tags": "Tags2",
+        "thumb_url": "ThumbUrl2",
+        "url": "Url2",
+        "width": 846
+      }
+    ],
+    "genres": [
+      {
+        "id": 7842,
+        "name": "Name1",
+        "url": "Url1"
+      }, {
+        "id": 7843,
+        "name": "Name2",
+        "url": "Url2"
+      }
+    ],
+    "id": 534874,
+    "people": {
+      "actors": [
+        {
+          "id": "Id1",
+          "imdb_id": "ImdbId1",
+          "is_featured": true,
+          "name": "Name1",
+          "people_facebook": "PeopleFacebook1",
+          "people_id": "PeopleId1",
+          "people_image": "PeopleImage1",
+          "people_instagram": "PeopleInstagram1",
+          "people_twitter": "PeopleTwitter1",
+          "role": "Role1",
+          "role_image": "RoleImage1"
+        }, {
+          "id": "Id2",
+          "imdb_id": "ImdbId2",
+          "is_featured": false,
+          "name": "Name2",
+          "people_facebook": "PeopleFacebook2",
+          "people_id": "PeopleId2",
+          "people_image": "PeopleImage2",
+          "people_instagram": "PeopleInstagram2",
+          "people_twitter": "PeopleTwitter2",
+          "role": "Role2",
+          "role_image": "RoleImage2"
+        }
+      ],
+      "directors": [
+        {
+          "id": "Id3",
+          "imdb_id": "ImdbId3",
+          "is_featured": true,
+          "name": "Name3",
+          "people_facebook": "PeopleFacebook3",
+          "people_id": "PeopleId3",
+          "people_image": "PeopleImage3",
+          "people_instagram": "PeopleInstagram3",
+          "people_twitter": "PeopleTwitter3",
+          "role": "Role3",
+          "role_image": "RoleImage3"
+        }, {
+          "id": "Id4",
+          "imdb_id": "ImdbId4",
+          "is_featured": false,
+          "name": "Name4",
+          "people_facebook": "PeopleFacebook4",
+          "people_id": "PeopleId4",
+          "people_image": "PeopleImage4",
+          "people_instagram": "PeopleInstagram4",
+          "people_twitter": "PeopleTwitter4",
+          "role": "Role4",
+          "role_image": "RoleImage4"
+        }
+      ],
+      "producers": [
+        {
+          "id": "Id5",
+          "imdb_id": "ImdbId5",
+          "is_featured": true,
+          "name": "Name5",
+          "people_facebook": "PeopleFacebook5",
+          "people_id": "PeopleId5",
+          "people_image": "PeopleImage5",
+          "people_instagram": "PeopleInstagram5",
+          "people_twitter": "PeopleTwitter5",
+          "role": "Role5",
+          "role_image": "RoleImage5"
+        }, {
+          "id": "Id6",
+          "imdb_id": "ImdbId6",
+          "is_featured": false,
+          "name": "Name6",
+          "people_facebook": "PeopleFacebook6",
+          "people_id": "PeopleId6",
+          "people_image": "PeopleImage6",
+          "people_instagram": "PeopleInstagram6",
+          "people_twitter": "PeopleTwitter6",
+          "role": "Role6",
+          "role_image": "RoleImage6"
+        }
+      ],
+      "writers": [
+        {
+          "id": "Id7",
+          "imdb_id": "ImdbId7",
+          "is_featured": true,
+          "name": "Name7",
+          "people_facebook": "PeopleFacebook7",
+          "people_id": "PeopleId7",
+          "people_image": "PeopleImage7",
+          "people_instagram": "PeopleInstagram7",
+          "people_twitter": "PeopleTwitter7",
+          "role": "Role7",
+          "role_image": "RoleImage7"
+        }, {
+          "id": "Id8",
+          "imdb_id": "ImdbId8",
+          "is_featured": false,
+          "name": "Name8",
+          "people_facebook": "PeopleFacebook8",
+          "people_id": "PeopleId8",
+          "people_image": "PeopleImage8",
+          "people_instagram": "PeopleInstagram8",
+          "people_twitter": "PeopleTwitter8",
+          "role": "Role8",
+          "role_image": "RoleImage8"
+        }
+      ]
+    },
+    "release_dates": [
+      {
+        "country": "Country1",
+        "date": "Date1",
+        "type": "Type1"
+      }, {
+        "country": "Country2",
+        "date": "Date2",
+        "type": "Type2"
+      }
+    ],
+    "remoteids": [
+      {
+        "id": "Id1",
+        "source_id": 1245,
+        "source_name": "SourceName1",
+        "source_url": "SourceUrl1",
+        "url": "Url1"
+      }, {
+        "id": "Id2",
+        "source_id": 1246,
+        "source_name": "SourceName2",
+        "source_url": "SourceUrl2",
+        "url": "Url2"
+      }
+    ],
+    "runtime": 168,
+    "trailers": [
+      {
+        "name": "Name1",
+        "url": "Url1"
+      }, {
+        "name": "Name2",
+        "url": "Url2"
+      }
+    ],
+    "translations": [
+      {
+        "is_primary": true,
+        "language_code": "LanguageCode1",
+        "name": "Name1",
+        "overview": "Overview1",
+        "tagline": "Tagline1"
+      }, {
+        "is_primary": false,
+        "language_code": "LanguageCode2",
+        "name": "Name2",
+        "overview": "Overview2",
+        "tagline": "Tagline2"
+      }
+    ],
+    "url": "Url1"
+  }
+}

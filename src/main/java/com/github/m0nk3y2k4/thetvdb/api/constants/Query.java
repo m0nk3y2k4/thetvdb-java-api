@@ -16,6 +16,17 @@ public final class Query {
     private Query() {}
 
     /**
+     * Collection of query parameters for API route <a href="https://api.thetvdb.com/swagger#/Movies">/movies</a>
+     */
+    public static final class Movie {
+
+        private Movie() {}     // Private constructor. Only constants in this class
+
+        /** Query parameter "<i>since</i>" - Epoch time to start your date range */
+        public static final String SINCE = "since";
+    }
+
+    /**
      * Collection of query parameters for API route <a href="https://api.thetvdb.com/swagger#!/Search">/search</a>
      */
     public static final class Search {

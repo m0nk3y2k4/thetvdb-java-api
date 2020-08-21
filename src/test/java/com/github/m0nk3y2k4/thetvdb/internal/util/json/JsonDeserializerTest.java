@@ -68,6 +68,18 @@ class JsonDeserializerTest {
     }
 
     @ParameterizedTest(name = "[{index}] {0} is deserialized properly")
+    @EnumSource(value = JsonResource.class, names = {"MOVIE"})
+    void mapMovie(JsonResource resource) throws Exception {
+        assertThat(JsonDeserializer.mapMovie(resource.getJson())).isEqualTo(resource.getDTO());
+    }
+
+    @ParameterizedTest(name = "[{index}] {0} is deserialized properly")
+    @EnumSource(value = JsonResource.class, names = {"MOVIEUPDATES"})
+    void mapMovieUpdates(JsonResource resource) throws Exception {
+        assertThat(JsonDeserializer.mapMovieUpdates(resource.getJson())).isEqualTo(resource.getDTO());
+    }
+
+    @ParameterizedTest(name = "[{index}] {0} is deserialized properly")
     @EnumSource(value = JsonResource.class, names = {"ACTORS"})
     void mapActors(JsonResource resource) throws Exception {
         assertThat(JsonDeserializer.mapActors(resource.getJson())).isEqualTo(resource.getDTO());

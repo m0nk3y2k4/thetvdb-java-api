@@ -1,5 +1,10 @@
 package com.github.m0nk3y2k4.thetvdb.testutils.json;
 
+import static com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO.PeopleCategory.ACTORS;
+import static com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO.PeopleCategory.DIRECTORS;
+import static com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO.PeopleCategory.PRODUCERS;
+import static com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO.PeopleCategory.WRITERS;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,6 +24,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Image;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ImageQueryParameter;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ImageSummary;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Language;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Rating;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesSearchResult;
@@ -31,6 +37,14 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ImageDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ImageQueryParameterDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ImageSummaryDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.LanguageDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO.ArtworkDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO.GenreDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO.PeopleDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO.ReleaseDateDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO.RemoteIdDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO.TrailerDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO.TranslationDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.RatingDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesSearchResultDTO;
@@ -74,7 +88,9 @@ public final class JSONTestUtil {
         FAVORITES("favorites", JSONTestUtil::favorites, "Favorites JSON response"),
         FAVORITES_EMPTY("favorites_empty", () -> new APIResponseDTO.Builder<List<String>>()
                 .from(JSONTestUtil.favorites()).data(Collections.emptyList()).build(), "Empty favorites JSON response"),
-        RATINGS("ratings", JSONTestUtil::ratings, "Ratings JSON response");
+        RATINGS("ratings", JSONTestUtil::ratings, "Ratings JSON response"),
+        MOVIE("movie", JSONTestUtil::movie, "Movie JSON response"),
+        MOVIEUPDATES("movieupdates", JSONTestUtil::movieUpdates, "Movie updates JSON response");
 
         private final String fileName;
         private final Supplier<APIResponse<?>> dtoSupplier;
@@ -629,6 +645,222 @@ public final class JSONTestUtil {
                         .language("Language")
                         .userName("UserName")
                         .build())
+                .build();
+    }
+
+    /**
+     * Creates a new movie APIResponse DTO with default values set
+     *
+     * @return New movie APIResponse DTO prefilled with default values
+     */
+    public static APIResponse<Movie> movie() {
+        return new APIResponseDTO.Builder<Movie>()
+                .data(new MovieDTO.Builder()
+                        .addArtworks(
+                                new ArtworkDTO.Builder()
+                                        .artworkType("ArtworkType1")
+                                        .height(587L)
+                                        .id("Id1")
+                                        .isPrimary(true)
+                                        .tags("Tags1")
+                                        .thumbUrl("ThumbUrl1")
+                                        .url("Url1")
+                                        .width(845L)
+                                        .build(),
+                                new ArtworkDTO.Builder()
+                                        .artworkType("ArtworkType2")
+                                        .height(588L)
+                                        .id("Id2")
+                                        .isPrimary(false)
+                                        .tags("Tags2")
+                                        .thumbUrl("ThumbUrl2")
+                                        .url("Url2")
+                                        .width(846L)
+                                        .build())
+                        .addGenres(
+                                new GenreDTO.Builder()
+                                        .id(7842L)
+                                        .name("Name1")
+                                        .url("Url1")
+                                        .build(),
+                                new GenreDTO.Builder()
+                                        .id(7843L)
+                                        .name("Name2")
+                                        .url("Url2")
+                                        .build())
+                        .id(534874L)
+                        .putPeople(ACTORS, List.of(
+                                new PeopleDTO.Builder()
+                                        .id("Id1")
+                                        .imdbId("ImdbId1")
+                                        .isFeatured(true)
+                                        .name("Name1")
+                                        .peopleFacebook("PeopleFacebook1")
+                                        .peopleId("PeopleId1")
+                                        .peopleImage("PeopleImage1")
+                                        .peopleInstagram("PeopleInstagram1")
+                                        .peopleTwitter("PeopleTwitter1")
+                                        .role("Role1")
+                                        .roleImage("RoleImage1")
+                                        .build(),
+                                new PeopleDTO.Builder()
+                                        .id("Id2")
+                                        .imdbId("ImdbId2")
+                                        .isFeatured(false)
+                                        .name("Name2")
+                                        .peopleFacebook("PeopleFacebook2")
+                                        .peopleId("PeopleId2")
+                                        .peopleImage("PeopleImage2")
+                                        .peopleInstagram("PeopleInstagram2")
+                                        .peopleTwitter("PeopleTwitter2")
+                                        .role("Role2")
+                                        .roleImage("RoleImage2")
+                                        .build()))
+                        .putPeople(DIRECTORS, List.of(
+                                new PeopleDTO.Builder()
+                                        .id("Id3")
+                                        .imdbId("ImdbId3")
+                                        .isFeatured(true)
+                                        .name("Name3")
+                                        .peopleFacebook("PeopleFacebook3")
+                                        .peopleId("PeopleId3")
+                                        .peopleImage("PeopleImage3")
+                                        .peopleInstagram("PeopleInstagram3")
+                                        .peopleTwitter("PeopleTwitter3")
+                                        .role("Role3")
+                                        .roleImage("RoleImage3")
+                                        .build(),
+                                new PeopleDTO.Builder()
+                                        .id("Id4")
+                                        .imdbId("ImdbId4")
+                                        .isFeatured(false)
+                                        .name("Name4")
+                                        .peopleFacebook("PeopleFacebook4")
+                                        .peopleId("PeopleId4")
+                                        .peopleImage("PeopleImage4")
+                                        .peopleInstagram("PeopleInstagram4")
+                                        .peopleTwitter("PeopleTwitter4")
+                                        .role("Role4")
+                                        .roleImage("RoleImage4")
+                                        .build()))
+                        .putPeople(PRODUCERS, List.of(
+                                new PeopleDTO.Builder()
+                                        .id("Id5")
+                                        .imdbId("ImdbId5")
+                                        .isFeatured(true)
+                                        .name("Name5")
+                                        .peopleFacebook("PeopleFacebook5")
+                                        .peopleId("PeopleId5")
+                                        .peopleImage("PeopleImage5")
+                                        .peopleInstagram("PeopleInstagram5")
+                                        .peopleTwitter("PeopleTwitter5")
+                                        .role("Role5")
+                                        .roleImage("RoleImage5")
+                                        .build(),
+                                new PeopleDTO.Builder()
+                                        .id("Id6")
+                                        .imdbId("ImdbId6")
+                                        .isFeatured(false)
+                                        .name("Name6")
+                                        .peopleFacebook("PeopleFacebook6")
+                                        .peopleId("PeopleId6")
+                                        .peopleImage("PeopleImage6")
+                                        .peopleInstagram("PeopleInstagram6")
+                                        .peopleTwitter("PeopleTwitter6")
+                                        .role("Role6")
+                                        .roleImage("RoleImage6")
+                                        .build()))
+                        .putPeople(WRITERS, List.of(
+                                new PeopleDTO.Builder()
+                                        .id("Id7")
+                                        .imdbId("ImdbId7")
+                                        .isFeatured(true)
+                                        .name("Name7")
+                                        .peopleFacebook("PeopleFacebook7")
+                                        .peopleId("PeopleId7")
+                                        .peopleImage("PeopleImage7")
+                                        .peopleInstagram("PeopleInstagram7")
+                                        .peopleTwitter("PeopleTwitter7")
+                                        .role("Role7")
+                                        .roleImage("RoleImage7")
+                                        .build(),
+                                new PeopleDTO.Builder()
+                                        .id("Id8")
+                                        .imdbId("ImdbId8")
+                                        .isFeatured(false)
+                                        .name("Name8")
+                                        .peopleFacebook("PeopleFacebook8")
+                                        .peopleId("PeopleId8")
+                                        .peopleImage("PeopleImage8")
+                                        .peopleInstagram("PeopleInstagram8")
+                                        .peopleTwitter("PeopleTwitter8")
+                                        .role("Role8")
+                                        .roleImage("RoleImage8")
+                                        .build()))
+                        .addReleaseDates(
+                                new ReleaseDateDTO.Builder()
+                                        .country("Country1")
+                                        .date("Date1")
+                                        .type("Type1")
+                                        .build(),
+                                new ReleaseDateDTO.Builder()
+                                        .country("Country2")
+                                        .date("Date2")
+                                        .type("Type2")
+                                        .build())
+                        .addRemoteIds(
+                                new RemoteIdDTO.Builder()
+                                        .id("Id1")
+                                        .sourceId(1245L)
+                                        .sourceName("SourceName1")
+                                        .sourceUrl("SourceUrl1")
+                                        .url("Url1")
+                                        .build(),
+                                new RemoteIdDTO.Builder()
+                                        .id("Id2")
+                                        .sourceId(1246L)
+                                        .sourceName("SourceName2")
+                                        .sourceUrl("SourceUrl2")
+                                        .url("Url2")
+                                        .build())
+                        .runtime(168L)
+                        .addTrailers(
+                                new TrailerDTO.Builder()
+                                        .name("Name1")
+                                        .url("Url1")
+                                        .build(),
+                                new TrailerDTO.Builder()
+                                        .name("Name2")
+                                        .url("Url2")
+                                        .build())
+                        .addTranslations(
+                                new TranslationDTO.Builder()
+                                        .isPrimary(true)
+                                        .languageCode("LanguageCode1")
+                                        .name("Name1")
+                                        .overview("Overview1")
+                                        .tagline("Tagline1")
+                                        .build(),
+                                new TranslationDTO.Builder()
+                                        .isPrimary(false)
+                                        .languageCode("LanguageCode2")
+                                        .name("Name2")
+                                        .overview("Overview2")
+                                        .tagline("Tagline2")
+                                        .build())
+                        .url("Url1")
+                        .build()
+                ).build();
+    }
+
+    /**
+     * Creates a new movie updates APIResponse DTO with default values set
+     *
+     * @return New movie updates APIResponse DTO prefilled with default values
+     */
+    public static APIResponse<List<Long>> movieUpdates() {
+        return new APIResponseDTO.Builder<List<Long>>()
+                .data(List.of(65L, 77L, 751L, 970L, 2261L))
                 .build();
     }
 }

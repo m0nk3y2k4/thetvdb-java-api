@@ -15,6 +15,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Image;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ImageQueryParameter;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ImageSummary;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Language;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Rating;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesSearchResult;
@@ -174,6 +175,38 @@ public interface TheTVDBApi {
      *                      if the given language ID does not exist.
      */
     Language getLanguage(long languageId) throws APIException;
+
+    /**
+     * Returns detailed information for a specific movie mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Movies/get_movies_id"><b>[GET]</b> /movies/{id}</a>
+     *
+     * @see JSON#getMovie(long) TheTVDBApi.JSON.getMovie(movieId)
+     * @see Extended#getMovie(long) TheTVDBApi.Extended.getMovie(movieId)
+     *
+     * @param movieId The <i>TheTVDB.com</i> movie ID
+     *
+     * @return Detailed information for a specific movie mapped as Java DTO based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given movie ID does not exist, etc.
+     */
+    Movie getMovie(long movieId) throws APIException;
+
+    /**
+     * Returns a list of ID's of all movies that have been updated since the given epoch timestamp.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Movies/get_movieupdates"><b>[GET]</b> /movieupdates</a>
+     *
+     * @see JSON#getMovieUpdates(long) TheTVDBApi.JSON.getMovieUpdates(since)
+     * @see Extended#getMovieUpdates(long) TheTVDBApi.Extended.getMovieUpdates(since)
+     *
+     * @param since Epoch time to start your date range
+     *
+     * @return A list of updated movies ID's beginning at the given <em>{@code since}</em> time, based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+     */
+    List<Long> getMovieUpdates(long since) throws APIException;
 
     /**
      * Returns a list of series search results based on the given query parameters mapped as Java DTO. The list contains basic information
@@ -1002,6 +1035,38 @@ public interface TheTVDBApi {
         JsonNode getLanguage(long languageId) throws APIException;
 
         /**
+         * Returns detailed information for a specific movie as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Movies/get_movies_id"><b>[GET]</b> /movies/{id}</a>
+         *
+         * @see TheTVDBApi#getMovie(long) TheTVDBApi.getMovie(movieId)
+         * @see Extended#getMovie(long) TheTVDBApi.Extended.getMovie(movieId)
+         *
+         * @param movieId The <i>TheTVDB.com</i> movie ID
+         *
+         * @return JSON object containing detailed information for a specific movie
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given movie ID does not exist, etc.
+         */
+        JsonNode getMovie(long movieId) throws APIException;
+
+        /**
+         * Returns a list of ID's of all movies, that have been updated since the given epoch timestamp, as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Movies/get_movieupdates"><b>[GET]</b> /movieupdates</a>
+         *
+         * @see TheTVDBApi#getMovieUpdates(long) TheTVDBApi.getMovieUpdates(since)
+         * @see Extended#getMovieUpdates(long) TheTVDBApi.Extended.getMovieUpdates(since)
+         *
+         * @param since Epoch time to start your date range
+         *
+         * @return JSON object containing the ID's of all movies that have been updated beginning at the given <em>{@code since}</em> time
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
+        JsonNode getMovieUpdates(long since) throws APIException;
+
+        /**
          * Returns series search results based on the given query parameters as raw JSON. The result contains basic information of all series
          * matching the query parameters.
          * <p><br>
@@ -1511,6 +1576,40 @@ public interface TheTVDBApi {
          *                      if the given language ID does not exist.
          */
         APIResponse<Language> getLanguage(long languageId) throws APIException;
+
+        /**
+         * Returns a response object containing detailed information for a specific movie mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Movies/get_movies_id"><b>[GET]</b> /movies/{id}</a>
+         *
+         * @see JSON#getMovie(long) TheTVDBApi.JSON.getMovie(movieId)
+         * @see TheTVDBApi#getMovie(long) TheTVDBApi.getMovie(movieId)
+         *
+         * @param movieId The <i>TheTVDB.com</i> movie ID
+         *
+         * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
+         *         that not all API routes provide additional information so this type of data might be empty.
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given movie ID does not exist, etc.
+         */
+        APIResponse<Movie> getMovie(long movieId) throws APIException;
+
+        /**
+         * Returns a response object containing a list of ID's of all movies, that have been updated since the given epoch timestamp, mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Movies/get_movieupdates"><b>[GET]</b> /movieupdates</a>
+         *
+         * @see JSON#getMovieUpdates(long) TheTVDBApi.JSON.getMovieUpdates(since)
+         * @see TheTVDBApi#getMovieUpdates(long) TheTVDBApi.getMovieUpdates(since)
+         *
+         * @param since Epoch time to start your date range
+         *
+         * @return Extended API response containing the actually requested data as well as optional, additional error and paging information. Please note
+         *         that not all API routes provide additional information so this type of data might be empty.
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource not found, etc.
+         */
+        APIResponse<List<Long>> getMovieUpdates(long since) throws APIException;
 
         /**
          * Returns a response object containing a list of series search results based on the given query parameters mapped as Java DTO. The list contains

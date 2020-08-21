@@ -1,5 +1,6 @@
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl;
 
+import static com.github.m0nk3y2k4.thetvdb.api.constants.Query.Movie.SINCE;
 import static com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search.IMDBID;
 import static com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search.NAME;
 import static com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search.ZAP2ITID;
@@ -34,6 +35,8 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResou
 import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.IMAGESUMMARY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.LANGUAGE;
 import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.LANGUAGES;
+import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.MOVIE;
+import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.MOVIEUPDATES;
 import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.QUERYPARAMETERS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.QUERYPARAMETERS_NESTED;
 import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.RATINGS;
@@ -105,6 +108,8 @@ class TheTVDBApiImplTest {
             client.when(request("/episodes/8477", GET)).respond(jsonResponse(EPISODE));
             client.when(request("/languages", GET)).respond(jsonResponse(LANGUAGES));
             client.when(request("/languages/3184", GET)).respond(jsonResponse(LANGUAGE));
+            client.when(request("/movies/64874", GET)).respond(jsonResponse(MOVIE));
+            client.when(request("/movieupdates", GET, param(SINCE, "77"))).respond(jsonResponse(MOVIEUPDATES));
             client.when(request("/search/series", GET, param("value", "SearchSeries"))).respond(jsonResponse(SERIESSEARCH));
             client.when(request("/search/series", GET, param(NAME, "Name"))).respond(jsonResponse(SERIESSEARCH));
             client.when(request("/search/series", GET, param(IMDBID, "ImdbID"))).respond(jsonResponse(SERIESSEARCH));
@@ -206,6 +211,8 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getEpisode(8477), "getEpisode()"), EPISODE),
                     of(route(() -> basicAPI.getAvailableLanguages(), "getAvailableLanguages()"), LANGUAGES),
                     of(route(() -> basicAPI.getLanguage(3184), "getLanguage()"), LANGUAGE),
+                    of(route(() -> basicAPI.getMovie(64874), "getMovie()"), MOVIE),
+                    of(route(() -> basicAPI.getMovieUpdates(77), "getMovieUpdates()"), MOVIEUPDATES),
                     of(route(() -> basicAPI.searchSeries(params("value", "SearchSeries")), "searchSeries()"), SERIESSEARCH),
                     of(route(() -> basicAPI.searchSeriesByName("Name"), "searchSeriesByName()"), SERIESSEARCH),
                     of(route(() -> basicAPI.searchSeriesByImdbId("ImdbID"), "searchSeriesByImdbId()"), SERIESSEARCH),
@@ -304,6 +311,8 @@ class TheTVDBApiImplTest {
             client.when(request("/episodes/5478", GET)).respond(jsonResponse(EPISODE));
             client.when(request("/languages", GET)).respond(jsonResponse(LANGUAGES));
             client.when(request("/languages/1547", GET)).respond(jsonResponse(LANGUAGE));
+            client.when(request("/movies/74871", GET)).respond(jsonResponse(MOVIE));
+            client.when(request("/movieupdates", GET, param(SINCE, "58"))).respond(jsonResponse(MOVIEUPDATES));
             client.when(request("/search/series", GET, param("value", "SearchSeriesJson"))).respond(jsonResponse(SERIESSEARCH));
             client.when(request("/search/series/params", GET)).respond(jsonResponse(QUERYPARAMETERS));
             client.when(request("/series/45741", GET)).respond(jsonResponse(SERIES));
@@ -363,6 +372,8 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getEpisode(5478), "getEpisode()"), EPISODE),
                     of(route(() -> basicAPI.getAvailableLanguages(), "getAvailableLanguages()"), LANGUAGES),
                     of(route(() -> basicAPI.getLanguage(1547), "getLanguage()"), LANGUAGE),
+                    of(route(() -> basicAPI.getMovie(74871), "getMovie()"), MOVIE),
+                    of(route(() -> basicAPI.getMovieUpdates(58), "getMovieUpdates()"), MOVIEUPDATES),
                     of(route(() -> basicAPI.searchSeries(params("value", "SearchSeriesJson")), "searchSeries()"), SERIESSEARCH),
                     of(route(() -> basicAPI.getAvailableSeriesSearchParameters(), "getAvailableSeriesSearchParameters()"), QUERYPARAMETERS),
                     of(route(() -> basicAPI.getSeries(45741), "getSeries()"), SERIES),
@@ -427,6 +438,8 @@ class TheTVDBApiImplTest {
             client.when(request("/episodes/6341", GET)).respond(jsonResponse(EPISODE));
             client.when(request("/languages", GET)).respond(jsonResponse(LANGUAGES));
             client.when(request("/languages/1119", GET)).respond(jsonResponse(LANGUAGE));
+            client.when(request("/movies/88122", GET)).respond(jsonResponse(MOVIE));
+            client.when(request("/movieupdates", GET, param(SINCE, "16"))).respond(jsonResponse(MOVIEUPDATES));
             client.when(request("/search/series", GET, param("value", "SearchSeriesExtended"))).respond(jsonResponse(SERIESSEARCH));
             client.when(request("/search/series/params", GET)).respond(jsonResponse(QUERYPARAMETERS));
             client.when(request("/series/45748", GET)).respond(jsonResponse(SERIES));
@@ -485,6 +498,8 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getEpisode(6341), "getEpisode()"), EPISODE),
                     of(route(() -> basicAPI.getAvailableLanguages(), "getAvailableLanguages()"), LANGUAGES),
                     of(route(() -> basicAPI.getLanguage(1119), "getLanguage()"), LANGUAGE),
+                    of(route(() -> basicAPI.getMovie(88122), "getMovie()"), MOVIE),
+                    of(route(() -> basicAPI.getMovieUpdates(16), "getMovieUpdates()"), MOVIEUPDATES),
                     of(route(() -> basicAPI.searchSeries(params("value", "SearchSeriesExtended")), "searchSeries()"), SERIESSEARCH),
                     of(route(() -> basicAPI.getAvailableSeriesSearchParameters(), "getAvailableSeriesSearchParameters()"), QUERYPARAMETERS),
                     of(route(() -> basicAPI.getSeries(45748), "getSeries()"), SERIES),

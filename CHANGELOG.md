@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- Added support for all routes available under the [Movies](https://api.thetvdb.com/swagger#/Movies) API endpoint.
 - Added `CHANGELOG.md` file.
 - Included _org.jacoco:jacoco-maven-plugin_ `0.8.5` in order to generate a test coverage report at the end of the build process.
 

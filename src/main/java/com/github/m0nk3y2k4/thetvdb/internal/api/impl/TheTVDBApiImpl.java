@@ -20,6 +20,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Image;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ImageQueryParameter;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ImageSummary;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Language;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Rating;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesSearchResult;
@@ -31,6 +32,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.exception.APIPreconditionException;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.AuthenticationAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.EpisodesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.LanguagesAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.MoviesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SearchAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.UpdatesAPI;
@@ -161,6 +163,16 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     @Override
     public Language getLanguage(long languageId) throws APIException {
         return extended().getLanguage(languageId).getData();
+    }
+
+    @Override
+    public Movie getMovie(long movieId) throws APIException {
+        return extended().getMovie(movieId).getData();
+    }
+
+    @Override
+    public List<Long> getMovieUpdates(long since) throws APIException {
+        return extended().getMovieUpdates(since).getData();
     }
 
     @Override
@@ -427,6 +439,16 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public JsonNode getMovie(long movieId) throws APIException {
+            return MoviesAPI.get(con, movieId);
+        }
+
+        @Override
+        public JsonNode getMovieUpdates(long since) throws APIException {
+            return MoviesAPI.getMovieUpdates(con, query(Map.of(Query.Movie.SINCE, String.valueOf(since))));
+        }
+
+        @Override
         public JsonNode searchSeries(QueryParameters queryParameters) throws APIException {
             return SearchAPI.series(con, queryParameters);
         }
@@ -596,6 +618,16 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public APIResponse<Language> getLanguage(long languageId) throws APIException {
             return JsonDeserializer.mapLanguage(json().getLanguage(languageId));
+        }
+
+        @Override
+        public APIResponse<Movie> getMovie(long movieId) throws APIException {
+            return JsonDeserializer.mapMovie(json().getMovie(movieId));
+        }
+
+        @Override
+        public APIResponse<List<Long>> getMovieUpdates(long since) throws APIException {
+            return JsonDeserializer.mapMovieUpdates(json().getMovieUpdates(since));
         }
 
         @Override
