@@ -32,7 +32,7 @@ public interface APIResponse<T> {
      *
      * @return Optional containing additional error details or empty Optional if no errors occurred or error reporting is not supported by the requested resource
      */
-    Optional<JSONErrors> getErrors();
+    Optional<Errors> getErrors();
 
     /**
      * Returns an Optional representing the additional paging information returned by the remote service. If the requested resource does not support pagination
@@ -50,7 +50,7 @@ public interface APIResponse<T> {
      * data was received.
      *
      */
-    interface JSONErrors {
+    interface Errors {
 
         /**
          * Returns invalid filters passed to the route

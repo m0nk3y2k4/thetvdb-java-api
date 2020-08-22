@@ -67,13 +67,13 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
  */
 public final class JsonDeserializer {
 
-    /** Object mapper module used to extend the mappers functionality in terms of properly mapping the APIs interfaces */
-    private static final SimpleModule DEFAULT_MODULE = new SimpleModule();
+    /** Object mapper module used to extend the mappers functionality in terms of properly mapping the APIs data model interfaces */
+    private static final SimpleModule DATA_MODULE = new SimpleModule();
 
     static {
         // Add Interface <-> Implementation mappings to the module. The object mapper will use these mappings to determine the
         // proper builder to be used to create new instances of a specific interface (via @JsonDeserialize annotation).
-        DEFAULT_MODULE.setAbstractTypes(new SimpleAbstractTypeResolver()
+        DATA_MODULE.setAbstractTypes(new SimpleAbstractTypeResolver()
                 .addMapping(SeriesSearchResult.class, SeriesSearchResultDTO.class)
                 .addMapping(Series.class, SeriesDTO.class)
                 .addMapping(Episode.class, EpisodeDTO.class)
@@ -93,9 +93,6 @@ public final class JsonDeserializer {
                 .addMapping(Image.class, ImageDTO.class)
                 .addMapping(Rating.class, RatingDTO.class)
                 .addMapping(User.class, UserDTO.class)
-                .addMapping(APIResponse.class, APIResponseDTO.class)
-                .addMapping(APIResponse.JSONErrors.class, APIResponseDTO.JSONErrorsDTO.class)
-                .addMapping(APIResponse.Links.class, APIResponseDTO.LinksDTO.class)
         );
     }
 
@@ -561,7 +558,7 @@ public final class JsonDeserializer {
      * @throws IOException If an IO error occurred during the deserialization of the given JSON object
      */
     private static <T> T mapDataObject(@Nonnull JsonNode dataNode, @Nonnull DataTypeReference<T> dataTypeReference) throws IOException {
-        return new ObjectMapper().registerModule(DEFAULT_MODULE).readValue(dataNode.toString(), dataTypeReference);
+        return new ObjectMapper().registerModule(DATA_MODULE).readValue(dataNode.toString(), dataTypeReference);
     }
 
     /**
@@ -601,8 +598,20 @@ public final class JsonDeserializer {
  */
 class FunctionalDeserializer<T, X extends IOException> extends com.fasterxml.jackson.databind.JsonDeserializer<APIResponse<T>>{
 
-    /** Mapper used to read the JSON */
-    private final ObjectMapper mapper = new ObjectMapper();
+    /** Object mapper module used to extend the mappers functionality in terms of properly mapping the API response interfaces */
+    private static final SimpleModule APIRESPONSE_MODULE = new SimpleModule();
+
+    static {
+        // Add Interface <-> Implementation mappings to the module. The object mapper will use these mappings to determine the
+        // proper builder to be used to create new instances of a specific interface (via @JsonDeserialize annotation).
+        APIRESPONSE_MODULE.setAbstractTypes(new SimpleAbstractTypeResolver()
+                .addMapping(APIResponse.Errors.class, APIResponseDTO.ErrorsDTO.class)
+                .addMapping(APIResponse.Links.class, APIResponseDTO.LinksDTO.class)
+        );
+    }
+
+    /** Mapper used to read the "errors" and "links" JSON nodes */
+    private final ObjectMapper mapper = new ObjectMapper().registerModule(APIRESPONSE_MODULE);
 
     /** The mapping function to be invoked in order to parse the <em>{@code data}</em> node */
     private final ThrowableFunctionalInterfaces.Function<JsonNode, T, X> dataFunction;
@@ -621,8 +630,8 @@ class FunctionalDeserializer<T, X extends IOException> extends com.fasterxml.jac
         JsonNode json = mapper.readTree(p);
 
         T data = parseNode(json, "data", dataFunction::apply).orElse(null);
-        Optional<APIResponseDTO.JSONErrorsDTO> errors = parseNode(json, "errors", APIResponseDTO.JSONErrorsDTO.class);
-        Optional<APIResponseDTO.LinksDTO> links = parseNode(json, "links", APIResponseDTO.LinksDTO.class);
+        Optional<APIResponse.Errors> errors = parseNode(json, "errors", APIResponse.Errors.class);
+        Optional<APIResponse.Links> links = parseNode(json, "links", APIResponse.Links.class);
 
         return new APIResponseDTO.Builder<T>().data(data).errors(errors).links(links).build();
     }

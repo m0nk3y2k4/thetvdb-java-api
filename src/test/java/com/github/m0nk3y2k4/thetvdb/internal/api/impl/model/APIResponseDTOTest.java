@@ -15,7 +15,7 @@ class APIResponseDTOTest {
     @Test
     void toString_withEmptyDTOs_verifyDefaultValuesInStringRepresentation() {
         assertThat(new APIResponseDTO.Builder<Data>().data(new Data())
-                .errors(new APIResponseDTO.JSONErrorsDTO.Builder().build())
+                .errors(new APIResponseDTO.ErrorsDTO.Builder().build())
                 .links(new APIResponseDTO.LinksDTO.Builder().build())
                 .build()).asString().isEqualTo(
                         "Data: [], Errors: [Filters: [], Language: , QueryParams: []], Links: [First: , Last: , Next: , Previous: ]");
@@ -24,7 +24,7 @@ class APIResponseDTOTest {
     @Test
     void toString_withFilledDTOs_verifyStringRepresentation() {
         assertThat(new APIResponseDTO.Builder<Data>().data(Data.with("Content"))
-                .errors(new APIResponseDTO.JSONErrorsDTO.Builder()
+                .errors(new APIResponseDTO.ErrorsDTO.Builder()
                         .addInvalidFilters("Fx", "fulter").invalidLanguage("cg").addInvalidQueryParams("itemKey", "q").build())
                 .links(new APIResponseDTO.LinksDTO.Builder()
                         .first(1).last(12).next(5).previous(3).build())

@@ -38,7 +38,7 @@ public abstract class APIResponseDTO<T> implements APIResponse<T> {
     public static class Builder<T> extends APIResponseDTOBuilder<T> {}
 
     /**
-     * DTO implementation of the {@link JSONErrors} interface
+     * DTO implementation of the {@link Errors} interface
      * <p><br>
      * Objects of this class reflect the data received by the remote service and are immutable so that their content can
      * not be changed once an instance has been created. New objects of this class may be created by using the corresponding
@@ -47,8 +47,8 @@ public abstract class APIResponseDTO<T> implements APIResponse<T> {
     @Immutable
     @WithHiddenImplementation
     @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonDeserialize(builder = JSONErrorsDTO.Builder.class)
-    public abstract static class JSONErrorsDTO implements JSONErrors {
+    @JsonDeserialize(builder = ErrorsDTO.Builder.class)
+    public abstract static class ErrorsDTO implements Errors {
 
         @Override
         public String toString() {
@@ -59,13 +59,13 @@ public abstract class APIResponseDTO<T> implements APIResponse<T> {
         }
 
         /**
-         * Builder used to create a new immutable {@link JSONErrorsDTO} implementation
+         * Builder used to create a new immutable {@link ErrorsDTO} implementation
          * <p><br>
-         * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link JSONErrorsDTO} instance
+         * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link ErrorsDTO} instance
          * based on these properties. New builders may be initialized with some existing DTO instance, which presets the builders properties
          * to the values of the given DTO, still retaining the option to make additional changes before actually building a new immutable object.
          */
-        public static class Builder extends JSONErrorsDTOBuilder {}
+        public static class Builder extends ErrorsDTOBuilder {}
     }
 
     /**

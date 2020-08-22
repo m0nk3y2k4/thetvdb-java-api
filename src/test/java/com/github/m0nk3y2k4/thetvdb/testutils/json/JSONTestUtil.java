@@ -151,12 +151,12 @@ public final class JSONTestUtil {
     }
 
     /**
-     * Creates a new JSONErrors DTO with default values set
+     * Creates a new Errors DTO with default values set
      *
-     * @return New JSONErrors DTO prefilled with default values
+     * @return New Errors DTO prefilled with default values
      */
-    public static APIResponse.JSONErrors errors() {
-        return new APIResponseDTO.JSONErrorsDTO.Builder()
+    public static APIResponse.Errors errors() {
+        return new APIResponseDTO.ErrorsDTO.Builder()
                 .addInvalidFilters("InvalidFilter1", "InvalidFilter2")
                 .invalidLanguage("elvish")
                 .addInvalidQueryParams("InvalidQueryParam1", "InvalidQueryParam2")
