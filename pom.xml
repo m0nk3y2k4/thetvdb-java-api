@@ -4,7 +4,7 @@
 
   <groupId>com.github.m0nk3y2k4</groupId>
   <artifactId>thetvdb-java-api</artifactId>
-  <version>0.0.8</version>
+  <version>0.0.9-SNAPSHOT</version>
 
   <name>thetvdb-java-api</name>
   <description>Java connector for the TheTVDB.com. Allows simplified usage of the TheTVDB.com RESTful API from inside Java projects.</description>
@@ -290,7 +290,7 @@
     <url>https://github.com/m0nk3y2k4/thetvdb-java-api</url>
     <connection>scm:git:git@github.com:m0nk3y2k4/thetvdb-java-api.git</connection>
     <developerConnection>scm:git:git@github.com:m0nk3y2k4/thetvdb-java-api.git</developerConnection>
-    <tag>tvdb-japi-0.0.8</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <developers>
