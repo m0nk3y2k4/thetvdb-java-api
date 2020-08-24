@@ -23,7 +23,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesSummary;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.User;
 
 /**
- * Main interface of the <i>TheTDVB</i> API connector.
+ * Main interface of the <i>TheTVDB</i> API connector.
  * <p><br>
  * This interface provides access to all available routes of the remote <i>TheTVDB.com</i> REST API. Routes which accept additional optional and mandatory
  * query parameters can either be invoked with a given set of {@link QueryParameters} or via some predefined shortcut-methods. These shortcut-methods
