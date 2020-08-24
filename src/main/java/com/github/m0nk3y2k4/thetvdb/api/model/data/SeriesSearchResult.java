@@ -20,79 +20,81 @@ import javax.annotation.Nullable;
 public interface SeriesSearchResult {
 
     /**
-     * Get the aliases
+     * Get all values of the {<em>{@code data.aliases}</em>} JSON property in a list
      *
-     * @return the aliases
+     * @return The <em>{@code aliases}</em> property from the received JSON as list
      */
     List<String> getAliases();
 
     /**
-     * Get the banner
+     * Get the value of the {<em>{@code data.banner}</em>} JSON property
      *
-     * @return the banner
+     * @return The <em>{@code banner}</em> property from the received JSON
      */
     @Nullable String getBanner();
 
     /**
-     * Get the firstAired
+     * Get the value of the {<em>{@code data.firstAired}</em>} JSON property
      *
-     * @return the firstAired
+     * @return The <em>{@code firstAired}</em> property from the received JSON
      */
     @Nullable String getFirstAired();
 
     /**
-     * Get the id
+     * Get the value of the {<em>{@code data.id}</em>} JSON property
      *
-     * @return the id
+     * @return The <em>{@code id}</em> property from the received JSON
      */
     @Nullable Long getId();
 
     /**
-     * Get the image
+     * Get the value of the {<em>{@code data.image}</em>} JSON property.
+     * Only available for route <a href="https://api.thetvdb.com/swagger#!/Search/get_search_series"><b>[GET]</b> /search/series</a>.
      *
-     * @return the image
+     * @return The <em>{@code image}</em> property from the received JSON
      */
     @Nullable String getImage();
 
     /**
-     * Get the network
+     * Get the value of the {<em>{@code data.network}</em>} JSON property
      *
-     * @return the network
+     * @return The <em>{@code network}</em> property from the received JSON
      */
     @Nullable String getNetwork();
 
     /**
-     * Get the overview
+     * Get the value of the {<em>{@code data.overview}</em>} JSON property
      *
-     * @return the overview
+     * @return The <em>{@code overview}</em> property from the received JSON
      */
     @Nullable String getOverview();
 
     /**
-     * Get the poster
+     * Get the value of the {<em>{@code data.poster}</em>} JSON property.
+     * Only available for route <a href="https://api.thetvdb.com/swagger#!/Search/get_search_series"><b>[GET]</b> /search/series</a>.
      *
-     * @return the poster
+     * @return The <em>{@code poster}</em> property from the received JSON
      */
     @Nullable String getPoster();
 
     /**
-     * Get the seriesName
+     * Get the value of the {<em>{@code data.seriesName}</em>} JSON property
      *
-     * @return the seriesName
+     * @return The <em>{@code seriesName}</em> property from the received JSON
      */
     @Nullable String getSeriesName();
 
     /**
-     * Get the slug
+     * Get the value of the {<em>{@code data.slug}</em>} JSON property
      *
-     * @return the slug
+     * @return The <em>{@code slug}</em> property from the received JSON
      */
     @Nullable String getSlug();
 
     /**
-     * Get the status
+     * Get the value of the {<em>{@code data.status}</em>} JSON property
      *
-     * @return the status
+     * @return The <em>{@code status}</em> property from the received JSON
      */
     @Nullable String getStatus();
 }

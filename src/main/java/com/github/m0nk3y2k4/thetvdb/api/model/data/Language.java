@@ -18,30 +18,30 @@ import javax.annotation.Nullable;
 public interface Language {
 
     /**
-     * Get the abbreviation
+     * Get the value of the {<em>{@code data.abbreviation}</em>} JSON property
      *
-     * @return the abbreviation
+     * @return The <em>{@code abbreviation}</em> property from the received JSON
      */
     @Nullable String getAbbreviation();
 
     /**
-     * Get the englishName
+     * Get the value of the {<em>{@code data.englishName}</em>} JSON property
      *
-     * @return the englishName
+     * @return The <em>{@code englishName}</em> property from the received JSON
      */
     @Nullable String getEnglishName();
 
     /**
-     * Get the id
+     * Get the value of the {<em>{@code data.id}</em>} JSON property
      *
-     * @return the id
+     * @return The <em>{@code id}</em> property from the received JSON
      */
     @Nullable Long getId();
 
     /**
-     * Get the name
+     * Get the value of the {<em>{@code data.name}</em>} JSON property
      *
-     * @return the name
+     * @return The <em>{@code name}</em> property from the received JSON
      */
     @Nullable String getName();
 }

@@ -18,65 +18,65 @@ import javax.annotation.Nullable;
 public interface Actor {
 
     /**
-     * Get the id
+     * Get the value of the {<em>{@code data.id}</em>} JSON property
      *
-     * @return the id
+     * @return The <em>{@code id}</em> property from the received JSON
      */
     @Nullable Long getId();
 
     /**
-     * Get the image
+     * Get the value of the {<em>{@code data.image}</em>} JSON property
      *
-     * @return the image
+     * @return The <em>{@code image}</em> property from the received JSON
      */
     @Nullable String getImage();
 
     /**
-     * Get the imageAdded
+     * Get the value of the {<em>{@code data.imageAdded}</em>} JSON property
      *
-     * @return the imageAdded
+     * @return The <em>{@code imageAdded}</em> property from the received JSON
      */
     @Nullable String getImageAdded();
 
     /**
-     * Get the imageAuthor
+     * Get the value of the {<em>{@code data.imageAuthor}</em>} JSON property
      *
-     * @return the imageAuthor
+     * @return The <em>{@code imageAuthor}</em> property from the received JSON
      */
     @Nullable Long getImageAuthor();
 
     /**
-     * Get the lastUpdated
+     * Get the value of the {<em>{@code data.lastUpdated}</em>} JSON property
      *
-     * @return the lastUpdated
+     * @return The <em>{@code lastUpdated}</em> property from the received JSON
      */
     @Nullable String getLastUpdated();
 
     /**
-     * Get the name
+     * Get the value of the {<em>{@code data.name}</em>} JSON property
      *
-     * @return the name
+     * @return The <em>{@code name}</em> property from the received JSON
      */
     @Nullable String getName();
 
     /**
-     * Get the role
+     * Get the value of the {<em>{@code data.role}</em>} JSON property
      *
-     * @return the role
+     * @return The <em>{@code role}</em> property from the received JSON
      */
     @Nullable String getRole();
 
     /**
-     * Get the seriesId
+     * Get the value of the {<em>{@code data.seriesId}</em>} JSON property
      *
-     * @return the seriesId
+     * @return The <em>{@code seriesId}</em> property from the received JSON
      */
     @Nullable Long getSeriesId();
 
     /**
-     * Get the sortOrder
+     * Get the value of the {<em>{@code data.sortOrder}</em>} JSON property
      *
-     * @return the sortOrder
+     * @return The <em>{@code sortOrder}</em> property from the received JSON
      */
     @Nullable Long getSortOrder();
 }

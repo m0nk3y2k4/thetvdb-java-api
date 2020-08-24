@@ -20,30 +20,30 @@ import javax.annotation.Nullable;
 public interface SeriesSummary {
 
     /**
-     * Get the number of all aired episodes for this series
+     * Get the value of the {<em>{@code data.airedEpisodes}</em>} JSON property
      *
-     * @return the airedEpisodes
+     * @return The <em>{@code airedEpisodes}</em> property from the received JSON
      */
     @Nullable String getAiredEpisodes();
 
     /**
-     * Get the airedSeasons
+     * Get all values of the {<em>{@code data.airedSeasons}</em>} JSON property in a list
      *
-     * @return the airedSeasons
+     * @return The <em>{@code airedSeasons}</em> property from the received JSON as list
      */
     List<String> getAiredSeasons();
 
     /**
-     * Get the number of all dvd episodes for this series
+     * Get the value of the {<em>{@code data.dvdEpisodes}</em>} JSON property
      *
-     * @return the dvdEpisodes
+     * @return The <em>{@code dvdEpisodes}</em> property from the received JSON
      */
     @Nullable String getDvdEpisodes();
 
     /**
-     * Get the dvdSeasons
+     * Get all values of the {<em>{@code data.dvdSeasons}</em>} JSON property in a list
      *
-     * @return the dvdSeasons
+     * @return The <em>{@code dvdSeasons}</em> property from the received JSON as list
      */
     List<String> getDvdSeasons();
 }

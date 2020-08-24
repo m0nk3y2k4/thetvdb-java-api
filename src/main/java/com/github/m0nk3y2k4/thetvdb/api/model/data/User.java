@@ -18,23 +18,23 @@ import javax.annotation.Nullable;
 public interface User {
 
     /**
-     * Get the favoritesDisplaymode
+     * Get the value of the {<em>{@code data.favoritesDisplaymode}</em>} JSON property
      *
-     * @return the favoritesDisplaymode
+     * @return The <em>{@code favoritesDisplaymode}</em> property from the received JSON
      */
     @Nullable String getFavoritesDisplaymode();
 
     /**
-     * Get the language
+     * Get the value of the {<em>{@code data.language}</em>} JSON property
      *
-     * @return the language
+     * @return The <em>{@code language}</em> property from the received JSON
      */
     @Nullable String getLanguage();
 
     /**
-     * Get the userName
+     * Get the value of the {<em>{@code data.userName}</em>} JSON property
      *
-     * @return the userName
+     * @return The <em>{@code userName}</em> property from the received JSON
      */
     @Nullable String getUserName();
 }

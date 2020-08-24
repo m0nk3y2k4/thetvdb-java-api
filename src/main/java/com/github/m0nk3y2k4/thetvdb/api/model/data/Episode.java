@@ -20,221 +20,221 @@ import javax.annotation.Nullable;
 public interface Episode {
 
     /**
-     * Get the absoluteNumber
+     * Get the value of the {<em>{@code data.absoluteNumber}</em>} JSON property
      *
-     * @return the absoluteNumber
+     * @return The <em>{@code absoluteNumber}</em> property from the received JSON
      */
     @Nullable Long getAbsoluteNumber();
 
     /**
-     * Get the airedEpisodeNumber
+     * Get the value of the {<em>{@code data.airedEpisodeNumber}</em>} JSON property
      *
-     * @return the airedEpisodeNumber
+     * @return The <em>{@code airedEpisodeNumber}</em> property from the received JSON
      */
     @Nullable Long getAiredEpisodeNumber();
 
     /**
-     * Get the airedSeason
+     * Get the value of the {<em>{@code data.airedSeason}</em>} JSON property
      *
-     * @return the airedSeason
+     * @return The <em>{@code airedSeason}</em> property from the received JSON
      */
     @Nullable Long getAiredSeason();
 
     /**
-     * Get the airsAfterSeason
+     * Get the value of the {<em>{@code data.airsAfterSeason}</em>} JSON property
      *
-     * @return the airsAfterSeason
+     * @return The <em>{@code airsAfterSeason}</em> property from the received JSON
      */
     @Nullable Long getAirsAfterSeason();
 
     /**
-     * Get the airsBeforeEpisode
+     * Get the value of the {<em>{@code data.airsBeforeEpisode}</em>} JSON property
      *
-     * @return the airsBeforeEpisode
+     * @return The <em>{@code airsBeforeEpisode}</em> property from the received JSON
      */
     @Nullable Long getAirsBeforeEpisode();
 
     /**
-     * Get the airsBeforeSeason
+     * Get the value of the {<em>{@code data.airsBeforeSeason}</em>} JSON property
      *
-     * @return the airsBeforeSeason
+     * @return The <em>{@code airsBeforeSeason}</em> property from the received JSON
      */
     @Nullable Long getAirsBeforeSeason();
 
     /**
-     * Get the director
-     * @deprecated  Will be removed in future API release
+     * Get the value of the {<em>{@code data.director}</em>} JSON property
+     * @deprecated  Will be removed in future API release. Use {@link #getDirectors()} instead.
      *
-     * @return the director
+     * @return The <em>{@code director}</em> property from the received JSON
      */
     @Deprecated(since = "0.0.1", forRemoval = true)
     @Nullable String getDirector();
 
     /**
-     * Get the directors
+     * Get all values of the {<em>{@code data.directors}</em>} JSON property in a list
      *
-     * @return the directors
+     * @return The <em>{@code directors}</em> property from the received JSON as list
      */
     List<String> getDirectors();
 
     /**
-     * Get the dvdChapter
+     * Get the value of the {<em>{@code data.dvdChapter}</em>} JSON property
      *
-     * @return the dvdChapter
+     * @return The <em>{@code dvdChapter}</em> property from the received JSON
      */
     @Nullable Long getDvdChapter();
 
     /**
-     * Get the dvdDiscid
+     * Get the value of the {<em>{@code data.dvdDiscid}</em>} JSON property
      *
-     * @return the dvdDiscid
+     * @return The <em>{@code dvdDiscid}</em> property from the received JSON
      */
     @Nullable String getDvdDiscid();
 
     /**
-     * Get the dvdEpisodeNumber
+     * Get the value of the {<em>{@code data.dvdEpisodeNumber}</em>} JSON property
      *
-     * @return the dvdEpisodeNumber
+     * @return The <em>{@code dvdEpisodeNumber}</em> property from the received JSON
      */
     @Nullable Long getDvdEpisodeNumber();
 
     /**
-     * Get the dvdSeason
+     * Get the value of the {<em>{@code data.dvdSeason}</em>} JSON property
      *
-     * @return the dvdSeason
+     * @return The <em>{@code dvdSeason}</em> property from the received JSON
      */
     @Nullable Long getDvdSeason();
 
     /**
-     * Get the episodeName
+     * Get the value of the {<em>{@code data.episodeName}</em>} JSON property
      *
-     * @return the episodeName
+     * @return The <em>{@code episodeName}</em> property from the received JSON
      */
     @Nullable String getEpisodeName();
 
     /**
-     * Get the filename
+     * Get the value of the {<em>{@code data.filename}</em>} JSON property
      *
-     * @return the filename
+     * @return The <em>{@code filename}</em> property from the received JSON
      */
     @Nullable String getFilename();
 
     /**
-     * Get the firstAired
+     * Get the value of the {<em>{@code data.firstAired}</em>} JSON property
      *
-     * @return the firstAired
+     * @return The <em>{@code firstAired}</em> property from the received JSON
      */
     @Nullable String getFirstAired();
 
     /**
-     * Get the guestStars
+     * Get all values of the {<em>{@code data.guestStars}</em>} JSON property in a list
      *
-     * @return the guestStars
+     * @return The <em>{@code guestStars}</em> property from the received JSON as list
      */
     List<String> getGuestStars();
 
     /**
-     * Get the id
+     * Get the value of the {<em>{@code data.id}</em>} JSON property
      *
-     * @return the id
+     * @return The <em>{@code id}</em> property from the received JSON
      */
     @Nullable Long getId();
 
     /**
-     * Get the imdbId
+     * Get the value of the {<em>{@code data.imdbId}</em>} JSON property
      *
-     * @return the imdbId
+     * @return The <em>{@code imdbId}</em> property from the received JSON
      */
     @Nullable String getImdbId();
 
     /**
-     * Get the lastUpdated
+     * Get the value of the {<em>{@code data.lastUpdated}</em>} JSON property
      *
-     * @return the lastUpdated
+     * @return The <em>{@code lastUpdated}</em> property from the received JSON
      */
     @Nullable Long getLastUpdated();
 
     /**
-     * Get the lastUpdatedBy
+     * Get the value of the {<em>{@code data.lastUpdatedBy}</em>} JSON property
      *
-     * @return the lastUpdatedBy
+     * @return The <em>{@code lastUpdatedBy}</em> property from the received JSON
      */
     @Nullable String getLastUpdatedBy();
 
     /**
-     * Get the overview
+     * Get the value of the {<em>{@code data.overview}</em>} JSON property
      *
-     * @return the overview
+     * @return The <em>{@code overview}</em> property from the received JSON
      */
     @Nullable String getOverview();
 
     /**
-     * Get the productionCode
+     * Get the value of the {<em>{@code data.productionCode}</em>} JSON property
      *
-     * @return the productionCode
+     * @return The <em>{@code productionCode}</em> property from the received JSON
      */
     @Nullable String getProductionCode();
 
     /**
-     * Get the seriesId
+     * Get the value of the {<em>{@code data.seriesId}</em>} JSON property
      *
-     * @return the seriesId
+     * @return The <em>{@code seriesId}</em> property from the received JSON
      */
     @Nullable String getSeriesId();
 
     /**
-     * Get the showUrl
+     * Get the value of the {<em>{@code data.showUrl}</em>} JSON property
      *
-     * @return the showUrl
+     * @return The <em>{@code showUrl}</em> property from the received JSON
      */
     @Nullable String getShowUrl();
 
     /**
-     * Get the siteRating
+     * Get the value of the {<em>{@code data.siteRating}</em>} JSON property
      *
-     * @return the siteRating
+     * @return The <em>{@code siteRating}</em> property from the received JSON
      */
     @Nullable Double getSiteRating();
 
     /**
-     * Get the siteRatingCount
+     * Get the value of the {<em>{@code data.siteRatingCount}</em>} JSON property
      *
-     * @return the siteRatingCount
+     * @return The <em>{@code siteRatingCount}</em> property from the received JSON
      */
     @Nullable Long getSiteRatingCount();
 
     /**
-     * Get the thumbAdded
+     * Get the value of the {<em>{@code data.thumbAdded}</em>} JSON property
      *
-     * @return the thumbAdded
+     * @return The <em>{@code thumbAdded}</em> property from the received JSON
      */
     @Nullable String getThumbAdded();
 
     /**
-     * Get the thumbAuthor
+     * Get the value of the {<em>{@code data.thumbAuthor}</em>} JSON property
      *
-     * @return the thumbAuthor
+     * @return The <em>{@code thumbAuthor}</em> property from the received JSON
      */
     @Nullable Long getThumbAuthor();
 
     /**
-     * Get the thumbHeight
+     * Get the value of the {<em>{@code data.thumbHeight}</em>} JSON property
      *
-     * @return the thumbHeight
+     * @return The <em>{@code thumbHeight}</em> property from the received JSON
      */
     @Nullable String getThumbHeight();
 
     /**
-     * Get the thumbWidth
+     * Get the value of the {<em>{@code data.thumbWidth}</em>} JSON property
      *
-     * @return the thumbWidth
+     * @return The <em>{@code thumbWidth}</em> property from the received JSON
      */
     @Nullable String getThumbWidth();
 
     /**
-     * Get the writers
+     * Get all values of the {<em>{@code data.writers}</em>} JSON property in a list
      *
-     * @return the writers
+     * @return The <em>{@code writers}</em> property from the received JSON as list
      */
     List<String> getWriters();
 }

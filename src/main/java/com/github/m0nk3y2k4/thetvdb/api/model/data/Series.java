@@ -20,93 +20,93 @@ import javax.annotation.Nullable;
 public interface Series extends SeriesSearchResult {
 
     /**
-     * Get the added
+     * Get the value of the {<em>{@code data.added}</em>} JSON property
      *
-     * @return the added
+     * @return The <em>{@code added}</em> property from the received JSON
      */
     @Nullable String getAdded();
 
     /**
-     * Get the airsDayOfWeek
+     * Get the value of the {<em>{@code data.airsDayOfWeek}</em>} JSON property
      *
-     * @return the airsDayOfWeek
+     * @return The <em>{@code airsDayOfWeek}</em> property from the received JSON
      */
     @Nullable String getAirsDayOfWeek();
 
     /**
-     * Get the airsTime
+     * Get the value of the {<em>{@code data.airsTime}</em>} JSON property
      *
-     * @return the airsTime
+     * @return The <em>{@code airsTime}</em> property from the received JSON
      */
     @Nullable String getAirsTime();
 
     /**
-     * Get the genre
+     * Get all values of the {<em>{@code data.genre}</em>} JSON property in a list
      *
-     * @return the genre
+     * @return The <em>{@code genre}</em> property from the received JSON as list
      */
     List<String> getGenre();
 
     /**
-     * Get the imdbId
+     * Get the value of the {<em>{@code data.imdbId}</em>} JSON property
      *
-     * @return the imdbId
+     * @return The <em>{@code imdbId}</em> property from the received JSON
      */
     @Nullable String getImdbId();
 
     /**
-     * Get the lastUpdated
+     * Get the value of the {<em>{@code data.lastUpdated}</em>} JSON property
      *
-     * @return the lastUpdated
+     * @return The <em>{@code lastUpdated}</em> property from the received JSON
      */
     @Nullable Long getLastUpdated();
 
     /**
-     * Get the networkId
+     * Get the value of the {<em>{@code data.networkId}</em>} JSON property
      *
-     * @return the networkId
+     * @return The <em>{@code networkId}</em> property from the received JSON
      */
     @Nullable String getNetworkId();
 
     /**
-     * Get the rating
+     * Get the value of the {<em>{@code data.rating}</em>} JSON property
      *
-     * @return the rating
+     * @return The <em>{@code rating}</em> property from the received JSON
      */
     @Nullable String getRating();
 
     /**
-     * Get the runtime
+     * Get the value of the {<em>{@code data.runtime}</em>} JSON property
      *
-     * @return the runtime
+     * @return The <em>{@code runtime}</em> property from the received JSON
      */
     @Nullable String getRuntime();
 
     /**
-     * Get the seriesId
+     * Get the value of the {<em>{@code data.seriesId}</em>} JSON property
      *
-     * @return the seriesId
+     * @return The <em>{@code seriesId}</em> property from the received JSON
      */
     @Nullable String getSeriesId();
 
     /**
-     * Get the siteRating
+     * Get the value of the {<em>{@code data.siteRating}</em>} JSON property
      *
-     * @return the siteRating
+     * @return The <em>{@code siteRating}</em> property from the received JSON
      */
     @Nullable Double getSiteRating();
 
     /**
-     * Get the siteRatingCount
+     * Get the value of the {<em>{@code data.siteRatingCount}</em>} JSON property
      *
-     * @return the siteRatingCount
+     * @return The <em>{@code siteRatingCount}</em> property from the received JSON
      */
     @Nullable Long getSiteRatingCount();
 
     /**
-     * Get the zap2itId
+     * Get the value of the {<em>{@code data.zap2itId}</em>} JSON property
      *
-     * @return the zap2itId
+     * @return The <em>{@code zap2itId}</em> property from the received JSON
      */
     @Nullable String getZap2itId();
 }

@@ -18,23 +18,23 @@ import javax.annotation.Nullable;
 public interface Rating {
 
     /**
-     * Get the rating
+     * Get the value of the {<em>{@code data.rating}</em>} JSON property
      *
-     * @return the rating
+     * @return The <em>{@code rating}</em> property from the received JSON
      */
     @Nullable Double getRating();
 
     /**
-     * Get the ratingItemId
+     * Get the value of the {<em>{@code data.ratingItemId}</em>} JSON property
      *
-     * @return the ratingItemId
+     * @return The <em>{@code ratingItemId}</em> property from the received JSON
      */
     @Nullable Long getRatingItemId();
 
     /**
-     * Get the ratingType
+     * Get the value of the {<em>{@code data.ratingType}</em>} JSON property
      *
-     * @return the ratingType
+     * @return The <em>{@code ratingType}</em> property from the received JSON
      */
     @Nullable String getRatingType();
 }

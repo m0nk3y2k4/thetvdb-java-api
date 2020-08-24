@@ -18,37 +18,37 @@ import javax.annotation.Nullable;
 public interface ImageSummary {
 
     /**
-     * Get the fanartCount
+     * Get the value of the {<em>{@code data.fanart}</em>} JSON property
      *
-     * @return the fanartCount
+     * @return The <em>{@code fanart}</em> property from the received JSON
      */
     @Nullable Long getFanartCount();
 
     /**
-     * Get the posterCount
+     * Get the value of the {<em>{@code data.poster}</em>} JSON property
      *
-     * @return the posterCount
+     * @return The <em>{@code poster}</em> property from the received JSON
      */
     @Nullable Long getPosterCount();
 
     /**
-     * Get the seasonCount
+     * Get the value of the {<em>{@code data.season}</em>} JSON property
      *
-     * @return the seasonCount
+     * @return The <em>{@code season}</em> property from the received JSON
      */
     @Nullable Long getSeasonCount();
 
     /**
-     * Get the seasonwideCount
+     * Get the value of the {<em>{@code data.seasonwide}</em>} JSON property
      *
-     * @return the seasonwideCount
+     * @return The <em>{@code seasonwide}</em> property from the received JSON
      */
     @Nullable Long getSeasonwideCount();
 
     /**
-     * Get the seriesCount
+     * Get the value of the {<em>{@code data.series}</em>} JSON property
      *
-     * @return the seriesCount
+     * @return The <em>{@code series}</em> property from the received JSON
      */
     @Nullable Long getSeriesCount();
 }

@@ -20,7 +20,7 @@ import javax.annotation.Nullable;
 public interface APIResponse<T> {
 
     /**
-     * Returns the actually requested records mapped as Java DTO.
+     * Returns the actually requested records mapped as Java DTO. Resolves to the value of the {<em>{@code data}</em>} JSON property.
      *
      * @return Data returned by the API call
      */
@@ -28,7 +28,8 @@ public interface APIResponse<T> {
 
     /**
      * Returns an Optional representing the additional error information returned by the remote service. If the request was fully compliant or if the
-     * requested resource does not support additional error reporting the returned Optional might be empty.
+     * requested resource does not support additional error reporting the returned Optional might be empty. Resolves to the value of the
+     * {<em>{@code errors}</em>} JSON property.
      *
      * @return Optional containing additional error details or empty Optional if no errors occurred or error reporting is not supported by the requested resource
      */
@@ -36,7 +37,7 @@ public interface APIResponse<T> {
 
     /**
      * Returns an Optional representing the additional paging information returned by the remote service. If the requested resource does not support pagination
-     * the returned Optional might be empty.
+     * the returned Optional might be empty. Resolves to the value of the {<em>{@code links}</em>} JSON property.
      *
      * @return Optional containing additional paging information or empty Optional if pagination is not supported by the requested resource
      */
@@ -53,23 +54,23 @@ public interface APIResponse<T> {
     interface Errors {
 
         /**
-         * Returns invalid filters passed to the route
+         * Returns invalid filters passed to the route. Resolves to the values of the {<em>{@code errors.invalidFilters}</em>} JSON property.
          *
-         * @return the invalidFilters
+         * @return The <em>{@code invalidFilters}</em> property from the received JSON as list
          */
         List<String> getInvalidFilters();
 
         /**
-         * Returns invalid language or translation missing
+         * Returns invalid language or translation missing. Resolves to the value of the {<em>{@code errors.invalidLanguage}</em>} JSON property.
          *
-         * @return the invalidLanguage
+         * @return The <em>{@code invalidLanguage}</em> property from the received JSON
          */
         @Nullable String getInvalidLanguage();
 
         /**
-         * Returns invalid query params passed to the route
+         * Returns invalid query params passed to the route. Resolves to the values of the {<em>{@code errors.invalidQueryParams}</em>} JSON property.
          *
-         * @return the invalidQueryParams
+         * @return The <em>{@code invalidQueryParams}</em> property from the received JSON as list
          */
         List<String> getInvalidQueryParams();
     }
@@ -84,30 +85,30 @@ public interface APIResponse<T> {
     interface Links {
 
         /**
-         * Get the number of the first available page
+         * Get the number of the first available page. Resolves to the value of the {<em>{@code links.first}</em>} JSON property.
          *
-         * @return the number of the first available page
+         * @return The number of the first available page
          */
         @Nullable Integer getFirst();
 
         /**
-         * Get the number of the last available page
+         * Get the number of the last available page. Resolves to the value of the {<em>{@code links.last}</em>} JSON property.
          *
-         * @return the number of the last available page
+         * @return The number of the last available page
          */
         @Nullable Integer getLast();
 
         /**
-         * Get the number of the next page (if available)
+         * Get the number of the next page (if available). Resolves to the value of the {<em>{@code links.next}</em>} JSON property.
          *
-         * @return the number of the next page
+         * @return The number of the next page
          */
         @Nullable Integer getNext();
 
         /**
-         * Get the number of the previous page (if available)
+         * Get the number of the previous page (if available). Resolves to the value of the {<em>{@code links.previous}</em>} JSON property.
          *
-         * @return the number of the previous page
+         * @return The number of the previous page
          */
         @Nullable Integer getPrevious();
     }

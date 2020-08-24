@@ -20,30 +20,30 @@ import javax.annotation.Nullable;
 public interface ImageQueryParameter {
 
     /**
-     * Get the keyType
+     * Get the value of the {<em>{@code data.keyType}</em>} JSON property
      *
-     * @return the keyType
+     * @return The <em>{@code keyType}</em> property from the received JSON
      */
     @Nullable String getKeyType();
 
     /**
-     * Get the languageId
+     * Get the value of the {<em>{@code data.languageId}</em>} JSON property
      *
-     * @return the languageId
+     * @return The <em>{@code languageId}</em> property from the received JSON
      */
     @Nullable String getLanguageId();
 
     /**
-     * Get the resolution
+     * Get all values of the {<em>{@code data.resolution}</em>} JSON property in a list
      *
-     * @return the resolution
+     * @return The <em>{@code resolution}</em> property from the received JSON as list
      */
     List<String> getResolution();
 
     /**
-     * Get the subKey
+     * Get all values of the {<em>{@code data.subKey}</em>} JSON property in a list
      *
-     * @return the subKey
+     * @return The <em>{@code subKey}</em> property from the received JSON as list
      */
     List<String> getSubKey();
 }

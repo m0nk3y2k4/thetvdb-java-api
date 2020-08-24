@@ -18,65 +18,65 @@ import javax.annotation.Nullable;
 public interface Image {
 
     /**
-     * Get the fileName
+     * Get the value of the {<em>{@code data.fileName}</em>} JSON property
      *
-     * @return the fileName
+     * @return The <em>{@code fileName}</em> property from the received JSON
      */
     @Nullable String getFileName();
 
     /**
-     * Get the id
+     * Get the value of the {<em>{@code data.id}</em>} JSON property
      *
-     * @return the id
+     * @return The <em>{@code id}</em> property from the received JSON
      */
     @Nullable Long getId();
 
     /**
-     * Get the keyType
+     * Get the value of the {<em>{@code data.keyType}</em>} JSON property
      *
-     * @return the keyType
+     * @return The <em>{@code keyType}</em> property from the received JSON
      */
     @Nullable String getKeyType();
 
     /**
-     * Get the languageId
+     * Get the value of the {<em>{@code data.languageId}</em>} JSON property
      *
-     * @return the languageId
+     * @return The <em>{@code languageId}</em> property from the received JSON
      */
     @Nullable Long getLanguageId();
 
     /**
-     * Get the ratingAverage
+     * Get the value of the {<em>{@code data.ratingsInfo.average}</em>} JSON property
      *
-     * @return the ratingAverage
+     * @return The <em>{@code average}</em> property from the received JSONs ratingsInfo-node
      */
     @Nullable Double getRatingAverage();
 
     /**
-     * Get the ratingCount
+     * Get the value of the {<em>{@code data.ratingsInfo.count}</em>} JSON property
      *
-     * @return the ratingCount
+     * @return The <em>{@code count}</em> property from the received JSON ratingsInfo-node
      */
     @Nullable Integer getRatingCount();
 
     /**
-     * Get the resolution
+     * Get the value of the {<em>{@code data.resolution}</em>} JSON property
      *
-     * @return the resolution
+     * @return The <em>{@code resolution}</em> property from the received JSON
      */
     @Nullable String getResolution();
 
     /**
-     * Get the subKey
+     * Get the value of the {<em>{@code data.subKey}</em>} JSON property
      *
-     * @return the subKey
+     * @return The <em>{@code subKey}</em> property from the received JSON
      */
     @Nullable String getSubKey();
 
     /**
-     * Get the thumbnail
+     * Get the value of the {<em>{@code data.thumbnail}</em>} JSON property
      *
-     * @return the thumbnail
+     * @return The <em>{@code thumbnail}</em> property from the received JSON
      */
     @Nullable String getThumbnail();
 }

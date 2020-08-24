@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
+- Enhanced JavaDoc in API data model interfaces.
 - Renamed `APIResponse.JSONErros` interface to just `APIResponse.Errors`.
 
 ## [0.0.8] - 2020-08-22
