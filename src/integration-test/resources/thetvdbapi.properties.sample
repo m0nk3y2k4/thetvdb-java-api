@@ -1,0 +1,4 @@
+# Set the following properties according to your TheTVDB.com user account and rename this file to 'thetvdbapi.properties'
+integration.thetvdb.com.apikey=<PLEASE_FILL_IN_APIKEY>
+integration.thetvdb.com.userkey=<PLEASE_FILL_IN_USERKEY>
+integration.thetvdb.com.username=<PLEASE_FILL_IN_USERNAME>

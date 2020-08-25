@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Added integration tests which will be executed against the real _TheTVDB.com_ remote API
+
 ### Changed
 - Enhanced JavaDoc in API data model interfaces.
 - Renamed `APIResponse.JSONErros` interface to just `APIResponse.Errors`.
