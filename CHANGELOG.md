@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added integration tests which will be executed against the real _TheTVDB.com_ remote API
 
 ### Changed
+- Fixed some typos and outdated package names in JavaDoc.
 - Enhanced JavaDoc in API data model interfaces.
 - Renamed `APIResponse.JSONErros` interface to just `APIResponse.Errors`.
 

@@ -15,7 +15,7 @@ import org.mockserver.junit.jupiter.MockServerSettings;
  * Meta-annotation used to assign a mock server instance to the test class
  * <p><br>
  * Enables the mock server JUnit5 extension and lets the server being started with some preconfigured settings like e.g. specific
- * port number. For test classes annotated with this meta-annotation a mock server instance will provided for the time of
+ * port number. For test classes annotated with this meta-annotation a mock server instance will be provided for the time of
  * the test execution. If currently no mock server instance exists a new one will be created. Otherwise the existing instance
  * will be provided. The mock server instance will be shut-down at the very end of the test execution.
  * <p><br>
@@ -48,7 +48,7 @@ import org.mockserver.junit.jupiter.MockServerSettings;
  * <pre>{@code
  * package com.github.m0nk3y2k4.thetvdb.foobar;
  *
- * import static com.github.m0nk3y2k4.thetvdb.testutils.HttpsMockServer.WithMockServerExtension;
+ * import static com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter.WithHttpsMockServer;
  *
  * // Imports...
  *
@@ -56,7 +56,7 @@ import org.mockserver.junit.jupiter.MockServerSettings;
  * class SomeAPITestClass {
  *
  *     @Test
- *     void TestSomething(MockServerClient client, Supplier<RemoteAPI> remoteAPISupplier, Proxy remoteAPI) {
+ *     void testSomething(MockServerClient client, Supplier<RemoteAPI> remoteAPISupplier, Proxy remoteAPI) {
  *         client.when(...);        // Access to the local REST endpoint e.g. to add expectations or to verify requests
  *
  *         // Prepared remote API pointing to the server mock
