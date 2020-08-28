@@ -1,6 +1,8 @@
 # thetvdb-java-api
-![Java CI with Maven](https://github.com/m0nk3y2k4/thetvdb-java-api/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master&event=push)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+![Java CI with Maven](https://github.com/m0nk3y2k4/thetvdb-java-api/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master&event=push) &nbsp;
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) &nbsp;
+[![GitHub release](https://img.shields.io/github/release/m0nk3y2k4/thetvdb-java-api.svg)](https://github.com/m0nk3y2k4/thetvdb-java-api/releases) &nbsp;
+![Java version](https://img.shields.io/badge/Java-10-informational) &nbsp;
 
 A simple connector for an easy integration of the [TheTVDB.com](https://thetvdb.com/) RESTful API in Java projects.
 
@@ -47,75 +49,50 @@ of the RESTful API might not always be backwards compatible, each major `thetvdb
 to a specific version of the _TheTVDB.com_ remote API. The API version a specific connector release is using can be derived
 from its version number. For example, `v3.x` uses the _TheTVDB.com_ APIv3 whereas the (not yet existent) `v4.x` would use
 the upcoming APIv4.
-    
-<details><summary>Supported _TheTVDB.com_ APIv3 routes (<code>thetvdb-java-api v3.x</code>)</summary>
-    <p>
-    <ul>
-        <li>Authentication
-            <ul>
-                <li><a href="https://api.thetvdb.com/swagger#!/Authentication/post_login">/login</a></li>
-                <li><a href="https://api.thetvdb.com/swagger#!/Authentication/get_refresh_token">/refresh_token</a></li>
-            </ul>
-        </li>
-        <li>Episodes
-            <ul>
-                <li><a href="https://api.thetvdb.com/swagger#!/Episodes/get_episodes_id">/episodes/{id}</a></li>
-            </ul>
-        </li>
-        <li>Languages
-            <ul>
-                <li><a href="https://api.thetvdb.com/swagger#!/Languages/get_languages">/languages</a></li>
-                <li><a href="https://api.thetvdb.com/swagger#!/Languages/get_languages_id">/languages/{id}</a></li>
-            </ul>
-        </li>
-        <li>Movies
-            <ul>
-                <li><a href="https://api.thetvdb.com/swagger#!/Movies/get_movies_id">/movies/{id}</a></li>
-                <li><a href="https://api.thetvdb.com/swagger#!/Movies/get_movieupdates">/movieupdates</a></li>
-            </ul>
-        </li>
-        <li>Search
-            <ul>
-                <li><a href="https://api.thetvdb.com/swagger#!/Search/get_search_series">/search/series</a></li>
-                <li><a href="https://api.thetvdb.com/swagger#!/Search/get_search_series_params">/search/series/params</a></li>
-            </ul>
-        </li>
-        <li>Series
-            <ul>
-                <li><a href="https://api.thetvdb.com/swagger#!/Series/get_series_id">/series/{id}</a></li>
-                <li><a href="https://api.thetvdb.com/swagger#!/Series/head_series_id">/series/{id}</a> (HEAD)</li>
-                <li><a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_actors">/series/{id}/actors</a></li>
-                <li><a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes">/series/{id}/episodes</a></li>
-                <li><a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_query">/series/{id}/episodes/query</a></li>
-                <li><a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_query_params">/series/{id}/episodes/query/params</a></li>
-                <li><a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_summary">/series/{id}/episodes/summary</a></li>
-                <li><a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_filter">/series/{id}/filter</a></li>
-                <li><a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_filter_params">/series/{id}/filter/params</a></li>
-                <li><a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images">/series/{id}/images</a></li>
-                <li><a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images_query">/series/{id}/images/query</a></li>
-                <li><a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images_query_params">/series/{id}/images/query/params</a></li>
-            </ul>
-        </li>
-        <li>Updates
-            <ul>
-                <li><a href="https://api.thetvdb.com/swagger#!/Updates/get_updated_query">/updated/query</a></li>
-                <li><a href="https://api.thetvdb.com/swagger#!/Updates/get_updated_query_params">/updated/query/params</a></li>
-            </ul>
-        </li>
-        <li>Users
-            <ul>
-                <li><a href="https://api.thetvdb.com/swagger#!/Users/get_user">/user</a></li>
-                <li><a href="https://api.thetvdb.com/swagger#!/Users/get_user_favorites">/user/favorites</a></li>
-                <li><a href="https://api.thetvdb.com/swagger#!/Users/delete_user_favorites_id">/user/favorites/{id}</a> (DELETE)</li>
-                <li><a href="https://api.thetvdb.com/swagger#!/Users/put_user_favorites_id">/user/favorites/{id}</a> (PUT)</li>
-                <li><a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings">/user/ratings</a></li>
-                <li><a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings_query">/user/ratings/query</a></li>
-                <li><a href="https://api.thetvdb.com/swagger#!/Users/get_user_ratings_query_params">/user/ratings/query/params</a></li>
-                <li><a href="https://api.thetvdb.com/swagger#!/Users/delete_user_ratings_itemType_itemId">/user/ratings/{itemType}/{itemId}</a></li>
-                <li><a href="https://api.thetvdb.com/swagger#!/Users/put_user_ratings_itemType_itemId_itemRating">/user/ratings/{itemType}/{itemId}/{itemRating}</a></li>
-            </ul>
-        </li>
-    </ul>
+
+<details>
+<summary>Supported _TheTVDB.com_ APIv3 routes (<code>thetvdb-java-api v3.x</code>)</summary>
+
+- Authentication
+    - [x] [/login](https://api.thetvdb.com/swagger#!/Authentication/post_login)
+    - [x] [/refresh_token](https://api.thetvdb.com/swagger#!/Authentication/get_refresh_token)
+- Episodes
+    - [x] [/episodes/{id}](https://api.thetvdb.com/swagger#!/Episodes/get_episodes_id)
+- Languages
+    - [x] [/languages](https://api.thetvdb.com/swagger#!/Languages/get_languages)
+    - [x] [/languages/{id}](https://api.thetvdb.com/swagger#!/Languages/get_languages_id)
+- Movies
+    - [x] [/movies/{id}](https://api.thetvdb.com/swagger#!/Movies/get_movies_id)
+    - [x] [/movieupdates](https://api.thetvdb.com/swagger#!/Movies/get_movieupdates)
+- Search
+    - [x] [/search/series](https://api.thetvdb.com/swagger#!/Search/get_search_series)
+    - [x] [/search/series/params](https://api.thetvdb.com/swagger#!/Search/get_search_series_params)
+- Series
+    - [x] [/series/{id}](https://api.thetvdb.com/swagger#!/Series/get_series_id)
+    - [x] [/series/{id}](https://api.thetvdb.com/swagger#!/Series/head_series_id) (HEAD)
+    - [x] [/series/{id}/actors](https://api.thetvdb.com/swagger#!/Series/get_series_id_actors)
+    - [x] [/series/{id}/episodes](https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes)
+    - [x] [/series/{id}/episodes/query](https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_query)
+    - [x] [/series/{id}/episodes/query/params](https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_query_params)
+     [/series/{id}/episodes/summary](https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_summary)
+    - [x] [/series/{id}/filter](https://api.thetvdb.com/swagger#!/Series/get_series_id_filter)
+    - [x] [/series/{id}/filter/params](https://api.thetvdb.com/swagger#!/Series/get_series_id_filter_params)
+    - [x] [/series/{id}/images](https://api.thetvdb.com/swagger#!/Series/get_series_id_images)
+    - [x] [/series/{id}/images/query](https://api.thetvdb.com/swagger#!/Series/get_series_id_images_query)
+    - [x] [/series/{id}/images/query/params](https://api.thetvdb.com/swagger#!/Series/get_series_id_images_query_params)
+- Updates
+    - [x] [/updated/query](https://api.thetvdb.com/swagger#!/Updates/get_updated_query)
+    - [x] [/updated/query/params](https://api.thetvdb.com/swagger#!/Updates/get_updated_query_params)
+- Users
+    - [x] [/user](https://api.thetvdb.com/swagger#!/Users/get_user)
+    - [x] [/user/favorites](https://api.thetvdb.com/swagger#!/Users/get_user_favorites)
+    - [x] [/user/favorites/{id}](https://api.thetvdb.com/swagger#!/Users/delete_user_favorites_id) (DELETE)
+    - [x] [/user/favorites/{id}](https://api.thetvdb.com/swagger#!/Users/put_user_favorites_id) (PUT)
+    - [x] [/user/ratings](https://api.thetvdb.com/swagger#!/Users/get_user_ratings)
+    - [x] [/user/ratings/query](https://api.thetvdb.com/swagger#!/Users/get_user_ratings_query)
+    - [x] [/user/ratings/query/params](https://api.thetvdb.com/swagger#!/Users/get_user_ratings_query_params)
+    - [x] [/user/ratings/{itemType}/{itemId}](https://api.thetvdb.com/swagger#!/Users/delete_user_ratings_itemType_itemId)
+    - [x] [/user/ratings/{itemType}/{itemId}/{itemRating}](https://api.thetvdb.com/swagger#!/Users/put_user_ratings_itemType_itemId_itemRating)
 </details>
 
 ## Setup
