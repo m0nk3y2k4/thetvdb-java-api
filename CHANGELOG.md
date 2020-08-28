@@ -6,8 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- LICENSE.txt and license file headers for [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt)
-- Added integration tests which will be executed against the real _TheTVDB.com_ remote API
+- README.md providing useful information for getting familiar with the project.
+- LICENSE.txt and license file headers for [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt).
+- Added integration tests which will be executed against the real _TheTVDB.com_ remote API.
 
 ### Changed
 - Fixed some typos and outdated package names in JavaDoc.
