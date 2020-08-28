@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.0.0] - 2020-08-28
+First stable release which is fully compatible with _TheTVDB.com_ RESTful remote APIv3.
+
 ### Added
 - README.md providing useful information for getting familiar with the project.
 - LICENSE.txt and license file headers for [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt).
@@ -185,7 +189,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - First basic implementation draft of TheTVDB.com RESTful API Java connector.
 
-[Unreleased]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/tvdb-japi-0.0.8...HEAD
+[Unreleased]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/tvdb-japi-3.0.0...HEAD
+[3.0.0]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/tvdb-japi-0.0.8...tvdb-japi-3.0.0
 [0.0.8]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/tvdb-japi-0.0.7...tvdb-japi-0.0.8
 [0.0.7]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/tvdb-japi-0.0.6...tvdb-japi-0.0.7
 [0.0.6]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/tvdb-japi-0.0.5...tvdb-japi-0.0.6
