@@ -148,7 +148,7 @@ In case your build tool isn't supported, or you're not using any build framework
 manually as _.jar_ file. The files (with and without dependencies) can either be obtained from the assets section of the
 corresponding [release](https://github.com/m0nk3y2k4/thetvdb-java-api/releases) or by cloning the repository and building
 the artifacts locally:
-```shell script
+```shell
 mvn clean install
 ```
 
@@ -163,13 +163,13 @@ instances, free configurable query parameters and proxies.
 
 So let's create a new API instance using the factory methods.
 ```java
-    // "Simple" authentication with API-Key only
-    TheTVDBApi api = TheTVDBApiFactory.createApi("API_KEY");
+// "Simple" authentication with API-Key only
+TheTVDBApi api = TheTVDBApiFactory.createApi("API_KEY");
 
-    // or...
+// or...
 
-    // "Advanced" authentication with API-Key, user key and user name
-    TheTVDBApi usersApi = TheTVDBApiFactory.createApi("API_KEY", "Userkey", "Username");
+// "Advanced" authentication with API-Key, user key and user name
+TheTVDBApi usersApi = TheTVDBApiFactory.createApi("API_KEY", "Userkey", "Username");
 ```
 >Please keep in mind that the _username_ and _key_ are **ONLY** required for the [/user](https://api.thetvdb.com/swagger#/Users)
 >routes.
@@ -179,17 +179,17 @@ foremost we have to invoke the _/login_ route once. This will induce the remote 
 [JSON Web Token](https://en.wikipedia.org/wiki/JSON_Web_Token) which will be needed for further authentication. After we
 have successfully requested a JWT, we can now go on to actually retrieve some data from the API.
 ```java
-    api.login();    // We could also use "api.init()" which does exactly the same
+api.login();    // We could also use "api.init()" which does exactly the same
 
-    // Set the preferred language. If possible the remote API will return the requested data in this language
-    // If not set, "en"' is the default
-    api.setLanguage("it");
+// Set the preferred language. If possible the remote API will return the requested data in this language
+// If not set, "en"' is the default
+api.setLanguage("it");
 
-    // Alternatively: invoking the "/languages" endpoint will get us a list of all supported languages
-    List<Language> allLanguages = api.getAvailableLanguages();
-    Language italian = allLanguages.stream()
-            .filter(l -> l.getName().equals("italiano")).findFirst().get();
-    api.setLanguage(italian.getAbbreviation());
+// Alternatively: invoking the "/languages" endpoint will get us a list of all supported languages
+List<Language> allLanguages = api.getAvailableLanguages();
+Language italian = allLanguages.stream()
+        .filter(l -> l.getName().equals("italiano")).findFirst().get();
+api.setLanguage(italian.getAbbreviation());
 ```
 >The connector comes with some integrated auto-login functionality, which will automatically try to request a new JWT
 >in case the authorization failed. Although this might come in handy at times, it is **strongly recommended** to manually
@@ -203,16 +203,16 @@ usual object-oriented way.
 Finally, let's see how to query for specific information. Let's imagine we would like to get all episodes of season 3
 for a specific TV Series. We can do that by using a corresponding set of `QueryParameters`.
 ```java
-    long seriesID = 296762;
-    QueryParameters query = TheTVDBApiFactory.createQueryParameters();
-    query.addParameter(Query.Series.AIREDSEASON, "3");
+long seriesID = 296762;
+QueryParameters query = TheTVDBApiFactory.createQueryParameters();
+query.addParameter(Query.Series.AIREDSEASON, "3");
 
-    // Use your own custom set of query parameters
-    List<Episode> seasonThree = api.queryEpisodes(seriesID, query);
+// Use your own custom set of query parameters
+List<Episode> seasonThree = api.queryEpisodes(seriesID, query);
 
-    System.out.println("Here come all the episodes of season 3:");
-    seasonThree.stream().forEach(e -> System.out.println(
-            e.getAiredSeason() + "." + e.getAiredEpisodeNumber() + ": " + e.getEpisodeName()));
+System.out.println("Here come all the episodes of season 3:");
+seasonThree.stream().forEach(e -> System.out.println(
+        e.getAiredSeason() + "." + e.getAiredEpisodeNumber() + ": " + e.getEpisodeName()));
 ``` 
 ```
 Here come all the episodes of season 3:
@@ -225,13 +225,13 @@ Here come all the episodes of season 3:
 For certain use cases the connector provides additional shortcut methods. Querying for a specific season is one of them,
 so we could do the exact same example with even less code.
 ```java
-    long seriesID = 296762;
+long seriesID = 296762;
 
-    List<Episode> seasonThree = api.queryEpisodesByAiredSeason(seriesID, 3);
+List<Episode> seasonThree = api.queryEpisodesByAiredSeason(seriesID, 3);
 
-    System.out.println("And again, all the episodes of season 3:");
-    seasonThree.stream().forEach(e -> System.out.println(
-                e.getAiredSeason() + "." + e.getAiredEpisodeNumber() + ": " + e.getEpisodeName()));
+System.out.println("And again, all the episodes of season 3:");
+seasonThree.stream().forEach(e -> System.out.println(
+            e.getAiredSeason() + "." + e.getAiredEpisodeNumber() + ": " + e.getEpisodeName()));
 ```
 ```
 And again, all the episodes of season 3:
@@ -254,17 +254,17 @@ If the prefabbed DTO's do not meet your requirements or if you prefer to take ca
 is the layout to go with. It supports all basic routes (without shortcut methods though) but instead of mapping the metadata
 into a DTO it will simply return the raw JSON as it was received from the remote API.
 ```java
-    // Create a new API instance the usual way
-    TheTVDBApi api = TheTVDBApiFactory.createApi("API_KEY");
+// Create a new API instance the usual way
+TheTVDBApi api = TheTVDBApiFactory.createApi("API_KEY");
 
-    // Create a JSON layout from the existing API by invoking the "json()" method
-    TheTVDBApi.JSON jsonApi = api.json();
+// Create a JSON layout from the existing API by invoking the "json()" method
+TheTVDBApi.JSON jsonApi = api.json();
 
-    long seriesID = 296762;
-    QueryParameters query = TheTVDBApiFactory.createQueryParameters(Map.of(Query.Series.AIREDSEASON, "3"));
+long seriesID = 296762;
+QueryParameters query = TheTVDBApiFactory.createQueryParameters(Map.of(Query.Series.AIREDSEASON, "3"));
 
-    JsonNode seasonThreeJSON = jsonApi.queryEpisodes(seriesID, query);
-   // jsonApi.queryEpisodesByAiredSeason(seriesID, 3);   --> This wont work! Shortcut methods are only available in the default layout
+JsonNode seasonThreeJSON = jsonApi.queryEpisodes(seriesID, query);
+// jsonApi.queryEpisodesByAiredSeason(seriesID, 3);   --> This wont work! Shortcut methods are only available in the default layout
 ```
 
 ##### Extended layout
@@ -273,22 +273,22 @@ information received from the remote API, namely the "errors" and the "links" JS
 it supports all basic routes (without shortcut methods). All methods of this layout will return an `APIResponse<T>`
 object which wraps the actual metadata DTO together with the error and pagination information.
 ```java
-    // Again, create the layout from any existing API
-    TheTVDBApi.Extended extendedApi = api.extended();
+// Again, create the layout from any existing API
+TheTVDBApi.Extended extendedApi = api.extended();
 
-    // Get the 2nd page of all episodes for this TV Series (max. 100 per page)
-    final long page = 2;
-    QueryParameters query = TheTVDBApiFactory.createQueryParameters()
-            .addParameter(Query.Series.PAGE, String.valueOf(page));
+// Get the 2nd page of all episodes for this TV Series (max. 100 per page)
+final long page = 2;
+QueryParameters query = TheTVDBApiFactory.createQueryParameters()
+        .addParameter(Query.Series.PAGE, String.valueOf(page));
 
-    APIResponse<List<Episode>> response = extendedApi.queryEpisodes(75760, query);
+APIResponse<List<Episode>> response = extendedApi.queryEpisodes(75760, query);
 
-    // Get the metadata. This is actually what the default layout does.
-    List<Episode> episodesSecondPage = response.getData();
+// Get the metadata. This is actually what the default layout does.
+List<Episode> episodesSecondPage = response.getData();
 
-    // Errors and Links will not always be available and therefore will be returned as Optionals
-    response.getErrors().map(Errors::getInvalidQueryParams).ifPresent(System.err::println);
-    boolean morePages = response.getLinks().map(Links::getLast).map(lastPage -> lastPage > page).orElse(false);
+// Errors and Links will not always be available and therefore will be returned as Optionals
+response.getErrors().map(Errors::getInvalidQueryParams).ifPresent(System.err::println);
+boolean morePages = response.getLinks().map(Links::getLast).map(lastPage -> lastPage > page).orElse(false);
 ```
 >Please note that _Errors_ and _Links_ are not always available but only for certain endpoints. See the _TheTVDB.com_ API
 >documentation for detailed information.
@@ -298,11 +298,11 @@ The connector will send all requests directly towards the _TheTVDB.com_ [RESTful
 your runtime environment is not able to access this resource directly, you can instruct the connector to send its requests
 to a different host which will forward them to the remote API.
 ```java
-    Proxy localProxy = TheTVDBApiFactory.createProxy("https", "my.local.proxy", 10000);
-    TheTVDBApi proxiedApi = TheTVDBApiFactory.createApi("API_KEY", localProxy);
+Proxy localProxy = TheTVDBApiFactory.createProxy("https", "my.local.proxy", 10000);
+TheTVDBApi proxiedApi = TheTVDBApiFactory.createApi("API_KEY", localProxy);
 
-    // Data will be requested from "https://my.local.proxy:10000/movies/2559"
-    Movie excellent = proxiedApi.getMovie(2559);
+// Data will be requested from "https://my.local.proxy:10000/movies/2559"
+Movie excellent = proxiedApi.getMovie(2559);
 ```
 
 ## Development
