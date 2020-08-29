@@ -100,7 +100,7 @@ The latest documentation can be found here: [TheTVDB Java 3.x API](http://thetvd
 ## Setup
 #### Maven
 The artifact is *not* available through the central maven repository, but you may still include the connector into your
-maven project via the [jitpack.io](https://jitpack.io/) repository.
+maven project via the [jitpack.io](https://www.jitpack.io/#m0nk3y2k4/thetvdb-java-api) repository.
 
 1. Add the JitPack repository to your build file 
     ```xml
@@ -116,7 +116,7 @@ maven project via the [jitpack.io](https://jitpack.io/) repository.
         <dependency>
             <groupId>com.github.m0nk3y2k4</groupId>
             <artifactId>thetvdb-java-api</artifactId>
-            <version>3.0.0</version>
+            <version>3.0.1</version>
         </dependency>
     ```
 
