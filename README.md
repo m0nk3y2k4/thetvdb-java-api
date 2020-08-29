@@ -2,7 +2,7 @@
 ![Java CI with Maven](https://github.com/m0nk3y2k4/thetvdb-java-api/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master&event=push) &nbsp;
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) &nbsp;
 [![GitHub release](https://img.shields.io/github/release/m0nk3y2k4/thetvdb-java-api.svg)](https://github.com/m0nk3y2k4/thetvdb-java-api/releases) &nbsp;
-![Java version](https://img.shields.io/badge/Java-10-informational) &nbsp;
+![Java version](https://img.shields.io/badge/Java-1.9-informational) &nbsp;
 
 A simple connector for an easy integration of the [TheTVDB.com](https://thetvdb.com/) RESTful API in Java projects.
 
@@ -94,6 +94,8 @@ the upcoming APIv4.
     - [x] [/user/ratings/{itemType}/{itemId}](https://api.thetvdb.com/swagger#!/Users/delete_user_ratings_itemType_itemId)
     - [x] [/user/ratings/{itemType}/{itemId}/{itemRating}](https://api.thetvdb.com/swagger#!/Users/put_user_ratings_itemType_itemId_itemRating)
 </details>
+
+The latest documentation can be found here: [TheTVDB Java 3.x API](http://thetvdb-java-api.m0nk3y.info/v3/index.html?overview-summary.html)
 
 ## Setup
 #### Maven
@@ -219,7 +221,7 @@ And again, all the episodes of season 3:
 ...
 ```
 
-And that's basically it! Go and check out the documentation of the main API interface `com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi`
+And that's basically it! Go and check out the documentation of the [main API interface](http://thetvdb-java-api.m0nk3y.info/v3/index.html?com/github/m0nk3y2k4/thetvdb/api/TheTVDBApi.html)
 to find more details on the various endpoint and shortcut methods.
 
 #### Advanced
