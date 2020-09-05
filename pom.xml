@@ -189,6 +189,7 @@
             </executions>
         </plugin>
         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-assembly-plugin</artifactId>
             <version>3.3.0</version>
             <configuration>
@@ -286,7 +287,7 @@
     <dependency>
         <groupId>org.mockito</groupId>
         <artifactId>mockito-core</artifactId>
-        <version>3.4.6</version>
+        <version>3.5.10</version>
         <scope>test</scope>
     </dependency>
 
@@ -316,7 +317,7 @@
     <dependency>
         <groupId>org.assertj</groupId>
         <artifactId>assertj-core</artifactId>
-        <version>3.16.1</version>
+        <version>3.17.1</version>
         <scope>test</scope>
     </dependency>
 
