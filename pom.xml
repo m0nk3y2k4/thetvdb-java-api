@@ -3,7 +3,7 @@
 
   <groupId>com.github.m0nk3y2k4</groupId>
   <artifactId>thetvdb-java-api</artifactId>
-  <version>3.0.3-SNAPSHOT</version>
+  <version>4.0.0-SNAPSHOT</version>
 
   <name>thetvdb-java-api</name>
   <description>Java connector for the TheTVDB.com. Allows simplified usage of the TheTVDB.com RESTful API from inside Java projects.</description>
