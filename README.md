@@ -2,7 +2,7 @@
 ![Java CI with Maven](https://github.com/m0nk3y2k4/thetvdb-java-api/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master&event=push) &nbsp;
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) &nbsp;
 [![GitHub release](https://img.shields.io/github/release/m0nk3y2k4/thetvdb-java-api.svg)](https://github.com/m0nk3y2k4/thetvdb-java-api/releases) &nbsp;
-![Java version](https://img.shields.io/badge/Java-1.9-informational) &nbsp;
+![Java version](https://img.shields.io/badge/Java-10-informational) &nbsp;
 
 A simple connector for an easy integration of the [TheTVDB.com](https://thetvdb.com/) RESTful API in Java projects.
 

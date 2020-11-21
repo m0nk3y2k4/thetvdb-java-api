@@ -6,10 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
+- Changed project compile version to Java SE 10
 - Updated multiple maven dependencies to latest version:
     - _org.junit.jupiter:*_: `5.6.2` -> `5.7.0`
-    - _org.mockito:mockito-core_: `3.4.6` -> `3.5.13`
-    - _org.assertj:assertj-core_: `3.16.1` -> `3.17.2`
+    - _org.mockito:mockito-core_: `3.4.6` -> `3.6.0`
+    - _org.assertj:assertj-core_: `3.16.1` -> `3.18.1`
+    - _com.fasterxml:jackson.core_: `2.11.2` -> `2.11.3`
+    - _org.mock-server:*_: `5.11.1` -> `5.11.2`
 
 ## [3.0.1] - 2020-08-29
 ### Changed
