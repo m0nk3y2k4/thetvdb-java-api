@@ -207,7 +207,7 @@ First stable release which is fully compatible with _TheTVDB.com_ RESTful remote
 - First basic implementation draft of TheTVDB.com RESTful API Java connector.
 
 [Unreleased]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/3.0.2...HEAD
-[3.0.2]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/tvdb-japi-3.0.1...3.0.2
+[3.0.2]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/3.0.1...3.0.2
 [3.0.1]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/tvdb-japi-3.0.0...3.0.1
 [3.0.0]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/tvdb-japi-0.0.8...tvdb-japi-3.0.0
 [0.0.8]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/tvdb-japi-0.0.7...tvdb-japi-0.0.8
