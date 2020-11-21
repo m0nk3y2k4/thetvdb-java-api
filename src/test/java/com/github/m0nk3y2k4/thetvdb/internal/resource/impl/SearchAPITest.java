@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -46,6 +46,7 @@ import org.mockserver.client.MockServerClient;
 @WithHttpsMockServer
 class SearchAPITest {
 
+    //@formatter:off
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
         client.when(request("/search/series", GET, param("name", "Some Series"))).respond(jsonResponse(SERIESSEARCH));
@@ -59,10 +60,12 @@ class SearchAPITest {
                 of(route(con -> getAvailableSearchParameters(con), "getAvailableSearchParameters()"), QUERYPARAMETERS)
         );
     }
+    //@formatter:on
 
     @ParameterizedTest(name = "[{index}] Route SearchAPI.{0} successfully invoked")
-    @MethodSource(value = "withValidParameters")
-    void invokeRoute_withValidParameters_verifyResponse(TestRemoteAPICall route, JsonResource expected, Supplier<RemoteAPI> remoteAPI) throws Exception {
+    @MethodSource("withValidParameters")
+    void invokeRoute_withValidParameters_verifyResponse(TestRemoteAPICall route, JsonResource expected,
+            Supplier<RemoteAPI> remoteAPI) throws Exception {
         assertThat(route.invoke(new APIConnection("OW8H7D1D6SSIOIU7Z5", remoteAPI))).isEqualTo(expected.getJson());
     }
 }

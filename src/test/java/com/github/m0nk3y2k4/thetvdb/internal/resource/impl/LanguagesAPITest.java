@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -45,6 +45,7 @@ import org.mockserver.client.MockServerClient;
 @WithHttpsMockServer
 class LanguagesAPITest {
 
+    //@formatter:off
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
         client.when(request("/languages", GET)).respond(jsonResponse(LANGUAGES));
@@ -65,16 +66,20 @@ class LanguagesAPITest {
                 of(route(con -> getAllAvailable(con), "getAllAvailable()"), LANGUAGES)
         );
     }
+    //@formatter:on
 
     @ParameterizedTest(name = "[{index}] Route LanguagesAPI.{0} rejected")
-    @MethodSource(value = "withInvalidParameters")
-    void invokeRoute_withInvalidParameters_verifyParameterValidation(TestRemoteAPICall route, Supplier<RemoteAPI> remoteAPI) {
-        assertThatIllegalArgumentException().isThrownBy(() -> route.invoke(new APIConnection("946FG8I5P5E56E4", remoteAPI)));
+    @MethodSource("withInvalidParameters")
+    void invokeRoute_withInvalidParameters_verifyParameterValidation(TestRemoteAPICall route,
+            Supplier<RemoteAPI> remoteAPI) {
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> route.invoke(new APIConnection("946FG8I5P5E56E4", remoteAPI)));
     }
 
     @ParameterizedTest(name = "[{index}] Route LanguagesAPI.{0} successfully invoked")
-    @MethodSource(value = "withValidParameters")
-    void invokeRoute_withValidParameters_verifyResponse(TestRemoteAPICall route, JsonResource expected, Supplier<RemoteAPI> remoteAPI) throws Exception {
+    @MethodSource("withValidParameters")
+    void invokeRoute_withValidParameters_verifyResponse(TestRemoteAPICall route, JsonResource expected,
+            Supplier<RemoteAPI> remoteAPI) throws Exception {
         assertThat(route.invoke(new APIConnection("F5I5W4T657I6KAA", remoteAPI))).isEqualTo(expected.getJson());
     }
 }

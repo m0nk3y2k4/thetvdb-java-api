@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -86,12 +86,14 @@ class APIRequestTest {
                 Arguments.of("/test/unavailable", HttpStatusCode.SERVICE_UNAVAILABLE_503, APIException.class,
                         API_SERVICE_UNAVAILABLE),
                 Arguments.of("/test/badGateway", HttpStatusCode.BAD_GATEWAY_502, APICommunicationException.class,
-                        String.format(ERR_UNEXPECTED_RESPONSE, HttpStatusCode.BAD_GATEWAY_502.code(), HttpStatusCode.BAD_GATEWAY_502.reasonPhrase()))
+                        String.format(ERR_UNEXPECTED_RESPONSE, HttpStatusCode.BAD_GATEWAY_502.code(),
+                                HttpStatusCode.BAD_GATEWAY_502.reasonPhrase()))
         );
     }
 
     @ParameterizedTest(name = "[{index}] String \"{0}\" is not a valid resource")
-    @NullAndEmptySource @ValueSource(strings = {"   "})
+    @NullAndEmptySource
+    @ValueSource(strings = {"   "})
     void newAPIRequest_withoutResource_verifyParameterValidation(String resource) {
         assertThatIllegalArgumentException().isThrownBy(() -> new APIRequest(resource, DELETE) {});
     }
@@ -109,7 +111,8 @@ class APIRequestTest {
     }
 
     @Test
-    void send_withoutSession_verifyHttpMethodInAPIRequest(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
+    void send_withoutSession_verifyHttpMethodInAPIRequest(MockServerClient client, RemoteAPI remoteAPI)
+            throws Exception {
         final String resource = "/test/requestMethod";
         APIRequest request = createAPIRequestWith(resource, HEAD, null, remoteAPI);
         request.send();
@@ -117,7 +120,8 @@ class APIRequestTest {
     }
 
     @Test
-    void send_withoutSession_verifyHttpHeadersInAPIRequest(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
+    void send_withoutSession_verifyHttpHeadersInAPIRequest(MockServerClient client, RemoteAPI remoteAPI)
+            throws Exception {
         final String resource = "/test/requestHeadersWithoutSession";
         APIRequest request = createAPIRequestWith(resource, GET, null, remoteAPI);
         request.send();
@@ -127,7 +131,8 @@ class APIRequestTest {
     }
 
     @Test
-    void send_withUninitializedSession_verifyHttpHeadersInAPIRequest(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
+    void send_withUninitializedSession_verifyHttpHeadersInAPIRequest(MockServerClient client, RemoteAPI remoteAPI)
+            throws Exception {
         final String resource = "/test/requestHeadersWithUninitializedSession";
         APIRequest request = createAPIRequestWith(resource, DELETE, Status.NOT_AUTHORIZED, remoteAPI);
         request.send();
@@ -137,7 +142,8 @@ class APIRequestTest {
     }
 
     @Test
-    void send_withFullyInitializedSession_verifyHttpHeadersInAPIRequest(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
+    void send_withFullyInitializedSession_verifyHttpHeadersInAPIRequest(MockServerClient client, RemoteAPI remoteAPI)
+            throws Exception {
         final String resource = "/test/requestHeadersWithUninitializedSession";
         APISession session = new APISession("WIOD548W9DLOF32W5S4DFFW");
         session.setStatus(Status.AUTHORIZED);
@@ -153,7 +159,8 @@ class APIRequestTest {
     }
 
     @Test
-    void send_withSomeRequestPreparation_verifyPreparationIsApplied(MockServerClient client, RemoteAPI remoteAPI) throws Exception {
+    void send_withSomeRequestPreparation_verifyPreparationIsApplied(MockServerClient client, RemoteAPI remoteAPI)
+            throws Exception {
         final String resource = "/test/prepareRequest";
         final Header preparation = header("Prepared", "true");
         APISession session = new APISession("47D5SF8WWF85K5LZ4GRTZ7512");
@@ -182,33 +189,39 @@ class APIRequestTest {
 
     @ParameterizedTest(name = "[{index}] Code {1} is mapped into \"{2}\" with error message \"{3}\"")
     @MethodSource
-    void getResponse_respondWithHTTPErrorCode_verifyExceptionHandling(String resource, HttpStatusCode status, Class<?> expectedException,
-                String expectedErrorMessage, MockServerClient client, RemoteAPI remoteAPI) {
+    void getResponse_respondWithHTTPErrorCode_verifyExceptionHandling(String resource, HttpStatusCode status,
+            Class<?> expectedException, String expectedErrorMessage, MockServerClient client, RemoteAPI remoteAPI) {
         APIRequest request = createAPIRequestWith(resource, DELETE, Status.NOT_AUTHORIZED, remoteAPI);
-        client.when(request(resource)).respond(createResponse(status, String.format(JSON_ERROR, status.reasonPhrase())));
+        client.when(request(resource))
+                .respond(createResponse(status, String.format(JSON_ERROR, status.reasonPhrase())));
         Throwable exception = catchThrowable(request::send);
         assertThat(exception).isInstanceOf(expectedException).hasMessageContaining(expectedErrorMessage);
     }
 
     @Test
-    void getResponse_respondWithHTTP405ErrorCode_verifyAllowHeadersArePrependedToErrorMessage(MockServerClient client, RemoteAPI remoteAPI) {
+    void getResponse_respondWithHTTP405ErrorCode_verifyAllowHeadersArePrependedToErrorMessage(MockServerClient client,
+            RemoteAPI remoteAPI) {
         final String resource = "/test/methodErrorWithAllowHeader";
         APIRequest request = createAPIRequestWith(resource, PUT, null, remoteAPI);
         client.when(request(resource)).respond(
-                createResponse(HttpStatusCode.METHOD_NOT_ALLOWED_405, String.format(JSON_ERROR, HttpStatusCode.METHOD_NOT_ALLOWED_405.reasonPhrase()))
-                .withHeader(HttpHeaders.ALLOW, "GET", "POST", "DELETE"));
+                createResponse(HttpStatusCode.METHOD_NOT_ALLOWED_405, String
+                        .format(JSON_ERROR, HttpStatusCode.METHOD_NOT_ALLOWED_405.reasonPhrase()))
+                        .withHeader(HttpHeaders.ALLOW, "GET", "POST", "DELETE"));
         Throwable exception = catchThrowable(request::send);
-        assertThat(exception).isInstanceOf(APIException.class).hasMessageContaining(" - Response Allow header: [DELETE, GET, POST]");
+        assertThat(exception).isInstanceOf(APIException.class)
+                .hasMessageContaining(" - Response Allow header: [DELETE, GET, POST]");
     }
 
     @Test
-    void getResponse_respondWithoutConnectionErrorStream_verifyEmptyJsonNodeIsReturned(MockServerClient client, RemoteAPI remoteAPI) {
+    void getResponse_respondWithoutConnectionErrorStream_verifyEmptyJsonNodeIsReturned(MockServerClient client,
+            RemoteAPI remoteAPI) {
         final String resource = "/test/noErrorStream";
         // Request method HEAD causes mock server to return NULL as connections error stream
         APIRequest request = createAPIRequestWith(resource, HEAD, null, remoteAPI);
         client.when(request(resource)).respond(createUnauthorizedResponse());
         Throwable exception = catchThrowable(request::send);
-        assertThat(exception).isInstanceOf(APINotAuthorizedException.class).hasMessageContaining(API_NOT_AUTHORIZED_ERROR, "n/a");
+        assertThat(exception).isInstanceOf(APINotAuthorizedException.class)
+                .hasMessageContaining(API_NOT_AUTHORIZED_ERROR, "n/a");
     }
 
     @Test
@@ -220,7 +233,8 @@ class APIRequestTest {
         assertThat(exception).hasMessageContaining(ERR_SEND, PUT.getName());
     }
 
-    private APIRequest createAPIRequestWith(String resource, HttpRequestMethod method, APISession.Status status, RemoteAPI remoteAPI) {
+    private APIRequest createAPIRequestWith(String resource, HttpRequestMethod method, APISession.Status status,
+            RemoteAPI remoteAPI) {
         APIRequest request = new APIRequest(resource, method) {};
         Optional.ofNullable(status).map(x -> {
             APISession session = new APISession(String.valueOf(Objects.hash(resource, method, status, remoteAPI)));

@@ -19,7 +19,11 @@ jobs:
       with:
         java-version: 10
     - name: Build with Maven
-      run: mvn -B verify -P integration-tests -Dintegration.thetvdb.com.apikey=$APIKEY -Dintegration.thetvdb.com.userkey=$USERKEY -Dintegration.thetvdb.com.username=$USERNAME
+      run: >
+        mvn -B verify -P integration-tests
+        -Dintegration.thetvdb.com.apikey=$APIKEY
+        -Dintegration.thetvdb.com.userkey=$USERKEY
+        -Dintegration.thetvdb.com.username=$USERNAME
       env:
         APIKEY: ${{ secrets.THETVDB_APIKEY }}
         USERKEY: ${{ secrets.THETVDB_USERKEY }}

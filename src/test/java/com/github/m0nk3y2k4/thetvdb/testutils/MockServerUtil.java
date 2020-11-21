@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -52,9 +52,9 @@ import org.mockserver.model.Parameter;
 /**
  * Utility class providing useful methods for working with mock servers
  * <p><br>
- * This class offers quick access to functionality which is often required when working with mock servers. This includes prepared
- * JSON Strings, creation of common HTTP request headers as well as simple preconfigured responses for example to return a HTTP-200
- * or HTTP-401 response.
+ * This class offers quick access to functionality which is often required when working with mock servers. This includes
+ * prepared JSON Strings, creation of common HTTP request headers as well as simple preconfigured responses for example
+ * to return a HTTP-200 or HTTP-401 response.
  */
 public abstract class MockServerUtil {
 
@@ -67,7 +67,7 @@ public abstract class MockServerUtil {
     /** JSON String representing some dummy payload data e.g. to be used for POST requests */
     public static final String JSON_DATA = "{\"Some\":\"JSON payload\"}";
 
-    /** JSON String representing a dummy JWT response. It's not a real token but the content is valid with regards to the JWT format. */
+    /** JSON String representing a dummy JWT response (valid with regards to the JWT format) */
     public static final String JSON_JWT = "{\"token\":\"Header.Payload.Signature\"}";
 
     private MockServerUtil() {}         // Hidden constructor. Only static methods
@@ -97,10 +97,11 @@ public abstract class MockServerUtil {
     }
 
     /**
-     * Returns matchers for the default HTTP headers which will be set when communicating with the remote API. Which headers are actually
-     * set depends on whether the underlying API session has already been authorized or not. If <em>{@code withAuthorization}</em> is
-     * set to TRUE, the returned array will contain matchers verifying that the authentication related headers exist and contain some reasonable
-     * values. If set to FALSE the array will contain matchers verifying that no authentication related headers exist at all.
+     * Returns matchers for the default HTTP headers which will be set when communicating with the remote API. Which
+     * headers are actually set depends on whether the underlying API session has already been authorized or not. If
+     * <em>{@code withAuthorization}</em> is set to TRUE, the returned array will contain matchers verifying that the
+     * authentication related headers exist and contain some reasonable values. If set to FALSE the array will contain
+     * matchers verifying that no authentication related headers exist at all.
      *
      * @param withAuthorization Authorization related headers should be present or not
      *
@@ -115,20 +116,21 @@ public abstract class MockServerUtil {
     }
 
     /**
-     * Tries to create a set of mock server headers from the given JSON resource object. For this, the resources {@link JsonResource#getDTO()}
-     * method must return a {@link Map}. The key/value pairs of this map will be converted into their String representation and will be set
-     * as key/value pairs on the returned headers object.
+     * Tries to create a set of mock server headers from the given JSON resource object. For this, the resources {@link
+     * JsonResource#getDTO()} method must return a {@link Map}. The key/value pairs of this map will be converted into
+     * their String representation and will be set as key/value pairs on the returned headers object.
      *
      * @param resource The test resource based on which the headers object should be created
      *
-     * @return Headers object with key/value pairs from the given JSON resource. In case the resources DTO is not compatible an
-     *         empty headers object without any keys or values will be returned.
+     * @return Headers object with key/value pairs from the given JSON resource. In case the resources DTO is not
+     *         compatible an empty headers object without any keys or values will be returned.
      */
     public static Headers getHeadersFrom(JsonResource resource) {
         Headers headers = new Headers();
         if (resource.getDTO().getData() instanceof Map) {
             Function<Map.Entry<?, ?>, Map.Entry<String, String>> toStringValues = e ->
-                    new AbstractMap.SimpleImmutableEntry<>(Objects.toString(e.getKey(), null), Objects.toString(e.getValue(), null));
+                    new AbstractMap.SimpleImmutableEntry<>(Objects.toString(e.getKey(), null), Objects
+                            .toString(e.getValue(), null));
             Consumer<Map.Entry<String, String>> addHeader = e -> headers.withEntry(e.getKey(), e.getValue());
 
             ((Map<?, ?>)resource.getDTO().getData()).entrySet().stream().map(toStringValues).forEach(addHeader);
@@ -146,7 +148,8 @@ public abstract class MockServerUtil {
     }
 
     /**
-     * Creates a simple HTTP-200 <i>"OK"</i> response. The response body contains some dummy token in a valid JWT format.
+     * Creates a simple HTTP-200 <i>"OK"</i> response. The response body contains some dummy token in a valid JWT
+     * format.
      *
      * @return New preconfigured HTTP response with a HTTP-200 status
      */
@@ -155,7 +158,8 @@ public abstract class MockServerUtil {
     }
 
     /**
-     * Creates a simple HTTP-401 <i>"Unauthorized"</i> response. The response body contains some dummy JSON authorization failure message.
+     * Creates a simple HTTP-401 <i>"Unauthorized"</i> response. The response body contains some dummy JSON
+     * authorization failure message.
      *
      * @return New preconfigured HTTP response with a HTTP-401 status
      */
@@ -164,15 +168,17 @@ public abstract class MockServerUtil {
     }
 
     /**
-     * Creates a simple response with the given HTTP <em>{@code status}</em> and the given <em>{@code content}</em> set to it's body.
+     * Creates a simple response with the given HTTP <em>{@code status}</em> and the given <em>{@code content}</em> set
+     * to it's body.
      *
-     * @param status The status of the response
+     * @param status  The status of the response
      * @param content The content to be contained in the responses body section
      *
      * @return New preconfigured HTTP response with the given status and content
      */
     public static HttpResponse createResponse(HttpStatusCode status, String content) {
-        return response().withHeader(contentLength(content)).withStatusCode(status.code()).withReasonPhrase(status.reasonPhrase()).withBody(content);
+        return response().withHeader(contentLength(content)).withStatusCode(status.code())
+                .withReasonPhrase(status.reasonPhrase()).withBody(content);
     }
 
     /**
@@ -189,7 +195,7 @@ public abstract class MockServerUtil {
     /**
      * Creates a new mock server HTTP request for the given path and request method and without any query parameters
      *
-     * @param path The requests path
+     * @param path   The requests path
      * @param method The HTTP request method
      *
      * @return Mock server HTTP request based on the given parameters
@@ -199,10 +205,11 @@ public abstract class MockServerUtil {
     }
 
     /**
-     * Creates a new mock server HTTP request for the given path, request method and an optional set of query parameters
+     * Creates a new mock server HTTP request for the given path, request method and an optional set of query
+     * parameters
      *
-     * @param path The requests path
-     * @param method The HTTP request method
+     * @param path       The requests path
+     * @param method     The HTTP request method
      * @param parameters Optional query parameters
      *
      * @return Mock server HTTP request based on the given parameters

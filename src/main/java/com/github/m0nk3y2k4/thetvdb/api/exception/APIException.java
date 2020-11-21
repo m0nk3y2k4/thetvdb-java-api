@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,8 +19,8 @@ package com.github.m0nk3y2k4.thetvdb.api.exception;
 import javax.annotation.Nonnull;
 
 /**
- * Main type for all checked exceptions related to the API functionality. This includes specific errors as defined by the remote service
- * as well as general problems like communication issues or malformed API responses.
+ * Main type for all checked exceptions related to the API functionality. This includes specific errors as defined by
+ * the remote service as well as general problems like communication issues or malformed API responses.
  */
 public class APIException extends Exception {
 
@@ -30,7 +30,7 @@ public class APIException extends Exception {
     /** Indicates that the requested resource is unknown for the remote service (e.g. wrong seriesId) */
     public static final String API_NOT_FOUND_ERROR = "Requested resource could not be found (HTTP-404). Original API error message: %s";
 
-    /** Indicates that the requested resource is known by the server but has to be accessed with different settings (e.g. missing query parameters) */
+    /** Indicates that the requested resource is known by the server but has to be accessed with different settings */
     public static final String API_BAD_METHOD_ERROR = "Method not allowed for target resource (HTTP-405). Original API error message: %s";
 
     /** Indicates that a requested record could not be updated or deleted */
@@ -54,8 +54,9 @@ public class APIException extends Exception {
     /**
      * Creates a new checked API exception with an extended error message
      *
-     * @param message Brief error message describing the general problem. This message may contain a single <i>%s</i> conversion which will be
-     *                automatically replaced with the given <em>{@code details}</em> message text.
+     * @param message Brief error message describing the general problem. This message may contain a single <i>%s</i>
+     *                conversion which will be automatically replaced with the given <em>{@code details}</em> message
+     *                text.
      * @param details A more detailed error description
      */
     public APIException(@Nonnull String message, @Nonnull String details) {
@@ -66,7 +67,7 @@ public class APIException extends Exception {
      * Creates a nested checked API exception wrapping some other root exception
      *
      * @param message Brief error message describing the general problem
-     * @param ex The original root exception
+     * @param ex      The original root exception
      */
     public APIException(String message, Throwable ex) {
         super(message, ex);

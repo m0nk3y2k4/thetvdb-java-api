@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,14 +30,16 @@ import org.mockserver.junit.jupiter.MockServerSettings;
 /**
  * Meta-annotation used to assign a mock server instance to the test class
  * <p><br>
- * Enables the mock server JUnit5 extension and lets the server being started with some preconfigured settings like e.g. specific
- * port number. For test classes annotated with this meta-annotation a mock server instance will be provided for the time of
- * the test execution. If currently no mock server instance exists a new one will be created. Otherwise the existing instance
- * will be provided. The mock server instance will be shut-down at the very end of the test execution.
+ * Enables the mock server JUnit5 extension and lets the server being started with some preconfigured settings like e.g.
+ * specific port number. For test classes annotated with this meta-annotation a mock server instance will be provided
+ * for the time of the test execution. If currently no mock server instance exists a new one will be created. Otherwise
+ * the existing instance will be provided. The mock server instance will be shut-down at the very end of the test
+ * execution.
  * <p><br>
- * The mocked server can be accessed via injected {@link MockServerClient} parameter. Such clients may be injected into the
- * constructor, lifecycle methods and of course into the actual tests. The server will return a HTTP-200 for each requested
- * resource by default. This behavior can be overwritten by each test but will be reset before the next test class is executed.
+ * The mocked server can be accessed via injected {@link MockServerClient} parameter. Such clients may be injected into
+ * the constructor, lifecycle methods and of course into the actual tests. The server will return a HTTP-200 for each
+ * requested resource by default. This behavior can be overwritten by each test but will be reset before the next test
+ * class is executed.
  * <pre>{@code
  *     @Test
  *     void mockResponseTest(MockServerClient client) {
@@ -55,12 +57,13 @@ import org.mockserver.junit.jupiter.MockServerSettings;
  *         assertThat(sendRequest(resource)).extracting(Response::getResponseCode).isEqualTo(200);
  *     }
  * }</pre>
- * The list of recorded requests will be reset after each individual test. The mocked server has HTTPS enabled by default.
+ * The list of recorded requests will be reset after each individual test. The mocked server has HTTPS enabled by
+ * default.
  * <p><br>
- * Just like the mock server it is also possible to automatically inject a remote API instance either as
- * {@link com.github.m0nk3y2k4.thetvdb.api.Proxy Proxy}, {@link com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI RemoteAPI}
- * or {@link java.util.function.Supplier Supplier&lt;RemoteAPI&gt;} parameter. Valid injection points are constructors,
- * lifecycle methods and the actual tests.
+ * Just like the mock server it is also possible to automatically inject a remote API instance either as {@link
+ * com.github.m0nk3y2k4.thetvdb.api.Proxy Proxy}, {@link com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI
+ * RemoteAPI} or {@link java.util.function.Supplier Supplier&lt;RemoteAPI&gt;} parameter. Valid injection points are
+ * constructors, lifecycle methods and the actual tests.
  * <pre>{@code
  * package com.github.m0nk3y2k4.thetvdb.foobar;
  *

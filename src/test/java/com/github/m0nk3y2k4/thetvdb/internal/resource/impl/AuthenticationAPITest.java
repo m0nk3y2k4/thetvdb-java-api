@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -50,13 +50,15 @@ class AuthenticationAPITest {
     private static Stream<Arguments> login() {
         return Stream.of(
                 Arguments.of(new Connection("JDUW78DDEF8Z3PSER54"), "login_apiKey.json"),
-                Arguments.of(new Connection("PWLF4E5WKE89ZEJUESI", "unique_848763316974", "Emmett Brown"), "login_userAuth.json")
+                Arguments.of(new Connection("PWLF4E5WKE89ZEJUESI", "unique_848763316974", "Emmett Brown"),
+                        "login_userAuth.json")
         );
     }
 
     @ParameterizedTest(name = "[{index}] Login request with {0}")
-    @MethodSource(value = "login")
-    void login_verifySuccessfullyLoggedIn(Connection con, String jsonSchemaName, MockServerClient client) throws Exception {
+    @MethodSource("login")
+    void login_verifySuccessfullyLoggedIn(Connection con, String jsonSchemaName, MockServerClient client)
+            throws Exception {
         AuthenticationAPI.login(con);
         client.verify(request("/login").withMethod(POST.getName())
                 .withBody(jsonSchemaFromResource(jsonSchemaName)), VerificationTimes.once());
@@ -94,8 +96,8 @@ class AuthenticationAPITest {
 
         @Override
         public String toString() {
-            return String.format("[apiKey=%s, userKey=%s, userName=%s]", getApiKey(), getUserKey().orElse(null), getUserName().orElse(null));
+            return String.format("[apiKey=%s, userKey=%s, userName=%s]", getApiKey(), getUserKey()
+                    .orElse(null), getUserName().orElse(null));
         }
     }
 }
-

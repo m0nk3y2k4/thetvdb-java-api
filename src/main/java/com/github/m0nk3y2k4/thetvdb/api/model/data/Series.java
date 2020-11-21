@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,15 +23,15 @@ import javax.annotation.Nullable;
 /**
  * Interface representing a <i>Series</i> data transfer object.
  * <p><br>
- * The methods of this class provide easy access to all series related data which was returned by the remote service in JSON format.
- * Please note that, as the remote service declares all of the properties to be optional, most of the methods are marked
- * as {@link Nullable}. Methods returning collection-based values however will return an empty collection in case no corresponding
- * data was received.
+ * The methods of this class provide easy access to all series related data which was returned by the remote service in
+ * JSON format. Please note that, as the remote service declares all of the properties to be optional, most of the
+ * methods are marked as {@link Nullable}. Methods returning collection-based values however will return an empty
+ * collection in case no corresponding data was received.
  * <p><br>
- * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service in order to
- * facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although there will be no intense
- * post-processing of the actual JSON values a type-casting may be applied to <u>some</u> of them to improve the usability and
- * relieve the API user of this task.
+ * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service
+ * in order to facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although
+ * there will be no intense post-processing of the actual JSON values a type-casting may be applied to <u>some</u> of
+ * them to improve the usability and relieve the API user of this task.
  */
 public interface Series extends SeriesSearchResult {
 
@@ -40,21 +40,24 @@ public interface Series extends SeriesSearchResult {
      *
      * @return The <em>{@code added}</em> property from the received JSON
      */
-    @Nullable String getAdded();
+    @Nullable
+    String getAdded();
 
     /**
      * Get the value of the {<em>{@code data.airsDayOfWeek}</em>} JSON property
      *
      * @return The <em>{@code airsDayOfWeek}</em> property from the received JSON
      */
-    @Nullable String getAirsDayOfWeek();
+    @Nullable
+    String getAirsDayOfWeek();
 
     /**
      * Get the value of the {<em>{@code data.airsTime}</em>} JSON property
      *
      * @return The <em>{@code airsTime}</em> property from the received JSON
      */
-    @Nullable String getAirsTime();
+    @Nullable
+    String getAirsTime();
 
     /**
      * Get all values of the {<em>{@code data.genre}</em>} JSON property in a list
@@ -68,61 +71,70 @@ public interface Series extends SeriesSearchResult {
      *
      * @return The <em>{@code imdbId}</em> property from the received JSON
      */
-    @Nullable String getImdbId();
+    @Nullable
+    String getImdbId();
 
     /**
      * Get the value of the {<em>{@code data.lastUpdated}</em>} JSON property
      *
      * @return The <em>{@code lastUpdated}</em> property from the received JSON
      */
-    @Nullable Long getLastUpdated();
+    @Nullable
+    Long getLastUpdated();
 
     /**
      * Get the value of the {<em>{@code data.networkId}</em>} JSON property
      *
      * @return The <em>{@code networkId}</em> property from the received JSON
      */
-    @Nullable String getNetworkId();
+    @Nullable
+    String getNetworkId();
 
     /**
      * Get the value of the {<em>{@code data.rating}</em>} JSON property
      *
      * @return The <em>{@code rating}</em> property from the received JSON
      */
-    @Nullable String getRating();
+    @Nullable
+    String getRating();
 
     /**
      * Get the value of the {<em>{@code data.runtime}</em>} JSON property
      *
      * @return The <em>{@code runtime}</em> property from the received JSON
      */
-    @Nullable String getRuntime();
+    @Nullable
+    String getRuntime();
 
     /**
      * Get the value of the {<em>{@code data.seriesId}</em>} JSON property
      *
      * @return The <em>{@code seriesId}</em> property from the received JSON
      */
-    @Nullable String getSeriesId();
+    @Nullable
+    String getSeriesId();
 
     /**
      * Get the value of the {<em>{@code data.siteRating}</em>} JSON property
      *
      * @return The <em>{@code siteRating}</em> property from the received JSON
      */
-    @Nullable Double getSiteRating();
+    @Nullable
+    Double getSiteRating();
 
     /**
      * Get the value of the {<em>{@code data.siteRatingCount}</em>} JSON property
      *
      * @return The <em>{@code siteRatingCount}</em> property from the received JSON
      */
-    @Nullable Long getSiteRatingCount();
+    @Nullable
+    Long getSiteRatingCount();
 
     /**
      * Get the value of the {<em>{@code data.zap2itId}</em>} JSON property
      *
      * @return The <em>{@code zap2itId}</em> property from the received JSON
      */
-    @Nullable String getZap2itId();
+    @Nullable
+    String getZap2itId();
 }

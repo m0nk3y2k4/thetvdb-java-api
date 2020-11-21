@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,15 +23,15 @@ import javax.annotation.Nullable;
 /**
  * Interface representing a <i>Movie</i> data transfer object.
  * <p><br>
- * The methods of this class provide easy access to all movie related data which was returned by the remote service in JSON format.
- * Please note that, as the remote service declares all of the properties to be optional, most of the methods are marked
- * as {@link Nullable}. Methods returning collection-based values however will return an empty collection in case no corresponding
- * data was received.
+ * The methods of this class provide easy access to all movie related data which was returned by the remote service in
+ * JSON format. Please note that, as the remote service declares all of the properties to be optional, most of the
+ * methods are marked as {@link Nullable}. Methods returning collection-based values however will return an empty
+ * collection in case no corresponding data was received.
  * <p><br>
- * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service in order to
- * facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although there will be no intense
- * post-processing of the actual JSON values a type-casting may be applied to <u>some</u> of them to improve the usability and
- * relieve the API user of this task.
+ * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service
+ * in order to facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although
+ * there will be no intense post-processing of the actual JSON values a type-casting may be applied to <u>some</u> of
+ * them to improve the usability and relieve the API user of this task.
  */
 public interface Movie {
 
@@ -54,7 +54,8 @@ public interface Movie {
      *
      * @return The <em>{@code id}</em> property from the received JSON
      */
-    @Nullable Long getId();
+    @Nullable
+    Long getId();
 
     /**
      * Get all objects of the {<em>{@code data.people.actors}</em>} JSON property in a list
@@ -103,7 +104,8 @@ public interface Movie {
      *
      * @return The <em>{@code runtime}</em> property from the received JSON
      */
-    @Nullable Long getRuntime();
+    @Nullable
+    Long getRuntime();
 
     /**
      * Get all objects of the {<em>{@code data.trailers}</em>} JSON property in a list
@@ -124,20 +126,21 @@ public interface Movie {
      *
      * @return The <em>{@code url}</em> property from the received JSON
      */
-    @Nullable String getUrl();
+    @Nullable
+    String getUrl();
 
     /**
      * Interface representing a movies <i>Artwork</i> data transfer object.
      * <p><br>
-     * The methods of this class provide easy access to all artwork related data which was returned by the remote service in JSON format.
-     * Please note that, as the remote service declares all of the properties to be optional, most of the methods are marked
-     * as {@link Nullable}. Methods returning collection-based values however will return an empty collection in case no corresponding
-     * data was received.
+     * The methods of this class provide easy access to all artwork related data which was returned by the remote
+     * service in JSON format. Please note that, as the remote service declares all of the properties to be optional,
+     * most of the methods are marked as {@link Nullable}. Methods returning collection-based values however will return
+     * an empty collection in case no corresponding data was received.
      * <p><br>
-     * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service in order to
-     * facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although there will be no intense
-     * post-processing of the actual JSON values a type-casting may be applied to <u>some</u> of them to improve the usability and
-     * relieve the API user of this task.
+     * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote
+     * service in order to facilitate API integration by working with simple Java POJO's instead of nested JSON nodes.
+     * Although there will be no intense post-processing of the actual JSON values a type-casting may be applied to
+     * <u>some</u> of them to improve the usability and relieve the API user of this task.
      */
     interface Artwork {
 
@@ -146,70 +149,78 @@ public interface Movie {
          *
          * @return The <em>{@code artwork_type}</em> property from the received JSON
          */
-        @Nullable String getArtworkType();
+        @Nullable
+        String getArtworkType();
 
         /**
          * Get the value of the {<em>{@code data.artworks.height}</em>} JSON property
          *
          * @return The <em>{@code height}</em> property from the received JSON
          */
-        @Nullable Long getHeight();
+        @Nullable
+        Long getHeight();
 
         /**
          * Get the value of the {<em>{@code data.artworks.id}</em>} JSON property
          *
          * @return The <em>{@code id}</em> property from the received JSON
          */
-        @Nullable String getId();
+        @Nullable
+        String getId();
 
         /**
          * Get the value of the {<em>{@code data.artworks.is_primary}</em>} JSON property
          *
          * @return The <em>{@code is_primary}</em> property from the received JSON
          */
-        @Nullable Boolean isPrimary();
+        @Nullable
+        Boolean isPrimary();
 
         /**
          * Get the value of the {<em>{@code data.artworks.tags}</em>} JSON property
          *
          * @return The <em>{@code tags}</em> property from the received JSON
          */
-        @Nullable String getTags();
+        @Nullable
+        String getTags();
 
         /**
          * Get the value of the {<em>{@code data.artworks.thumb_url}</em>} JSON property
          *
          * @return The <em>{@code thumb_url}</em> property from the received JSON
          */
-        @Nullable String getThumbUrl();
+        @Nullable
+        String getThumbUrl();
 
         /**
          * Get the value of the {<em>{@code data.artworks.url}</em>} JSON property
          *
          * @return The <em>{@code url}</em> property from the received JSON
          */
-        @Nullable String getUrl();
+        @Nullable
+        String getUrl();
 
         /**
          * Get the value of the {<em>{@code data.artworks.width}</em>} JSON property
          *
          * @return The <em>{@code width}</em> property from the received JSON
          */
-        @Nullable Long getWidth();
+        @Nullable
+        Long getWidth();
     }
 
     /**
      * Interface representing a movies <i>Genre</i> data transfer object.
      * <p><br>
-     * The methods of this class provide easy access to all genre related data which was returned by the remote service in JSON format.
-     * Please note that, as the remote service declares all of the properties to be optional, most of the methods are marked
-     * as {@link Nullable}. Methods returning collection-based values however will return an empty collection in case no corresponding
-     * data was received.
+     * The methods of this class provide easy access to all genre related data which was returned by the remote service
+     * in JSON format. Please note that, as the remote service declares all of the properties to be optional, most of
+     * the methods are marked as {@link Nullable}. Methods returning collection-based values however will return an
+     * empty collection in case no corresponding data was received.
      * <p><br>
-     * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service in order to
-     * facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although there will be no intense
-     * post-processing of the actual JSON values a type-casting may be applied to <u>some</u> of them to improve the usability and
-     * relieve the API user of this task.
+     * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote
+     * service in order to facilitate API integration by working with simple Java POJO's instead of nested JSON nodes.
+     * Although there will be no intense post-processing of the actual JSON values a type-casting may be applied to
+     * <u>some</u> of them to improve the usability and relieve the API user of this task.
      */
     interface Genre {
 
@@ -218,35 +229,38 @@ public interface Movie {
          *
          * @return The <em>{@code id}</em> property from the received JSON
          */
-        @Nullable Long getId();
+        @Nullable
+        Long getId();
 
         /**
          * Get the value of the {<em>{@code data.genres.name}</em>} JSON property
          *
          * @return The <em>{@code name}</em> property from the received JSON
          */
-        @Nullable String getName();
+        @Nullable
+        String getName();
 
         /**
          * Get the value of the {<em>{@code data.genres.url}</em>} JSON property
          *
          * @return The <em>{@code url}</em> property from the received JSON
          */
-        @Nullable String getUrl();
+        @Nullable
+        String getUrl();
     }
 
     /**
      * Interface representing a movies <i>ReleaseDate</i> data transfer object.
      * <p><br>
-     * The methods of this class provide easy access to all release date related data which was returned by the remote service in JSON format.
-     * Please note that, as the remote service declares all of the properties to be optional, most of the methods are marked
-     * as {@link Nullable}. Methods returning collection-based values however will return an empty collection in case no corresponding
-     * data was received.
+     * The methods of this class provide easy access to all release date related data which was returned by the remote
+     * service in JSON format. Please note that, as the remote service declares all of the properties to be optional,
+     * most of the methods are marked as {@link Nullable}. Methods returning collection-based values however will return
+     * an empty collection in case no corresponding data was received.
      * <p><br>
-     * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service in order to
-     * facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although there will be no intense
-     * post-processing of the actual JSON values a type-casting may be applied to <u>some</u> of them to improve the usability and
-     * relieve the API user of this task.
+     * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote
+     * service in order to facilitate API integration by working with simple Java POJO's instead of nested JSON nodes.
+     * Although there will be no intense post-processing of the actual JSON values a type-casting may be applied to
+     * <u>some</u> of them to improve the usability and relieve the API user of this task.
      */
     interface ReleaseDate {
 
@@ -255,86 +269,94 @@ public interface Movie {
          *
          * @return The <em>{@code country}</em> property from the received JSON
          */
-        @Nullable String getCountry();
+        @Nullable
+        String getCountry();
 
         /**
          * Get the value of the {<em>{@code data.release_dates.date}</em>} JSON property
          *
          * @return The <em>{@code date}</em> property from the received JSON
          */
-        @Nullable String getDate();
+        @Nullable
+        String getDate();
 
         /**
          * Get the value of the {<em>{@code data.release_dates.type}</em>} JSON property
          *
          * @return The <em>{@code type}</em> property from the received JSON
          */
-        @Nullable String getType();
+        @Nullable
+        String getType();
     }
 
     /**
      * Interface representing a movies <i>RemoteId</i> data transfer object.
      * <p><br>
-     * The methods of this class provide easy access to all remote ID related data which was returned by the remote service in JSON format.
-     * Please note that, as the remote service declares all of the properties to be optional, most of the methods are marked
-     * as {@link Nullable}. Methods returning collection-based values however will return an empty collection in case no corresponding
-     * data was received.
+     * The methods of this class provide easy access to all remote ID related data which was returned by the remote
+     * service in JSON format. Please note that, as the remote service declares all of the properties to be optional,
+     * most of the methods are marked as {@link Nullable}. Methods returning collection-based values however will return
+     * an empty collection in case no corresponding data was received.
      * <p><br>
-     * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service in order to
-     * facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although there will be no intense
-     * post-processing of the actual JSON values a type-casting may be applied to <u>some</u> of them to improve the usability and
-     * relieve the API user of this task.
+     * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote
+     * service in order to facilitate API integration by working with simple Java POJO's instead of nested JSON nodes.
+     * Although there will be no intense post-processing of the actual JSON values a type-casting may be applied to
+     * <u>some</u> of them to improve the usability and relieve the API user of this task.
      */
-    interface  RemoteId {
+    interface RemoteId {
 
         /**
          * Get the value of the {<em>{@code data.remoteids.id}</em>} JSON property
          *
          * @return The <em>{@code id}</em> property from the received JSON
          */
-        @Nullable String getId();
+        @Nullable
+        String getId();
 
         /**
          * Get the value of the {<em>{@code data.remoteids.source_id}</em>} JSON property
          *
          * @return The <em>{@code source_id}</em> property from the received JSON
          */
-        @Nullable Long getSourceId();
+        @Nullable
+        Long getSourceId();
 
         /**
          * Get the value of the {<em>{@code data.remoteids.source_name}</em>} JSON property
          *
          * @return The <em>{@code source_name}</em> property from the received JSON
          */
-        @Nullable String getSourceName();
+        @Nullable
+        String getSourceName();
 
         /**
          * Get the value of the {<em>{@code data.remoteids.source_url}</em>} JSON property
          *
          * @return The <em>{@code source_url}</em> property from the received JSON
          */
-        @Nullable String getSourceUrl();
+        @Nullable
+        String getSourceUrl();
 
         /**
          * Get the value of the {<em>{@code data.remoteids.url}</em>} JSON property
          *
          * @return The <em>{@code url}</em> property from the received JSON
          */
-        @Nullable String getUrl();
+        @Nullable
+        String getUrl();
     }
 
     /**
      * Interface representing a movies <i>Trailer</i> data transfer object.
      * <p><br>
-     * The methods of this class provide easy access to all trailer related data which was returned by the remote service in JSON format.
-     * Please note that, as the remote service declares all of the properties to be optional, most of the methods are marked
-     * as {@link Nullable}. Methods returning collection-based values however will return an empty collection in case no corresponding
-     * data was received.
+     * The methods of this class provide easy access to all trailer related data which was returned by the remote
+     * service in JSON format. Please note that, as the remote service declares all of the properties to be optional,
+     * most of the methods are marked as {@link Nullable}. Methods returning collection-based values however will return
+     * an empty collection in case no corresponding data was received.
      * <p><br>
-     * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service in order to
-     * facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although there will be no intense
-     * post-processing of the actual JSON values a type-casting may be applied to <u>some</u> of them to improve the usability and
-     * relieve the API user of this task.
+     * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote
+     * service in order to facilitate API integration by working with simple Java POJO's instead of nested JSON nodes.
+     * Although there will be no intense post-processing of the actual JSON values a type-casting may be applied to
+     * <u>some</u> of them to improve the usability and relieve the API user of this task.
      */
     interface Trailer {
 
@@ -343,28 +365,30 @@ public interface Movie {
          *
          * @return The <em>{@code name}</em> property from the received JSON
          */
-        @Nullable String getName();
+        @Nullable
+        String getName();
 
         /**
          * Get the value of the {<em>{@code data.trailers.url}</em>} JSON property
          *
          * @return The <em>{@code url}</em> property from the received JSON
          */
-        @Nullable String getUrl();
+        @Nullable
+        String getUrl();
     }
 
     /**
      * Interface representing a movies <i>Translation</i> data transfer object.
      * <p><br>
-     * The methods of this class provide easy access to all translation related data which was returned by the remote service in JSON format.
-     * Please note that, as the remote service declares all of the properties to be optional, most of the methods are marked
-     * as {@link Nullable}. Methods returning collection-based values however will return an empty collection in case no corresponding
-     * data was received.
+     * The methods of this class provide easy access to all translation related data which was returned by the remote
+     * service in JSON format. Please note that, as the remote service declares all of the properties to be optional,
+     * most of the methods are marked as {@link Nullable}. Methods returning collection-based values however will return
+     * an empty collection in case no corresponding data was received.
      * <p><br>
-     * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service in order to
-     * facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although there will be no intense
-     * post-processing of the actual JSON values a type-casting may be applied to <u>some</u> of them to improve the usability and
-     * relieve the API user of this task.
+     * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote
+     * service in order to facilitate API integration by working with simple Java POJO's instead of nested JSON nodes.
+     * Although there will be no intense post-processing of the actual JSON values a type-casting may be applied to
+     * <u>some</u> of them to improve the usability and relieve the API user of this task.
      */
     interface Translation {
 
@@ -373,49 +397,54 @@ public interface Movie {
          *
          * @return The <em>{@code is_primary}</em> property from the received JSON
          */
-        @Nullable Boolean isPrimary();
+        @Nullable
+        Boolean isPrimary();
 
         /**
          * Get the value of the {<em>{@code data.translations.language_code}</em>} JSON property
          *
          * @return The <em>{@code language_code}</em> property from the received JSON
          */
-        @Nullable String getLanguageCode();
+        @Nullable
+        String getLanguageCode();
 
         /**
          * Get the value of the {<em>{@code data.translations.name}</em>} JSON property
          *
          * @return The <em>{@code name}</em> property from the received JSON
          */
-        @Nullable String getName();
+        @Nullable
+        String getName();
 
         /**
          * Get the value of the {<em>{@code data.translations.overview}</em>} JSON property
          *
          * @return The <em>{@code overview}</em> property from the received JSON
          */
-        @Nullable String getOverview();
+        @Nullable
+        String getOverview();
 
         /**
          * Get the value of the {<em>{@code data.translations.tagline}</em>} JSON property
          *
          * @return The <em>{@code tagline}</em> property from the received JSON
          */
-        @Nullable String getTagline();
+        @Nullable
+        String getTagline();
     }
 
     /**
      * Interface representing a movies <i>People</i> data transfer object.
      * <p><br>
-     * The methods of this class provide easy access to all people related data which was returned by the remote service in JSON format.
-     * Please note that, as the remote service declares all of the properties to be optional, most of the methods are marked
-     * as {@link Nullable}. Methods returning collection-based values however will return an empty collection in case no corresponding
-     * data was received.
+     * The methods of this class provide easy access to all people related data which was returned by the remote service
+     * in JSON format. Please note that, as the remote service declares all of the properties to be optional, most of
+     * the methods are marked as {@link Nullable}. Methods returning collection-based values however will return an
+     * empty collection in case no corresponding data was received.
      * <p><br>
-     * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service in order to
-     * facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although there will be no intense
-     * post-processing of the actual JSON values a type-casting may be applied to <u>some</u> of them to improve the usability and
-     * relieve the API user of this task.
+     * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote
+     * service in order to facilitate API integration by working with simple Java POJO's instead of nested JSON nodes.
+     * Although there will be no intense post-processing of the actual JSON values a type-casting may be applied to
+     * <u>some</u> of them to improve the usability and relieve the API user of this task.
      */
     interface People {
 
@@ -424,76 +453,95 @@ public interface Movie {
          *
          * @return The <em>{@code id}</em> property from the received JSON
          */
-        @Nullable String getId();
+        @Nullable
+        String getId();
 
         /**
-         * Get the value of the {<em>{@code data.people.<actors|directors|producers|writers>.imdb_id}</em>} JSON property
+         * Get the value of the {<em>{@code data.people.<actors|directors|producers|writers>.imdb_id}</em>} JSON
+         * property
          *
          * @return The <em>{@code imdb_id}</em> property from the received JSON
          */
-        @Nullable String getImdbId();
+        @Nullable
+        String getImdbId();
 
         /**
-         * Get the value of the {<em>{@code data.people.<actors|directors|producers|writers>.is_featured}</em>} JSON property
+         * Get the value of the {<em>{@code data.people.<actors|directors|producers|writers>.is_featured}</em>} JSON
+         * property
          *
          * @return The <em>{@code is_featured}</em> property from the received JSON
          */
-        @Nullable Boolean isFeatured();
+        @Nullable
+        Boolean isFeatured();
 
         /**
          * Get the value of the {<em>{@code data.people.<actors|directors|producers|writers>.name}</em>} JSON property
          *
          * @return The <em>{@code name}</em> property from the received JSON
          */
-        @Nullable String getName();
+        @Nullable
+        String getName();
 
         /**
-         * Get the value of the {<em>{@code data.people.<actors|directors|producers|writers>.people_facebook}</em>} JSON property
+         * Get the value of the {<em>{@code data.people.<actors|directors|producers|writers>.people_facebook}</em>} JSON
+         * property
          *
          * @return The <em>{@code people_facebook}</em> property from the received JSON
          */
-        @Nullable String getPeopleFacebook();
+        @Nullable
+        String getPeopleFacebook();
 
         /**
-         * Get the value of the {<em>{@code data.people.<actors|directors|producers|writers>.people_id}</em>} JSON property
+         * Get the value of the {<em>{@code data.people.<actors|directors|producers|writers>.people_id}</em>} JSON
+         * property
          *
          * @return The <em>{@code people_id}</em> property from the received JSON
          */
-        @Nullable String getPeopleId();
+        @Nullable
+        String getPeopleId();
 
         /**
-         * Get the value of the {<em>{@code data.people.<actors|directors|producers|writers>.people_image}</em>} JSON property
+         * Get the value of the {<em>{@code data.people.<actors|directors|producers|writers>.people_image}</em>} JSON
+         * property
          *
          * @return The <em>{@code people_image}</em> property from the received JSON
          */
-        @Nullable String getPeopleImage();
+        @Nullable
+        String getPeopleImage();
 
         /**
-         * Get the value of the {<em>{@code data.people.<actors|directors|producers|writers>.people_instagram}</em>} JSON property
+         * Get the value of the {<em>{@code data.people.<actors|directors|producers|writers>.people_instagram}</em>}
+         * JSON property
          *
          * @return The <em>{@code people_instagram}</em> property from the received JSON
          */
-        @Nullable String getPeopleInstagram();
+        @Nullable
+        String getPeopleInstagram();
 
         /**
-         * Get the value of the {<em>{@code data.people.<actors|directors|producers|writers>.people_twitter}</em>} JSON property
+         * Get the value of the {<em>{@code data.people.<actors|directors|producers|writers>.people_twitter}</em>} JSON
+         * property
          *
          * @return The <em>{@code people_twitter}</em> property from the received JSON
          */
-        @Nullable String getPeopleTwitter();
+        @Nullable
+        String getPeopleTwitter();
 
         /**
          * Get the value of the {<em>{@code data.people.<actors|directors|producers|writers>.role}</em>} JSON property
          *
          * @return The <em>{@code role}</em> property from the received JSON
          */
-        @Nullable String getRole();
+        @Nullable
+        String getRole();
 
         /**
-         * Get the value of the {<em>{@code data.people.<actors|directors|producers|writers>.role_image}</em>} JSON property
+         * Get the value of the {<em>{@code data.people.<actors|directors|producers|writers>.role_image}</em>} JSON
+         * property
          *
          * @return The <em>{@code role_image}</em> property from the received JSON
          */
-        @Nullable String getRoleImage();
+        @Nullable
+        String getRoleImage();
     }
 }

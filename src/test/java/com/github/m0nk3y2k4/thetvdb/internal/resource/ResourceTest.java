@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,17 +31,17 @@ class ResourceTest {
     private static Stream<Arguments> createBaseResource_verifyResourceString() {
         return Stream.of(
                 Arguments.of("/users", new Object[0], "/users"),
-                Arguments.of("/orders", new Object[] {1, 2, 3}, "/orders/1/2/3"),
-                Arguments.of("/shipment", new Object[] {"pending", "today"}, "/shipment/pending/today")
+                Arguments.of("/orders", new Object[]{1, 2, 3}, "/orders/1/2/3"),
+                Arguments.of("/shipment", new Object[]{"pending", "today"}, "/shipment/pending/today")
         );
     }
 
     private static Stream<Arguments> createSpecificResource_verifyResourceString() {
         return Stream.of(
                 Arguments.of("/invoices", null, new Object[0], "/invoices"),
-                Arguments.of("/invoices", null, new Object[] {1,2}, "/invoices/1/2"),
+                Arguments.of("/invoices", null, new Object[]{1, 2}, "/invoices/1/2"),
                 Arguments.of("/invoices", "/pending", new Object[0], "/invoices/pending"),
-                Arguments.of("/invoices", "/sent", new Object[] {"customer", "atari"}, "/invoices/sent/customer/atari")
+                Arguments.of("/invoices", "/sent", new Object[]{"customer", "atari"}, "/invoices/sent/customer/atari")
         );
     }
 
@@ -53,7 +53,8 @@ class ResourceTest {
 
     @ParameterizedTest(name = "[{index}] Resource String for base \"{0}\", specific \"{1}\" and path parameters {2} is: \"{3}\"")
     @MethodSource
-    void createSpecificResource_verifyResourceString(String base, String specific, Object[] pathParams, String expected) {
+    void createSpecificResource_verifyResourceString(String base, String specific, Object[] pathParams,
+            String expected) {
         assertThat(resource.createResource(base, specific, pathParams)).isEqualTo(expected);
     }
 }

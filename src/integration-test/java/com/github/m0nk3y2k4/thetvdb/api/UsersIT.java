@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,49 +26,61 @@ import org.junit.jupiter.api.Test;
 @IntegrationTestSuite("Users")
 class UsersIT {
 
-    @Test @Order(1)
+    @Test
+    @Order(1)
     void getUser(TheTVDBApi api) {
         assertThat(api::getUser).as("/user").doesNotThrowAnyException();
     }
 
-    @Test @Order(2)
+    @Test
+    @Order(2)
     void getFavorites(TheTVDBApi api) {
         assertThat(api::getFavorites).as("/user/favorites").doesNotThrowAnyException();
     }
 
-    @Test @Order(3)
+    @Test
+    @Order(3)
     void deleteFromFavorites(TheTVDBApi api) {
-        assertThat(() -> api.deleteFromFavorites(328711)).as("/user/favorites/328711[Delete]").doesNotThrowAnyException();
+        assertThat(() -> api.deleteFromFavorites(328711)).as("/user/favorites/328711[Delete]")
+                .doesNotThrowAnyException();
     }
 
-    @Test @Order(4)
+    @Test
+    @Order(4)
     void addToFavorites(TheTVDBApi api) {
         assertThat(() -> api.addToFavorites(328711)).as("/user/favorites/328711[Add]").doesNotThrowAnyException();
     }
 
-    @Test @Order(5)
+    @Test
+    @Order(5)
     void getRatings(TheTVDBApi api) {
         assertThat(api::getRatings).as("/user/ratings").doesNotThrowAnyException();
     }
 
     @Disabled("Seems this route is currently broken on the TheTVDB.com side")
-    @Test @Order(6)
+    @Test
+    @Order(6)
     void queryRatingsByItemType(TheTVDBApi api) {
         assertThat(() -> api.queryRatingsByItemType("series")).as("/user/ratings/query").doesNotThrowAnyException();
     }
 
-    @Test @Order(7)
+    @Test
+    @Order(7)
     void getAvailableRatingsQueryParameters(TheTVDBApi api) {
         assertThat(api::getAvailableRatingsQueryParameters).as("/user/ratings/query/params").doesNotThrowAnyException();
     }
 
-    @Test @Order(8)
+    @Test
+    @Order(8)
     void deleteFromRatings(TheTVDBApi api) {
-        assertThat(() -> api.deleteFromRatings("image", 1101207)).as("/user/ratings/image/1101207[Delete]").doesNotThrowAnyException();
+        assertThat(() -> api.deleteFromRatings("image", 1101207)).as("/user/ratings/image/1101207[Delete]")
+                .doesNotThrowAnyException();
     }
 
-    @Test @Order(9)
+    @Test
+    @Order(9)
     void addToRatings(TheTVDBApi api) {
-        assertThat(() -> api.addToRatings("image", 1101207, 8)).as("/user/ratings/image/1101207/8[Add]").doesNotThrowAnyException();
+        assertThat(() -> api.addToRatings("image", 1101207, 8)).as("/user/ratings/image/1101207/8[Add]")
+                .doesNotThrowAnyException();
     }
 }

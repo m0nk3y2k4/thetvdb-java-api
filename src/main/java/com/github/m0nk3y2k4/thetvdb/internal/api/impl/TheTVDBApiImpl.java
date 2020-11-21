@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -58,8 +58,8 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.json.JsonDeserializer;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 /**
- * Implementation of the {@link TheTVDBApi} API layout. It provides methods for all sorts of API calls throughout the different API routes. Responses will
- * be returned as mapped Java DTO objects.
+ * Implementation of the {@link TheTVDBApi} API layout. It provides methods for all sorts of API calls throughout the
+ * different API routes. Responses will be returned as mapped Java DTO objects.
  */
 public class TheTVDBApiImpl implements TheTVDBApi {
 
@@ -73,33 +73,38 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     private final APIConnection con;
 
     /**
-     * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB.com API Key</a>
-     * as it will be used for remote service authentication. To authenticate and generate a new session token use the {@link #init()} or {@link #login()}
+     * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid
+     * <a href="https://www.thetvdb.com/member/api">TheTVDB.com API Key</a> as it will be used for remote service
+     * authentication. To authenticate and generate a new session token use the {@link #init()} or {@link #login()}
      * method right after creating a new instance of this API.
      * <p><br>
-     * <b>NOTE:</b> Objects created with this constructor <u>can not</u> be used for calls to the remote API's <a href="https://api.thetvdb.com/swagger#/Users">/users</a>
-     * routes. These calls require extended authentication using an additional <em>{@code userKey}</em> and <em>{@code userName}</em>.
-     *
-     * @see #TheTVDBApiImpl(String, String, String) TheTVDBApiImpl(apiKey, userKey, userName)
+     * <b>NOTE:</b> Objects created with this constructor <u>can not</u> be used for calls to the remote API's
+     * <a href="https://api.thetvdb.com/swagger#/Users">/users</a> routes. These calls require extended authentication
+     * using an additional <em>{@code userKey}</em> and <em>{@code userName}</em>.
      *
      * @param apiKey Valid <i>TheTVDB.com</i> API-Key
+     *
+     * @see #TheTVDBApiImpl(String, String, String) TheTVDBApiImpl(apiKey, userKey, userName)
      */
     public TheTVDBApiImpl(@Nonnull String apiKey) {
         this.con = new APIConnection(apiKey);
     }
 
     /**
-     * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB.com API Key</a>
-     * as it will be used for remote service authentication. To authenticate and generate a new session token use the {@link #init()} or {@link #login()}
-     * method right after creating a new instance of this API. All communication to the remote API will be forwarded to the given <em>{@code proxy}</em>.
+     * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid
+     * <a href="https://www.thetvdb.com/member/api">TheTVDB.com API Key</a> as it will be used for remote service
+     * authentication. To authenticate and generate a new session token use the {@link #init()} or {@link #login()}
+     * method right after creating a new instance of this API. All communication to the remote API will be forwarded to
+     * the given <em>{@code proxy}</em>.
      * <p><br>
-     * <b>NOTE:</b> Objects created with this constructor <u>can not</u> be used for calls to the remote API's <a href="https://api.thetvdb.com/swagger#/Users">/users</a>
-     * routes. These calls require extended authentication using an additional <em>{@code userKey}</em> and <em>{@code userName}</em>.
-     *
-     * @see #TheTVDBApiImpl(String, String, String, Proxy) TheTVDBApiImpl(apiKey, userKey, userName, proxy)
+     * <b>NOTE:</b> Objects created with this constructor <u>can not</u> be used for calls to the remote API's
+     * <a href="https://api.thetvdb.com/swagger#/Users">/users</a> routes. These calls require extended authentication
+     * using an additional <em>{@code userKey}</em> and <em>{@code userName}</em>.
      *
      * @param apiKey Valid <i>TheTVDB.com</i> API-Key
-     * @param proxy The proxy service to be used for remote API communication
+     * @param proxy  The proxy service to be used for remote API communication
+     *
+     * @see #TheTVDBApiImpl(String, String, String, Proxy) TheTVDBApiImpl(apiKey, userKey, userName, proxy)
      */
     public TheTVDBApiImpl(@Nonnull String apiKey, @Nonnull Proxy proxy) {
         Parameters.validateNotNull(proxy, "Proxy must not be NULL");
@@ -107,13 +112,14 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     /**
-     * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB.com API Key</a>.
-     * The <em>{@code userKey}</em> and <em>{@code userName}</em> must refer to a registered <i>TheTVDB.com</i> user account. The given parameters will be used for the
-     * initial remote service authentication. To authenticate and generate a new session token use the {@link #init()} or {@link #login()} method right after
-     * creating a new instance of this API.
+     * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid
+     * <a href="https://www.thetvdb.com/member/api">TheTVDB.com API Key</a>. The <em>{@code userKey}</em> and
+     * <em>{@code userName}</em> must refer to a registered <i>TheTVDB.com</i> user account. The given parameters will
+     * be used for the initial remote service authentication. To authenticate and generate a new session token use the
+     * {@link #init()} or {@link #login()} method right after creating a new instance of this API.
      *
-     * @param apiKey Valid <i>TheTVDB.com</i> API-Key
-     * @param userKey Valid <i>TheTVDB.com</i> user key (also referred to as "Unique ID")
+     * @param apiKey   Valid <i>TheTVDB.com</i> API-Key
+     * @param userKey  Valid <i>TheTVDB.com</i> user key (also referred to as "Unique ID")
      * @param userName Registered <i>TheTVDB.com</i> user name
      */
     public TheTVDBApiImpl(@Nonnull String apiKey, @Nonnull String userKey, @Nonnull String userName) {
@@ -121,17 +127,20 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     /**
-     * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB.com API Key</a>.
-     * The <em>{@code userKey}</em> and <em>{@code userName}</em> must refer to a registered <i>TheTVDB.com</i> user account. The given parameters will be used for the
-     * initial remote service authentication. To authenticate and generate a new session token use the {@link #init()} or {@link #login()} method right after
-     * creating a new instance of this API. All communication to the remote API will be forwarded to the given <em>{@code proxy}</em>.
+     * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid
+     * <a href="https://www.thetvdb.com/member/api">TheTVDB.com API Key</a>. The <em>{@code userKey}</em> and
+     * <em>{@code userName}</em> must refer to a registered <i>TheTVDB.com</i> user account. The given parameters will
+     * be used for the initial remote service authentication. To authenticate and generate a new session token use the
+     * {@link #init()} or {@link #login()} method right after creating a new instance of this API. All communication to
+     * the remote API will be forwarded to the given <em>{@code proxy}</em>.
      *
-     * @param apiKey Valid <i>TheTVDB.com</i> API-Key
-     * @param userKey Valid <i>TheTVDB.com</i> user key (also referred to as "Unique ID")
+     * @param apiKey   Valid <i>TheTVDB.com</i> API-Key
+     * @param userKey  Valid <i>TheTVDB.com</i> user key (also referred to as "Unique ID")
      * @param userName Registered <i>TheTVDB.com</i> user name
-     * @param proxy The proxy service to be used for remote API communication
+     * @param proxy    The proxy service to be used for remote API communication
      */
-    public TheTVDBApiImpl(@Nonnull String apiKey, @Nonnull String userKey, @Nonnull String userName, @Nonnull Proxy proxy) {
+    public TheTVDBApiImpl(@Nonnull String apiKey, @Nonnull String userKey, @Nonnull String userName,
+            @Nonnull Proxy proxy) {
         Parameters.validateNotNull(proxy, "Proxy must not be NULL");
         this.con = new APIConnection(apiKey, userKey, userName, () -> new RemoteAPI.Builder().from(proxy).build());
     }
@@ -261,7 +270,8 @@ public class TheTVDBApiImpl implements TheTVDBApi {
 
     @Override
     public List<Episode> queryEpisodesByAiredSeason(long seriesId, long airedSeason, long page) throws APIException {
-        return queryEpisodes(seriesId, query(Map.of(Query.Series.AIREDSEASON, String.valueOf(airedSeason), Query.Series.PAGE, String.valueOf(page))));
+        return queryEpisodes(seriesId, query(Map
+                .of(Query.Series.AIREDSEASON, String.valueOf(airedSeason), Query.Series.PAGE, String.valueOf(page))));
     }
 
     @Override
@@ -311,15 +321,18 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public List<Image> queryImages(long seriesId, @Nonnull String keyType, @Nonnull String resolution) throws APIException {
+    public List<Image> queryImages(long seriesId, @Nonnull String keyType, @Nonnull String resolution)
+            throws APIException {
         validateNotEmpty(keyType, resolution);
         return queryImages(seriesId, query(Map.of(Query.Series.KEYTYPE, keyType, Query.Series.RESOLUTION, resolution)));
     }
 
     @Override
-    public List<Image> queryImages(long seriesId, @Nonnull String keyType, @Nonnull String resolution, @Nonnull String subKey) throws APIException {
+    public List<Image> queryImages(long seriesId, @Nonnull String keyType, @Nonnull String resolution,
+            @Nonnull String subKey) throws APIException {
         validateNotEmpty(keyType, resolution, subKey);
-        return queryImages(seriesId, query(Map.of(Query.Series.KEYTYPE, keyType, Query.Series.RESOLUTION, resolution, Query.Series.SUBKEY, subKey)));
+        return queryImages(seriesId, query(Map
+                .of(Query.Series.KEYTYPE, keyType, Query.Series.RESOLUTION, resolution, Query.Series.SUBKEY, subKey)));
     }
 
     @Override
@@ -357,7 +370,8 @@ public class TheTVDBApiImpl implements TheTVDBApi {
 
     @Override
     public Map<Long, Long> queryLastUpdated(long fromTime, long toTime) throws APIException {
-        return queryLastUpdated(query(Map.of(Query.Updates.FROMTIME, String.valueOf(fromTime), Query.Updates.TOTIME, String.valueOf(toTime))));
+        return queryLastUpdated(query(Map
+                .of(Query.Updates.FROMTIME, String.valueOf(fromTime), Query.Updates.TOTIME, String.valueOf(toTime))));
     }
 
     @Override
@@ -427,8 +441,42 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     /**
-     * Implementation of the {@link TheTVDBApi.JSON} API layout. It provides methods for all sorts of API calls throughout the different API routes. Responses will
-     * be returned as raw, untouched JSON as it has been received by the remote REST service.
+     * Validates that none of the given method String parameters is NULL or empty
+     *
+     * @param params Array of method String parameter to check
+     *
+     * @throws IllegalArgumentException If at least one of the given parameters is NULL or empty
+     */
+    private void validateNotEmpty(String... params) {
+        Parameters.validateCondition(APIUtil::hasValue, params,
+                new IllegalArgumentException("Method parameters must not be NULL or empty!"));
+    }
+
+    /**
+     * Creates an empty query parameters object with no individual parameters set
+     *
+     * @return Empty query parameters object
+     */
+    private QueryParameters emptyQuery() {
+        return TheTVDBApiFactory.createQueryParameters();
+    }
+
+    /**
+     * Creates a new query parameters object with preset parameters based on the given map of key/value pairs
+     *
+     * @param parameters Map of parameter key/value pairs. For each entry in the map an appropriate parameter will be
+     *                   added in the object returned by this method
+     *
+     * @return New query parameters object with a preset collection of individual query parameters
+     */
+    private QueryParameters query(@Nonnull Map<String, String> parameters) {
+        return TheTVDBApiFactory.createQueryParameters(parameters);
+    }
+
+    /**
+     * Implementation of the {@link TheTVDBApi.JSON} API layout. It provides methods for all sorts of API calls
+     * throughout the different API routes. Responses will be returned as raw, untouched JSON as it has been received by
+     * the remote REST service.
      */
     private class JSONApi implements JSON {
 
@@ -609,8 +657,9 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     /**
-     * Implementation of the {@link TheTVDBApi.Extended} API layout. It provides methods for all sorts of API calls throughout the different API routes. Responses will
-     * be returned as wrapped {@link APIResponse APIResponse&lt;DTO&gt;} objects containing additional error and paging information.
+     * Implementation of the {@link TheTVDBApi.Extended} API layout. It provides methods for all sorts of API calls
+     * throughout the different API routes. Responses will be returned as wrapped {@link APIResponse
+     * APIResponse&lt;DTO&gt;} objects containing additional error and paging information.
      */
     private class ExtendedApi implements Extended {
 
@@ -670,12 +719,14 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<List<Episode>> getEpisodes(long seriesId, QueryParameters queryParameters) throws APIException {
+        public APIResponse<List<Episode>> getEpisodes(long seriesId, QueryParameters queryParameters)
+                throws APIException {
             return JsonDeserializer.mapEpisodes(json().getEpisodes(seriesId, queryParameters));
         }
 
         @Override
-        public APIResponse<List<Episode>> queryEpisodes(long seriesId, QueryParameters queryParameters) throws APIException {
+        public APIResponse<List<Episode>> queryEpisodes(long seriesId, QueryParameters queryParameters)
+                throws APIException {
             return JsonDeserializer.mapEpisodes(json().queryEpisodes(seriesId, queryParameters));
         }
 
@@ -705,12 +756,14 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<List<Image>> queryImages(long seriesId, QueryParameters queryParameters) throws APIException {
+        public APIResponse<List<Image>> queryImages(long seriesId, QueryParameters queryParameters)
+                throws APIException {
             return JsonDeserializer.mapImages(json().queryImages(seriesId, queryParameters));
         }
 
         @Override
-        public APIResponse<List<ImageQueryParameter>> getAvailableImageQueryParameters(long seriesId) throws APIException {
+        public APIResponse<List<ImageQueryParameter>> getAvailableImageQueryParameters(long seriesId)
+                throws APIException {
             return JsonDeserializer.mapImageQueryParameters(json().getAvailableImageQueryParameters(seriesId));
         }
 
@@ -765,40 +818,9 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<List<Rating>> addToRatings(@Nonnull String itemType, long itemId, long itemRating) throws APIException {
+        public APIResponse<List<Rating>> addToRatings(@Nonnull String itemType, long itemId, long itemRating)
+                throws APIException {
             return JsonDeserializer.mapRatings(json().addToRatings(itemType, itemId, itemRating));
         }
-    }
-
-    /**
-     * Validates that none of the given method String parameters is NULL or empty
-     *
-     * @param params Array of method String parameter to check
-     *
-     * @throws IllegalArgumentException If at least one of the given parameters is NULL or empty
-     */
-    private void validateNotEmpty(String... params) {
-        Parameters.validateCondition(APIUtil::hasValue, params, new IllegalArgumentException("Method parameters must not be NULL or empty!"));
-    }
-
-    /**
-     * Creates an empty query parameters object with no individual parameters set
-     *
-     * @return Empty query parameters object
-     */
-    private QueryParameters emptyQuery() {
-        return TheTVDBApiFactory.createQueryParameters();
-    }
-
-    /**
-     * Creates a new query parameters object with preset parameters based on the given map of key/value pairs
-     *
-     * @param parameters Map of parameter key/value pairs. For each entry in the map an appropriate parameter will be added
-     *                   in the object returned by this method
-     *
-     * @return New query parameters object with a preset collection of individual query parameters
-     */
-    private QueryParameters query(@Nonnull Map<String, String> parameters) {
-        return TheTVDBApiFactory.createQueryParameters(parameters);
     }
 }

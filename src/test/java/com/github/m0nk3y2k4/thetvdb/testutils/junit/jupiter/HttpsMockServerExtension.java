@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -51,11 +51,12 @@ import org.mockserver.model.ClearType;
 import org.mockserver.socket.tls.KeyStoreFactory;
 
 /**
- * JUnit5 extension adding some additional features to the regular {@link org.mockserver.junit.jupiter.MockServerExtension MockServerExtension}
+ * JUnit5 extension adding some additional features to the regular {@link org.mockserver.junit.jupiter.MockServerExtension
+ * MockServerExtension}
  * <p><br>
- * Provides a resolver to let preconfigured {@link RemoteAPI} method parameters being injected in test classes.
- * Also adds settings for handling HTTPS request as well as some default expectations which enable the mock server
- * to automatically answer any received HTTPS request with some default response. It will also take care of resetting
+ * Provides a resolver to let preconfigured {@link RemoteAPI} method parameters being injected in test classes. Also
+ * adds settings for handling HTTPS request as well as some default expectations which enable the mock server to
+ * automatically answer any received HTTPS request with some default response. It will also take care of resetting
  * expectations and recorded requests on the server mock on a regular basis.
  *
  * @see WithHttpsMockServer
@@ -74,14 +75,18 @@ public class HttpsMockServerExtension implements ParameterResolver, BeforeAllCal
     private final RemoteAPI mockServerRemote = new RemoteAPI.Builder().protocol(PROTOCOL).host(HOST).port(PORT).build();
 
     @Override
-    public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
+    public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
+            throws ParameterResolutionException {
         return getParameter(parameterContext).isPresent();
     }
 
     @Override
-    public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
+    public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
+            throws ParameterResolutionException {
         return getParameter(parameterContext).orElseThrow(() ->
-                new ParameterResolutionException(String.format("Could not resolve parameter for class [%s]", parameterContext.getParameter().getType())));
+                new ParameterResolutionException(String
+                        .format("Could not resolve parameter for class [%s]", parameterContext.getParameter()
+                                .getType())));
     }
 
     @Override
@@ -92,21 +97,25 @@ public class HttpsMockServerExtension implements ParameterResolver, BeforeAllCal
         // Set some HTTPS related stuff
         client.withSecure(true);
         // Ensure all connection using HTTPS will use the SSL context defined by MockServer to allow dynamically generated certificates to be accepted
-        HttpsURLConnection.setDefaultSSLSocketFactory(new KeyStoreFactory(new MockServerLogger()).sslContext().getSocketFactory());
+        HttpsURLConnection.setDefaultSSLSocketFactory(new KeyStoreFactory(new MockServerLogger()).sslContext()
+                .getSocketFactory());
 
         // Simulate the default behavior of the real TheTVDB.com RESTful API: all routes except for /login require authentication
-        client.upsert(new Expectation(request("/login").withMethod(POST.getName()).withBody(jsonSchemaFromResource("login.json")),
-                Times.unlimited(), TimeToLive.unlimited(), PRIO_ROUTE).thenRespond(createJWTResponse()).withId("LOGIN"));
-        client.upsert(new Expectation(request("/refresh_token").withHeader(AUTHORIZATION).withMethod(GET.getName()),
-                Times.unlimited(), TimeToLive.unlimited(), PRIO_ROUTE).thenRespond(createJWTResponse()).withId("REFRESH_TOKEN"));
-        client.upsert(new Expectation(request("/.*").withHeader(AUTHORIZATION),
-                Times.unlimited(), TimeToLive.unlimited(), PRIO_DEFAULT).thenRespond(createSuccessResponse()).withId("AUTHORIZED"));
-        client.upsert(new Expectation(request("/.*"),
-                Times.unlimited(), TimeToLive.unlimited(), PRIO_DEFAULT).thenRespond(createUnauthorizedResponse()).withId("UNAUTHORIZED"));
+        client.upsert(new Expectation(request("/login").withMethod(POST.getName())
+                .withBody(jsonSchemaFromResource("login.json")), Times.unlimited(), TimeToLive.unlimited(), PRIO_ROUTE)
+                .thenRespond(createJWTResponse()).withId("LOGIN"));
+        client.upsert(new Expectation(request("/refresh_token").withHeader(AUTHORIZATION)
+                .withMethod(GET.getName()), Times.unlimited(), TimeToLive.unlimited(), PRIO_ROUTE)
+                .thenRespond(createJWTResponse()).withId("REFRESH_TOKEN"));
+        client.upsert(new Expectation(request("/.*")
+                .withHeader(AUTHORIZATION), Times.unlimited(), TimeToLive.unlimited(), PRIO_DEFAULT)
+                .thenRespond(createSuccessResponse()).withId("AUTHORIZED"));
+        client.upsert(new Expectation(request("/.*"), Times.unlimited(), TimeToLive.unlimited(), PRIO_DEFAULT)
+                .thenRespond(createUnauthorizedResponse()).withId("UNAUTHORIZED"));
 
         // Do not enforce authentication when requesting resources with a test-prefix
-        client.upsert(new Expectation(request("/test/.*"),
-                Times.unlimited(), TimeToLive.unlimited(), PRIO_ROUTE).thenRespond(createSuccessResponse()).withId("TEST"));
+        client.upsert(new Expectation(request("/test/.*"), Times.unlimited(), TimeToLive.unlimited(), PRIO_ROUTE)
+                .thenRespond(createSuccessResponse()).withId("TEST"));
     }
 
     @Override
@@ -116,11 +125,13 @@ public class HttpsMockServerExtension implements ParameterResolver, BeforeAllCal
     }
 
     /**
-     * Checks if the requested parameter can be resolved by this extension and returns an Optional representing the result of this check.
+     * Checks if the requested parameter can be resolved by this extension and returns an Optional representing the
+     * result of this check.
      *
      * @param parameterContext Context representing the parameter requested for injection
      *
-     * @return Optional containing the requested parameter or an empty Optional in case the parameter can not be resolved by this extension
+     * @return Optional containing the requested parameter or an empty Optional in case the parameter can not be
+     *         resolved by this extension
      */
     private Optional<Object> getParameter(ParameterContext parameterContext) {
         Class<?> parameterClass = parameterContext.getParameter().getType();
@@ -129,7 +140,7 @@ public class HttpsMockServerExtension implements ParameterResolver, BeforeAllCal
         } else if (Supplier.class.isAssignableFrom(parameterClass) &&
                 Proxy.class.isAssignableFrom((Class<?>)((ParameterizedType)parameterContext.getParameter()
                         .getParameterizedType()).getActualTypeArguments()[0])) {
-            return Optional.of((Supplier<RemoteAPI>) () -> mockServerRemote);
+            return Optional.of((Supplier<RemoteAPI>)() -> mockServerRemote);
         }
         return Optional.empty();
     }

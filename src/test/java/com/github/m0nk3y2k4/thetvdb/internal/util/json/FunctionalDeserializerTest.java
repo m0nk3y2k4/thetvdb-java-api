@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,7 +32,8 @@ class FunctionalDeserializerTest {
     @ParameterizedTest(name = "[{index}] {0} is deserialized properly")
     @EnumSource(value = JsonResource.class, names = {"EMPTY", "DATA"})
     void deserialize_withFullJSON_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
-        APIResponse<Data> response = new FunctionalDeserializer<>(dataNode -> new ObjectMapper().readValue(dataNode.toString(), Data.class))
+        APIResponse<Data> response = new FunctionalDeserializer<>(dataNode -> new ObjectMapper()
+                .readValue(dataNode.toString(), Data.class))
                 .deserialize(new JsonFactory().createParser(resource.getUrl()), null);
 
         assertThat(response).isNotNull().isEqualTo(resource.getDTO());

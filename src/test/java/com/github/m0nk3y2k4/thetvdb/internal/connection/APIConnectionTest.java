@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -46,14 +46,13 @@ import org.mockserver.verify.VerificationTimes;
 @WithHttpsMockServer
 class APIConnectionTest {
 
-    @FunctionalInterface
-    private interface Request {
-        void send(APIConnection con) throws APIException;
-    }
-
     private static final String METHOD_RESOURCE = "/test/method";
 
     private final APIConnection con;
+
+    public APIConnectionTest(Supplier<RemoteAPI> remoteAPI) {
+        con = new APIConnection("API-Key", remoteAPI);
+    }
 
     private static Stream<Arguments> sendRequest_verifyHTTPMethodInRequest() {
         return Stream.of(
@@ -63,10 +62,6 @@ class APIConnectionTest {
                 Arguments.of((Request)con -> con.sendDELETE(METHOD_RESOURCE + DELETE), DELETE.getName()),
                 Arguments.of((Request)con -> con.sendPUT(METHOD_RESOURCE + PUT), PUT.getName())
         );
-    }
-
-    public APIConnectionTest(Supplier<RemoteAPI> remoteAPI) {
-        con = new APIConnection("API-Key", remoteAPI);
     }
 
     @Test
@@ -117,9 +112,11 @@ class APIConnectionTest {
 
     @ParameterizedTest(name = "[{index}] Verifying {1} request")
     @MethodSource
-    void sendRequest_verifyHTTPMethodInRequest(Request request, String httpMethod, MockServerClient client) throws Exception {
+    void sendRequest_verifyHTTPMethodInRequest(Request request, String httpMethod, MockServerClient client)
+            throws Exception {
         request.send(con);
-        client.verify(request().withMethod(httpMethod).withPath(METHOD_RESOURCE + httpMethod), VerificationTimes.once());
+        client.verify(request().withMethod(httpMethod).withPath(METHOD_RESOURCE + httpMethod), VerificationTimes
+                .once());
     }
 
     @Test
@@ -166,6 +163,11 @@ class APIConnectionTest {
         client.when(request("/login"), Times.once()).respond(createUnauthorizedResponse());
         APIException exception = catchThrowableOfType(() -> con.sendGET(resource), APIException.class);
         assertThat(exception).hasMessageContaining("authorization failed");
+    }
+
+    @FunctionalInterface
+    private interface Request {
+        void send(APIConnection con) throws APIException;
     }
 
 }

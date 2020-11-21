@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -64,21 +64,22 @@ class MovieDTOTest {
 
     @ParameterizedTest(name = "[{index}] Returns correct values for getting people of category {0}")
     @MethodSource("people")
-    void getPeople_withDifferentSettings_verifyReturnValue(PeopleCategory category, Function<Movie, List<People>> getPeople) {
+    void getPeople_withDifferentSettings_verifyReturnValue(PeopleCategory category,
+            Function<Movie, List<People>> getPeople) {
         List<People> peopleOfCategory = Collections.singletonList(new PeopleDTO.Builder().name("Someone").build());
         Movie movieWithPeopleForCategory = new MovieDTO.Builder().putPeople(category, peopleOfCategory).build();
         Movie movieWithoutPeopleForCategory = new MovieDTO.Builder().build();
 
         assertThat(getPeople.apply(movieWithPeopleForCategory)).as("Returns a list of people for an existing category")
                 .containsExactlyInAnyOrderElementsOf(peopleOfCategory);
-        assertThat(getPeople.apply(movieWithoutPeopleForCategory)).as("Returns an empty list for a non-existing category")
-                .isNotNull().isEmpty();
+        assertThat(getPeople.apply(movieWithoutPeopleForCategory))
+                .as("Returns an empty list for a non-existing category").isNotNull().isEmpty();
     }
 
     @Test
     void toString_withPrimaryTranslationsAvailable_verifyStringRepresentation() {
         assertThat(new MovieDTO.Builder().addTranslations(
-                        new TranslationDTO.Builder().isPrimary(true).name("Léon: The Professional").build()).build())
+                new TranslationDTO.Builder().isPrimary(true).name("Léon: The Professional").build()).build())
                 .asString().isEqualTo("Léon: The Professional");
     }
 
@@ -142,7 +143,8 @@ class MovieDTOTest {
 
         @Test
         void toString_withName_verifyStringRepresentation() {
-            assertThat(new TrailerDTO.Builder().name("TENET - Official Trailer").build()).asString().isEqualTo("TENET - Official Trailer");
+            assertThat(new TrailerDTO.Builder().name("TENET - Official Trailer").build()).asString()
+                    .isEqualTo("TENET - Official Trailer");
         }
     }
 

@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -69,6 +69,7 @@ import org.mockserver.client.MockServerClient;
 @WithHttpsMockServer
 class SeriesAPITest {
 
+    //@formatter:off
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
         client.when(request("/series/84574", GET)).respond(jsonResponse(SERIES));
@@ -77,14 +78,16 @@ class SeriesAPITest {
         client.when(request("/series/84674/episodes", GET)).respond(jsonResponse(EPISODES));
         client.when(request("/series/69547/episodes", GET, param("page", "4"))).respond(jsonResponse(EPISODES));
         client.when(request("/series/3647/episodes/query", GET)).respond(jsonResponse(EPISODES));
-        client.when(request("/series/1366/episodes/query", GET, param("airedSeason", "2"))).respond(jsonResponse(EPISODES));
+        client.when(request("/series/1366/episodes/query", GET, param("airedSeason", "2")))
+                .respond(jsonResponse(EPISODES));
         client.when(request("/series/67457/episodes/query/params", GET)).respond(jsonResponse(QUERYPARAMETERS));
         client.when(request("/series/8457/episodes/summary", GET)).respond(jsonResponse(SERIESSUMMARY));
         client.when(request("/series/4877/filter", GET, param("keys", "network,status"))).respond(jsonResponse(SERIES));
         client.when(request("/series/48123/filter/params", GET)).respond(jsonResponse(QUERYPARAMETERS_NESTED));
         client.when(request("/series/3124/images", GET)).respond(jsonResponse(IMAGESUMMARY));
         client.when(request("/series/32145/images/query", GET)).respond(jsonResponse(IMAGES));
-        client.when(request("/series/98748/images/query", GET, param("keyType", "fanart"))).respond(jsonResponse(IMAGES));
+        client.when(request("/series/98748/images/query", GET, param("keyType", "fanart")))
+                .respond(jsonResponse(IMAGES));
         client.when(request("/series/74585/images/query/params", GET)).respond(jsonResponse(IMAGEQUERYPARAMETERS));
     }
 
@@ -96,12 +99,12 @@ class SeriesAPITest {
                 of(route(con -> getHead(con, -2), "getHead() with negative series ID")),
                 of(route(con -> getActors(con, 0), "getActors() with ZERO series ID")),
                 of(route(con -> getActors(con, -3), "getActors() with negative series ID")),
-                of(route(con -> getEpisodes(con, 0, null),"getEpisodes() with ZERO series ID")),
-                of(route(con -> getEpisodes(con, -4, null),"getEpisodes() with negative series ID")),
+                of(route(con -> getEpisodes(con, 0, null), "getEpisodes() with ZERO series ID")),
+                of(route(con -> getEpisodes(con, -4, null), "getEpisodes() with negative series ID")),
                 of(route(con -> queryEpisodes(con, 0, null), "queryEpisodes() with ZERO series ID")),
                 of(route(con -> queryEpisodes(con, -5, null), "queryEpisodes() with negative series ID")),
-                of(route(con -> getEpisodesQueryParams(con, 0),"getEpisodesQueryParams() with ZERO series ID")),
-                of(route(con -> getEpisodesQueryParams(con, -6),"getEpisodesQueryParams() with negative series ID")),
+                of(route(con -> getEpisodesQueryParams(con, 0), "getEpisodesQueryParams() with ZERO series ID")),
+                of(route(con -> getEpisodesQueryParams(con, -6), "getEpisodesQueryParams() with negative series ID")),
                 of(route(con -> getEpisodesSummary(con, 0), "getEpisodesSummary() with ZERO series ID")),
                 of(route(con -> getEpisodesSummary(con, -7), "getEpisodesSummary() with negative series ID")),
                 of(route(con -> filter(con, 0, null), "filter() with ZERO series ID")),
@@ -124,11 +127,11 @@ class SeriesAPITest {
                 of(route(con -> get(con, 84574), "get()"), SERIES),
                 of(route(con -> getHead(con, 7451), "getHead()"), SERIESHEADER),
                 of(route(con -> getActors(con, 36145), "getActors()"), ACTORS),
-                of(route(con -> getEpisodes(con, 84674, null),"getEpisodes() without query parameters"), EPISODES),
-                of(route(con -> getEpisodes(con, 69547, params("page", "4")),"getEpisodes() with query parameters"), EPISODES),
+                of(route(con -> getEpisodes(con, 84674, null), "getEpisodes() without query parameters"), EPISODES),
+                of(route(con -> getEpisodes(con, 69547, params("page", "4")), "getEpisodes() with query parameters"), EPISODES),
                 of(route(con -> queryEpisodes(con, 3647, null), "queryEpisodes() without query parameters"), EPISODES),
                 of(route(con -> queryEpisodes(con, 1366, params("airedSeason", "2")), "queryEpisodes() with query parameters"), EPISODES),
-                of(route(con -> getEpisodesQueryParams(con, 67457),"getEpisodesQueryParams()"), QUERYPARAMETERS),
+                of(route(con -> getEpisodesQueryParams(con, 67457), "getEpisodesQueryParams()"), QUERYPARAMETERS),
                 of(route(con -> getEpisodesSummary(con, 8457), "getEpisodesSummary()"), SERIESSUMMARY),
                 of(route(con -> filter(con, 4877, params("keys", "network,status")), "filter() with query parameters"), SERIES),
                 of(route(con -> getFilterParams(con, 48123), "getFilterParams()"), QUERYPARAMETERS_NESTED),
@@ -138,16 +141,20 @@ class SeriesAPITest {
                 of(route(con -> getImagesQueryParams(con, 74585), "getImagesQueryParams()"), IMAGEQUERYPARAMETERS)
         );
     }
+    //@formatter:on
 
     @ParameterizedTest(name = "[{index}] Route SeriesAPI.{0} rejected")
-    @MethodSource(value = "withInvalidParameters")
-    void invokeRoute_withInvalidParameters_verifyParameterValidation(TestRemoteAPICall route, Supplier<RemoteAPI> remoteAPI) {
-        assertThatIllegalArgumentException().isThrownBy(() -> route.invoke(new APIConnection("946FG8I5P5E56E4", remoteAPI)));
+    @MethodSource("withInvalidParameters")
+    void invokeRoute_withInvalidParameters_verifyParameterValidation(TestRemoteAPICall route,
+            Supplier<RemoteAPI> remoteAPI) {
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> route.invoke(new APIConnection("946FG8I5P5E56E4", remoteAPI)));
     }
 
     @ParameterizedTest(name = "[{index}] Route SeriesAPI.{0} successfully invoked")
-    @MethodSource(value = "withValidParameters")
-    void invokeRoute_withValidParameters_verifyResponse(TestRemoteAPICall route, JsonResource expected, Supplier<RemoteAPI> remoteAPI) throws Exception {
+    @MethodSource("withValidParameters")
+    void invokeRoute_withValidParameters_verifyResponse(TestRemoteAPICall route, JsonResource expected,
+            Supplier<RemoteAPI> remoteAPI) throws Exception {
         assertThat(route.invoke(new APIConnection("W1G5JW6W8974U66G1", remoteAPI))).isEqualTo(expected.getJson());
     }
 }
