@@ -40,7 +40,7 @@ work with the prefabbed Java DTOs or to run more complex queries by providing a 
 the raw JSON content returned by the _TheTVDB.com_ API all by yourself. Your decision!
 
 ## Technologies
-* [Java](https://jdk.java.net/) (1.9) - Class-based, object-oriented programming language
+* [Java](https://jdk.java.net/) (10) - Class-based, object-oriented programming language
 * [Apache Maven](https://maven.apache.org/download.cgi) (3.6.0) - Software project management and comprehension tool
 
 ## Features
@@ -116,7 +116,7 @@ maven project via the [jitpack.io](https://www.jitpack.io/#m0nk3y2k4/thetvdb-jav
         <dependency>
             <groupId>com.github.m0nk3y2k4</groupId>
             <artifactId>thetvdb-java-api</artifactId>
-            <version>3.0.1</version>
+            <version>3.0.2</version>
         </dependency>
     ```
 
