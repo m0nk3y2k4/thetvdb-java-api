@@ -51,7 +51,7 @@ from its version number. For example, `v3.x` uses the _TheTVDB.com_ APIv3 wherea
 the upcoming APIv4.
 
 <details>
-<summary>Supported _TheTVDB.com_ APIv3 routes (<code>thetvdb-java-api v3.x</code>)</summary>
+<summary>Supported TheTVDB.com APIv3 routes (<code>thetvdb-java-api v3.x</code>)</summary>
 
 - Authentication
     - [x] [/login](https://api.thetvdb.com/swagger#!/Authentication/post_login)
