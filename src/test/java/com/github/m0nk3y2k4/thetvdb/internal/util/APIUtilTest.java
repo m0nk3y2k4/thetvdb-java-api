@@ -91,10 +91,11 @@ class APIUtilTest {
 
     @Test
     void prettyPrint_simpleJSONNode() throws Exception {
-        String expected = ("{\\n" +
-                "  \"Success\" : true\\n" +
-                "}").replace("\\n", System.lineSeparator());
-        assertThat(APIUtil.prettyPrint(new ObjectMapper().readTree(JSON_SUCCESS))).isEqualTo(expected);
+        assertThat(APIUtil.prettyPrint(new ObjectMapper().readTree(JSON_SUCCESS))).isEqualTo(
+                "{\n" +
+                "  \"Success\" : true\n" +
+                "}"
+        );
     }
 
     @ParameterizedTest

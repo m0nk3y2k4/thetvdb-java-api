@@ -25,6 +25,9 @@ import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.PrettyPrinter;
+import com.fasterxml.jackson.core.util.DefaultIndenter;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -38,6 +41,10 @@ public final class APIUtil {
 
     /** Some stateless unconfigured JSON object mapper */
     private static final ObjectMapper MAPPER = new ObjectMapper();
+
+    /** JSON pretty printer with fix LF linefeed */
+    private static final PrettyPrinter UNIX_LINEFEED_PRINTER = new DefaultPrettyPrinter()
+            .withObjectIndenter(new DefaultIndenter().withLinefeed("\n"));
 
     private APIUtil() {}     // Hidden constructor. Only static methods
 
@@ -76,7 +83,7 @@ public final class APIUtil {
      * @throws JsonProcessingException If an error occurred while processing the JSON object
      */
     public static String prettyPrint(@Nonnull JsonNode obj) throws JsonProcessingException {
-        return MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
+        return MAPPER.writer(UNIX_LINEFEED_PRINTER).writeValueAsString(obj);
     }
 
     /**

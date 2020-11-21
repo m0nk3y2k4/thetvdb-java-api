@@ -5,10 +5,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Method `APIUtil.prettyPrint(JsonNode)` now wraps lines with a fix Unix-style (LF) line separator.
 
 ## [3.0.2] - 2020-11-21
 ### Changed
-- Changed project compile version to Java SE 10
+- Changed project compile version to Java SE 10.
 - Updated multiple maven dependencies to latest version:
     - _org.junit.jupiter:*_: `5.6.2` -> `5.7.0`
     - _org.mockito:mockito-core_: `3.4.6` -> `3.6.0`
