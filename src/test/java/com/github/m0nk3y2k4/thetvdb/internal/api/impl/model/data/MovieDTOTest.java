@@ -57,7 +57,7 @@ class MovieDTOTest {
     }
 
     @ParameterizedTest(name = "[{index}] Provides matching lower-case JSON name for {0}")
-    @EnumSource(value = PeopleCategory.class)
+    @EnumSource(PeopleCategory.class)
     void peopleCategories_verifyJsonNames(PeopleCategory category) {
         assertThat(category.getJsonName()).isEqualTo(category.name().toLowerCase());
     }

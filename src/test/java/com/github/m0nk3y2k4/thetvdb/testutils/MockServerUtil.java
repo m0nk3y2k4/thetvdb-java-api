@@ -23,7 +23,6 @@ import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.CONTEN
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.CONTENT_TYPE;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.USER_AGENT;
 import static org.mockserver.model.Header.header;
-import static org.mockserver.model.HttpResponse.response;
 import static org.mockserver.model.HttpStatusCode.OK_200;
 import static org.mockserver.model.HttpStatusCode.UNAUTHORIZED_401;
 import static org.mockserver.model.NottableString.not;
@@ -56,7 +55,7 @@ import org.mockserver.model.Parameter;
  * prepared JSON Strings, creation of common HTTP request headers as well as simple preconfigured responses for example
  * to return a HTTP-200 or HTTP-401 response.
  */
-public abstract class MockServerUtil {
+public final class MockServerUtil {
 
     /** JSON String representing a simple <i>Success</i> response content */
     public static final String JSON_SUCCESS = "{\"Success\":true}";
@@ -80,7 +79,7 @@ public abstract class MockServerUtil {
      *
      * @return Response header specifying the length of the given content String
      */
-    public static Header contentLength(@Nonnull String content) {
+    public static Header contentLength(@Nonnull CharSequence content) {
         Parameters.validateNotNull(content, "The content String must not be null");
         return contentLength(content.length());
     }
@@ -98,21 +97,53 @@ public abstract class MockServerUtil {
 
     /**
      * Returns matchers for the default HTTP headers which will be set when communicating with the remote API. Which
+     * headers are actually set depends on whether the underlying API session has already been authorized or not. The
+     * object returned by this method will contain matchers verifying the absence of any authentication related
+     * headers.
+     *
+     * @return HTTP headers object including matchers verfying the absence of authorization headers
+     *
+     * @see #defaultAPIHttpHeadersWithAuthorization()
+     */
+    public static Headers defaultAPIHttpHeaders() {
+        return defaultAPIHttpHeaders(false);
+    }
+
+    /**
+     * Returns matchers for the default HTTP headers which will be set when communicating with the remote API. Which
+     * headers are actually set depends on whether the underlying API session has already been authorized or not. The
+     * object returned by this method will contain matchers verifying that the authentication related headers exist and
+     * contain some reasonable values.
+     *
+     * @return HTTP headers object including matchers verfying the existence of authorization headers
+     *
+     * @see #defaultAPIHttpHeaders()
+     */
+    public static Headers defaultAPIHttpHeadersWithAuthorization() {
+        return defaultAPIHttpHeaders(true);
+    }
+
+    /**
+     * Returns matchers for the default HTTP headers which will be set when communicating with the remote API. Which
      * headers are actually set depends on whether the underlying API session has already been authorized or not. If
-     * <em>{@code withAuthorization}</em> is set to TRUE, the returned array will contain matchers verifying that the
-     * authentication related headers exist and contain some reasonable values. If set to FALSE the array will contain
-     * matchers verifying that no authentication related headers exist at all.
+     * <em>{@code withAuthorization}</em> is set to TRUE, the returned object will contain matchers verifying that the
+     * authentication related headers exist and contain some reasonable values. If set to FALSE the object will contain
+     * matchers verifying the absence of any authentication related headers.
      *
      * @param withAuthorization Authorization related headers should be present or not
      *
-     * @return Array of HTTP header matchers according to the given parameters
+     * @return HTTP headers object containing matchers according to the given parameters
      */
-    public static Headers defaultAPIHttpHeaders(boolean withAuthorization) {
+    private static Headers defaultAPIHttpHeaders(boolean withAuthorization) {
         return new Headers(header(CONTENT_TYPE, "application/json; charset=utf-8"),
                 header(ACCEPT, "application/json, application/vnd.thetvdb.v3.0.0"),
                 header(USER_AGENT, "Mozilla/5.0"),
-                withAuthorization ? header(AUTHORIZATION, "Bearer [A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*$") : header(not(AUTHORIZATION)),
-                withAuthorization ? header(ACCEPT_LANGUAGE, "^[a-z]{2}|[A-Z]{2}$") : header(not(ACCEPT_LANGUAGE)));
+                withAuthorization
+                        ? header(AUTHORIZATION, "Bearer [A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*$")
+                        : header(not(AUTHORIZATION)),
+                withAuthorization
+                        ? header(ACCEPT_LANGUAGE, "^[a-z]{2}|[A-Z]{2}$")
+                        : header(not(ACCEPT_LANGUAGE)));
     }
 
     /**
@@ -177,7 +208,7 @@ public abstract class MockServerUtil {
      * @return New preconfigured HTTP response with the given status and content
      */
     public static HttpResponse createResponse(HttpStatusCode status, String content) {
-        return response().withHeader(contentLength(content)).withStatusCode(status.code())
+        return HttpResponse.response().withHeader(contentLength(content)).withStatusCode(status.code())
                 .withReasonPhrase(status.reasonPhrase()).withBody(content);
     }
 

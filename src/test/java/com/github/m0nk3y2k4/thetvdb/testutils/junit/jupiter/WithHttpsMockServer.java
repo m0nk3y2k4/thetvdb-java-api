@@ -89,8 +89,8 @@ import org.mockserver.junit.jupiter.MockServerSettings;
 @Retention(RetentionPolicy.RUNTIME)
 @ExtendWith(MockServerExtension.class)
 @ExtendWith(HttpsMockServerExtension.class)
-@MockServerSettings(ports = {WithHttpsMockServer.PORT}, perTestSuite = true)
-@Target({ElementType.TYPE})
+@MockServerSettings(ports = WithHttpsMockServer.PORT, perTestSuite = true)
+@Target(ElementType.TYPE)
 public @interface WithHttpsMockServer {
 
     /** Protocol used by the server mock */

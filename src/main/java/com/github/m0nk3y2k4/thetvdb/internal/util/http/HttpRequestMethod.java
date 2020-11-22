@@ -30,6 +30,6 @@ public enum HttpRequestMethod {
      * @return HTTP request method as String
      */
     public String getName() {
-        return this.toString();
+        return toString();
     }
 }

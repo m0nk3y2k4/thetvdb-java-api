@@ -59,7 +59,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @Retention(RetentionPolicy.RUNTIME)
 @TestMethodOrder(OrderAnnotation.class)
 @ExtendWith(IntegrationTestExtension.class)
-@Target({ElementType.TYPE})
+@Target(ElementType.TYPE)
 public @interface IntegrationTestSuite {
 
     /** Descriptive name of the test suite. Will be printed to console-out when the suite is executed */

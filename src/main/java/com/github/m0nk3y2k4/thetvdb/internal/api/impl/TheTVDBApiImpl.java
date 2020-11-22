@@ -145,9 +145,42 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         this.con = new APIConnection(apiKey, userKey, userName, () -> new RemoteAPI.Builder().from(proxy).build());
     }
 
+    /**
+     * Validates that none of the given method String parameters is NULL or empty
+     *
+     * @param params Array of method String parameter to check
+     *
+     * @throws IllegalArgumentException If at least one of the given parameters is NULL or empty
+     */
+    private static void validateNotEmpty(String... params) {
+        Parameters.validateCondition(APIUtil::hasValue, params,
+                new IllegalArgumentException("Method parameters must not be NULL or empty!"));
+    }
+
+    /**
+     * Creates an empty query parameters object with no individual parameters set
+     *
+     * @return Empty query parameters object
+     */
+    private static QueryParameters emptyQuery() {
+        return TheTVDBApiFactory.createQueryParameters();
+    }
+
+    /**
+     * Creates a new query parameters object with preset parameters based on the given map of key/value pairs
+     *
+     * @param parameters Map of parameter key/value pairs. For each entry in the map an appropriate parameter will be
+     *                   added in the object returned by this method
+     *
+     * @return New query parameters object with a preset collection of individual query parameters
+     */
+    private static QueryParameters query(@Nonnull Map<String, String> parameters) {
+        return TheTVDBApiFactory.createQueryParameters(parameters);
+    }
+
     @Override
     public void init() throws APIException {
-        this.login();
+        login();
     }
 
     @Override
@@ -441,49 +474,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     /**
-     * Validates that none of the given method String parameters is NULL or empty
-     *
-     * @param params Array of method String parameter to check
-     *
-     * @throws IllegalArgumentException If at least one of the given parameters is NULL or empty
-     */
-    private void validateNotEmpty(String... params) {
-        Parameters.validateCondition(APIUtil::hasValue, params,
-                new IllegalArgumentException("Method parameters must not be NULL or empty!"));
-    }
-
-    /**
-     * Creates an empty query parameters object with no individual parameters set
-     *
-     * @return Empty query parameters object
-     */
-    private QueryParameters emptyQuery() {
-        return TheTVDBApiFactory.createQueryParameters();
-    }
-
-    /**
-     * Creates a new query parameters object with preset parameters based on the given map of key/value pairs
-     *
-     * @param parameters Map of parameter key/value pairs. For each entry in the map an appropriate parameter will be
-     *                   added in the object returned by this method
-     *
-     * @return New query parameters object with a preset collection of individual query parameters
-     */
-    private QueryParameters query(@Nonnull Map<String, String> parameters) {
-        return TheTVDBApiFactory.createQueryParameters(parameters);
-    }
-
-    /**
      * Implementation of the {@link TheTVDBApi.JSON} API layout. It provides methods for all sorts of API calls
      * throughout the different API routes. Responses will be returned as raw, untouched JSON as it has been received by
      * the remote REST service.
      */
     private class JSONApi implements JSON {
-
-        /**
-         * Creates a new instance of the {@link TheTVDBApi.JSON} API layout
-         */
-        private JSONApi() {}
 
         @Override
         public JsonNode getEpisode(long episodeId) throws APIException {
@@ -662,11 +657,6 @@ public class TheTVDBApiImpl implements TheTVDBApi {
      * APIResponse&lt;DTO&gt;} objects containing additional error and paging information.
      */
     private class ExtendedApi implements Extended {
-
-        /**
-         * Creates a new instance of the {@link TheTVDBApi.Extended} API layout
-         */
-        private ExtendedApi() {}
 
         @Override
         public APIResponse<Episode> getEpisode(long episodeId) throws APIException {

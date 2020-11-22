@@ -18,6 +18,7 @@ package com.github.m0nk3y2k4.thetvdb.internal.util.validation;
 
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
 
@@ -38,6 +39,9 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
  * {@link Preconditions}.
  */
 public final class Parameters {
+
+    /** Pattern for numeric integer String matcher */
+    private static final Pattern NUMERIC_INTEGER = Pattern.compile("\\d+");
 
     private Parameters() {}     // Hidden constructor. Only static methods
 
@@ -96,7 +100,7 @@ public final class Parameters {
      * @throws IllegalArgumentException If no value is present or the value is an empty String
      */
     public static void validateNotEmpty(@Nonnull Optional<String> obj, String message) {
-        Parameters.validateNotEmpty(obj.orElse(null), message);
+        validateNotEmpty(obj.orElse(null), message);
     }
 
     /**
@@ -112,11 +116,9 @@ public final class Parameters {
      *                                  the given condition
      */
     public static <T> void validatePathParam(String paramName, T paramValue, Predicate<T> condition) {
-        Parameters.validateNotNull(paramValue, String
-                .format("Path parameter [%s] is required but is not set", paramName));
-        Parameters.validateCondition(condition, paramValue,
-                new IllegalArgumentException(String
-                        .format("Path parameter [%s] is set to an invalid value: %s", paramName, paramValue)));
+        validateNotNull(paramValue, String.format("Path parameter [%s] is required but is not set", paramName));
+        validateCondition(condition, paramValue, new IllegalArgumentException(String
+                .format("Path parameter [%s] is set to an invalid value: %s", paramName, paramValue)));
     }
 
     /**
@@ -130,7 +132,7 @@ public final class Parameters {
      *                                  given name
      */
     public static void validateQueryParam(String paramName, QueryParameters params) {
-        Parameters.validateQueryParam(paramName, params, s -> true);
+        validateQueryParam(paramName, params, s -> true);
     }
 
     /**
@@ -147,15 +149,23 @@ public final class Parameters {
     public static void validateQueryParam(String paramName, QueryParameters params, Predicate<String> condition) {
         Predicate<QueryParameters> containsMandatoryParam = query -> Optional.ofNullable(query)
                 .map(p -> p.containsParameter(paramName)).orElse(false);
-        Parameters.validateCondition(containsMandatoryParam, params,
-                new IllegalArgumentException(String
-                        .format("Query parameter [%s] is required but is not set", paramName)));
+        validateCondition(containsMandatoryParam, params, new IllegalArgumentException(String
+                .format("Query parameter [%s] is required but is not set", paramName)));
         Optional<String> paramValue = params.getParameterValue(paramName);
-        Parameters.validateNotEmpty(paramValue, String
-                .format("Value for query parameter [%s] must not be empty", paramName));
-        Parameters.validateCondition(condition, paramValue.get(),       // NOSONAR: evaluated by upstream validation
+        validateNotEmpty(paramValue, String.format("Value for query parameter [%s] must not be empty", paramName));
+        validateCondition(condition, paramValue.get(),       // NOSONAR: evaluated by upstream validation
                 new IllegalArgumentException(String
-                        .format("Value for query parameter [%s] is set to an invalid value: %s", paramName, paramValue
-                                .get())));
+                        .format("Value for query parameter [%s] is set to an invalid value: %s", paramName,
+                                paramValue.get())));
+    }
+
+    /**
+     * Provides a predicate used to check wether a String represents a positive (greater zero) numerical integer.
+     *
+     * @return String predicate to check for a positive numerical integer
+     */
+    public static Predicate<String> isPositiveInteger() {
+        return value -> APIUtil.hasValue(value) && NUMERIC_INTEGER.matcher(value).matches()
+                && Long.valueOf(value).compareTo(0L) > 0;
     }
 }

@@ -17,6 +17,7 @@
 package com.github.m0nk3y2k4.thetvdb.internal.resource;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 
 import java.util.stream.Stream;
 
@@ -24,13 +25,12 @@ import javax.annotation.Nonnull;
 
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.QueryParametersImpl;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 class QueryResourceTest {
-
-    private final QueryResource resource = new QueryResource() {};
 
     private static Stream<Arguments> createQueryResource_verifyResourceString() {
         return Stream.of(
@@ -65,7 +65,12 @@ class QueryResourceTest {
     @MethodSource
     void createQueryResource_verifyResourceString(String base, String specific, QueryParameters queryParameters,
             String expected) {
-        assertThat(resource.createQueryResource(base, specific, queryParameters)).isEqualTo(expected);
+        assertThat(QueryResource.createQueryResource(base, specific, queryParameters)).isEqualTo(expected);
+    }
+
+    @Test
+    void createNewQueryResource_happyDay() {
+        assertThatCode(TestQueryResource::new).doesNotThrowAnyException();
     }
 
     private static final class NullableQueryParameters extends QueryParametersImpl {
@@ -76,4 +81,6 @@ class QueryResourceTest {
             return this;
         }
     }
+
+    private static final class TestQueryResource extends QueryResource {}
 }

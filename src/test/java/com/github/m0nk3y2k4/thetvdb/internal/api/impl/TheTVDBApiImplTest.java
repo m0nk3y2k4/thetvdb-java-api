@@ -97,6 +97,15 @@ import org.mockserver.model.HttpRequest;
 @WithHttpsMockServer
 class TheTVDBApiImplTest {
 
+    private static HttpRequest verify(String path, HttpRequestMethod method) {
+        return HttpRequest.request(path).withMethod(method.getName());
+    }
+
+    private static TheTVDBApi init(TheTVDBApi api) throws APIException {
+        api.init("Header.Payload.Signature");
+        return api;
+    }
+
     @Test
     void createNewApi_withValidParameters_verifyNoExceptionIsThrown(Proxy remoteApi) {
         assertThatCode(() -> new TheTVDBApiImpl("W7T8IU7E5R7Z5F5")).doesNotThrowAnyException();
@@ -105,15 +114,6 @@ class TheTVDBApiImplTest {
                 .doesNotThrowAnyException();
         assertThatCode(() -> new TheTVDBApiImpl("QP2I456E1Z4OI3T", "unique_5847356", "Princess Vespa", remoteApi))
                 .doesNotThrowAnyException();
-    }
-
-    private HttpRequest verify(String path, HttpRequestMethod method) {
-        return HttpRequest.request(path).withMethod(method.getName());
-    }
-
-    private TheTVDBApi init(TheTVDBApi api) throws APIException {
-        api.init("Header.Payload.Signature");
-        return api;
     }
 
     @Nested

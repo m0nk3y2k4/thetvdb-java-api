@@ -29,7 +29,9 @@ import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
  * Each method in this class is a static factory for a type-specific assertion object, based on either a void remote API
  * route or a route returning some actual response value.
  */
-public class IntegrationTestAssertions {
+public final class IntegrationTestAssertions {
+
+    private IntegrationTestAssertions() {}
 
     /**
      * Create assertion for a {@link Supplier Supplier&lt;T,APIException&gt;} object representing a non-void API route
@@ -45,7 +47,7 @@ public class IntegrationTestAssertions {
         return new AbstractIntegrationTestAssert<>(actual) {
             @Override
             Optional<?> execute() throws APIException {
-                return Optional.of(actual.get());
+                return Optional.of(super.actual.get());
             }
         };
     }
@@ -62,7 +64,7 @@ public class IntegrationTestAssertions {
         return new AbstractIntegrationTestAssert<>(actual) {
             @Override
             Optional<?> execute() throws APIException {
-                actual.invoke();
+                super.actual.invoke();
                 return Optional.empty();
             }
         };

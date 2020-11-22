@@ -34,7 +34,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI;
  * offers factory methods for creating additional objects that are commonly used in the context of working with the
  * API.
  */
-public class TheTVDBApiFactory {
+public final class TheTVDBApiFactory {
 
     private TheTVDBApiFactory() {}      // Hidden constructor. Only static methods
 

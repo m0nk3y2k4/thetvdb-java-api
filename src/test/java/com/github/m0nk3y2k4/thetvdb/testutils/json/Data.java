@@ -39,28 +39,28 @@ public final class Data {
     private String content;
 
     public static Data with(String content) {
-        Data d = new Data();
-        d.setContent(content);
-        return d;
+        Data data = new Data();
+        data.setContent(content);
+        return data;
     }
 
-    public String getContent() {
+    private String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    private void setContent(String content) {
         this.content = content;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        Data data = (Data)o;
+        Data data = (Data)obj;
         return content.equals(data.getContent());
     }
 

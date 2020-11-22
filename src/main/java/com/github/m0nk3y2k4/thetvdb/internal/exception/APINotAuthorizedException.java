@@ -28,10 +28,10 @@ public final class APINotAuthorizedException extends APICommunicationException {
     /**
      * Creates a new API missing authorization exception with the given error message.
      *
-     * @param error Brief error message describing the authorization issue. Will be appended to some basic exception
-     *              specific error text.
+     * @param message Brief error message describing the authorization issue. Will be appended to some basic exception
+     *                specific error text.
      */
-    public APINotAuthorizedException(@Nonnull String error) {
-        super(API_NOT_AUTHORIZED_ERROR, error);
+    public APINotAuthorizedException(@Nonnull String message) {
+        super(API_NOT_AUTHORIZED_ERROR, message);
     }
 }

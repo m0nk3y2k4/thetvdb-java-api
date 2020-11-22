@@ -53,9 +53,9 @@ public class APICommunicationException extends APIException {
      * Creates a nested API communication exception wrapping some other root exception
      *
      * @param message Brief error message describing the problem
-     * @param ex      The original root exception
+     * @param cause   The original root exception
      */
-    public APICommunicationException(String message, Throwable ex) {
-        super(message, ex);
+    public APICommunicationException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

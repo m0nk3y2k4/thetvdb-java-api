@@ -25,7 +25,9 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.QueryParametersImpl;
  * This class offers quick access to commonly used functionality for general API testing, like for example the creation
  * of simple query parameters.
  */
-public class APITestUtil {
+public final class APITestUtil {
+
+    private APITestUtil() {}
 
     /**
      * Creates a new query parameter with the given key/value pair

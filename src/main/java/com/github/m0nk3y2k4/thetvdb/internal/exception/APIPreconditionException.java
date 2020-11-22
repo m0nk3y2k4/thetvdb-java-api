@@ -30,10 +30,10 @@ public class APIPreconditionException extends APIRuntimeException {
     /**
      * Creates a new API precondition exception with the given error message.
      *
-     * @param error Brief error message describing the unmet precondition. Will be appended to some basic exception
-     *              specific error text.
+     * @param message Brief error message describing the unmet precondition. Will be appended to some basic exception
+     *                specific error text.
      */
-    public APIPreconditionException(@Nonnull String error) {
-        super(API_PRECONDITION_ERROR, error);
+    public APIPreconditionException(@Nonnull String message) {
+        super(API_PRECONDITION_ERROR, message);
     }
 }

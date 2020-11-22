@@ -81,7 +81,7 @@ class PreconditionsTest {
 
     @ParameterizedTest(name = "[{index}] String \"{0}\" is null or empty")
     @NullAndEmptySource
-    @ValueSource(strings = {"      "})
+    @ValueSource(strings = "      ")
     void requireNonEmpty_withNullOrEmptyValue_exceptionThrown(String obj) {
         final String message = "Grrr...";
         APIPreconditionException thrown = catchThrowableOfType(() -> Preconditions

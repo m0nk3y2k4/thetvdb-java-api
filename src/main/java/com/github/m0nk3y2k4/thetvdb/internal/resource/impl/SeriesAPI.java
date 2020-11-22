@@ -297,7 +297,7 @@ public final class SeriesAPI extends QueryResource {
     /**
      * Creates a new resource string consisting of the <i>Series</i> endpoints base URL path parameter, the given
      * <em>{@code id}</em> and the <em>{@code specific}</em> URL path parameter in the following format:
-     * <b><code>/BASE/id/specific</code></b>
+     * <b>{@code /BASE/id/specific}</b>
      *
      * @param id       Series ID to be added to the resource String
      * @param specific Specific URL path parameter representing the actual route to be invoked
@@ -311,7 +311,7 @@ public final class SeriesAPI extends QueryResource {
     /**
      * Creates a new query resource string consisting of the <i>Series</i> endpoints base URL path parameter, the given
      * <em>{@code id}</em> and <em>{@code specific}</em> URL path parameter and additional query parameters in the
-     * following format: <b><code>/BASE/id/specific?query1=value1&amp;query2=value2&amp;...</code></b>
+     * following format: <b>{@code /BASE/id/specific?query1=value1&query2=value2&...}</b>
      *
      * @param id       Series ID to be added to the resource String
      * @param specific Specific URL path parameter representing the actual route to be invoked

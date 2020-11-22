@@ -33,6 +33,7 @@ import java.util.stream.StreamSupport;
 import javax.annotation.Nonnull;
 
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -594,7 +595,7 @@ public final class JsonDeserializer {
      *
      * @throws IOException If an IO error occurred during the deserialization of the given JSON object
      */
-    private static <T> T mapDataObject(@Nonnull JsonNode dataNode, @Nonnull DataTypeReference<T> dataTypeReference)
+    private static <T> T mapDataObject(@Nonnull JsonNode dataNode, @Nonnull TypeReference<T> dataTypeReference)
             throws IOException {
         return new ObjectMapper().registerModule(DATA_MODULE).readValue(dataNode.toString(), dataTypeReference);
     }
@@ -617,7 +618,7 @@ public final class JsonDeserializer {
             @Nonnull Module module) throws APIException {
         try {
             return new ObjectMapper().registerModule(module).readValue(json.toString(), typeReference);
-        } catch (IOException ex) {
+        } catch (JsonProcessingException ex) {
             throw new APIException(API_JSON_PARSE_ERROR, ex);
         }
     }
@@ -697,9 +698,30 @@ class FunctionalDeserializer<T, X extends IOException> extends com.fasterxml.jac
         this.dataFunction = dataFunction;
     }
 
+    /**
+     * Checks if the specified field exists in the given JSON. If so, the node will be applied to the given mapping
+     * function and it's result will be wrapped into an Optional. If the JSON does not contain a node with the specified
+     * name an empty Optional will be returned.
+     *
+     * @param json      Base JSON object used for parsing
+     * @param fieldName Name of the top-level node to be deserialized
+     * @param mapping   Mapping function returning the deserialized object of type <b>U</b>
+     * @param <U>       The type of object that the JSON node should be mapped to
+     *
+     * @return Optional containing the result of deserializing the sub-node element or empty Optional if no node with
+     *         the given name exists on top-level of this JSON object.
+     *
+     * @throws IOException If an IO error occurred during the deserialization of the given JSON object
+     */
+    private static <U> Optional<U> parseNode(JsonNode json, String fieldName,
+            ThrowableFunctionalInterfaces.Function<JsonNode, U, IOException> mapping) throws IOException {
+        return json.has(fieldName) ? Optional.of(mapping.apply(json.get(fieldName))) : Optional.empty();
+    }
+
     @Override
-    public APIResponse<T> deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        JsonNode json = mapper.readTree(p);
+    public APIResponse<T> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
+            throws IOException {
+        JsonNode json = mapper.readTree(jsonParser);
 
         T data = parseNode(json, "data", dataFunction::apply).orElse(null);
         Optional<APIResponse.Errors> errors = parseNode(json, "errors", APIResponse.Errors.class);
@@ -725,25 +747,5 @@ class FunctionalDeserializer<T, X extends IOException> extends com.fasterxml.jac
      */
     private <U> Optional<U> parseNode(JsonNode json, String fieldName, Class<U> valueType) throws IOException {
         return parseNode(json, fieldName, node -> mapper.readValue(node.toString(), valueType));
-    }
-
-    /**
-     * Checks if the specified field exists in the given JSON. If so, the node will be applied to the given mapping
-     * function and it's result will be wrapped into an Optional. If the JSON does not contain a node with the specified
-     * name an empty Optional will be returned.
-     *
-     * @param json      Base JSON object used for parsing
-     * @param fieldName Name of the top-level node to be deserialized
-     * @param mapping   Mapping function returning the deserialized object of type <b>U</b>
-     * @param <U>       The type of object that the JSON node should be mapped to
-     *
-     * @return Optional containing the result of deserializing the sub-node element or empty Optional if no node with
-     *         the given name exists on top-level of this JSON object.
-     *
-     * @throws IOException If an IO error occurred during the deserialization of the given JSON object
-     */
-    private <U> Optional<U> parseNode(JsonNode json, String fieldName,
-            ThrowableFunctionalInterfaces.Function<JsonNode, U, IOException> mapping) throws IOException {
-        return json.has(fieldName) ? Optional.of(mapping.apply(json.get(fieldName))) : Optional.empty();
     }
 }

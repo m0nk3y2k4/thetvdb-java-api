@@ -28,7 +28,7 @@ import java.util.Properties;
  * This is wrapper class which provides easy access to the system properties holding the authentication information to
  * be used for remote API integration tests.
  */
-public class IntegrationTestConfiguration {
+public final class IntegrationTestConfiguration {
 
     /** System property holding the <i>TheTVDB.com</i> API-Key to be used for authentication */
     private static final String INTEGRATION_THETVDB_COM_APIKEY = "integration.thetvdb.com.apikey";

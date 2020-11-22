@@ -44,7 +44,7 @@ public abstract class QueryResource extends Resource {
     /**
      * Creates a new query resource string consisting of the given <em>{@code base}</em> and <em>{@code specific}</em>
      * URL path parameters prepended by the given query parameters in the following format:
-     * <b><code>/BASE/specific?query1=value1&amp;query2=value2&amp;...</code></b>
+     * <b>{@code /BASE/specific?query1=value1&query2=value2&...}</b>
      *
      * @param base        Base URL path parameter which identifies a particular endpoint
      * @param specific    Specific URL path parameter representing the actual route to be invoked
@@ -88,7 +88,7 @@ public abstract class QueryResource extends Resource {
      *
      * @return True if both, the key and the value are not empty. False if at least one of them is empty.
      */
-    private static Boolean isValidQueryParameter(@Nonnull QueryParameters.Parameter param) {
+    private static boolean isValidQueryParameter(@Nonnull QueryParameters.Parameter param) {
         return APIUtil.hasValue(param.getKey(), param.getValue());
     }
 

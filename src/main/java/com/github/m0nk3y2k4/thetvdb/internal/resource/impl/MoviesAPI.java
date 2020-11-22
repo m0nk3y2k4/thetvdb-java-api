@@ -16,6 +16,8 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
+import static com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters.isPositiveInteger;
+
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
@@ -76,8 +78,7 @@ public final class MoviesAPI extends QueryResource {
      */
     public static JsonNode getMovieUpdates(@Nonnull APIConnection con, @CheckForNull QueryParameters params)
             throws APIException {
-        Parameters.validateQueryParam(Query.Movie.SINCE, params, value -> value.matches("\\d+") && Long.valueOf(value)
-                .compareTo(0L) > 0);
+        Parameters.validateQueryParam(Query.Movie.SINCE, params, isPositiveInteger());
         return con.sendGET(createQueryResource("/movieupdates", null, params));
     }
 }

@@ -77,7 +77,7 @@ public class IntegrationTestExtension implements ParameterResolver, BeforeAllCal
     @Override
     public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
             throws ParameterResolutionException {
-        return IntegrationTestExtension.API;
+        return API;
     }
 
     @Override

@@ -50,7 +50,7 @@ class APIConnectionTest {
 
     private final APIConnection con;
 
-    public APIConnectionTest(Supplier<RemoteAPI> remoteAPI) {
+    APIConnectionTest(Supplier<RemoteAPI> remoteAPI) {
         con = new APIConnection("API-Key", remoteAPI);
     }
 

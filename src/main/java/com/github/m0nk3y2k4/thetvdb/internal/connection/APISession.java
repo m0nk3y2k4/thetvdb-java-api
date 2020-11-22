@@ -150,7 +150,7 @@ public final class APISession {
      * @return API key of this session
      */
     String getApiKey() {
-        return this.apiKey;
+        return apiKey;
     }
 
     /**
@@ -244,7 +244,7 @@ public final class APISession {
      * @return {@link Boolean#TRUE} if the session is initialized or {@link Boolean#FALSE} if the session is not yet
      *         initialized.
      */
-    Boolean isInitialized() {
+    boolean isInitialized() {
         return getStatus() == Status.AUTHORIZED;
     }
 
@@ -254,7 +254,7 @@ public final class APISession {
      *
      * @return {@link Boolean#TRUE} if both, userKey and userName are <b>not</b> empty or {@link Boolean#FALSE} if not.
      */
-    Boolean userAuthentication() {
+    boolean userAuthentication() {
         return APIUtil.hasValue(userKey) && APIUtil.hasValue(userName);
     }
 }

@@ -24,10 +24,10 @@ package com.github.m0nk3y2k4.thetvdb.testutils.parameterized;
  * displayed as the default String representation of this object. Provides a single method to invoke the underlying
  * remote API route and to return it's response.
  */
-public abstract class TestAPICall<T> {
+abstract class TestAPICall<T> {
 
     /** The actual API route represented by this object */
-    protected final T route;
+    final T route;
 
     /** Textual description of this remote API call */
     private final String description;
@@ -38,7 +38,7 @@ public abstract class TestAPICall<T> {
      * @param route       The route represented by this API call
      * @param description Textual description of this API call
      */
-    protected TestAPICall(T route, String description) {
+    TestAPICall(T route, String description) {
         this.route = route;
         this.description = description;
     }

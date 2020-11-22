@@ -46,7 +46,7 @@ public abstract class AbstractIntegrationTestAssert<T> extends AbstractAssert<Ab
     /** Cut response String representation to not spam the maven output */
     private static final int MAX_OUTPUT_CHARACTERS = 180;
 
-    public AbstractIntegrationTestAssert(T actual) {
+    AbstractIntegrationTestAssert(T actual) {
         super(actual, AbstractIntegrationTestAssert.class);
     }
 

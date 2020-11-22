@@ -66,7 +66,7 @@ public abstract class MovieDTO implements Movie {
          */
         @JsonValue
         public String getJsonName() {
-            return this.name().toLowerCase();
+            return name().toLowerCase();
         }
     }
 

@@ -91,7 +91,7 @@ class ParametersTest {
 
     @ParameterizedTest(name = "[{index}] String \"{0}\" is null or empty")
     @NullAndEmptySource
-    @ValueSource(strings = {"      "})
+    @ValueSource(strings = "      ")
     void validateNotEmptyString_withNullOrEmptyString_exceptionThrown(String obj) {
         final String validationFailedMessage = "String is null or empty!";
         IllegalArgumentException exception = catchThrowableOfType(() -> Parameters
@@ -160,10 +160,11 @@ class ParametersTest {
 
     @ParameterizedTest(name = "[{index}] Parameter \"{0}\" is null or empty")
     @NullAndEmptySource
-    @ValueSource(strings = {"   "})
+    @ValueSource(strings = "   ")
     void validateQueryParam_withInvalidMandatoryQueryParameter_exceptionThrown(String queryParamNameValue) {
         final String queryParamName = "region";
-        final QueryParameters queryParameters = new QueryParametersWithDisabledValueChecks(queryParamName, queryParamNameValue);
+        final QueryParameters queryParameters = new QueryParametersWithDisabledValueChecks()
+                .addParameter(queryParamName, queryParamNameValue);
         IllegalArgumentException exception = catchThrowableOfType(() -> Parameters
                 .validateQueryParam(queryParamName, queryParameters), IllegalArgumentException.class);
         assertThat(exception).isInstanceOf(IllegalArgumentException.class)
@@ -182,16 +183,24 @@ class ParametersTest {
                 .hasMessageContaining("[%s] is set to an invalid value: %s", queryParamName, queryParamValue);
     }
 
+    @ParameterizedTest(name = "[{index}] \"{0}\" is a positive numerical integer")
+    @ValueSource(strings = {"3", "104"})
+    void isPositiveInteger_withPositiveIntegerValues_returnsFalse(String value) {
+        assertThat(Parameters.isPositiveInteger().test(value)).isTrue();
+    }
+
+    @ParameterizedTest(name = "[{index}] \"{0}\" is not a positive numerical integer")
+    @NullSource
+    @ValueSource(strings = {"", "  ", "NaN", "25.3", "-7", "0", "3 "})
+    void isPositiveInteger_withNonPositiveIntegerValues_returnsFalse(String value) {
+        assertThat(Parameters.isPositiveInteger().test(value)).isFalse();
+    }
+
     /**
      * Special implementation of {@link QueryParameters} allowing empty/null parameter values. Needed to test the
      * corresponding validation methods.
      */
     private static class QueryParametersWithDisabledValueChecks extends QueryParametersImpl {
-
-        @SuppressWarnings("SameParameterValue")
-        protected QueryParametersWithDisabledValueChecks(@Nonnull String key, @CheckForNull String value) {
-            this.addParameter(key, value);
-        }
 
         @Override
         public QueryParameters addParameter(@Nonnull String key, @CheckForNull String value) {

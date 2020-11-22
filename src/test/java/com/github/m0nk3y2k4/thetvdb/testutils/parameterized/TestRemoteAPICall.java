@@ -50,7 +50,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.functional.ThrowableFunctional
  *     }
  * }</pre>
  */
-public class TestRemoteAPICall extends TestAPICall<Function<APIConnection, JsonNode, APIException>> {
+public final class TestRemoteAPICall extends TestAPICall<Function<APIConnection, JsonNode, APIException>> {
 
     private TestRemoteAPICall(Function<APIConnection, JsonNode, APIException> route, String description) {
         super(route, description);      // Use TestRemoteAPICall#route instead

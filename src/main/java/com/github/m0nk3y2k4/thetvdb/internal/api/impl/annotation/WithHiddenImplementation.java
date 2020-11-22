@@ -34,5 +34,5 @@ import org.immutables.value.Value;
 @Value.Style(
         visibility = Value.Style.ImplementationVisibility.PRIVATE,      // Immutable implementation
         builderVisibility = Value.Style.BuilderVisibility.PACKAGE)      // Builder implementation
-@Target({ElementType.TYPE})
+@Target(ElementType.TYPE)
 public @interface WithHiddenImplementation {}

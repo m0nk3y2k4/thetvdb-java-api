@@ -29,6 +29,7 @@ import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.ALLOW;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.AUTHORIZATION;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.CONTENT_TYPE;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.USER_AGENT;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.stream.Collectors.joining;
 
 import java.io.ByteArrayInputStream;
@@ -85,7 +86,7 @@ public class APIConnection {
     private final APISession session;
 
     /** Remote endpoint used for API communication (default: <i>TheTVDB.com</i>) */
-    private final RemoteAPI remote;
+    private final RemoteAPI remoteAPI;
 
     /**
      * Creates a new <i>TheTVDB.com</i> API connection using the given <em>{@code apiKey}</em> for remote service
@@ -184,7 +185,7 @@ public class APIConnection {
                 new IllegalArgumentException("Remote endpoint for this connection needs to be specified"));
 
         this.session = session;
-        this.remote = remote.get();
+        this.remoteAPI = remote.get();
     }
 
     /**
@@ -324,7 +325,7 @@ public class APIConnection {
      * @return Remote API associated with this connection
      */
     RemoteAPI getRemoteAPI() {
-        return remote;
+        return remoteAPI;
     }
 
     /**
@@ -391,7 +392,7 @@ public class APIConnection {
      */
     private synchronized JsonNode sendRequest(APIRequest request) throws APIException {
         request.setSession(session);
-        request.setRemoteAPI(remote);
+        request.setRemoteAPI(remoteAPI);
 
         for (int retry = 0; retry < MAX_AUTHENTICATION_RETRY_COUNT; retry++) {
             try {
@@ -455,7 +456,7 @@ abstract class APIRequest {
     private APISession session;
 
     /** Remote endpoint used for API communication */
-    private RemoteAPI remote;
+    private RemoteAPI remoteAPI;
 
     /**
      * Creates a new request for the given resource using the given request method
@@ -469,6 +470,68 @@ abstract class APIRequest {
 
         this.resource = resource;
         this.requestMethod = requestMethod;
+    }
+
+    /**
+     * Disconnects the given connection if present
+     *
+     * @param con The connection to be disconnected
+     */
+    private static void disconnect(@CheckForNull HttpsURLConnection con) {
+        Optional.ofNullable(con).ifPresent(HttpsURLConnection::disconnect);
+    }
+
+    /**
+     * Should only be invoked in case of HTTP-405 status response. Fetches the error message from the connections
+     * <b>error</b> stream and returns it. According to the HTTP-405 status code specification, the server MUST
+     * generate an Allow header field in a 405 response containing a list of the target resource's currently supported
+     * methods. These supported methods will - if available - be prepended to the end of the actual error message.
+     *
+     * @param con Fully initialized connection that has returned a HTTP-405 error status code
+     *
+     * @return Content from the error stream plus all available values from the responses Allow header as String
+     *
+     * @throws IOException Thrown if an I/O error occurs while creating the input stream or fetching the error data
+     */
+    private static String getBadMethodError(HttpsURLConnection con) throws IOException {
+        String allowedMethods = con.getHeaderFields().getOrDefault(ALLOW, Collections.emptyList())
+                .stream().sorted().collect(joining(", ", "[", "]"));
+        return String.format("%s - Response Allow header: %s", getError(con), allowedMethods);
+    }
+
+    /**
+     * Fetches the error message from the connections <b>error</b> stream and returns it
+     *
+     * @param con Fully initialized connection that has returned some HTTP error status code
+     *
+     * @return Content from the error stream as String
+     *
+     * @throws IOException Thrown if an I/O error occurs while creating the input stream or fetching the error data
+     */
+    private static String getError(@Nonnull HttpsURLConnection con) throws IOException {
+        JsonNode response = parseResponse(con.getErrorStream());
+        return response.has(API_ERROR) ? response.get(API_ERROR).asText("") : "n/a";
+    }
+
+    /**
+     * Parses the data from the given input stream as JSON and returns it
+     *
+     * @param inputStream The input stream to parse the JSON from
+     *
+     * @return Content from the given input stream parsed as JSON object
+     *
+     * @throws IOException Thrown if an I/O error occurs while parsing the JSON data
+     */
+    private static JsonNode parseResponse(@CheckForNull InputStream inputStream) throws IOException {
+        // According to the HTTP/1.1 specification, HEAD methods must not return a message-body in the response. In
+        // order to harden the implementation we return an empty JsonNode instead of a null-value.
+        InputStream checkedInputStream = Optional.ofNullable(inputStream)
+                .orElseGet(() -> new ByteArrayInputStream("{}".getBytes(UTF_8)));
+
+        ObjectMapper mapper = new ObjectMapper();
+        try (JsonParser parser = mapper.getFactory().createParser(checkedInputStream)) {
+            return mapper.readTree(parser);
+        }
     }
 
     /**
@@ -488,7 +551,7 @@ abstract class APIRequest {
      * @param remote The remote endpoint used for API communication
      */
     void setRemoteAPI(@Nonnull RemoteAPI remote) {
-        this.remote = remote;
+        this.remoteAPI = remote;
     }
 
     /**
@@ -531,11 +594,11 @@ abstract class APIRequest {
      */
     @SuppressWarnings("java:S3655")    // Auth process guarantees that a session in status AUTHORIZED has a valid token
     private HttpsURLConnection openConnection() throws IOException {
-        Preconditions.requireNonNull(remote, "No remote endpoint specified");
+        Preconditions.requireNonNull(remoteAPI, "No remote endpoint specified");
         Preconditions.requireNonEmpty(resource, "No API resource specified");
         Preconditions.requireNonNull(requestMethod, "No HTTP request method specified");
 
-        HttpsURLConnection con = (HttpsURLConnection)remote.forResource(resource).openConnection();
+        HttpsURLConnection con = (HttpsURLConnection)remoteAPI.forResource(resource).openConnection();
 
         // POST, GET, DELETE, PUT,...
         con.setRequestMethod(requestMethod.getName());
@@ -551,15 +614,6 @@ abstract class APIRequest {
         }
 
         return con;
-    }
-
-    /**
-     * Disconnects the given connection if present
-     *
-     * @param con The connection to be disconnected
-     */
-    private void disconnect(@CheckForNull HttpsURLConnection con) {
-        Optional.ofNullable(con).ifPresent(HttpsURLConnection::disconnect);
     }
 
     /**
@@ -625,59 +679,6 @@ abstract class APIRequest {
     JsonNode getData(@Nonnull HttpsURLConnection con) throws IOException {
         return parseResponse(con.getInputStream());
     }
-
-    /**
-     * Should only be invoked in case of HTTP-405 status response. Fetches the error message from the connections
-     * <b>error</b> stream and returns it. According to the HTTP-405 status code specification, the server MUST
-     * generate an Allow header field in a 405 response containing a list of the target resource's currently supported
-     * methods. These supported methods will - if available - be prepended to the end of the actual error message.
-     *
-     * @param con Fully initialized connection that has returned a HTTP-405 error status code
-     *
-     * @return Content from the error stream plus all available values from the responses Allow header as String
-     *
-     * @throws IOException Thrown if an I/O error occurs while creating the input stream or fetching the error data
-     */
-    private String getBadMethodError(HttpsURLConnection con) throws IOException {
-        String allowedMethods = con.getHeaderFields().getOrDefault(ALLOW, Collections.emptyList())
-                .stream().sorted().collect(joining(", ", "[", "]"));
-        return String.format("%s - Response Allow header: %s", getError(con), allowedMethods);
-    }
-
-    /**
-     * Fetches the error message from the connections <b>error</b> stream and returns it
-     *
-     * @param con Fully initialized connection that has returned some HTTP error status code
-     *
-     * @return Content from the error stream as String
-     *
-     * @throws IOException Thrown if an I/O error occurs while creating the input stream or fetching the error data
-     */
-    private String getError(@Nonnull HttpsURLConnection con) throws IOException {
-        JsonNode response = parseResponse(con.getErrorStream());
-        return response.has(API_ERROR) ? response.get(API_ERROR).asText("") : "n/a";
-    }
-
-    /**
-     * Parses the data from the given input stream as JSON and returns it
-     *
-     * @param inputStream The input stream to parse the JSON from
-     *
-     * @return Content from the given input stream parsed as JSON object
-     *
-     * @throws IOException Thrown if an I/O error occurs while parsing the JSON data
-     */
-    private JsonNode parseResponse(@CheckForNull InputStream inputStream) throws IOException {
-        // According to the HTTP/1.1 specification, HEAD methods must not return a message-body in the response. In
-        // order to harden the implementation we return an empty JsonNode instead of a null-value.
-        InputStream checkedInputStream = Optional.ofNullable(inputStream)
-                .orElseGet(() -> new ByteArrayInputStream("{}".getBytes()));
-
-        ObjectMapper mapper = new ObjectMapper();
-        try (JsonParser parser = mapper.getFactory().createParser(checkedInputStream)) {
-            return mapper.readTree(parser);
-        }
-    }
 }
 
 /**
@@ -734,7 +735,7 @@ final class PostRequest extends APIRequest {
         con.setDoOutput(true);
 
         try (OutputStream os = con.getOutputStream()) {
-            os.write(data.getBytes());
+            os.write(data.getBytes(UTF_8));
             os.flush();
         }
     }

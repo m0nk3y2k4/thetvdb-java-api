@@ -40,7 +40,7 @@ public abstract class Resource {
 
     /**
      * Creates a new resource string consisting of the given <em>{@code base}</em> URL path parameter prepended by some
-     * optional route specific path parameters in the following format: <b><code>/BASE/param1/param2/...</code></b>
+     * optional route specific path parameters in the following format: <b>{@code /BASE/param1/param2/...}</b>
      *
      * @param base       Base URL path parameter which identifies a particular endpoint
      * @param pathParams Optional additional path parameters to be prepended to the end of the resource string
@@ -54,7 +54,7 @@ public abstract class Resource {
     /**
      * Creates a new resource string consisting of the given <em>{@code base}</em> and <em>{@code specific}</em> URL
      * path parameters prepended by some optional additional route path parameters in the following format:
-     * <b><code>/BASE/specific/param1/param2/...</code></b>
+     * <b>{@code /BASE/specific/param1/param2/...}</b>
      *
      * @param base       Base URL path parameter which identifies a particular endpoint
      * @param specific   Specific URL path parameter representing the actual route to be invoked

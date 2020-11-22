@@ -124,7 +124,7 @@ public class TestTheTVDBAPICall<T> extends TestAPICall<Supplier<T, APIException>
      *     }
      * }}</pre>
      */
-    public static class Void extends TestTheTVDBAPICall<Object> {
+    public static final class Void extends TestTheTVDBAPICall<Object> {
 
         private Void(Procedure<APIException> route, String description) {
             super(() -> {

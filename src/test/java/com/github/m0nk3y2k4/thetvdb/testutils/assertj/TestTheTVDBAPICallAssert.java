@@ -70,10 +70,10 @@ import org.mockserver.verify.VerificationTimes;
  *
  * @param <T> type of the wrapped routes actual return value
  */
-public class TestTheTVDBAPICallAssert<T> extends AbstractAssert<TestTheTVDBAPICallAssert<T>, TestTheTVDBAPICall<T>> {
+public final class TestTheTVDBAPICallAssert<T> extends AbstractAssert<TestTheTVDBAPICallAssert<T>, TestTheTVDBAPICall<T>> {
 
     /** Mock server used to verify resource invocations of void API routes. Has to be set via #usingMockServer first. */
-    private MockServerClient client;
+    private MockServerClient mockServerClient;
 
     private TestTheTVDBAPICallAssert(TestTheTVDBAPICall<T> actual) {
         super(actual, TestTheTVDBAPICallAssert.class);
@@ -100,7 +100,7 @@ public class TestTheTVDBAPICallAssert<T> extends AbstractAssert<TestTheTVDBAPICa
      * @return This assertion object
      */
     public TestTheTVDBAPICallAssert<T> usingMockServer(MockServerClient client) {
-        this.client = client;
+        this.mockServerClient = client;
         return this;
     }
 
@@ -148,14 +148,14 @@ public class TestTheTVDBAPICallAssert<T> extends AbstractAssert<TestTheTVDBAPICa
      * @throws APIException If an exception occurred while invoking the actual API call of this assertion
      */
     private void verifyMockServerRouteInvoked(HttpRequest request) throws APIException {
-        if (client == null) {
+        if (mockServerClient == null) {
             failWithMessage("Cannot verify HTTP request expectation due to missing mock server client. "
                     + "Please provide a valid mock server client via TestTheTVDBAPICallAssert#usingMockServer(client)");
         }
 
         actual.invoke();            // Ignore return value as it is always "null" for void methods
 
-        client.verify(request, VerificationTimes.once());
+        mockServerClient.verify(request, VerificationTimes.once());
     }
 
     /**
@@ -192,10 +192,10 @@ public class TestTheTVDBAPICallAssert<T> extends AbstractAssert<TestTheTVDBAPICa
      *                     representation
      */
     private Object buildExpectation(T result, JSONTestUtil.JsonResource resource) throws IOException {
-        if (usingExtendedLayout(result)) {
+        if (isUsingExtendedLayout(result)) {
             // Invocation of some (non-void) TheTVDBApi.Extended layout route -> These routes always return an APIResponse<DTO> object
             return resource.getDTO();
-        } else if (usingJsonLayout(result)) {
+        } else if (isUsingJsonLayout(result)) {
             // Invocation of some (non-void) TheTVDBApi.JSON layout route -> These routes always return a JsonNode object
             return resource.getJson();
         } else {
@@ -213,7 +213,7 @@ public class TestTheTVDBAPICallAssert<T> extends AbstractAssert<TestTheTVDBAPICa
      * @return True if the given value represents a class that is typically returned by the invocation of Extended
      *         layout API routes
      */
-    private boolean usingExtendedLayout(T result) {
+    private boolean isUsingExtendedLayout(T result) {
         return Optional.ofNullable(result).map(Object::getClass).map(APIResponse.class::isAssignableFrom).orElse(false);
     }
 
@@ -226,7 +226,7 @@ public class TestTheTVDBAPICallAssert<T> extends AbstractAssert<TestTheTVDBAPICa
      * @return True if the given value represents a class that is typically returned by the invocation of JSON layout
      *         API routes
      */
-    private boolean usingJsonLayout(T result) {
+    private boolean isUsingJsonLayout(T result) {
         return Optional.ofNullable(result).map(Object::getClass).map(JsonNode.class::isAssignableFrom).orElse(false);
     }
 }

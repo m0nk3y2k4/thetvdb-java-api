@@ -61,7 +61,7 @@ import org.mockserver.socket.tls.KeyStoreFactory;
  *
  * @see WithHttpsMockServer
  */
-public class HttpsMockServerExtension implements ParameterResolver, BeforeAllCallback, AfterEachCallback {
+class HttpsMockServerExtension implements ParameterResolver, BeforeAllCallback, AfterEachCallback {
 
     /** Priority for the mocks general default response behavior */
     private static final int PRIO_DEFAULT = -10;
@@ -69,6 +69,7 @@ public class HttpsMockServerExtension implements ParameterResolver, BeforeAllCal
     private static final int PRIO_ROUTE = -9;
 
     /** Client for accessing the mocked server running in the background */
+    @SuppressWarnings("resource")
     private final MockServerClient client = new MockServerClient(HOST, PORT);
 
     /** Preconfigured remote API pointing to the actual server mock */

@@ -43,9 +43,7 @@ public class QueryParametersImpl implements QueryParameters {
     /**
      * Creates a new empty set of query parameters
      */
-    public QueryParametersImpl() {
-        super();
-    }
+    public QueryParametersImpl() {}
 
     /**
      * Creates an object of this class with a pre-defined set of individual query parameters based on the given
@@ -55,8 +53,6 @@ public class QueryParametersImpl implements QueryParameters {
      *                   Might be empty but not <em>{@code null}</em>.
      */
     public QueryParametersImpl(@Nonnull Map<String, String> parameters) {
-        super();
-
         Parameters.validateNotNull(parameters, "Parameters map must not be NULL");
 
         parameters.forEach(this::addParameter);
@@ -88,61 +84,79 @@ public class QueryParametersImpl implements QueryParameters {
 
     @Override
     public Stream<Parameter> stream() {
-        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(this.iterator(), Spliterator.ORDERED), false);
+        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator(), Spliterator.ORDERED), false);
     }
 
     @Override
     @Nonnull
     public Iterator<Parameter> iterator() {
-        return new Iterator<>() {
-
-            /** Iterator of the query parameters hold by this object */
-            private final Iterator<Map.Entry<String, String>> iterator = params.entrySet().iterator();
-
-            @Override
-            public boolean hasNext() {
-                return iterator.hasNext();
-            }
-
-            @Override
-            public Parameter next() {
-                return new Parameter() {
-
-                    /** The next key/value pair from the parameters map */
-                    private final Map.Entry<String, String> entry = iterator.next();
-
-                    @Override
-                    public String getKey() {
-                        return entry.getKey();
-                    }
-
-                    @Override
-                    public String getValue() {
-                        return entry.getValue();
-                    }
-
-                    @Override
-                    public boolean equals(Object o) {
-                        if (o == null || getClass() != o.getClass()) {
-                            return false;
-                        }
-                        Parameter that = (Parameter)o;
-                        return Objects.equals(entry.getKey(), that.getKey()) && Objects
-                                .equals(entry.getValue(), that.getValue());
-                    }
-
-                    @Override
-                    public int hashCode() {
-                        return Objects.hash(entry.getKey(), entry.getValue());
-                    }
-                };
-            }
-        };
+        return new QueryParameterIterator(params.entrySet().iterator());
     }
 
     @Override
     public String toString() {
         return params.entrySet().stream().map(e -> e.getKey() + "=" + e.getValue())
                 .collect(Collectors.joining(", ", "[", "]"));
+    }
+
+    /**
+     * Wrapper class used to map query parameter key/value pairs into distinct {@link Parameter} objects
+     */
+    private static final class QueryParameterIterator implements Iterator<Parameter> {
+
+        /** Iterator of the query parameters hold by this object */
+        private final Iterator<Map.Entry<String, String>> parameters;
+
+        private QueryParameterIterator(Iterator<Map.Entry<String, String>> parameters) {
+            this.parameters = parameters;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return parameters.hasNext();
+        }
+
+        @Override
+        public Parameter next() {
+            return new QueryParameter(parameters.next());
+        }
+    }
+
+    /**
+     * Wrapper class for single query parameter key/value map entries
+     */
+    private static final class QueryParameter implements Parameter {
+
+        /** The next key/value pair from the parameters map */
+        private final Map.Entry<String, String> parameter;
+
+        private QueryParameter(Map.Entry<String, String> parameter) {
+            this.parameter = parameter;
+        }
+
+        @Override
+        public String getKey() {
+            return parameter.getKey();
+        }
+
+        @Override
+        public String getValue() {
+            return parameter.getValue();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == null || getClass() != obj.getClass()) {
+                return false;
+            }
+            Parameter other = (Parameter)obj;
+            return Objects.equals(parameter.getKey(), other.getKey()) && Objects
+                    .equals(parameter.getValue(), other.getValue());
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(parameter.getKey(), parameter.getValue());
+        }
     }
 }

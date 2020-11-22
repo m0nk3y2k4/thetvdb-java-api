@@ -67,9 +67,9 @@ public class APIException extends Exception {
      * Creates a nested checked API exception wrapping some other root exception
      *
      * @param message Brief error message describing the general problem
-     * @param ex      The original root exception
+     * @param cause   The original root exception
      */
-    public APIException(String message, Throwable ex) {
-        super(message, ex);
+    public APIException(String message, Throwable cause) {
+        super(message, cause);
     }
 }
