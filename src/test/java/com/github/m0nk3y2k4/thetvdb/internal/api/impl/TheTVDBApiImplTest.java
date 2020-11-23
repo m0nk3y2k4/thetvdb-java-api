@@ -130,7 +130,7 @@ class TheTVDBApiImplTest {
             userAuthApi = init(new TheTVDBApiImpl("47R8A5F8IU7RE6", "unique_65488745", "Lone Starr", remoteAPI));
         }
 
-        //@formatter:off
+        //@DisableFormatting
         @BeforeAll
         void setUpRoutes(MockServerClient client) throws Exception {
             client.when(request("/episodes/8477", GET)).respond(jsonResponse(EPISODE));
@@ -285,7 +285,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> userAuthApi.addToRatings("episode", 42368, 4), "addToRatings()"), RATINGS)
             );
         }
-        //@formatter:on
+        //@EnableFormatting
 
         @ParameterizedTest(name = "[{index}] Route TheTVDBApi.{0} rejected")
         @MethodSource("withInvalidParameters")
@@ -336,7 +336,7 @@ class TheTVDBApiImplTest {
             userAuthApi = init(new TheTVDBApiImpl("AAD66G72S3R74F", "unique_9878424", "Dark Helmet", remoteAPI)).json();
         }
 
-        //@formatter:off
+        //@DisableFormatting
         @BeforeAll
         void setUpRoutes(MockServerClient client) throws Exception {
             client.when(request("/episodes/5478", GET)).respond(jsonResponse(EPISODE));
@@ -436,7 +436,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> userAuthApi.addToRatings("series", 64874, 3), "addToRatings()"), RATINGS)
             );
         }
-        //@formatter:on
+        //@EnableFormatting
 
         @ParameterizedTest(name = "[{index}] Route TheTVDBApi.{0} rejected")
         @MethodSource("withInvalidParameters")
@@ -469,7 +469,7 @@ class TheTVDBApiImplTest {
                     .extended();
         }
 
-        //@formatter:off
+        //@DisableFormatting
         @BeforeAll
         void setUpRoutes(MockServerClient client) throws Exception {
             client.when(request("/episodes/6341", GET)).respond(jsonResponse(EPISODE));
@@ -568,7 +568,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> userAuthApi.addToRatings("image", 79481, 7), "addToRatings()"), RATINGS)
             );
         }
-        //@formatter:on
+        //@EnableFormatting
 
         @ParameterizedTest(name = "[{index}] Route TheTVDBApi.{0} rejected")
         @MethodSource("withInvalidParameters")

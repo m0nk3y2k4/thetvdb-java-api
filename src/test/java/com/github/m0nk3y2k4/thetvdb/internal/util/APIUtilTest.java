@@ -91,13 +91,13 @@ class APIUtilTest {
 
     @Test
     void prettyPrint_simpleJSONNode() throws Exception {
-        //@formatter:off
+        //@DisableFormatting
         assertThat(APIUtil.prettyPrint(new ObjectMapper().readTree(JSON_SUCCESS))).isEqualTo(
                 "{\n" +
                 "  \"Success\" : true\n" +
                 "}"
         );
-        //@formatter:on
+        //@EnableFormatting
     }
 
     @ParameterizedTest

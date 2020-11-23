@@ -46,7 +46,7 @@ import org.mockserver.client.MockServerClient;
 @WithHttpsMockServer
 class SearchAPITest {
 
-    //@formatter:off
+    //@DisableFormatting
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
         client.when(request("/search/series", GET, param("name", "Some Series"))).respond(jsonResponse(SERIESSEARCH));
@@ -60,7 +60,7 @@ class SearchAPITest {
                 of(route(con -> getAvailableSearchParameters(con), "getAvailableSearchParameters()"), QUERYPARAMETERS)
         );
     }
-    //@formatter:on
+    //@EnableFormatting
 
     @ParameterizedTest(name = "[{index}] Route SearchAPI.{0} successfully invoked")
     @MethodSource("withValidParameters")

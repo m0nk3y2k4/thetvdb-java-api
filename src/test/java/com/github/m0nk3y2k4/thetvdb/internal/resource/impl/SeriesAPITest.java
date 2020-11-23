@@ -69,7 +69,7 @@ import org.mockserver.client.MockServerClient;
 @WithHttpsMockServer
 class SeriesAPITest {
 
-    //@formatter:off
+    //@DisableFormatting
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
         client.when(request("/series/84574", GET)).respond(jsonResponse(SERIES));
@@ -141,7 +141,7 @@ class SeriesAPITest {
                 of(route(con -> getImagesQueryParams(con, 74585), "getImagesQueryParams()"), IMAGEQUERYPARAMETERS)
         );
     }
-    //@formatter:on
+    //@EnableFormatting
 
     @ParameterizedTest(name = "[{index}] Route SeriesAPI.{0} rejected")
     @MethodSource("withInvalidParameters")

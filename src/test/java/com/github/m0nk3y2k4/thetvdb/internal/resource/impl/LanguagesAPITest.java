@@ -45,7 +45,7 @@ import org.mockserver.client.MockServerClient;
 @WithHttpsMockServer
 class LanguagesAPITest {
 
-    //@formatter:off
+    //@DisableFormatting
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
         client.when(request("/languages", GET)).respond(jsonResponse(LANGUAGES));
@@ -66,7 +66,7 @@ class LanguagesAPITest {
                 of(route(con -> getAllAvailable(con), "getAllAvailable()"), LANGUAGES)
         );
     }
-    //@formatter:on
+    //@EnableFormatting
 
     @ParameterizedTest(name = "[{index}] Route LanguagesAPI.{0} rejected")
     @MethodSource("withInvalidParameters")

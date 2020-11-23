@@ -50,7 +50,7 @@ import org.mockserver.client.MockServerClient;
 @WithHttpsMockServer
 class UpdatesAPITest {
 
-    //@formatter:off
+    //@DisableFormatting
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
         client.when(request("/updated/query", GET, param(FROMTIME, "12"))).respond(jsonResponse(UPDATES));
@@ -75,7 +75,7 @@ class UpdatesAPITest {
                 of(route(con -> getQueryParams(con), "getQueryParams()"), QUERYPARAMETERS)
         );
     }
-    //@formatter:on
+    //@EnableFormatting
 
     @ParameterizedTest(name = "[{index}] Route UpdatesAPI.{0} rejected")
     @MethodSource("withInvalidParameters")

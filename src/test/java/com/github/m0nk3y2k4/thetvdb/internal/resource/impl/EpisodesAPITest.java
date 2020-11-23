@@ -43,7 +43,7 @@ import org.mockserver.client.MockServerClient;
 @WithHttpsMockServer
 class EpisodesAPITest {
 
-    //@formatter:off
+    //@DisableFormatting
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
         client.when(request("/episodes/2364", GET)).respond(jsonResponse(EPISODE));
@@ -61,7 +61,7 @@ class EpisodesAPITest {
                 of(route(con -> get(con, 2364), "get()"), EPISODE)
         );
     }
-    //@formatter:on
+    //@EnableFormatting
 
     @ParameterizedTest(name = "[{index}] Route EpisodesAPI.{0} rejected")
     @MethodSource("withInvalidParameters")

@@ -59,7 +59,7 @@ import org.mockserver.client.MockServerClient;
 @WithHttpsMockServer
 class UsersAPITest {
 
-    //@formatter:off
+    //@DisableFormatting
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
         client.when(request("/user", GET)).respond(jsonResponse(USER));
@@ -106,7 +106,7 @@ class UsersAPITest {
                 of(route(con -> deleteFromRatings(con, "image", 9657), "deleteFromRatings()"), RATINGS)
         );
     }
-    //@formatter:on
+    //@EnableFormatting
 
     @ParameterizedTest(name = "[{index}] Route UsersAPI.{0} rejected")
     @MethodSource("withInvalidParameters")
