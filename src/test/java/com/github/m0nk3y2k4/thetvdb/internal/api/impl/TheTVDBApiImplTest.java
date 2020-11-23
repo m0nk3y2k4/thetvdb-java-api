@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -97,12 +97,23 @@ import org.mockserver.model.HttpRequest;
 @WithHttpsMockServer
 class TheTVDBApiImplTest {
 
+    private static HttpRequest verify(String path, HttpRequestMethod method) {
+        return HttpRequest.request(path).withMethod(method.getName());
+    }
+
+    private static TheTVDBApi init(TheTVDBApi api) throws APIException {
+        api.init("Header.Payload.Signature");
+        return api;
+    }
+
     @Test
     void createNewApi_withValidParameters_verifyNoExceptionIsThrown(Proxy remoteApi) {
         assertThatCode(() -> new TheTVDBApiImpl("W7T8IU7E5R7Z5F5")).doesNotThrowAnyException();
         assertThatCode(() -> new TheTVDBApiImpl("OPRIT75Z5EJE4W6", remoteApi)).doesNotThrowAnyException();
-        assertThatCode(() -> new TheTVDBApiImpl("POW87F2S1G5J1S5", "unique_4257844", "Prince Valium")).doesNotThrowAnyException();
-        assertThatCode(() -> new TheTVDBApiImpl("QP2I456E1Z4OI3T", "unique_5847356", "Princess Vespa", remoteApi)).doesNotThrowAnyException();
+        assertThatCode(() -> new TheTVDBApiImpl("POW87F2S1G5J1S5", "unique_4257844", "Prince Valium"))
+                .doesNotThrowAnyException();
+        assertThatCode(() -> new TheTVDBApiImpl("QP2I456E1Z4OI3T", "unique_5847356", "Princess Vespa", remoteApi))
+                .doesNotThrowAnyException();
     }
 
     @Nested
@@ -119,6 +130,7 @@ class TheTVDBApiImplTest {
             userAuthApi = init(new TheTVDBApiImpl("47R8A5F8IU7RE6", "unique_65488745", "Lone Starr", remoteAPI));
         }
 
+        //@formatter:off
         @BeforeAll
         void setUpRoutes(MockServerClient client) throws Exception {
             client.when(request("/episodes/8477", GET)).respond(jsonResponse(EPISODE));
@@ -273,16 +285,20 @@ class TheTVDBApiImplTest {
                     of(route(() -> userAuthApi.addToRatings("episode", 42368, 4), "addToRatings()"), RATINGS)
             );
         }
+        //@formatter:on
 
         @ParameterizedTest(name = "[{index}] Route TheTVDBApi.{0} rejected")
-        @MethodSource(value = "withInvalidParameters")
-        <T> void invokeRoute_withInvalidParametersOrState_verifyParameterValidationAndPreconditionChecks(TestTheTVDBAPICall<T> route) {
-            assertThat(catchThrowable(route::invoke)).isNotNull().isInstanceOfAny(IllegalArgumentException.class, APIPreconditionException.class);
+        @MethodSource("withInvalidParameters")
+        <T> void invokeRoute_withInvalidParametersOrState_verifyParameterValidationAndPreconditionChecks(
+                TestTheTVDBAPICall<T> route) {
+            assertThat(catchThrowable(route::invoke)).isNotNull()
+                    .isInstanceOfAny(IllegalArgumentException.class, APIPreconditionException.class);
         }
 
         @ParameterizedTest(name = "[{index}] Route TheTVDBApi.{0} successfully invoked")
-        @MethodSource(value = "withValidParameters")
-        <T> void invokeRoute_withValidParameters_verifyResponse(TestTheTVDBAPICall<T> route, Object expected, MockServerClient client) throws Exception {
+        @MethodSource("withValidParameters")
+        <T> void invokeRoute_withValidParameters_verifyResponse(TestTheTVDBAPICall<T> route, Object expected,
+                MockServerClient client) throws Exception {
             TestTheTVDBAPICallAssert.assertThat(route).usingMockServer(client).matchesExpectation(expected);
         }
 
@@ -295,12 +311,14 @@ class TheTVDBApiImplTest {
         }
 
         @Test
-        void setLanguage_withValidLanguage_verifyLanguageIsSetInApiRequests(MockServerClient client, Proxy remoteAPI) throws Exception {
+        void setLanguage_withValidLanguage_verifyLanguageIsSetInApiRequests(MockServerClient client, Proxy remoteAPI)
+                throws Exception {
             final String language = "es";
             TheTVDBApi api = init(new TheTVDBApiImpl("65SOWU45S4FAA", remoteAPI));
             api.setLanguage(language);
             api.getEpisodes(69845);
-            client.verify(HttpRequest.request("/series/69845/episodes").withHeader(HttpHeaders.ACCEPT_LANGUAGE, language));
+            client.verify(HttpRequest.request("/series/69845/episodes")
+                    .withHeader(HttpHeaders.ACCEPT_LANGUAGE, language));
         }
     }
 
@@ -318,6 +336,7 @@ class TheTVDBApiImplTest {
             userAuthApi = init(new TheTVDBApiImpl("AAD66G72S3R74F", "unique_9878424", "Dark Helmet", remoteAPI)).json();
         }
 
+        //@formatter:off
         @BeforeAll
         void setUpRoutes(MockServerClient client) throws Exception {
             client.when(request("/episodes/5478", GET)).respond(jsonResponse(EPISODE));
@@ -417,16 +436,20 @@ class TheTVDBApiImplTest {
                     of(route(() -> userAuthApi.addToRatings("series", 64874, 3), "addToRatings()"), RATINGS)
             );
         }
+        //@formatter:on
 
         @ParameterizedTest(name = "[{index}] Route TheTVDBApi.{0} rejected")
-        @MethodSource(value = "withInvalidParameters")
-        <T> void invokeRoute_withInvalidParametersOrState_verifyParameterValidationAndPreconditionChecks(TestTheTVDBAPICall<T> route) {
-            assertThat(catchThrowable(route::invoke)).isNotNull().isInstanceOfAny(IllegalArgumentException.class, APIPreconditionException.class);
+        @MethodSource("withInvalidParameters")
+        <T> void invokeRoute_withInvalidParametersOrState_verifyParameterValidationAndPreconditionChecks(
+                TestTheTVDBAPICall<T> route) {
+            assertThat(catchThrowable(route::invoke)).isNotNull()
+                    .isInstanceOfAny(IllegalArgumentException.class, APIPreconditionException.class);
         }
 
         @ParameterizedTest(name = "[{index}] Route TheTVDBApi.{0} successfully invoked")
-        @MethodSource(value = "withValidParameters")
-        <T> void invokeRoute_withValidParameters_verifyResponse(TestTheTVDBAPICall<T> route, Object expected) throws Exception {
+        @MethodSource("withValidParameters")
+        <T> void invokeRoute_withValidParameters_verifyResponse(TestTheTVDBAPICall<T> route, Object expected)
+                throws Exception {
             TestTheTVDBAPICallAssert.assertThat(route).matchesExpectation(expected);
         }
     }
@@ -442,9 +465,11 @@ class TheTVDBApiImplTest {
         @BeforeAll
         void setUpAPIs(Proxy remoteAPI) throws Exception {
             basicAPI = init(new TheTVDBApiImpl("IOE45S4R82S5", remoteAPI)).extended();
-            userAuthApi = init(new TheTVDBApiImpl("D69L8F4N5X4W6R", "unique_5481157", "King Roland", remoteAPI)).extended();
+            userAuthApi = init(new TheTVDBApiImpl("D69L8F4N5X4W6R", "unique_5481157", "King Roland", remoteAPI))
+                    .extended();
         }
 
+        //@formatter:off
         @BeforeAll
         void setUpRoutes(MockServerClient client) throws Exception {
             client.when(request("/episodes/6341", GET)).respond(jsonResponse(EPISODE));
@@ -543,26 +568,21 @@ class TheTVDBApiImplTest {
                     of(route(() -> userAuthApi.addToRatings("image", 79481, 7), "addToRatings()"), RATINGS)
             );
         }
+        //@formatter:on
 
         @ParameterizedTest(name = "[{index}] Route TheTVDBApi.{0} rejected")
-        @MethodSource(value = "withInvalidParameters")
-        <T> void invokeRoute_withInvalidParametersOrState_verifyParameterValidationAndPreconditionChecks(TestTheTVDBAPICall<T> route) {
-            assertThat(catchThrowable(route::invoke)).isNotNull().isInstanceOfAny(IllegalArgumentException.class, APIPreconditionException.class);
+        @MethodSource("withInvalidParameters")
+        <T> void invokeRoute_withInvalidParametersOrState_verifyParameterValidationAndPreconditionChecks(
+                TestTheTVDBAPICall<T> route) {
+            assertThat(catchThrowable(route::invoke)).isNotNull()
+                    .isInstanceOfAny(IllegalArgumentException.class, APIPreconditionException.class);
         }
 
         @ParameterizedTest(name = "[{index}] Route TheTVDBApi.{0} successfully invoked")
-        @MethodSource(value = "withValidParameters")
-        <T> void invokeRoute_withValidParameters_verifyResponse(TestTheTVDBAPICall<T> route, Object expected, MockServerClient client) throws Exception {
+        @MethodSource("withValidParameters")
+        <T> void invokeRoute_withValidParameters_verifyResponse(TestTheTVDBAPICall<T> route, Object expected,
+                MockServerClient client) throws Exception {
             TestTheTVDBAPICallAssert.assertThat(route).usingMockServer(client).matchesExpectation(expected);
         }
-    }
-
-    private HttpRequest verify(String path, HttpRequestMethod method) {
-        return HttpRequest.request(path).withMethod(method.getName());
-    }
-
-    private TheTVDBApi init(TheTVDBApi api) throws APIException {
-        api.init("Header.Payload.Signature");
-        return api;
     }
 }

@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,18 +38,18 @@ class APIUtilTest {
     private static Stream<Arguments> hasValue() {
         return Stream.of(
                 Arguments.of(null, false),
-                Arguments.of(new String[] {"Only", "non-empty", "Strings"}, true),
-                Arguments.of(new String[] {"Ok", null}, false),
-                Arguments.of(new String[] {"So", "close", "    "}, false)
+                Arguments.of(new String[]{"Only", "non-empty", "Strings"}, true),
+                Arguments.of(new String[]{"Ok", null}, false),
+                Arguments.of(new String[]{"So", "close", "    "}, false)
         );
     }
 
     private static Stream<Arguments> hasNoValue() {
         return Stream.of(
                 Arguments.of(null, true),
-                Arguments.of(new String[] {"booh!", "AH!!"}, false),
-                Arguments.of(new String[] {null, "some value"}, true),
-                Arguments.of(new String[] {" ", "another value"}, true)
+                Arguments.of(new String[]{"booh!", "AH!!"}, false),
+                Arguments.of(new String[]{null, "some value"}, true),
+                Arguments.of(new String[]{" ", "another value"}, true)
         );
     }
 
@@ -91,10 +91,13 @@ class APIUtilTest {
 
     @Test
     void prettyPrint_simpleJSONNode() throws Exception {
-        String expected = ("{\\n" +
-                "  \"Success\" : true\\n" +
-                "}").replace("\\n", System.lineSeparator());
-        assertThat(APIUtil.prettyPrint(new ObjectMapper().readTree(JSON_SUCCESS))).isEqualTo(expected);
+        //@formatter:off
+        assertThat(APIUtil.prettyPrint(new ObjectMapper().readTree(JSON_SUCCESS))).isEqualTo(
+                "{\n" +
+                "  \"Success\" : true\n" +
+                "}"
+        );
+        //@formatter:on
     }
 
     @ParameterizedTest

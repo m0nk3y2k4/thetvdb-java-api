@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -42,8 +42,8 @@ import org.immutables.value.Value.Immutable;
 /**
  * DTO implementation of the {@link Movie} interface
  * <p><br>
- * Objects of this class reflect the data received by the remote service and are immutable so that their content can
- * not be changed once an instance has been created. New objects of this class may be created by using the corresponding
+ * Objects of this class reflect the data received by the remote service and are immutable so that their content can not
+ * be changed once an instance has been created. New objects of this class may be created by using the corresponding
  * {@link Builder}.
  */
 @Immutable
@@ -59,14 +59,14 @@ public abstract class MovieDTO implements Movie {
         ACTORS, DIRECTORS, PRODUCERS, WRITERS;
 
         /**
-         * Return the enum name in lower-case. Will be used by the JSON deserializer in order to resolve a JSON
-         * property name to a specific enum.
+         * Return the enum name in lower-case. Will be used by the JSON deserializer in order to resolve a JSON property
+         * name to a specific enum.
          *
          * @return The enum name in its corresponding JSON property notation
          */
         @JsonValue
         public String getJsonName() {
-            return this.name().toLowerCase();
+            return name().toLowerCase();
         }
     }
 
@@ -90,10 +90,12 @@ public abstract class MovieDTO implements Movie {
         return getPeople(WRITERS);
     }
 
-    @Override @JsonProperty("release_dates")
+    @Override
+    @JsonProperty("release_dates")
     public abstract List<ReleaseDate> getReleaseDates();
 
-    @Override @JsonProperty("remoteids")
+    @Override
+    @JsonProperty("remoteids")
     public abstract List<RemoteId> getRemoteIds();
 
     /**
@@ -104,8 +106,8 @@ public abstract class MovieDTO implements Movie {
     abstract Map<PeopleCategory, List<People>> getPeople();
 
     /**
-     * Returns a list of people associated to the given category. If no people are present for the given category
-     * an empty list will be returned.
+     * Returns a list of people associated to the given category. If no people are present for the given category an
+     * empty list will be returned.
      *
      * @param category The category of people to be returned
      *
@@ -133,9 +135,10 @@ public abstract class MovieDTO implements Movie {
     /**
      * Builder used to create a new immutable {@link MovieDTO} implementation
      * <p><br>
-     * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link MovieDTO} instance
-     * based on these properties. New builders may be initialized with some existing DTO instance, which presets the builders properties
-     * to the values of the given DTO, still retaining the option to make additional changes before actually building a new immutable object.
+     * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link
+     * MovieDTO} instance based on these properties. New builders may be initialized with some existing DTO instance,
+     * which presets the builders properties to the values of the given DTO, still retaining the option to make
+     * additional changes before actually building a new immutable object.
      */
     public static class Builder extends MovieDTOBuilder {}
 
@@ -143,8 +146,8 @@ public abstract class MovieDTO implements Movie {
      * DTO implementation of the {@link Artwork} interface
      * <p><br>
      * Objects of this class reflect the data received by the remote service and are immutable so that their content can
-     * not be changed once an instance has been created. New objects of this class may be created by using the corresponding
-     * {@link Builder}.
+     * not be changed once an instance has been created. New objects of this class may be created by using the
+     * corresponding {@link Builder}.
      */
     @Immutable
     @WithHiddenImplementation
@@ -152,14 +155,20 @@ public abstract class MovieDTO implements Movie {
     @JsonDeserialize(builder = ArtworkDTO.Builder.class)
     public abstract static class ArtworkDTO implements Artwork {
 
-        @Override @JsonProperty("artwork_type")
-        @Nullable public abstract String getArtworkType();
+        @Override
+        @JsonProperty("artwork_type")
+        @Nullable
+        public abstract String getArtworkType();
 
-        @Override @JsonProperty("is_primary")
-        @Nullable public abstract Boolean isPrimary();
+        @Override
+        @JsonProperty("is_primary")
+        @Nullable
+        public abstract Boolean isPrimary();
 
-        @Override @JsonProperty("thumb_url")
-        @Nullable public abstract String getThumbUrl();
+        @Override
+        @JsonProperty("thumb_url")
+        @Nullable
+        public abstract String getThumbUrl();
 
         @Override
         public String toString() {
@@ -169,9 +178,10 @@ public abstract class MovieDTO implements Movie {
         /**
          * Builder used to create a new immutable {@link ArtworkDTO} implementation
          * <p><br>
-         * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link ArtworkDTO} instance
-         * based on these properties. New builders may be initialized with some existing DTO instance, which presets the builders properties
-         * to the values of the given DTO, still retaining the option to make additional changes before actually building a new immutable object.
+         * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link
+         * ArtworkDTO} instance based on these properties. New builders may be initialized with some existing DTO
+         * instance, which presets the builders properties to the values of the given DTO, still retaining the option to
+         * make additional changes before actually building a new immutable object.
          */
         public static class Builder extends ArtworkDTOBuilder {}
     }
@@ -180,8 +190,8 @@ public abstract class MovieDTO implements Movie {
      * DTO implementation of the {@link Genre} interface
      * <p><br>
      * Objects of this class reflect the data received by the remote service and are immutable so that their content can
-     * not be changed once an instance has been created. New objects of this class may be created by using the corresponding
-     * {@link Builder}.
+     * not be changed once an instance has been created. New objects of this class may be created by using the
+     * corresponding {@link Builder}.
      */
     @Immutable
     @WithHiddenImplementation
@@ -197,9 +207,10 @@ public abstract class MovieDTO implements Movie {
         /**
          * Builder used to create a new immutable {@link GenreDTO} implementation
          * <p><br>
-         * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link GenreDTO} instance
-         * based on these properties. New builders may be initialized with some existing DTO instance, which presets the builders properties
-         * to the values of the given DTO, still retaining the option to make additional changes before actually building a new immutable object.
+         * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link
+         * GenreDTO} instance based on these properties. New builders may be initialized with some existing DTO
+         * instance, which presets the builders properties to the values of the given DTO, still retaining the option to
+         * make additional changes before actually building a new immutable object.
          */
         public static class Builder extends GenreDTOBuilder {}
     }
@@ -208,8 +219,8 @@ public abstract class MovieDTO implements Movie {
      * DTO implementation of the {@link ReleaseDate} interface
      * <p><br>
      * Objects of this class reflect the data received by the remote service and are immutable so that their content can
-     * not be changed once an instance has been created. New objects of this class may be created by using the corresponding
-     * {@link Builder}.
+     * not be changed once an instance has been created. New objects of this class may be created by using the
+     * corresponding {@link Builder}.
      */
     @Immutable
     @WithHiddenImplementation
@@ -225,9 +236,10 @@ public abstract class MovieDTO implements Movie {
         /**
          * Builder used to create a new immutable {@link ReleaseDateDTO} implementation
          * <p><br>
-         * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link ReleaseDateDTO} instance
-         * based on these properties. New builders may be initialized with some existing DTO instance, which presets the builders properties
-         * to the values of the given DTO, still retaining the option to make additional changes before actually building a new immutable object.
+         * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link
+         * ReleaseDateDTO} instance based on these properties. New builders may be initialized with some existing DTO
+         * instance, which presets the builders properties to the values of the given DTO, still retaining the option to
+         * make additional changes before actually building a new immutable object.
          */
         public static class Builder extends ReleaseDateDTOBuilder {}
     }
@@ -236,8 +248,8 @@ public abstract class MovieDTO implements Movie {
      * DTO implementation of the {@link RemoteId} interface
      * <p><br>
      * Objects of this class reflect the data received by the remote service and are immutable so that their content can
-     * not be changed once an instance has been created. New objects of this class may be created by using the corresponding
-     * {@link Builder}.
+     * not be changed once an instance has been created. New objects of this class may be created by using the
+     * corresponding {@link Builder}.
      */
     @Immutable
     @WithHiddenImplementation
@@ -245,14 +257,20 @@ public abstract class MovieDTO implements Movie {
     @JsonDeserialize(builder = RemoteIdDTO.Builder.class)
     public abstract static class RemoteIdDTO implements RemoteId {
 
-        @Override @JsonProperty("source_id")
-        @Nullable public abstract Long getSourceId();
+        @Override
+        @JsonProperty("source_id")
+        @Nullable
+        public abstract Long getSourceId();
 
-        @Override @JsonProperty("source_name")
-        @Nullable public abstract String getSourceName();
+        @Override
+        @JsonProperty("source_name")
+        @Nullable
+        public abstract String getSourceName();
 
-        @Override @JsonProperty("source_url")
-        @Nullable public abstract String getSourceUrl();
+        @Override
+        @JsonProperty("source_url")
+        @Nullable
+        public abstract String getSourceUrl();
 
         @Override
         public String toString() {
@@ -262,9 +280,10 @@ public abstract class MovieDTO implements Movie {
         /**
          * Builder used to create a new immutable {@link RemoteIdDTO} implementation
          * <p><br>
-         * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link RemoteIdDTO} instance
-         * based on these properties. New builders may be initialized with some existing DTO instance, which presets the builders properties
-         * to the values of the given DTO, still retaining the option to make additional changes before actually building a new immutable object.
+         * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link
+         * RemoteIdDTO} instance based on these properties. New builders may be initialized with some existing DTO
+         * instance, which presets the builders properties to the values of the given DTO, still retaining the option to
+         * make additional changes before actually building a new immutable object.
          */
         public static class Builder extends RemoteIdDTOBuilder {}
     }
@@ -273,8 +292,8 @@ public abstract class MovieDTO implements Movie {
      * DTO implementation of the {@link Trailer} interface
      * <p><br>
      * Objects of this class reflect the data received by the remote service and are immutable so that their content can
-     * not be changed once an instance has been created. New objects of this class may be created by using the corresponding
-     * {@link Builder}.
+     * not be changed once an instance has been created. New objects of this class may be created by using the
+     * corresponding {@link Builder}.
      */
     @Immutable
     @WithHiddenImplementation
@@ -290,9 +309,10 @@ public abstract class MovieDTO implements Movie {
         /**
          * Builder used to create a new immutable {@link TrailerDTO} implementation
          * <p><br>
-         * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link TrailerDTO} instance
-         * based on these properties. New builders may be initialized with some existing DTO instance, which presets the builders properties
-         * to the values of the given DTO, still retaining the option to make additional changes before actually building a new immutable object.
+         * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link
+         * TrailerDTO} instance based on these properties. New builders may be initialized with some existing DTO
+         * instance, which presets the builders properties to the values of the given DTO, still retaining the option to
+         * make additional changes before actually building a new immutable object.
          */
         public static class Builder extends TrailerDTOBuilder {}
     }
@@ -301,8 +321,8 @@ public abstract class MovieDTO implements Movie {
      * DTO implementation of the {@link Translation} interface
      * <p><br>
      * Objects of this class reflect the data received by the remote service and are immutable so that their content can
-     * not be changed once an instance has been created. New objects of this class may be created by using the corresponding
-     * {@link Builder}.
+     * not be changed once an instance has been created. New objects of this class may be created by using the
+     * corresponding {@link Builder}.
      */
     @Immutable
     @WithHiddenImplementation
@@ -310,11 +330,15 @@ public abstract class MovieDTO implements Movie {
     @JsonDeserialize(builder = TranslationDTO.Builder.class)
     public abstract static class TranslationDTO implements Translation {
 
-        @Override @JsonProperty("is_primary")
-        @Nullable public abstract Boolean isPrimary();
+        @Override
+        @JsonProperty("is_primary")
+        @Nullable
+        public abstract Boolean isPrimary();
 
-        @Override @JsonProperty("language_code")
-        @Nullable public abstract String getLanguageCode();
+        @Override
+        @JsonProperty("language_code")
+        @Nullable
+        public abstract String getLanguageCode();
 
         @Override
         public String toString() {
@@ -324,9 +348,10 @@ public abstract class MovieDTO implements Movie {
         /**
          * Builder used to create a new immutable {@link TranslationDTO} implementation
          * <p><br>
-         * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link TranslationDTO} instance
-         * based on these properties. New builders may be initialized with some existing DTO instance, which presets the builders properties
-         * to the values of the given DTO, still retaining the option to make additional changes before actually building a new immutable object.
+         * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link
+         * TranslationDTO} instance based on these properties. New builders may be initialized with some existing DTO
+         * instance, which presets the builders properties to the values of the given DTO, still retaining the option to
+         * make additional changes before actually building a new immutable object.
          */
         public static class Builder extends TranslationDTOBuilder {}
     }
@@ -335,8 +360,8 @@ public abstract class MovieDTO implements Movie {
      * DTO implementation of the {@link People} interface
      * <p><br>
      * Objects of this class reflect the data received by the remote service and are immutable so that their content can
-     * not be changed once an instance has been created. New objects of this class may be created by using the corresponding
-     * {@link Builder}.
+     * not be changed once an instance has been created. New objects of this class may be created by using the
+     * corresponding {@link Builder}.
      */
     @Immutable
     @WithHiddenImplementation
@@ -344,29 +369,45 @@ public abstract class MovieDTO implements Movie {
     @JsonDeserialize(builder = PeopleDTO.Builder.class)
     public abstract static class PeopleDTO implements People {
 
-        @Override @JsonProperty("imdb_id")
-        @Nullable public abstract String getImdbId();
+        @Override
+        @JsonProperty("imdb_id")
+        @Nullable
+        public abstract String getImdbId();
 
-        @Override @JsonProperty("is_featured")
-        @Nullable public abstract Boolean isFeatured();
+        @Override
+        @JsonProperty("is_featured")
+        @Nullable
+        public abstract Boolean isFeatured();
 
-        @Override @JsonProperty("people_facebook")
-        @Nullable public abstract String getPeopleFacebook();
+        @Override
+        @JsonProperty("people_facebook")
+        @Nullable
+        public abstract String getPeopleFacebook();
 
-        @Override @JsonProperty("people_id")
-        @Nullable public abstract String getPeopleId();
+        @Override
+        @JsonProperty("people_id")
+        @Nullable
+        public abstract String getPeopleId();
 
-        @Override @JsonProperty("people_image")
-        @Nullable public abstract String getPeopleImage();
+        @Override
+        @JsonProperty("people_image")
+        @Nullable
+        public abstract String getPeopleImage();
 
-        @Override @JsonProperty("people_instagram")
-        @Nullable public abstract String getPeopleInstagram();
+        @Override
+        @JsonProperty("people_instagram")
+        @Nullable
+        public abstract String getPeopleInstagram();
 
-        @Override @JsonProperty("people_twitter")
-        @Nullable public abstract String getPeopleTwitter();
+        @Override
+        @JsonProperty("people_twitter")
+        @Nullable
+        public abstract String getPeopleTwitter();
 
-        @Override @JsonProperty("role_image")
-        @Nullable public abstract String getRoleImage();
+        @Override
+        @JsonProperty("role_image")
+        @Nullable
+        public abstract String getRoleImage();
 
         @Override
         public String toString() {
@@ -376,9 +417,10 @@ public abstract class MovieDTO implements Movie {
         /**
          * Builder used to create a new immutable {@link PeopleDTO} implementation
          * <p><br>
-         * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link PeopleDTO} instance
-         * based on these properties. New builders may be initialized with some existing DTO instance, which presets the builders properties
-         * to the values of the given DTO, still retaining the option to make additional changes before actually building a new immutable object.
+         * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link
+         * PeopleDTO} instance based on these properties. New builders may be initialized with some existing DTO
+         * instance, which presets the builders properties to the values of the given DTO, still retaining the option to
+         * make additional changes before actually building a new immutable object.
          */
         public static class Builder extends PeopleDTOBuilder {}
     }

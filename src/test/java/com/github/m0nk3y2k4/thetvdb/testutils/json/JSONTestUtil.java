@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,6 +20,7 @@ import static com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO
 import static com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO.PeopleCategory.DIRECTORS;
 import static com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO.PeopleCategory.PRODUCERS;
 import static com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO.PeopleCategory.WRITERS;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -70,9 +71,9 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.UserDTO;
 /**
  * Provides access to prefabbed JSON data used for unit testing
  * <p><br>
- * Test utility class offering easy access to predefined JSON files and associated Java DTO's. Resource files and
- * DTO's are aligned in terms of content. In other words, the DTO is the Java data type representation of some JSON
- * resource file. For an easier usage corresponding DTO's and resource files are consolidated into enumerations. For example:
+ * Test utility class offering easy access to predefined JSON files and associated Java DTO's. Resource files and DTO's
+ * are aligned in terms of content. In other words, the DTO is the Java data type representation of some JSON resource
+ * file. For an easier usage corresponding DTO's and resource files are consolidated into enumerations. For example:
  * <pre>{@code
  *     JsonParser seriesJSON = new JsonFactory().createParser(JsonResource.SERIES.getUrl());    // JSON resource file via URI
  *     APIResponse<Series> seriesDTO = parse(seriesJSON);
@@ -103,7 +104,7 @@ public final class JSONTestUtil {
         USER("user", JSONTestUtil::user, "User JSON response"),
         FAVORITES("favorites", JSONTestUtil::favorites, "Favorites JSON response"),
         FAVORITES_EMPTY("favorites_empty", () -> new APIResponseDTO.Builder<List<String>>()
-                .from(JSONTestUtil.favorites()).data(Collections.emptyList()).build(), "Empty favorites JSON response"),
+                .from(favorites()).data(Collections.emptyList()).build(), "Empty favorites JSON response"),
         RATINGS("ratings", JSONTestUtil::ratings, "Ratings JSON response"),
         MOVIE("movie", JSONTestUtil::movie, "Movie JSON response"),
         MOVIEUPDATES("movieupdates", JSONTestUtil::movieUpdates, "Movie updates JSON response");
@@ -137,7 +138,7 @@ public final class JSONTestUtil {
          * @throws IOException If an I/O exception occurs
          */
         public String getJsonString() throws IOException {
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(getUrl().openStream()))) {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(getUrl().openStream(), UTF_8))) {
                 return reader.lines().collect(Collectors.joining(System.lineSeparator()));
             }
         }
@@ -165,6 +166,8 @@ public final class JSONTestUtil {
             return description;
         }
     }
+
+    private JSONTestUtil() {}
 
     /**
      * Creates a new Errors DTO with default values set

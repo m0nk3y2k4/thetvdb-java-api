@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,7 +28,7 @@ import java.util.Properties;
  * This is wrapper class which provides easy access to the system properties holding the authentication information to
  * be used for remote API integration tests.
  */
-public class IntegrationTestConfiguration {
+public final class IntegrationTestConfiguration {
 
     /** System property holding the <i>TheTVDB.com</i> API-Key to be used for authentication */
     private static final String INTEGRATION_THETVDB_COM_APIKEY = "integration.thetvdb.com.apikey";
@@ -39,24 +39,25 @@ public class IntegrationTestConfiguration {
     /** System property holding the <i>TheTVDB.com</i> user name to be used for authentication */
     private static final String INTEGRATION_THETVDB_COM_USERNAME = "integration.thetvdb.com.username";
 
-    /** Set of authentication properties */
-    private Properties config;
-
     /** Singleton instance */
     private static final IntegrationTestConfiguration INSTANCE = new IntegrationTestConfiguration();
+
+    /** Set of authentication properties */
+    private Properties config;
 
     private IntegrationTestConfiguration() {}       // Private constructor due to Singleton-pattern
 
     /**
-     * Tries to load the authentication properties from the "thetvdbapi.properties" resource file. If no such configuration
-     * is available, the properties have to be provided directly via VM/maven arguments.
+     * Tries to load the authentication properties from the "thetvdbapi.properties" resource file. If no such
+     * configuration is available, the properties have to be provided directly via VM/maven arguments.
      *
      * @return Instance representing the authentication settings found in the properties resource file
      */
     public static synchronized IntegrationTestConfiguration loadConfiguration() {
         if (INSTANCE.config == null) {
             INSTANCE.config = new Properties();
-            try(InputStream theTVDBApiProps = IntegrationTestConfiguration.class.getClassLoader().getResourceAsStream("thetvdbapi.properties")) {
+            try (InputStream theTVDBApiProps = IntegrationTestConfiguration.class.getClassLoader()
+                    .getResourceAsStream("thetvdbapi.properties")) {
                 if (theTVDBApiProps != null) {
                     INSTANCE.config.load(theTVDBApiProps);
                 }
@@ -72,7 +73,8 @@ public class IntegrationTestConfiguration {
      *
      * @return The API-Key to be used for <i>TheTVDB.com</i> remote API authentication
      *
-     * @throws InvalidPropertiesFormatException If the API-Key was neither provided via the "thetvdbapi.properties" file nor as a system property
+     * @throws InvalidPropertiesFormatException If the API-Key was neither provided via the "thetvdbapi.properties" file
+     *                                          nor as a system property
      */
     public String getApiKey() throws InvalidPropertiesFormatException {
         return getProperty(INTEGRATION_THETVDB_COM_APIKEY);
@@ -83,7 +85,8 @@ public class IntegrationTestConfiguration {
      *
      * @return The user key to be used for <i>TheTVDB.com</i> remote API authentication
      *
-     * @throws InvalidPropertiesFormatException If the user key was neither provided via the "thetvdbapi.properties" file nor as a system property
+     * @throws InvalidPropertiesFormatException If the user key was neither provided via the "thetvdbapi.properties"
+     *                                          file nor as a system property
      */
     public String getUserKey() throws InvalidPropertiesFormatException {
         return getProperty(INTEGRATION_THETVDB_COM_USERKEY);
@@ -94,25 +97,27 @@ public class IntegrationTestConfiguration {
      *
      * @return The user name to be used for <i>TheTVDB.com</i> remote API authentication
      *
-     * @throws InvalidPropertiesFormatException If the user name was neither provided via the "thetvdbapi.properties" file nor as a system property
+     * @throws InvalidPropertiesFormatException If the user name was neither provided via the "thetvdbapi.properties"
+     *                                          file nor as a system property
      */
     public String getUserName() throws InvalidPropertiesFormatException {
         return getProperty(INTEGRATION_THETVDB_COM_USERNAME);
     }
 
     /**
-     * Fetches the given property from the "thetvdbapi.properties" resource file. If the given property is not present, load
-     * it from the system properties.
+     * Fetches the given property from the "thetvdbapi.properties" resource file. If the given property is not present,
+     * load it from the system properties.
      *
      * @param key The key of the property to be returned
      *
      * @return Property value for the given key
      *
-     * @throws InvalidPropertiesFormatException If the requested property is neither set in the "thetvdbapi.properties" file
-     *                                          nor available as a system property
+     * @throws InvalidPropertiesFormatException If the requested property is neither set in the "thetvdbapi.properties"
+     *                                          file nor available as a system property
      */
     private String getProperty(String key) throws InvalidPropertiesFormatException {
         return Optional.ofNullable(config.getProperty(key, System.getProperty(key))).orElseThrow(() ->
-                new InvalidPropertiesFormatException(String.format("Failed to lookup property <%s>. Please provide valid settings via the \"thetvdbapi.properties\" file!", key)));
+                new InvalidPropertiesFormatException(String
+                        .format("Failed to lookup property <%s>. Please provide valid settings via the \"thetvdbapi.properties\" file!", key)));
     }
 }

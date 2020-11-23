@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,11 +29,13 @@ import org.immutables.value.Value.Immutable;
 /**
  * Object representing the technical remote endpoint of the RESTful remote API. It defines the remote service from which
  * the individual resources will be requested. Without further initialization, objects of this class will represent the
- * <i>TheTVDB.com</i> remote API service by default. However, new instances can also be configured to point to an endpoint
- * other than the actual <i>TheTVDB.com</i> API, e.g. if you want to forward the API communication via a proxy service.
+ * <i>TheTVDB.com</i> remote API service by default. However, new instances can also be configured to point to an
+ * endpoint other than the actual <i>TheTVDB.com</i> API, e.g. if you want to forward the API communication via a proxy
+ * service.
  * <p><br>
- * Objects of this class represent a specific remote and are immutable so that their content can not be changed once an instance
- * has been created. New objects of this class may be created by using the corresponding {@link RemoteAPI.Builder}.
+ * Objects of this class represent a specific remote and are immutable so that their content can not be changed once an
+ * instance has been created. New objects of this class may be created by using the corresponding {@link
+ * RemoteAPI.Builder}.
  */
 @Immutable
 @WithHiddenImplementation
@@ -49,11 +51,13 @@ public abstract class RemoteAPI implements Proxy {
     static final int HTTPS_DEFAULT = 443;
 
     /**
-     * Returns the name of the communication protocol used for this remote. The default value is <em>{@value #HTTPS}</em>.
+     * Returns the name of the communication protocol used for this remote. The default value is <em>{@value
+     * #HTTPS}</em>.
      *
      * @return The protocol name used by this remote
      */
-    @Override @Default
+    @Override
+    @Default
     public String getProtocol() {
         return HTTPS;
     }
@@ -63,23 +67,27 @@ public abstract class RemoteAPI implements Proxy {
      *
      * @return The host name of the remote service
      */
-    @Override @Default
+    @Override
+    @Default
     public String getHost() {
         return THE_TVDB_DOT_COM;
     }
 
     /**
-     * Returns the port number used for communication with the remote. The default value is <em>{@value #HTTPS_DEFAULT}</em>.
+     * Returns the port number used for communication with the remote. The default value is <em>{@value
+     * #HTTPS_DEFAULT}</em>.
      *
      * @return The port number of this remote
      */
-    @Override @Default
+    @Override
+    @Default
     public int getPort() {
         return HTTPS_DEFAULT;
     }
 
     /**
-     * Creates a new Uniform Resource Identifier for the given <em>{@code resource}</em> of the remote API represented by this object.
+     * Creates a new Uniform Resource Identifier for the given <em>{@code resource}</em> of the remote API represented
+     * by this object.
      *
      * @param resource The remote resource to create a new URI for
      *
@@ -94,10 +102,10 @@ public abstract class RemoteAPI implements Proxy {
     /**
      * Builder used to create a new immutable {@link RemoteAPI} implementation
      * <p><br>
-     * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link RemoteAPI} instance
-     * based on these properties. New builders may be initialized with some existing API instance or even a {@link Proxy}, which presets
-     * the builders properties to the values of the given object, still retaining the option to make additional changes before actually
-     * building a new immutable instance.
+     * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link
+     * RemoteAPI} instance based on these properties. New builders may be initialized with some existing API instance or
+     * even a {@link Proxy}, which presets the builders properties to the values of the given object, still retaining
+     * the option to make additional changes before actually building a new immutable instance.
      */
     public static class Builder extends RemoteAPIBuilder {}
 }

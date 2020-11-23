@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,22 +30,23 @@ import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 
 /**
- * JUnit5 extension providing some useful functionality for running integration tests against the actual <i>TheTVDB.com</i> RESTful API
+ * JUnit5 extension providing some useful functionality for running integration tests against the actual
+ * <i>TheTVDB.com</i> RESTful API
  * <p><br>
- * Provides a resolver to let a preconfigured {@link TheTVDBApi} method parameter being injected in test classes.
- * Also prints the name of the test suite - if provided via the {@link IntegrationTestSuite} annotation - to the standard
+ * Provides a resolver to let a preconfigured {@link TheTVDBApi} method parameter being injected in test classes. Also
+ * prints the name of the test suite - if provided via the {@link IntegrationTestSuite} annotation - to the standard
  * output stream.
  *
  * @see IntegrationTestSuite
  */
 public class IntegrationTestExtension implements ParameterResolver, BeforeAllCallback {
 
-    /** API instance referring to the actual <i>TheTVDB.com</i> RESTful remote API, using the system property values for authentication */
+    /** API instance referring to the actual <i>TheTVDB.com</i> RESTful remote API */
     private static final TheTVDBApi API = createConfigurationBasedApi();
 
     /**
-     * Creates a new API instance which uses the actual <i>TheTVDB.com</i> RESTful API as remote endpoint. The returned API
-     * will be pre-configured with the values from the following system properties:
+     * Creates a new API instance which uses the actual <i>TheTVDB.com</i> RESTful API as remote endpoint. The returned
+     * API will be pre-configured with the values from the following system properties:
      * <ul>
      *     <li>integration.thetvdb.com.apikey - The <i>TheTVDB.com</i> API-Key to be used for authentication</li>
      *     <li>integration.thetvdb.com.userkey - The <i>TheTVDB.com</i> user key to be used for authentication</li>
@@ -68,13 +69,15 @@ public class IntegrationTestExtension implements ParameterResolver, BeforeAllCal
     }
 
     @Override
-    public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
+    public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
+            throws ParameterResolutionException {
         return TheTVDBApi.class.isAssignableFrom(parameterContext.getParameter().getType());
     }
 
     @Override
-    public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
-        return IntegrationTestExtension.API;
+    public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
+            throws ParameterResolutionException {
+        return API;
     }
 
     @Override

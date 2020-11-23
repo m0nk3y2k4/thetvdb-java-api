@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,29 +38,29 @@ public final class Data {
     @JsonProperty("content")
     private String content;
 
-    public String getContent() {
+    public static Data with(String content) {
+        Data data = new Data();
+        data.setContent(content);
+        return data;
+    }
+
+    private String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    private void setContent(String content) {
         this.content = content;
     }
 
-    public static Data with(String content) {
-        Data d = new Data();
-        d.setContent(content);
-        return d;
-    }
-
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        Data data = (Data) o;
+        Data data = (Data)obj;
         return content.equals(data.getContent());
     }
 

@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,7 +34,8 @@ class RemoteAPITest {
     private static Stream<Arguments> buildNewRemoteAPI_withSpecificOrDefaultSettings_verifyAPISettings() {
         return Stream.of(
                 Arguments.of(new RemoteAPI.Builder().protocol("ftp").build(), "ftp", THE_TVDB_DOT_COM, HTTPS_DEFAULT),
-                Arguments.of(new RemoteAPI.Builder().host("some.host.com").build(), HTTPS, "some.host.com", HTTPS_DEFAULT),
+                Arguments.of(new RemoteAPI.Builder().host("some.host.com")
+                        .build(), HTTPS, "some.host.com", HTTPS_DEFAULT),
                 Arguments.of(new RemoteAPI.Builder().port(8457).build(), HTTPS, THE_TVDB_DOT_COM, 8457),
                 Arguments.of(new RemoteAPI.Builder().build(), HTTPS, THE_TVDB_DOT_COM, HTTPS_DEFAULT)
         );
@@ -42,7 +43,8 @@ class RemoteAPITest {
 
     @ParameterizedTest(name = "[{index}] Remote API \"{0}\" has settings [protocol={1}, host={2}, port={3}]")
     @MethodSource
-    void buildNewRemoteAPI_withSpecificOrDefaultSettings_verifyAPISettings(RemoteAPI remote, String protocol, String host, int port) {
+    void buildNewRemoteAPI_withSpecificOrDefaultSettings_verifyAPISettings(RemoteAPI remote, String protocol,
+            String host, int port) {
         assertThat(remote.getProtocol()).isEqualTo(protocol);
         assertThat(remote.getHost()).isEqualTo(host);
         assertThat(remote.getPort()).isEqualTo(port);
@@ -51,7 +53,8 @@ class RemoteAPITest {
     @Test
     void forResource() throws Exception {
         final URL remote = new URL("http", "localhost", 3654, "/someRemoteResource");
-        URL url = new RemoteAPI.Builder().protocol(remote.getProtocol()).host(remote.getHost()).port(remote.getPort()).build().forResource(remote.getFile());
+        URL url = new RemoteAPI.Builder().protocol(remote.getProtocol()).host(remote.getHost()).port(remote.getPort())
+                .build().forResource(remote.getFile());
         assertThat(url).isEqualTo(remote);
     }
 }

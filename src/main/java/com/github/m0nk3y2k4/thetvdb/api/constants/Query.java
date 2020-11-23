@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,18 +36,16 @@ public final class Query {
      */
     public static final class Movie {
 
-        private Movie() {}     // Private constructor. Only constants in this class
-
         /** Query parameter "<i>since</i>" - Epoch time to start your date range */
         public static final String SINCE = "since";
+
+        private Movie() {}     // Private constructor. Only constants in this class
     }
 
     /**
      * Collection of query parameters for API route <a href="https://api.thetvdb.com/swagger#!/Search">/search</a>
      */
     public static final class Search {
-
-        private Search() {}     // Private constructor. Only constants in this class
 
         /** Query parameter "<i>name</i>" - Name of the series to search for */
         public static final String NAME = "name";
@@ -60,14 +58,14 @@ public final class Query {
 
         /** Query parameter "<i>slug</i>" - Slug from site URL of series (<a href="https://www.thetvdb.com/series/$SLUG">https://www.thetvdb.com/series/$SLUG</a>) */
         public static final String SLUG = "slug";
+
+        private Search() {}     // Private constructor. Only constants in this class
     }
 
     /**
      * Collection of query parameters for API route <a href="https://api.thetvdb.com/swagger#!/Series">/series</a>
      */
     public static final class Series {
-
-        private Series() {}     // Private constructor. Only constants in this class
 
         /** Query parameter "<i>page</i>" - Page of results to fetch. Defaults to page 1 if not provided */
         public static final String PAGE = "page";
@@ -93,14 +91,16 @@ public final class Query {
         /** Query parameter "<i>keys</i>" - Comma-separated list of keys to filter by */
         public static final String KEYS = "keys";
 
-        /** Query parameter "<i>keyType</i>" - Type of image you're querying for (fanart, poster, etc. See <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images_query_params">/images/query/params</a> for more details) */
+        /** Query parameter "<i>keyType</i>" - Type of image you're querying for (fanart, poster, etc.) */
         public static final String KEYTYPE = "keyType";
 
         /** Query parameter "<i>resolution</i>" - Resolution to filter by (1280x1024, for example) */
         public static final String RESOLUTION = "resolution";
 
-        /** Query parameter "<i>subKey</i>" - Subkey for the above query keys. See <a href="https://api.thetvdb.com/swagger#!/Series/get_series_id_images_query_params">/images/query/params</a> for more information */
+        /** Query parameter "<i>subKey</i>" - Subkey for the above query keys */
         public static final String SUBKEY = "subKey";
+
+        private Series() {}     // Private constructor. Only constants in this class
     }
 
     /**
@@ -108,13 +108,13 @@ public final class Query {
      */
     public static final class Updates {
 
-        private Updates() {}        // Private constructor. Only constants in this class
-
         /** Query parameter "<i>fromTime</i>" - Epoch time to start your date range */
         public static final String FROMTIME = "fromTime";
 
         /** Query parameter "<i>toTime</i>" - Epoch time to end your date range. Must be one week from {@link #FROMTIME} */
         public static final String TOTIME = "toTime";
+
+        private Updates() {}        // Private constructor. Only constants in this class
     }
 
     /**
@@ -122,9 +122,9 @@ public final class Query {
      */
     public static final class Users {
 
-        private Users() {}      // Private constructor. Only constants in this class
-
         /** Query parameter "<i>itemType</i>" - Item to query. Can be either 'series', 'episode', or 'banner' */
         public static final String ITEMTYPE = "itemType";
+
+        private Users() {}      // Private constructor. Only constants in this class
     }
 }

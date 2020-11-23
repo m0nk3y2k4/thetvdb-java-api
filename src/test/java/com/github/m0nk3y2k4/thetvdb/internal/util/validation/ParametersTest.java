@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -44,8 +44,10 @@ class ParametersTest {
 
     private static Stream<Arguments> validateCondition_withConditionNotMatched_exceptionRethrown() {
         return Stream.of(
-                Arguments.of((Predicate<Integer>)age -> age > 21, 19, new IllegalArgumentException("No booze for you!")),
-                Arguments.of((Predicate<Object>)Objects::nonNull, null, new IllegalArgumentException("Should not be null!"))
+                Arguments.of((Predicate<Integer>)age -> age > 21, 19,
+                        new IllegalArgumentException("No booze for you!")),
+                Arguments.of((Predicate<Object>)Objects::nonNull, null,
+                        new IllegalArgumentException("Should not be null!"))
         );
     }
 
@@ -55,13 +57,16 @@ class ParametersTest {
 
     @Test
     void validateCondition_happyDay() {
-        assertDoesNotThrow(() -> Parameters.validateCondition(Objects::nonNull, "I am not null!", new IllegalArgumentException("Should not be thrown")));
+        assertDoesNotThrow(() -> Parameters
+                .validateCondition(Objects::nonNull, "I am not null!", new IllegalArgumentException("Should not be thrown")));
     }
 
     @ParameterizedTest(name = "[{index}] Value \"{1}\" is invalid as it does not match the condition")
     @MethodSource
-    <T> void validateCondition_withConditionNotMatched_exceptionRethrown(Predicate<T> predicate, T value, RuntimeException exception) {
-        IllegalArgumentException thrown = catchThrowableOfType(() -> Parameters.validateCondition(predicate, value, exception), IllegalArgumentException.class);
+    <T> void validateCondition_withConditionNotMatched_exceptionRethrown(Predicate<T> predicate, T value,
+            RuntimeException exception) {
+        IllegalArgumentException thrown = catchThrowableOfType(() -> Parameters
+                .validateCondition(predicate, value, exception), IllegalArgumentException.class);
         assertThat(thrown).isEqualTo(exception);
     }
 
@@ -74,7 +79,8 @@ class ParametersTest {
     @NullSource
     void validateNotNull_withNullValue_exceptionThrown(String obj) {
         final String validationFailedMessage = "Value must not be null!";
-        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters.validateNotNull(obj, validationFailedMessage), IllegalArgumentException.class);
+        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters
+                .validateNotNull(obj, validationFailedMessage), IllegalArgumentException.class);
         assertThat(exception).isInstanceOf(IllegalArgumentException.class).hasMessage(validationFailedMessage);
     }
 
@@ -84,24 +90,28 @@ class ParametersTest {
     }
 
     @ParameterizedTest(name = "[{index}] String \"{0}\" is null or empty")
-    @NullAndEmptySource @ValueSource(strings = {"      "})
+    @NullAndEmptySource
+    @ValueSource(strings = "      ")
     void validateNotEmptyString_withNullOrEmptyString_exceptionThrown(String obj) {
         final String validationFailedMessage = "String is null or empty!";
-        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters.validateNotEmpty(obj, validationFailedMessage),
+        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters
+                        .validateNotEmpty(obj, validationFailedMessage),
                 IllegalArgumentException.class);
         assertThat(exception).isInstanceOf(IllegalArgumentException.class).hasMessage(validationFailedMessage);
     }
 
     @Test
     void validateNotEmptyOptional_happyDay() {
-        assertDoesNotThrow(() -> Parameters.validateNotEmpty(Optional.of("Some String"), "Error in case of empty Optional"));
+        assertDoesNotThrow(() -> Parameters
+                .validateNotEmpty(Optional.of("Some String"), "Error in case of empty Optional"));
     }
 
     @ParameterizedTest(name = "[{index}] \"{0}\" contains null or empty value")
     @MethodSource
     void validateNotEmptyOptional_withInvalidOptional_exceptionThrown(Optional<String> obj) {
         final String validationFailedMessage = "Optional is null or empty!";
-        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters.validateNotEmpty(obj, validationFailedMessage),
+        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters
+                        .validateNotEmpty(obj, validationFailedMessage),
                 IllegalArgumentException.class);
         assertThat(exception).isInstanceOf(IllegalArgumentException.class).hasMessage(validationFailedMessage);
     }
@@ -114,17 +124,21 @@ class ParametersTest {
     @Test
     void validatePathParam_withNullPathParameter_exceptionThrown() {
         final String paramName = "NullPathParam";
-        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters.validatePathParam(paramName, null, x -> true),
+        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters
+                        .validatePathParam(paramName, null, x -> true),
                 IllegalArgumentException.class);
-        assertThat(exception).isInstanceOf(IllegalArgumentException.class).hasMessageContaining("[%s] is required", paramName);
+        assertThat(exception).isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[%s] is required", paramName);
     }
 
     @Test
     void validatePathParam_withInvalidPathParameter_exceptionThrown() {
         final String paramName = "InvalidPathParam";
-        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters.validatePathParam(paramName, 12, x -> x < 10),
+        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters
+                        .validatePathParam(paramName, 12, x -> x < 10),
                 IllegalArgumentException.class);
-        assertThat(exception).isInstanceOf(IllegalArgumentException.class).hasMessageContaining("[%s] is set to an invalid value", paramName);
+        assertThat(exception).isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[%s] is set to an invalid value", paramName);
     }
 
     @Test
@@ -138,19 +152,23 @@ class ParametersTest {
     void validateQueryParam_withMissingMandatoryQueryParameter_exceptionThrown() {
         final String queryParamName = "company";
         final QueryParameters queryParameters = new QueryParametersImpl(Map.of("city", "Bespin"));
-        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters.validateQueryParam(queryParamName, queryParameters),
-                IllegalArgumentException.class);
-        assertThat(exception).isInstanceOf(IllegalArgumentException.class).hasMessageContaining("[%s] is required but is not set", queryParamName);
+        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters
+                .validateQueryParam(queryParamName, queryParameters), IllegalArgumentException.class);
+        assertThat(exception).isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[%s] is required but is not set", queryParamName);
     }
 
     @ParameterizedTest(name = "[{index}] Parameter \"{0}\" is null or empty")
-    @NullAndEmptySource @ValueSource(strings = {"   "})
+    @NullAndEmptySource
+    @ValueSource(strings = "   ")
     void validateQueryParam_withInvalidMandatoryQueryParameter_exceptionThrown(String queryParamNameValue) {
         final String queryParamName = "region";
-        final QueryParameters queryParameters = new QueryParametersWithDisabledValueChecks(queryParamName, queryParamNameValue);
-        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters.validateQueryParam(queryParamName, queryParameters),
-                IllegalArgumentException.class);
-        assertThat(exception).isInstanceOf(IllegalArgumentException.class).hasMessageContaining("[%s] must not be empty", queryParamName);
+        final QueryParameters queryParameters = new QueryParametersWithDisabledValueChecks()
+                .addParameter(queryParamName, queryParamNameValue);
+        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters
+                .validateQueryParam(queryParamName, queryParameters), IllegalArgumentException.class);
+        assertThat(exception).isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("[%s] must not be empty", queryParamName);
     }
 
     @Test
@@ -158,22 +176,31 @@ class ParametersTest {
         final String queryParamName = "languageCode";
         final String queryParamValue = "french";
         final QueryParameters params = new QueryParametersImpl(Map.of(queryParamName, queryParamValue));
-        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters.validateQueryParam(queryParamName, params,
-                code -> code.length() <= 2), IllegalArgumentException.class);
+        IllegalArgumentException exception = catchThrowableOfType(() -> Parameters
+                .validateQueryParam(queryParamName, params, code ->
+                        code.length() <= 2), IllegalArgumentException.class);
         assertThat(exception).isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("[%s] is set to an invalid value: %s", queryParamName, queryParamValue);
     }
 
+    @ParameterizedTest(name = "[{index}] \"{0}\" is a positive numerical integer")
+    @ValueSource(strings = {"3", "104"})
+    void isPositiveInteger_withPositiveIntegerValues_returnsFalse(String value) {
+        assertThat(Parameters.isPositiveInteger().test(value)).isTrue();
+    }
+
+    @ParameterizedTest(name = "[{index}] \"{0}\" is not a positive numerical integer")
+    @NullSource
+    @ValueSource(strings = {"", "  ", "NaN", "25.3", "-7", "0", "3 "})
+    void isPositiveInteger_withNonPositiveIntegerValues_returnsFalse(String value) {
+        assertThat(Parameters.isPositiveInteger().test(value)).isFalse();
+    }
+
     /**
-     * Special implementation of {@link QueryParameters} allowing empty/null parameter values. Needed to test
-     * the corresponding validation methods.
+     * Special implementation of {@link QueryParameters} allowing empty/null parameter values. Needed to test the
+     * corresponding validation methods.
      */
     private static class QueryParametersWithDisabledValueChecks extends QueryParametersImpl {
-
-        @SuppressWarnings("SameParameterValue")
-        protected QueryParametersWithDisabledValueChecks(@Nonnull String key, @CheckForNull String value) {
-            this.addParameter(key, value);
-        }
 
         @Override
         public QueryParameters addParameter(@Nonnull String key, @CheckForNull String value) {

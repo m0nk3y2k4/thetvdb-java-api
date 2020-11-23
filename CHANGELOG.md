@@ -5,10 +5,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Util method `Parameters.isPositiveInteger` returning Predicate<String> used to check for positive numeric integers.
+
+### Changed
+- Method `APIUtil.prettyPrint(JsonNode)` now wraps lines with a fix Unix-style (LF) line separator.
+- Reduced visibility of some JUnit test util classes and constructors.
+- Reduced visibility of some public methods which were only used internally.
+- Declared several util and factory classes as being final.
+- The body of POST requests is now fix UTF-8 encoded.
+- Made several methods `static` that did not reference any non-static content are were not overidden in a sub class.
+- Enhanced some test classes to use static inner classes instead of anonymous classes to avoid possible memory leaks.
+- The methods `APISession.isInitialized`, `APISession.userAuthentication` and `QueryResource.isValidQueryParameter` now return primitve types.
+- Method `JSONDeserializer.mapDataObject(...)` now accepts general `TypeReference<T>` objects.
+- `JsonResource.getJsonString` now uses fix UTF-8 encoding when loading JSON content from resource files.
+- Test util `MockServerUtil.contentLength` now accepts a more general CharSequence.
+- Method `usingExtendedLayout` in TestTheTVDBAPICallAssert.java has been renamed to `isUsingExtendedLayout`.
+- Method `usingJsonLayout` in TestTheTVDBAPICallAssert.java has been renamed to `isUsingJsonLayout`.
+- Replace usage of anonymous classes in `QueryParametersImpl` to avoid the risk of memory leaks.
+
+### Removed
+- Method `MockServerUtil.defaultAPIHttpHeaders(boolean)` has been replaced by two more convenient ones.
+    - `MockServerUtil.defaultAPIHttpHeaders()` includes matchers to check for absence of auth fields.
+    - `MockServerUtil.defaultAPIHttpHeadersWithAuthorization()` includes matchers to check for presence of auth fields.
+- Constructor from `ParametersTest.QueryParametersWithDisabledValueChecks` inner class.
 
 ## [3.0.2] - 2020-11-21
 ### Changed
-- Changed project compile version to Java SE 10
+- Changed project compile version to Java SE 10.
 - Updated multiple maven dependencies to latest version:
     - _org.junit.jupiter:*_: `5.6.2` -> `5.7.0`
     - _org.mockito:mockito-core_: `3.4.6` -> `3.6.0`

@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,20 +38,25 @@ class PreconditionsTest {
 
     private static Stream<Arguments> requires_conditionNotMatched_exceptionRethrown() {
         return Stream.of(
-                Arguments.of((Predicate<Integer>)age -> age > 18, 14, new APIPreconditionException("Not old enough!")),
-                Arguments.of((Predicate<Object>)Objects::nonNull, null, new APIPreconditionException("No null values allowed!"))
+                Arguments.of((Predicate<Integer>)age -> age > 18, 14,
+                        new APIPreconditionException("Not old enough!")),
+                Arguments.of((Predicate<Object>)Objects::nonNull, null,
+                        new APIPreconditionException("No null values allowed!"))
         );
     }
 
     @Test
     void requires_happyDay() {
-        assertDoesNotThrow(() -> Preconditions.requires(age -> age > 18, 42, new APIPreconditionException("Should not be thrown")));
+        assertDoesNotThrow(() -> Preconditions
+                .requires(age -> age > 18, 42, new APIPreconditionException("Should not be thrown")));
     }
 
     @ParameterizedTest(name = "[{index}] Value \"{1}\" is invalid as it does not match the condition")
     @MethodSource
-    <T> void requires_conditionNotMatched_exceptionRethrown(Predicate<T> predicate, T value, RuntimeException exception) {
-        APIPreconditionException thrown = catchThrowableOfType(() -> Preconditions.requires(predicate, value, exception), APIPreconditionException.class);
+    <T> void requires_conditionNotMatched_exceptionRethrown(Predicate<T> predicate, T value,
+            RuntimeException exception) {
+        APIPreconditionException thrown = catchThrowableOfType(() -> Preconditions
+                .requires(predicate, value, exception), APIPreconditionException.class);
         assertThat(thrown).isEqualTo(exception);
     }
 
@@ -64,7 +69,8 @@ class PreconditionsTest {
     @NullSource
     void requireNonNull_withNullValue_exceptionThrown(String obj) {
         final String message = "I said no null-values!";
-        APIPreconditionException thrown = catchThrowableOfType(() -> Preconditions.requireNonNull(obj, message), APIPreconditionException.class);
+        APIPreconditionException thrown = catchThrowableOfType(() -> Preconditions
+                .requireNonNull(obj, message), APIPreconditionException.class);
         assertThat(thrown).hasMessage(API_PRECONDITION_ERROR, message);
     }
 
@@ -74,10 +80,12 @@ class PreconditionsTest {
     }
 
     @ParameterizedTest(name = "[{index}] String \"{0}\" is null or empty")
-    @NullAndEmptySource @ValueSource(strings = {"      "})
+    @NullAndEmptySource
+    @ValueSource(strings = "      ")
     void requireNonEmpty_withNullOrEmptyValue_exceptionThrown(String obj) {
         final String message = "Grrr...";
-        APIPreconditionException thrown = catchThrowableOfType(() -> Preconditions.requireNonEmpty(obj, message), APIPreconditionException.class);
+        APIPreconditionException thrown = catchThrowableOfType(() -> Preconditions
+                .requireNonEmpty(obj, message), APIPreconditionException.class);
         assertThat(thrown).hasMessage(API_PRECONDITION_ERROR, message);
     }
 }

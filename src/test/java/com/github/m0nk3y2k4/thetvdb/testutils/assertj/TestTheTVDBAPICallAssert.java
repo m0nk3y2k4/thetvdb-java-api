@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,9 +33,9 @@ import org.mockserver.verify.VerificationTimes;
 /**
  * Special assertion for {@link TestTheTVDBAPICall} objects, wrapping some API route invocation
  * <p><br>
- * Supports expectation matching for API routes, regardless of the actual API layout that is used. For wrapped non-void routes a
- * {@link JSONTestUtil.JsonResource} object is expected for matching. The assert will automatically try to determine the layout used
- * by the API route and will perform the matching operation accordingly.
+ * Supports expectation matching for API routes, regardless of the actual API layout that is used. For wrapped non-void
+ * routes a {@link JSONTestUtil.JsonResource} object is expected for matching. The assert will automatically try to
+ * determine the layout used by the API route and will perform the matching operation accordingly.
  * <pre>{@code
  *     TheTVDBApi api = TheTVDBApiFactory.createApi("Some APIKey");
  *
@@ -53,10 +53,10 @@ import org.mockserver.verify.VerificationTimes;
  *     TestTheTVDBAPICallAssert.assertThat(route(() -> api.json().getActors(45), "Returning JsonNode"))
  *              .matchesExpectation(JsonResource.ACTORS);
  * }</pre>
- * Unfortunately void API routes do not return any object which could be used for matching an expectation. However, you may let the assert
- * verify that a specific resource has been invoked on the mock server by passing a corresponding HttpRequest object as expectation. For
- * this to work the assert must get in contact with the mock server running in the background. The server can be announced by setting a
- * mock server reference to the assert first.
+ * Unfortunately void API routes do not return any object which could be used for matching an expectation. However, you
+ * may let the assert verify that a specific resource has been invoked on the mock server by passing a corresponding
+ * HttpRequest object as expectation. For this to work the assert must get in contact with the mock server running in
+ * the background. The server can be announced by setting a mock server reference to the assert first.
  * <pre>{@code
  *     @Test
  *     void voidApiRouteTest(MockServerClient client) throws Exception {        // Client can be injected when using the JUnit5 HttpsMockServerExtension
@@ -67,12 +67,13 @@ import org.mockserver.verify.VerificationTimes;
  *                .usingMockServer(client).matchesExpectation(HttpRequest.request("/api/login").withMethod("GET"));
  *     }
  * } </pre>
+ *
  * @param <T> type of the wrapped routes actual return value
  */
-public class TestTheTVDBAPICallAssert<T> extends AbstractAssert<TestTheTVDBAPICallAssert<T>, TestTheTVDBAPICall<T>> {
+public final class TestTheTVDBAPICallAssert<T> extends AbstractAssert<TestTheTVDBAPICallAssert<T>, TestTheTVDBAPICall<T>> {
 
-    /** Reference to the mock server (for verifying resource invocations of void API routes). Has to be set via #usingMockServer first. */
-    private MockServerClient client;
+    /** Mock server used to verify resource invocations of void API routes. Has to be set via #usingMockServer first. */
+    private MockServerClient mockServerClient;
 
     private TestTheTVDBAPICallAssert(TestTheTVDBAPICall<T> actual) {
         super(actual, TestTheTVDBAPICallAssert.class);
@@ -82,8 +83,7 @@ public class TestTheTVDBAPICallAssert<T> extends AbstractAssert<TestTheTVDBAPICa
      * Creates a new instance of TestTheTVDBAPICallAssert
      *
      * @param actual The actual value
-     *
-     * @param <T> type of the wrapped routes actual return value
+     * @param <T>    type of the wrapped routes actual return value
      *
      * @return The created assertion object
      */
@@ -100,7 +100,7 @@ public class TestTheTVDBAPICallAssert<T> extends AbstractAssert<TestTheTVDBAPICa
      * @return This assertion object
      */
     public TestTheTVDBAPICallAssert<T> usingMockServer(MockServerClient client) {
-        this.client = client;
+        this.mockServerClient = client;
         return this;
     }
 
@@ -116,7 +116,8 @@ public class TestTheTVDBAPICallAssert<T> extends AbstractAssert<TestTheTVDBAPICa
      *
      * @param expected The expected JsonResource or the HttpRequest to be verified
      *
-     * @throws IOException If an exception occurred while auto-converting a JsonResource object into it's JsonNode representation
+     * @throws IOException  If an exception occurred while auto-converting a JsonResource object into it's JsonNode
+     *                      representation
      * @throws APIException If an exception occurred while invoking the actual API call of this assertion
      */
     public void matchesExpectation(Object expected) throws IOException, APIException {
@@ -139,30 +140,32 @@ public class TestTheTVDBAPICallAssert<T> extends AbstractAssert<TestTheTVDBAPICa
     }
 
     /**
-     * Invokes the actual API call and verifies that the given HttpRequest has been received exactly once by the mock server
+     * Invokes the actual API call and verifies that the given HttpRequest has been received exactly once by the mock
+     * server
      *
      * @param request The HttpRequest to be verified it has been invoked once
      *
      * @throws APIException If an exception occurred while invoking the actual API call of this assertion
      */
     private void verifyMockServerRouteInvoked(HttpRequest request) throws APIException {
-        if (client == null) {
+        if (mockServerClient == null) {
             failWithMessage("Cannot verify HTTP request expectation due to missing mock server client. "
                     + "Please provide a valid mock server client via TestTheTVDBAPICallAssert#usingMockServer(client)");
         }
 
         actual.invoke();            // Ignore return value as it is always "null" for void methods
 
-        client.verify(request, VerificationTimes.once());
+        mockServerClient.verify(request, VerificationTimes.once());
     }
 
     /**
-     * Invokes the actual API call and verifies that its return value matches the given JSON resource. The JSON resource may
-     * be auto-converted based on the current API call layout before comparing the values.
+     * Invokes the actual API call and verifies that its return value matches the given JSON resource. The JSON resource
+     * may be auto-converted based on the current API call layout before comparing the values.
      *
      * @param resource JSON resource which is expected to be returned by the invocation of the actual API call
      *
-     * @throws IOException If an exception occurred while auto-converting a JsonResource object into it's JsonNode representation
+     * @throws IOException  If an exception occurred while auto-converting a JsonResource object into it's JsonNode
+     *                      representation
      * @throws APIException If an exception occurred while invoking the actual API call of this assertion
      */
     private void matchesJsonResourceExpectation(JSONTestUtil.JsonResource resource) throws IOException, APIException {
@@ -175,21 +178,24 @@ public class TestTheTVDBAPICallAssert<T> extends AbstractAssert<TestTheTVDBAPICa
     }
 
     /**
-     * Auto-converts the given JSON resource to a representation matching the layout used by the API call. The layout will be determined
-     * heuristically by analyzing the routes actual return value and compare it to the type of values typically returned by a specific layout.
+     * Auto-converts the given JSON resource to a representation matching the layout used by the API call. The layout
+     * will be determined heuristically by analyzing the routes actual return value and compare it to the type of values
+     * typically returned by a specific layout.
      *
-     * @param result The value returned by invoking the actual API call
+     * @param result   The value returned by invoking the actual API call
      * @param resource JSON resource representing the value expected to be returned by the API call
      *
-     * @return Representation of the given resource matching the used layout. This can either be a data object, an APIResponse DTO or a JSON representation.
+     * @return Representation of the given resource matching the used layout. This can either be a data object, an
+     *         APIResponse DTO or a JSON representation.
      *
-     * @throws IOException If an exception occurred while auto-converting a JsonResource object into it's JsonNode representation
+     * @throws IOException If an exception occurred while auto-converting a JsonResource object into it's JsonNode
+     *                     representation
      */
     private Object buildExpectation(T result, JSONTestUtil.JsonResource resource) throws IOException {
-        if (usingExtendedLayout(result)) {
+        if (isUsingExtendedLayout(result)) {
             // Invocation of some (non-void) TheTVDBApi.Extended layout route -> These routes always return an APIResponse<DTO> object
             return resource.getDTO();
-        } else if (usingJsonLayout(result)) {
+        } else if (isUsingJsonLayout(result)) {
             // Invocation of some (non-void) TheTVDBApi.JSON layout route -> These routes always return a JsonNode object
             return resource.getJson();
         } else {
@@ -199,24 +205,28 @@ public class TestTheTVDBAPICallAssert<T> extends AbstractAssert<TestTheTVDBAPICa
     }
 
     /**
-     * Checks whether the given object is a typical return value for the {@link com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi.Extended} layout
+     * Checks whether the given object is a typical return value for the {@link com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi.Extended}
+     * layout
      *
      * @param result The value to check
      *
-     * @return True if the given value represents a class that is typically returned by the invocation of Extended layout API routes
+     * @return True if the given value represents a class that is typically returned by the invocation of Extended
+     *         layout API routes
      */
-    private boolean usingExtendedLayout(T result) {
+    private boolean isUsingExtendedLayout(T result) {
         return Optional.ofNullable(result).map(Object::getClass).map(APIResponse.class::isAssignableFrom).orElse(false);
     }
 
     /**
-     * Checks whether the given object is a typical return value for the {@link com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi.JSON} layout
+     * Checks whether the given object is a typical return value for the {@link com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi.JSON}
+     * layout
      *
      * @param result The value to check
      *
-     * @return True if the given value represents a class that is typically returned by the invocation of JSON layout API routes
+     * @return True if the given value represents a class that is typically returned by the invocation of JSON layout
+     *         API routes
      */
-    private boolean usingJsonLayout(T result) {
-        return  Optional.ofNullable(result).map(Object::getClass).map(JsonNode.class::isAssignableFrom).orElse(false);
+    private boolean isUsingJsonLayout(T result) {
+        return Optional.ofNullable(result).map(Object::getClass).map(JsonNode.class::isAssignableFrom).orElse(false);
     }
 }

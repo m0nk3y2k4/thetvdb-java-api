@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +29,9 @@ class ThrowableFunctionalInterfacesTest {
 
     @Test
     void createThrowableSupplier_throwingException_verifyExceptionIsThrown() {
-        ThrowableFunctionalInterfaces.Supplier<String, IOException> throwableSupplier = () -> {throw new IOException();};
+        ThrowableFunctionalInterfaces.Supplier<String, IOException> throwableSupplier = () -> {
+            throw new IOException();
+        };
         assertThatExceptionOfType(IOException.class).isThrownBy(throwableSupplier::get);
     }
 
@@ -37,20 +39,24 @@ class ThrowableFunctionalInterfacesTest {
     void createThrowableSupplier_fromSupplier_verifySuppliedValue() throws Exception {
         final String stringValue = "Some supplier value";
         Supplier<String> supplier = () -> stringValue;
-        ThrowableFunctionalInterfaces.Supplier<String, Exception> throwableSupplier = ThrowableFunctionalInterfaces.Supplier.of(supplier);
+        ThrowableFunctionalInterfaces.Supplier<String, Exception> throwableSupplier = ThrowableFunctionalInterfaces.Supplier
+                .of(supplier);
         assertThat(throwableSupplier.get()).isEqualTo(stringValue);
     }
 
     @Test
     void createThrowableFunction_throwingException_verifyExceptionIsThrown() {
-        ThrowableFunctionalInterfaces.Function<Integer, Double, IOException> throwableFunction = i -> {throw new IOException();};
+        ThrowableFunctionalInterfaces.Function<Integer, Double, IOException> throwableFunction = i -> {
+            throw new IOException();
+        };
         assertThatExceptionOfType(IOException.class).isThrownBy(() -> throwableFunction.apply(2));
     }
 
     @Test
     void createThrowableFunction_fromFunction_verifyFunctionResult() throws Exception {
         Function<Integer, Double> function = Integer::doubleValue;
-        ThrowableFunctionalInterfaces.Function<Integer, Double, Exception> throwableFunction = ThrowableFunctionalInterfaces.Function.of(function);
+        ThrowableFunctionalInterfaces.Function<Integer, Double, Exception> throwableFunction = ThrowableFunctionalInterfaces.Function
+                .of(function);
         assertThat(throwableFunction.apply(2)).isEqualTo(2.0D);
     }
 }
