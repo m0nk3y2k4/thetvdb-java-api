@@ -95,6 +95,13 @@ the upcoming APIv4.
     - [x] [/user/ratings/{itemType}/{itemId}/{itemRating}](https://api.thetvdb.com/swagger#!/Users/put_user_ratings_itemType_itemId_itemRating)
 </details>
 
+<details>
+<summary>WIP: Supported TheTVDB.com APIv4 routes (<code>thetvdb-java-api v4.x</code>)</summary>
+
+- People types
+    - [ ] [/people-types](http://letmegooglethat.com/?q=patience+you+must+have)
+</details>
+
 The latest documentation can be found here: [TheTVDB Java 3.x API](http://thetvdb-java-api.m0nk3y.info/v3/index.html?overview-summary.html)
 
 ## Setup
