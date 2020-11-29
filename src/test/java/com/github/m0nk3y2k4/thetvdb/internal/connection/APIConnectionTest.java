@@ -35,6 +35,7 @@ import java.util.stream.Stream;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APISession.Status;
 import com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter.WithHttpsMockServer;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -148,6 +149,7 @@ class APIConnectionTest {
         assertThat(exception).hasMessageContaining(ERR_MAX_RETRY_EXCEEDED, MAX_AUTHENTICATION_RETRY_COUNT);
     }
 
+    @Disabled
     @Test
     void sendRequest_automaticAuthorizationSuccess(MockServerClient client) throws Exception {
         final String resource = "/auth/autoAuthSuccess";
@@ -156,6 +158,7 @@ class APIConnectionTest {
         client.verify(request(resource), VerificationTimes.exactly(2));
     }
 
+    @Disabled
     @Test
     void sendRequest_automaticAuthorizationFailed(MockServerClient client) {
         final String resource = "/auth/autoAuthFailed";

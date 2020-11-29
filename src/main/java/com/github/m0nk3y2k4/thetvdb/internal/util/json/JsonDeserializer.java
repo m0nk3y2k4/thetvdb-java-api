@@ -21,14 +21,9 @@ import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_JSON_P
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import javax.annotation.Nonnull;
 
@@ -44,44 +39,18 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIRuntimeException;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Actor;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Image;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.ImageQueryParameter;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.ImageSummary;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Language;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Rating;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesSearchResult;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesSummary;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.User;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.APIResponseDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ActorDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EpisodeDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ImageDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ImageQueryParameterDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ImageSummaryDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.LanguageDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.RatingDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesSearchResultDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesSummaryDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.UserDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.util.functional.ThrowableFunctionalInterfaces;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
+
+// ToDo: Check which of the parsing util methods are still needed
 
 /**
  * Utility class for JSON response deserialization.
  * <p><br>
  * Provides functionality to parse the JSON data returned by the remote API and map it into it's corresponding DTO.
  * These DTO's will be wrapped into {@link APIResponse APIResponse&lt;DTO&gt;} objects together with additional
- * information like advanced error reports or pagination information. Note that the latter depends on the invoked remote
- * route and will not always be available. Simple return types will not be mapped into a dedicated DTO class but will
- * use the corresponding Java native data type. For example, query parameters, which are a simple collection of strings,
- * will be mapped into a list of {@link String} whereas simple key/value paris will be returned as {@link Map
- * Map&lt;String, String&gt;}.
+ * information like processing status information.
  */
 public final class JsonDeserializer {
 
@@ -91,385 +60,11 @@ public final class JsonDeserializer {
     static {
         // Add Interface <-> Implementation mappings to the module. The object mapper will use these mappings to determine the
         // proper builder to be used to create new instances of a specific interface (via @JsonDeserialize annotation).
-        DATA_MODULE.setAbstractTypes(new SimpleAbstractTypeResolver()
-                .addMapping(SeriesSearchResult.class, SeriesSearchResultDTO.class)
-                .addMapping(Series.class, SeriesDTO.class)
-                .addMapping(Episode.class, EpisodeDTO.class)
-                .addMapping(Language.class, LanguageDTO.class)
-                .addMapping(Movie.class, MovieDTO.class)
-                .addMapping(Movie.Artwork.class, MovieDTO.ArtworkDTO.class)
-                .addMapping(Movie.Genre.class, MovieDTO.GenreDTO.class)
-                .addMapping(Movie.ReleaseDate.class, MovieDTO.ReleaseDateDTO.class)
-                .addMapping(Movie.RemoteId.class, MovieDTO.RemoteIdDTO.class)
-                .addMapping(Movie.Trailer.class, MovieDTO.TrailerDTO.class)
-                .addMapping(Movie.Translation.class, MovieDTO.TranslationDTO.class)
-                .addMapping(Movie.People.class, MovieDTO.PeopleDTO.class)
-                .addMapping(Actor.class, ActorDTO.class)
-                .addMapping(SeriesSummary.class, SeriesSummaryDTO.class)
-                .addMapping(ImageQueryParameter.class, ImageQueryParameterDTO.class)
-                .addMapping(ImageSummary.class, ImageSummaryDTO.class)
-                .addMapping(Image.class, ImageDTO.class)
-                .addMapping(Rating.class, RatingDTO.class)
-                .addMapping(User.class, UserDTO.class)
-        );
+        // ToDo: Extend with actual mappings
+        DATA_MODULE.setAbstractTypes(new SimpleAbstractTypeResolver());
     }
 
     private JsonDeserializer() {}     // Private constructor. Only static methods
-
-    /**
-     * Maps the actual parameters returned by the various routes responsible for providing a list of available query
-     * parameters to be used for certain queryable requests.
-     * <p><br>
-     * Note: Some routes will return the query parameters directly within the <em>{@code data}</em> node whereas for
-     * other routes the parameters may be located in a nested <em>{@code params}</em> sub-node. If such a nested node is
-     * present, the parameters will be parsed from this node. Otherwise the parameters will be parsed from the
-     * <em>{@code data}</em> node.
-     *
-     * @param json The full JSON as returned by the remote service, containing a list of query parameters in either the
-     *             <em>{@code data}</em> node or a nested <em>{@code params}</em> sub-node
-     *
-     * @return Extended API response containing a list of query parameters parsed from the given JSON. The returned
-     *         object typically doesn't contain any additional error and paging information as such data is usually not
-     *         available for remote routes used in conjunction with this method.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<List<String>> mapQueryParameters(@Nonnull JsonNode json) throws APIException {
-        if (getData(json).has("params")) {
-            // Sometimes the parameters are nested in an sub-node
-            Function<JsonNode, List<String>> dataFunction =
-                    dataNode -> StreamSupport.stream(dataNode.get("params").spliterator(), false)
-                            .map(JsonNode::asText).collect(Collectors.toList());
-            return mapObject(json, new TypeReference<>() {}, createFunctionalModule(dataFunction));
-        }
-
-        return mapObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual favorites returned by the various routes responsible for adding, deleting and obtaining user
-     * favorites.
-     * <p><br>
-     * Note: In case the user has no favorites it is possible that some routes will not return an empty, nested
-     * <em>{@code favorites}</em> sub-node but an empty <em>{@code data}</em> node instead. Such responses will be
-     * handled fail-safe by this method, resulting in response containing an empty list being returned.
-     *
-     * @param json The full JSON as returned by the remote service, containing a list of favorites within the <em>{@code
-     *             favorites}</em> sub-node
-     *
-     * @return Extended API response containing a list of favorites parsed from the given JSON as well as optional,
-     *         additional error information. The returned object typically doesn't contain any additional paging
-     *         information as such data is usually not available for remote routes used in conjunction with this
-     *         method.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<List<String>> mapFavorites(@Nonnull JsonNode json) throws APIException {
-        if (getData(json).has("favorites")) {
-            // If the user has no favorites just an empty data-node might be returned
-            Function<JsonNode, List<String>> dataFunction =
-                    dataNode -> StreamSupport.stream(dataNode.get("favorites").spliterator(), false)
-                            .map(JsonNode::asText).collect(Collectors.toList());
-            return mapObject(json, new TypeReference<>() {}, createFunctionalModule(dataFunction));
-        }
-
-        return mapObject(json, new TypeReference<>() {}, createFunctionalModule(Collections::emptyList));
-    }
-
-    /**
-     * Maps the header information for a specific series returned by the remote series HEAD route. The header
-     * information properties will be represented by the key/value pairs of the returned API responses data map.
-     *
-     * @param json The full JSON as returned by the remote service, containing key/value pairs of header information
-     *
-     * @return Map containing header information key/value pairs
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<Map<String, String>> mapSeriesHeader(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual search results returned by the series search route.
-     *
-     * @param json The full JSON as returned by the remote service, containing a list of matching search results within
-     *             the <em>{@code data}</em> node
-     *
-     * @return Extended API response containing a list of search results parsed from the given JSON. The returned object
-     *         typically doesn't contain any additional error or paging information as such data is usually not
-     *         available for remote routes used in conjunction with this method.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<List<SeriesSearchResult>> mapSeriesSearchResult(@Nonnull JsonNode json)
-            throws APIException {
-        return mapObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual series data returned by the various routes responsible for fetching or filtering series.
-     *
-     * @param json The full JSON as returned by the remote service, containing the matching series information within
-     *             the <em>{@code data}</em> node
-     *
-     * @return Extended API response containing the series data parsed from the given JSON as well as optional,
-     *         additional error information. The returned object typically doesn't contain any additional paging
-     *         information as such data is usually not available for remote routes used in conjunction with this
-     *         method.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<Series> mapSeries(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual episode data of a specific episode returned by the episodes route.
-     *
-     * @param json The full JSON as returned by the remote service, containing the episode information within the
-     *             <em>{@code data}</em> node
-     *
-     * @return Extended API response containing the episode data parsed from the given JSON as well as optional,
-     *         additional error information. The returned object typically doesn't contain any additional paging
-     *         information as such data is usually not available for remote routes used in conjunction with this
-     *         method.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<Episode> mapEpisode(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual episode data returned by the various routes responsible for fetching and querying episodes.
-     * <p><br>
-     * The remote API will only return 100 matching records at most. Additional records may be fetched by using the
-     * paging information which may be accessed via the returned API response object (see {@link
-     * APIResponse#getLinks()}).
-     *
-     * @param json The full JSON as returned by the remote service, containing a list of episode information within the
-     *             <em>{@code data}</em> node
-     *
-     * @return Extended API response containing a list of episodes parsed from the given JSON as well as optional,
-     *         additional error and paging information.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<List<Episode>> mapEpisodes(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual languages returned by the API route responsible for providing a list of available languages.
-     *
-     * @param json The full JSON as returned by the remote service, containing a list of available languages within the
-     *             <em>{@code data}</em> node
-     *
-     * @return Extended API response containing a list of available languages parsed from the given JSON. The returned
-     *         object typically doesn't contain any additional error or paging information as such data is usually not
-     *         available for remote routes used in conjunction with this method.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<List<Language>> mapLanguages(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual language data returned by the API route responsible for obtaining advanced information about a
-     * specific language.
-     *
-     * @param json The full JSON as returned by the remote service, containing the language information within the
-     *             <em>{@code data}</em> node
-     *
-     * @return Extended API response containing the language data parsed from the given JSON. The returned object
-     *         typically doesn't contain any additional error or paging information as such data is usually not
-     *         available for remote routes used in conjunction with this method.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<Language> mapLanguage(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual movie data returned by the movies route.
-     *
-     * @param json The full JSON as returned by the remote service, containing the movie information within the
-     *             <em>{@code data}</em> node
-     *
-     * @return Extended API response containing the movie data parsed from the given JSON. The returned object typically
-     *         doesn't contain any additional error or paging information as such data is usually not available for
-     *         remote routes used in conjunction with this method.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<Movie> mapMovie(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual updated movies ID's returned by the movie updates route.
-     * <p><br>
-     * Note: This seems to be the only route that doesn't return its content wrapped into a "data" node but into a
-     * "movies" node instead. In order to be able to reuse the general parsing logic this method will remap the content
-     * of the given JSON "movies" node into a new objects "data" node.
-     *
-     * @param json The full JSON as returned by the remote service, containing the updated movies ID's within the
-     *             <em>{@code movies}</em> node
-     *
-     * @return Extended API response containing the updated movies ID's parsed from the given JSON. The returned object
-     *         typically doesn't contain any additional error or paging information as such data is usually not
-     *         available for remote routes used in conjunction with this method.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<List<Long>> mapMovieUpdates(@Nonnull JsonNode json) throws APIException {
-        return mapObject(new ObjectMapper().createObjectNode()
-                .set("data", json.get("movies")), new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual actor data returned by the series actors route.
-     *
-     * @param json The full JSON as returned by the remote service, containing a list of actor information within the
-     *             <em>{@code data}</em> node
-     *
-     * @return Extended API response containing a list of actors parsed from the given JSON as well as optional,
-     *         additional error information. The returned object typically doesn't contain any additional paging
-     *         information as such data is usually not available for remote routes used in conjunction with this
-     *         method.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<List<Actor>> mapActors(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual summary data returned by the series episode summary route.
-     *
-     * @param json The full JSON as returned by the remote service, containing the series episode summary information
-     *             within the <em>{@code data}</em> node
-     *
-     * @return Extended API response containing the episode summary data parsed from the given JSON. The returned object
-     *         typically doesn't contain any additional error or paging information as such data is usually not
-     *         available for remote routes used in conjunction with this method.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<SeriesSummary> mapSeriesSummary(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual parameters returned by the API route responsible for providing a list of available image query
-     * parameters.
-     *
-     * @param json The full JSON as returned by the remote service, containing a list of image query parameters within
-     *             the <em>{@code data}</em> node
-     *
-     * @return Extended API response containing a list of image query parameters parsed from the given JSON. The
-     *         returned object typically doesn't contain any additional error or paging information as such data is
-     *         usually not available for remote routes used in conjunction with this method.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<List<ImageQueryParameter>> mapImageQueryParameters(@Nonnull JsonNode json)
-            throws APIException {
-        return mapObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual summary data returned by the series images route.
-     *
-     * @param json The full JSON as returned by the remote service, containing the series images information within the
-     *             <em>{@code data}</em> node
-     *
-     * @return Extended API response containing the series images data parsed from the given JSON. The returned object
-     *         typically doesn't contain any additional error or paging information as such data is usually not
-     *         available for remote routes used in conjunction with this method.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<ImageSummary> mapSeriesImageSummary(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual image data returned by the queryable series images route.
-     *
-     * @param json The full JSON as returned by the remote service, containing a list of image information within the
-     *             <em>{@code data}</em> node
-     *
-     * @return Extended API response containing a list of images parsed from the given JSON as well as optional,
-     *         additional error information. The returned object typically doesn't contain any additional paging
-     *         information as such data is usually not available for remote routes used in conjunction with this
-     *         method.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<List<Image>> mapImages(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the recently updated series data returned by the queryable updated route.
-     * <p><br>
-     * The JSON data will be parsed into a map which keys represent the ID of the updated series while their the
-     * corresponding values represent the actual date/time of the last update as epoch time.
-     *
-     * @param json The full JSON as returned by the remote service, containing key/value pairs of recently updated
-     *             series within the <em>{@code data}</em> node
-     *
-     * @return Extended API response containing a map of last updated series parsed from the given JSON as well as
-     *         optional, additional error information. The returned object typically doesn't contain any additional
-     *         paging information as such data is usually not available for remote routes used in conjunction with this
-     *         method.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<Map<Long, Long>> mapUpdates(@Nonnull JsonNode json) throws APIException {
-        Function<JsonNode, Map<Long, Long>> dataFunction =
-                dataNode -> StreamSupport.stream(dataNode.spliterator(), false)
-                        .collect(Collectors.toMap(x -> x.get("id").asLong(), x -> x.get("lastUpdated").asLong()));
-        return mapObject(json, new TypeReference<>() {}, createFunctionalModule(dataFunction));
-    }
-
-    /**
-     * Maps the actual ratings returned by the various routes responsible for adding, querying and fetching user
-     * ratings.
-     *
-     * @param json The full JSON as returned by the remote service, containing a list of rating information within the
-     *             <em>{@code data}</em> node
-     *
-     * @return Extended API response containing a list of ratings parsed from the given JSON as well as optional,
-     *         additional paging information. The returned object typically doesn't contain any additional error
-     *         information as such data is usually not available for remote routes used in conjunction with this
-     *         method.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<List<Rating>> mapRatings(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual user data returned by the user route.
-     *
-     * @param json The full JSON as returned by the remote service, containing the user information within the
-     *             <em>{@code data}</em> node
-     *
-     * @return Extended API response containing the user data parsed from the given JSON. The returned object typically
-     *         doesn't contain any additional error or paging information as such data is usually not available for
-     *         remote routes used in conjunction with this method.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<User> mapUser(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
-    }
 
     /**
      * Returns the <em>{@code data}</em> node of the given JSON. The node must be located on the top-level of the JSON.
@@ -677,13 +272,12 @@ class FunctionalDeserializer<T, X extends IOException> extends com.fasterxml.jac
     static {
         // Add Interface <-> Implementation mappings to the module. The object mapper will use these mappings to determine the
         // proper builder to be used to create new instances of a specific interface (via @JsonDeserialize annotation).
-        APIRESPONSE_MODULE.setAbstractTypes(new SimpleAbstractTypeResolver()
-                .addMapping(APIResponse.Errors.class, APIResponseDTO.ErrorsDTO.class)
-                .addMapping(APIResponse.Links.class, APIResponseDTO.LinksDTO.class)
-        );
+        // ToDo: Check if this is still needed. Might be superfluous due to the lack of complex types (except for
+        //  "Data") within the APIResponse JSON.
+        APIRESPONSE_MODULE.setAbstractTypes(new SimpleAbstractTypeResolver());
     }
 
-    /** Mapper used to read the "errors" and "links" JSON nodes */
+    /** Mapper used to read the "status "JSON node */
     private final ObjectMapper mapper = new ObjectMapper().registerModule(APIRESPONSE_MODULE);
 
     /** The mapping function to be invoked in order to parse the <em>{@code data}</em> node */
@@ -724,10 +318,10 @@ class FunctionalDeserializer<T, X extends IOException> extends com.fasterxml.jac
         JsonNode json = mapper.readTree(jsonParser);
 
         T data = parseNode(json, "data", dataFunction::apply).orElse(null);
-        Optional<APIResponse.Errors> errors = parseNode(json, "errors", APIResponse.Errors.class);
-        Optional<APIResponse.Links> links = parseNode(json, "links", APIResponse.Links.class);
 
-        return new APIResponseDTO.Builder<T>().data(data).errors(errors).links(links).build();
+        Optional<String> status = parseNode(json, "status", String.class);
+
+        return new APIResponseDTO.Builder<T>().data(data).status(status.get()).build();
     }
 
     /**

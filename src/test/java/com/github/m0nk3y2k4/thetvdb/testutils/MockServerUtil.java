@@ -16,6 +16,7 @@
 
 package com.github.m0nk3y2k4.thetvdb.testutils;
 
+import static com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi.Version.API_VERSION;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.ACCEPT;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.ACCEPT_LANGUAGE;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.AUTHORIZATION;
@@ -136,7 +137,7 @@ public final class MockServerUtil {
      */
     private static Headers defaultAPIHttpHeaders(boolean withAuthorization) {
         return new Headers(header(CONTENT_TYPE, "application/json; charset=utf-8"),
-                header(ACCEPT, "application/json, application/vnd.thetvdb.v3.0.0"),
+                header(ACCEPT, "application/json, application/vnd.thetvdb." + API_VERSION),
                 header(USER_AGENT, "Mozilla/5.0"),
                 withAuthorization
                         ? header(AUTHORIZATION, "Bearer [A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*$")

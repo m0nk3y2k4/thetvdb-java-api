@@ -1,8 +1,0 @@
-{
-  "data": {
-    "content-length": "0",
-    "connection": "keep-alive",
-    "Header1": "Value1",
-    "Header2": "Value2"
-  }
-}

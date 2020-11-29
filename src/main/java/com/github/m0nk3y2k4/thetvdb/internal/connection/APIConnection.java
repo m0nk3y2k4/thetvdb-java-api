@@ -56,7 +56,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APICommunicationException;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APINotAuthorizedException;
-import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.AuthenticationAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Preconditions;
@@ -418,7 +417,8 @@ public class APIConnection {
         switch (session.getStatus()) {
             case NOT_AUTHORIZED:
             case AUTHORIZED:
-                AuthenticationAPI.login(this);    // Not yet authorized or authorization expired: Request a new token
+                // ToDo: Adjust to new APIv4 login mechanics
+//                AuthenticationAPI.login(this);    // Not yet authorized or authorization expired: Request a new token
                 break;
             default:
                 // Authorization is already in progress but could not be completed. Do not retry to authorize this session
