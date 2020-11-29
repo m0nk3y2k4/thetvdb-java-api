@@ -1,0 +1,64 @@
+{
+  "data": {
+    "id": 548745,
+    "seriesId": 69554,
+    "name": "Name",
+    "aired": "Aired",
+    "runtime": 62,
+    "nameTranslations": [
+      "NameTranslation1", "NameTranslation2"
+    ],
+    "overviewTranslations": [
+      "OverviewTranslation1", "OverviewTranslation2"
+    ],
+    "image": "Image",
+    "imageType": 5,
+    "isMovie": 0,
+    "seasons": [
+      {
+        "id": 425874,
+        "seriesId": 43647,
+        "type": 3,
+        "name": "Name1",
+        "number": 9,
+        "nameTranslations": [
+          "NameTranslation1", "NameTranslation2"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation1", "OverviewTranslation2"
+        ],
+        "image": "Image1",
+        "imageType": 19,
+        "network": {
+          "id": 578,
+          "name": "Name1",
+          "slug": "Slug1",
+          "abbreviation": "Abbreviation1",
+          "country": "Country1"
+        }
+      }, {
+        "id": 425875,
+        "seriesId": 43648,
+        "type": 4,
+        "name": "Name2",
+        "number": 10,
+        "nameTranslations": [
+          "NameTranslation3", "NameTranslation4"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation3", "OverviewTranslation4"
+        ],
+        "image": "Image2",
+        "imageType": 20,
+        "network": {
+          "id": 579,
+          "name": "Name2",
+          "slug": "Slug2",
+          "abbreviation": "Abbreviation2",
+          "country": "Country2"
+        }
+      }
+    ]
+  },
+  "status": "success"
+}

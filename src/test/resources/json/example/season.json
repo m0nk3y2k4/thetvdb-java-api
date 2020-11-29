@@ -1,0 +1,25 @@
+{
+  "data": {
+    "id": 47748,
+    "seriesId": 95874,
+    "type": 6954,
+    "name": "Name",
+    "number": 6,
+    "nameTranslations": [
+      "NameTranslation1", "NameTranslation2"
+    ],
+    "overviewTranslations": [
+      "OverviewTranslation1", "OverviewTranslation2"
+    ],
+    "image": "Image",
+    "imageType": 487,
+    "network": {
+      "id": 7841,
+      "name": "Name",
+      "slug": "Slug",
+      "abbreviation": "Abbreviation",
+      "country": "Country"
+    }
+  },
+  "status": "success"
+}

@@ -1,0 +1,249 @@
+{
+  "data": {
+    "id": 924,
+    "name": "Name",
+    "slug": "Slug",
+    "image": "Image",
+    "nameTranslations": [
+      "NameTranslation1", "NameTranslation2"
+    ],
+    "overviewTranslations": [
+      "OverviewTranslation1", "OverviewTranslation2"
+    ],
+    "aliases": [
+      {
+        "language": "Language1",
+        "name": "Name1"
+      }, {
+        "language": "Language2",
+        "name": "Name2"
+      }
+    ],
+    "firstAired": "FirstAired",
+    "lastAired": "LastAired",
+    "nextAired": "NextAired",
+    "score": 5,
+    "status": {
+      "id": 99,
+      "name": "Name",
+      "recordType": "RecordType",
+      "keepUpdated": true
+    },
+    "originalCountry": "OriginalCountry",
+    "originalLanguage": "OriginalLanguage",
+    "originalNetwork": {
+      "id": 634,
+      "name": "Name",
+      "slug": "Slug",
+      "abbreviation": "Abbreviation",
+      "country": "Country"
+    },
+    "defaultSeasonType": 57,
+    "isOrderRandomized": true,
+    "artworks": [
+      {
+        "id": 557,
+        "image": "Image1",
+        "thumbnail": "Thumbnail1",
+        "language": "Language1",
+        "type": 6547,
+        "score": 34
+      }, {
+        "id": 558,
+        "image": "Image2",
+        "thumbnail": "Thumbnail2",
+        "language": "Language2",
+        "type": 6548,
+        "score": 35
+      }
+    ],
+    "networks": [
+      {
+        "id": 3487,
+        "name": "Name1",
+        "slug": "Slug1",
+        "abbreviation": "Abbreviation1",
+        "country": "Country1"
+      }, {
+        "id": 3488,
+        "name": "Name2",
+        "slug": "Slug2",
+        "abbreviation": "Abbreviation2",
+        "country": "Country2"
+      }
+    ],
+    "genres": [
+      {
+        "id": 8301,
+        "name": "Name1",
+        "slug": "Slug1"
+      }, {
+        "id": 8302,
+        "name": "Name2",
+        "slug": "Slug2"
+      }
+    ],
+    "trailers": [
+      {
+        "id": 6034,
+        "name": "Name1",
+        "language": "Language1",
+        "url": "Url1"
+      }, {
+        "id": 6035,
+        "name": "Name2",
+        "language": "Language2",
+        "url": "Url2"
+      }
+    ],
+    "franchises": [
+      {
+        "id": 87,
+        "name": "Name1",
+        "nameTranslations": [
+          "NameTranslation1", "NameTranslation2"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation1", "OverviewTranslation2"
+        ],
+        "aliases": [
+          "Alias1", "Alias2"
+        ]
+      }, {
+        "id": 88,
+        "name": "Name2",
+        "nameTranslations": [
+          "NameTranslation3", "NameTranslation4"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation3", "OverviewTranslation4"
+        ],
+        "aliases": [
+          "Alias3", "Alias4"
+        ]
+      }
+    ],
+    "remoteIds": [
+      {
+        "id": "Id1",
+        "type": 3070
+      }, {
+        "id": "Id2",
+        "type": 3071
+      }
+    ],
+    "characters": [
+      {
+        "id": 6784,
+        "name": "Name1",
+        "peopleId": 7740,
+        "seriesId": 360,
+        "movieId": 7846,
+        "episodeId": 97614,
+        "type": 6,
+        "image": "Image1",
+        "sort": 2,
+        "isFeatured": true,
+        "url": "Url1",
+        "nameTranslations": [
+          "NameTranslation1", "NameTranslation2"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation1", "OverviewTranslation2"
+        ],
+        "aliases": [
+          {
+            "language": "Language1",
+            "name": "Name1"
+          }, {
+            "language": "Language2",
+            "name": "Name2"
+          }
+        ]
+      }, {
+        "id": 6785,
+        "name": "Name2",
+        "peopleId": 7741,
+        "seriesId": 361,
+        "movieId": 7847,
+        "episodeId": 97615,
+        "type": 7,
+        "image": "Image2",
+        "sort": 3,
+        "isFeatured": false,
+        "url": "Url2",
+        "nameTranslations": [
+          "NameTranslation3", "NameTranslation4"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation3", "OverviewTranslation4"
+        ],
+        "aliases": [
+          {
+            "language": "Language3",
+            "name": "Name3"
+          }, {
+            "language": "Language4",
+            "name": "Name4"
+          }
+        ]
+      }
+    ],
+    "airsDays": {
+      "friday": true,
+      "monday": true,
+      "saturday": true,
+      "sunday": true,
+      "thursday": true,
+      "tuesday": true,
+      "wednesday": true
+    },
+    "airsTime": "string",
+    "seasons": [
+      {
+        "id": 60014,
+        "seriesId": 48765,
+        "type": 17,
+        "name": "Name1",
+        "number": 67,
+        "nameTranslations": [
+          "NameTranslation1", "NameTranslation2"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation1", "OverviewTranslation2"
+        ],
+        "image": "Image1",
+        "imageType": 47,
+        "network": {
+          "id": 6654,
+          "name": "Name1",
+          "slug": "Slug1",
+          "abbreviation": "Abbreviation1",
+          "country": "Country1"
+        }
+      }, {
+        "id": 60015,
+        "seriesId": 48766,
+        "type": 18,
+        "name": "Name2",
+        "number": 68,
+        "nameTranslations": [
+          "NameTranslation3", "NameTranslation4"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation3", "OverviewTranslation4"
+        ],
+        "image": "Image2",
+        "imageType": 48,
+        "network": {
+          "id": 6655,
+          "name": "Name2",
+          "slug": "Slug2",
+          "abbreviation": "Abbreviation2",
+          "country": "Country2"
+        }
+      }
+    ]
+  },
+  "status": "success"
+}

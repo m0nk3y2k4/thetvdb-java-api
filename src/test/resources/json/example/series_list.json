@@ -1,0 +1,88 @@
+{
+  "data": [
+    {
+      "id": 69314,
+      "name": "Name1",
+      "slug": "Slug1",
+      "image": "Image1",
+      "nameTranslations": [
+        "NameTranslation1", "NameTranslation2"
+      ],
+      "overviewTranslations": [
+        "OverviewTranslation1", "OverviewTranslation2"
+      ],
+      "aliases": [
+        {
+          "language": "Language1",
+          "name": "Name1"
+        }, {
+          "language": "Language2",
+          "name": "Name2"
+        }
+      ],
+      "firstAired": "FirstAired1",
+      "lastAired": "LastAired1",
+      "nextAired": "NextAired1",
+      "score": 47,
+      "status": {
+        "id": 56,
+        "name": "Name1",
+        "recordType": "RecordType1",
+        "keepUpdated": true
+      },
+      "originalCountry": "OriginalCountry1",
+      "originalLanguage": "OriginalLanguage1",
+      "originalNetwork": {
+        "id": 478,
+        "name": "Name1",
+        "slug": "Slug1",
+        "abbreviation": "Abbreviation1",
+        "country": "Country1"
+      },
+      "defaultSeasonType": 78457,
+      "isOrderRandomized": true
+    }, {
+      "id": 69315,
+      "name": "Name2",
+      "slug": "Slug2",
+      "image": "Image2",
+      "nameTranslations": [
+        "NameTranslation3", "NameTranslation4"
+      ],
+      "overviewTranslations": [
+        "OverviewTranslation3", "OverviewTranslation4"
+      ],
+      "aliases": [
+        {
+          "language": "Language3",
+          "name": "Name3"
+        }, {
+          "language": "Language4",
+          "name": "Name4"
+        }
+      ],
+      "firstAired": "FirstAired2",
+      "lastAired": "LastAired2",
+      "nextAired": "NextAired2",
+      "score": 48,
+      "status": {
+        "id": 57,
+        "name": "Name2",
+        "recordType": "RecordType2",
+        "keepUpdated": false
+      },
+      "originalCountry": "OriginalCountry2",
+      "originalLanguage": "OriginalLanguage2",
+      "originalNetwork": {
+        "id": 479,
+        "name": "Name2",
+        "slug": "Slug2",
+        "abbreviation": "Abbreviation2",
+        "country": "Country2"
+      },
+      "defaultSeasonType": 78458,
+      "isOrderRandomized": false
+    }
+  ],
+  "status": "success"
+}

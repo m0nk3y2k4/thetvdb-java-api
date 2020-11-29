@@ -1,0 +1,18 @@
+{
+  "data": {
+    "id": 11354,
+    "name": "Name",
+    "image": "Image",
+    "aliases": [
+      {
+        "language": "Language1",
+        "name": "Name1"
+      }, {
+        "language": "Language2",
+        "name": "Name2"
+      }
+    ],
+    "score": 487
+  },
+  "status": "success"
+}

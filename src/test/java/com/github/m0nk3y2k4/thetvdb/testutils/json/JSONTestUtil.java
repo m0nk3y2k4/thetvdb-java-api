@@ -46,7 +46,19 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.APIResponseDTO;
 public final class JSONTestUtil {
 
     public enum JsonResource {
-        DATA("data", JSONTestUtil::data, "Full JSON response with data and status node");
+        ARTWORK("artwork", () -> null, "Single artwork JSON response"),
+        ARTWORKTYPES_LIST("artworktypes_list", () -> null, "List of artwork types JSON response"),
+        CHARACTER("character", () -> null, "Single character JSON response"),
+        DATA("data", JSONTestUtil::data, "Full JSON response with data and status node"),
+        EPISODE("episode", () -> null, "Single episode JSON response"),
+        GENRE("genre", () -> null, "Single genre JSON response"),
+        GENRES_LIST("genres_list", () -> null, "List of genres JSON response"),
+        MOVIE("movie", () -> null, "Single movie JSON response"),
+        PEOPLE("people", () -> null, "Single people JSON response"),
+        SEASON("season", () -> null, "Single season JSON response"),
+        SERIES("series", () -> null, "Single series JSON response"),
+        SERIES_EXTENDED("series_extended", () -> null, "Single extended series JSON response"),
+        SERIES_LIST("series_list", () -> null, "List of series JSON response");
 
         private final String fileName;
         private final Supplier<APIResponse<?>> dtoSupplier;

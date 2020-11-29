@@ -1,0 +1,31 @@
+{
+  "data": {
+    "id": 84756,
+    "name": "Name",
+    "slug": "Slug",
+    "image": "Image",
+    "nameTranslations": [
+      "NameTranslation1", "NameTranslation2"
+    ],
+    "overviewTranslations": [
+      "OverviewTranslation1", "OverviewTranslation2"
+    ],
+    "aliases": [
+      {
+        "language": "Language1",
+        "name": "Name1"
+      }, {
+        "language": "Language2",
+        "name": "Name2"
+      }
+    ],
+    "score": 1080,
+    "status": {
+      "id": 547,
+      "keepUpdated": true,
+      "name": "Name",
+      "recordType": "RecordType"
+    }
+  },
+  "status": "success"
+}

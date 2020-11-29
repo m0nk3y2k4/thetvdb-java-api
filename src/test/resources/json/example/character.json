@@ -1,0 +1,31 @@
+{
+  "data": {
+    "id": 36487,
+    "name": "Name",
+    "peopleId": 569,
+    "seriesId": 45,
+    "movieId": 364,
+    "episodeId": 975,
+    "type": 12,
+    "image": "Image",
+    "sort": 3,
+    "isFeatured": true,
+    "url": "Url",
+    "nameTranslations": [
+      "NameTranslation1", "NameTranslation2"
+    ],
+    "overviewTranslations": [
+      "OverviewTranslation1", "OverviewTranslation2"
+    ],
+    "aliases": [
+      {
+        "language": "Language1",
+        "name": "Name1"
+      }, {
+        "language": "Language2",
+        "name": "Name2"
+      }
+    ]
+  },
+  "status": "success"
+}
