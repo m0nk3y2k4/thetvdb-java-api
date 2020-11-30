@@ -22,12 +22,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Artwork;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkType;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.APIResponseDTO;
 
 /**
@@ -46,18 +50,18 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.APIResponseDTO;
 public final class JSONTestUtil {
 
     public enum JsonResource {
-        ARTWORK("artwork", () -> null, "Single artwork JSON response"),
-        ARTWORKTYPES_LIST("artworktypes_list", () -> null, "List of artwork types JSON response"),
-        CHARACTER("character", () -> null, "Single character JSON response"),
+        ARTWORK("artwork", JSONTestUtil::artwork, "Single artwork JSON response"),
+        ARTWORKTYPE_LIST("artworktype_list", JSONTestUtil::artworkType, "List of artwork types JSON response"),
+        CHARACTER("character", JSONTestUtil::character, "Single character JSON response"),
         DATA("data", JSONTestUtil::data, "Full JSON response with data and status node"),
         EPISODE("episode", () -> null, "Single episode JSON response"),
         GENRE("genre", () -> null, "Single genre JSON response"),
-        GENRES_LIST("genres_list", () -> null, "List of genres JSON response"),
+        GENRE_LIST("genre_list", () -> null, "List of genres JSON response"),
         MOVIE("movie", () -> null, "Single movie JSON response"),
         PEOPLE("people", () -> null, "Single people JSON response"),
         SEASON("season", () -> null, "Single season JSON response"),
         SERIES("series", () -> null, "Single series JSON response"),
-        SERIES_EXTENDED("series_extended", () -> null, "Single extended series JSON response"),
+        SERIES_DETAILS("series_extended", () -> null, "Single extended series JSON response"),
         SERIES_LIST("series_list", () -> null, "List of series JSON response");
 
         private final String fileName;
@@ -121,13 +125,52 @@ public final class JSONTestUtil {
     private JSONTestUtil() {}
 
     /**
+     * Creates a new basic artwork APIResponse DTO with default values set
+     *
+     * @return New basic artwork APIResponse DTO prefilled with default values
+     */
+    public static APIResponse<Artwork> artwork() {
+        return createAPIResponse(null);
+    }
+
+    /**
+     * Creates a new artwork type APIResponse DTO with default values set
+     *
+     * @return New artwork type APIResponse DTO prefilled with default values
+     */
+    public static APIResponse<List<ArtworkType>> artworkType() {
+        return createAPIResponse(null);
+    }
+
+    /**
+     * Creates a new character APIResponse DTO with default values set
+     *
+     * @return New character APIResponse DTO prefilled with default values
+     */
+    public static APIResponse<Character> character() {
+        return createAPIResponse(null);
+    }
+
+    /**
      * Creates a new full APIResponse DTO containing data and status, both prefilled with default values
      *
      * @return New APIResponse DTO prefilled with default values
      */
     public static APIResponse<Data> data() {
-        return new APIResponseDTO.Builder<Data>()
-                .data(Data.with("Some content"))
+        return createAPIResponse(Data.with("Some content"));
+    }
+
+    /**
+     * Creates a new APIResponse DTO with the given <em>{@code data}</em> and some additional default values
+     *
+     * @param data The actual payload DTO of the response
+     * @param <T>  The API response payload type
+     *
+     * @return New APIResponse DTO prefilled with the given object and some additional default values
+     */
+    public static <T> APIResponse<T> createAPIResponse(T data) {
+        return new APIResponseDTO.Builder<T>()
+                .data(data)
                 .status("success")
                 .build();
     }
