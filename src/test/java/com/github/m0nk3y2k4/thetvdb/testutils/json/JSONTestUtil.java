@@ -32,6 +32,13 @@ import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Artwork;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Season;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.APIResponseDTO;
 
 /**
@@ -54,15 +61,15 @@ public final class JSONTestUtil {
         ARTWORKTYPE_LIST("artworktype_list", JSONTestUtil::artworkType, "List of artwork types JSON response"),
         CHARACTER("character", JSONTestUtil::character, "Single character JSON response"),
         DATA("data", JSONTestUtil::data, "Full JSON response with data and status node"),
-        EPISODE("episode", () -> null, "Single episode JSON response"),
-        GENRE("genre", () -> null, "Single genre JSON response"),
-        GENRE_LIST("genre_list", () -> null, "List of genres JSON response"),
-        MOVIE("movie", () -> null, "Single movie JSON response"),
-        PEOPLE("people", () -> null, "Single people JSON response"),
-        SEASON("season", () -> null, "Single season JSON response"),
-        SERIES("series", () -> null, "Single series JSON response"),
-        SERIES_DETAILS("series_extended", () -> null, "Single extended series JSON response"),
-        SERIES_LIST("series_list", () -> null, "List of series JSON response");
+        EPISODE("episode", JSONTestUtil::episode, "Single episode JSON response"),
+        GENRE("genre", JSONTestUtil::genre, "Single genre JSON response"),
+        GENRE_LIST("genre_list", JSONTestUtil::genreList, "List of genres JSON response"),
+        MOVIE("movie", JSONTestUtil::movie, "Single movie JSON response"),
+        PEOPLE("people", JSONTestUtil::people, "Single people JSON response"),
+        SEASON("season", JSONTestUtil::season, "Single season JSON response"),
+        SERIES("series", JSONTestUtil::series, "Single series JSON response"),
+        SERIES_DETAILS("series_extended", JSONTestUtil::seriesDetails, "Single extended series JSON response"),
+        SERIES_LIST("series_list", JSONTestUtil::seriesList, "List of series JSON response");
 
         private final String fileName;
         private final Supplier<APIResponse<?>> dtoSupplier;
@@ -158,6 +165,87 @@ public final class JSONTestUtil {
      */
     public static APIResponse<Data> data() {
         return createAPIResponse(Data.with("Some content"));
+    }
+
+    /**
+     * Creates a new episode APIResponse DTO with default values set
+     *
+     * @return New episode APIResponse DTO prefilled with default values
+     */
+    public static APIResponse<Episode> episode() {
+        return createAPIResponse(null);
+    }
+
+    /**
+     * Creates a new genre APIResponse DTO with default values set
+     *
+     * @return New genre APIResponse DTO prefilled with default values
+     */
+    public static APIResponse<Genre> genre() {
+        return createAPIResponse(null);
+    }
+
+    /**
+     * Creates a new genre overview APIResponse DTO with default values set
+     *
+     * @return New genre overview APIResponse DTO prefilled with default values
+     */
+    public static APIResponse<List<Genre>> genreList() {
+        return createAPIResponse(null);
+    }
+
+    /**
+     * Creates a new movie APIResponse DTO with default values set
+     *
+     * @return New movie APIResponse DTO prefilled with default values
+     */
+    public static APIResponse<Movie> movie() {
+        return createAPIResponse(null);
+    }
+
+    /**
+     * Creates a new people APIResponse DTO with default values set
+     *
+     * @return New people APIResponse DTO prefilled with default values
+     */
+    public static APIResponse<People> people() {
+        return createAPIResponse(null);
+    }
+
+    /**
+     * Creates a new season APIResponse DTO with default values set
+     *
+     * @return New season APIResponse DTO prefilled with default values
+     */
+    public static APIResponse<Season> season() {
+        return createAPIResponse(null);
+    }
+
+    /**
+     * Creates a new series APIResponse DTO with default values set
+     *
+     * @return New series APIResponse DTO prefilled with default values
+     */
+    public static APIResponse<Series> series() {
+        return createAPIResponse(null);
+    }
+
+    /**
+     * Creates a new series details APIResponse DTO with default values set
+     *
+     * @return New series details APIResponse DTO prefilled with default values
+     */
+    public static APIResponse<SeriesDetails> seriesDetails() {
+        return createAPIResponse(null);
+    }
+
+    /**
+     * Creates a new series overview APIResponse DTO with default values set
+     *
+     * @return New series overview APIResponse DTO prefilled with default values
+     */
+    public static APIResponse<List<Series>> seriesList() {
+        return createAPIResponse(null);
     }
 
     /**
