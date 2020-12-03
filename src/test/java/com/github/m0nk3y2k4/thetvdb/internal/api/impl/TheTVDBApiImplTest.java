@@ -85,7 +85,6 @@ class TheTVDBApiImplTest {
             // ToDo: Setup some API routes on MockServer
         }
 
-        @SuppressWarnings("ConstantConditions")
         private Stream<Arguments> withInvalidParameters() {
             return Stream.of(
                 // ToDo: Create and return test arguments with invalid parameters
@@ -157,7 +156,6 @@ class TheTVDBApiImplTest {
             // ToDo: Setup some API routes on MockServer
         }
 
-        @SuppressWarnings("ConstantConditions")
         private Stream<Arguments> withInvalidParameters() {
             return Stream.of(
                 // ToDo: Create and return test arguments with invalid parameters
@@ -210,7 +208,6 @@ class TheTVDBApiImplTest {
             // ToDo: Setup some API routes on MockServer
         }
 
-        @SuppressWarnings("ConstantConditions")
         private Stream<Arguments> withInvalidParameters() {
             return Stream.of(
                 // ToDo: Create and return test arguments with invalid parameters

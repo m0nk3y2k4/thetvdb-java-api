@@ -69,7 +69,6 @@ class HttpsMockServerExtension implements ParameterResolver, BeforeAllCallback, 
     private static final int PRIO_ROUTE = -9;
 
     /** Client for accessing the mocked server running in the background */
-    @SuppressWarnings("resource")
     private final MockServerClient client = new MockServerClient(HOST, PORT);
 
     /** Preconfigured remote API pointing to the actual server mock */

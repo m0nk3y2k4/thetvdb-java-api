@@ -30,7 +30,7 @@ class FunctionalDeserializerTest {
 
 
     @ParameterizedTest(name = "[{index}] {0} is deserialized properly")
-    @EnumSource(value = JsonResource.class, names = {"DATA"})
+    @EnumSource(value = JsonResource.class, names = "DATA")
     void deserialize_withFullJSON_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
         APIResponse<Data> response = new FunctionalDeserializer<>(dataNode -> new ObjectMapper()
                 .readValue(dataNode.toString(), Data.class))
