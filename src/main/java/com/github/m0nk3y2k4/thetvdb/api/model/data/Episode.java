@@ -109,5 +109,5 @@ public interface Episode {
      *
      * @return The <em>{@code seasons}</em> property from the received JSON
      */
-    List<Season> getSasons();
+    List<Season> getSeasons();
 }
