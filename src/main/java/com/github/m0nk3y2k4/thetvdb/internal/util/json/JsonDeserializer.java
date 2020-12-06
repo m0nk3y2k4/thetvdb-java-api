@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
@@ -76,8 +75,6 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.StatusDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TrailerDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.util.functional.ThrowableFunctionalInterfaces;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
-
-// ToDo: Check which of the parsing util methods are still needed
 
 /**
  * Utility class for JSON response deserialization.
@@ -298,14 +295,40 @@ public final class JsonDeserializer {
     }
 
     /**
-     * Returns the <em>{@code data}</em> node of the given JSON. The node must be located on the top-level of the JSON.
+     * Deserializes the given JSON based on the given type reference to a new object of type <b>T</b>. A new functional
+     * module which is based on the given type reference will be used in order to map the JSON's top-level <em>{@code
+     * data}</em> node.
      *
-     * @param json The JSON containing the <em>{@code data}</em> node on top-level
+     * @param json          The JSON object to be parsed
+     * @param typeReference The value type reference used for deserialization
+     * @param <T>           The type of object that the JSON should be mapped to
      *
-     * @return The top-level <em>{@code data}</em> of the given JSON
+     * @return Deserialized JSON object mapped to an instance of type <b>T</b>
+     *
+     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
      */
-    private static JsonNode getData(@Nonnull JsonNode json) {
-        return json.get("data");
+    private static <T> T mapObject(@Nonnull JsonNode json, @Nonnull TypeReference<T> typeReference)
+            throws APIException {
+        try {
+            return new ObjectMapper().registerModule(createFunctionalModule(typeReference))
+                    .readValue(json.toString(), typeReference);
+        } catch (JsonProcessingException ex) {
+            throw new APIException(API_JSON_PARSE_ERROR, ex);
+        }
+    }
+
+    /**
+     * Creates a new JSON object mapper module which uses the given type reference to perform a functional
+     * deserialization of the JSON's <em>{@code data}</em> node when parsing a parameterized API response.
+     *
+     * @param typeReference The type reference used for the functional JSON deserialization
+     * @param <T>           The type of object that the <em>{@code data}</em> node should be mapped to
+     *
+     * @return Simple JSON object mapper module containing a single functional deserializer
+     */
+    private static <T> Module createFunctionalModule(@Nonnull TypeReference<T> typeReference) {
+        return new SimpleModule()
+                .addDeserializer(APIResponse.class, new FunctionalDeserializer<>(createDataFunction(typeReference)));
     }
 
     /**
@@ -323,93 +346,6 @@ public final class JsonDeserializer {
     }
 
     /**
-     * Creates a new JSON object mapper module which uses the given type reference to perform a functional
-     * deserialization of the JSON's <em>{@code data}</em> node when parsing a parameterized API response.
-     *
-     * @param typeReference The type reference used for the functional JSON deserialization
-     * @param <T>           The type of object that the <em>{@code data}</em> node should be mapped to
-     *
-     * @return Simple JSON object mapper module containing a single functional deserializer
-     */
-    private static <T> Module createFunctionalModule(@Nonnull TypeReference<T> typeReference) {
-        return createFunctionalModule(createDataFunction(typeReference));
-    }
-
-    /**
-     * Creates a new JSON object mapper module which uses the given supplier to perform a functional deserialization of
-     * the JSON's <em>{@code data}</em> node when parsing a parameterized API response. As it is not possible to access
-     * the actual JSON data from within the supplier, modules created by this method may primarily be used to specify
-     * some default object mapping (without parsing the actual JSON).
-     *
-     * @param supplier Supplier returning some default value without actually parsing the JSON <em>{@code data}</em>
-     *                 node
-     * @param <T>      The type of object that the <em>{@code data}</em> node should be mapped to
-     *
-     * @return Simple JSON object mapper module containing a single functional deserializer
-     */
-    private static <T> Module createFunctionalModule(@Nonnull Supplier<T> supplier) {
-        return createFunctionalModule(ThrowableFunctionalInterfaces.Function.of(node -> supplier.get()));
-    }
-
-    /**
-     * Creates a new JSON object mapper module which uses the given function to perform a functional deserialization of
-     * the JSON's <em>{@code data}</em> node when parsing a parameterized API response. The given function will receive
-     * the <em>{@code data}</em> node as input parameter and is required to return a new instance of type <b>T</b>. It's
-     * up to the function itself whether it is actually interested in parsing the provided JSON. It may also just return
-     * some default value while completely ignoring the JSON's content.
-     *
-     * @param dataFunction The function to be used to parse the JSON's <em>{@code data}</em> node. The object returned
-     *                     by this function will be considered to be the valid outcome of parsing this node.
-     * @param <T>          The type of object that the <em>{@code data}</em> node should be mapped to
-     *
-     * @return Simple JSON object mapper module containing a single functional deserializer
-     *
-     * @see #createFunctionalModule(ThrowableFunctionalInterfaces.Function) createFunctionalModule(throwableFunction)
-     */
-    private static <T> Module createFunctionalModule(@Nonnull Function<JsonNode, T> dataFunction) {
-        return createFunctionalModule(ThrowableFunctionalInterfaces.Function.of(dataFunction));
-    }
-
-    /**
-     * Creates a new JSON object mapper module which uses the given function to perform a functional deserialization of
-     * the JSON's <em>{@code data}</em> node when parsing a parameterized API response. The given function will receive
-     * the <em>{@code data}</em> node as input parameter and is required to return a new instance of type <b>T</b>. It's
-     * up to the function itself whether it is actually interested in parsing the provided JSON. It may also just return
-     * some default value while completely ignoring the JSON's content. The function is permitted to throw an {@link
-     * IOException} as this is a common type of exception to be occurring when parsing JSON data.
-     *
-     * @param dataFunction The function to be used to parse the JSON's <em>{@code data}</em> node. The object returned
-     *                     by this function will be considered to be the valid outcome of parsing this node.
-     * @param <T>          The type of object that the <em>{@code data}</em> node should be mapped to
-     *
-     * @return Simple JSON object mapper module containing a single functional deserializer
-     *
-     * @see #createFunctionalModule(Function) createFunctionalModule(function)
-     */
-    private static <T> Module createFunctionalModule(
-            @Nonnull ThrowableFunctionalInterfaces.Function<JsonNode, T, IOException> dataFunction) {
-        return new SimpleModule().addDeserializer(APIResponse.class, new FunctionalDeserializer<>(dataFunction));
-    }
-
-    /**
-     * Deserializes the given JSON based on the given type reference to a new object of type <b>T</b>. A new functional
-     * module which is based on the given type reference will be used in order to map the JSON's top-level <em>{@code
-     * data}</em> node.
-     *
-     * @param json          The JSON object to be parsed
-     * @param typeReference The value type reference used for deserialization
-     * @param <T>           The type of object that the JSON should be mapped to
-     *
-     * @return Deserialized JSON object mapped to an instance of type <b>T</b>
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    private static <T> T mapObject(@Nonnull JsonNode json, @Nonnull TypeReference<T> typeReference)
-            throws APIException {
-        return mapObject(json, typeReference, createFunctionalModule(typeReference));
-    }
-
-    /**
      * Deserializes the given <em>{@code dataNode}</em> based on the given type reference to a new object of type
      * <b>T</b> by using the default mapping module.
      *
@@ -424,29 +360,6 @@ public final class JsonDeserializer {
     private static <T> T mapDataObject(@Nonnull JsonNode dataNode, @Nonnull TypeReference<T> dataTypeReference)
             throws IOException {
         return new ObjectMapper().registerModule(DATA_MODULE).readValue(dataNode.toString(), dataTypeReference);
-    }
-
-    /**
-     * Deserializes the given JSON based on the given type reference to a new object of type <b>T</b>. The given mapping
-     * module will be registered prior to the actual parsing in order to extend the mapper with additional functionality
-     * required for a successful deserialization.
-     *
-     * @param json          The JSON object to be parsed
-     * @param typeReference The value type reference used for deserialization
-     * @param module        Module providing additional functionality required for a successful deserialization
-     * @param <T>           The type of object that the JSON should be mapped to
-     *
-     * @return Deserialized JSON object mapped to an instance of type <b>T</b>
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    private static <T> T mapObject(@Nonnull JsonNode json, @Nonnull TypeReference<T> typeReference,
-            @Nonnull Module module) throws APIException {
-        try {
-            return new ObjectMapper().registerModule(module).readValue(json.toString(), typeReference);
-        } catch (JsonProcessingException ex) {
-            throw new APIException(API_JSON_PARSE_ERROR, ex);
-        }
     }
 
     /**

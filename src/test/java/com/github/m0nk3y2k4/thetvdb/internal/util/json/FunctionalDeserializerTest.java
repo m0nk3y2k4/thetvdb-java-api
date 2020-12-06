@@ -17,24 +17,54 @@
 package com.github.m0nk3y2k4.thetvdb.internal.util.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+
+import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
 import com.github.m0nk3y2k4.thetvdb.testutils.json.Data;
 import com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class FunctionalDeserializerTest {
 
+    //@DisableFormatting
+    private static final String MISSING_DATA_PROPERTY =
+            "\"status\": \"success\"";
+
+    private static final String MISSING_STATUS_PROPERTY =
+            "\"data\": {\"content\": \"Some content\"}";
+
+    private static final String NULL_DATA_PROPERTY =
+            "\"data\": null," +
+            "\"status\": \"success\"";
+
+    private static final String NULL_STATUS_PROPERTY =
+            "\"data\": {\"content\": \"Some content\"}," +
+            "\"status\": null";
+    //@EnableFormatting
+
+    private final FunctionalDeserializer<Data, IOException> functionalDeserializer =
+            new FunctionalDeserializer<>(dataNode -> new ObjectMapper().readValue(dataNode.toString(), Data.class));
+
+    @ParameterizedTest(name = "[{index}] JSON [{0}] throws IllegalArgumentException")
+    @ValueSource(strings = {MISSING_DATA_PROPERTY, NULL_DATA_PROPERTY, MISSING_STATUS_PROPERTY, NULL_STATUS_PROPERTY})
+    void deserialize_withMissingOrNullProperty_throwsIllegalArgumentException(String jsonContent) throws Exception {
+        JsonParser jsonParser = new JsonFactory().createParser("{" + jsonContent + "}");
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() ->
+                functionalDeserializer.deserialize(jsonParser, null));
+    }
 
     @ParameterizedTest(name = "[{index}] {0} is deserialized properly")
     @EnumSource(value = JsonResource.class, names = "DATA")
     void deserialize_withFullJSON_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
-        APIResponse<Data> response = new FunctionalDeserializer<>(dataNode -> new ObjectMapper()
-                .readValue(dataNode.toString(), Data.class))
-                .deserialize(new JsonFactory().createParser(resource.getUrl()), null);
+        JsonParser jsonParser = new JsonFactory().createParser(resource.getUrl());
+        APIResponse<Data> response = functionalDeserializer.deserialize(jsonParser, null);
 
         assertThat(response).isNotNull().isEqualTo(resource.getDTO());
     }
