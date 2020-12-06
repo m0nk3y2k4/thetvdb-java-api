@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
 
-// ToDo: Rework JDoc once APIv4 implementation is finished
+// ToDo: Revise JDoc once APIv4 implementation is finished
 
 /**
  * Main interface of the <i>TheTVDB</i> API connector.

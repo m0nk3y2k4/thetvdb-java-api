@@ -98,7 +98,7 @@ class TheTVDBApiImplTest {
         }
         //@EnableFormatting
 
-        @Disabled
+        @Disabled("New APIv4 implementation is still pending")
         @ParameterizedTest(name = "[{index}] Route TheTVDBApi.{0} rejected")
         @MethodSource("withInvalidParameters")
         <T> void invokeRoute_withInvalidParametersOrState_verifyParameterValidationAndPreconditionChecks(
@@ -107,7 +107,7 @@ class TheTVDBApiImplTest {
                     .isInstanceOfAny(IllegalArgumentException.class, APIPreconditionException.class);
         }
 
-        @Disabled
+        @Disabled("New APIv4 implementation is still pending")
         @ParameterizedTest(name = "[{index}] Route TheTVDBApi.{0} successfully invoked")
         @MethodSource("withValidParameters")
         <T> void invokeRoute_withValidParameters_verifyResponse(TestTheTVDBAPICall<T> route, Object expected,
@@ -169,7 +169,7 @@ class TheTVDBApiImplTest {
         }
         //@EnableFormatting
 
-        @Disabled
+        @Disabled("New APIv4 implementation is still pending")
         @ParameterizedTest(name = "[{index}] Route TheTVDBApi.{0} rejected")
         @MethodSource("withInvalidParameters")
         <T> void invokeRoute_withInvalidParametersOrState_verifyParameterValidationAndPreconditionChecks(
@@ -178,7 +178,7 @@ class TheTVDBApiImplTest {
                     .isInstanceOfAny(IllegalArgumentException.class, APIPreconditionException.class);
         }
 
-        @Disabled
+        @Disabled("New APIv4 implementation is still pending")
         @ParameterizedTest(name = "[{index}] Route TheTVDBApi.{0} successfully invoked")
         @MethodSource("withValidParameters")
         <T> void invokeRoute_withValidParameters_verifyResponse(TestTheTVDBAPICall<T> route, Object expected)
@@ -221,7 +221,7 @@ class TheTVDBApiImplTest {
         }
         //@EnableFormatting
 
-        @Disabled
+        @Disabled("New APIv4 implementation is still pending")
         @ParameterizedTest(name = "[{index}] Route TheTVDBApi.{0} rejected")
         @MethodSource("withInvalidParameters")
         <T> void invokeRoute_withInvalidParametersOrState_verifyParameterValidationAndPreconditionChecks(
@@ -230,7 +230,7 @@ class TheTVDBApiImplTest {
                     .isInstanceOfAny(IllegalArgumentException.class, APIPreconditionException.class);
         }
 
-        @Disabled
+        @Disabled("New APIv4 implementation is still pending")
         @ParameterizedTest(name = "[{index}] Route TheTVDBApi.{0} successfully invoked")
         @MethodSource("withValidParameters")
         <T> void invokeRoute_withValidParameters_verifyResponse(TestTheTVDBAPICall<T> route, Object expected,

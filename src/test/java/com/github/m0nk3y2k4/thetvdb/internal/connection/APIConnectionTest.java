@@ -149,7 +149,7 @@ class APIConnectionTest {
         assertThat(exception).hasMessageContaining(ERR_MAX_RETRY_EXCEEDED, MAX_AUTHENTICATION_RETRY_COUNT);
     }
 
-    @Disabled
+    @Disabled("Authorization has to be revised for APIv4")
     @Test
     void sendRequest_automaticAuthorizationSuccess(MockServerClient client) throws Exception {
         final String resource = "/auth/autoAuthSuccess";
@@ -158,7 +158,7 @@ class APIConnectionTest {
         client.verify(request(resource), VerificationTimes.exactly(2));
     }
 
-    @Disabled
+    @Disabled("Authorization has to be revised for APIv4")
     @Test
     void sendRequest_automaticAuthorizationFailed(MockServerClient client) {
         final String resource = "/auth/autoAuthFailed";

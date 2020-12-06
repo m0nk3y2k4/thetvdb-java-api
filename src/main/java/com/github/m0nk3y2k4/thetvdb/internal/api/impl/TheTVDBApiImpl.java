@@ -32,7 +32,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
-// ToDo: Rework JDoc once APIv4 implementation is finished
+// ToDo: Revise JDoc once APIv4 implementation is finished
 
 /**
  * Implementation of the {@link TheTVDBApi} API layout. It provides methods for all sorts of API calls throughout the
