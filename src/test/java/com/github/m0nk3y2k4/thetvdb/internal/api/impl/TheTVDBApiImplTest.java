@@ -16,10 +16,29 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl;
 
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
+import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.params;
+import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
+import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
+import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.ARTWORK;
+import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.ARTWORKTYPE_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.CHARACTER;
+import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.EPISODE;
+import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.GENRE;
+import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.GENRE_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.MOVIE;
+import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.PEOPLE;
+import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.SEASON;
+import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.SERIES;
+import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.SERIES_DETAILS;
+import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.SERIES_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestTheTVDBAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
+import static org.junit.jupiter.params.provider.Arguments.of;
+import static org.mockserver.model.Parameter.param;
 
 import java.util.stream.Stream;
 
@@ -27,6 +46,7 @@ import com.github.m0nk3y2k4.thetvdb.api.Proxy;
 import com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APIPreconditionException;
+import com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders;
 import com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod;
 import com.github.m0nk3y2k4.thetvdb.testutils.assertj.TestTheTVDBAPICallAssert;
 import com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter.WithHttpsMockServer;
@@ -82,7 +102,19 @@ class TheTVDBApiImplTest {
         //@DisableFormatting
         @BeforeAll
         void setUpRoutes(MockServerClient client) throws Exception {
-            // ToDo: Setup some API routes on MockServer
+            client.when(request("/artwork-types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
+            client.when(request("/artwork/3447", GET)).respond(jsonResponse(ARTWORK));
+            client.when(request("/characters/604784", GET)).respond(jsonResponse(CHARACTER));
+            client.when(request("/episodes/141007", GET)).respond(jsonResponse(EPISODE));
+            client.when(request("/genres", GET)).respond(jsonResponse(GENRE_LIST));
+            client.when(request("/genres/47", GET)).respond(jsonResponse(GENRE));
+            client.when(request("/movies/54394", GET)).respond(jsonResponse(MOVIE));
+            client.when(request("/people/431071", GET)).respond(jsonResponse(PEOPLE));
+            client.when(request("/seasons/34167", GET)).respond(jsonResponse(SEASON));
+            client.when(request("/series", GET)).respond(jsonResponse(SERIES_LIST));
+            client.when(request("/series", GET, param("value", "QuerySeries"))).respond(jsonResponse(SERIES_LIST));
+            client.when(request("/series/2845", GET)).respond(jsonResponse(SERIES));
+            client.when(request("/series/9041/extended", GET)).respond(jsonResponse(SERIES_DETAILS));
         }
 
         private Stream<Arguments> withInvalidParameters() {
@@ -93,7 +125,19 @@ class TheTVDBApiImplTest {
 
         private Stream<Arguments> withValidParameters() {
             return Stream.of(
-                // ToDo: Create and return test arguments with valid parameters
+                    of(route(() -> basicAPI.getArtworkTypes(), "getArtworkTypes()"), ARTWORKTYPE_LIST),
+                    of(route(() -> basicAPI.getArtwork(3447), "getArtwork()"), ARTWORK),
+                    of(route(() -> basicAPI.getCharacter(604784), "getCharacter()"), CHARACTER),
+                    of(route(() -> basicAPI.getEpisode(141007), "getEpisode()"), EPISODE),
+                    of(route(() -> basicAPI.getGenres(), "getGenres()"), GENRE_LIST),
+                    of(route(() -> basicAPI.getGenre(47), "getGenre()"), GENRE),
+                    of(route(() -> basicAPI.getMovie(54394), "getMovie()"), MOVIE),
+                    of(route(() -> basicAPI.getPeople(431071), "getPeople()"), PEOPLE),
+                    of(route(() -> basicAPI.getSeason(34167), "getSeason()"), SEASON),
+                    of(route(() -> basicAPI.querySeries(null), "querySeries() without query parameters"), SERIES_LIST),
+                    of(route(() -> basicAPI.querySeries(params("value", "QuerySeries")), "querySeries() with query parameters"), SERIES_LIST),
+                    of(route(() -> basicAPI.getSeries(2845), "getSeries()"), SERIES),
+                    of(route(() -> basicAPI.getSeriesDetails(9041), "getSeriesDetails()"), SERIES_DETAILS)
             );
         }
         //@EnableFormatting
@@ -107,7 +151,6 @@ class TheTVDBApiImplTest {
                     .isInstanceOfAny(IllegalArgumentException.class, APIPreconditionException.class);
         }
 
-        @Disabled("New APIv4 implementation is still pending")
         @ParameterizedTest(name = "[{index}] Route TheTVDBApi.{0} successfully invoked")
         @MethodSource("withValidParameters")
         <T> void invokeRoute_withValidParameters_verifyResponse(TestTheTVDBAPICall<T> route, Object expected,
@@ -126,13 +169,12 @@ class TheTVDBApiImplTest {
         @Test
         void setLanguage_withValidLanguage_verifyLanguageIsSetInApiRequests(MockServerClient client, Proxy remoteAPI)
                 throws Exception {
-            // ToDo: Re-enable after APIv4 implementation is finished
-//            final String language = "es";
-//            TheTVDBApi api = init(new TheTVDBApiImpl("65SOWU45S4FAA", remoteAPI));
-//            api.setLanguage(language);
-//            api.getEpisodes(69845);
-//            client.verify(HttpRequest.request("/series/69845/episodes")
-//                    .withHeader(HttpHeaders.ACCEPT_LANGUAGE, language));
+            final String language = "es";
+            TheTVDBApi api = init(new TheTVDBApiImpl("65SOWU45S4FAA", remoteAPI));
+            api.setLanguage(language);
+            api.getArtwork(3447);
+            client.verify(HttpRequest.request("/artwork/3447")
+                    .withHeader(HttpHeaders.ACCEPT_LANGUAGE, language));
         }
     }
 
@@ -153,7 +195,19 @@ class TheTVDBApiImplTest {
         //@DisableFormatting
         @BeforeAll
         void setUpRoutes(MockServerClient client) throws Exception {
-            // ToDo: Setup some API routes on MockServer
+            client.when(request("/artwork-types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
+            client.when(request("/artwork/6701", GET)).respond(jsonResponse(ARTWORK));
+            client.when(request("/characters/94347", GET)).respond(jsonResponse(CHARACTER));
+            client.when(request("/episodes/640796", GET)).respond(jsonResponse(EPISODE));
+            client.when(request("/genres", GET)).respond(jsonResponse(GENRE_LIST));
+            client.when(request("/genres/21", GET)).respond(jsonResponse(GENRE));
+            client.when(request("/movies/61714", GET)).respond(jsonResponse(MOVIE));
+            client.when(request("/people/3647", GET)).respond(jsonResponse(PEOPLE));
+            client.when(request("/seasons/18322", GET)).respond(jsonResponse(SEASON));
+            client.when(request("/series", GET)).respond(jsonResponse(SERIES_LIST));
+            client.when(request("/series", GET, param("value", "QuerySeriesJson"))).respond(jsonResponse(SERIES_LIST));
+            client.when(request("/series/5003", GET)).respond(jsonResponse(SERIES));
+            client.when(request("/series/5842/extended", GET)).respond(jsonResponse(SERIES_DETAILS));
         }
 
         private Stream<Arguments> withInvalidParameters() {
@@ -164,7 +218,19 @@ class TheTVDBApiImplTest {
 
         private Stream<Arguments> withValidParameters() {
             return Stream.of(
-                // ToDo: Create and return test arguments with valid parameters
+                    of(route(() -> basicAPI.getArtworkTypes(), "getArtworkTypes()"), ARTWORKTYPE_LIST),
+                    of(route(() -> basicAPI.getArtwork(6701), "getArtwork()"), ARTWORK),
+                    of(route(() -> basicAPI.getCharacter(94347), "getCharacter()"), CHARACTER),
+                    of(route(() -> basicAPI.getEpisode(640796), "getEpisode()"), EPISODE),
+                    of(route(() -> basicAPI.getGenres(), "getGenres()"), GENRE_LIST),
+                    of(route(() -> basicAPI.getGenre(21), "getGenre()"), GENRE),
+                    of(route(() -> basicAPI.getMovie(61714), "getMovie()"), MOVIE),
+                    of(route(() -> basicAPI.getPeople(3647), "getPeople()"), PEOPLE),
+                    of(route(() -> basicAPI.getSeason(18322), "getSeason()"), SEASON),
+                    of(route(() -> basicAPI.querySeries(null), "querySeries() without query parameters"), SERIES_LIST),
+                    of(route(() -> basicAPI.querySeries(params("value", "QuerySeriesJson")), "querySeries() with query parameters"), SERIES_LIST),
+                    of(route(() -> basicAPI.getSeries(5003), "getSeries()"), SERIES),
+                    of(route(() -> basicAPI.getSeriesDetails(5842), "getSeriesDetails()"), SERIES_DETAILS)
             );
         }
         //@EnableFormatting
@@ -178,7 +244,6 @@ class TheTVDBApiImplTest {
                     .isInstanceOfAny(IllegalArgumentException.class, APIPreconditionException.class);
         }
 
-        @Disabled("New APIv4 implementation is still pending")
         @ParameterizedTest(name = "[{index}] Route TheTVDBApi.{0} successfully invoked")
         @MethodSource("withValidParameters")
         <T> void invokeRoute_withValidParameters_verifyResponse(TestTheTVDBAPICall<T> route, Object expected)
@@ -205,7 +270,19 @@ class TheTVDBApiImplTest {
         //@DisableFormatting
         @BeforeAll
         void setUpRoutes(MockServerClient client) throws Exception {
-            // ToDo: Setup some API routes on MockServer
+            client.when(request("/artwork-types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
+            client.when(request("/artwork/7099", GET)).respond(jsonResponse(ARTWORK));
+            client.when(request("/characters/66470", GET)).respond(jsonResponse(CHARACTER));
+            client.when(request("/episodes/30619", GET)).respond(jsonResponse(EPISODE));
+            client.when(request("/genres", GET)).respond(jsonResponse(GENRE_LIST));
+            client.when(request("/genres/35", GET)).respond(jsonResponse(GENRE));
+            client.when(request("/movies/90034", GET)).respond(jsonResponse(MOVIE));
+            client.when(request("/people/9891", GET)).respond(jsonResponse(PEOPLE));
+            client.when(request("/seasons/52270", GET)).respond(jsonResponse(SEASON));
+            client.when(request("/series", GET)).respond(jsonResponse(SERIES_LIST));
+            client.when(request("/series", GET, param("value", "QuerySeriesExtended"))).respond(jsonResponse(SERIES_LIST));
+            client.when(request("/series/8131", GET)).respond(jsonResponse(SERIES));
+            client.when(request("/series/5444/extended", GET)).respond(jsonResponse(SERIES_DETAILS));
         }
 
         private Stream<Arguments> withInvalidParameters() {
@@ -216,7 +293,19 @@ class TheTVDBApiImplTest {
 
         private Stream<Arguments> withValidParameters() {
             return Stream.of(
-                // ToDo: Create and return test arguments with valid parameters
+                    of(route(() -> basicAPI.getArtworkTypes(), "getArtworkTypes()"), ARTWORKTYPE_LIST),
+                    of(route(() -> basicAPI.getArtwork(7099), "getArtwork()"), ARTWORK),
+                    of(route(() -> basicAPI.getCharacter(66470), "getCharacter()"), CHARACTER),
+                    of(route(() -> basicAPI.getEpisode(30619), "getEpisode()"), EPISODE),
+                    of(route(() -> basicAPI.getGenres(), "getGenres()"), GENRE_LIST),
+                    of(route(() -> basicAPI.getGenre(35), "getGenre()"), GENRE),
+                    of(route(() -> basicAPI.getMovie(90034), "getMovie()"), MOVIE),
+                    of(route(() -> basicAPI.getPeople(9891), "getPeople()"), PEOPLE),
+                    of(route(() -> basicAPI.getSeason(52270), "getSeason()"), SEASON),
+                    of(route(() -> basicAPI.querySeries(null), "querySeries() without query parameters"), SERIES_LIST),
+                    of(route(() -> basicAPI.querySeries(params("value", "QuerySeriesExtended")), "querySeries() with query parameters"), SERIES_LIST),
+                    of(route(() -> basicAPI.getSeries(8131), "getSeries()"), SERIES),
+                    of(route(() -> basicAPI.getSeriesDetails(5444), "getSeriesDetails()"), SERIES_DETAILS)
             );
         }
         //@EnableFormatting
@@ -230,7 +319,6 @@ class TheTVDBApiImplTest {
                     .isInstanceOfAny(IllegalArgumentException.class, APIPreconditionException.class);
         }
 
-        @Disabled("New APIv4 implementation is still pending")
         @ParameterizedTest(name = "[{index}] Route TheTVDBApi.{0} successfully invoked")
         @MethodSource("withValidParameters")
         <T> void invokeRoute_withValidParameters_verifyResponse(TestTheTVDBAPICall<T> route, Object expected,

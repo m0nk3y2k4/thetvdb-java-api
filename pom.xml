@@ -200,10 +200,6 @@
                                 </limits>
                             </rule>
                         </rules>
-                        <!-- ToDo: Remove the following excludes again after APIv4 functionality is implemented -->
-                        <excludes>
-                            <exclude>**/TheTVDBApiImpl.class</exclude>
-                        </excludes>
                     </configuration>
                 </execution>
             </executions>

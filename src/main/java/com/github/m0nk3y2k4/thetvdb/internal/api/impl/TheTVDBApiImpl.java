@@ -16,20 +16,42 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory;
 import com.github.m0nk3y2k4.thetvdb.api.Proxy;
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Artwork;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkType;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Season;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ArtworkAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ArtworkTypesAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.CharactersAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.EpisodesAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.GenresAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.MoviesAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.PeopleAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeasonsAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
+import com.github.m0nk3y2k4.thetvdb.internal.util.json.JsonDeserializer;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 // ToDo: Revise JDoc once APIv4 implementation is finished
@@ -188,6 +210,66 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public List<ArtworkType> getArtworkTypes() throws APIException {
+        return extended().getArtworkTypes().getData();
+    }
+
+    @Override
+    public Artwork getArtwork(long artworkId) throws APIException {
+        return extended().getArtwork(artworkId).getData();
+    }
+
+    @Override
+    public Character getCharacter(long characterId) throws APIException {
+        return extended().getCharacter(characterId).getData();
+    }
+
+    @Override
+    public Episode getEpisode(long episodeId) throws APIException {
+        return extended().getEpisode(episodeId).getData();
+    }
+
+    @Override
+    public List<Genre> getGenres() throws APIException {
+        return extended().getGenres().getData();
+    }
+
+    @Override
+    public Genre getGenre(long genreId) throws APIException {
+        return extended().getGenre(genreId).getData();
+    }
+
+    @Override
+    public Movie getMovie(long movieId) throws APIException {
+        return extended().getMovie(movieId).getData();
+    }
+
+    @Override
+    public People getPeople(long peopleId) throws APIException {
+        return extended().getPeople(peopleId).getData();
+    }
+
+    @Override
+    public Season getSeason(long seasonId) throws APIException {
+        return extended().getSeason(seasonId).getData();
+    }
+
+    @Override
+    public List<Series> querySeries(QueryParameters queryParameters) throws APIException {
+        return extended().querySeries(queryParameters).getData();
+    }
+
+    @Override
+    public Series getSeries(long seriesId) throws APIException {
+        return extended().getSeries(seriesId).getData();
+    }
+
+    @Override
+    public SeriesDetails getSeriesDetails(long seriesId) throws APIException {
+        return extended().getSeriesDetails(seriesId).getData();
+    }
+
+    @Override
     public JSON json() {
         return jsonApi;
     }
@@ -204,6 +286,65 @@ public class TheTVDBApiImpl implements TheTVDBApi {
      */
     private class JSONApi implements JSON {
 
+        @Override
+        public JsonNode getArtworkTypes() throws APIException {
+            return ArtworkTypesAPI.getAllArtworkTypes(con);
+        }
+
+        @Override
+        public JsonNode getArtwork(long artworkId) throws APIException {
+            return ArtworkAPI.getArtworkBase(con, artworkId);
+        }
+
+        @Override
+        public JsonNode getCharacter(long characterId) throws APIException {
+            return CharactersAPI.getCharacterBase(con, characterId);
+        }
+
+        @Override
+        public JsonNode getEpisode(long episodeId) throws APIException {
+            return EpisodesAPI.getEpisodeBase(con, episodeId);
+        }
+
+        @Override
+        public JsonNode getGenres() throws APIException {
+            return GenresAPI.getAllGenres(con);
+        }
+
+        @Override
+        public JsonNode getGenre(long genreId) throws APIException {
+            return GenresAPI.getGenreBase(con, genreId);
+        }
+
+        @Override
+        public JsonNode getMovie(long movieId) throws APIException {
+            return MoviesAPI.getMovieBase(con, movieId);
+        }
+
+        @Override
+        public JsonNode getPeople(long peopleId) throws APIException {
+            return PeopleAPI.getPeopleBase(con, peopleId);
+        }
+
+        @Override
+        public JsonNode getSeason(long seasonId) throws APIException {
+            return SeasonsAPI.getSeasonBase(con, seasonId);
+        }
+
+        @Override
+        public JsonNode querySeries(QueryParameters queryParameters) throws APIException {
+            return SeriesAPI.getAllSeries(con, queryParameters);
+        }
+
+        @Override
+        public JsonNode getSeries(long seriesId) throws APIException {
+            return SeriesAPI.getSeriesBase(con, seriesId);
+        }
+
+        @Override
+        public JsonNode getSeriesDetails(long seriesId) throws APIException {
+            return SeriesAPI.getSeriesExtended(con, seriesId);
+        }
     }
 
     /**
@@ -213,5 +354,64 @@ public class TheTVDBApiImpl implements TheTVDBApi {
      */
     private class ExtendedApi implements Extended {
 
+        @Override
+        public APIResponse<List<ArtworkType>> getArtworkTypes() throws APIException {
+            return JsonDeserializer.mapArtworkTypesOverview(json().getArtworkTypes());
+        }
+
+        @Override
+        public APIResponse<Artwork> getArtwork(long artworkId) throws APIException {
+            return JsonDeserializer.mapArtwork(json().getArtwork(artworkId));
+        }
+
+        @Override
+        public APIResponse<Character> getCharacter(long characterId) throws APIException {
+            return JsonDeserializer.mapCharacter(json().getCharacter(characterId));
+        }
+
+        @Override
+        public APIResponse<Episode> getEpisode(long episodeId) throws APIException {
+            return JsonDeserializer.mapEpisode(json().getEpisode(episodeId));
+        }
+
+        @Override
+        public APIResponse<List<Genre>> getGenres() throws APIException {
+            return JsonDeserializer.mapGenresOverview(json().getGenres());
+        }
+
+        @Override
+        public APIResponse<Genre> getGenre(long genreId) throws APIException {
+            return JsonDeserializer.mapGenre(json().getGenre(genreId));
+        }
+
+        @Override
+        public APIResponse<Movie> getMovie(long movieId) throws APIException {
+            return JsonDeserializer.mapMovie(json().getMovie(movieId));
+        }
+
+        @Override
+        public APIResponse<People> getPeople(long peopleId) throws APIException {
+            return JsonDeserializer.mapPeople(json().getPeople(peopleId));
+        }
+
+        @Override
+        public APIResponse<Season> getSeason(long seasonId) throws APIException {
+            return JsonDeserializer.mapSeason(json().getSeason(seasonId));
+        }
+
+        @Override
+        public APIResponse<List<Series>> querySeries(QueryParameters queryParameters) throws APIException {
+            return JsonDeserializer.mapSeriesOverview(json().querySeries(queryParameters));
+        }
+
+        @Override
+        public APIResponse<Series> getSeries(long seriesId) throws APIException {
+            return JsonDeserializer.mapSeries(json().getSeries(seriesId));
+        }
+
+        @Override
+        public APIResponse<SeriesDetails> getSeriesDetails(long seriesId) throws APIException {
+            return JsonDeserializer.mapSeriesDetails(json().getSeriesDetails(seriesId));
+        }
     }
 }

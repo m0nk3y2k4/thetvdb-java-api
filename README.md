@@ -98,8 +98,84 @@ the upcoming APIv4.
 <details>
 <summary>WIP: Supported TheTVDB.com APIv4 routes (<code>thetvdb-java-api v4.x</code>)</summary>
 
+- Artwork statuses
+    - [ ] [/artwork-statuses](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/artwork-statuses/getAllArtworkStatuses)
+- Artwork types
+    - [x] [/artwork-types](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/artwork-types/getAllArtworkTypes)
+- Artwork
+    - [x] [/artwork/{id}](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/artwork/getArtworkBase)
+    - [ ] [/artwork/{id}/extended](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/artwork/getArtworkExtended)
+    - [ ] [~~/artwork/{id}/translations/{language}~~](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/artwork/getArtworkTranslation)
+- Award categories
+    - [ ] [/award-categories/{id}](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/award-categories/getAwardCategory)
+    - [ ] [/award-categories/{id}/extended](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/award-categories/getAwardCategoryExtended)
+- Awards
+    - [ ] [/awards](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/awards/getAllAwards)
+    - [ ] [/awards/{id}](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/awards/getAward)
+    - [ ] [/awards/{id}/extended](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/awards/getAwardExtended)
+- Characters
+    - [x] [/characters/{id}](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/characters/getCharacterBase)
+- Companies
+    - [ ] [/companies](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/companies/getAllCompanies)
+    - [ ] [/companies/{id}](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/companies/getCompany)
+    - [ ] [/companies/{id}/movies]()
+    - [ ] [/companies/{id}/episodes]()
+    - [ ] [/companies/{id}/series]()
+    - [ ] [/companies/{id}/seriesRollup]()
+- Company types
+    - [ ] [/company-types]()
+- Content ratings
+    - [ ] [/content-ratings](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/content-ratings/getAllContentRatings)
+- Countries
+    - [ ] [~~/countries~~](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/countries/getAllCountries)
+    - [ ] [/countries/{id}/series]()
+    - [ ] [/countries/{id}/movies]()
+    - [ ] [/countries/{id}/networks]()
+- Entity types
+    - [ ] [/entity-types]()
+- Episodes
+    - [x] [/episodes/{id}](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/episodes/getEpisodeBase)
+    - [ ] [/episodes/{id}/extended](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/episodes/getEpisodeExtended)
+    - [ ] [/episodes/{id}/translations/{language}](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/episodes/getEpisodeTranslation)
+- Genders
+    - [ ] [/genders](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/genders/getAllGenders)
+- Genres
+    - [x] [/genres](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/genres/getAllGenres)
+    - [x] [/genres/{id}](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/genres/getGenreBase)
+    - [ ] [/genres/{id}/movies]()
+    - [ ] [/genres/{id}/series]()
+- ~~Languages~~
+    - [ ] [~~/languages~~](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/languages/getAllLanguages)
+- Lists
+    - [ ] [/lists](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/lists/getAllLists)
+    - [ ] [/lists/{id}](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/lists/getList)
+    - [ ] [/lists/{id}/extended](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/lists/getListExtended)
+- Movie statuses
+    - [ ] [/movie-statuses](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/movie-statuses/getAllMovieStatuses)
+- Movies
+    - [ ] [/movies](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/movies/getAllMovie)
+    - [x] [/movies/{id}](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/movies/getMovieBase)
+    - [ ] [/movies/{id}/extended](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/movies/getMovieExtended)
+    - [ ] [/movies/{id}/translations/{language}](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/movies/getMovieTranslation)
 - People types
-    - [ ] [/people-types](http://letmegooglethat.com/?q=patience+you+must+have)
+    - [ ] [/people-types](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/people-types/getAllPeopleTypes)
+- People
+    - [x] [/people/{id}](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/people/getPeopleBase)
+    - [ ] [/people/{id}/extended](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/people/getPeopleExtended)
+    - [ ] [/people/{id}/translations/{language}](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/people/getPeopleTranslation)
+- Seasons
+    - [x] [/seasons/{id}](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/seasons/getSeasonBase)
+    - [ ] [/seasons/{id}/extended](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/seasons/getSeasonExtended)
+    - [ ] [/seasons/{id}/translations/{language}](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/seasons/getSeasonTranslation)
+- Series
+    - [x] [/series](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/series/getAllSeries)
+    - [x] [/series/{id}](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/series/getSeriesBase)
+    - [x] [/series/{id}/extended](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/series/getSeriesExtended)
+    - [ ] [/series/{id}/translations/{language}](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/series/getSeriesTranslation)
+- Series statuses
+    - [ ] [/series-statuses](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/series-statuses/getAllSeriesStatuses)
+- Source types
+    - [ ] [/source-types](https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/source-types/getAllSourceTypes)
 </details>
 
 The latest documentation can be found here: [TheTVDB Java 3.x API](http://thetvdb-java-api.m0nk3y.info/v3/index.html?overview-summary.html)
