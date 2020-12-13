@@ -19,14 +19,23 @@ package com.github.m0nk3y2k4.thetvdb.api.constants;
 /**
  * Collection of query parameter constants used throughout the various <i>TheTVDB.com</i> routes.
  * <ul>
- *     <li>TBD</li>
+ *     <li>{@link Series}</li>
  * </ul>
  * The parameters of this class may be used to create own {@link com.github.m0nk3y2k4.thetvdb.api.QueryParameters QueryParameters} objects.
  */
-// ToDo: According to the current APIv4 specification this class is no longer needed. Keep an eye on that and remove
-//  class if necessary.
 public final class Query {
 
     /** Constant class. Should not be instantiated */
     private Query() {}
+
+    /**
+     * Collection of query parameters for API route <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/series">/series</a>
+     */
+    public static final class Series {
+
+        /** Query parameter "<i>page</i>" - Page of results to fetch. Defaults to page 1 if not provided */
+        public static final String PAGE = "page";
+
+        private Series() {}     // Private constructor. Only constants in this class
+    }
 }
