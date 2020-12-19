@@ -69,7 +69,7 @@ class APIConnectionTest {
     void newAPIConnection_withAPIKey_verifySessionProperties() {
         APIConnection simpleConnection = new APIConnection(CONTRACT_APIKEY);
         assertThat(simpleConnection.getApiKey()).isEqualTo(CONTRACT_APIKEY);
-        assertThat(simpleConnection.getRemoteAPI()).isEqualTo(new RemoteAPI.Builder().build());
+        assertThat(simpleConnection.getRemoteAPI()).isEqualTo(RemoteAPI.getDefault());
     }
 
     @Test

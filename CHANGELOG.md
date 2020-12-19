@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Util method `Parameters.isPositiveInteger` returning Predicate<String> used to check for positive numeric integers.
 - `Proxy` objects now support an additional path component.
+- New method `RemoteAPI.getDefault` which can be used to obtain an instance pointing to the actual _TheTVDB.com_ API.
 
 ### Changed
 - Method `APIUtil.prettyPrint(JsonNode)` now wraps lines with a fix Unix-style (LF) line separator.
@@ -24,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Method `usingExtendedLayout` in TestTheTVDBAPICallAssert.java has been renamed to `isUsingExtendedLayout`.
 - Method `usingJsonLayout` in TestTheTVDBAPICallAssert.java has been renamed to `isUsingJsonLayout`.
 - Replace usage of anonymous classes in `QueryParametersImpl` to avoid the risk of memory leaks.
+- RemoteAPI builder no longer supports omitting properties (except for `path`).
 
 ### Removed
 - Method `MockServerUtil.defaultAPIHttpHeaders(boolean)` has been replaced by two more convenient ones.

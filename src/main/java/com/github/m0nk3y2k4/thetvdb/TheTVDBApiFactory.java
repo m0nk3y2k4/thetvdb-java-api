@@ -136,7 +136,7 @@ public final class TheTVDBApiFactory {
      * @see TheTVDBApiFactory#createProxy(String, String, int) createProxy(protocol, host, port)
      */
     public static Proxy createProxy(@Nonnull String protocol, @Nonnull String host, @Nonnull String path, int port) {
-        return new RemoteAPI.Builder().protocol(protocol).host(host).port(port).path(path).build();
+        return new RemoteAPI.Builder().from(createProxy(protocol, host, port)).path(path).build();
     }
 
     /**

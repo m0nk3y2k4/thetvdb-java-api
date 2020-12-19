@@ -39,7 +39,7 @@ class TheTVDBApiFactoryTest {
 
     @Test
     void createApi_withApiKeyAndProxy_verifyApiIsCreated() {
-        assertThat(TheTVDBApiFactory.createApi(CONTRACT_APIKEY, new RemoteAPI.Builder().build())).isNotNull();
+        assertThat(TheTVDBApiFactory.createApi(CONTRACT_APIKEY, RemoteAPI.getDefault())).isNotNull();
     }
 
     @Test

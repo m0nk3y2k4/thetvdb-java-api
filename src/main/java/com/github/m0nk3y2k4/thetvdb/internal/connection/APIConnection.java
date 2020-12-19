@@ -97,7 +97,7 @@ public class APIConnection {
      * @param apiKey Valid <i>TheTVDB.com</i> v4 API-Key
      */
     public APIConnection(@Nonnull APIKey apiKey) {
-        this(apiKey, () -> new RemoteAPI.Builder().build());     // Default: regular TheTVDB.com remote
+        this(apiKey, RemoteAPI::getDefault);     // Default: regular TheTVDB.com remote
     }
 
     /**

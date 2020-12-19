@@ -23,7 +23,6 @@ import javax.annotation.Nonnull;
 
 import com.github.m0nk3y2k4.thetvdb.api.Proxy;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.WithHiddenImplementation;
-import org.immutables.value.Value.Default;
 import org.immutables.value.Value.Immutable;
 
 /**
@@ -45,44 +44,21 @@ public abstract class RemoteAPI implements Proxy {
     static final String HTTPS = "https";
 
     /** The <i>TheTVDB.com</i> API base host */
-    static final String THE_TVDB_DOT_COM = "api4.thetvdb.com/v4";
+    static final String THE_TVDB_DOT_COM = "api4.thetvdb.com";
+
+    /** Path component of the <i>TheTVDB.com</i> v4 API */
+    static final String API_V4 = "/v4";
 
     /** The default HTTPS port number */
     static final int HTTPS_DEFAULT = 443;
 
     /**
-     * Returns the name of the communication protocol used for this remote. The default value is <em>{@value
-     * #HTTPS}</em>.
+     * Creates a new remote pointing to the actual <i>TheTVDB.com</i> API.
      *
-     * @return The protocol name used by this remote
+     * @return New RemoteAPI instance pointing to the actual <i>TheTVDB.com</i> API
      */
-    @Override
-    @Default
-    public String getProtocol() {
-        return HTTPS;
-    }
-
-    /**
-     * Returns the name of the remote host. The default value is <em>{@value #THE_TVDB_DOT_COM}</em>.
-     *
-     * @return The host name of the remote service
-     */
-    @Override
-    @Default
-    public String getHost() {
-        return THE_TVDB_DOT_COM;
-    }
-
-    /**
-     * Returns the port number used for communication with the remote. The default value is <em>{@value
-     * #HTTPS_DEFAULT}</em>.
-     *
-     * @return The port number of this remote
-     */
-    @Override
-    @Default
-    public int getPort() {
-        return HTTPS_DEFAULT;
+    public static RemoteAPI getDefault() {
+        return new Builder().protocol(HTTPS).host(THE_TVDB_DOT_COM).port(HTTPS_DEFAULT).path(API_V4).build();
     }
 
     /**
