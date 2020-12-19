@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Util method `Parameters.isPositiveInteger` returning Predicate<String> used to check for positive numeric integers.
+- `Proxy` objects now support an additional path component.
 
 ### Changed
 - Method `APIUtil.prettyPrint(JsonNode)` now wraps lines with a fix Unix-style (LF) line separator.

@@ -96,7 +96,7 @@ public abstract class RemoteAPI implements Proxy {
      * @throws MalformedURLException If an unknown protocol is used or the port is a negative number other than -1
      */
     public URL forResource(@Nonnull String resource) throws MalformedURLException {
-        return new URL(getProtocol(), getHost(), getPort(), resource);
+        return new URL(getProtocol(), getHost(), getPort(), getPath().orElse("") + resource);
     }
 
     /**

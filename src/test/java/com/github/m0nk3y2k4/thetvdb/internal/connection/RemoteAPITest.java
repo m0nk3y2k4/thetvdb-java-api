@@ -51,10 +51,20 @@ class RemoteAPITest {
     }
 
     @Test
-    void forResource() throws Exception {
+    void forResource_withoutPath_checkUrl() throws Exception {
         final URL remote = new URL("http", "localhost", 3654, "/someRemoteResource");
         URL url = new RemoteAPI.Builder().protocol(remote.getProtocol()).host(remote.getHost()).port(remote.getPort())
                 .build().forResource(remote.getFile());
+        assertThat(url).isEqualTo(remote);
+    }
+
+    @Test
+    void forResource_withPath_checkUrl() throws Exception {
+        final String path = "/path";
+        final String resource = "/someRemoteResource";
+        final URL remote = new URL("http", "localhost", 3654, path + resource);
+        URL url = new RemoteAPI.Builder().protocol(remote.getProtocol()).host(remote.getHost()).path(path)
+                .port(remote.getPort()).build().forResource(resource);
         assertThat(url).isEqualTo(remote);
     }
 }
