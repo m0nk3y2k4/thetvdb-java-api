@@ -75,7 +75,7 @@ import org.mockserver.verify.VerificationTimes;
 @WithHttpsMockServer
 class APIRequestTest {
 
-    private static final String JSON_ERROR = "{\"Error\":\"%s\"}";
+    private static final String JSON_ERROR = "{\"message\":\"%s\"}";
 
     private static Stream<Arguments> getResponse_respondWithHTTPErrorCode_verifyExceptionHandling() {
         return Stream.of(

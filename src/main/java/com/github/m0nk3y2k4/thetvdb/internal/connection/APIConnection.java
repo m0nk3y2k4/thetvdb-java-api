@@ -343,7 +343,7 @@ abstract class APIRequest {
     static final String ERR_SEND = "An exception occurred while sending %s request to API";
 
     /** Constants for API error handling */
-    private static final String API_ERROR = "Error";
+    private static final String API_ERROR = "message";
 
     /** Resource/Route to be called on remote service */
     private final String resource;

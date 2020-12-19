@@ -62,7 +62,7 @@ public final class MockServerUtil {
     public static final String JSON_SUCCESS = "{\"Success\":true}";
 
     /** JSON String representing a HTTP-401 <i>Not Authorized</i> response content */
-    public static final String JSON_ERROR_NOTAUTHORIZED = "{\"Error\":\"Not Authorized\"}";
+    public static final String JSON_ERROR_NOTAUTHORIZED = "{\"message\":\"Not Authorized\"}";
 
     /** JSON String representing some dummy payload data e.g. to be used for POST requests */
     public static final String JSON_DATA = "{\"Some\":\"JSON payload\"}";
