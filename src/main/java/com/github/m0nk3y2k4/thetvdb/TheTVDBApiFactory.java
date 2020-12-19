@@ -105,16 +105,38 @@ public final class TheTVDBApiFactory {
     /**
      * Creates a new proxy object based on the given parameters. A proxy may be provided when creating a new TheTVDBApi
      * instance in order to forward all communication towards this proxy instead of directly communicating with the
-     * remote <i>TheTVDB.com</i> API.
+     * remote <i>TheTVDB.com</i> API. The returned proxy object represents a URI in the following format:
+     * <em>{@code "protocol://host:port"}</em>.
      *
      * @param protocol The protocol used by the proxy
      * @param host     The host name of the proxy
      * @param port     The port number to be used for communication
      *
      * @return New immutable proxy object based on the given parameters
+     *
+     * @see TheTVDBApiFactory#createProxy(String, String, String, int) createProxy(protocol, host, path, port)
      */
     public static Proxy createProxy(@Nonnull String protocol, @Nonnull String host, int port) {
         return new RemoteAPI.Builder().protocol(protocol).host(host).port(port).build();
+    }
+
+    /**
+     * Creates a new proxy object based on the given parameters. A proxy may be provided when creating a new TheTVDBApi
+     * instance in order to forward all communication towards this proxy instead of directly communicating with the
+     * remote <i>TheTVDB.com</i> API. The returned proxy object represents a URI in the following format:
+     * <em>{@code "protocol://host:port/path"}</em>.
+     *
+     * @param protocol The protocol used by the proxy
+     * @param host     The host name of the proxy
+     * @param path     The path component with a leading '/'. Will be appended to the authority component.
+     * @param port     The port number to be used for communication
+     *
+     * @return New immutable proxy object based on the given parameters
+     *
+     * @see TheTVDBApiFactory#createProxy(String, String, int) createProxy(protocol, host, port)
+     */
+    public static Proxy createProxy(@Nonnull String protocol, @Nonnull String host, @Nonnull String path, int port) {
+        return new RemoteAPI.Builder().protocol(protocol).host(host).port(port).path(path).build();
     }
 
     /**

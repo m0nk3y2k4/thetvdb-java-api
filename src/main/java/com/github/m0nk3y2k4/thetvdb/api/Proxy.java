@@ -16,6 +16,8 @@
 
 package com.github.m0nk3y2k4.thetvdb.api;
 
+import java.util.Optional;
+
 import com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory;
 
 /**
@@ -23,7 +25,8 @@ import com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory;
  * when creating a new API instance in order to forward the all the communication towards this proxy rather than
  * directly communicating with the the actual <i>TheTVDB.com</i> remote API. The latter one will be the default behavior
  * if no specific proxy is set during the API instantiation. Instances of this interface might be created via the {@link
- * TheTVDBApiFactory}.
+ * TheTVDBApiFactory}. The URI represented by this proxy will be assembled in the following form:
+ * <em>{@code protocol://host:port[/path]}</em>
  */
 public interface Proxy {
 
@@ -40,6 +43,13 @@ public interface Proxy {
      * @return The host name of this proxy
      */
     String getHost();
+
+    /**
+     * Returns the optional path component of this proxy.
+     *
+     * @return The optional path component of this proxy
+     */
+    Optional<String> getPath();
 
     /**
      * Returns the port number used for communication with this proxy.

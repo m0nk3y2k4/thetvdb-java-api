@@ -57,13 +57,27 @@ class TheTVDBApiFactoryTest {
     }
 
     @Test
-    void createProxy_withValidSettings_verifyProxySettings() {
+    void createProxy_withoutPath_verifyProxySettings() {
         final String protocol = "https";
-        final String host = "sub.proxy.com";
+        final String host = "sub1.proxy.com";
         final int port = 9584;
         Proxy proxy = TheTVDBApiFactory.createProxy(protocol, host, port);
         assertThat(proxy.getProtocol()).isEqualTo(protocol);
         assertThat(proxy.getHost()).isEqualTo(host);
+        assertThat(proxy.getPath()).isEmpty();
+        assertThat(proxy.getPort()).isEqualTo(port);
+    }
+
+    @Test
+    void createProxy_withPath_verifyProxySettings() {
+        final String protocol = "https";
+        final String host = "sub2.proxy.com";
+        final String path = "/path";
+        final int port = 6487;
+        Proxy proxy = TheTVDBApiFactory.createProxy(protocol, host, path, port);
+        assertThat(proxy.getProtocol()).isEqualTo(protocol);
+        assertThat(proxy.getHost()).isEqualTo(host);
+        assertThat(proxy.getPath()).contains(path);
         assertThat(proxy.getPort()).isEqualTo(port);
     }
 
