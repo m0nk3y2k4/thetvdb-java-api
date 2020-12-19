@@ -320,7 +320,7 @@ a template.
 3. _OPTIONAL_: Instead of providing the authentication settings via the `thetvdbapi.properties` file you may also set
 them directly as command line arguments:
     ```shell script
-    mvn verify -P integration-tests -Dintegration.thetvdb.com.apikey=APIKEY -Dintegration.thetvdb.com.userkey=USERKEY -Dintegration.thetvdb.com.username=USERNAME
+    mvn verify -P integration-tests -Dintegration.thetvdb.com.v3.apikey=APIKEY -Dintegration.thetvdb.com.v3.userkey=USERKEY -Dintegration.thetvdb.com.v3.username=USERNAME
     ```
 
 ## Status

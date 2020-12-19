@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Method `usingExtendedLayout` in TestTheTVDBAPICallAssert.java has been renamed to `isUsingExtendedLayout`.
 - Method `usingJsonLayout` in TestTheTVDBAPICallAssert.java has been renamed to `isUsingJsonLayout`.
 - Replace usage of anonymous classes in `QueryParametersImpl` to avoid the risk of memory leaks.
+- Changed names of system properties used for running integration tests.
 
 ### Removed
 - Method `MockServerUtil.defaultAPIHttpHeaders(boolean)` has been replaced by two more convenient ones.

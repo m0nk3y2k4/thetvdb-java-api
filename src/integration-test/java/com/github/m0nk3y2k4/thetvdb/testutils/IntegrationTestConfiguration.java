@@ -31,13 +31,13 @@ import java.util.Properties;
 public final class IntegrationTestConfiguration {
 
     /** System property holding the <i>TheTVDB.com</i> API-Key to be used for authentication */
-    private static final String INTEGRATION_THETVDB_COM_APIKEY = "integration.thetvdb.com.apikey";
+    private static final String INTEGRATION_THETVDB_COM_APIKEY = "integration.thetvdb.com.v3.apikey";
 
     /** System property holding the <i>TheTVDB.com</i> user key to be used for authentication */
-    private static final String INTEGRATION_THETVDB_COM_USERKEY = "integration.thetvdb.com.userkey";
+    private static final String INTEGRATION_THETVDB_COM_USERKEY = "integration.thetvdb.com.v3.userkey";
 
     /** System property holding the <i>TheTVDB.com</i> user name to be used for authentication */
-    private static final String INTEGRATION_THETVDB_COM_USERNAME = "integration.thetvdb.com.username";
+    private static final String INTEGRATION_THETVDB_COM_USERNAME = "integration.thetvdb.com.v3.username";
 
     /** Singleton instance */
     private static final IntegrationTestConfiguration INSTANCE = new IntegrationTestConfiguration();

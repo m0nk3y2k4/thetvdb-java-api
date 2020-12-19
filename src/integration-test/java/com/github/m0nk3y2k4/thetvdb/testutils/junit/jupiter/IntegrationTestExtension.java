@@ -48,14 +48,14 @@ public class IntegrationTestExtension implements ParameterResolver, BeforeAllCal
      * Creates a new API instance which uses the actual <i>TheTVDB.com</i> RESTful API as remote endpoint. The returned
      * API will be pre-configured with the values from the following system properties:
      * <ul>
-     *     <li>integration.thetvdb.com.apikey - The <i>TheTVDB.com</i> API-Key to be used for authentication</li>
-     *     <li>integration.thetvdb.com.userkey - The <i>TheTVDB.com</i> user key to be used for authentication</li>
-     *     <li>integration.thetvdb.com.username - The <i>TheTVDB.com</i> user name to be used for authentication</li>
+     *     <li>integration.thetvdb.com.v3.apikey - The <i>TheTVDB.com</i> API-Key to be used for authentication</li>
+     *     <li>integration.thetvdb.com.v3.userkey - The <i>TheTVDB.com</i> user key to be used for authentication</li>
+     *     <li>integration.thetvdb.com.v3.username - The <i>TheTVDB.com</i> user name to be used for authentication</li>
      * </ul>
-     * All of these properties are mandatory and must be set. Otherwise the initialization of this extension will fail. The
-     * properties may either be set directly as VM/maven arguments (e.g. -Dintegration.thetvdb.com.apikey=SOMEAPIKEY) or via
-     * a properties file in the resource folder. For the latter one please see the "thetvdbapi.properties.sample" file inside
-     * the resource folder.
+     * All of these properties are mandatory and must be set. Otherwise the initialization of this extension will fail.
+     * The properties may either be set directly as VM/maven arguments (e.g.
+     * -Dintegration.thetvdb.com.v3.apikey=SOMEAPIKEY) or via a properties file in the resource folder. For the
+     * latter one please see the "thetvdbapi.properties.sample" file inside the resource folder.
      *
      * @return A new <i>TheTVDB.com</i> API instance preconfigured with the system property values for authentication
      */
