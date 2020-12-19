@@ -37,6 +37,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.WithHiddenImplementation;
 import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
+import org.immutables.value.Value.Auxiliary;
 import org.immutables.value.Value.Immutable;
 
 /**
@@ -103,6 +104,7 @@ public abstract class MovieDTO implements Movie {
      *
      * @return People from the JSON mapped by their corresponding category
      */
+    @Auxiliary
     abstract Map<PeopleCategory, List<People>> getPeople();
 
     /**

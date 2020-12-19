@@ -25,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Image;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.WithHiddenImplementation;
+import org.immutables.value.Value.Auxiliary;
 import org.immutables.value.Value.Immutable;
 
 /**
@@ -62,6 +63,7 @@ public abstract class ImageDTO implements Image {
      * @see #getRatingAverage()
      * @see #getRatingCount()
      */
+    @Auxiliary
     abstract Map<String, Object> getRatingsInfo();
 
     @Override
