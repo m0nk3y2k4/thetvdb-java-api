@@ -16,7 +16,12 @@
 
 package com.github.m0nk3y2k4.thetvdb.testutils;
 
+import static com.github.m0nk3y2k4.thetvdb.api.enumeration.FundingModel.CONTRACT;
+import static com.github.m0nk3y2k4.thetvdb.api.enumeration.FundingModel.SUBSCRIPTION;
+
+import com.github.m0nk3y2k4.thetvdb.api.APIKey;
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.APIKeyImpl;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.QueryParametersImpl;
 
 /**
@@ -26,6 +31,12 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.QueryParametersImpl;
  * of simple query parameters.
  */
 public final class APITestUtil {
+
+    public static final APIKey CONTRACT_APIKEY = new APIKeyImpl.Builder().key("contract-unit-test-api-key")
+            .fundingModel(CONTRACT).build();
+
+    public static final APIKey SUBSCRIPTION_APIKEY = new APIKeyImpl.Builder().key("subscription-unit-test-api-key")
+            .fundingModel(SUBSCRIPTION).build();
 
     private APITestUtil() {}
 

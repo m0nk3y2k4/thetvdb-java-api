@@ -16,6 +16,8 @@
 
 package com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter;
 
+import static com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory.createAPIKey;
+
 import java.util.InvalidPropertiesFormatException;
 
 import com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi;
@@ -48,9 +50,8 @@ public class IntegrationTestExtension implements ParameterResolver, BeforeAllCal
      * Creates a new API instance which uses the actual <i>TheTVDB.com</i> RESTful API as remote endpoint. The returned
      * API will be pre-configured with the values from the following system properties:
      * <ul>
-     *     <li>integration.thetvdb.com.apikey - The <i>TheTVDB.com</i> API-Key to be used for authentication</li>
-     *     <li>integration.thetvdb.com.userkey - The <i>TheTVDB.com</i> user key to be used for authentication</li>
-     *     <li>integration.thetvdb.com.username - The <i>TheTVDB.com</i> user name to be used for authentication</li>
+     *     <li>integration.thetvdb.com.apikey - The <i>TheTVDB.com</i> v4 API-Key to be used for authentication</li>
+     *     <li>integration.thetvdb.com.fundingmodel - The funding model based on which the API-Key was issued</li>
      * </ul>
      * All of these properties are mandatory and must be set. Otherwise the initialization of this extension will fail. The
      * properties may either be set directly as VM/maven arguments (e.g. -Dintegration.thetvdb.com.apikey=SOMEAPIKEY) or via
@@ -62,7 +63,7 @@ public class IntegrationTestExtension implements ParameterResolver, BeforeAllCal
     private static TheTVDBApi createConfigurationBasedApi() {
         IntegrationTestConfiguration testConfig = IntegrationTestConfiguration.loadConfiguration();
         try {
-            return new TheTVDBApiImpl(testConfig.getApiKey(), testConfig.getUserKey(), testConfig.getUserName());
+            return new TheTVDBApiImpl(createAPIKey(testConfig.getApiKey(), testConfig.getFundingModel()));
         } catch (InvalidPropertiesFormatException configurationException) {
             throw new ExtensionConfigurationException("Failed to initialize extension", configurationException);
         }

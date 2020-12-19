@@ -18,6 +18,7 @@ package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.EpisodesAPI.getEpisodeBase;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
+import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
 import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.EPISODE;
@@ -68,13 +69,13 @@ class EpisodesAPITest {
     void invokeRoute_withInvalidParameters_verifyParameterValidation(TestRemoteAPICall route,
             Supplier<RemoteAPI> remoteAPI) {
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> route.invoke(new APIConnection("JFI9Z4E6J4Z961", remoteAPI)));
+                .isThrownBy(() -> route.invoke(new APIConnection(CONTRACT_APIKEY, remoteAPI)));
     }
 
     @ParameterizedTest(name = "[{index}] Route EpisodesAPI.{0} successfully invoked")
     @MethodSource("withValidParameters")
     void invokeRoute_withValidParameters_verifyResponse(TestRemoteAPICall route, JSONTestUtil.JsonResource expected,
             Supplier<RemoteAPI> remoteAPI) throws Exception {
-        assertThat(route.invoke(new APIConnection("5Z76W73I10I40T", remoteAPI))).isEqualTo(expected.getJson());
+        assertThat(route.invoke(new APIConnection(CONTRACT_APIKEY, remoteAPI))).isEqualTo(expected.getJson());
     }
 }

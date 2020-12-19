@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft/2019-09/schema#",
-  "$id": "http://api.thetvdb.com/schemas/login_apiKey.json",
+  "$id": "http://api4.thetvdb.com/v4/schemas/login_apiKey.json",
   "type": "object",
   "properties": {
     "apikey": { "type": "string" }

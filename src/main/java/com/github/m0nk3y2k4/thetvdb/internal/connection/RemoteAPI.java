@@ -45,7 +45,7 @@ public abstract class RemoteAPI implements Proxy {
     static final String HTTPS = "https";
 
     /** The <i>TheTVDB.com</i> API base host */
-    static final String THE_TVDB_DOT_COM = "api.thetvdb.com";
+    static final String THE_TVDB_DOT_COM = "api4.thetvdb.com/v4";
 
     /** The default HTTPS port number */
     static final int HTTPS_DEFAULT = 443;

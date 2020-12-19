@@ -16,6 +16,7 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.connection;
 
+import static com.github.m0nk3y2k4.thetvdb.api.enumeration.FundingModel.CONTRACT;
 import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_BAD_METHOD_ERROR;
 import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_CONFLICT_ERROR;
 import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_NOT_AUTHORIZED_ERROR;
@@ -27,6 +28,7 @@ import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.HEAD;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.PUT;
+import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.JSON_SUCCESS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.createResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.createUnauthorizedResponse;
@@ -50,6 +52,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.APIKeyImpl;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APISession.Status;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APICommunicationException;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APINotAuthorizedException;
@@ -96,7 +99,10 @@ class APIRequestTest {
             RemoteAPI remoteAPI) {
         APIRequest request = new APIRequest(resource, method) {};
         Optional.ofNullable(status).map(x -> {
-            APISession session = new APISession(String.valueOf(Objects.hash(resource, method, status, remoteAPI)));
+            APISession session = new APISession(new APIKeyImpl.Builder()
+                    .key(String.valueOf(Objects.hash(resource, method, status, remoteAPI)))
+                    .fundingModel(CONTRACT)
+                    .build());
             session.setStatus(status);
             return session;
         }).ifPresent(request::setSession);
@@ -158,7 +164,7 @@ class APIRequestTest {
     void send_withFullyInitializedSession_verifyHttpHeadersInAPIRequest(MockServerClient client, RemoteAPI remoteAPI)
             throws Exception {
         final String resource = "/test/requestHeadersWithUninitializedSession";
-        APISession session = new APISession("WIOD548W9DLOF32W5S4DFFW");
+        APISession session = new APISession(CONTRACT_APIKEY);
         session.setStatus(Status.AUTHORIZED);
         session.setLanguage("en");
         session.setToken("Some.JSONWeb.Token");
@@ -176,7 +182,7 @@ class APIRequestTest {
             throws Exception {
         final String resource = "/test/prepareRequest";
         final Header preparation = header("Prepared", "true");
-        APISession session = new APISession("47D5SF8WWF85K5LZ4GRTZ7512");
+        APISession session = new APISession(CONTRACT_APIKEY);
         session.setStatus(Status.NOT_AUTHORIZED);
         APIRequest request = new TestAPIRequest(resource, GET) {
             @Override

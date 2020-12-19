@@ -16,40 +16,34 @@
 
 package com.github.m0nk3y2k4.thetvdb;
 
+import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Map;
 
+import com.github.m0nk3y2k4.thetvdb.api.APIKey;
 import com.github.m0nk3y2k4.thetvdb.api.Proxy;
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.FundingModel;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 class TheTVDBApiFactoryTest {
 
     @Test
-    void createApi_withSimpleCredentials_verifyApiIsCreated() {
-        assertThat(TheTVDBApiFactory.createApi("WD8G6LFD64J3DO")).isNotNull();
+    void createApi_withApiKey_verifyApiIsCreated() {
+        assertThat(TheTVDBApiFactory.createApi(CONTRACT_APIKEY)).isNotNull();
     }
 
     @Test
-    void createApi_withSimpleCredentialsAndProxy_verifyApiIsCreated() {
-        assertThat(TheTVDBApiFactory.createApi("PT83JW4T6I4WT", new RemoteAPI.Builder().build())).isNotNull();
+    void createApi_withApiKeyAndProxy_verifyApiIsCreated() {
+        assertThat(TheTVDBApiFactory.createApi(CONTRACT_APIKEY, new RemoteAPI.Builder().build())).isNotNull();
     }
 
     @Test
-    void createApi_withExtendedCredentials_verifyApiIsCreated() {
-        assertThat(TheTVDBApiFactory.createApi("ORIFKSK75DSZ", "unique_8472577536", "Tony Stark")).isNotNull();
-    }
-
-    @Test
-    void createApi_withExtendedCredentialsAndProxy_verifyApiIsCreated() {
-        assertThat(TheTVDBApiFactory.createApi("OIFFAO26G21JU7F", "unique_6617881334", "Carol Danvers",
-                new RemoteAPI.Builder().build())).isNotNull();
-    }
-
-    @Test
-    void createQueryParameters() {
+    void createQueryParameters_verifyThatNoActualQueryParametersArePresent() {
         QueryParameters parameters = TheTVDBApiFactory.createQueryParameters();
         assertThat(parameters).isNotNull().isEmpty();
     }
@@ -71,5 +65,14 @@ class TheTVDBApiFactoryTest {
         assertThat(proxy.getProtocol()).isEqualTo(protocol);
         assertThat(proxy.getHost()).isEqualTo(host);
         assertThat(proxy.getPort()).isEqualTo(port);
+    }
+
+    @ParameterizedTest(name = "[{index}] With funding model {0}")
+    @EnumSource(FundingModel.class)
+    void createAPIKey_withValidKeyAndFundingModel_verifyAPIKeyProperties(FundingModel fundingModel) {
+        final String key = "FH7IK2H4S3Z4J";
+        APIKey apiKey = TheTVDBApiFactory.createAPIKey(key, fundingModel);
+        assertThat(apiKey.getKey()).isEqualTo(key);
+        assertThat(apiKey.getFundingModel()).isEqualTo(fundingModel);
     }
 }

@@ -53,9 +53,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.github.m0nk3y2k4.thetvdb.api.APIKey;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APICommunicationException;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APINotAuthorizedException;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.LoginAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Preconditions;
@@ -90,100 +92,29 @@ public class APIConnection {
     /**
      * Creates a new <i>TheTVDB.com</i> API connection using the given <em>{@code apiKey}</em> for remote service
      * authentication. The given key must be a valid
-     * <a href="https://www.thetvdb.com/member/api">TheTVDB.com API Key</a>.
-     * <p><br>
-     * <b>NOTE:</b> Objects created with this constructor <u>can not</u> be used for calls to the remote API's
-     * <a href="https://api.thetvdb.com/swagger#/Users">/users</a> routes. These calls require extended authentication
-     * using an additional <em>{@code userKey}</em> and <em>{@code userName}</em>.
+     * <a target="_blank" href="https://www.thetvdb.com/dashboard/account/apikey">TheTVDB.com v4 API Key</a>.
      *
-     * @param apiKey Valid <i>TheTVDB.com</i> API-Key
-     *
-     * @see #APIConnection(String, String, String) APIConnection(apiKey, userName, userKey)
+     * @param apiKey Valid <i>TheTVDB.com</i> v4 API-Key
      */
-    public APIConnection(@Nonnull String apiKey) {
-        this(new APISession(apiKey));
+    public APIConnection(@Nonnull APIKey apiKey) {
+        this(apiKey, () -> new RemoteAPI.Builder().build());     // Default: regular TheTVDB.com remote
     }
 
     /**
      * Creates a new API connection using the given <em>{@code apiKey}</em> for remote service authentication. The given
-     * key must be a valid <a href="https://www.thetvdb.com/member/api">TheTVDB.com API Key</a>. All outgoing
-     * communication will be directed towards the given remote endpoint.
-     * <p><br>
-     * <b>NOTE:</b> Objects created with this constructor <u>can not</u> be used for calls to the remote API's
-     * <a href="https://api.thetvdb.com/swagger#/Users">/users</a> routes. These calls require extended authentication
-     * using an additional <em>{@code userKey}</em> and <em>{@code userName}</em>.
+     * key must be a valid
+     * <a target="_blank" href="https://www.thetvdb.com/dashboard/account/apikey">TheTVDB.com v4 API Key</a>. All
+     * outgoing communication will be directed towards the given remote endpoint.
      *
-     * @param apiKey Valid <i>TheTVDB.com</i> API-Key
-     * @param remote Supplier providing the remote API endpoint to be used by this connection
-     *
-     * @see #APIConnection(String, String, String, Supplier) APIConnection(apiKey, userName, userKey, remote)
+     * @param apiKey Valid <i>TheTVDB.com</i> v4 API-Key
+     * @param remote Supplier providing a specific remote API endpoint to be used by this connection
      */
-    public APIConnection(@Nonnull String apiKey, @Nonnull Supplier<RemoteAPI> remote) {
-        this(new APISession(apiKey), remote);
-    }
-
-    /**
-     * Creates a new <i>TheTVDB.com</i> API connection using the given credentials for remote service authentication.
-     * The given <em>{@code apiKey}</em> must be a valid
-     * <a href="https://www.thetvdb.com/member/api">TheTVDB.com API Key</a>. The <em>{@code userKey}</em> and
-     * <em>{@code userName}</em> must refer to a registered <i>TheTVDB.com</i> user account.
-     *
-     * @param apiKey   Valid <i>TheTVDB.com</i> API-Key
-     * @param userKey  Valid <i>TheTVDB.com</i> user key (also referred to as "Unique ID")
-     * @param userName Registered <i>TheTVDB.com</i> user name
-     *
-     * @see #APIConnection(String) APIConnection(apiKey)
-     */
-    public APIConnection(@Nonnull String apiKey, @Nonnull String userKey, @Nonnull String userName) {
-        this(new APISession(apiKey, userKey, userName));
-    }
-
-    /**
-     * Creates a new API connection using the given credentials for remote service authentication. The given <em>{@code
-     * apiKey}</em> must be a valid
-     * <a href="https://www.thetvdb.com/member/api">TheTVDB.com API Key</a>. The <em>{@code userKey}</em> and
-     * <em>{@code userName}</em> must refer to a registered <i>TheTVDB.com</i> user account. All outgoing communication
-     * will be directed towards the given remote endpoint.
-     *
-     * @param apiKey   Valid <i>TheTVDB.com</i> API-Key
-     * @param userKey  Valid <i>TheTVDB.com</i> user key (also referred to as "Unique ID")
-     * @param userName Registered <i>TheTVDB.com</i> user name
-     * @param remote   Supplier providing the remote API endpoint to be used by this connection
-     *
-     * @see #APIConnection(String, Supplier) APIConnection(apiKey, remote)
-     */
-    public APIConnection(@Nonnull String apiKey, @Nonnull String userKey, @Nonnull String userName,
-            @Nonnull Supplier<RemoteAPI> remote) {
-        this(new APISession(apiKey, userKey, userName), remote);
-    }
-
-    /**
-     * Creates a new <i>TheTVDB.com</i> API connection using the given <em>{@code session}</em> for remote service
-     * authentication. The functionality offered by this API connection strongly depends on the current configuration of
-     * the given session object.
-     *
-     * @param session Session used for API communication and authentication
-     */
-    private APIConnection(@Nonnull APISession session) {
-        this(session, () -> new RemoteAPI.Builder().build());       // Default: regular TheTVDB.com remote
-    }
-
-    /**
-     * Creates a new connection to the given <em>{@code remote}</em> API using the given <em>{@code session}</em> for
-     * remote service authentication. The functionality offered by this API connection strongly depends on the current
-     * configuration of the given session object.
-     *
-     * @param session Session used for API communication and authentication
-     * @param remote  Specific remote communication endpoint (e.g. if the <i>TheTVDB.com</i> API should be accessed via
-     *                proxy)
-     */
-    private APIConnection(@Nonnull APISession session, @Nonnull Supplier<RemoteAPI> remote) {
-        Parameters.validateNotNull(session, "API session must not be NULL");
-        Parameters.validateCondition(remoteSupplier -> Optional.ofNullable(remoteSupplier).map(Supplier::get)
-                        .isPresent(), remote,
+    public APIConnection(@Nonnull APIKey apiKey, @Nonnull Supplier<RemoteAPI> remote) {
+        Parameters.validateCondition(remoteSupplier ->
+                        Optional.ofNullable(remoteSupplier).map(Supplier::get).isPresent(), remote,
                 new IllegalArgumentException("Remote endpoint for this connection needs to be specified"));
 
-        this.session = session;
+        this.session = new APISession(apiKey);
         this.remoteAPI = remote.get();
     }
 
@@ -332,28 +263,8 @@ public class APIConnection {
      *
      * @return API key of this connection
      */
-    public String getApiKey() {
+    public APIKey getApiKey() {
         return session.getApiKey();
-    }
-
-    /**
-     * Returns the user key related to this connection. If no value is present then this connection only supports
-     * authorization via API Key.
-     *
-     * @return Optional user key for this connection
-     */
-    public Optional<String> getUserKey() {
-        return session.getUserKey();
-    }
-
-    /**
-     * Returns the user name related to this connection. If no value is present then this connection only supports
-     * authorization via API Key.
-     *
-     * @return Optional user name for this connection
-     */
-    public Optional<String> getUserName() {
-        return session.getUserName();
     }
 
     /**
@@ -364,17 +275,6 @@ public class APIConnection {
      */
     public Optional<String> getToken() {
         return session.getToken();
-    }
-
-    /**
-     * Checks whether user authentication is available or not. A distinct user authentication is optional and only
-     * required for specific API calls (USER*).
-     *
-     * @return {@link Boolean#TRUE} if the underlying session supports user authentication or {@link Boolean#FALSE} if
-     *         not.
-     */
-    public boolean userAuthentication() {
-        return session.userAuthentication();
     }
 
     /**
@@ -417,8 +317,7 @@ public class APIConnection {
         switch (session.getStatus()) {
             case NOT_AUTHORIZED:
             case AUTHORIZED:
-                // ToDo: Adjust to new APIv4 login mechanics
-//                AuthenticationAPI.login(this);    // Not yet authorized or authorization expired: Request a new token
+                LoginAPI.login(this);    // Not yet authorized or authorization expired: Request a new token
                 break;
             default:
                 // Authorization is already in progress but could not be completed. Do not retry to authorize this session

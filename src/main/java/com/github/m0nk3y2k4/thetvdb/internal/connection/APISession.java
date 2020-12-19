@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
 
+import com.github.m0nk3y2k4.thetvdb.api.APIKey;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
@@ -64,13 +65,7 @@ public final class APISession {
     }
 
     /** The API key used to request a session token */
-    private final String apiKey;
-
-    /** Optional userKey for authentication */
-    private final String userKey;
-
-    /** Optional userName for authentication */
-    private final String userName;
+    private final APIKey apiKey;
 
     /** The JWT token for this session, issued by the remote service */
     private volatile String token;
@@ -83,47 +78,15 @@ public final class APISession {
 
     /**
      * Creates a new API session with the given API key. The <em>{@code apiKey}</em> must be a valid
-     * <a href="https://www.thetvdb.com/member/api">TheTVDB.com API Key</a> which will be used for remote service
-     * authentication.
-     * <p><br>
-     * <b>NOTE:</b> Sessions created with this constructor <u>can not</u> be used for calls to the remote API's
-     * <a href="https://api.thetvdb.com/swagger#/Users">/users</a> routes. These calls require extended authentication
-     * using an additional <em>{@code userKey}</em> and <em>{@code userName}</em>.
+     * <a target="_blank" href="https://www.thetvdb.com/dashboard/account/apikey">TheTVDB.com v4 API Key</a>
+     * which will be used for remote service authentication.
      *
-     * @param apiKey The API key used to request a session token
-     *
-     * @see APISession#APISession(String, String, String) APISession(apiKey, userKey, userName)
+     * @param apiKey The v4 API key used to request a session token
      */
-    APISession(@Nonnull String apiKey) {
-        Parameters.validateNotEmpty(apiKey, "API key must not be NULL or empty!");
+    APISession(@Nonnull APIKey apiKey) {
+        Parameters.validateNotNull(apiKey, "API key must not be NULL");
 
         this.apiKey = apiKey;
-        this.userKey = null;
-        this.userName = null;
-    }
-
-    /**
-     * Creates a new API session. The given <em>{@code apiKey}</em> must be a valid
-     * <a href="https://www.thetvdb.com/member/api">TheTVDB.com API Key</a>. The <em>{@code userKey}</em> and
-     * <em>{@code
-     * userName}</em> must refer to a registered <i>TheTVDB.com</i> user account. The given parameters will be used for
-     * the initial remote service authentication. Sessions created with this constructor can be used for calls to the
-     * remote API's <a href="https://api.thetvdb.com/swagger#/Users">/users</a> routes.
-     *
-     * @param apiKey   The API key used to request a session token
-     * @param userKey  User key for authentication (also referred to as "Unique ID")
-     * @param userName User name for authentication
-     *
-     * @see APISession#APISession(String) APISession(apiKey)
-     */
-    APISession(@Nonnull String apiKey, @Nonnull String userKey, @Nonnull String userName) {
-        Parameters.validateNotEmpty(apiKey, "API key must not be NULL or empty!");
-        Parameters.validateNotEmpty(userKey, "User key must not be NULL or empty!");
-        Parameters.validateNotEmpty(userName, "User name must not be NULL or empty!");
-
-        this.apiKey = apiKey;
-        this.userKey = userKey;
-        this.userName = userName;
     }
 
     /**
@@ -149,26 +112,8 @@ public final class APISession {
      *
      * @return API key of this session
      */
-    String getApiKey() {
+    APIKey getApiKey() {
         return apiKey;
-    }
-
-    /**
-     * Returns the user key used for authentication. If no value is present then user authentication will be skipped.
-     *
-     * @return Optional user key for this session
-     */
-    Optional<String> getUserKey() {
-        return Optional.ofNullable(userKey);
-    }
-
-    /**
-     * Returns the user name used for authentication. If no value is present then user authentication will be skipped.
-     *
-     * @return Optional user name for this session
-     */
-    Optional<String> getUserName() {
-        return Optional.ofNullable(userName);
     }
 
     /**
@@ -246,15 +191,5 @@ public final class APISession {
      */
     boolean isInitialized() {
         return getStatus() == Status.AUTHORIZED;
-    }
-
-    /**
-     * Checks whether user authentication is available or not. A distinct user authentication is optional and only
-     * required for specific API calls (USER*).
-     *
-     * @return {@link Boolean#TRUE} if both, userKey and userName are <b>not</b> empty or {@link Boolean#FALSE} if not.
-     */
-    boolean userAuthentication() {
-        return APIUtil.hasValue(userKey) && APIUtil.hasValue(userName);
     }
 }

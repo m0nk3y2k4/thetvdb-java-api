@@ -24,6 +24,7 @@ import javax.annotation.Nonnull;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory;
+import com.github.m0nk3y2k4.thetvdb.api.APIKey;
 import com.github.m0nk3y2k4.thetvdb.api.Proxy;
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi;
@@ -46,6 +47,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ArtworkTypesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.CharactersAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.EpisodesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.GenresAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.LoginAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.MoviesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.PeopleAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeasonsAPI;
@@ -73,75 +75,29 @@ public class TheTVDBApiImpl implements TheTVDBApi {
 
     /**
      * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid
-     * <a href="https://www.thetvdb.com/member/api">TheTVDB.com API Key</a> as it will be used for remote service
-     * authentication. To authenticate and generate a new session token use the {@link #init()} or {@link #login()}
-     * method right after creating a new instance of this API.
-     * <p><br>
-     * <b>NOTE:</b> Objects created with this constructor <u>can not</u> be used for calls to the remote API's
-     * <a href="https://api.thetvdb.com/swagger#/Users">/users</a> routes. These calls require extended authentication
-     * using an additional <em>{@code userKey}</em> and <em>{@code userName}</em>.
+     * <a target="_blank" href="https://www.thetvdb.com/dashboard/account/apikey">TheTVDB.com v4 API Key</a> as it will
+     * be used for remote service authentication. To authenticate and generate a new session token use the {@link
+     * #init()} or {@link #login()} method right after creating a new instance of this API.
      *
-     * @param apiKey Valid <i>TheTVDB.com</i> API-Key
-     *
-     * @see #TheTVDBApiImpl(String, String, String) TheTVDBApiImpl(apiKey, userKey, userName)
+     * @param apiKey Valid <i>TheTVDB.com</i> v4 API-Key
      */
-    public TheTVDBApiImpl(@Nonnull String apiKey) {
+    public TheTVDBApiImpl(@Nonnull APIKey apiKey) {
         this.con = new APIConnection(apiKey);
     }
 
     /**
      * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid
-     * <a href="https://www.thetvdb.com/member/api">TheTVDB.com API Key</a> as it will be used for remote service
-     * authentication. To authenticate and generate a new session token use the {@link #init()} or {@link #login()}
-     * method right after creating a new instance of this API. All communication to the remote API will be forwarded to
-     * the given <em>{@code proxy}</em>.
-     * <p><br>
-     * <b>NOTE:</b> Objects created with this constructor <u>can not</u> be used for calls to the remote API's
-     * <a href="https://api.thetvdb.com/swagger#/Users">/users</a> routes. These calls require extended authentication
-     * using an additional <em>{@code userKey}</em> and <em>{@code userName}</em>.
+     * <a target="_blank" href="https://www.thetvdb.com/dashboard/account/apikey">TheTVDB.com v4 API Key</a> as it will
+     * be used for remote service authentication. To authenticate and generate a new session token use the {@link
+     * #init()} or {@link #login()} method right after creating a new instance of this API. All communication to the
+     * remote API will be forwarded to the given <em>{@code proxy}</em>.
      *
-     * @param apiKey Valid <i>TheTVDB.com</i> API-Key
+     * @param apiKey Valid <i>TheTVDB.com</i> v4 API-Key
      * @param proxy  The proxy service to be used for remote API communication
-     *
-     * @see #TheTVDBApiImpl(String, String, String, Proxy) TheTVDBApiImpl(apiKey, userKey, userName, proxy)
      */
-    public TheTVDBApiImpl(@Nonnull String apiKey, @Nonnull Proxy proxy) {
+    public TheTVDBApiImpl(@Nonnull APIKey apiKey, @Nonnull Proxy proxy) {
         Parameters.validateNotNull(proxy, "Proxy must not be NULL");
         this.con = new APIConnection(apiKey, () -> new RemoteAPI.Builder().from(proxy).build());
-    }
-
-    /**
-     * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid
-     * <a href="https://www.thetvdb.com/member/api">TheTVDB.com API Key</a>. The <em>{@code userKey}</em> and
-     * <em>{@code userName}</em> must refer to a registered <i>TheTVDB.com</i> user account. The given parameters will
-     * be used for the initial remote service authentication. To authenticate and generate a new session token use the
-     * {@link #init()} or {@link #login()} method right after creating a new instance of this API.
-     *
-     * @param apiKey   Valid <i>TheTVDB.com</i> API-Key
-     * @param userKey  Valid <i>TheTVDB.com</i> user key (also referred to as "Unique ID")
-     * @param userName Registered <i>TheTVDB.com</i> user name
-     */
-    public TheTVDBApiImpl(@Nonnull String apiKey, @Nonnull String userKey, @Nonnull String userName) {
-        this.con = new APIConnection(apiKey, userKey, userName);
-    }
-
-    /**
-     * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid
-     * <a href="https://www.thetvdb.com/member/api">TheTVDB.com API Key</a>. The <em>{@code userKey}</em> and
-     * <em>{@code userName}</em> must refer to a registered <i>TheTVDB.com</i> user account. The given parameters will
-     * be used for the initial remote service authentication. To authenticate and generate a new session token use the
-     * {@link #init()} or {@link #login()} method right after creating a new instance of this API. All communication to
-     * the remote API will be forwarded to the given <em>{@code proxy}</em>.
-     *
-     * @param apiKey   Valid <i>TheTVDB.com</i> API-Key
-     * @param userKey  Valid <i>TheTVDB.com</i> user key (also referred to as "Unique ID")
-     * @param userName Registered <i>TheTVDB.com</i> user name
-     * @param proxy    The proxy service to be used for remote API communication
-     */
-    public TheTVDBApiImpl(@Nonnull String apiKey, @Nonnull String userKey, @Nonnull String userName,
-            @Nonnull Proxy proxy) {
-        Parameters.validateNotNull(proxy, "Proxy must not be NULL");
-        this.con = new APIConnection(apiKey, userKey, userName, () -> new RemoteAPI.Builder().from(proxy).build());
     }
 
     /**
@@ -199,8 +155,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
 
     @Override
     public void login() throws APIException {
-        // ToDo: Adjust to new APIv4 login mechanics
-//        AuthenticationAPI.login(con);
+        LoginAPI.login(con);
     }
 
     @Override

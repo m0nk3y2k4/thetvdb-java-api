@@ -17,6 +17,9 @@
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl;
 
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.POST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
+import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.SUBSCRIPTION_APIKEY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.params;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
@@ -77,12 +80,8 @@ class TheTVDBApiImplTest {
 
     @Test
     void createNewApi_withValidParameters_verifyNoExceptionIsThrown(Proxy remoteApi) {
-        assertThatCode(() -> new TheTVDBApiImpl("W7T8IU7E5R7Z5F5")).doesNotThrowAnyException();
-        assertThatCode(() -> new TheTVDBApiImpl("OPRIT75Z5EJE4W6", remoteApi)).doesNotThrowAnyException();
-        assertThatCode(() -> new TheTVDBApiImpl("POW87F2S1G5J1S5", "unique_4257844", "Prince Valium"))
-                .doesNotThrowAnyException();
-        assertThatCode(() -> new TheTVDBApiImpl("QP2I456E1Z4OI3T", "unique_5847356", "Princess Vespa", remoteApi))
-                .doesNotThrowAnyException();
+        assertThatCode(() -> new TheTVDBApiImpl(CONTRACT_APIKEY)).doesNotThrowAnyException();
+        assertThatCode(() -> new TheTVDBApiImpl(CONTRACT_APIKEY, remoteApi)).doesNotThrowAnyException();
     }
 
     @Nested
@@ -95,8 +94,8 @@ class TheTVDBApiImplTest {
 
         @BeforeAll
         void setUpAPIs(Proxy remoteAPI) throws Exception {
-            basicAPI = init(new TheTVDBApiImpl("ZW7Z6L5GZ76545S", remoteAPI));
-            userAuthApi = init(new TheTVDBApiImpl("47R8A5F8IU7RE6", "unique_65488745", "Lone Starr", remoteAPI));
+            basicAPI = init(new TheTVDBApiImpl(CONTRACT_APIKEY, remoteAPI));
+            userAuthApi = init(new TheTVDBApiImpl(SUBSCRIPTION_APIKEY, remoteAPI));
         }
 
         //@DisableFormatting
@@ -125,6 +124,8 @@ class TheTVDBApiImplTest {
 
         private Stream<Arguments> withValidParameters() {
             return Stream.of(
+                    of(route(() -> basicAPI.init(), "init()"), verify("/login", POST)),
+                    of(route(() -> basicAPI.login(), "login()"), verify("/login", POST)),
                     of(route(() -> basicAPI.getArtworkTypes(), "getArtworkTypes()"), ARTWORKTYPE_LIST),
                     of(route(() -> basicAPI.getArtwork(3447), "getArtwork()"), ARTWORK),
                     of(route(() -> basicAPI.getCharacter(604784), "getCharacter()"), CHARACTER),
@@ -161,7 +162,7 @@ class TheTVDBApiImplTest {
         @Test
         void init_withValidToken_verifyTokenSetOnSession(Proxy remoteAPI) throws Exception {
             final String token = "D78W4F5W.8F7WG4F.A69J7E";
-            TheTVDBApi api = new TheTVDBApiImpl("ZWUD785K5H7F", remoteAPI);
+            TheTVDBApi api = new TheTVDBApiImpl(CONTRACT_APIKEY, remoteAPI);
             api.init(token);
             assertThat(api.getToken()).isNotEmpty().contains(token);
         }
@@ -170,7 +171,7 @@ class TheTVDBApiImplTest {
         void setLanguage_withValidLanguage_verifyLanguageIsSetInApiRequests(MockServerClient client, Proxy remoteAPI)
                 throws Exception {
             final String language = "es";
-            TheTVDBApi api = init(new TheTVDBApiImpl("65SOWU45S4FAA", remoteAPI));
+            TheTVDBApi api = init(new TheTVDBApiImpl(CONTRACT_APIKEY, remoteAPI));
             api.setLanguage(language);
             api.getArtwork(3447);
             client.verify(HttpRequest.request("/artwork/3447")
@@ -188,8 +189,8 @@ class TheTVDBApiImplTest {
 
         @BeforeAll
         void setUpAPIs(Proxy remoteAPI) throws Exception {
-            basicAPI = init(new TheTVDBApiImpl("OIRE71D2V145FS", remoteAPI)).json();
-            userAuthApi = init(new TheTVDBApiImpl("AAD66G72S3R74F", "unique_9878424", "Dark Helmet", remoteAPI)).json();
+            basicAPI = init(new TheTVDBApiImpl(CONTRACT_APIKEY, remoteAPI)).json();
+            userAuthApi = init(new TheTVDBApiImpl(SUBSCRIPTION_APIKEY, remoteAPI)).json();
         }
 
         //@DisableFormatting
@@ -262,8 +263,8 @@ class TheTVDBApiImplTest {
 
         @BeforeAll
         void setUpAPIs(Proxy remoteAPI) throws Exception {
-            basicAPI = init(new TheTVDBApiImpl("IOE45S4R82S5", remoteAPI)).extended();
-            userAuthApi = init(new TheTVDBApiImpl("D69L8F4N5X4W6R", "unique_5481157", "King Roland", remoteAPI))
+            basicAPI = init(new TheTVDBApiImpl(CONTRACT_APIKEY, remoteAPI)).extended();
+            userAuthApi = init(new TheTVDBApiImpl(SUBSCRIPTION_APIKEY, remoteAPI))
                     .extended();
         }
 

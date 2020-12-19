@@ -22,6 +22,8 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Optional;
 import java.util.Properties;
 
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.FundingModel;
+
 /**
  * Configuration used for authentication at the <i>TheTVDB.com</i> RESTful remote API
  * <p><br>
@@ -33,11 +35,8 @@ public final class IntegrationTestConfiguration {
     /** System property holding the <i>TheTVDB.com</i> API-Key to be used for authentication */
     private static final String INTEGRATION_THETVDB_COM_APIKEY = "integration.thetvdb.com.apikey";
 
-    /** System property holding the <i>TheTVDB.com</i> user key to be used for authentication */
-    private static final String INTEGRATION_THETVDB_COM_USERKEY = "integration.thetvdb.com.userkey";
-
-    /** System property holding the <i>TheTVDB.com</i> user name to be used for authentication */
-    private static final String INTEGRATION_THETVDB_COM_USERNAME = "integration.thetvdb.com.username";
+    /** System property holding the funding model based on which the API-Key was issued */
+    private static final String INTEGRATION_THETVDB_COM_FUNDINGMODEL = "integration.thetvdb.com.fundingmodel";
 
     /** Singleton instance */
     private static final IntegrationTestConfiguration INSTANCE = new IntegrationTestConfiguration();
@@ -81,27 +80,15 @@ public final class IntegrationTestConfiguration {
     }
 
     /**
-     * Fetches the user key from the resource properties file or from the VM system properties
+     * Fetches the funding model from the resource properties file or from the VM system properties
      *
-     * @return The user key to be used for <i>TheTVDB.com</i> remote API authentication
+     * @return The funding model based on which the API-Key was issued
      *
-     * @throws InvalidPropertiesFormatException If the user key was neither provided via the "thetvdbapi.properties"
-     *                                          file nor as a system property
+     * @throws InvalidPropertiesFormatException If the funding model was neither provided via the
+     *                                          "thetvdbapi.properties" file nor as a system property
      */
-    public String getUserKey() throws InvalidPropertiesFormatException {
-        return getProperty(INTEGRATION_THETVDB_COM_USERKEY);
-    }
-
-    /**
-     * Fetches the user name from the resource properties file or from the VM system properties
-     *
-     * @return The user name to be used for <i>TheTVDB.com</i> remote API authentication
-     *
-     * @throws InvalidPropertiesFormatException If the user name was neither provided via the "thetvdbapi.properties"
-     *                                          file nor as a system property
-     */
-    public String getUserName() throws InvalidPropertiesFormatException {
-        return getProperty(INTEGRATION_THETVDB_COM_USERNAME);
+    public FundingModel getFundingModel() throws InvalidPropertiesFormatException {
+        return FundingModel.valueOf(getProperty(INTEGRATION_THETVDB_COM_FUNDINGMODEL));
     }
 
     /**

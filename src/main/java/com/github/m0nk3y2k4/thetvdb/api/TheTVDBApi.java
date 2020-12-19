@@ -66,8 +66,8 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
  * object. However, these objects do only contain the actually requested data and will not include any additional
  * contextual information that may be returned by the remote service (e.g. Pagination information, additional
  * validation or error data). Furthermore they will only provide access to properties that are
- * <a href="https://api.thetvdb.com/swagger">formally declared by the API</a> (version {@value Version#API_VERSION})
- * .</li>
+ * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0">formally declared by the
+ * API</a> (version {@value Version#API_VERSION}).</li>
  * <li>{@link Extended}<br>
  * This layout may be used for slightly advance API integration. Like the common layout it'll take care of parsing
  * the received JSON into Java DTO's but it will also provide access to any additional contextual information.
@@ -138,7 +138,7 @@ public interface TheTVDBApi {
      * login/initialize the session before making the first API call. However, if an API call is made without proper
      * initialization, an implicit login will be performed.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Authentication/post_login">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/login/post_login">
      * <b>[POST]</b> /login</a>
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
@@ -150,7 +150,7 @@ public interface TheTVDBApi {
      * Refreshes the current, valid JWT session token. This method can be used to extend the expiration date (24 hours)
      * of the current session token without the need of a complete new login.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a href="https://api.thetvdb.com/swagger#!/Authentication/get_refresh_token">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/login/get_refresh_token">
      * <b>[GET]</b> /refresh_token</a>
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource

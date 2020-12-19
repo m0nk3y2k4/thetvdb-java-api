@@ -23,6 +23,7 @@ import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.HEAD;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.POST;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.PUT;
+import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.JSON_DATA;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.createUnauthorizedResponse;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,7 +36,6 @@ import java.util.stream.Stream;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APISession.Status;
 import com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter.WithHttpsMockServer;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -52,7 +52,7 @@ class APIConnectionTest {
     private final APIConnection con;
 
     APIConnectionTest(Supplier<RemoteAPI> remoteAPI) {
-        con = new APIConnection("API-Key", remoteAPI);
+        con = new APIConnection(CONTRACT_APIKEY, remoteAPI);
     }
 
     private static Stream<Arguments> sendRequest_verifyHTTPMethodInRequest() {
@@ -66,49 +66,18 @@ class APIConnectionTest {
     }
 
     @Test
-    void newAPIConnection_withSimpleCredentials_verifySessionProperties() {
-        final String apiKey = "SHJWSJDHUWH544SDASF2";
-        APIConnection simpleConnection = new APIConnection(apiKey);
-        assertThat(simpleConnection.getApiKey()).isEqualTo(apiKey);
-        assertThat(simpleConnection.userAuthentication()).isFalse();
+    void newAPIConnection_withAPIKey_verifySessionProperties() {
+        APIConnection simpleConnection = new APIConnection(CONTRACT_APIKEY);
+        assertThat(simpleConnection.getApiKey()).isEqualTo(CONTRACT_APIKEY);
         assertThat(simpleConnection.getRemoteAPI()).isEqualTo(new RemoteAPI.Builder().build());
     }
 
     @Test
-    void newAPIConnection_withSimpleCredentialsAndRemoteAPI_verifySessionProperties() {
-        final String apiKey = "5DAS84FASWIJIS7466";
+    void newAPIConnection_withAPIKeyAndRemoteAPI_verifySessionProperties() {
         final RemoteAPI remoteAPI = new RemoteAPI.Builder().protocol("http").host("myHost").port(3358).build();
-        APIConnection simpleConnection = new APIConnection(apiKey, () -> remoteAPI);
-        assertThat(simpleConnection.getApiKey()).isEqualTo(apiKey);
-        assertThat(simpleConnection.userAuthentication()).isFalse();
+        APIConnection simpleConnection = new APIConnection(CONTRACT_APIKEY, () -> remoteAPI);
+        assertThat(simpleConnection.getApiKey()).isEqualTo(CONTRACT_APIKEY);
         assertThat(simpleConnection.getRemoteAPI()).isEqualTo(remoteAPI);
-    }
-
-    @Test
-    void newAPIConnection_withExtendedCredentials_verifySessionProperties() {
-        final String apiKey = "UUZED71122WSAZDHA85A4";
-        final String userKey = "unique_4555145247623";
-        final String userName = "Sarah Connor";
-        APIConnection extendedConnection = new APIConnection(apiKey, userKey, userName);
-        assertThat(extendedConnection.getApiKey()).isEqualTo(apiKey);
-        assertThat(extendedConnection.userAuthentication()).isTrue();
-        assertThat(extendedConnection.getUserKey()).contains(userKey);
-        assertThat(extendedConnection.getUserName()).contains(userName);
-        assertThat(extendedConnection.getRemoteAPI()).isEqualTo(new RemoteAPI.Builder().build());
-    }
-
-    @Test
-    void newAPIConnection_withExtendedCredentialsAndRemoteAPI_verifySessionProperties() {
-        final String apiKey = "DAS7SAFRIIO85J6HH122";
-        final String userKey = "unique_954872215412";
-        final String userName = "Captain Kirk";
-        final RemoteAPI remoteAPI = new RemoteAPI.Builder().protocol("https").host("someOtherHost").port(1678).build();
-        APIConnection extendedConnection = new APIConnection(apiKey, userKey, userName, () -> remoteAPI);
-        assertThat(extendedConnection.getApiKey()).isEqualTo(apiKey);
-        assertThat(extendedConnection.userAuthentication()).isTrue();
-        assertThat(extendedConnection.getUserKey()).contains(userKey);
-        assertThat(extendedConnection.getUserName()).contains(userName);
-        assertThat(extendedConnection.getRemoteAPI()).isEqualTo(remoteAPI);
     }
 
     @ParameterizedTest(name = "[{index}] Verifying {1} request")
@@ -130,7 +99,7 @@ class APIConnectionTest {
     @Test
     void setStatus_verifyStatus() {
         con.setStatus(Status.AUTHORIZED);
-        assertThat(con.getSession()).extracting(APISession::getStatus).isEqualTo(Status.AUTHORIZED);
+        assertThat(con.getStatus()).isEqualTo(Status.AUTHORIZED);
     }
 
     @Test
@@ -149,7 +118,6 @@ class APIConnectionTest {
         assertThat(exception).hasMessageContaining(ERR_MAX_RETRY_EXCEEDED, MAX_AUTHENTICATION_RETRY_COUNT);
     }
 
-    @Disabled("Authorization has to be revised for APIv4")
     @Test
     void sendRequest_automaticAuthorizationSuccess(MockServerClient client) throws Exception {
         final String resource = "/auth/autoAuthSuccess";
@@ -158,7 +126,6 @@ class APIConnectionTest {
         client.verify(request(resource), VerificationTimes.exactly(2));
     }
 
-    @Disabled("Authorization has to be revised for APIv4")
     @Test
     void sendRequest_automaticAuthorizationFailed(MockServerClient client) {
         final String resource = "/auth/autoAuthFailed";
@@ -172,5 +139,4 @@ class APIConnectionTest {
     private interface Request {
         void send(APIConnection con) throws APIException;
     }
-
 }

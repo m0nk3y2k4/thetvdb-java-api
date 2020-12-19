@@ -1,11 +1,10 @@
 {
   "$schema": "http://json-schema.org/draft/2019-09/schema#",
-  "$id": "http://api.thetvdb.com/schemas/login.json",
+  "$id": "http://api4.thetvdb.com/v4/schemas/login.json",
   "type": "object",
   "properties": {
     "apikey": { "type": "string" },
-    "userkey": { "type": "string" },
-    "username": { "type": "string" }
+    "pin": { "type": "string" }
   },
   "required": ["apikey"],
   "additionalProperties": false
