@@ -28,10 +28,6 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter.WithHttpsMock
 import static com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter.WithHttpsMockServer.PROTOCOL;
 import static org.mockserver.model.HttpRequest.request;
 
-import java.lang.reflect.ParameterizedType;
-import java.util.Optional;
-import java.util.function.Supplier;
-
 import javax.net.ssl.HttpsURLConnection;
 
 import com.github.m0nk3y2k4.thetvdb.api.Proxy;
@@ -77,16 +73,13 @@ class HttpsMockServerExtension implements ParameterResolver, BeforeAllCallback, 
     @Override
     public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
             throws ParameterResolutionException {
-        return getParameter(parameterContext).isPresent();
+        return Proxy.class.isAssignableFrom(parameterContext.getParameter().getType());
     }
 
     @Override
     public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
             throws ParameterResolutionException {
-        return getParameter(parameterContext).orElseThrow(() ->
-                new ParameterResolutionException(String
-                        .format("Could not resolve parameter for class [%s]", parameterContext.getParameter()
-                                .getType())));
+        return mockServerRemote;
     }
 
     @Override
@@ -122,26 +115,5 @@ class HttpsMockServerExtension implements ParameterResolver, BeforeAllCallback, 
     public void afterEach(ExtensionContext extensionContext) {
         // Clear all requests received by the mock server so far
         client.clear(request("/.*"), ClearType.LOG);
-    }
-
-    /**
-     * Checks if the requested parameter can be resolved by this extension and returns an Optional representing the
-     * result of this check.
-     *
-     * @param parameterContext Context representing the parameter requested for injection
-     *
-     * @return Optional containing the requested parameter or an empty Optional in case the parameter can not be
-     *         resolved by this extension
-     */
-    private Optional<Object> getParameter(ParameterContext parameterContext) {
-        Class<?> parameterClass = parameterContext.getParameter().getType();
-        if (Proxy.class.isAssignableFrom(parameterClass)) {
-            return Optional.of(mockServerRemote);
-        } else if (Supplier.class.isAssignableFrom(parameterClass) &&
-                Proxy.class.isAssignableFrom((Class<?>)((ParameterizedType)parameterContext.getParameter()
-                        .getParameterizedType()).getActualTypeArguments()[0])) {
-            return Optional.of((Supplier<RemoteAPI>)() -> mockServerRemote);
-        }
-        return Optional.empty();
     }
 }

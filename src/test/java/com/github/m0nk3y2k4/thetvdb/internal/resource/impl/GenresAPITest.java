@@ -29,7 +29,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
@@ -71,8 +70,7 @@ class GenresAPITest {
 
     @ParameterizedTest(name = "[{index}] Route GenresAPI.{0} rejected")
     @MethodSource("withInvalidParameters")
-    void invokeRoute_withInvalidParameters_verifyParameterValidation(TestRemoteAPICall route,
-            Supplier<RemoteAPI> remoteAPI) {
+    void invokeRoute_withInvalidParameters_verifyParameterValidation(TestRemoteAPICall route, RemoteAPI remoteAPI) {
         assertThatIllegalArgumentException()
                 .isThrownBy(() -> route.invoke(new APIConnection(CONTRACT_APIKEY, remoteAPI)));
     }
@@ -80,7 +78,7 @@ class GenresAPITest {
     @ParameterizedTest(name = "[{index}] Route GenresAPI.{0} successfully invoked")
     @MethodSource("withValidParameters")
     void invokeRoute_withValidParameters_verifyResponse(TestRemoteAPICall route, JSONTestUtil.JsonResource expected,
-            Supplier<RemoteAPI> remoteAPI) throws Exception {
+            RemoteAPI remoteAPI) throws Exception {
         assertThat(route.invoke(new APIConnection(CONTRACT_APIKEY, remoteAPI))).isEqualTo(expected.getJson());
     }
 }

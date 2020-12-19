@@ -71,7 +71,7 @@ class LoginAPITest {
      */
     private static final class Connection extends APIConnection {
         private Connection(APIKey apiKey) {
-            super(apiKey, () -> remote);
+            super(apiKey, remote);
         }
 
         private Status getSessionStatus() {

@@ -27,10 +27,10 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.JSON_DATA;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.createUnauthorizedResponse;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.catchThrowableOfType;
 import static org.mockserver.model.HttpRequest.request;
 
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
@@ -51,7 +51,7 @@ class APIConnectionTest {
 
     private final APIConnection con;
 
-    APIConnectionTest(Supplier<RemoteAPI> remoteAPI) {
+    APIConnectionTest(RemoteAPI remoteAPI) {
         con = new APIConnection(CONTRACT_APIKEY, remoteAPI);
     }
 
@@ -75,9 +75,14 @@ class APIConnectionTest {
     @Test
     void newAPIConnection_withAPIKeyAndRemoteAPI_verifySessionProperties() {
         final RemoteAPI remoteAPI = new RemoteAPI.Builder().protocol("http").host("myHost").port(3358).build();
-        APIConnection simpleConnection = new APIConnection(CONTRACT_APIKEY, () -> remoteAPI);
+        APIConnection simpleConnection = new APIConnection(CONTRACT_APIKEY, remoteAPI);
         assertThat(simpleConnection.getApiKey()).isEqualTo(CONTRACT_APIKEY);
         assertThat(simpleConnection.getRemoteAPI()).isEqualTo(remoteAPI);
+    }
+
+    @Test
+    void newAPIConnection_withMissingRemoteAPI_verifyParameterValidation() {
+        assertThatIllegalArgumentException().isThrownBy(() -> new APIConnection(CONTRACT_APIKEY, null));
     }
 
     @ParameterizedTest(name = "[{index}] Verifying {1} request")

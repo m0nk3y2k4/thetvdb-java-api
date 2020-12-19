@@ -41,7 +41,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
-import java.util.function.Supplier;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
@@ -97,7 +96,7 @@ public class APIConnection {
      * @param apiKey Valid <i>TheTVDB.com</i> v4 API-Key
      */
     public APIConnection(@Nonnull APIKey apiKey) {
-        this(apiKey, RemoteAPI::getDefault);     // Default: regular TheTVDB.com remote
+        this(apiKey, RemoteAPI.getDefault());     // Default: regular TheTVDB.com remote
     }
 
     /**
@@ -109,13 +108,11 @@ public class APIConnection {
      * @param apiKey Valid <i>TheTVDB.com</i> v4 API-Key
      * @param remote Supplier providing a specific remote API endpoint to be used by this connection
      */
-    public APIConnection(@Nonnull APIKey apiKey, @Nonnull Supplier<RemoteAPI> remote) {
-        Parameters.validateCondition(remoteSupplier ->
-                        Optional.ofNullable(remoteSupplier).map(Supplier::get).isPresent(), remote,
-                new IllegalArgumentException("Remote endpoint for this connection needs to be specified"));
+    public APIConnection(@Nonnull APIKey apiKey, @Nonnull RemoteAPI remote) {
+        Parameters.validateNotNull(remote, "Remote endpoint for this connection needs to be specified");
 
         this.session = new APISession(apiKey);
-        this.remoteAPI = remote.get();
+        this.remoteAPI = remote;
     }
 
     /**

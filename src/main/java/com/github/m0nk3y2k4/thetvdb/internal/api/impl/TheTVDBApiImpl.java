@@ -97,7 +97,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
      */
     public TheTVDBApiImpl(@Nonnull APIKey apiKey, @Nonnull Proxy proxy) {
         Parameters.validateNotNull(proxy, "Proxy must not be NULL");
-        this.con = new APIConnection(apiKey, () -> new RemoteAPI.Builder().from(proxy).build());
+        this.con = new APIConnection(apiKey, new RemoteAPI.Builder().from(proxy).build());
     }
 
     /**
