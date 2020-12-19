@@ -87,7 +87,7 @@ public final class LoginAPI {
             @Nonnull ThrowableFunctionalInterfaces.Supplier<JsonNode, APIException> sendRequest) throws APIException {
         // Request token
         JsonNode response = sendRequest.get();              // Throws exception if authorization fails
-        String token = response.get("token").asText();
+        String token = response.findPath("token").requireNonNull().asText();
 
         // Set token on connection
         con.setToken(token);
