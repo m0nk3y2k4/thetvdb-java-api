@@ -13,7 +13,7 @@
     ],
     "image": "Image",
     "imageType": 5,
-    "isMovie": 0,
+    "isMovie": 1,
     "seasons": [
       {
         "id": 425874,
@@ -58,7 +58,9 @@
           "country": "Country2"
         }
       }
-    ]
+    ],
+    "number": 43,
+    "seasonNumber": 9
   },
   "status": "success"
 }

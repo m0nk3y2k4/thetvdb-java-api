@@ -16,13 +16,17 @@
 
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
+import java.util.Optional;
+import java.util.OptionalLong;
+
 /**
  * Interface representing a
  * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/NetworkBaseRecord">NetworkBaseRecord</a>
  * data transfer object.
  * <p><br>
  * The methods of this class provide easy access to basic network related data which was returned by the remote service
- * in JSON format.
+ * in JSON format. Properties that are declared to be nullable in the remote service documentation will be returned as
+ * Java Optionals.
  * <p><br>
  * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service
  * in order to facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although
@@ -36,33 +40,33 @@ public interface Network {
      *
      * @return The <em>{@code id}</em> property from the received JSON
      */
-    Long getId();
+    OptionalLong getId();
 
     /**
      * Get the value of the {<em>{@code <enclosing>.name}</em>} JSON property
      *
      * @return The <em>{@code name}</em> property from the received JSON
      */
-    String getName();
+    Optional<String> getName();
 
     /**
      * Get the value of the {<em>{@code <enclosing>.slug}</em>} JSON property
      *
      * @return The <em>{@code slug}</em> property from the received JSON
      */
-    String getSlug();
+    Optional<String> getSlug();
 
     /**
      * Get the value of the {<em>{@code <enclosing>.abbreviation}</em>} JSON property
      *
      * @return The <em>{@code abbreviation}</em> property from the received JSON
      */
-    String getAbbreviation();
+    Optional<String> getAbbreviation();
 
     /**
      * Get the value of the {<em>{@code <enclosing>.country}</em>} JSON property
      *
      * @return The <em>{@code country}</em> property from the received JSON
      */
-    String getCountry();
+    Optional<String> getCountry();
 }

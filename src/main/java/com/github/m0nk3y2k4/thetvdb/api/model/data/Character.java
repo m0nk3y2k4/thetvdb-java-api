@@ -17,6 +17,8 @@
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalLong;
 
 /**
  * Interface representing a
@@ -24,7 +26,8 @@ import java.util.List;
  * data transfer object.
  * <p><br>
  * The methods of this class provide easy access to all character related data which was returned by the remote service
- * in JSON format. Methods returning collection-based values will return an empty collection in case no corresponding
+ * in JSON format. Properties that are declared to be nullable in the remote service documentation will be returned as
+ * Java Optionals. Methods returning collection-based values will return an empty collection in case no corresponding
  * data was received.
  * <p><br>
  * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service
@@ -46,35 +49,35 @@ public interface Character {
      *
      * @return The <em>{@code name}</em> property from the received JSON
      */
-    String getName();
+    Optional<String> getName();
 
     /**
      * Get the value of the {<em>{@code data.peopleId}</em>} JSON property
      *
      * @return The <em>{@code peopleId}</em> property from the received JSON
      */
-    Double getPeopleId();
+    OptionalLong getPeopleId();
 
     /**
      * Get the value of the {<em>{@code data.seriesId}</em>} JSON property
      *
      * @return The <em>{@code seriesId}</em> property from the received JSON
      */
-    Double getSeriesId();
+    OptionalLong getSeriesId();
 
     /**
      * Get the value of the {<em>{@code data.movieId}</em>} JSON property
      *
      * @return The <em>{@code movieId}</em> property from the received JSON
      */
-    Double getMovieId();
+    OptionalLong getMovieId();
 
     /**
      * Get the value of the {<em>{@code data.episodeId}</em>} JSON property
      *
      * @return The <em>{@code episodeId}</em> property from the received JSON
      */
-    Double getEpisodeId();
+    OptionalLong getEpisodeId();
 
     /**
      * Get the value of the {<em>{@code data.type}</em>} JSON property
@@ -88,7 +91,7 @@ public interface Character {
      *
      * @return The <em>{@code image}</em> property from the received JSON
      */
-    String getImage();
+    Optional<String> getImage();
 
     /**
      * Get the value of the {<em>{@code data.sort}</em>} JSON property

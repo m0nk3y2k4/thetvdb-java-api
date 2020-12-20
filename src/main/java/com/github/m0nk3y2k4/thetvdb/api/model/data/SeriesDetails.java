@@ -17,6 +17,8 @@
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalLong;
 
 /**
  * Interface representing a
@@ -24,7 +26,8 @@ import java.util.List;
  * data transfer object.
  * <p><br>
  * The methods of this class provide easy access to all series related data which was returned by the remote service in
- * JSON format. Methods returning collection-based values will return an empty collection in case no corresponding data
+ * JSON format. Properties that are declared to be nullable in the remote service documentation will be returned as Java
+ * Optionals. Methods returning collection-based values will return an empty collection in case no corresponding data
  * was received.
  * <p><br>
  * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service
@@ -39,28 +42,28 @@ public interface SeriesDetails {
      *
      * @return The <em>{@code id}</em> property from the received JSON
      */
-    Long getId();
+    OptionalLong getId();
 
     /**
      * Get the value of the {<em>{@code data.name}</em>} JSON property
      *
      * @return The <em>{@code name}</em> property from the received JSON
      */
-    String getName();
+    Optional<String> getName();
 
     /**
      * Get the value of the {<em>{@code data.slug}</em>} JSON property
      *
      * @return The <em>{@code slug}</em> property from the received JSON
      */
-    String getSlug();
+    Optional<String> getSlug();
 
     /**
      * Get the value of the {<em>{@code data.image}</em>} JSON property
      *
      * @return The <em>{@code image}</em> property from the received JSON
      */
-    String getImage();
+    Optional<String> getImage();
 
     /**
      * Get the value of the {<em>{@code data.nameTranslations}</em>} JSON property
@@ -88,14 +91,14 @@ public interface SeriesDetails {
      *
      * @return The <em>{@code firstAired}</em> property from the received JSON
      */
-    String getFirstAired();
+    Optional<String> getFirstAired();
 
     /**
      * Get the value of the {<em>{@code data.lastAired}</em>} JSON property
      *
      * @return The <em>{@code lastAired}</em> property from the received JSON
      */
-    String getLastAired();
+    Optional<String> getLastAired();
 
     /**
      * Get the value of the {<em>{@code data.nextAired}</em>} JSON property
@@ -123,14 +126,14 @@ public interface SeriesDetails {
      *
      * @return The <em>{@code originalCountry}</em> property from the received JSON
      */
-    String getOriginalCountry();
+    Optional<String> getOriginalCountry();
 
     /**
      * Get the value of the {<em>{@code data.originalLanguage}</em>} JSON property
      *
      * @return The <em>{@code originalLanguage}</em> property from the received JSON
      */
-    String getOriginalLanguage();
+    Optional<String> getOriginalLanguage();
 
     /**
      * Get the value of the {<em>{@code data.originalNetwork}</em>} JSON property
@@ -215,7 +218,7 @@ public interface SeriesDetails {
      *
      * @return The <em>{@code airsTime}</em> property from the received JSON
      */
-    String getAirsTime();
+    Optional<String> getAirsTime();
 
     /**
      * Get the value of the {<em>{@code data.seasons}</em>} JSON property
