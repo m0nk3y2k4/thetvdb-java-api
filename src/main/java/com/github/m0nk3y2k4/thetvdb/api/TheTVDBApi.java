@@ -138,7 +138,7 @@ public interface TheTVDBApi {
      * login/initialize the session before making the first API call. However, if an API call is made without proper
      * initialization, an implicit login will be performed.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/login/post_login">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/login/post_login">
      * <b>[POST]</b> /login</a>
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
@@ -150,7 +150,7 @@ public interface TheTVDBApi {
      * Refreshes the current, valid JWT session token. This method can be used to extend the expiration date (24 hours)
      * of the current session token without the need of a complete new login.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/login/get_refresh_token">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/login/get_refresh_token">
      * <b>[GET]</b> /refresh_token</a>
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
@@ -161,7 +161,7 @@ public interface TheTVDBApi {
     /**
      * Returns a list of available artwork types mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/artwork-types/getAllArtworkTypes">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/artwork-types/getAllArtworkTypes">
      * <b>[GET]</b> /artwork-types</a>
      *
      * @return List of available artwork types mapped as Java DTO's based on the JSON data returned by the remote
@@ -177,7 +177,7 @@ public interface TheTVDBApi {
     /**
      * Returns basic information for a specific artwork mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/artwork/getArtworkBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/artwork/getArtworkBase">
      * <b>[GET]</b> /artwork/{id}</a>
      *
      * @param artworkId The <i>TheTVDB.com</i> artwork ID
@@ -194,7 +194,7 @@ public interface TheTVDBApi {
     /**
      * Returns information for a specific character mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/characters/getCharacterBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/characters/getCharacterBase">
      * <b>[GET]</b> /characters/{id}</a>
      *
      * @param characterId The <i>TheTVDB.com</i> character ID
@@ -211,7 +211,7 @@ public interface TheTVDBApi {
     /**
      * Returns basic information for a specific episode mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/episodes/getEpisodeBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/episodes/getEpisodeBase">
      * <b>[GET]</b> /episodes/{id}</a>
      *
      * @param episodeId The <i>TheTVDB.com</i> episode ID
@@ -228,7 +228,7 @@ public interface TheTVDBApi {
     /**
      * Returns a list of available genres mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/genres/getAllGenres">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/genres/getAllGenres">
      * <b>[GET]</b> /genres</a>
      *
      * @return List of available genres mapped as Java DTO's based on the JSON data returned by the remote service
@@ -243,7 +243,7 @@ public interface TheTVDBApi {
     /**
      * Returns information for a specific genre mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/genres/getGenreBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/genres/getGenreBase">
      * <b>[GET]</b> /genres/{id}</a>
      *
      * @param genreId The <i>TheTVDB.com</i> genre ID
@@ -260,7 +260,7 @@ public interface TheTVDBApi {
     /**
      * Returns basic information for a specific movie mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/movies/getMovieBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/movies/getMovieBase">
      * <b>[GET]</b> /movies/{id}</a>
      *
      * @param movieId The <i>TheTVDB.com</i> movie ID
@@ -277,7 +277,7 @@ public interface TheTVDBApi {
     /**
      * Returns basic information for a specific people mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/people/getPeopleBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/people/getPeopleBase">
      * <b>[GET]</b> /people/{id}</a>
      *
      * @param peopleId The <i>TheTVDB.com</i> people ID
@@ -294,7 +294,7 @@ public interface TheTVDBApi {
     /**
      * Returns basic information for a specific season mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/seasons/getSeasonBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/seasons/getSeasonBase">
      * <b>[GET]</b> /seasons/{id}</a>
      *
      * @param seasonId The <i>TheTVDB.com</i> season ID
@@ -312,7 +312,7 @@ public interface TheTVDBApi {
      * Returns a list of series based on the given query parameters mapped as Java DTO. The list contains basic
      * information of all series matching the query parameters.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/series/getAllSeries">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/series/getAllSeries">
      * <b>[GET]</b> /series</a>
      *
      * @param queryParameters Object containing key/value pairs of query parameters
@@ -329,7 +329,7 @@ public interface TheTVDBApi {
     /**
      * Returns basic information for a specific series mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/series/getSeriesBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/series/getSeriesBase">
      * <b>[GET]</b> /series/{id}</a>
      *
      * @param seriesId The <i>TheTVDB.com</i> series ID
@@ -346,7 +346,7 @@ public interface TheTVDBApi {
     /**
      * Returns detailed information for a specific series mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/series/getSeriesExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/series/getSeriesExtended">
      * <b>[GET]</b> /series/{id}/extended</a>
      *
      * @param seriesId The <i>TheTVDB.com</i> series ID
@@ -395,7 +395,7 @@ public interface TheTVDBApi {
         /**
          * Returns a list of available artwork types as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/artwork-types/getAllArtworkTypes">
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/artwork-types/getAllArtworkTypes">
          * <b>[GET]</b> /artwork-types</a>
          *
          * @return JSON object containing a list of available artwork types
@@ -410,7 +410,7 @@ public interface TheTVDBApi {
         /**
          * Returns basic information for a specific artwork as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/artwork/getArtworkBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/artwork/getArtworkBase">
          * <b>[GET]</b> /artwork/{id}</a>
          *
          * @param artworkId The <i>TheTVDB.com</i> artwork ID
@@ -427,7 +427,7 @@ public interface TheTVDBApi {
         /**
          * Returns information for a specific character as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/characters/getCharacterBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/characters/getCharacterBase">
          * <b>[GET]</b> /characters/{id}</a>
          *
          * @param characterId The <i>TheTVDB.com</i> character ID
@@ -444,7 +444,7 @@ public interface TheTVDBApi {
         /**
          * Returns basic information for a specific episode as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/episodes/getEpisodeBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/episodes/getEpisodeBase">
          * <b>[GET]</b> /episodes/{id}</a>
          *
          * @param episodeId The <i>TheTVDB.com</i> episode ID
@@ -461,7 +461,7 @@ public interface TheTVDBApi {
         /**
          * Returns a list of available genres as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/genres/getAllGenres">
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/genres/getAllGenres">
          * <b>[GET]</b> /genres</a>
          *
          * @return JSON object containing a list of available genres
@@ -476,7 +476,7 @@ public interface TheTVDBApi {
         /**
          * Returns information for a specific genre as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/genres/getGenreBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/genres/getGenreBase">
          * <b>[GET]</b> /genres/{id}</a>
          *
          * @param genreId The <i>TheTVDB.com</i> genre ID
@@ -493,7 +493,7 @@ public interface TheTVDBApi {
         /**
          * Returns basic information for a specific movie as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/movies/getMovieBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/movies/getMovieBase">
          * <b>[GET]</b> /movies/{id}</a>
          *
          * @param movieId The <i>TheTVDB.com</i> movie ID
@@ -510,7 +510,7 @@ public interface TheTVDBApi {
         /**
          * Returns basic information for a specific people as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/people/getPeopleBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/people/getPeopleBase">
          * <b>[GET]</b> /people/{id}</a>
          *
          * @param peopleId The <i>TheTVDB.com</i> people ID
@@ -527,7 +527,7 @@ public interface TheTVDBApi {
         /**
          * Returns basic information for a specific season as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/seasons/getSeasonBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/seasons/getSeasonBase">
          * <b>[GET]</b> /seasons/{id}</a>
          *
          * @param seasonId The <i>TheTVDB.com</i> season ID
@@ -545,7 +545,7 @@ public interface TheTVDBApi {
          * Returns a list of series based on the given query parameters as raw JSON. The list contains basic information
          * of all series matching the query parameters.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/series/getAllSeries">
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/series/getAllSeries">
          * <b>[GET]</b> /series</a>
          *
          * @param queryParameters Object containing key/value pairs of query parameters
@@ -562,7 +562,7 @@ public interface TheTVDBApi {
         /**
          * Returns basic information for a specific series as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/series/getSeriesBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/series/getSeriesBase">
          * <b>[GET]</b> /series/{id}</a>
          *
          * @param seriesId The <i>TheTVDB.com</i> series ID
@@ -579,7 +579,7 @@ public interface TheTVDBApi {
         /**
          * Returns detailed information for a specific series as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/series/getSeriesExtended">
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/series/getSeriesExtended">
          * <b>[GET]</b> /series/{id}/extended</a>
          *
          * @param seriesId The <i>TheTVDB.com</i> series ID
@@ -610,7 +610,7 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a list of available artwork types mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/artwork-types/getAllArtworkTypes">
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/artwork-types/getAllArtworkTypes">
          * <b>[GET]</b> /artwork-types</a>
          *
          * @return Extended API response containing the actually requested data as well as additional status
@@ -626,7 +626,7 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing basic information for a specific artwork mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/artwork/getArtworkBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/artwork/getArtworkBase">
          * <b>[GET]</b> /artwork/{id}</a>
          *
          * @param artworkId The <i>TheTVDB.com</i> artwork ID
@@ -644,7 +644,7 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing information for a specific character mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/characters/getCharacterBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/characters/getCharacterBase">
          * <b>[GET]</b> /characters/{id}</a>
          *
          * @param characterId The <i>TheTVDB.com</i> character ID
@@ -662,7 +662,7 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing basic information for a specific episode mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/episodes/getEpisodeBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/episodes/getEpisodeBase">
          * <b>[GET]</b> /episodes/{id}</a>
          *
          * @param episodeId The <i>TheTVDB.com</i> episode ID
@@ -680,7 +680,7 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a list of available genres mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/genres/getAllGenres">
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/genres/getAllGenres">
          * <b>[GET]</b> /genres</a>
          *
          * @return Extended API response containing the actually requested data as well as additional status
@@ -696,7 +696,7 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing information for a specific genre mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/genres/getGenreBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/genres/getGenreBase">
          * <b>[GET]</b> /genres/{id}</a>
          *
          * @param genreId The <i>TheTVDB.com</i> genre ID
@@ -714,7 +714,7 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing basic information for a specific movie mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/movies/getMovieBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/movies/getMovieBase">
          * <b>[GET]</b> /movies/{id}</a>
          *
          * @param movieId The <i>TheTVDB.com</i> movie ID
@@ -732,7 +732,7 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing basic information for a specific people mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/people/getPeopleBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/people/getPeopleBase">
          * <b>[GET]</b> /people/{id}</a>
          *
          * @param peopleId The <i>TheTVDB.com</i> people ID
@@ -750,7 +750,7 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing basic information for a specific season mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/seasons/getSeasonBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/seasons/getSeasonBase">
          * <b>[GET]</b> /seasons/{id}</a>
          *
          * @param seasonId The <i>TheTVDB.com</i> season ID
@@ -769,7 +769,7 @@ public interface TheTVDBApi {
          * Returns a response object containing a list of series based on the given query parameters mapped as Java DTO.
          * The list contains basic information of all series matching the query parameters.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/series/getAllSeries">
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/series/getAllSeries">
          * <b>[GET]</b> /series</a>
          *
          * @param queryParameters Object containing key/value pairs of query parameters
@@ -787,7 +787,7 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing basic information for a specific series mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/series/getSeriesBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/series/getSeriesBase">
          * <b>[GET]</b> /series/{id}</a>
          *
          * @param seriesId The <i>TheTVDB.com</i> series ID
@@ -805,7 +805,7 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing detailed information for a specific series mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/series/getSeriesExtended">
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/series/getSeriesExtended">
          * <b>[GET]</b> /series/{id}/extended</a>
          *
          * @param seriesId The <i>TheTVDB.com</i> series ID

@@ -18,7 +18,7 @@ package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
 /**
  * Interface representing an
- * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/GenreBaseRecord">GenreBaseRecord</a>
+ * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/GenreBaseRecord">GenreBaseRecord</a>
  * data transfer object.
  * <p><br>
  * The methods of this class provide easy access to basic genre related data which was returned by the remote service in

@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Interface representing a
- * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/tvdb/tvdb-api-v4/4.0.1#/FranchiseBaseRecord">FranchiseBaseRecord</a>
+ * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/FranchiseBaseRecord">FranchiseBaseRecord</a>
  * data transfer object.
  * <p><br>
  * The methods of this class provide easy access to basic franchise related data which was returned by the remote
