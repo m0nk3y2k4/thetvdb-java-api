@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Util method `Parameters.isPositiveInteger` returning Predicate<String> used to check for positive numeric integers.
 - `Proxy` objects now support an additional path component.
 - New method `RemoteAPI.getDefault` which can be used to obtain an instance pointing to the actual _TheTVDB.com_ API.
+- Added maven dependency _com.fasterxml.jackson.datatype:jackson-datatype-jdk8_ for parsing Java8 Optionals from JSON.
 
 ### Changed
 - Method `APIUtil.prettyPrint(JsonNode)` now wraps lines with a fix Unix-style (LF) line separator.

@@ -35,6 +35,7 @@ import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIRuntimeException;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
@@ -87,6 +88,9 @@ public final class JsonDeserializer {
 
     /** Module used to extend the object mappers functionality in terms of mapping the APIs data model interfaces */
     private static final SimpleModule DATA_MODULE = new SimpleModule();
+
+    /** Module used to extend the object mappers functionality in terms of mapping JDK8 Optionals */
+    private static final Module JDK8_MODULE = new Jdk8Module();
 
     static {
         // Add Interface <-> Implementation mappings to the module. The object mapper will use these mappings to determine the
@@ -359,7 +363,8 @@ public final class JsonDeserializer {
      */
     private static <T> T mapDataObject(@Nonnull JsonNode dataNode, @Nonnull TypeReference<T> dataTypeReference)
             throws IOException {
-        return new ObjectMapper().registerModule(DATA_MODULE).readValue(dataNode.toString(), dataTypeReference);
+        return new ObjectMapper().registerModules(JDK8_MODULE, DATA_MODULE)
+                .readValue(dataNode.toString(), dataTypeReference);
     }
 
     /**
