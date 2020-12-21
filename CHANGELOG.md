@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Proxy` objects now support an additional path component.
 - New method `RemoteAPI.getDefault` which can be used to obtain an instance pointing to the actual _TheTVDB.com_ API.
 - Added maven dependency _com.fasterxml.jackson.datatype:jackson-datatype-jdk8_ for parsing Java8 Optionals from JSON.
+- Added maven dependency _org.mockito:mockito-junit-jupiter_ for Mockito JUnit 5 integration.
 
 ### Changed
 - Method `APIUtil.prettyPrint(JsonNode)` now wraps lines with a fix Unix-style (LF) line separator.

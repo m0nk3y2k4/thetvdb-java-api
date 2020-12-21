@@ -76,6 +76,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesDetailsDT
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.StatusDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TrailerDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.util.functional.ThrowableFunctionalInterfaces;
+import com.github.m0nk3y2k4.thetvdb.internal.util.json.deser.CollectionDeserializerModifier;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 /**
@@ -96,25 +97,26 @@ public final class JsonDeserializer {
     static {
         // Add Interface <-> Implementation mappings to the module. The object mapper will use these mappings to determine the
         // proper builder to be used to create new instances of a specific interface (via @JsonDeserialize annotation).
-        DATA_MODULE.setAbstractTypes(new SimpleAbstractTypeResolver()
-                .addMapping(Alias.class, AliasDTO.class)
-                .addMapping(Artwork.class, ArtworkDTO.class)
-                .addMapping(ArtworkType.class, ArtworkTypeDTO.class)
-                .addMapping(Character.class, CharacterDTO.class)
-                .addMapping(Episode.class, EpisodeDTO.class)
-                .addMapping(Franchise.class, FranchiseDTO.class)
-                .addMapping(Genre.class, GenreDTO.class)
-                .addMapping(Movie.class, MovieDTO.class)
-                .addMapping(Network.class, NetworkDTO.class)
-                .addMapping(People.class, PeopleDTO.class)
-                .addMapping(RemoteId.class, RemoteIdDTO.class)
-                .addMapping(Season.class, SeasonDTO.class)
-                .addMapping(SeriesAirsDays.class, SeriesAirsDaysDTO.class)
-                .addMapping(SeriesDetails.class, SeriesDetailsDTO.class)
-                .addMapping(Series.class, SeriesDTO.class)
-                .addMapping(Status.class, StatusDTO.class)
-                .addMapping(Trailer.class, TrailerDTO.class)
-        );
+        DATA_MODULE.setDeserializerModifier(new CollectionDeserializerModifier())
+                .setAbstractTypes(new SimpleAbstractTypeResolver()
+                        .addMapping(Alias.class, AliasDTO.class)
+                        .addMapping(Artwork.class, ArtworkDTO.class)
+                        .addMapping(ArtworkType.class, ArtworkTypeDTO.class)
+                        .addMapping(Character.class, CharacterDTO.class)
+                        .addMapping(Episode.class, EpisodeDTO.class)
+                        .addMapping(Franchise.class, FranchiseDTO.class)
+                        .addMapping(Genre.class, GenreDTO.class)
+                        .addMapping(Movie.class, MovieDTO.class)
+                        .addMapping(Network.class, NetworkDTO.class)
+                        .addMapping(People.class, PeopleDTO.class)
+                        .addMapping(RemoteId.class, RemoteIdDTO.class)
+                        .addMapping(Season.class, SeasonDTO.class)
+                        .addMapping(SeriesAirsDays.class, SeriesAirsDaysDTO.class)
+                        .addMapping(SeriesDetails.class, SeriesDetailsDTO.class)
+                        .addMapping(Series.class, SeriesDTO.class)
+                        .addMapping(Status.class, StatusDTO.class)
+                        .addMapping(Trailer.class, TrailerDTO.class)
+                );
     }
 
     private JsonDeserializer() {}     // Private constructor. Only static methods

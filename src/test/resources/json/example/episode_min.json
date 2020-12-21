@@ -1,0 +1,18 @@
+{
+  "data": {
+    "id": 770348,
+    "seriesId": 99001,
+    "name": null,
+    "aired": null,
+    "runtime": null,
+    "nameTranslations": null,
+    "overviewTranslations": null,
+    "image": null,
+    "imageType": null,
+    "isMovie": 1,
+    "seasons": [],
+    "number": null,
+    "seasonNumber": null
+  },
+  "status": "success"
+}

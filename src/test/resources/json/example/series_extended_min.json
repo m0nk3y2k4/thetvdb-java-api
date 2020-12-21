@@ -1,0 +1,66 @@
+{
+  "data": {
+    "id": null,
+    "name": null,
+    "slug": null,
+    "image": null,
+    "nameTranslations": null,
+    "overviewTranslations": null,
+    "aliases": null,
+    "firstAired": null,
+    "lastAired": null,
+    "nextAired": "NextAired",
+    "score": 9,
+    "status": {
+      "id": 1004,
+      "name": "Name",
+      "recordType": "RecordType",
+      "keepUpdated": true
+    },
+    "originalCountry": null,
+    "originalLanguage": null,
+    "originalNetwork": {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "abbreviation": null,
+      "country": null
+    },
+    "defaultSeasonType": 11,
+    "isOrderRandomized": true,
+    "artworks": [],
+    "networks": [],
+    "genres": null,
+    "trailers": [
+      {
+        "id": 3274,
+        "name": null,
+        "language": null,
+        "url": null
+      }
+    ],
+    "franchises": [
+      {
+        "id": 55743,
+        "name": "Name1",
+        "nameTranslations": null,
+        "overviewTranslations": [],
+        "aliases": []
+      }
+    ],
+    "remoteIds": null,
+    "characters": null,
+    "airsDays": {
+      "friday": true,
+      "monday": true,
+      "saturday": true,
+      "sunday": true,
+      "thursday": true,
+      "tuesday": true,
+      "wednesday": true
+    },
+    "airsTime": null,
+    "seasons": []
+  },
+  "status": "success"
+}

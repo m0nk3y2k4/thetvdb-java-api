@@ -76,19 +76,29 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TrailerDTO;
 public final class JSONTestUtil {
 
     public enum JsonResource {
+        //@DisableFormatting
         ARTWORK("artwork", JSONTestUtil::artwork, "Single artwork JSON response"),
+        ARTWORK_MIN("artwork_min", JSONTestUtil::artwork_min, "Single artwork JSON response with only mandatory fields"),
         ARTWORKTYPE_LIST("artworktype_list", JSONTestUtil::artworkType, "List of artwork types JSON response"),
         CHARACTER("character", JSONTestUtil::character, "Single character JSON response"),
+        CHARACTER_MIN("character_min", JSONTestUtil::character_min, "Single character JSON response with only mandatory fields"),
         DATA("data", JSONTestUtil::data, "Full JSON response with data and status node"),
         EPISODE("episode", JSONTestUtil::episode, "Single episode JSON response"),
+        EPISODE_MIN("episode_min", JSONTestUtil::episode_min, "Single episode JSON response with only mandatory fields"),
         GENRE("genre", JSONTestUtil::genre, "Single genre JSON response"),
         GENRE_LIST("genre_list", JSONTestUtil::genreList, "List of genres JSON response"),
         MOVIE("movie", JSONTestUtil::movie, "Single movie JSON response"),
+        MOVIE_MIN("movie_min", JSONTestUtil::movie_min, "Single movie JSON response with only mandatory fields"),
         PEOPLE("people", JSONTestUtil::people, "Single people JSON response"),
+        PEOPLE_MIN("people_min", JSONTestUtil::people_min, "Single people JSON response with only mandatory fields"),
         SEASON("season", JSONTestUtil::season, "Single season JSON response"),
+        SEASON_MIN("season_min", JSONTestUtil::season_min, "Single season JSON response with only mandatory fields"),
         SERIES("series", JSONTestUtil::series, "Single series JSON response"),
+        SERIES_MIN("series_min", JSONTestUtil::series_min, "Single series JSON response with only mandatory fields"),
         SERIES_DETAILS("series_extended", JSONTestUtil::seriesDetails, "Single extended series JSON response"),
+        SERIES_DETAILS_MIN("series_extended_min", JSONTestUtil::seriesDetails_min, "Single extended series JSON response with only mandatory fields"),
         SERIES_LIST("series_list", JSONTestUtil::seriesList, "List of series JSON response");
+        //@EnableFormatting
 
         private final String fileName;
         private final Supplier<APIResponse<?>> dtoSupplier;
@@ -167,6 +177,20 @@ public final class JSONTestUtil {
     }
 
     /**
+     * Creates a new basic artwork APIResponse DTO with only mandatory default values set
+     *
+     * @return New basic artwork APIResponse DTO prefilled with only mandatory default values
+     */
+    public static APIResponse<Artwork> artwork_min() {
+        return createAPIResponse(new ArtworkDTO.Builder()
+                .id(2487L)
+                .image("Image")
+                .thumbnail("Thumbnail")
+                .type(12L)
+                .build());
+    }
+
+    /**
      * Creates a new artwork type APIResponse DTO with default values set
      *
      * @return New artwork type APIResponse DTO prefilled with default values
@@ -227,6 +251,21 @@ public final class JSONTestUtil {
                                 .language("Language2")
                                 .name("Name2")
                                 .build())
+                .build());
+    }
+
+    /**
+     * Creates a new character APIResponse DTO with only mandatory default values set
+     *
+     * @return New character APIResponse DTO prefilled with only mandatory default values
+     */
+    public static APIResponse<Character> character_min() {
+        return createAPIResponse(new CharacterDTO.Builder()
+                .id(50107L)
+                .type(6L)
+                .sort(9L)
+                .isFeatured(TRUE)
+                .url("Url")
                 .build());
     }
 
@@ -299,6 +338,19 @@ public final class JSONTestUtil {
     }
 
     /**
+     * Creates a new episode APIResponse DTO with only mandatory default values set
+     *
+     * @return New episode APIResponse DTO prefilled with only mandatory default values
+     */
+    public static APIResponse<Episode> episode_min() {
+        return createAPIResponse(new EpisodeDTO.Builder()
+                .id(770348L)
+                .seriesId(99001L)
+                .isMovie(true)
+                .build());
+    }
+
+    /**
      * Creates a new genre APIResponse DTO with default values set
      *
      * @return New genre APIResponse DTO prefilled with default values
@@ -363,6 +415,27 @@ public final class JSONTestUtil {
     }
 
     /**
+     * Creates a new movie APIResponse DTO with only mandatory default values set
+     *
+     * @return New movie APIResponse DTO prefilled with only mandatory default values
+     */
+    public static APIResponse<Movie> movie_min() {
+        return createAPIResponse(new MovieDTO.Builder()
+                .id(34870L)
+                .name("Name")
+                .slug("Slug")
+                .image("Image")
+                .score(599D)
+                .status(new StatusDTO.Builder()
+                        .id(33L)
+                        .keepUpdated(TRUE)
+                        .name("Name")
+                        .recordType("RecordType")
+                        .build())
+                .build());
+    }
+
+    /**
      * Creates a new people APIResponse DTO with default values set
      *
      * @return New people APIResponse DTO prefilled with default values
@@ -382,6 +455,18 @@ public final class JSONTestUtil {
                                 .name("Name2")
                                 .build())
                 .score(487L)
+                .build());
+    }
+
+    /**
+     * Creates a new people APIResponse DTO with only mandatory default values set
+     *
+     * @return New people APIResponse DTO prefilled with only mandatory default values
+     */
+    public static APIResponse<People> people_min() {
+        return createAPIResponse(new PeopleDTO.Builder()
+                .id(71604L)
+                .score(156L)
                 .build());
     }
 
@@ -408,6 +493,20 @@ public final class JSONTestUtil {
                         .abbreviation("Abbreviation")
                         .country("Country")
                         .build())
+                .build());
+    }
+
+    /**
+     * Creates a new season APIResponse DTO with only mandatory default values set
+     *
+     * @return New season APIResponse DTO prefilled with only mandatory default values
+     */
+    public static APIResponse<Season> season_min() {
+        return createAPIResponse(new SeasonDTO.Builder()
+                .seriesId(64410L)
+                .type(67L)
+                .number(8L)
+                .network(new NetworkDTO.Builder().build())
                 .build());
     }
 
@@ -453,6 +552,27 @@ public final class JSONTestUtil {
                         .country("Country")
                         .build())
                 .defaultSeasonType(469L)
+                .isOrderRandomized(TRUE)
+                .build());
+    }
+
+    /**
+     * Creates a new series APIResponse DTO with only mandatory default values set
+     *
+     * @return New series APIResponse DTO prefilled with only mandatory default values
+     */
+    public static APIResponse<Series> series_min() {
+        return createAPIResponse(new SeriesDTO.Builder()
+                .nextAired("NextAired")
+                .score(100D)
+                .status(new StatusDTO.Builder()
+                        .id(81L)
+                        .name("Name")
+                        .recordType("RecordType")
+                        .keepUpdated(TRUE)
+                        .build())
+                .originalNetwork(new NetworkDTO.Builder().build())
+                .defaultSeasonType(4L)
                 .isOrderRandomized(TRUE)
                 .build());
     }
@@ -676,6 +796,45 @@ public final class JSONTestUtil {
                                         .country("Country2")
                                         .build())
                                 .build())
+                .build());
+    }
+
+    /**
+     * Creates a new series details APIResponse DTO with only mandatory default values set
+     *
+     * @return New series details APIResponse DTO prefilled with only mandatory default values
+     */
+    public static APIResponse<SeriesDetails> seriesDetails_min() {
+        return createAPIResponse(new SeriesDetailsDTO.Builder()
+                .nextAired("NextAired")
+                .score(9D)
+                .status(new StatusDTO.Builder()
+                        .id(1004L)
+                        .name("Name")
+                        .recordType("RecordType")
+                        .keepUpdated(TRUE)
+                        .build())
+                .originalNetwork(new NetworkDTO.Builder().build())
+                .defaultSeasonType(11L)
+                .isOrderRandomized(TRUE)
+                .addTrailers(
+                        new TrailerDTO.Builder()
+                                .id(3274L)
+                                .build())
+                .addFranchises(
+                        new FranchiseDTO.Builder()
+                                .id(55743L)
+                                .name("Name1")
+                                .build())
+                .airsDays(new SeriesAirsDaysDTO.Builder()
+                        .onFriday(TRUE)
+                        .onMonday(TRUE)
+                        .onSaturday(TRUE)
+                        .onSunday(TRUE)
+                        .onThursday(TRUE)
+                        .onTuesday(TRUE)
+                        .onWednesday(TRUE)
+                        .build())
                 .build());
     }
 

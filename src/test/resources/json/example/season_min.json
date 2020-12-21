@@ -1,0 +1,21 @@
+{
+  "data": {
+    "id": null,
+    "seriesId": 64410,
+    "type": 67,
+    "name": null,
+    "number": 8,
+    "nameTranslations": [],
+    "overviewTranslations": null,
+    "image": null,
+    "imageType": null,
+    "network": {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "abbreviation": null,
+      "country": null
+    }
+  },
+  "status": "success"
+}

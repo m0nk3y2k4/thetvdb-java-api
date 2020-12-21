@@ -1,0 +1,19 @@
+{
+  "data": {
+    "id": 50107,
+    "name": null,
+    "peopleId": null,
+    "seriesId": null,
+    "movieId": null,
+    "episodeId": null,
+    "type": 6,
+    "image": null,
+    "sort": 9,
+    "isFeatured": true,
+    "url": "Url",
+    "nameTranslations": null,
+    "overviewTranslations": [],
+    "aliases": null
+  },
+  "status": "success"
+}

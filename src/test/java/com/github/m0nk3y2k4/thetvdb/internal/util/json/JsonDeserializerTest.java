@@ -36,74 +36,74 @@ class JsonDeserializerTest {
     }
 
     @ParameterizedTest(name = "[{index}] {0} is deserialized properly")
-    @EnumSource(value = JsonResource.class, names = "ARTWORK")
-    void mapArtwork_withFullJSON_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
+    @EnumSource(value = JsonResource.class, names = {"ARTWORK", "ARTWORK_MIN"})
+    void mapArtwork_fromJSONResource_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
         assertThat(JsonDeserializer.mapArtwork(resource.getJson())).isEqualTo(resource.getDTO());
     }
 
     @ParameterizedTest(name = "[{index}] {0} is deserialized properly")
     @EnumSource(value = JsonResource.class, names = "ARTWORKTYPE_LIST")
-    void mapArtworkTypesOverview_withFullJSON_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
+    void mapArtworkTypesOverview_fromJSONResource_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
         assertThat(JsonDeserializer.mapArtworkTypesOverview(resource.getJson())).isEqualTo(resource.getDTO());
     }
 
     @ParameterizedTest(name = "[{index}] {0} is deserialized properly")
-    @EnumSource(value = JsonResource.class, names = "CHARACTER")
-    void mapCharacter_withFullJSON_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
+    @EnumSource(value = JsonResource.class, names = {"CHARACTER", "CHARACTER_MIN"})
+    void mapCharacter_fromJSONResource_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
         assertThat(JsonDeserializer.mapCharacter(resource.getJson())).isEqualTo(resource.getDTO());
     }
 
     @ParameterizedTest(name = "[{index}] {0} is deserialized properly")
-    @EnumSource(value = JsonResource.class, names = "EPISODE")
-    void mapEpisode_withFullJSON_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
+    @EnumSource(value = JsonResource.class, names = {"EPISODE", "EPISODE_MIN"})
+    void mapEpisode_fromJSONResource_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
         assertThat(JsonDeserializer.mapEpisode(resource.getJson())).isEqualTo(resource.getDTO());
     }
 
     @ParameterizedTest(name = "[{index}] {0} is deserialized properly")
     @EnumSource(value = JsonResource.class, names = "GENRE")
-    void mapGenre_withFullJSON_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
+    void mapGenre_fromJSONResource_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
         assertThat(JsonDeserializer.mapGenre(resource.getJson())).isEqualTo(resource.getDTO());
     }
 
     @ParameterizedTest(name = "[{index}] {0} is deserialized properly")
     @EnumSource(value = JsonResource.class, names = "GENRE_LIST")
-    void mapGenresOverview_withFullJSON_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
+    void mapGenresOverview_fromJSONResource_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
         assertThat(JsonDeserializer.mapGenresOverview(resource.getJson())).isEqualTo(resource.getDTO());
     }
 
     @ParameterizedTest(name = "[{index}] {0} is deserialized properly")
-    @EnumSource(value = JsonResource.class, names = "MOVIE")
-    void mapMovie_withFullJSON_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
+    @EnumSource(value = JsonResource.class, names = {"MOVIE", "MOVIE_MIN"})
+    void mapMovie_fromJSONResource_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
         assertThat(JsonDeserializer.mapMovie(resource.getJson())).isEqualTo(resource.getDTO());
     }
 
     @ParameterizedTest(name = "[{index}] {0} is deserialized properly")
-    @EnumSource(value = JsonResource.class, names = "PEOPLE")
-    void mapPeople_withFullJSON_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
+    @EnumSource(value = JsonResource.class, names = {"PEOPLE", "PEOPLE_MIN"})
+    void mapPeople_fromJSONResource_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
         assertThat(JsonDeserializer.mapPeople(resource.getJson())).isEqualTo(resource.getDTO());
     }
 
     @ParameterizedTest(name = "[{index}] {0} is deserialized properly")
-    @EnumSource(value = JsonResource.class, names = "SEASON")
-    void mapSeason_withFullJSON_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
+    @EnumSource(value = JsonResource.class, names = {"SEASON", "SEASON_MIN"})
+    void mapSeason_fromJSONResource_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
         assertThat(JsonDeserializer.mapSeason(resource.getJson())).isEqualTo(resource.getDTO());
     }
 
     @ParameterizedTest(name = "[{index}] {0} is deserialized properly")
-    @EnumSource(value = JsonResource.class, names = "SERIES")
-    void mapSeries_withFullJSON_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
+    @EnumSource(value = JsonResource.class, names = {"SERIES", "SERIES_MIN"})
+    void mapSeries_fromJSONResource_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
         assertThat(JsonDeserializer.mapSeries(resource.getJson())).isEqualTo(resource.getDTO());
     }
 
     @ParameterizedTest(name = "[{index}] {0} is deserialized properly")
-    @EnumSource(value = JsonResource.class, names = "SERIES_DETAILS")
-    void mapSeriesDetails_withFullJSON_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
+    @EnumSource(value = JsonResource.class, names = {"SERIES_DETAILS", "SERIES_DETAILS_MIN"})
+    void mapSeriesDetails_fromJSONResource_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
         assertThat(JsonDeserializer.mapSeriesDetails(resource.getJson())).isEqualTo(resource.getDTO());
     }
 
     @ParameterizedTest(name = "[{index}] {0} is deserialized properly")
     @EnumSource(value = JsonResource.class, names = "SERIES_LIST")
-    void mapSeriesOverview_withFullJSON_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
+    void mapSeriesOverview_fromJSONResource_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
         assertThat(JsonDeserializer.mapSeriesOverview(resource.getJson())).isEqualTo(resource.getDTO());
     }
 }

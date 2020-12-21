@@ -1,0 +1,33 @@
+{
+  "data": {
+    "id": null,
+    "name": null,
+    "slug": null,
+    "image": null,
+    "nameTranslations": null,
+    "overviewTranslations": [],
+    "aliases": [],
+    "firstAired": null,
+    "lastAired": null,
+    "nextAired": "NextAired",
+    "score": 100,
+    "status": {
+      "id": 81,
+      "name": "Name",
+      "recordType": "RecordType",
+      "keepUpdated": true
+    },
+    "originalCountry": null,
+    "originalLanguage": null,
+    "originalNetwork": {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "abbreviation": null,
+      "country": null
+    },
+    "defaultSeasonType": 4,
+    "isOrderRandomized": true
+  },
+  "status": "success"
+}
