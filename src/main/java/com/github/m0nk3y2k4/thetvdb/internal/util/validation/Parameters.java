@@ -160,7 +160,7 @@ public final class Parameters {
     }
 
     /**
-     * Provides a predicate used to check wether a String represents a positive (greater zero) numerical integer.
+     * Provides a predicate used to check whether a String represents a positive (greater zero) numerical integer.
      *
      * @return String predicate to check for a positive numerical integer
      */
