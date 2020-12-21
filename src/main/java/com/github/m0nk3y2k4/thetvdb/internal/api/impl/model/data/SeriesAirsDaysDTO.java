@@ -16,7 +16,6 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesAirsDays;
@@ -32,7 +31,6 @@ import org.immutables.value.Value.Immutable;
  */
 @Immutable
 @WithHiddenImplementation
-@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonDeserialize(builder = SeriesAirsDaysDTO.Builder.class)
 public abstract class SeriesAirsDaysDTO implements SeriesAirsDays {
 
