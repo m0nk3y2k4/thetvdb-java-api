@@ -318,7 +318,7 @@ public final class JsonDeserializer {
             return new ObjectMapper().registerModule(createFunctionalModule(typeReference))
                     .readValue(json.toString(), typeReference);
         } catch (JsonProcessingException ex) {
-            throw new APIException(API_JSON_PARSE_ERROR, ex);
+            throw new APIException(String.format(API_JSON_PARSE_ERROR, ex.getMessage()), ex);
         }
     }
 
