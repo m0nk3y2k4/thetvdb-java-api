@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Replace usage of anonymous classes in `QueryParametersImpl` to avoid the risk of memory leaks.
 - RemoteAPI builder no longer supports omitting properties (except for `path`).
 - The `APIConnection` constructor no longer accepts a `java.util.function.Supplier` for the RemoteAPI parameter.
+- Refactored class and package structure as well as method names of former `JsonDeserializer` class.
 
 ### Removed
 - Method `MockServerUtil.defaultAPIHttpHeaders(boolean)` has been replaced by two more convenient ones.

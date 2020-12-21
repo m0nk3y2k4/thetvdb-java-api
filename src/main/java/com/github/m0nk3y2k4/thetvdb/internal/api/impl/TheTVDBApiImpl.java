@@ -53,7 +53,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.PeopleAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeasonsAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
-import com.github.m0nk3y2k4.thetvdb.internal.util.json.JsonDeserializer;
+import com.github.m0nk3y2k4.thetvdb.internal.util.json.APIJsonMapper;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 // ToDo: Revise JDoc once APIv4 implementation is finished
@@ -311,62 +311,62 @@ public class TheTVDBApiImpl implements TheTVDBApi {
 
         @Override
         public APIResponse<List<ArtworkType>> getArtworkTypes() throws APIException {
-            return JsonDeserializer.mapArtworkTypesOverview(json().getArtworkTypes());
+            return APIJsonMapper.readArtworkTypesOverview(json().getArtworkTypes());
         }
 
         @Override
         public APIResponse<Artwork> getArtwork(long artworkId) throws APIException {
-            return JsonDeserializer.mapArtwork(json().getArtwork(artworkId));
+            return APIJsonMapper.readArtwork(json().getArtwork(artworkId));
         }
 
         @Override
         public APIResponse<Character> getCharacter(long characterId) throws APIException {
-            return JsonDeserializer.mapCharacter(json().getCharacter(characterId));
+            return APIJsonMapper.readCharacter(json().getCharacter(characterId));
         }
 
         @Override
         public APIResponse<Episode> getEpisode(long episodeId) throws APIException {
-            return JsonDeserializer.mapEpisode(json().getEpisode(episodeId));
+            return APIJsonMapper.readEpisode(json().getEpisode(episodeId));
         }
 
         @Override
         public APIResponse<List<Genre>> getGenres() throws APIException {
-            return JsonDeserializer.mapGenresOverview(json().getGenres());
+            return APIJsonMapper.readGenresOverview(json().getGenres());
         }
 
         @Override
         public APIResponse<Genre> getGenre(long genreId) throws APIException {
-            return JsonDeserializer.mapGenre(json().getGenre(genreId));
+            return APIJsonMapper.readGenre(json().getGenre(genreId));
         }
 
         @Override
         public APIResponse<Movie> getMovie(long movieId) throws APIException {
-            return JsonDeserializer.mapMovie(json().getMovie(movieId));
+            return APIJsonMapper.readMovie(json().getMovie(movieId));
         }
 
         @Override
         public APIResponse<People> getPeople(long peopleId) throws APIException {
-            return JsonDeserializer.mapPeople(json().getPeople(peopleId));
+            return APIJsonMapper.readPeople(json().getPeople(peopleId));
         }
 
         @Override
         public APIResponse<Season> getSeason(long seasonId) throws APIException {
-            return JsonDeserializer.mapSeason(json().getSeason(seasonId));
+            return APIJsonMapper.readSeason(json().getSeason(seasonId));
         }
 
         @Override
         public APIResponse<List<Series>> querySeries(QueryParameters queryParameters) throws APIException {
-            return JsonDeserializer.mapSeriesOverview(json().querySeries(queryParameters));
+            return APIJsonMapper.readSeriesOverview(json().querySeries(queryParameters));
         }
 
         @Override
         public APIResponse<Series> getSeries(long seriesId) throws APIException {
-            return JsonDeserializer.mapSeries(json().getSeries(seriesId));
+            return APIJsonMapper.readSeries(json().getSeries(seriesId));
         }
 
         @Override
         public APIResponse<SeriesDetails> getSeriesDetails(long seriesId) throws APIException {
-            return JsonDeserializer.mapSeriesDetails(json().getSeriesDetails(seriesId));
+            return APIJsonMapper.readSeriesDetails(json().getSeriesDetails(seriesId));
         }
     }
 }

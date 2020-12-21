@@ -26,10 +26,8 @@ import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.Module;
@@ -57,7 +55,6 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesAirsDays;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Status;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Trailer;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.APIResponseDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AliasDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ArtworkDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ArtworkTypeDTO;
@@ -76,6 +73,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesDetailsDT
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.StatusDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TrailerDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.util.functional.ThrowableFunctionalInterfaces;
+import com.github.m0nk3y2k4.thetvdb.internal.util.json.deser.APIResponseDeserializer;
 import com.github.m0nk3y2k4.thetvdb.internal.util.json.deser.CollectionDeserializerModifier;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
@@ -86,7 +84,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
  * These DTO's will be wrapped into {@link APIResponse APIResponse&lt;DTO&gt;} objects together with additional
  * information like processing status information.
  */
-public final class JsonDeserializer {
+public final class APIJsonMapper {
 
     /** Module used to extend the object mappers functionality in terms of mapping the APIs data model interfaces */
     private static final SimpleModule DATA_MODULE = new SimpleModule();
@@ -119,7 +117,7 @@ public final class JsonDeserializer {
                 );
     }
 
-    private JsonDeserializer() {}     // Private constructor. Only static methods
+    private APIJsonMapper() {}     // Private constructor. Only static methods
 
     /**
      * Maps the actual data of a specific artwork base record returned by the artwork route.
@@ -132,8 +130,8 @@ public final class JsonDeserializer {
      *
      * @throws APIException If an IO error occurred during the deserialization of the given JSON object
      */
-    public static APIResponse<Artwork> mapArtwork(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
+    public static APIResponse<Artwork> readArtwork(@Nonnull JsonNode json) throws APIException {
+        return readObject(json, new TypeReference<>() {});
     }
 
     /**
@@ -147,8 +145,8 @@ public final class JsonDeserializer {
      *
      * @throws APIException If an IO error occurred during the deserialization of the given JSON object
      */
-    public static APIResponse<List<ArtworkType>> mapArtworkTypesOverview(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
+    public static APIResponse<List<ArtworkType>> readArtworkTypesOverview(@Nonnull JsonNode json) throws APIException {
+        return readObject(json, new TypeReference<>() {});
     }
 
     /**
@@ -162,8 +160,8 @@ public final class JsonDeserializer {
      *
      * @throws APIException If an IO error occurred during the deserialization of the given JSON object
      */
-    public static APIResponse<Character> mapCharacter(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
+    public static APIResponse<Character> readCharacter(@Nonnull JsonNode json) throws APIException {
+        return readObject(json, new TypeReference<>() {});
     }
 
     /**
@@ -177,8 +175,8 @@ public final class JsonDeserializer {
      *
      * @throws APIException If an IO error occurred during the deserialization of the given JSON object
      */
-    public static APIResponse<Episode> mapEpisode(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
+    public static APIResponse<Episode> readEpisode(@Nonnull JsonNode json) throws APIException {
+        return readObject(json, new TypeReference<>() {});
     }
 
     /**
@@ -192,8 +190,8 @@ public final class JsonDeserializer {
      *
      * @throws APIException If an IO error occurred during the deserialization of the given JSON object
      */
-    public static APIResponse<Genre> mapGenre(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
+    public static APIResponse<Genre> readGenre(@Nonnull JsonNode json) throws APIException {
+        return readObject(json, new TypeReference<>() {});
     }
 
     /**
@@ -207,8 +205,8 @@ public final class JsonDeserializer {
      *
      * @throws APIException If an IO error occurred during the deserialization of the given JSON object
      */
-    public static APIResponse<List<Genre>> mapGenresOverview(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
+    public static APIResponse<List<Genre>> readGenresOverview(@Nonnull JsonNode json) throws APIException {
+        return readObject(json, new TypeReference<>() {});
     }
 
     /**
@@ -222,8 +220,8 @@ public final class JsonDeserializer {
      *
      * @throws APIException If an IO error occurred during the deserialization of the given JSON object
      */
-    public static APIResponse<Movie> mapMovie(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
+    public static APIResponse<Movie> readMovie(@Nonnull JsonNode json) throws APIException {
+        return readObject(json, new TypeReference<>() {});
     }
 
     /**
@@ -237,8 +235,8 @@ public final class JsonDeserializer {
      *
      * @throws APIException If an IO error occurred during the deserialization of the given JSON object
      */
-    public static APIResponse<People> mapPeople(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
+    public static APIResponse<People> readPeople(@Nonnull JsonNode json) throws APIException {
+        return readObject(json, new TypeReference<>() {});
     }
 
     /**
@@ -252,8 +250,8 @@ public final class JsonDeserializer {
      *
      * @throws APIException If an IO error occurred during the deserialization of the given JSON object
      */
-    public static APIResponse<Season> mapSeason(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
+    public static APIResponse<Season> readSeason(@Nonnull JsonNode json) throws APIException {
+        return readObject(json, new TypeReference<>() {});
     }
 
     /**
@@ -267,8 +265,8 @@ public final class JsonDeserializer {
      *
      * @throws APIException If an IO error occurred during the deserialization of the given JSON object
      */
-    public static APIResponse<Series> mapSeries(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
+    public static APIResponse<Series> readSeries(@Nonnull JsonNode json) throws APIException {
+        return readObject(json, new TypeReference<>() {});
     }
 
     /**
@@ -282,8 +280,8 @@ public final class JsonDeserializer {
      *
      * @throws APIException If an IO error occurred during the deserialization of the given JSON object
      */
-    public static APIResponse<SeriesDetails> mapSeriesDetails(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
+    public static APIResponse<SeriesDetails> readSeriesDetails(@Nonnull JsonNode json) throws APIException {
+        return readObject(json, new TypeReference<>() {});
     }
 
     /**
@@ -297,8 +295,8 @@ public final class JsonDeserializer {
      *
      * @throws APIException If an IO error occurred during the deserialization of the given JSON object
      */
-    public static APIResponse<List<Series>> mapSeriesOverview(@Nonnull JsonNode json) throws APIException {
-        return mapObject(json, new TypeReference<>() {});
+    public static APIResponse<List<Series>> readSeriesOverview(@Nonnull JsonNode json) throws APIException {
+        return readObject(json, new TypeReference<>() {});
     }
 
     /**
@@ -314,7 +312,7 @@ public final class JsonDeserializer {
      *
      * @throws APIException If an IO error occurred during the deserialization of the given JSON object
      */
-    private static <T> T mapObject(@Nonnull JsonNode json, @Nonnull TypeReference<T> typeReference)
+    private static <T> T readObject(@Nonnull JsonNode json, @Nonnull TypeReference<T> typeReference)
             throws APIException {
         try {
             return new ObjectMapper().registerModule(createFunctionalModule(typeReference))
@@ -335,7 +333,7 @@ public final class JsonDeserializer {
      */
     private static <T> Module createFunctionalModule(@Nonnull TypeReference<T> typeReference) {
         return new SimpleModule()
-                .addDeserializer(APIResponse.class, new FunctionalDeserializer<>(createDataFunction(typeReference)));
+                .addDeserializer(APIResponse.class, new APIResponseDeserializer<>(createDataFunction(typeReference)));
     }
 
     /**
@@ -349,7 +347,7 @@ public final class JsonDeserializer {
      */
     private static <T> ThrowableFunctionalInterfaces.Function<JsonNode, T, IOException> createDataFunction(
             @Nonnull TypeReference<T> baseTypeReference) {
-        return node -> mapDataObject(node, new DataTypeReference<>(baseTypeReference));
+        return node -> readDataObject(node, new DataTypeReference<>(baseTypeReference));
     }
 
     /**
@@ -364,7 +362,7 @@ public final class JsonDeserializer {
      *
      * @throws IOException If an IO error occurred during the deserialization of the given JSON object
      */
-    private static <T> T mapDataObject(@Nonnull JsonNode dataNode, @Nonnull TypeReference<T> dataTypeReference)
+    private static <T> T readDataObject(@Nonnull JsonNode dataNode, @Nonnull TypeReference<T> dataTypeReference)
             throws IOException {
         return new ObjectMapper().registerModules(JDK8_MODULE, DATA_MODULE)
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
@@ -400,70 +398,5 @@ public final class JsonDeserializer {
         public Type getType() {
             return typeSupplier.get();
         }
-    }
-}
-
-/**
- * Specific JSON deserializer for parsing an API response providing some extended JSON <em>{@code data}</em> node
- * processing capabilities.
- * <p><br>
- * This class extends the default {@link JsonDeserializer} adding the option to provide some specific handling of the
- * top-level JSON <em>{@code data}</em> node. For this a mapping function has to be provided when creating a new
- * instance of this class. This function will then be invoked in order to deserialize the JSON's <em>{@code data}</em>
- * node and the result of this invocation will be set to the returned API response. Technically it means that the object
- * mapper will simply leave it up to the function to deserialize the <em>{@code data}</em> node rather than using it's
- * native deserialization implementation.
- *
- * @param <T> The type of object that should be the outcome of the deserialization
- * @param <X> The type of exception which the given mapping function is permitted to throw
- */
-class FunctionalDeserializer<T, X extends IOException> extends com.fasterxml.jackson.databind.JsonDeserializer<APIResponse<T>> {
-
-    /** Mapper used for parsing the API response JSON */
-    private final ObjectMapper mapper = new ObjectMapper();
-
-    /** The mapping function to be invoked in order to parse the <em>{@code data}</em> node */
-    private final ThrowableFunctionalInterfaces.Function<JsonNode, T, X> dataFunction;
-
-    /**
-     * Creates a new functional deserializer which is backed by the given data mapping function.
-     *
-     * @param dataFunction Mapping function to be invoked in order to deserialize the JSON's <em>{@code data}</em> node
-     */
-    FunctionalDeserializer(@Nonnull ThrowableFunctionalInterfaces.Function<JsonNode, T, X> dataFunction) {
-        this.dataFunction = dataFunction;
-    }
-
-    /**
-     * Checks if the specified field exists in the given JSON. If so, the node will be applied to the given mapping
-     * function and it's result will be returned. If the JSON does not contain a node with the specified name or the
-     * node exists but is a "null node", an {@link IllegalArgumentException} will be thrown.
-     *
-     * @param json      Base JSON object used for parsing
-     * @param fieldName Name of the top-level node to be deserialized
-     * @param mapping   Mapping function returning the deserialized object of type <b>U</b>
-     * @param <U>       The type of object that the JSON node should be mapped to
-     *
-     * @return The result of deserializing the referenced top-level node of this JSON object.
-     *
-     * @throws IOException              If an IO error occurred during the deserialization of the given JSON object
-     * @throws IllegalArgumentException If either no node with the given name exists on top-level of this JSON object or
-     *                                  the node exists but is a "null node"
-     */
-    private static <U> U parseNode(JsonNode json, String fieldName,
-            ThrowableFunctionalInterfaces.Function<JsonNode, U, IOException> mapping) throws IOException {
-        return mapping.apply(json.path(fieldName).requireNonNull());
-    }
-
-    @Override
-    public APIResponse<T> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
-            throws IOException {
-        JsonNode json = mapper.readTree(jsonParser);
-
-        T data = parseNode(json, "data", dataFunction::apply);
-
-        String status = parseNode(json, "status", node -> mapper.readValue(node.toString(), String.class));
-
-        return new APIResponseDTO.Builder<T>().data(data).status(status).build();
     }
 }

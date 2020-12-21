@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.m0nk3y2k4.thetvdb.internal.util.json;
+package com.github.m0nk3y2k4.thetvdb.internal.util.json.deser;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -31,7 +31,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class FunctionalDeserializerTest {
+class APIResponseDeserializerTest {
 
     //@DisableFormatting
     private static final String MISSING_DATA_PROPERTY =
@@ -49,8 +49,8 @@ class FunctionalDeserializerTest {
             "\"status\": null";
     //@EnableFormatting
 
-    private final FunctionalDeserializer<Data, IOException> functionalDeserializer =
-            new FunctionalDeserializer<>(dataNode -> new ObjectMapper().readValue(dataNode.toString(), Data.class));
+    private final APIResponseDeserializer<Data, IOException> functionalDeserializer =
+            new APIResponseDeserializer<>(dataNode -> new ObjectMapper().readValue(dataNode.toString(), Data.class));
 
     @ParameterizedTest(name = "[{index}] JSON [{0}] throws IllegalArgumentException")
     @ValueSource(strings = {MISSING_DATA_PROPERTY, NULL_DATA_PROPERTY, MISSING_STATUS_PROPERTY, NULL_STATUS_PROPERTY})
