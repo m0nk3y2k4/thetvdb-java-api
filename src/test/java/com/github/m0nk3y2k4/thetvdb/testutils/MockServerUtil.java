@@ -102,7 +102,7 @@ public final class MockServerUtil {
      * object returned by this method will contain matchers verifying the absence of any authentication related
      * headers.
      *
-     * @return HTTP headers object including matchers verfying the absence of authorization headers
+     * @return HTTP headers object including matchers verifying the absence of authorization headers
      *
      * @see #defaultAPIHttpHeadersWithAuthorization()
      */
@@ -116,7 +116,7 @@ public final class MockServerUtil {
      * object returned by this method will contain matchers verifying that the authentication related headers exist and
      * contain some reasonable values.
      *
-     * @return HTTP headers object including matchers verfying the existence of authorization headers
+     * @return HTTP headers object including matchers verifying the existence of authorization headers
      *
      * @see #defaultAPIHttpHeaders()
      */
