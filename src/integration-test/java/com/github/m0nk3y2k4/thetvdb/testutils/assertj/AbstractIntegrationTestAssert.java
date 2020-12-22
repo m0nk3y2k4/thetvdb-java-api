@@ -44,7 +44,7 @@ import org.assertj.core.api.AbstractAssert;
 public abstract class AbstractIntegrationTestAssert<T> extends AbstractAssert<AbstractIntegrationTestAssert<T>, T> {
 
     /** Cut response String representation to not spam the maven output */
-    private static final int MAX_OUTPUT_CHARACTERS = 180;
+    private static final int MAX_OUTPUT_CHARACTERS = 140;
 
     AbstractIntegrationTestAssert(T actual) {
         super(actual, AbstractIntegrationTestAssert.class);
@@ -76,7 +76,7 @@ public abstract class AbstractIntegrationTestAssert<T> extends AbstractAssert<Ab
     private void printOutput(@CheckForNull String result) {
         String testOutput = String.format("%-50s%s", descriptionText(), "OK").replace(" ", ".");
         if (result != null) {
-            testOutput = String.format("%-60s(%s)", testOutput, result);
+            testOutput = String.format("%-60s%s", testOutput, result);
         }
         System.out.println(testOutput);
     }
