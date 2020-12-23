@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New method `RemoteAPI.getDefault` which can be used to obtain an instance pointing to the actual _TheTVDB.com_ API.
 - Added maven dependency _com.fasterxml.jackson.datatype:jackson-datatype-jdk8_ for parsing Java8 Optionals from JSON.
 - Added maven dependency _org.mockito:mockito-junit-jupiter_ for Mockito JUnit 5 integration.
+- Util class for handling wildcards in remote API endpoint paths.
 
 ### Changed
 - Method `APIUtil.prettyPrint(JsonNode)` now wraps lines with a fix Unix-style (LF) line separator.
@@ -18,9 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Reduced visibility of some public methods which were only used internally.
 - Declared several util and factory classes as being final.
 - The body of POST requests is now fix UTF-8 encoded.
-- Made several methods `static` that did not reference any non-static content are were not overidden in a sub class.
+- Made several methods `static` that did not reference any non-static content are were not overwritten in a sub class.
 - Enhanced some test classes to use static inner classes instead of anonymous classes to avoid possible memory leaks.
-- The methods `APISession.isInitialized`, `APISession.userAuthentication` and `QueryResource.isValidQueryParameter` now return primitve types.
+- The methods `APISession.isInitialized`, `APISession.userAuthentication` and `QueryResource.isValidQueryParameter` now return primitive types.
 - Method `JSONDeserializer.mapDataObject(...)` now accepts general `TypeReference<T>` objects.
 - `JsonResource.getJsonString` now uses fix UTF-8 encoding when loading JSON content from resource files.
 - Test util `MockServerUtil.contentLength` now accepts a more general CharSequence.
@@ -30,6 +31,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - RemoteAPI builder no longer supports omitting properties (except for `path`).
 - The `APIConnection` constructor no longer accepts a `java.util.function.Supplier` for the RemoteAPI parameter.
 - Refactored class and package structure as well as method names of former `JsonDeserializer` class.
+- Changed method signature of `Resource.createResource` now accepting wildcard tokens in path parameter.
+- Changed method signature of `QueryResource.createQueryResource` now accepting wildcard tokens in path parameter.
 
 ### Removed
 - Method `MockServerUtil.defaultAPIHttpHeaders(boolean)` has been replaced by two more convenient ones.

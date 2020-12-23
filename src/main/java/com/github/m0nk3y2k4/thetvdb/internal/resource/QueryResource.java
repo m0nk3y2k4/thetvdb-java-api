@@ -42,19 +42,24 @@ public abstract class QueryResource extends Resource {
     protected QueryResource() {}
 
     /**
-     * Creates a new query resource string consisting of the given <em>{@code base}</em> and <em>{@code specific}</em>
-     * URL path parameters prepended by the given query parameters in the following format:
-     * <b>{@code /BASE/specific?query1=value1&query2=value2&...}</b>
+     * Creates a new query resource String based on the given parameters. It consists of the provided
+     * <em>{@code path}</em> parameter prepended by the given query parameters in the following format:
+     * <b>{@code /path?query1=value1&query2=value2&...}</b>
+     * <p><br>
+     * The <em>{@code path}</em> parameter may contain certain wildcards. <b>If</b> the given path contains wildcards
+     * then a set of corresponding replacement parameters has to be provided. For a list of supported wildcards see
+     * {@link com.github.m0nk3y2k4.thetvdb.internal.util.http.URLPathTokenType URLPathTokenType}.
      *
-     * @param base        Base URL path parameter which identifies a particular endpoint
-     * @param specific    Specific URL path parameter representing the actual route to be invoked
-     * @param queryParams Set of query parameters to be added to the very end of the resource String
+     * @param path               URL path String with or without wildcards
+     * @param queryParams        Set of query parameters to be added to the very end of the resource String
+     * @param pathWildcardParams Additional path parameters used used to replace wildcards within the path String (will
+     *                           be replaced in the order of their appearance)
      *
      * @return Composed query resource String based on the given parameters
      */
-    protected static String createQueryResource(@Nonnull String base, @CheckForNull String specific,
-            @CheckForNull QueryParameters queryParams) {
-        return createResource(base, specific) + createQuery(queryParams);
+    protected static String createQueryResource(@Nonnull String path, @CheckForNull QueryParameters queryParams,
+            Object... pathWildcardParams) {
+        return createResource(path, pathWildcardParams) + createQuery(queryParams);
     }
 
     /**

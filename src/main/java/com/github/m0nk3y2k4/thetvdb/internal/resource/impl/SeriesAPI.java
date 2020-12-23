@@ -35,9 +35,6 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
  */
 public final class SeriesAPI extends QueryResource {
 
-    /** Base URL path parameter for this endpoint */
-    private static final String BASE = "/series";
-
     private SeriesAPI() {}      // Private constructor. Only static methods
 
     /**
@@ -55,7 +52,7 @@ public final class SeriesAPI extends QueryResource {
      *                      not found, etc.
      */
     public static JsonNode getAllSeries(@Nonnull APIConnection con, QueryParameters params) throws APIException {
-        return con.sendGET(createQueryResource(BASE, null, params));
+        return con.sendGET(createQueryResource("/series", params));
     }
 
     /**
@@ -74,7 +71,7 @@ public final class SeriesAPI extends QueryResource {
      */
     public static JsonNode getSeriesBase(@Nonnull APIConnection con, long id) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
-        return con.sendGET(createResource(BASE, id));
+        return con.sendGET(createResource("/series/{id}", id));
     }
 
     /**
@@ -93,6 +90,6 @@ public final class SeriesAPI extends QueryResource {
      */
     public static JsonNode getSeriesExtended(@Nonnull APIConnection con, long id) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
-        return con.sendGET(createResource(BASE, id, "extended"));
+        return con.sendGET(createResource("/series/{id}/extended", id));
     }
 }

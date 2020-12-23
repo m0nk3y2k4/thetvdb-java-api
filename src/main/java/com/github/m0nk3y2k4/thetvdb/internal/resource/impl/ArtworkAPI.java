@@ -34,9 +34,6 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
  */
 public final class ArtworkAPI extends Resource {
 
-    /** Base URL path parameter for this endpoint */
-    private static final String BASE = "/artwork";
-
     private ArtworkAPI() {}     // Private constructor. Only static methods
 
     /**
@@ -55,6 +52,6 @@ public final class ArtworkAPI extends Resource {
      */
     public static JsonNode getArtworkBase(@Nonnull APIConnection con, long id) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
-        return con.sendGET(createResource(BASE, id));
+        return con.sendGET(createResource("/artwork/{id}", id));
     }
 }

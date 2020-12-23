@@ -18,6 +18,7 @@ package com.github.m0nk3y2k4.thetvdb.internal.resource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 import java.util.stream.Stream;
 
@@ -25,39 +26,49 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class ResourceTest {
 
     private static final Object[] EMPTY_OBJECT_ARRAY = new Object[0];
 
-    private static Stream<Arguments> createBaseResource_verifyResourceString() {
+    private static Stream<Arguments> withInvalidWildcardParameters() {
         return Stream.of(
-                Arguments.of("/users", EMPTY_OBJECT_ARRAY, "/users"),
-                Arguments.of("/orders", new Object[]{1, 2, 3}, "/orders/1/2/3"),
-                Arguments.of("/shipment", new Object[]{"pending", "today"}, "/shipment/pending/today")
+                Arguments.of("/noWildcard", new Object[]{14L}),
+                Arguments.of("/{id}/nullValue/{language}", new Object[]{32L, null}),
+                Arguments.of("/{id}/tooFew/{language}", new Object[]{12L}),
+                Arguments.of("/{language}/tooMany", new Object[]{"eng", 7L})
         );
     }
 
-    private static Stream<Arguments> createSpecificResource_verifyResourceString() {
+    private static Stream<Arguments> validResourceParameters() {
         return Stream.of(
-                Arguments.of("/invoices", null, EMPTY_OBJECT_ARRAY, "/invoices"),
-                Arguments.of("/invoices", null, new Object[]{1, 2}, "/invoices/1/2"),
-                Arguments.of("/invoices", "/pending", EMPTY_OBJECT_ARRAY, "/invoices/pending"),
-                Arguments.of("/invoices", "/sent", new Object[]{"customer", "atari"}, "/invoices/sent/customer/atari")
+                Arguments.of("/withNoWildcards", EMPTY_OBJECT_ARRAY, "/withNoWildcards"),
+                Arguments.of("/with/no/wildcards", EMPTY_OBJECT_ARRAY, "/with/no/wildcards"),
+                Arguments.of("/with/{id}", new Object[]{15L}, "/with/15"),
+                Arguments.of("/with/{id}/wildcard", new Object[]{21L}, "/with/21/wildcard"),
+                Arguments.of("/with/{id}/and/{language}", new Object[]{2L, "eng"}, "/with/2/and/eng")
         );
     }
 
-    @ParameterizedTest(name = "[{index}] Resource String for base \"{0}\" and path parameters {1} is: \"{2}\"")
-    @MethodSource
-    void createBaseResource_verifyResourceString(String base, Object[] pathParams, String expected) {
-        assertThat(Resource.createResource(base, pathParams)).isEqualTo(expected);
+    @ParameterizedTest(name = "[{index}] With path: <{0}>")
+    @NullAndEmptySource
+    @ValueSource(strings = {"  ", "/", "/path/", "/pa.th", "/p ath"})
+    void createResource_withInvalidPath_verifyParameterValidation(String path) {
+        assertThatIllegalArgumentException().isThrownBy(() -> Resource.createResource(path));
     }
 
-    @ParameterizedTest(name = "[{index}] Resource String for base \"{0}\", specific \"{1}\" and path parameters {2} is: \"{3}\"")
-    @MethodSource
-    void createSpecificResource_verifyResourceString(String base, String specific, Object[] pathParams,
-            String expected) {
-        assertThat(Resource.createResource(base, specific, pathParams)).isEqualTo(expected);
+    @ParameterizedTest(name = "[{index}] With path <{0}> and wildcard parameters {1}")
+    @MethodSource("withInvalidWildcardParameters")
+    void createResource_withInvalidWildcardParameters_verifyParameterValidation(String path, Object[] params) {
+        assertThatIllegalArgumentException().isThrownBy(() -> Resource.createResource(path, params));
+    }
+
+    @ParameterizedTest(name = "[{index}] With path <{0}> and parameters {1} returns: {2}")
+    @MethodSource("validResourceParameters")
+    void createResource_verifyReturnedParameterString(String path, Object[] params, String expected) {
+        assertThat(Resource.createResource(path, params)).isEqualTo(expected);
     }
 
     @Test

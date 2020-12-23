@@ -16,11 +16,20 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.resource;
 
-import java.util.Optional;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
+import java.util.StringTokenizer;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
-import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+
+import com.github.m0nk3y2k4.thetvdb.internal.util.http.URLPathToken;
+import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 /**
  * General implementation for remote API resources.
@@ -36,43 +45,43 @@ public abstract class Resource {
     /** Identifiers for common dynamic URL path parameters */
     protected static final String PATH_ID = "id";
 
+    /** Pattern used to validate the conformity of path Strings */
+    private static final Pattern API_PATH = Pattern.compile("/([A-Za-z0-9{}\\-_]+/)*([A-Za-z0-9{}\\-_]+)");
+
     protected Resource() {}
 
     /**
-     * Creates a new resource string consisting of the given <em>{@code base}</em> URL path parameter prepended by some
-     * optional route specific path parameters in the following format: <b>{@code /BASE/param1/param2/...}</b>
+     * Creates a new resource String based on the given parameters. The <em>{@code path}</em> parameter may contain
+     * certain wildcards. <b>If</b> the given path contains wildcards then a set of corresponding replacement parameters
+     * has to be provided. For a list of supported wildcards see {@link com.github.m0nk3y2k4.thetvdb.internal.util.http.URLPathTokenType
+     * URLPathTokenType}.
      *
-     * @param base       Base URL path parameter which identifies a particular endpoint
-     * @param pathParams Optional additional path parameters to be prepended to the end of the resource string
-     *
-     * @return Composed resource String based on the given parameters
-     */
-    protected static String createResource(@Nonnull String base, Object... pathParams) {
-        return createResource(base, null, pathParams);
-    }
-
-    /**
-     * Creates a new resource string consisting of the given <em>{@code base}</em> and <em>{@code specific}</em> URL
-     * path parameters prepended by some optional additional route path parameters in the following format:
-     * <b>{@code /BASE/specific/param1/param2/...}</b>
-     *
-     * @param base       Base URL path parameter which identifies a particular endpoint
-     * @param specific   Specific URL path parameter representing the actual route to be invoked
-     * @param pathParams Optional additional path parameters to be prepended to the end of the resource string
+     * @param path               URL path String with or without wildcards
+     * @param pathWildcardParams Additional path parameters used used to replace wildcards within the path String (will
+     *                           be replaced in the order of their appearance)
      *
      * @return Composed resource String based on the given parameters
      */
-    protected static String createResource(@Nonnull String base, @CheckForNull String specific, Object... pathParams) {
-        StringBuilder resourceBuilder = new StringBuilder(base);
+    protected static String createResource(@Nonnull String path, Object... pathWildcardParams) {
+        Parameters.validateNotEmpty(path, "Path must be a non-empty String value");
+        Parameters.validateCondition(p -> API_PATH.matcher(p).matches(), path,
+                new IllegalArgumentException(String.format("Invalid API path: %s", path)));
+        Parameters.validateCondition(params -> Arrays.stream(params).allMatch(Objects::nonNull), pathWildcardParams,
+                new IllegalArgumentException("Wildcard parameters must not be null"));
 
-        // Append specific URL path parameter if present
-        Optional.ofNullable(specific).ifPresent(resourceBuilder::append);
+        List<URLPathToken> tokens = Collections.list(new StringTokenizer(path, "/")).stream()
+                .map(token -> (String)token).map(URLPathToken::new).collect(Collectors.toList());
 
-        // Append additional URL path parameters
-        for (Object param : pathParams) {
-            resourceBuilder.append("/").append(param);
+        List<URLPathToken> wildcardTokens = tokens.stream().filter(URLPathToken::isWildcardToken)
+                .collect(Collectors.toList());
+        if (wildcardTokens.size() != pathWildcardParams.length) {
+            throw new IllegalArgumentException(
+                    String.format("Parameter count mismatch: %d wildcard parameters were provided but found %d wildcard tokens in path [%s]",
+                            pathWildcardParams.length, wildcardTokens.size(), path));
         }
+        Iterator<Object> replacements = List.of(pathWildcardParams).iterator();
+        wildcardTokens.forEach(token -> token.replaceWildcard(replacements.next()));
 
-        return resourceBuilder.toString();
+        return "/" + tokens.stream().map(URLPathToken::getToken).collect(Collectors.joining("/"));
     }
 }

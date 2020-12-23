@@ -21,6 +21,7 @@ import javax.annotation.Nonnull;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.Resource;
 
 /**
  * Implementation of a connector for the remote API's
@@ -30,10 +31,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
  * Provides static access to all routes of this endpoint which may be used for obtaining an overview of available
  * artwork type records.
  */
-public final class ArtworkTypesAPI {
-
-    /** Base URL path parameter for this endpoint */
-    private static final String BASE = "/artwork-types";
+public final class ArtworkTypesAPI extends Resource {
 
     private ArtworkTypesAPI() {}        // Private constructor. Only static methods
 
@@ -51,6 +49,6 @@ public final class ArtworkTypesAPI {
      *                      not found, etc.
      */
     public static JsonNode getAllArtworkTypes(@Nonnull APIConnection con) throws APIException {
-        return con.sendGET(BASE);
+        return con.sendGET(createResource("/artwork-types"));
     }
 }

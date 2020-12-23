@@ -33,9 +33,6 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
  */
 public final class GenresAPI extends Resource {
 
-    /** Base URL path parameter for this endpoint */
-    private static final String BASE = "/genres";
-
     private GenresAPI() {}      // Private constructor. Only static methods
 
     /**
@@ -52,7 +49,7 @@ public final class GenresAPI extends Resource {
      *                      not found, etc.
      */
     public static JsonNode getAllGenres(@Nonnull APIConnection con) throws APIException {
-        return con.sendGET(BASE);
+        return con.sendGET(createResource("/genres"));
     }
 
     /**
@@ -71,6 +68,6 @@ public final class GenresAPI extends Resource {
      */
     public static JsonNode getGenreBase(@Nonnull APIConnection con, long id) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
-        return con.sendGET(createResource(BASE, id));
+        return con.sendGET(createResource("/genres/{id}", id));
     }
 }

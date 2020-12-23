@@ -32,26 +32,31 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class QueryResourceTest {
 
-    private static Stream<Arguments> createQueryResource_verifyResourceString() {
+    private static final Object[] NO_PARAMS = new Object[0];
+
+    //@DisableFormatting
+    private static Stream<Arguments> withValidParameters() {
         return Stream.of(
-                Arguments.of("/query", null, null, "/query"),
-                Arguments.of("/query", "/pending", null, "/query/pending"),
-                Arguments.of("/single", null, queryParameters("date", "today"), "/single?date=today"),
-                Arguments.of("/single", "/filter", queryParameters("date", "tomorrow"),
-                        "/single/filter?date=tomorrow"),
-                Arguments.of("/multi", null, queryParameters("rating", "2", "published", "true"),
-                        "/multi?rating=2&published=true"),
-                Arguments.of("/multi", "/filter", queryParameters("rating", "2", "published", "true"),
-                        "/multi/filter?rating=2&published=true"),
-                Arguments.of("/invalid", null, queryParameters("rating", null, "published", "true"),
-                        "/invalid?published=true"),
-                Arguments.of("/invalid", null, queryParameters("rating", "2", null, "true"), "/invalid?rating=2"),
-                Arguments.of("/invalid", "/filter", queryParameters(null, "2"), "/invalid/filter"),
-                Arguments.of("/encoded", null, queryParameters("selection", "{id=47}", "status", "new"),
-                        "/encoded?selection=%7Bid%3D47%7D&status=new"),
-                Arguments.of("/encoded", "/filter", queryParameters("value", "&gt;"), "/encoded/filter?value=%26gt%3B")
+                Arguments.of("/query", null, NO_PARAMS, "/query"),
+                Arguments.of("/query/{language}", null, new Object[] {"eng"}, "/query/eng"),
+                Arguments.of("/single", queryParameters("date", "today"), NO_PARAMS, "/single?date=today"),
+                Arguments.of("/single/{id}/filter", queryParameters("date", "tomorrow"),
+                        new Object[] {22L}, "/single/22/filter?date=tomorrow"),
+                Arguments.of("/multi", queryParameters("rating", "2", "published", "true"),
+                        NO_PARAMS, "/multi?rating=2&published=true"),
+                Arguments.of("/multi/{id}/filter", queryParameters("rating", "2", "published", "true"),
+                        new Object[] {25L}, "/multi/25/filter?rating=2&published=true"),
+                Arguments.of("/invalid", queryParameters("rating", null, "published", "true"),
+                        NO_PARAMS, "/invalid?published=true"),
+                Arguments.of("/invalid", queryParameters("rating", "2", null, "true"),
+                        NO_PARAMS, "/invalid?rating=2"),
+                Arguments.of("/invalid/{language}", queryParameters(null, "2"), new Object[] {"eng"}, "/invalid/eng"),
+                Arguments.of("/encoded", queryParameters("selection", "{id=47}", "status", "new"),
+                        NO_PARAMS, "/encoded?selection=%7Bid%3D47%7D&status=new"),
+                Arguments.of("/encoded/{id}", queryParameters("value", "&gt;"), new Object[] {5L}, "/encoded/5?value=%26gt%3B")
         );
     }
+    //@EnableFormatting
 
     private static QueryParameters queryParameters(String key, String value) {
         return new NullableQueryParameters().addParameter(key, value);
@@ -61,11 +66,11 @@ class QueryResourceTest {
         return new NullableQueryParameters().addParameter(key1, value1).addParameter(key2, value2);
     }
 
-    @ParameterizedTest(name = "[{index}] Resource String for base \"{0}\", specific \"{1}\" and query parameters {2} is: \"{3}\"")
-    @MethodSource
-    void createQueryResource_verifyResourceString(String base, String specific, QueryParameters queryParameters,
+    @ParameterizedTest(name = "[{index}] Resource String for path <{0}> with wildcard params {2} and query params {1} is: {3}")
+    @MethodSource("withValidParameters")
+    void createQueryResource_verifyResourceString(String path, QueryParameters queryParams, Object[] wildcardParams,
             String expected) {
-        assertThat(QueryResource.createQueryResource(base, specific, queryParameters)).isEqualTo(expected);
+        assertThat(QueryResource.createQueryResource(path, queryParams, wildcardParams)).isEqualTo(expected);
     }
 
     @Test
