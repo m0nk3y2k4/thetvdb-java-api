@@ -25,10 +25,10 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
+import com.github.m0nk3y2k4.thetvdb.testutils.ResponseData;
 import com.github.m0nk3y2k4.thetvdb.testutils.json.Data;
-import com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource;
+import com.github.m0nk3y2k4.thetvdb.testutils.parameterized.ResponseDataSource;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class APIResponseDeserializerTest {
@@ -61,11 +61,11 @@ class APIResponseDeserializerTest {
     }
 
     @ParameterizedTest(name = "[{index}] {0} is deserialized properly")
-    @EnumSource(value = JsonResource.class, names = "DATA")
-    void deserialize_withFullJSON_verifyJsonIsParsedProperly(JsonResource resource) throws Exception {
-        JsonParser jsonParser = new JsonFactory().createParser(resource.getUrl());
-        APIResponse<Data> response = functionalDeserializer.deserialize(jsonParser, null);
+    @ResponseDataSource(names = "DATA")
+    <T> void deserialize_withFullJSON_verifyJsonIsParsedProperly(ResponseData<T> response) throws Exception {
+        JsonParser jsonParser = new JsonFactory().createParser(response.getUrl());
+        APIResponse<Data> result = functionalDeserializer.deserialize(jsonParser, null);
 
-        assertThat(response).isNotNull().isEqualTo(resource.getDTO());
+        assertThat(result).isNotNull().isEqualTo(response.getDTO());
     }
 }

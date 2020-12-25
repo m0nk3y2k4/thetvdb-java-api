@@ -22,6 +22,7 @@ import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory;
 import com.github.m0nk3y2k4.thetvdb.api.APIKey;
@@ -311,62 +312,62 @@ public class TheTVDBApiImpl implements TheTVDBApi {
 
         @Override
         public APIResponse<List<ArtworkType>> getArtworkTypes() throws APIException {
-            return APIJsonMapper.readArtworkTypesOverview(json().getArtworkTypes());
+            return APIJsonMapper.readValue(json().getArtworkTypes(), new TypeReference<>() {});
         }
 
         @Override
         public APIResponse<Artwork> getArtwork(long artworkId) throws APIException {
-            return APIJsonMapper.readArtwork(json().getArtwork(artworkId));
+            return APIJsonMapper.readValue(json().getArtwork(artworkId), new TypeReference<>() {});
         }
 
         @Override
         public APIResponse<Character> getCharacter(long characterId) throws APIException {
-            return APIJsonMapper.readCharacter(json().getCharacter(characterId));
+            return APIJsonMapper.readValue(json().getCharacter(characterId), new TypeReference<>() {});
         }
 
         @Override
         public APIResponse<Episode> getEpisode(long episodeId) throws APIException {
-            return APIJsonMapper.readEpisode(json().getEpisode(episodeId));
+            return APIJsonMapper.readValue(json().getEpisode(episodeId), new TypeReference<>() {});
         }
 
         @Override
         public APIResponse<List<Genre>> getGenres() throws APIException {
-            return APIJsonMapper.readGenresOverview(json().getGenres());
+            return APIJsonMapper.readValue(json().getGenres(), new TypeReference<>() {});
         }
 
         @Override
         public APIResponse<Genre> getGenre(long genreId) throws APIException {
-            return APIJsonMapper.readGenre(json().getGenre(genreId));
+            return APIJsonMapper.readValue(json().getGenre(genreId), new TypeReference<>() {});
         }
 
         @Override
         public APIResponse<Movie> getMovie(long movieId) throws APIException {
-            return APIJsonMapper.readMovie(json().getMovie(movieId));
+            return APIJsonMapper.readValue(json().getMovie(movieId), new TypeReference<>() {});
         }
 
         @Override
         public APIResponse<People> getPeople(long peopleId) throws APIException {
-            return APIJsonMapper.readPeople(json().getPeople(peopleId));
+            return APIJsonMapper.readValue(json().getPeople(peopleId), new TypeReference<>() {});
         }
 
         @Override
         public APIResponse<Season> getSeason(long seasonId) throws APIException {
-            return APIJsonMapper.readSeason(json().getSeason(seasonId));
+            return APIJsonMapper.readValue(json().getSeason(seasonId), new TypeReference<>() {});
         }
 
         @Override
         public APIResponse<List<Series>> querySeries(QueryParameters queryParameters) throws APIException {
-            return APIJsonMapper.readSeriesOverview(json().querySeries(queryParameters));
+            return APIJsonMapper.readValue(json().querySeries(queryParameters), new TypeReference<>() {});
         }
 
         @Override
         public APIResponse<Series> getSeries(long seriesId) throws APIException {
-            return APIJsonMapper.readSeries(json().getSeries(seriesId));
+            return APIJsonMapper.readValue(json().getSeries(seriesId), new TypeReference<>() {});
         }
 
         @Override
         public APIResponse<SeriesDetails> getSeriesDetails(long seriesId) throws APIException {
-            return APIJsonMapper.readSeriesDetails(json().getSeriesDetails(seriesId));
+            return APIJsonMapper.readValue(json().getSeriesDetails(seriesId), new TypeReference<>() {});
         }
     }
 }

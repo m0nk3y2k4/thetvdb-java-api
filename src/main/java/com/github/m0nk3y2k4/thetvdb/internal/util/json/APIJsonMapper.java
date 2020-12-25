@@ -21,8 +21,7 @@ import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_JSON_P
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.List;
-import java.util.function.Supplier;
+import java.util.Arrays;
 
 import javax.annotation.Nonnull;
 
@@ -32,290 +31,55 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
-import com.github.m0nk3y2k4.thetvdb.api.exception.APIRuntimeException;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Alias;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Artwork;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkType;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Franchise;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Network;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.RemoteId;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Season;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesAirsDays;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Status;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Trailer;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AliasDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ArtworkDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ArtworkTypeDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CharacterDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EpisodeDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.FranchiseDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.GenreDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.NetworkDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.PeopleDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.RemoteIdDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeasonDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesAirsDaysDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesDetailsDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.StatusDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TrailerDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.APIDataModel;
 import com.github.m0nk3y2k4.thetvdb.internal.util.functional.ThrowableFunctionalInterfaces;
 import com.github.m0nk3y2k4.thetvdb.internal.util.json.deser.APIResponseDeserializer;
 import com.github.m0nk3y2k4.thetvdb.internal.util.json.deser.CollectionDeserializerModifier;
-import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
+import com.github.m0nk3y2k4.thetvdb.internal.util.json.deser.StaticTypeReference;
+import org.atteo.classindex.ClassFilter;
+import org.atteo.classindex.ClassIndex;
 
 /**
  * Utility class for JSON response deserialization.
  * <p><br>
- * Provides functionality to parse the JSON data returned by the remote API and map it into it's corresponding DTO.
- * These DTO's will be wrapped into {@link APIResponse APIResponse&lt;DTO&gt;} objects together with additional
- * information like processing status information.
+ * Provides functionality to parse the JSON data returned by the remote API and map it into the corresponding DTO. These
+ * DTO's will be wrapped into {@link APIResponse APIResponse&lt;DTO&gt;} objects together with additional information
+ * like processing status information.
  */
 public final class APIJsonMapper {
 
     /** Module used to extend the object mappers functionality in terms of mapping the APIs data model interfaces */
-    private static final SimpleModule DATA_MODULE = new SimpleModule();
+    private static final SimpleModule DATA_MODULE = createDataModule();
 
     /** Module used to extend the object mappers functionality in terms of mapping JDK8 Optionals */
     private static final Module JDK8_MODULE = new Jdk8Module();
 
-    static {
-        // Add Interface <-> Implementation mappings to the module. The object mapper will use these mappings to determine the
-        // proper builder to be used to create new instances of a specific interface (via @JsonDeserialize annotation).
-        DATA_MODULE.setDeserializerModifier(new CollectionDeserializerModifier())
-                .setAbstractTypes(new SimpleAbstractTypeResolver()
-                        .addMapping(Alias.class, AliasDTO.class)
-                        .addMapping(Artwork.class, ArtworkDTO.class)
-                        .addMapping(ArtworkType.class, ArtworkTypeDTO.class)
-                        .addMapping(Character.class, CharacterDTO.class)
-                        .addMapping(Episode.class, EpisodeDTO.class)
-                        .addMapping(Franchise.class, FranchiseDTO.class)
-                        .addMapping(Genre.class, GenreDTO.class)
-                        .addMapping(Movie.class, MovieDTO.class)
-                        .addMapping(Network.class, NetworkDTO.class)
-                        .addMapping(People.class, PeopleDTO.class)
-                        .addMapping(RemoteId.class, RemoteIdDTO.class)
-                        .addMapping(Season.class, SeasonDTO.class)
-                        .addMapping(SeriesAirsDays.class, SeriesAirsDaysDTO.class)
-                        .addMapping(SeriesDetails.class, SeriesDetailsDTO.class)
-                        .addMapping(Series.class, SeriesDTO.class)
-                        .addMapping(Status.class, StatusDTO.class)
-                        .addMapping(Trailer.class, TrailerDTO.class)
-                );
-    }
-
-    private APIJsonMapper() {}     // Private constructor. Only static methods
+    private APIJsonMapper() {}      // Private constructor. Only static methods
 
     /**
-     * Maps the actual data of a specific artwork base record returned by the artwork route.
+     * Maps some <i>TheTVDB.com</i> API response JSON into it's Java model representation.
      *
-     * @param json The full JSON as returned by the remote service, containing the artwork information within the
-     *             <em>{@code data}</em> node
+     * @param json          The full JSON as returned by the remote service
+     * @param typeReference Type reference representing the Java model structure to which the JSON should be mapped to
+     * @param <T>           The DTO type to which the JSON's {@code data} node should be mapped to
      *
-     * @return Extended API response containing the artwork data parsed from the given JSON as well as additional status
-     *         information.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<Artwork> readArtwork(@Nonnull JsonNode json) throws APIException {
-        return readObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual list of artwork types returned by the artwork types overview route.
-     *
-     * @param json The full JSON as returned by the remote service, containing the artwork type overview information
-     *             within the <em>{@code data}</em> node
-     *
-     * @return Extended API response containing the artwork type data parsed from the given JSON as well as additional
+     * @return Extended API response containing the requested data parsed from the given JSON as well as additional
      *         status information.
      *
      * @throws APIException If an IO error occurred during the deserialization of the given JSON object
      */
-    public static APIResponse<List<ArtworkType>> readArtworkTypesOverview(@Nonnull JsonNode json) throws APIException {
-        return readObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual data of a specific character record returned by the characters route.
-     *
-     * @param json The full JSON as returned by the remote service, containing the character information within the
-     *             <em>{@code data}</em> node
-     *
-     * @return Extended API response containing the character data parsed from the given JSON as well as additional
-     *         status information.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<Character> readCharacter(@Nonnull JsonNode json) throws APIException {
-        return readObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual data of a specific episode base record returned by the episodes route.
-     *
-     * @param json The full JSON as returned by the remote service, containing the episode information within the
-     *             <em>{@code data}</em> node
-     *
-     * @return Extended API response containing the episode data parsed from the given JSON as well as additional status
-     *         information.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<Episode> readEpisode(@Nonnull JsonNode json) throws APIException {
-        return readObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual data of a specific genre base record returned by the genres route.
-     *
-     * @param json The full JSON as returned by the remote service, containing the genre information within the
-     *             <em>{@code data}</em> node
-     *
-     * @return Extended API response containing the genre data parsed from the given JSON as well as additional status
-     *         information.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<Genre> readGenre(@Nonnull JsonNode json) throws APIException {
-        return readObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual list of genres returned by the genres overview route.
-     *
-     * @param json The full JSON as returned by the remote service, containing the genres overview information within
-     *             the <em>{@code data}</em> node
-     *
-     * @return Extended API response containing the genres data parsed from the given JSON as well as additional status
-     *         information.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<List<Genre>> readGenresOverview(@Nonnull JsonNode json) throws APIException {
-        return readObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual data of a specific movie base record returned by the movies route.
-     *
-     * @param json The full JSON as returned by the remote service, containing the movie information within the
-     *             <em>{@code data}</em> node
-     *
-     * @return Extended API response containing the movie data parsed from the given JSON as well as additional status
-     *         information.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<Movie> readMovie(@Nonnull JsonNode json) throws APIException {
-        return readObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual data of a specific people base record returned by the people route.
-     *
-     * @param json The full JSON as returned by the remote service, containing the people information within the
-     *             <em>{@code data}</em> node
-     *
-     * @return Extended API response containing the people data parsed from the given JSON as well as additional status
-     *         information.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<People> readPeople(@Nonnull JsonNode json) throws APIException {
-        return readObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual data of a specific season base record returned by the seasons route.
-     *
-     * @param json The full JSON as returned by the remote service, containing the season information within the
-     *             <em>{@code data}</em> node
-     *
-     * @return Extended API response containing the season data parsed from the given JSON as well as additional status
-     *         information.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<Season> readSeason(@Nonnull JsonNode json) throws APIException {
-        return readObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual data of a specific series base record returned by the series route.
-     *
-     * @param json The full JSON as returned by the remote service, containing the series information within the
-     *             <em>{@code data}</em> node
-     *
-     * @return Extended API response containing the series data parsed from the given JSON as well as additional status
-     *         information.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<Series> readSeries(@Nonnull JsonNode json) throws APIException {
-        return readObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual data of a specific series extended record returned by the series route.
-     *
-     * @param json The full JSON as returned by the remote service, containing the series information within the
-     *             <em>{@code data}</em> node
-     *
-     * @return Extended API response containing the series data parsed from the given JSON as well as additional status
-     *         information.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<SeriesDetails> readSeriesDetails(@Nonnull JsonNode json) throws APIException {
-        return readObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Maps the actual list of series returned by the series overview route.
-     *
-     * @param json The full JSON as returned by the remote service, containing the series overview information within
-     *             the <em>{@code data}</em> node
-     *
-     * @return Extended API response containing the series data parsed from the given JSON as well as additional status
-     *         information.
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    public static APIResponse<List<Series>> readSeriesOverview(@Nonnull JsonNode json) throws APIException {
-        return readObject(json, new TypeReference<>() {});
-    }
-
-    /**
-     * Deserializes the given JSON based on the given type reference to a new object of type <b>T</b>. A new functional
-     * module which is based on the given type reference will be used in order to map the JSON's top-level <em>{@code
-     * data}</em> node.
-     *
-     * @param json          The JSON object to be parsed
-     * @param typeReference The value type reference used for deserialization
-     * @param <T>           The type of object that the JSON should be mapped to
-     *
-     * @return Deserialized JSON object mapped to an instance of type <b>T</b>
-     *
-     * @throws APIException If an IO error occurred during the deserialization of the given JSON object
-     */
-    private static <T> T readObject(@Nonnull JsonNode json, @Nonnull TypeReference<T> typeReference)
-            throws APIException {
+    public static <T> APIResponse<T> readValue(@Nonnull JsonNode json,
+            @Nonnull TypeReference<APIResponse<T>> typeReference) throws APIException {
         try {
-            return new ObjectMapper().registerModule(createFunctionalModule(typeReference))
+            return new ObjectMapper()
+                    .registerModule(createAPIResponseModule(((ParameterizedType)typeReference.getType())
+                            .getActualTypeArguments()[0]))
                     .readValue(json.toString(), typeReference);
         } catch (JsonProcessingException ex) {
             throw new APIException(String.format(API_JSON_PARSE_ERROR, ex.getMessage()), ex);
@@ -323,80 +87,44 @@ public final class APIJsonMapper {
     }
 
     /**
-     * Creates a new JSON object mapper module which uses the given type reference to perform a functional
-     * deserialization of the JSON's <em>{@code data}</em> node when parsing a parameterized API response.
+     * Creates a JSON module with enhanced functionality regarding the deserialization of <i>TheTVDB.com</i> API JSON
+     * responses. This includes the creation of a new API response deserializer for the given DTO type which also
+     * supports the usage of Java {@code Optional} data types. Unknown properties within the JSON's {@code data} node
+     * will be ignored by default.
      *
-     * @param typeReference The type reference used for the functional JSON deserialization
-     * @param <T>           The type of object that the <em>{@code data}</em> node should be mapped to
+     * @param dataType DTO type to which the content of the JSON's {@code data} node should be parsed to
      *
-     * @return Simple JSON object mapper module containing a single functional deserializer
+     * @return JSON module with enhanced functionality for parsing JSON responses received from the remote service
      */
-    private static <T> Module createFunctionalModule(@Nonnull TypeReference<T> typeReference) {
-        return new SimpleModule()
-                .addDeserializer(APIResponse.class, new APIResponseDeserializer<>(createDataFunction(typeReference)));
+    private static Module createAPIResponseModule(@Nonnull Type dataType) {
+        ThrowableFunctionalInterfaces.Function<JsonNode, ?, IOException> dataFunction = dataNode ->
+                new ObjectMapper().registerModules(JDK8_MODULE, DATA_MODULE)
+                        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                        .readValue(dataNode.toString(), new StaticTypeReference<>(dataType));
+        return new SimpleModule().addDeserializer(APIResponse.class, new APIResponseDeserializer<>(dataFunction));
     }
 
     /**
-     * Creates a new mapping function for the <em>{@code data}</em> JSON node based on the given type reference.
+     * Creates a JSON module with enhanced functionality regarding the deserialization of the JSON's {@code data} node.
+     * This includes proper handling of nullable collections and well as type resolver mappings for DTO model
+     * interfaces. The latter will automatically be resolved via the {@link APIDataModel} annotation.
      *
-     * @param baseTypeReference The corresponding type reference for the <em>{@code data}</em> node mapping function
-     * @param <T>               The type of object that the node should be mapped to
+     * @param <T> the API model interface type, used for adding type resolver mappings
      *
-     * @return New throwable mapping function based on the given type reference. This function may throw exceptions of
-     *         the type {@link IOException} when invoking it's <i>apply</i> method.
+     * @return JSON module with enhanced functionality for parsing the actual response DTO models
      */
-    private static <T> ThrowableFunctionalInterfaces.Function<JsonNode, T, IOException> createDataFunction(
-            @Nonnull TypeReference<T> baseTypeReference) {
-        return node -> readDataObject(node, new DataTypeReference<>(baseTypeReference));
-    }
+    @SuppressWarnings("unchecked")  // dto implements dtoInterface
+    private static <T> SimpleModule createDataModule() {
+        // Add Interface <-> Implementation mappings to the module. The object mapper will use these mappings to determine the
+        // proper builder to be used to create new instances of a specific interface (via @JsonDeserialize annotation).
+        SimpleAbstractTypeResolver dtoTypeResolver = new SimpleAbstractTypeResolver();
+        ClassFilter.only().classes().annotatedWith(JsonDeserialize.class)
+                .from(ClassIndex.getAnnotated(APIDataModel.class)).forEach(dto ->
+                Arrays.stream(dto.getInterfaces()).forEach(dtoInterface ->
+                        dtoTypeResolver.addMapping((Class<T>)dtoInterface, (Class<? extends T>)dto)));
 
-    /**
-     * Deserializes the given <em>{@code dataNode}</em> based on the given type reference to a new object of type
-     * <b>T</b> by using the default mapping module.
-     *
-     * @param dataNode          The node which should be parsed
-     * @param dataTypeReference The data type reference used for deserialization
-     * @param <T>               The type of object that the node should be mapped to
-     *
-     * @return Deserialized data node mapped to an instance of type <b>T</b>
-     *
-     * @throws IOException If an IO error occurred during the deserialization of the given JSON object
-     */
-    private static <T> T readDataObject(@Nonnull JsonNode dataNode, @Nonnull TypeReference<T> dataTypeReference)
-            throws IOException {
-        return new ObjectMapper().registerModules(JDK8_MODULE, DATA_MODULE)
-                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-                .readValue(dataNode.toString(), dataTypeReference);
-    }
-
-    /**
-     * A specific type reference for the JSON's <em>{@code data}</em> node.
-     * <p><br>
-     * Objects of this class provide access to T's type argument. For example, if T represents a class
-     * <em>{@code APIResponseDTO<Episode>}</em>, so an API response whose actual payload/data is an episode,
-     * then an object of this class represents an <em>{@code Episode}</em> type argument.
-     *
-     * @param <T> the type of objects that is representing the base type reference (e.g. APIResponseDTO&lt;?&gt;)
-     */
-    private static final class DataTypeReference<T> extends TypeReference<T> {
-        /** Type supplier for T's type argument */
-        private final Supplier<Type> typeSupplier;
-
-        /**
-         * Creates a new data type reference based on the given base type reference.
-         *
-         * @param baseTypeReference The parameterized base type reference
-         */
-        DataTypeReference(TypeReference<T> baseTypeReference) {
-            Parameters.validateCondition(ref -> ParameterizedType.class
-                            .isAssignableFrom(ref.getType().getClass()), baseTypeReference,
-                    new APIRuntimeException("Base type is required to be parameterized!"));
-            this.typeSupplier = () -> ((ParameterizedType)baseTypeReference.getType()).getActualTypeArguments()[0];
-        }
-
-        @Override
-        public Type getType() {
-            return typeSupplier.get();
-        }
+        SimpleModule dataModule = new SimpleModule();
+        dataModule.setDeserializerModifier(new CollectionDeserializerModifier()).setAbstractTypes(dtoTypeResolver);
+        return dataModule;
     }
 }

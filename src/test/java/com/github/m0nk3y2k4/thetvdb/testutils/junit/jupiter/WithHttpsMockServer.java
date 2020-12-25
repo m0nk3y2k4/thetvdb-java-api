@@ -40,8 +40,8 @@ import org.mockserver.junit.jupiter.MockServerSettings;
  * the constructor, lifecycle methods and of course into the actual tests. The server will return a HTTP-200 for each
  * requested resource by default. This behavior can be overwritten by each test but will be reset before the next test
  * class is executed.
- * <pre>{@code
- *     @Test
+ * <pre><code>
+ *     {@literal @Test}
  *     void mockResponseTest(MockServerClient client) {
  *         final String resource = "/someResource";
  *
@@ -56,7 +56,7 @@ import org.mockserver.junit.jupiter.MockServerSettings;
  *         // After two requests the specified HTTP-401 expectation expires and the default response is visible again
  *         assertThat(sendRequest(resource)).extracting(Response::getResponseCode).isEqualTo(200);
  *     }
- * }</pre>
+ * </code></pre>
  * The list of recorded requests will be reset after each individual test. The mocked server has HTTPS enabled by
  * default.
  * <p><br>
@@ -64,17 +64,17 @@ import org.mockserver.junit.jupiter.MockServerSettings;
  * com.github.m0nk3y2k4.thetvdb.api.Proxy Proxy}, {@link com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI
  * RemoteAPI} or {@link java.util.function.Supplier Supplier&lt;RemoteAPI&gt;} parameter. Valid injection points are
  * constructors, lifecycle methods and the actual tests.
- * <pre>{@code
+ * <pre><code>
  * package com.github.m0nk3y2k4.thetvdb.foobar;
  *
  * import static com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter.WithHttpsMockServer;
  *
  * // Imports...
  *
- * @WithHttpsMockServer
+ * {@literal @WithHttpsMockServer}
  * class SomeAPITestClass {
  *
- *     @Test
+ *     {@literal @Test}
  *     void testSomething(MockServerClient client, Supplier<RemoteAPI> remoteAPISupplier, Proxy remoteAPI) {
  *         client.when(...);        // Access to the local REST endpoint e.g. to add expectations or to verify requests
  *
@@ -83,7 +83,7 @@ import org.mockserver.junit.jupiter.MockServerSettings;
  *         TheTVDBApi api = TheTVDBApiFactory.createApi("bar", remoteAPI);
  *     }
  * }
- * }</pre>
+ * </code></pre>
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

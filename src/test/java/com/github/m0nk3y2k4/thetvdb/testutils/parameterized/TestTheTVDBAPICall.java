@@ -26,11 +26,11 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.functional.ThrowableFunctional
  * Accepts routes from the <i>{@link com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi}</i> interface. An additional textual
  * description can be added which will be displayed as the default String representation of this object. Provides a
  * single method to invoke the underlying API route and to return it's actual response value.
- * <pre> {@code
- * @WithHttpsMockServer
+ * <pre><code>
+ * {@literal @WithHttpsMockServer}
  * class SomeAPITest {
  *
- *     @BeforeAll
+ *     {@literal @BeforeAll}
  *     static void setUpRoutes(MockServerClient client) throws Exception {
  *         client.when(request("/remote/api/actors/3641").withMethod(GET.getName())).respond(response().withBody(ACTORS_JSON));
  *     }
@@ -42,13 +42,14 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.functional.ThrowableFunctional
  *         );
  *     }
  *
- *     @ParameterizedTest(name = "[{index}] Route SomeAPITest.{0} successfully invoked")    // [1] Route SomeAPITest.getActors() with ID 3641 successfully invoked
- *     @MethodSource("withValidParameters")
+ *     {@literal @ParameterizedTest}(name = "[{index}] Route SomeAPITest.{0} successfully invoked")    // [1] Route SomeAPITest.getActors() with ID 3641 successfully invoked
+ *     {@literal @MethodSource}("withValidParameters")
  *     void invokeRoute_withValidParameters_verifyResponse(TestTheTVDBAPICall route, Object expectedDTO) throws Exception {
  *         // The following assert actually invokes the underlying route and compares its return value with the expected DTO
  *         TestTheTVDBAPICallAssert.assertThat(route).matchesExpectation(expectedDTO);
  *     }
- * }}</pre>
+ * }
+ * </code></pre>
  * <p><br>
  * For void API routes returning no result/DTO the {@link TestTheTVDBAPICall.Void} wrapper can be used.
  *
@@ -106,7 +107,7 @@ public class TestTheTVDBAPICall<T> extends TestAPICall<Supplier<T, APIException>
      * textual description can be added which will be displayed as the default String representation of this object.
      * Provides a single method to invoke the underlying API route. The return value of the invocation will always be
      * {@code null} for instances of this class.
-     * <pre>{@code
+     * <pre><code>
      * class SomeAPITest {
      *
      *     private static Stream<Arguments> withValidParameters() {
@@ -116,13 +117,14 @@ public class TestTheTVDBAPICall<T> extends TestAPICall<Supplier<T, APIException>
      *         );
      *     }
      *
-     *     @ParameterizedTest(name = "[{index}] Route SomeAPITest.{0} successfully invoked")    // [1] Route SomeAPITest.deleteFromRatings() successfully invoked
-     *     @MethodSource("withValidParameters")
+     *    {@literal @ParameterizedTest}(name = "[{index}] Route SomeAPITest.{0} successfully invoked")    // [1] Route SomeAPITest.deleteFromRatings() successfully invoked
+     *    {@literal @MethodSource}("withValidParameters")
      *     void invokeRoute_withValidParameters_verifyResponse(TestTheTVDBAPICall route, HttpRequest verifyInvokedOnMockServer, MockServerClient client) throws Exception {
      *          // The following assert actually invokes the wrapped route and verifies that the expected HTTP request was received by the mock server
      *         TestTheTVDBAPICallAssert.assertThat(route).usingMockServer(client).matchesExpectation(verifyInvokedOnMockServer);
      *     }
-     * }}</pre>
+     * }
+     * </code></pre>
      */
     public static final class Void extends TestTheTVDBAPICall<Object> {
 

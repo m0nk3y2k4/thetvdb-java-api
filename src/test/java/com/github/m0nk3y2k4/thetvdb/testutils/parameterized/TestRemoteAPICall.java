@@ -27,11 +27,11 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.functional.ThrowableFunctional
  * Accepts routes from classes within the <i>{@link com.github.m0nk3y2k4.thetvdb.internal.resource.impl}</i> package. An
  * additional textual description can be added which will be displayed as the default String representation of this
  * object. Provides a single method to invoke the underlying remote API route and to return it's response.
- * <pre>{@code
- * @WithHttpsMockServer
+ * <pre><code>
+ * {@literal @WithHttpsMockServer}
  * class SomeAPITest {
  *
- *     @BeforeAll
+ *     {@literal @BeforeAll}
  *     static void setUpRoutes(MockServerClient client) throws Exception {
  *         client.when(request("/remote/api").withMethod(GET.getName())).respond(response().withBody(JSON_DATA));
  *     }
@@ -43,12 +43,13 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.functional.ThrowableFunctional
  *         );
  *     }
  *
- *     @ParameterizedTest(name = "[{index}] Route SomeAPI.{0} successfully invoked")    // [1] Route SomeAPI.get() with ID 8745 successfully invoked
- *     @MethodSource("withValidParameters")
+ *     {@literal @ParameterizedTest}(name = "[{index}] Route SomeAPI.{0} successfully invoked")    // [1] Route SomeAPI.get() with ID 8745 successfully invoked
+ *     {@literal @MethodSource}("withValidParameters")
  *     void invokeRoute_withValidParameters_verifyResponse(TestRemoteAPICall route, String expected, Supplier<RemoteAPI> remoteAPI) throws Exception {
  *         assertThat(route.invoke(new APIConnection("IWU57F5WF4", remoteAPI))).isEqualTo(expected);
  *     }
- * }</pre>
+ * }
+ * </code></pre>
  */
 public final class TestRemoteAPICall extends TestAPICall<Function<APIConnection, JsonNode, APIException>> {
 

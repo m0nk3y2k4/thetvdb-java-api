@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.m0nk3y2k4.thetvdb.testutils.json;
+package com.github.m0nk3y2k4.thetvdb.testutils;
 
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
@@ -23,11 +23,12 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.ParameterizedType;
 import java.net.URL;
 import java.util.List;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
@@ -59,113 +60,109 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.StatusDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TrailerDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.util.json.deser.StaticTypeReference;
+import com.github.m0nk3y2k4.thetvdb.testutils.json.Data;
 
-/**
- * Provides access to prefabbed JSON data used for unit testing
- * <p><br>
- * Test utility class offering easy access to predefined JSON files and associated Java DTO's. Resource files and DTO's
- * are aligned in terms of content. In other words, the DTO is the Java data type representation of some JSON resource
- * file. For an easier usage corresponding DTO's and resource files are consolidated into enumerations. For example:
- * <pre>{@code
- *     JsonParser seriesJSON = new JsonFactory().createParser(JsonResource.SERIES.getUrl());    // JSON resource file via URI
- *     APIResponse<Series> seriesDTO = parse(seriesJSON);
- *
- *     assertThat(seriesDTO).isEqualTo(JsonResource.SERIES.getDTO());      // Resource file as Java object
- * }</pre>
- */
-public final class JSONTestUtil {
+@SuppressWarnings({"ClassWithTooManyFields", "unused"}) // Test class providing prefabbed test objects via reflection
+public abstract class ResponseData<T> {
 
-    public enum JsonResource {
-        //@DisableFormatting
-        ARTWORK("artwork", JSONTestUtil::artwork, "Single artwork JSON response"),
-        ARTWORK_MIN("artwork_min", JSONTestUtil::artwork_min, "Single artwork JSON response with only mandatory fields"),
-        ARTWORKTYPE_LIST("artworktype_list", JSONTestUtil::artworkType, "List of artwork types JSON response"),
-        CHARACTER("character", JSONTestUtil::character, "Single character JSON response"),
-        CHARACTER_MIN("character_min", JSONTestUtil::character_min, "Single character JSON response with only mandatory fields"),
-        DATA("data", JSONTestUtil::data, "Full JSON response with data and status node"),
-        EPISODE("episode", JSONTestUtil::episode, "Single episode JSON response"),
-        EPISODE_MIN("episode_min", JSONTestUtil::episode_min, "Single episode JSON response with only mandatory fields"),
-        GENRE("genre", JSONTestUtil::genre, "Single genre JSON response"),
-        GENRE_LIST("genre_list", JSONTestUtil::genreList, "List of genres JSON response"),
-        MOVIE("movie", JSONTestUtil::movie, "Single movie JSON response"),
-        MOVIE_MIN("movie_min", JSONTestUtil::movie_min, "Single movie JSON response with only mandatory fields"),
-        PEOPLE("people", JSONTestUtil::people, "Single people JSON response"),
-        PEOPLE_MIN("people_min", JSONTestUtil::people_min, "Single people JSON response with only mandatory fields"),
-        SEASON("season", JSONTestUtil::season, "Single season JSON response"),
-        SEASON_MIN("season_min", JSONTestUtil::season_min, "Single season JSON response with only mandatory fields"),
-        SERIES("series", JSONTestUtil::series, "Single series JSON response"),
-        SERIES_MIN("series_min", JSONTestUtil::series_min, "Single series JSON response with only mandatory fields"),
-        SERIES_DETAILS("series_extended", JSONTestUtil::seriesDetails, "Single extended series JSON response"),
-        SERIES_DETAILS_MIN("series_extended_min", JSONTestUtil::seriesDetails_min, "Single extended series JSON response with only mandatory fields"),
-        SERIES_LIST("series_list", JSONTestUtil::seriesList, "List of series JSON response");
-        //@EnableFormatting
+    //@DisableFormatting
+    //********************* artwork-types *******************
+    public static final ResponseData<APIResponse<List<ArtworkType>>> ARTWORKTYPE_LIST = new ResponseData<>(
+            "artworktype_list", artworkType(), "List of artwork types JSON response") {};
 
-        private final String fileName;
-        private final Supplier<APIResponse<?>> dtoSupplier;
-        private final String description;
+    //************************ artwork **********************
+    public static final ResponseData<APIResponse<Artwork>> ARTWORK = new ResponseData<>(
+            "artwork", artwork(), "Single artwork JSON response") {};
+    public static final ResponseData<APIResponse<Artwork>> ARTWORK_MIN = new ResponseData<>(
+            "artwork_min", artwork_min(), "Single artwork JSON response with only mandatory fields") {};
 
-        JsonResource(String fileName, Supplier<APIResponse<?>> dtoSupplier, String description) {
-            this.fileName = fileName;
-            this.dtoSupplier = dtoSupplier;
-            this.description = description;
-        }
+    //*********************** characters ********************
+    public static final ResponseData<APIResponse<Character>> CHARACTER = new ResponseData<>(
+            "character", character(), "Single character JSON response") {};
+    public static final ResponseData<APIResponse<Character>> CHARACTER_MIN = new ResponseData<>(
+            "character_min", character_min(), "Single character JSON response with only mandatory fields") {};
 
-        /**
-         * Creates a new JsonNode representation of this JSON resource
-         *
-         * @return This resource mapped as JsonNode object
-         *
-         * @throws IOException If a low-level I/O problem (unexpected end-of-input, network error) occurs
-         */
-        public JsonNode getJson() throws IOException {
-            return new ObjectMapper().readTree(getUrl());
-        }
+    //************************* DUMMY ***********************
+    public static final ResponseData<APIResponse<Data>> DATA = new ResponseData<>(
+            "data", data(), "Full JSON response with data and status node") {};
 
-        /**
-         * Returns this resources JSON content as String
-         *
-         * @return This resource as JSON String
-         *
-         * @throws IOException If an I/O exception occurs
-         */
-        public String getJsonString() throws IOException {
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(getUrl().openStream(), UTF_8))) {
-                return reader.lines().collect(Collectors.joining(System.lineSeparator()));
-            }
-        }
+    //************************ episodes *********************
+    public static final ResponseData<APIResponse<Episode>> EPISODE = new ResponseData<>(
+            "episode", episode(), "Single episode JSON response") {};
+    public static final ResponseData<APIResponse<Episode>> EPISODE_MIN = new ResponseData<>(
+            "episode_min", episode_min(), "Single episode JSON response with only mandatory fields") {};
 
-        /**
-         * Returns the uniform resource locator (URL) for this JSON resource
-         *
-         * @return URL referencing this JSON resource
-         */
-        public URL getUrl() {
-            return ClassLoader.getSystemResource("json/example/" + fileName + ".json");
-        }
+    //************************* genres **********************
+    public static final ResponseData<APIResponse<Genre>> GENRE = new ResponseData<>(
+            "genre", genre(), "Single genre JSON response") {};
+    public static final ResponseData<APIResponse<List<Genre>>> GENRE_LIST = new ResponseData<>(
+            "genre_list", genreList(), "List of genres JSON response") {};
 
-        /**
-         * Returns a DTO representation of this JSON resource
-         *
-         * @return DTO representation of this JSON resource
-         */
-        public APIResponse<?> getDTO() {
-            return dtoSupplier.get();
-        }
+    //************************* movies **********************
+    public static final ResponseData<APIResponse<Movie>> MOVIE = new ResponseData<>(
+            "movie", movie(), "Single movie JSON response") {};
+    public static final ResponseData<APIResponse<Movie>> MOVIE_MIN = new ResponseData<>(
+            "movie_min", movie_min(), "Single movie JSON response with only mandatory fields") {};
 
-        @Override
-        public String toString() {
-            return description;
-        }
-    }
+    //************************* people **********************
+    public static final ResponseData<APIResponse<People>> PEOPLE = new ResponseData<>(
+            "people", people(), "Single people JSON response") {};
+    public static final ResponseData<APIResponse<People>> PEOPLE_MIN = new ResponseData<>(
+            "people_min", people_min(), "Single people JSON response with only mandatory fields") {};
 
-    private JSONTestUtil() {}
+    //************************ seasons **********************
+    public static final ResponseData<APIResponse<Season>> SEASON = new ResponseData<>(
+            "season", season(), "Single season JSON response") {};
+    public static final ResponseData<APIResponse<Season>> SEASON_MIN = new ResponseData<>(
+            "season_min", season_min(), "Single season JSON response with only mandatory fields") {};
+
+    //************************* series **********************
+    public static final ResponseData<APIResponse<Series>> SERIES = new ResponseData<>(
+            "series", series(), "Single series JSON response") {};
+    public static final ResponseData<APIResponse<Series>> SERIES_MIN = new ResponseData<>(
+            "series_min", series_min(), "Single series JSON response with only mandatory fields") {};
+    public static final ResponseData<APIResponse<SeriesDetails>> SERIES_DETAILS = new ResponseData<>(
+            "series_extended", seriesDetails(), "Single extended series JSON response") {};
+    public static final ResponseData<APIResponse<SeriesDetails>> SERIES_DETAILS_MIN = new ResponseData<>(
+            "series_extended_min", seriesDetails_min(), "Single extended series JSON response with only mandatory fields") {};
+    public static final ResponseData<APIResponse<List<Series>>> SERIES_LIST = new ResponseData<>(
+            "series_list", seriesList(), "List of series JSON response") {};
+    //@EnableFormatting
+
+    /** File name of the JSON template to be used by this response */
+    private final String jsonFileName;
+
+    /** DTO representation of the JSON template */
+    private final T dto;
+
+    /** JSON type reference representing the actual generic type arguments of this instance */
+    private final TypeReference<T> typeReference;
+
+    /** Textual description about what this response represents */
+    private final String description;
 
     /**
-     * Creates a new basic artwork APIResponse DTO with default values set
+     * Creates a new response test data instance based on the given values
      *
-     * @return New basic artwork APIResponse DTO prefilled with default values
+     * @param jsonFileName File name of the JSON template to be used by this response
+     * @param dto          DTO representation of the JSON template
+     * @param description  Textual description about what this response represents
      */
-    public static APIResponse<Artwork> artwork() {
+    private ResponseData(String jsonFileName, T dto, String description) {
+        this.jsonFileName = jsonFileName;
+        this.dto = dto;
+        this.description = description;
+        this.typeReference = new StaticTypeReference<>(
+                ((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
+    }
+
+    /**
+     * Creates a new artwork APIResponse DTO with default values set
+     *
+     * @return New artwork APIResponse DTO prefilled with default values
+     */
+    private static APIResponse<Artwork> artwork() {
         return createAPIResponse(new ArtworkDTO.Builder()
                 .id(4635L)
                 .image("Image")
@@ -177,11 +174,11 @@ public final class JSONTestUtil {
     }
 
     /**
-     * Creates a new basic artwork APIResponse DTO with only mandatory default values set
+     * Creates a new artwork APIResponse DTO with only mandatory default values set
      *
-     * @return New basic artwork APIResponse DTO prefilled with only mandatory default values
+     * @return New artwork APIResponse DTO prefilled with only mandatory default values
      */
-    public static APIResponse<Artwork> artwork_min() {
+    private static APIResponse<Artwork> artwork_min() {
         return createAPIResponse(new ArtworkDTO.Builder()
                 .id(2487L)
                 .image("Image")
@@ -195,7 +192,7 @@ public final class JSONTestUtil {
      *
      * @return New artwork type APIResponse DTO prefilled with default values
      */
-    public static APIResponse<List<ArtworkType>> artworkType() {
+    private static APIResponse<List<ArtworkType>> artworkType() {
         return createAPIResponse(List.of(
                 new ArtworkTypeDTO.Builder()
                         .id(4575L)
@@ -227,7 +224,7 @@ public final class JSONTestUtil {
      *
      * @return New character APIResponse DTO prefilled with default values
      */
-    public static APIResponse<Character> character() {
+    private static APIResponse<Character> character() {
         return createAPIResponse(new CharacterDTO.Builder()
                 .id(36487L)
                 .name("Name")
@@ -259,7 +256,7 @@ public final class JSONTestUtil {
      *
      * @return New character APIResponse DTO prefilled with only mandatory default values
      */
-    public static APIResponse<Character> character_min() {
+    private static APIResponse<Character> character_min() {
         return createAPIResponse(new CharacterDTO.Builder()
                 .id(50107L)
                 .type(6L)
@@ -274,7 +271,7 @@ public final class JSONTestUtil {
      *
      * @return New APIResponse DTO prefilled with default values
      */
-    public static APIResponse<Data> data() {
+    private static APIResponse<Data> data() {
         return createAPIResponse(Data.with("Some content"));
     }
 
@@ -283,7 +280,7 @@ public final class JSONTestUtil {
      *
      * @return New episode APIResponse DTO prefilled with default values
      */
-    public static APIResponse<Episode> episode() {
+    private static APIResponse<Episode> episode() {
         return createAPIResponse(new EpisodeDTO.Builder()
                 .id(548745L)
                 .seriesId(69554L)
@@ -342,7 +339,7 @@ public final class JSONTestUtil {
      *
      * @return New episode APIResponse DTO prefilled with only mandatory default values
      */
-    public static APIResponse<Episode> episode_min() {
+    private static APIResponse<Episode> episode_min() {
         return createAPIResponse(new EpisodeDTO.Builder()
                 .id(770348L)
                 .seriesId(99001L)
@@ -355,7 +352,7 @@ public final class JSONTestUtil {
      *
      * @return New genre APIResponse DTO prefilled with default values
      */
-    public static APIResponse<Genre> genre() {
+    private static APIResponse<Genre> genre() {
         return createAPIResponse(new GenreDTO.Builder()
                 .id(3L)
                 .name("Name")
@@ -368,7 +365,7 @@ public final class JSONTestUtil {
      *
      * @return New genre overview APIResponse DTO prefilled with default values
      */
-    public static APIResponse<List<Genre>> genreList() {
+    private static APIResponse<List<Genre>> genreList() {
         return createAPIResponse(List.of(
                 new GenreDTO.Builder()
                         .id(6L)
@@ -387,7 +384,7 @@ public final class JSONTestUtil {
      *
      * @return New movie APIResponse DTO prefilled with default values
      */
-    public static APIResponse<Movie> movie() {
+    private static APIResponse<Movie> movie() {
         return createAPIResponse(new MovieDTO.Builder()
                 .id(84756L)
                 .name("Name")
@@ -419,7 +416,7 @@ public final class JSONTestUtil {
      *
      * @return New movie APIResponse DTO prefilled with only mandatory default values
      */
-    public static APIResponse<Movie> movie_min() {
+    private static APIResponse<Movie> movie_min() {
         return createAPIResponse(new MovieDTO.Builder()
                 .id(34870L)
                 .name("Name")
@@ -440,7 +437,7 @@ public final class JSONTestUtil {
      *
      * @return New people APIResponse DTO prefilled with default values
      */
-    public static APIResponse<People> people() {
+    private static APIResponse<People> people() {
         return createAPIResponse(new PeopleDTO.Builder()
                 .id(11354L)
                 .name("Name")
@@ -463,7 +460,7 @@ public final class JSONTestUtil {
      *
      * @return New people APIResponse DTO prefilled with only mandatory default values
      */
-    public static APIResponse<People> people_min() {
+    private static APIResponse<People> people_min() {
         return createAPIResponse(new PeopleDTO.Builder()
                 .id(71604L)
                 .score(156L)
@@ -475,7 +472,7 @@ public final class JSONTestUtil {
      *
      * @return New season APIResponse DTO prefilled with default values
      */
-    public static APIResponse<Season> season() {
+    private static APIResponse<Season> season() {
         return createAPIResponse(new SeasonDTO.Builder()
                 .id(47748L)
                 .seriesId(95874L)
@@ -501,7 +498,7 @@ public final class JSONTestUtil {
      *
      * @return New season APIResponse DTO prefilled with only mandatory default values
      */
-    public static APIResponse<Season> season_min() {
+    private static APIResponse<Season> season_min() {
         return createAPIResponse(new SeasonDTO.Builder()
                 .seriesId(64410L)
                 .type(67L)
@@ -515,7 +512,7 @@ public final class JSONTestUtil {
      *
      * @return New series APIResponse DTO prefilled with default values
      */
-    public static APIResponse<Series> series() {
+    private static APIResponse<Series> series() {
         return createAPIResponse(new SeriesDTO.Builder()
                 .id(34875L)
                 .name("Name")
@@ -561,7 +558,7 @@ public final class JSONTestUtil {
      *
      * @return New series APIResponse DTO prefilled with only mandatory default values
      */
-    public static APIResponse<Series> series_min() {
+    private static APIResponse<Series> series_min() {
         return createAPIResponse(new SeriesDTO.Builder()
                 .nextAired("NextAired")
                 .score(100D)
@@ -582,7 +579,7 @@ public final class JSONTestUtil {
      *
      * @return New series details APIResponse DTO prefilled with default values
      */
-    public static APIResponse<SeriesDetails> seriesDetails() {
+    private static APIResponse<SeriesDetails> seriesDetails() {
         return createAPIResponse(new SeriesDetailsDTO.Builder()
                 .id(924L)
                 .name("Name")
@@ -804,7 +801,7 @@ public final class JSONTestUtil {
      *
      * @return New series details APIResponse DTO prefilled with only mandatory default values
      */
-    public static APIResponse<SeriesDetails> seriesDetails_min() {
+    private static APIResponse<SeriesDetails> seriesDetails_min() {
         return createAPIResponse(new SeriesDetailsDTO.Builder()
                 .nextAired("NextAired")
                 .score(9D)
@@ -843,7 +840,7 @@ public final class JSONTestUtil {
      *
      * @return New series overview APIResponse DTO prefilled with default values
      */
-    public static APIResponse<List<Series>> seriesList() {
+    private static APIResponse<List<Series>> seriesList() {
         return createAPIResponse(List.of(
                 new SeriesDTO.Builder()
                         .id(69314L)
@@ -931,10 +928,66 @@ public final class JSONTestUtil {
      *
      * @return New APIResponse DTO prefilled with the given object and some additional default values
      */
-    public static <T> APIResponse<T> createAPIResponse(T data) {
+    private static <T> APIResponse<T> createAPIResponse(T data) {
         return new APIResponseDTO.Builder<T>()
                 .data(data)
                 .status("success")
                 .build();
+    }
+
+    /**
+     * Creates a matching JsonNode representation for this response data object
+     *
+     * @return This response mapped as JsonNode object
+     *
+     * @throws IOException If a low-level I/O problem (unexpected end-of-input, network error) occurs
+     */
+    public JsonNode getJson() throws IOException {
+        return new ObjectMapper().readTree(getUrl());
+    }
+
+    /**
+     * Returns this responses JSON content as String
+     *
+     * @return This response as JSON String
+     *
+     * @throws IOException If an I/O exception occurs
+     */
+    public String getJsonString() throws IOException {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(getUrl().openStream(), UTF_8))) {
+            return reader.lines().collect(Collectors.joining(System.lineSeparator()));
+        }
+    }
+
+    /**
+     * Returns the uniform resource locator (URL) of the corresponding JSON template used by this response
+     *
+     * @return URL referencing the JSON template
+     */
+    public URL getUrl() {
+        return ClassLoader.getSystemResource("json/example/" + jsonFileName + ".json");
+    }
+
+    /**
+     * Returns a DTO representation of this response data object
+     *
+     * @return DTO representation of this response
+     */
+    public T getDTO() {
+        return dto;
+    }
+
+    /**
+     * Returns the corresponding JSON type reference for this response
+     *
+     * @return JSON type reference matching the actual type parameters of this response data object
+     */
+    public TypeReference<T> getType() {
+        return typeReference;
+    }
+
+    @Override
+    public String toString() {
+        return description;
     }
 }

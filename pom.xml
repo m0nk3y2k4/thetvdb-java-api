@@ -285,6 +285,13 @@
         <scope>provided</scope>
     </dependency>
 
+    <!-- Compiletime indexing -->
+    <dependency>
+        <groupId>org.atteo.classindex</groupId>
+        <artifactId>classindex</artifactId>
+        <version>3.10</version>
+    </dependency>
+
     <!--#####################################-->
     <!--#####          Testing          #####-->
     <!--#####################################-->

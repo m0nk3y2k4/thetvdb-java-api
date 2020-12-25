@@ -24,9 +24,9 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.params;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
-import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.SERIES;
-import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.SERIES_DETAILS;
-import static com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource.SERIES_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES_DETAILS;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES_LIST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -37,7 +37,7 @@ import java.util.stream.Stream;
 
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI;
-import com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil;
+import com.github.m0nk3y2k4.thetvdb.testutils.ResponseData;
 import com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter.WithHttpsMockServer;
 import com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPICall;
 import org.junit.jupiter.api.BeforeAll;
@@ -84,7 +84,7 @@ class SeriesAPITest {
 
     @ParameterizedTest(name = "[{index}] Route SeriesAPI.{0} successfully invoked")
     @MethodSource("withValidParameters")
-    void invokeRoute_withValidParameters_verifyResponse(TestRemoteAPICall route, JSONTestUtil.JsonResource expected,
+    <T> void invokeRoute_withValidParameters_verifyResponse(TestRemoteAPICall route, ResponseData<T> expected,
             RemoteAPI remoteAPI) throws Exception {
         assertThat(route.invoke(new APIConnection(CONTRACT_APIKEY, remoteAPI))).isEqualTo(expected.getJson());
     }

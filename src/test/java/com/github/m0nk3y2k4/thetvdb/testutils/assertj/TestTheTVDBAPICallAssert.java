@@ -23,7 +23,7 @@ import java.util.Optional;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
-import com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil;
+import com.github.m0nk3y2k4.thetvdb.testutils.ResponseData;
 import com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestTheTVDBAPICall;
 import org.assertj.core.api.AbstractAssert;
 import org.mockserver.client.MockServerClient;
@@ -34,8 +34,8 @@ import org.mockserver.verify.VerificationTimes;
  * Special assertion for {@link TestTheTVDBAPICall} objects, wrapping some API route invocation
  * <p><br>
  * Supports expectation matching for API routes, regardless of the actual API layout that is used. For wrapped non-void
- * routes a {@link JSONTestUtil.JsonResource} object is expected for matching. The assert will automatically try to
- * determine the layout used by the API route and will perform the matching operation accordingly.
+ * routes a {@link ResponseData} object is expected for matching. The assert will automatically try to determine the
+ * layout used by the API route and will perform the matching operation accordingly.
  * <pre>{@code
  *     TheTVDBApi api = TheTVDBApiFactory.createApi("Some APIKey");
  *
@@ -43,22 +43,22 @@ import org.mockserver.verify.VerificationTimes;
  *
  *     // TheTVDBApi layout: expectation automatically converted to ACTORS.getDTO().getData()
  *     TestTheTVDBAPICallAssert.assertThat(route(() -> api.getActors(45), "Returning List<Actors>"))
- *              .matchesExpectation(JsonResource.ACTORS);
+ *              .matchesExpectation(ResponseData.ACTORS);
  *
  *     // Extended layout: expectation automatically converted to ACTORS.getDTO()
  *     TestTheTVDBAPICallAssert.assertThat(route(() -> api.extended().getActors(45), "Returning APIResponse<List<Actor>>"))
- *              .matchesExpectation(JsonResource.ACTORS);
+ *              .matchesExpectation(ResponseData.ACTORS);
  *
  *     // JSON layout: expectation automatically converted to ACTORS.getJson()
  *     TestTheTVDBAPICallAssert.assertThat(route(() -> api.json().getActors(45), "Returning JsonNode"))
- *              .matchesExpectation(JsonResource.ACTORS);
+ *              .matchesExpectation(ResponseData.ACTORS);
  * }</pre>
  * Unfortunately void API routes do not return any object which could be used for matching an expectation. However, you
  * may let the assert verify that a specific resource has been invoked on the mock server by passing a corresponding
  * HttpRequest object as expectation. For this to work the assert must get in contact with the mock server running in
  * the background. The server can be announced by setting a mock server reference to the assert first.
- * <pre>{@code
- *     @Test
+ * <pre><code>
+ *     {@literal @Test}
  *     void voidApiRouteTest(MockServerClient client) throws Exception {        // Client can be injected when using the JUnit5 HttpsMockServerExtension
  *         TheTVDBApi api = TheTVDBApiFactory.createApi("Some APIKey");
  *
@@ -66,7 +66,7 @@ import org.mockserver.verify.VerificationTimes;
  *         TestTheTVDBAPICallAssert.assertThat(route(() -> api.login(), "Void route not returning any object"))
  *                .usingMockServer(client).matchesExpectation(HttpRequest.request("/api/login").withMethod("GET"));
  *     }
- * } </pre>
+ * </code></pre>
  *
  * @param <T> type of the wrapped routes actual return value
  */
@@ -107,16 +107,16 @@ public final class TestTheTVDBAPICallAssert<T> extends AbstractAssert<TestTheTVD
     /**
      * Invokes the actual API call and matches the given expectation which must be either
      * <ul>
-     *     <li>A {@link JSONTestUtil.JsonResource} object for non-void API routes<br>
+     *     <li>A {@link ResponseData} object for non-void API routes<br>
      *         The routes actual return value will be compared with the given object using automatic conversion</li>
      *     <li>A {@link HttpRequest} object for void API routes<br>
      *         After the route has been invoked the mock server will be asked to verify that a request matching the given
      *         object has been received exactly once</li>
      * </ul>
      *
-     * @param expected The expected JsonResource or the HttpRequest to be verified
+     * @param expected The expected response object or the HttpRequest to be verified
      *
-     * @throws IOException  If an exception occurred while auto-converting a JsonResource object into it's JsonNode
+     * @throws IOException  If an exception occurred while auto-converting a response object into it's JsonNode
      *                      representation
      * @throws APIException If an exception occurred while invoking the actual API call of this assertion
      */
@@ -126,7 +126,7 @@ public final class TestTheTVDBAPICallAssert<T> extends AbstractAssert<TestTheTVD
         if (isVoidCallInvocation()) {
             verifyMockServerRouteInvoked((HttpRequest)expected);
         } else {
-            matchesJsonResourceExpectation((JSONTestUtil.JsonResource)expected);
+            matchesResponseDataExpectation((ResponseData<T>)expected);
         }
     }
 
@@ -159,18 +159,18 @@ public final class TestTheTVDBAPICallAssert<T> extends AbstractAssert<TestTheTVD
     }
 
     /**
-     * Invokes the actual API call and verifies that its return value matches the given JSON resource. The JSON resource
+     * Invokes the actual API call and verifies that its return value matches the given response object. The response
      * may be auto-converted based on the current API call layout before comparing the values.
      *
-     * @param resource JSON resource which is expected to be returned by the invocation of the actual API call
+     * @param response Response object which is expected to be returned by the invocation of the actual API call
      *
-     * @throws IOException  If an exception occurred while auto-converting a JsonResource object into it's JsonNode
+     * @throws IOException  If an exception occurred while auto-converting a response object object into it's JsonNode
      *                      representation
      * @throws APIException If an exception occurred while invoking the actual API call of this assertion
      */
-    private void matchesJsonResourceExpectation(JSONTestUtil.JsonResource resource) throws IOException, APIException {
+    private void matchesResponseDataExpectation(ResponseData<T> response) throws IOException, APIException {
         T result = actual.invoke();
-        Object expected = buildExpectation(result, resource);
+        Object expected = buildExpectation(result, response);
 
         if (!Objects.equals(result, expected)) {
             failWithActualExpectedAndMessage(result, expected, "Expected to be equal");
@@ -178,29 +178,29 @@ public final class TestTheTVDBAPICallAssert<T> extends AbstractAssert<TestTheTVD
     }
 
     /**
-     * Auto-converts the given JSON resource to a representation matching the layout used by the API call. The layout
+     * Auto-converts the given response object to a representation matching the layout used by the API call. The layout
      * will be determined heuristically by analyzing the routes actual return value and compare it to the type of values
      * typically returned by a specific layout.
      *
      * @param result   The value returned by invoking the actual API call
-     * @param resource JSON resource representing the value expected to be returned by the API call
+     * @param response Response object representing the value expected to be returned by the API call
      *
-     * @return Representation of the given resource matching the used layout. This can either be a data object, an
-     *         APIResponse DTO or a JSON representation.
+     * @return Representation of the given response object matching the used layout. This can either be a data object,
+     *         an APIResponse DTO or a JSON representation.
      *
-     * @throws IOException If an exception occurred while auto-converting a JsonResource object into it's JsonNode
+     * @throws IOException If an exception occurred while auto-converting a response object into it's JsonNode
      *                     representation
      */
-    private Object buildExpectation(T result, JSONTestUtil.JsonResource resource) throws IOException {
+    private Object buildExpectation(T result, ResponseData<?> response) throws IOException {
         if (isUsingExtendedLayout(result)) {
             // Invocation of some (non-void) TheTVDBApi.Extended layout route -> These routes always return an APIResponse<DTO> object
-            return resource.getDTO();
+            return response.getDTO();
         } else if (isUsingJsonLayout(result)) {
             // Invocation of some (non-void) TheTVDBApi.JSON layout route -> These routes always return a JsonNode object
-            return resource.getJson();
+            return response.getJson();
         } else {
             // Invocation of some (non-void) TheTVDBApi layout route -> These routes always return the actual content payload of the APIResponse<DTO>
-            return resource.getDTO().getData();
+            return ((APIResponse<?>)response.getDTO()).getData();
         }
     }
 

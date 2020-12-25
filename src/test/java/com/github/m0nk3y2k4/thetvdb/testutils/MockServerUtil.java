@@ -37,9 +37,9 @@ import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 
+import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
 import com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
-import com.github.m0nk3y2k4.thetvdb.testutils.json.JSONTestUtil.JsonResource;
 import org.mockserver.model.Header;
 import org.mockserver.model.Headers;
 import org.mockserver.model.HttpRequest;
@@ -148,24 +148,24 @@ public final class MockServerUtil {
     }
 
     /**
-     * Tries to create a set of mock server headers from the given JSON resource object. For this, the resources {@link
-     * JsonResource#getDTO()} method must return a {@link Map}. The key/value pairs of this map will be converted into
-     * their String representation and will be set as key/value pairs on the returned headers object.
+     * Tries to create a set of mock server headers from the given response object. For this, the responses {@link
+     * ResponseData#getDTO()} method must return a {@link Map} as data object. The key/value pairs of this map will be
+     * converted into their String representation and will be set as key/value pairs on the returned headers object.
      *
-     * @param resource The test resource based on which the headers object should be created
+     * @param response The test response based on which the headers object should be created
      *
-     * @return Headers object with key/value pairs from the given JSON resource. In case the resources DTO is not
+     * @return Headers object with key/value pairs from the given response object. In case the response DTO is not
      *         compatible an empty headers object without any keys or values will be returned.
      */
-    public static Headers getHeadersFrom(JsonResource resource) {
+    public static <T> Headers getHeadersFrom(ResponseData<APIResponse<T>> response) {
         Headers headers = new Headers();
-        if (resource.getDTO().getData() instanceof Map) {
+        if (response.getDTO().getData() instanceof Map) {
             Function<Map.Entry<?, ?>, Map.Entry<String, String>> toStringValues = e ->
                     new AbstractMap.SimpleImmutableEntry<>(Objects.toString(e.getKey(), null), Objects
                             .toString(e.getValue(), null));
             Consumer<Map.Entry<String, String>> addHeader = e -> headers.withEntry(e.getKey(), e.getValue());
 
-            ((Map<?, ?>)resource.getDTO().getData()).entrySet().stream().map(toStringValues).forEach(addHeader);
+            ((Map<?, ?>)response.getDTO().getData()).entrySet().stream().map(toStringValues).forEach(addHeader);
         }
         return headers;
     }
@@ -251,15 +251,15 @@ public final class MockServerUtil {
     }
 
     /**
-     * Creates a new mock server HTTP response with a JSON body based on the given JSON test resource
+     * Creates a new mock server HTTP response with a JSON body based on the given response object
      *
-     * @param resource Some JSON test resource enumeration
+     * @param response Some response data test instance
      *
-     * @return Mock server HTTP response with a JSON body based on the given JSON test resource
+     * @return Mock server HTTP response with a JSON body based on the given response object
      *
-     * @throws IOException If an I/O exception occurs while processing the JSON resource
+     * @throws IOException If an I/O exception occurs while processing the response object
      */
-    public static HttpResponse jsonResponse(JsonResource resource) throws IOException {
-        return HttpResponse.response().withBody(JsonBody.json(resource.getJsonString()));
+    public static <T> HttpResponse jsonResponse(ResponseData<T> response) throws IOException {
+        return HttpResponse.response().withBody(JsonBody.json(response.getJsonString()));
     }
 }

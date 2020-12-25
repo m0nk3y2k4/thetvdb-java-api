@@ -38,22 +38,22 @@ import org.junit.jupiter.api.extension.ExtendWith;
  * be injected into the constructor, lifecycle methods and of course into the actual tests. As the provided API uses the
  * actual <i>TheTVDB.com</i> RESTful API, a connection to the Internet is required in order to execute these kind of
  * tests.
- * <pre>{@code
+ * <pre><code>
  * package com.github.m0nk3y2k4.thetvdb.foobar.it;
  *
  * import static com.github.m0nk3y2k4.thetvdb.testutils.annotation.IntegrationTestSuite;
  *
  * // Imports...
  *
- * @IntegrationTestSuite
+ * {@literal @IntegrationTestSuite}
  * class SomeAPITestClass {
  *
- *     @Test
+ *     {@literal @Test}
  *     void testSomething(TheTVDBApi api) {
  *         assertThat(api.getLanguage(14).getName()).isEqualTo("Deutsch");
  *     }
  * }
- * }</pre>
+ * </code></pre>
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
