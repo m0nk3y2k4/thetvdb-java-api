@@ -17,11 +17,13 @@
 package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ArtworkAPI.getArtworkBase;
+import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ArtworkAPI.getArtworkExtended;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORK;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORK_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -47,18 +49,22 @@ class ArtworkAPITest {
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
         client.when(request("/artwork/3340", GET)).respond(jsonResponse(ARTWORK));
+        client.when(request("/artwork/1007/extended", GET)).respond(jsonResponse(ARTWORK_DETAILS));
     }
 
     private static Stream<Arguments> withInvalidParameters() {
         return Stream.of(
                 of(route(con -> getArtworkBase(con, 0), "getArtworkBase() with ZERO artwork ID")),
-                of(route(con -> getArtworkBase(con, -3), "getArtworkBase() with negative artwork ID"))
+                of(route(con -> getArtworkBase(con, -3), "getArtworkBase() with negative artwork ID")),
+                of(route(con -> getArtworkExtended(con, 0), "getArtworkExtended() with ZERO artwork ID")),
+                of(route(con -> getArtworkExtended(con, -9), "getArtworkExtended() with negative artwork ID"))
         );
     }
 
     private static Stream<Arguments> withValidParameters() {
         return Stream.of(
-                of(route(con -> getArtworkBase(con, 3340), "getArtworkBase()"), ARTWORK)
+                of(route(con -> getArtworkBase(con, 3340), "getArtworkBase()"), ARTWORK),
+                of(route(con -> getArtworkExtended(con, 1007), "getArtworkExtended()"), ARTWORK_DETAILS)
         );
     }
     //@EnableFormatting

@@ -14,26 +14,16 @@
  * limitations under the License.
  */
 
-package com.github.m0nk3y2k4.thetvdb.api;
+package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
-import static com.github.m0nk3y2k4.thetvdb.testutils.assertj.IntegrationTestAssertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import com.github.m0nk3y2k4.thetvdb.testutils.annotation.IntegrationTestSuite;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
-@IntegrationTestSuite("Artwork")
-class ArtworkIT {
+class ArtworkDetailsDTOTest {
 
     @Test
-    @Order(1)
-    void getArtwork(TheTVDBApi api) {
-        assertThat(() -> api.getArtwork(1069160)).as("/artwork/1069160").doesNotThrowAnyException();
-    }
-
-    @Test
-    @Order(2)
-    void getArtworkDetails(TheTVDBApi api) {
-        assertThat(() -> api.getArtworkDetails(62000530)).as("/artwork/62000530/extended").doesNotThrowAnyException();
+    void staticBuilderClass_newInstance_extendsDTOBuilder() {
+        assertThat(new ArtworkDetailsDTO.Builder()).isInstanceOf(ArtworkDetailsDTOBuilder.class);
     }
 }

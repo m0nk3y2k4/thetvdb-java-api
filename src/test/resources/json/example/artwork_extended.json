@@ -1,0 +1,23 @@
+{
+  "data": {
+    "episodeId": 39010,
+    "height": 1080,
+    "id": 694401,
+    "image": "Image",
+    "language": "Language",
+    "movieId": 574,
+    "networkId": 66341,
+    "peopleId": 97512,
+    "score": 82,
+    "seasonId": 574604,
+    "seriesId": 669844,
+    "seriesPeopleId": 647,
+    "thumbnail": "Thumbnail",
+    "thumbnailHeight": 400,
+    "thumbnailWidth": 600,
+    "type": 5,
+    "updatedAt": 16015471,
+    "width": 1920
+  },
+  "status": "success"
+}

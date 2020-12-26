@@ -32,6 +32,7 @@ import com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Artwork;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
@@ -176,6 +177,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public ArtworkDetails getArtworkDetails(long artworkId) throws APIException {
+        return extended().getArtworkDetails(artworkId).getData();
+    }
+
+    @Override
     public Character getCharacter(long characterId) throws APIException {
         return extended().getCharacter(characterId).getData();
     }
@@ -253,6 +259,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public JsonNode getArtworkDetails(long artworkId) throws APIException {
+            return ArtworkAPI.getArtworkExtended(con, artworkId);
+        }
+
+        @Override
         public JsonNode getCharacter(long characterId) throws APIException {
             return CharactersAPI.getCharacterBase(con, characterId);
         }
@@ -318,6 +329,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public APIResponse<Artwork> getArtwork(long artworkId) throws APIException {
             return APIJsonMapper.readValue(json().getArtwork(artworkId), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<ArtworkDetails> getArtworkDetails(long artworkId) throws APIException {
+            return APIJsonMapper.readValue(json().getArtworkDetails(artworkId), new TypeReference<>() {});
         }
 
         @Override

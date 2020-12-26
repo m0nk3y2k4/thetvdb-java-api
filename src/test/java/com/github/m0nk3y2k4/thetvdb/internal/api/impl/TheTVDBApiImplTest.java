@@ -25,6 +25,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORK;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORKTYPE_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORK_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.CHARACTER;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.EPISODE;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.GENRE;
@@ -103,6 +104,7 @@ class TheTVDBApiImplTest {
         void setUpRoutes(MockServerClient client) throws Exception {
             client.when(request("/artwork-types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
             client.when(request("/artwork/3447", GET)).respond(jsonResponse(ARTWORK));
+            client.when(request("/artwork/9403/extended", GET)).respond(jsonResponse(ARTWORK_DETAILS));
             client.when(request("/characters/604784", GET)).respond(jsonResponse(CHARACTER));
             client.when(request("/episodes/141007", GET)).respond(jsonResponse(EPISODE));
             client.when(request("/genres", GET)).respond(jsonResponse(GENRE_LIST));
@@ -128,6 +130,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.login(), "login()"), verify("/login", POST)),
                     of(route(() -> basicAPI.getArtworkTypes(), "getArtworkTypes()"), ARTWORKTYPE_LIST),
                     of(route(() -> basicAPI.getArtwork(3447), "getArtwork()"), ARTWORK),
+                    of(route(() -> basicAPI.getArtworkDetails(9403), "getArtworkDetails()"), ARTWORK_DETAILS),
                     of(route(() -> basicAPI.getCharacter(604784), "getCharacter()"), CHARACTER),
                     of(route(() -> basicAPI.getEpisode(141007), "getEpisode()"), EPISODE),
                     of(route(() -> basicAPI.getGenres(), "getGenres()"), GENRE_LIST),
@@ -198,6 +201,7 @@ class TheTVDBApiImplTest {
         void setUpRoutes(MockServerClient client) throws Exception {
             client.when(request("/artwork-types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
             client.when(request("/artwork/6701", GET)).respond(jsonResponse(ARTWORK));
+            client.when(request("/artwork/9100/extended", GET)).respond(jsonResponse(ARTWORK_DETAILS));
             client.when(request("/characters/94347", GET)).respond(jsonResponse(CHARACTER));
             client.when(request("/episodes/640796", GET)).respond(jsonResponse(EPISODE));
             client.when(request("/genres", GET)).respond(jsonResponse(GENRE_LIST));
@@ -221,6 +225,7 @@ class TheTVDBApiImplTest {
             return Stream.of(
                     of(route(() -> basicAPI.getArtworkTypes(), "getArtworkTypes()"), ARTWORKTYPE_LIST),
                     of(route(() -> basicAPI.getArtwork(6701), "getArtwork()"), ARTWORK),
+                    of(route(() -> basicAPI.getArtworkDetails(9100), "getArtworkDetails()"), ARTWORK_DETAILS),
                     of(route(() -> basicAPI.getCharacter(94347), "getCharacter()"), CHARACTER),
                     of(route(() -> basicAPI.getEpisode(640796), "getEpisode()"), EPISODE),
                     of(route(() -> basicAPI.getGenres(), "getGenres()"), GENRE_LIST),
@@ -273,6 +278,7 @@ class TheTVDBApiImplTest {
         void setUpRoutes(MockServerClient client) throws Exception {
             client.when(request("/artwork-types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
             client.when(request("/artwork/7099", GET)).respond(jsonResponse(ARTWORK));
+            client.when(request("/artwork/6471/extended", GET)).respond(jsonResponse(ARTWORK_DETAILS));
             client.when(request("/characters/66470", GET)).respond(jsonResponse(CHARACTER));
             client.when(request("/episodes/30619", GET)).respond(jsonResponse(EPISODE));
             client.when(request("/genres", GET)).respond(jsonResponse(GENRE_LIST));
@@ -296,6 +302,7 @@ class TheTVDBApiImplTest {
             return Stream.of(
                     of(route(() -> basicAPI.getArtworkTypes(), "getArtworkTypes()"), ARTWORKTYPE_LIST),
                     of(route(() -> basicAPI.getArtwork(7099), "getArtwork()"), ARTWORK),
+                    of(route(() -> basicAPI.getArtworkDetails(6471), "getArtworkDetails()"), ARTWORK_DETAILS),
                     of(route(() -> basicAPI.getCharacter(66470), "getCharacter()"), CHARACTER),
                     of(route(() -> basicAPI.getEpisode(30619), "getEpisode()"), EPISODE),
                     of(route(() -> basicAPI.getGenres(), "getGenres()"), GENRE_LIST),

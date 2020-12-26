@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Artwork;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
@@ -190,6 +191,23 @@ public interface TheTVDBApi {
      * @see Extended#getArtwork(long) TheTVDBApi.Extended.getArtwork(artworkId)
      */
     Artwork getArtwork(long artworkId) throws APIException;
+
+    /**
+     * Returns detailed information for a specific artwork mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/artwork/getArtworkExtended">
+     * <b>[GET]</b> /artwork/{id}/extended</a>
+     *
+     * @param artworkId The <i>TheTVDB.com</i> artwork ID
+     *
+     * @return Detailed artwork information mapped as Java DTO based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if the given artwork ID does not exist.
+     * @see JSON#getArtworkDetails(long) TheTVDBApi.JSON.getArtworkDetails(artworkId)
+     * @see Extended#getArtworkDetails(long) TheTVDBApi.Extended.getArtworkDetails(artworkId)
+     */
+    ArtworkDetails getArtworkDetails(long artworkId) throws APIException;
 
     /**
      * Returns information for a specific character mapped as Java DTO.
@@ -425,6 +443,23 @@ public interface TheTVDBApi {
         JsonNode getArtwork(long artworkId) throws APIException;
 
         /**
+         * Returns detailed information for a specific artwork as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/artwork/getArtworkExtended">
+         * <b>[GET]</b> /artwork/{id}/extended</a>
+         *
+         * @param artworkId The <i>TheTVDB.com</i> artwork ID
+         *
+         * @return JSON object containing detailed information for a specific artwork
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if the given artwork ID does not exist.
+         * @see TheTVDBApi#getArtworkDetails(long) TheTVDBApi.getArtworkDetails(artworkId)
+         * @see Extended#getArtworkDetails(long) TheTVDBApi.Extended.getArtworkDetails(artworkId)
+         */
+        JsonNode getArtworkDetails(long artworkId) throws APIException;
+
+        /**
          * Returns information for a specific character as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/characters/getCharacterBase">
@@ -640,6 +675,24 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getArtwork(long) TheTVDBApi.getArtwork(artworkId)
          */
         APIResponse<Artwork> getArtwork(long artworkId) throws APIException;
+
+        /**
+         * Returns a response object containing detailed information for a specific artwork mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/artwork/getArtworkExtended">
+         * <b>[GET]</b> /artwork/{id}</a>
+         *
+         * @param artworkId The <i>TheTVDB.com</i> artwork ID
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if the given artwork ID does not exist.
+         * @see JSON#getArtworkDetails(long) TheTVDBApi.JSON.getArtworkDetails(artworkId)
+         * @see TheTVDBApi#getArtworkDetails(long) TheTVDBApi.getArtworkDetails(artworkId)
+         */
+        APIResponse<ArtworkDetails> getArtworkDetails(long artworkId) throws APIException;
 
         /**
          * Returns a response object containing information for a specific character mapped as Java DTO.

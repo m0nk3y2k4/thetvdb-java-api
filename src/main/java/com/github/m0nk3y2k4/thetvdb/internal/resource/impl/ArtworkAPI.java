@@ -54,4 +54,23 @@ public final class ArtworkAPI extends Resource {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
         return con.sendGET(createResource("/artwork/{id}", id));
     }
+
+    /**
+     * Returns extended information for a specific artwork record as raw JSON.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/artwork/getArtworkExtended">
+     * <b>[GET]</b> /artwork/{id}/extended</a>
+     *
+     * @param con Initialized connection to be used for API communication
+     * @param id  The <i>TheTVDB.com</i> artwork ID
+     *
+     * @return JSON object containing extended information for a specific artwork record
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given
+     *                      artwork ID does not exist, etc.
+     */
+    public static JsonNode getArtworkExtended(@Nonnull APIConnection con, long id) throws APIException {
+        Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
+        return con.sendGET(createResource("/artwork/{id}/extended", id));
+    }
 }

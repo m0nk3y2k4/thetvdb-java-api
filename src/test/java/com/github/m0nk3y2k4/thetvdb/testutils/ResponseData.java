@@ -33,6 +33,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Artwork;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
@@ -45,6 +46,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.APIResponseDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AliasDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ArtworkDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ArtworkDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ArtworkTypeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CharacterDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EpisodeDTO;
@@ -76,6 +78,10 @@ public abstract class ResponseData<T> {
             "artwork", artwork(), "Single artwork JSON response") {};
     public static final ResponseData<APIResponse<Artwork>> ARTWORK_MIN = new ResponseData<>(
             "artwork_min", artwork_min(), "Single artwork JSON response with only mandatory fields") {};
+    public static final ResponseData<APIResponse<ArtworkDetails>> ARTWORK_DETAILS = new ResponseData<>(
+            "artwork_extended", artworkDetails(), "Single extended artwork JSON response") {};
+    public static final ResponseData<APIResponse<ArtworkDetails>> ARTWORK_DETAILS_MIN = new ResponseData<>(
+            "artwork_extended_min", artworkDetails_min(), "Single extended artwork JSON response with only mandatory fields") {};
 
     //*********************** characters ********************
     public static final ResponseData<APIResponse<Character>> CHARACTER = new ResponseData<>(
@@ -184,6 +190,53 @@ public abstract class ResponseData<T> {
                 .image("Image")
                 .thumbnail("Thumbnail")
                 .type(12L)
+                .build());
+    }
+
+    /**
+     * Creates a new artwork details APIResponse DTO with default values set
+     *
+     * @return New artwork details APIResponse DTO prefilled with default values
+     */
+    private static APIResponse<ArtworkDetails> artworkDetails() {
+        return createAPIResponse(new ArtworkDetailsDTO.Builder()
+                .episodeId(39010L)
+                .height(1080L)
+                .id(694401L)
+                .image("Image")
+                .language("Language")
+                .movieId(574L)
+                .networkId(66341L)
+                .peopleId(97512L)
+                .score(82D)
+                .seasonId(574604L)
+                .seriesId(669844L)
+                .seriesPeopleId(647L)
+                .thumbnail("Thumbnail")
+                .thumbnailHeight(400L)
+                .thumbnailWidth(600L)
+                .type(5L)
+                .updatedAt(16015471L)
+                .width(1920L)
+                .build());
+    }
+
+    /**
+     * Creates a new artwork details APIResponse DTO with only mandatory default values set
+     *
+     * @return New artwork details APIResponse DTO prefilled with only mandatory default values
+     */
+    private static APIResponse<ArtworkDetails> artworkDetails_min() {
+        return createAPIResponse(new ArtworkDetailsDTO.Builder()
+                .height(1024L)
+                .id(487514L)
+                .image("Image")
+                .thumbnail("Thumbnail")
+                .thumbnailHeight(350L)
+                .thumbnailWidth(480L)
+                .type(3L)
+                .updatedAt(16032447L)
+                .width(1280L)
                 .build());
     }
 
