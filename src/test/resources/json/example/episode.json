@@ -2,8 +2,8 @@
   "data": {
     "id": 548745,
     "seriesId": 69554,
-    "name": "Name",
-    "aired": "Aired",
+    "name": "Name1",
+    "aired": "Aired1",
     "runtime": 62,
     "nameTranslations": [
       "NameTranslation1", "NameTranslation2"
@@ -11,16 +11,16 @@
     "overviewTranslations": [
       "OverviewTranslation1", "OverviewTranslation2"
     ],
-    "image": "Image",
+    "image": "Image1",
     "imageType": 5,
     "isMovie": 1,
     "seasons": [
       {
-        "id": 425874,
-        "seriesId": 43647,
-        "type": 3,
+        "id": 47748,
+        "seriesId": 95874,
+        "type": 6954,
         "name": "Name1",
-        "number": 9,
+        "number": 6,
         "nameTranslations": [
           "NameTranslation1", "NameTranslation2"
         ],
@@ -28,20 +28,20 @@
           "OverviewTranslation1", "OverviewTranslation2"
         ],
         "image": "Image1",
-        "imageType": 19,
+        "imageType": 487,
         "network": {
-          "id": 578,
+          "id": 478,
           "name": "Name1",
           "slug": "Slug1",
           "abbreviation": "Abbreviation1",
           "country": "Country1"
         }
       }, {
-        "id": 425875,
-        "seriesId": 43648,
-        "type": 4,
+        "id": 47749,
+        "seriesId": 95875,
+        "type": 6955,
         "name": "Name2",
-        "number": 10,
+        "number": 7,
         "nameTranslations": [
           "NameTranslation3", "NameTranslation4"
         ],
@@ -49,9 +49,9 @@
           "OverviewTranslation3", "OverviewTranslation4"
         ],
         "image": "Image2",
-        "imageType": 20,
+        "imageType": 488,
         "network": {
-          "id": 579,
+          "id": 479,
           "name": "Name2",
           "slug": "Slug2",
           "abbreviation": "Abbreviation2",

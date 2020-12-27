@@ -1,9 +1,9 @@
 {
   "data": {
     "id": 84756,
-    "name": "Name",
-    "slug": "Slug",
-    "image": "Image",
+    "name": "Name1",
+    "slug": "Slug1",
+    "image": "Image1",
     "nameTranslations": [
       "NameTranslation1", "NameTranslation2"
     ],
@@ -23,8 +23,8 @@
     "status": {
       "id": 547,
       "keepUpdated": true,
-      "name": "Name",
-      "recordType": "RecordType"
+      "name": "Name1",
+      "recordType": "RecordType1"
     }
   },
   "status": "success"

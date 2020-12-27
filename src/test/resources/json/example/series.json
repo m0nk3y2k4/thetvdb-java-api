@@ -1,9 +1,9 @@
 {
   "data": {
     "id": 34875,
-    "name": "Name",
-    "slug": "Slug",
-    "image": "Image",
+    "name": "Name1",
+    "slug": "Slug1",
+    "image": "Image1",
     "nameTranslations": [
       "NameTranslation1", "NameTranslation2"
     ],
@@ -19,24 +19,24 @@
         "name": "Name2"
       }
     ],
-    "firstAired": "FirstAired",
-    "lastAired": "LastAired",
-    "nextAired": "NextAired",
+    "firstAired": "FirstAired1",
+    "lastAired": "LastAired1",
+    "nextAired": "NextAired1",
     "score": 68,
     "status": {
-      "id": 44,
-      "name": "Name",
-      "recordType": "RecordType",
-      "keepUpdated": true
+      "id": 547,
+      "keepUpdated": true,
+      "name": "Name1",
+      "recordType": "RecordType1"
     },
-    "originalCountry": "OriginalCountry",
-    "originalLanguage": "OriginalLanguage",
+    "originalCountry": "OriginalCountry1",
+    "originalLanguage": "OriginalLanguage1",
     "originalNetwork": {
-      "id": 31,
-      "name": "Name",
-      "slug": "Slug",
-      "abbreviation": "Abbreviation",
-      "country": "Country"
+      "id": 478,
+      "name": "Name1",
+      "slug": "Slug1",
+      "abbreviation": "Abbreviation1",
+      "country": "Country1"
     },
     "defaultSeasonType": 469,
     "isOrderRandomized": true

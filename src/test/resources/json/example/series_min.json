@@ -9,13 +9,13 @@
     "aliases": [],
     "firstAired": null,
     "lastAired": null,
-    "nextAired": "NextAired",
-    "score": 100,
+    "nextAired": "NextAired1",
+    "score": 68,
     "status": {
-      "id": 81,
-      "name": "Name",
-      "recordType": "RecordType",
-      "keepUpdated": true
+      "id": 547,
+      "keepUpdated": true,
+      "name": "Name1",
+      "recordType": "RecordType1"
     },
     "originalCountry": null,
     "originalLanguage": null,
@@ -26,7 +26,7 @@
       "abbreviation": null,
       "country": null
     },
-    "defaultSeasonType": 4,
+    "defaultSeasonType": 469,
     "isOrderRandomized": true
   },
   "status": "success"

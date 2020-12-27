@@ -3,7 +3,7 @@
     "id": 47748,
     "seriesId": 95874,
     "type": 6954,
-    "name": "Name",
+    "name": "Name1",
     "number": 6,
     "nameTranslations": [
       "NameTranslation1", "NameTranslation2"
@@ -11,14 +11,14 @@
     "overviewTranslations": [
       "OverviewTranslation1", "OverviewTranslation2"
     ],
-    "image": "Image",
+    "image": "Image1",
     "imageType": 487,
     "network": {
-      "id": 7841,
-      "name": "Name",
-      "slug": "Slug",
-      "abbreviation": "Abbreviation",
-      "country": "Country"
+      "id": 478,
+      "name": "Name1",
+      "slug": "Slug1",
+      "abbreviation": "Abbreviation1",
+      "country": "Country1"
     }
   },
   "status": "success"

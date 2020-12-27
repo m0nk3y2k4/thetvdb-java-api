@@ -1,16 +1,16 @@
 {
   "data": {
     "id": 36487,
-    "name": "Name",
+    "name": "Name1",
     "peopleId": 569,
     "seriesId": 45,
     "movieId": 364,
     "episodeId": 975,
     "type": 12,
-    "image": "Image",
+    "image": "Image1",
     "sort": 3,
     "isFeatured": true,
-    "url": "Url",
+    "url": "Url1",
     "nameTranslations": [
       "NameTranslation1", "NameTranslation2"
     ],

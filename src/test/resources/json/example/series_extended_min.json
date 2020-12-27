@@ -9,13 +9,13 @@
     "aliases": null,
     "firstAired": null,
     "lastAired": null,
-    "nextAired": "NextAired",
-    "score": 9,
+    "nextAired": "NextAired1",
+    "score": 5,
     "status": {
-      "id": 1004,
-      "name": "Name",
-      "recordType": "RecordType",
-      "keepUpdated": true
+      "id": 547,
+      "keepUpdated": true,
+      "name": "Name1",
+      "recordType": "RecordType1"
     },
     "originalCountry": null,
     "originalLanguage": null,
@@ -26,14 +26,14 @@
       "abbreviation": null,
       "country": null
     },
-    "defaultSeasonType": 11,
+    "defaultSeasonType": 57,
     "isOrderRandomized": true,
     "artworks": [],
     "networks": [],
     "genres": null,
     "trailers": [
       {
-        "id": 3274,
+        "id": 6034,
         "name": null,
         "language": null,
         "url": null
@@ -41,7 +41,7 @@
     ],
     "franchises": [
       {
-        "id": 55743,
+        "id": 87,
         "name": "Name1",
         "nameTranslations": null,
         "overviewTranslations": [],

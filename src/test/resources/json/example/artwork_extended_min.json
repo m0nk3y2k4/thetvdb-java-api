@@ -1,9 +1,9 @@
 {
   "data": {
     "episodeId": null,
-    "height": 1024,
-    "id": 487514,
-    "image": "Image",
+    "height": 1080,
+    "id": 694401,
+    "image": "Image1",
     "language": null,
     "movieId": null,
     "networkId": null,
@@ -12,12 +12,12 @@
     "seasonId": null,
     "seriesId": null,
     "seriesPeopleId": null,
-    "thumbnail": "Thumbnail",
-    "thumbnailHeight": 350,
-    "thumbnailWidth": 480,
-    "type": 3,
-    "updatedAt": 16032447,
-    "width": 1280
+    "thumbnail": "Thumbnail1",
+    "thumbnailHeight": 400,
+    "thumbnailWidth": 600,
+    "type": 5,
+    "updatedAt": 16015471,
+    "width": 1920
   },
   "status": "success"
 }

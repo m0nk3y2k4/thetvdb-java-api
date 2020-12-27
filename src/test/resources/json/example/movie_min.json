@@ -1,18 +1,18 @@
 {
   "data": {
-    "id": 34870,
-    "name": "Name",
-    "slug": "Slug",
-    "image": "Image",
+    "id": 84756,
+    "name": "Name1",
+    "slug": "Slug1",
+    "image": "Image1",
     "nameTranslations": [],
     "overviewTranslations": [],
     "aliases": null,
-    "score": 599,
+    "score": 1080,
     "status": {
-      "id": 33,
+      "id": 547,
       "keepUpdated": true,
-      "name": "Name",
-      "recordType": "RecordType"
+      "name": "Name1",
+      "recordType": "RecordType1"
     }
   },
   "status": "success"
