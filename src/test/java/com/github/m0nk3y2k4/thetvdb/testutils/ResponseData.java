@@ -39,6 +39,10 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Alias;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Artwork;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkType;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Award;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategory;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategoryDetails;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardNominee;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Franchise;
@@ -58,6 +62,10 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AliasDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ArtworkDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ArtworkDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ArtworkTypeDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AwardCategoryDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AwardCategoryDetailsDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AwardDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AwardNomineeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CharacterDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EpisodeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.FranchiseDTO;
@@ -93,6 +101,16 @@ public abstract class ResponseData<T> {
             "artwork_extended", artworkDetails(FULL), "Single extended artwork JSON response") {};
     public static final ResponseData<APIResponse<ArtworkDetails>> ARTWORK_DETAILS_MIN = new ResponseData<>(
             "artwork_extended_min", artworkDetails(MIN), "Single extended artwork JSON response with only mandatory fields") {};
+
+    //******************* award-categories ******************
+    public static final ResponseData<APIResponse<AwardCategory>> AWARDCATEGORY = new ResponseData<>(
+            "awardcategory", awardCategory(FULL), "Single award category JSON response") {};
+    public static final ResponseData<APIResponse<AwardCategory>> AWARDCATEGORY_MIN = new ResponseData<>(
+            "awardcategory_min", awardCategory(MIN), "Single award category JSON response with only mandatory fields") {};
+    public static final ResponseData<APIResponse<AwardCategoryDetails>> AWARDCATEGORY_DETAILS = new ResponseData<>(
+            "awardcategory_extended", awardCategoryDetails(FULL), "Single extended award category JSON response") {};
+    public static final ResponseData<APIResponse<AwardCategoryDetails>> AWARDCATEGORY_DETAILS_MIN = new ResponseData<>(
+            "awardcategory_extended_min", awardCategoryDetails(MIN), "Single extended award category JSON response with only mandatory fields") {};
 
     //*********************** characters ********************
     public static final ResponseData<APIResponse<Character>> CHARACTER = new ResponseData<>(
@@ -199,6 +217,14 @@ public abstract class ResponseData<T> {
 
     private static APIResponse<List<ArtworkType>> artworkType() {
         return createAPIResponse(createTwo(artworkTypeModel()));
+    }
+
+    private static APIResponse<AwardCategory> awardCategory(Shape shape) {
+        return createAPIResponse(create(awardCategoryModel(), shape));
+    }
+
+    private static APIResponse<AwardCategoryDetails> awardCategoryDetails(Shape shape) {
+        return createAPIResponse(create(awardCategoryDetailsModel(), shape));
     }
 
     private static APIResponse<Character> character(Shape shape) {
@@ -324,6 +350,52 @@ public abstract class ResponseData<T> {
                 .height(139L + idx).thumbWidth(893L + idx).thumbHeight(194L + idx).build();
     }
 
+    private static BiFunction<Integer, Shape, Award> awardModel() {
+        return (Integer idx, Shape shape) -> {
+            AwardDTO.Builder builder = new AwardDTO.Builder();
+            if (shape == FULL) {
+                builder.id(46L + idx).name("Name" + idx);
+            }
+            return builder.build();
+        };
+    }
+
+    private static BiFunction<Integer, Shape, AwardCategory> awardCategoryModel() {
+        return (Integer idx, Shape shape) -> {
+            AwardCategoryDTO.Builder builder = new AwardCategoryDTO.Builder().allowCoNominees(true)
+                    .award(create(awardModel(), idx, shape)).forMovies(true).forSeries(true).id(8753L + idx);
+            if (shape == FULL) {
+                builder.name("Name" + idx);
+            }
+            return builder.build();
+        };
+    }
+
+    private static BiFunction<Integer, Shape, AwardCategoryDetails> awardCategoryDetailsModel() {
+        return (Integer idx, Shape shape) -> {
+            AwardCategoryDetailsDTO.Builder builder = new AwardCategoryDetailsDTO.Builder().allowCoNominees(true)
+                    .award(create(awardModel(), idx, shape)).forMovies(true).forSeries(true).id(5449L + idx);
+            if (shape == FULL) {
+                int listOffset = (idx << 1) - 1;
+                builder.name("Name" + idx).nominees(createTwo(awardNomineeModel(), listOffset));
+            }
+            return builder.build();
+        };
+    }
+
+    private static BiFunction<Integer, Shape, AwardNominee> awardNomineeModel() {
+        return (Integer idx, Shape shape) -> {
+            AwardNomineeDTO.Builder builder = new AwardNomineeDTO.Builder()
+                    .character(create(characterModel(), idx, shape)).episode(create(episodeModel(), idx, shape))
+                    .movie(create(movieModel(), idx, shape)).series(create(seriesModel(), idx, shape)).id(64119L + idx)
+                    .isWinner(true);
+            if (shape == FULL) {
+                builder.details("Details" + idx).year("Year" + idx);
+            }
+            return builder.build();
+        };
+    }
+
     private static BiFunction<Integer, Shape, Character> characterModel() {
         return (Integer idx, Shape shape) -> {
             CharacterDTO.Builder builder = new CharacterDTO.Builder().id(36486L + idx).type(11L + idx).sort(2L + idx)
@@ -345,11 +417,12 @@ public abstract class ResponseData<T> {
             EpisodeDTO.Builder builder = new EpisodeDTO.Builder().id(548744L + idx).seriesId(69553L + idx)
                     .isMovie(true);
             if (shape == FULL) {
+                int listOffset = (idx << 1) - 1;
                 builder.name("Name" + idx).aired("Aired" + idx).runtime(61L + idx)
-                        .nameTranslations(createTwo(nameTranslationModel()))
-                        .overviewTranslations(createTwo(overviewTranslationModel()))
-                        .image("Image" + idx).imageType(4L + idx).seasons(createTwo(seasonModel())).number(42L + idx)
-                        .seasonNumber(8L + idx);
+                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                        .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
+                        .image("Image" + idx).imageType(4L + idx).seasons(createTwo(seasonModel(), listOffset))
+                        .number(42L + idx).seasonNumber(8L + idx);
             }
             return builder.build();
         };

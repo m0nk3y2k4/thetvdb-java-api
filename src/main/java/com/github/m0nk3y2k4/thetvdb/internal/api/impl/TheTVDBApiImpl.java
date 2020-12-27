@@ -34,6 +34,8 @@ import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Artwork;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkType;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategory;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategoryDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
@@ -46,6 +48,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ArtworkAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ArtworkTypesAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.AwardCategoriesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.CharactersAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.EpisodesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.GenresAPI;
@@ -182,6 +185,16 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public AwardCategory getAwardCategory(long awardCategoryId) throws APIException {
+        return extended().getAwardCategory(awardCategoryId).getData();
+    }
+
+    @Override
+    public AwardCategoryDetails getAwardCategoryDetails(long awardCategoryId) throws APIException {
+        return extended().getAwardCategoryDetails(awardCategoryId).getData();
+    }
+
+    @Override
     public Character getCharacter(long characterId) throws APIException {
         return extended().getCharacter(characterId).getData();
     }
@@ -264,6 +277,16 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public JsonNode getAwardCategory(long awardCategoryId) throws APIException {
+            return AwardCategoriesAPI.getAwardCategoryBase(con, awardCategoryId);
+        }
+
+        @Override
+        public JsonNode getAwardCategoryDetails(long awardCategoryId) throws APIException {
+            return AwardCategoriesAPI.getAwardCategoryExtended(con, awardCategoryId);
+        }
+
+        @Override
         public JsonNode getCharacter(long characterId) throws APIException {
             return CharactersAPI.getCharacterBase(con, characterId);
         }
@@ -334,6 +357,16 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public APIResponse<ArtworkDetails> getArtworkDetails(long artworkId) throws APIException {
             return APIJsonMapper.readValue(json().getArtworkDetails(artworkId), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<AwardCategory> getAwardCategory(long awardCategoryId) throws APIException {
+            return APIJsonMapper.readValue(json().getAwardCategory(awardCategoryId), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<AwardCategoryDetails> getAwardCategoryDetails(long awardCategoryId) throws APIException {
+            return APIJsonMapper.readValue(json().getAwardCategoryDetails(awardCategoryId), new TypeReference<>() {});
         }
 
         @Override

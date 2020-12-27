@@ -1,0 +1,14 @@
+{
+  "data": {
+    "id": 8754,
+    "name": null,
+    "allowCoNominees": true,
+    "forSeries": true,
+    "forMovies": true,
+    "award": {
+      "id": null,
+      "name": null
+    }
+  },
+  "status": "success"
+}

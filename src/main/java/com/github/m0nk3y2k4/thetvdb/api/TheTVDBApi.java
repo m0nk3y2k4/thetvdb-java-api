@@ -27,6 +27,8 @@ import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Artwork;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkType;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategory;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategoryDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
@@ -208,6 +210,42 @@ public interface TheTVDBApi {
      * @see Extended#getArtworkDetails(long) TheTVDBApi.Extended.getArtworkDetails(artworkId)
      */
     ArtworkDetails getArtworkDetails(long artworkId) throws APIException;
+
+    /**
+     * Returns basic information for a specific award category mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/award-categories/getAwardCategory">
+     * <b>[GET]</b> /award-categories/{id}</a>
+     *
+     * @param awardCategoryId The <i>TheTVDB.com</i> award category ID
+     *
+     * @return Basic award category information mapped as Java DTO based on the JSON data returned by the remote
+     *         service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if the given award category ID does not exist.
+     * @see JSON#getAwardCategory(long) TheTVDBApi.JSON.getAwardCategory(awardCategoryId)
+     * @see Extended#getAwardCategory(long) TheTVDBApi.Extended.getAwardCategory(awardCategoryId)
+     */
+    AwardCategory getAwardCategory(long awardCategoryId) throws APIException;
+
+    /**
+     * Returns detailed information for a specific award category mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/award-categories/getAwardCategoryExtended">
+     * <b>[GET]</b> /award-categories/{id}/extended</a>
+     *
+     * @param awardCategoryId The <i>TheTVDB.com</i> award category ID
+     *
+     * @return Detailed award category information mapped as Java DTO based on the JSON data returned by the remote
+     *         service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if the given award category ID does not exist.
+     * @see JSON#getAwardCategoryDetails(long) TheTVDBApi.JSON.getAwardCategoryDetails(awardCategoryId)
+     * @see Extended#getAwardCategoryDetails(long) TheTVDBApi.Extended.getAwardCategoryDetails(awardCategoryId)
+     */
+    AwardCategoryDetails getAwardCategoryDetails(long awardCategoryId) throws APIException;
 
     /**
      * Returns information for a specific character mapped as Java DTO.
@@ -460,6 +498,40 @@ public interface TheTVDBApi {
         JsonNode getArtworkDetails(long artworkId) throws APIException;
 
         /**
+         * Returns basic information for a specific award category as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/award-categories/getAwardCategory">
+         * <b>[GET]</b> /award-categories/{id}</a>
+         *
+         * @param awardCategoryId The <i>TheTVDB.com</i> award category ID
+         *
+         * @return JSON object containing basic information for a specific award category
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if the given award category ID does not exist.
+         * @see TheTVDBApi#getAwardCategory(long) TheTVDBApi.getAwardCategory(awardCategoryId)
+         * @see Extended#getAwardCategory(long) TheTVDBApi.Extended.getAwardCategory(awardCategoryId)
+         */
+        JsonNode getAwardCategory(long awardCategoryId) throws APIException;
+
+        /**
+         * Returns detailed information for a specific award category as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/award-categories/getAwardCategoryExtended">
+         * <b>[GET]</b> /award-categories/{id}/extended</a>
+         *
+         * @param awardCategoryId The <i>TheTVDB.com</i> award category ID
+         *
+         * @return JSON object containing detailed information for a specific award category
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if the given award category ID does not exist.
+         * @see TheTVDBApi#getAwardCategoryDetails(long) TheTVDBApi.getAwardCategoryDetails(awardCategoryId)
+         * @see Extended#getAwardCategoryDetails(long) TheTVDBApi.Extended.getAwardCategoryDetails(awardCategoryId)
+         */
+        JsonNode getAwardCategoryDetails(long awardCategoryId) throws APIException;
+
+        /**
          * Returns information for a specific character as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/characters/getCharacterBase">
@@ -680,7 +752,7 @@ public interface TheTVDBApi {
          * Returns a response object containing detailed information for a specific artwork mapped as Java DTO.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/artwork/getArtworkExtended">
-         * <b>[GET]</b> /artwork/{id}</a>
+         * <b>[GET]</b> /artwork/{id}/extended</a>
          *
          * @param artworkId The <i>TheTVDB.com</i> artwork ID
          *
@@ -693,6 +765,42 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getArtworkDetails(long) TheTVDBApi.getArtworkDetails(artworkId)
          */
         APIResponse<ArtworkDetails> getArtworkDetails(long artworkId) throws APIException;
+
+        /**
+         * Returns a response object containing basic information for a specific award category mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/award-categories/getAwardCategory">
+         * <b>[GET]</b> /award-categories/{id}</a>
+         *
+         * @param awardCategoryId The <i>TheTVDB.com</i> award category ID
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if the given award category ID does not exist.
+         * @see JSON#getAwardCategory(long) TheTVDBApi.JSON.getAwardCategory(awardCategoryId)
+         * @see TheTVDBApi#getAwardCategory(long) TheTVDBApi.getAwardCategory(awardCategoryId)
+         */
+        APIResponse<AwardCategory> getAwardCategory(long awardCategoryId) throws APIException;
+
+        /**
+         * Returns a response object containing detailed information for a specific award category mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/award-categories/getAwardCategoryExtended">
+         * <b>[GET]</b> /award-categories/{id}/extended</a>
+         *
+         * @param awardCategoryId The <i>TheTVDB.com</i> award category ID
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if the given award category ID does not exist.
+         * @see JSON#getAwardCategoryDetails(long) TheTVDBApi.JSON.getAwardCategoryDetails(awardCategoryId)
+         * @see TheTVDBApi#getAwardCategoryDetails(long) TheTVDBApi.getAwardCategoryDetails(awardCategoryId)
+         */
+        APIResponse<AwardCategoryDetails> getAwardCategoryDetails(long awardCategoryId) throws APIException;
 
         /**
          * Returns a response object containing information for a specific character mapped as Java DTO.

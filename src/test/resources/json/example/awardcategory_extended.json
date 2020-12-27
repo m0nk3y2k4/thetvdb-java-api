@@ -1,0 +1,349 @@
+{
+  "data": {
+    "id": 5450,
+    "name": "Name1",
+    "allowCoNominees": true,
+    "forSeries": true,
+    "forMovies": true,
+    "award": {
+      "id": 47,
+      "name": "Name1"
+    },
+    "nominees": [
+      {
+        "character": {
+          "id": 36487,
+          "name": "Name1",
+          "peopleId": 569,
+          "seriesId": 45,
+          "movieId": 364,
+          "episodeId": 975,
+          "type": 12,
+          "image": "Image1",
+          "sort": 3,
+          "isFeatured": true,
+          "url": "Url1",
+          "nameTranslations": [
+            "NameTranslation1", "NameTranslation2"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation1", "OverviewTranslation2"
+          ],
+          "aliases": [
+            {
+              "language": "Language1",
+              "name": "Name1"
+            }, {
+              "language": "Language2",
+              "name": "Name2"
+            }
+          ]
+        },
+        "details": "Details1",
+        "episode": {
+          "id": 548745,
+          "seriesId": 69554,
+          "name": "Name1",
+          "aired": "Aired1",
+          "runtime": 62,
+          "nameTranslations": [
+            "NameTranslation1", "NameTranslation2"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation1", "OverviewTranslation2"
+          ],
+          "image": "Image1",
+          "imageType": 5,
+          "isMovie": 1,
+          "seasons": [
+            {
+              "id": 47748,
+              "seriesId": 95874,
+              "type": 6954,
+              "name": "Name1",
+              "number": 6,
+              "nameTranslations": [
+                "NameTranslation1", "NameTranslation2"
+              ],
+              "overviewTranslations": [
+                "OverviewTranslation1", "OverviewTranslation2"
+              ],
+              "image": "Image1",
+              "imageType": 487,
+              "network": {
+                "id": 478,
+                "name": "Name1",
+                "slug": "Slug1",
+                "abbreviation": "Abbreviation1",
+                "country": "Country1"
+              }
+            }, {
+              "id": 47749,
+              "seriesId": 95875,
+              "type": 6955,
+              "name": "Name2",
+              "number": 7,
+              "nameTranslations": [
+                "NameTranslation3", "NameTranslation4"
+              ],
+              "overviewTranslations": [
+                "OverviewTranslation3", "OverviewTranslation4"
+              ],
+              "image": "Image2",
+              "imageType": 488,
+              "network": {
+                "id": 479,
+                "name": "Name2",
+                "slug": "Slug2",
+                "abbreviation": "Abbreviation2",
+                "country": "Country2"
+              }
+            }
+          ],
+          "number": 43,
+          "seasonNumber": 9
+        },
+        "id": 64120,
+        "isWinner": true,
+        "movie": {
+          "id": 84756,
+          "name": "Name1",
+          "slug": "Slug1",
+          "image": "Image1",
+          "nameTranslations": [
+            "NameTranslation1", "NameTranslation2"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation1", "OverviewTranslation2"
+          ],
+          "aliases": [
+            {
+              "language": "Language1",
+              "name": "Name1"
+            }, {
+              "language": "Language2",
+              "name": "Name2"
+            }
+          ],
+          "score": 1080,
+          "status": {
+            "id": 547,
+            "keepUpdated": true,
+            "name": "Name1",
+            "recordType": "RecordType1"
+          }
+        },
+        "series": {
+          "id": 34875,
+          "name": "Name1",
+          "slug": "Slug1",
+          "image": "Image1",
+          "nameTranslations": [
+            "NameTranslation1", "NameTranslation2"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation1", "OverviewTranslation2"
+          ],
+          "aliases": [
+            {
+              "language": "Language1",
+              "name": "Name1"
+            }, {
+              "language": "Language2",
+              "name": "Name2"
+            }
+          ],
+          "firstAired": "FirstAired1",
+          "lastAired": "LastAired1",
+          "nextAired": "NextAired1",
+          "score": 68,
+          "status": {
+            "id": 547,
+            "keepUpdated": true,
+            "name": "Name1",
+            "recordType": "RecordType1"
+          },
+          "originalCountry": "OriginalCountry1",
+          "originalLanguage": "OriginalLanguage1",
+          "originalNetwork": {
+            "id": 478,
+            "name": "Name1",
+            "slug": "Slug1",
+            "abbreviation": "Abbreviation1",
+            "country": "Country1"
+          },
+          "defaultSeasonType": 469,
+          "isOrderRandomized": true
+        },
+        "year": "Year1"
+      }, {
+        "character": {
+          "id": 36488,
+          "name": "Name2",
+          "peopleId": 570,
+          "seriesId": 46,
+          "movieId": 365,
+          "episodeId": 976,
+          "type": 13,
+          "image": "Image2",
+          "sort": 4,
+          "isFeatured": true,
+          "url": "Url2",
+          "nameTranslations": [
+            "NameTranslation3", "NameTranslation4"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation3", "OverviewTranslation4"
+          ],
+          "aliases": [
+            {
+              "language": "Language3",
+              "name": "Name3"
+            }, {
+              "language": "Language4",
+              "name": "Name4"
+            }
+          ]
+        },
+        "details": "Details2",
+        "episode": {
+          "id": 548746,
+          "seriesId": 69555,
+          "name": "Name2",
+          "aired": "Aired2",
+          "runtime": 63,
+          "nameTranslations": [
+            "NameTranslation3", "NameTranslation4"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation3", "OverviewTranslation4"
+          ],
+          "image": "Image2",
+          "imageType": 6,
+          "isMovie": 1,
+          "seasons": [
+            {
+              "id": 47750,
+              "seriesId": 95876,
+              "type": 6956,
+              "name": "Name3",
+              "number": 8,
+              "nameTranslations": [
+                "NameTranslation5", "NameTranslation6"
+              ],
+              "overviewTranslations": [
+                "OverviewTranslation5", "OverviewTranslation6"
+              ],
+              "image": "Image3",
+              "imageType": 489,
+              "network": {
+                "id": 480,
+                "name": "Name3",
+                "slug": "Slug3",
+                "abbreviation": "Abbreviation3",
+                "country": "Country3"
+              }
+            }, {
+              "id": 47751,
+              "seriesId": 95877,
+              "type": 6957,
+              "name": "Name4",
+              "number": 9,
+              "nameTranslations": [
+                "NameTranslation7", "NameTranslation8"
+              ],
+              "overviewTranslations": [
+                "OverviewTranslation7", "OverviewTranslation8"
+              ],
+              "image": "Image4",
+              "imageType": 490,
+              "network": {
+                "id": 481,
+                "name": "Name4",
+                "slug": "Slug4",
+                "abbreviation": "Abbreviation4",
+                "country": "Country4"
+              }
+            }
+          ],
+          "number": 44,
+          "seasonNumber": 10
+        },
+        "id": 64121,
+        "isWinner": true,
+        "movie": {
+          "id": 84757,
+          "name": "Name2",
+          "slug": "Slug2",
+          "image": "Image2",
+          "nameTranslations": [
+            "NameTranslation3", "NameTranslation4"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation3", "OverviewTranslation4"
+          ],
+          "aliases": [
+            {
+              "language": "Language3",
+              "name": "Name3"
+            }, {
+              "language": "Language4",
+              "name": "Name4"
+            }
+          ],
+          "score": 1081,
+          "status": {
+            "id": 548,
+            "keepUpdated": true,
+            "name": "Name2",
+            "recordType": "RecordType2"
+          }
+        },
+        "series": {
+          "id": 34876,
+          "name": "Name2",
+          "slug": "Slug2",
+          "image": "Image2",
+          "nameTranslations": [
+            "NameTranslation3", "NameTranslation4"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation3", "OverviewTranslation4"
+          ],
+          "aliases": [
+            {
+              "language": "Language3",
+              "name": "Name3"
+            }, {
+              "language": "Language4",
+              "name": "Name4"
+            }
+          ],
+          "firstAired": "FirstAired2",
+          "lastAired": "LastAired2",
+          "nextAired": "NextAired2",
+          "score": 69,
+          "status": {
+            "id": 548,
+            "keepUpdated": true,
+            "name": "Name2",
+            "recordType": "RecordType2"
+          },
+          "originalCountry": "OriginalCountry2",
+          "originalLanguage": "OriginalLanguage2",
+          "originalNetwork": {
+            "id": 479,
+            "name": "Name2",
+            "slug": "Slug2",
+            "abbreviation": "Abbreviation2",
+            "country": "Country2"
+          },
+          "defaultSeasonType": 470,
+          "isOrderRandomized": true
+        },
+        "year": "Year2"
+      }
+    ]
+  },
+  "status": "success"
+}

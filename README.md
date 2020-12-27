@@ -107,8 +107,8 @@ the upcoming APIv4.
     - [x] [/artwork/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/artwork/getArtworkExtended)
     - [ ] [~~/artwork/{id}/translations/{language}~~](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/artwork/getArtworkTranslation)
 - Award categories
-    - [ ] [/award-categories/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/award-categories/getAwardCategory)
-    - [ ] [/award-categories/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/award-categories/getAwardCategoryExtended)
+    - [x] [/award-categories/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/award-categories/getAwardCategory)
+    - [x] [/award-categories/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/award-categories/getAwardCategoryExtended)
 - Awards
     - [ ] [/awards](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/awards/getAllAwards)
     - [ ] [/awards/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/awards/getAward)

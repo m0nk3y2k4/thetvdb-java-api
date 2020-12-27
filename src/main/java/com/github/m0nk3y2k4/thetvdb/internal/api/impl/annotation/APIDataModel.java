@@ -37,7 +37,7 @@ import org.atteo.classindex.IndexAnnotated;
  * }
  *
  * {@literal @APIDataModel}
- * {@literal @JsonDeserialze}
+ * {@literal @JsonDeserialize}
  * public class SeriesImpl implements Series {
  *     // Implementation
  * }
