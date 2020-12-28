@@ -1,0 +1,15 @@
+{
+  "data": {
+    "id": 64714,
+    "name": null,
+    "slug": "Slug1",
+    "nameTranslations": [],
+    "overviewTranslations": null,
+    "aliases": null,
+    "country": null,
+    "primaryCompanyType": 514,
+    "activeDate": null,
+    "inactiveDate": null
+  },
+  "status": "success"
+}

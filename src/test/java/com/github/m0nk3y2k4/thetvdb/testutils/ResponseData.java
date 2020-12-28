@@ -44,6 +44,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategory;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategoryDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardNominee;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Company;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Franchise;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
@@ -67,6 +68,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AwardCategoryDe
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AwardDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AwardNomineeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CharacterDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CompanyDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EpisodeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.FranchiseDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.GenreDTO;
@@ -117,6 +119,14 @@ public abstract class ResponseData<T> {
             "character", character(FULL), "Single character JSON response") {};
     public static final ResponseData<APIResponse<Character>> CHARACTER_MIN = new ResponseData<>(
             "character_min", character(MIN), "Single character JSON response with only mandatory fields") {};
+
+    //*********************** companies *********************
+    public static final ResponseData<APIResponse<Company>> COMPANY = new ResponseData<>(
+            "company", company(FULL), "Single company JSON response") {};
+    public static final ResponseData<APIResponse<Company>> COMPANY_MIN = new ResponseData<>(
+            "company_min", company(MIN), "Single company JSON response with only mandatory fields") {};
+    public static final ResponseData<APIResponse<List<Company>>> COMPANY_LIST = new ResponseData<>(
+            "company_list", companyList(), "List of company JSON response") {};
 
     //************************* DUMMY ***********************
     public static final ResponseData<APIResponse<Data>> DATA = new ResponseData<>(
@@ -229,6 +239,14 @@ public abstract class ResponseData<T> {
 
     private static APIResponse<Character> character(Shape shape) {
         return createAPIResponse(create(characterModel(), shape));
+    }
+
+    private static APIResponse<Company> company(Shape shape) {
+        return createAPIResponse(create(companyModel(), shape));
+    }
+
+    private static APIResponse<List<Company>> companyList() {
+        return createAPIResponse(createTwo(companyModel()));
     }
 
     private static APIResponse<Data> data() {
@@ -407,6 +425,21 @@ public abstract class ResponseData<T> {
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .aliases(createTwo(aliasModel(), listOffset));
+            }
+            return builder.build();
+        };
+    }
+
+    private static BiFunction<Integer, Shape, Company> companyModel() {
+        return (Integer idx, Shape shape) -> {
+            CompanyDTO.Builder builder = new CompanyDTO.Builder().id(64713L + idx).slug("Slug" + idx)
+                    .primaryCompanyType(513L + idx);
+            if (shape == FULL) {
+                int listOffset = (idx << 1) - 1;
+                builder.nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                        .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
+                        .aliases(createTwo(aliasModel(), listOffset)).country("Country" + idx)
+                        .activeDate("ActiveDate" + idx).inactiveDate("InactiveDate" + idx).name("Name" + idx);
             }
             return builder.build();
         };

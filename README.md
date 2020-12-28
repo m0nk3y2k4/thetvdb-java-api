@@ -116,8 +116,8 @@ the upcoming APIv4.
 - Characters
     - [x] [/characters/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/characters/getCharacterBase)
 - Companies
-    - [ ] [/companies](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/companies/getAllCompanies)
-    - [ ] [/companies/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/companies/getCompany)
+    - [x] [/companies](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/companies/getAllCompanies)
+    - [x] [/companies/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/companies/getCompany)
     - [ ] [/companies/{id}/movies]()
     - [ ] [/companies/{id}/episodes]()
     - [ ] [/companies/{id}/series]()

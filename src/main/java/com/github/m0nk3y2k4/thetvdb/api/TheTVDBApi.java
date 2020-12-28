@@ -30,6 +30,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategory;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategoryDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Company;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
@@ -265,6 +266,55 @@ public interface TheTVDBApi {
     Character getCharacter(long characterId) throws APIException;
 
     /**
+     * Returns a list of companies based on the given query parameters mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/companies/getAllCompanies">
+     * <b>[GET]</b> /companies</a>
+     *
+     * @param queryParameters Object containing key/value pairs of query parameters
+     *
+     * @return List of companies mapped as Java DTO's based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see JSON#getAllCompanies(QueryParameters) TheTVDBApi.JSON.getAllCompanies(queryParameters)
+     * @see Extended#getAllCompanies(QueryParameters) TheTVDBApi.Extended.getAllCompanies(queryParameters)
+     */
+    List<Company> getAllCompanies(QueryParameters queryParameters) throws APIException;
+
+    /**
+     * Returns a limited list of companies mapped as Java DTO. Due to the large amount of available companies, the
+     * result will be paginated. Use the <em>{@code page}</em> parameter to browse to a specific result page. This is a
+     * shortcut-method for {@link #getAllCompanies(QueryParameters) getAllCompanies(queryParameters)} with a single
+     * "page" query parameter.
+     *
+     * @param page The result page to be returned (zero-based)
+     *
+     * @return List of companies mapped as Java DTO's based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     */
+    List<Company> getAllCompanies(long page) throws APIException;
+
+    /**
+     * Returns information for a specific company mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/companies/getCompany">
+     * <b>[GET]</b> /companies/{id}</a>
+     *
+     * @param companyId The <i>TheTVDB.com</i> company ID
+     *
+     * @return Company information mapped as Java DTO based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if the given company ID does not exist.
+     * @see JSON#getCompany(long) TheTVDBApi.JSON.getCompany(companyId)
+     * @see Extended#getCompany(long) TheTVDBApi.Extended.getCompany(companyId)
+     */
+    Company getCompany(long companyId) throws APIException;
+
+    /**
      * Returns basic information for a specific episode mapped as Java DTO.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/episodes/getEpisodeBase">
@@ -388,7 +438,7 @@ public interface TheTVDBApi {
      * shortcut-method for {@link #getAllSeries(QueryParameters) getAllSeries(queryParameters)} with a single "page"
      * query parameter.
      *
-     * @param page The result page to be returned (0 = 1st page, etc.)
+     * @param page The result page to be returned (zero-based)
      *
      * @return List of series mapped as Java DTO's based on the JSON data returned by the remote service
      *
@@ -562,6 +612,40 @@ public interface TheTVDBApi {
          * @see Extended#getCharacter(long) TheTVDBApi.Extended.getCharacter(characterId)
          */
         JsonNode getCharacter(long characterId) throws APIException;
+
+        /**
+         * Returns a list of companies based on the given query parameters as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/companies/getAllCompanies">
+         * <b>[GET]</b> /companies</a>
+         *
+         * @param queryParameters Object containing key/value pairs of query parameters
+         *
+         * @return JSON object containing a list of companies
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see TheTVDBApi#getAllCompanies(QueryParameters) TheTVDBApi.getAllCompanies(queryParameters)
+         * @see Extended#getAllCompanies(QueryParameters) TheTVDBApi.Extended.getAllCompanies(queryParameters)
+         */
+        JsonNode getAllCompanies(QueryParameters queryParameters) throws APIException;
+
+        /**
+         * Returns information for a specific company as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/companies/getCompany">
+         * <b>[GET]</b> /companies/{id}</a>
+         *
+         * @param companyId The <i>TheTVDB.com</i> company ID
+         *
+         * @return JSON object containing information for a specific company
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if the given company ID does not exist.
+         * @see TheTVDBApi#getCompany(long) TheTVDBApi.getCompany(companyId)
+         * @see Extended#getCompany(long) TheTVDBApi.Extended.getCompany(companyId)
+         */
+        JsonNode getCompany(long companyId) throws APIException;
 
         /**
          * Returns basic information for a specific episode as raw JSON.
@@ -834,6 +918,43 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getCharacter(long) TheTVDBApi.getCharacter(characterId)
          */
         APIResponse<Character> getCharacter(long characterId) throws APIException;
+
+        /**
+         * Returns a response object containing a list of companies based on the given query parameters mapped as Java
+         * DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/companies/getAllCompanies">
+         * <b>[GET]</b> /companies</a>
+         *
+         * @param queryParameters Object containing key/value pairs of query parameters
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see JSON#getAllCompanies(QueryParameters) TheTVDBApi.JSON.getAllCompanies(queryParameters)
+         * @see TheTVDBApi#getAllCompanies(QueryParameters) TheTVDBApi.getAllCompanies(queryParameters)
+         */
+        APIResponse<List<Company>> getAllCompanies(QueryParameters queryParameters) throws APIException;
+
+        /**
+         * Returns a response object containing information for a specific company mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/companies/getCompany">
+         * <b>[GET]</b> /companies/{id}</a>
+         *
+         * @param companyId The <i>TheTVDB.com</i> company ID
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if the given company ID does not exist.
+         * @see JSON#getCompany(long) TheTVDBApi.JSON.getCompany(companyId)
+         * @see TheTVDBApi#getCompany(long) TheTVDBApi.getCompany(companyId)
+         */
+        APIResponse<Company> getCompany(long companyId) throws APIException;
 
         /**
          * Returns a response object containing basic information for a specific episode mapped as Java DTO.

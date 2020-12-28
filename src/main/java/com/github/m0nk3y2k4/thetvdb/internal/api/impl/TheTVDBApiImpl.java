@@ -38,6 +38,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategory;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategoryDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Company;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
@@ -51,6 +52,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ArtworkAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ArtworkTypesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.AwardCategoriesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.CharactersAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.CompaniesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.EpisodesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.GenresAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.LoginAPI;
@@ -213,6 +215,22 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public List<Company> getAllCompanies(QueryParameters queryParameters) throws APIException {
+        return extended().getAllCompanies(queryParameters).getData();
+    }
+
+    @Override
+    public List<Company> getAllCompanies(long page) throws APIException {
+        validatePage(page);
+        return getAllCompanies(query(Map.of(Query.Companies.PAGE, String.valueOf(page))));
+    }
+
+    @Override
+    public Company getCompany(long companyId) throws APIException {
+        return extended().getCompany(companyId).getData();
+    }
+
+    @Override
     public Episode getEpisode(long episodeId) throws APIException {
         return extended().getEpisode(episodeId).getData();
     }
@@ -311,6 +329,16 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public JsonNode getAllCompanies(QueryParameters queryParameters) throws APIException {
+            return CompaniesAPI.getAllCompanies(con, queryParameters);
+        }
+
+        @Override
+        public JsonNode getCompany(long companyId) throws APIException {
+            return CompaniesAPI.getCompany(con, companyId);
+        }
+
+        @Override
         public JsonNode getEpisode(long episodeId) throws APIException {
             return EpisodesAPI.getEpisodeBase(con, episodeId);
         }
@@ -391,6 +419,16 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public APIResponse<Character> getCharacter(long characterId) throws APIException {
             return APIJsonMapper.readValue(json().getCharacter(characterId), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<List<Company>> getAllCompanies(QueryParameters queryParameters) throws APIException {
+            return APIJsonMapper.readValue(json().getAllCompanies(queryParameters), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<Company> getCompany(long companyId) throws APIException {
+            return APIJsonMapper.readValue(json().getCompany(companyId), new TypeReference<>() {});
         }
 
         @Override

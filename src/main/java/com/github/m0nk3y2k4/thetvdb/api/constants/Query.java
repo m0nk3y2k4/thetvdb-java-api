@@ -29,6 +29,17 @@ public final class Query {
     private Query() {}
 
     /**
+     * Collection of query parameters for API route <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/companies">/companies</a>
+     */
+    public static final class Companies {
+
+        /** Query parameter "<i>page</i>" - Page of results to fetch. Defaults to page 0 if not provided */
+        public static final String PAGE = "page";
+
+        private Companies() {}     // Private constructor. Only constants in this class
+    }
+
+    /**
      * Collection of query parameters for API route <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/series">/series</a>
      */
     public static final class Series {
