@@ -150,6 +150,8 @@ the upcoming APIv4.
     - [ ] [/lists](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/lists/getAllLists)
     - [ ] [/lists/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/lists/getList)
     - [ ] [/lists/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/lists/getListExtended)
+- Login
+    - [x] [/login](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/login/post_login)
 - Movie statuses
     - [ ] [/movie-statuses](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/movie-statuses/getAllMovieStatuses)
 - Movies
@@ -163,6 +165,8 @@ the upcoming APIv4.
     - [x] [/people/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/people/getPeopleBase)
     - [ ] [/people/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/people/getPeopleExtended)
     - [ ] [/people/{id}/translations/{language}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/people/getPeopleTranslation)
+- Search
+    - [ ] [/search](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/search/getSearchResults)
 - Seasons
     - [x] [/seasons/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/seasons/getSeasonBase)
     - [ ] [/seasons/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/seasons/getSeasonExtended)
@@ -176,6 +180,8 @@ the upcoming APIv4.
     - [ ] [/series-statuses](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/series-statuses/getAllSeriesStatuses)
 - Source types
     - [ ] [/source-types](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/source-types/getAllSourceTypes)
+- Updates
+    - [ ] [/updates](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/updates/updates)
 </details>
 
 The latest documentation can be found here: [TheTVDB Java 3.x API](http://thetvdb-java-api.m0nk3y.info/v3/index.html?overview-summary.html)
