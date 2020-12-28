@@ -28,8 +28,8 @@ class SeriesIT {
 
     @Test
     @Order(1)
-    void querySeries(TheTVDBApi api) {
-        assertThat(() -> api.querySeries(createQueryParameters())).as("/series").doesNotThrowAnyException();
+    void getAllSeries(TheTVDBApi api) {
+        assertThat(() -> api.getAllSeries(createQueryParameters())).as("/series").doesNotThrowAnyException();
     }
 
     @Test

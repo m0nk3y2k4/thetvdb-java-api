@@ -170,8 +170,8 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public List<ArtworkType> getArtworkTypes() throws APIException {
-        return extended().getArtworkTypes().getData();
+    public List<ArtworkType> getAllArtworkTypes() throws APIException {
+        return extended().getAllArtworkTypes().getData();
     }
 
     @Override
@@ -205,8 +205,8 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public List<Genre> getGenres() throws APIException {
-        return extended().getGenres().getData();
+    public List<Genre> getAllGenres() throws APIException {
+        return extended().getAllGenres().getData();
     }
 
     @Override
@@ -230,8 +230,8 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public List<Series> querySeries(QueryParameters queryParameters) throws APIException {
-        return extended().querySeries(queryParameters).getData();
+    public List<Series> getAllSeries(QueryParameters queryParameters) throws APIException {
+        return extended().getAllSeries(queryParameters).getData();
     }
 
     @Override
@@ -262,7 +262,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     private class JSONApi implements JSON {
 
         @Override
-        public JsonNode getArtworkTypes() throws APIException {
+        public JsonNode getAllArtworkTypes() throws APIException {
             return ArtworkTypesAPI.getAllArtworkTypes(con);
         }
 
@@ -297,7 +297,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public JsonNode getGenres() throws APIException {
+        public JsonNode getAllGenres() throws APIException {
             return GenresAPI.getAllGenres(con);
         }
 
@@ -322,7 +322,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public JsonNode querySeries(QueryParameters queryParameters) throws APIException {
+        public JsonNode getAllSeries(QueryParameters queryParameters) throws APIException {
             return SeriesAPI.getAllSeries(con, queryParameters);
         }
 
@@ -345,8 +345,8 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     private class ExtendedApi implements Extended {
 
         @Override
-        public APIResponse<List<ArtworkType>> getArtworkTypes() throws APIException {
-            return APIJsonMapper.readValue(json().getArtworkTypes(), new TypeReference<>() {});
+        public APIResponse<List<ArtworkType>> getAllArtworkTypes() throws APIException {
+            return APIJsonMapper.readValue(json().getAllArtworkTypes(), new TypeReference<>() {});
         }
 
         @Override
@@ -380,8 +380,8 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<List<Genre>> getGenres() throws APIException {
-            return APIJsonMapper.readValue(json().getGenres(), new TypeReference<>() {});
+        public APIResponse<List<Genre>> getAllGenres() throws APIException {
+            return APIJsonMapper.readValue(json().getAllGenres(), new TypeReference<>() {});
         }
 
         @Override
@@ -405,8 +405,8 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<List<Series>> querySeries(QueryParameters queryParameters) throws APIException {
-            return APIJsonMapper.readValue(json().querySeries(queryParameters), new TypeReference<>() {});
+        public APIResponse<List<Series>> getAllSeries(QueryParameters queryParameters) throws APIException {
+            return APIJsonMapper.readValue(json().getAllSeries(queryParameters), new TypeReference<>() {});
         }
 
         @Override

@@ -27,7 +27,7 @@ class ArtworkTypesIT {
 
     @Test
     @Order(1)
-    void getArtworkTypes(TheTVDBApi api) {
-        assertThat(api::getArtworkTypes).as("/artwork-types").doesNotThrowAnyException();
+    void getAllArtworkTypes(TheTVDBApi api) {
+        assertThat(api::getAllArtworkTypes).as("/artwork-types").doesNotThrowAnyException();
     }
 }

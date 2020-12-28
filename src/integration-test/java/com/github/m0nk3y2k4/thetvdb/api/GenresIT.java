@@ -27,8 +27,8 @@ class GenresIT {
 
     @Test
     @Order(1)
-    void getGenres(TheTVDBApi api) {
-        assertThat(api::getGenres).as("/genres").doesNotThrowAnyException();
+    void getAllGenres(TheTVDBApi api) {
+        assertThat(api::getAllGenres).as("/genres").doesNotThrowAnyException();
     }
 
     @Test

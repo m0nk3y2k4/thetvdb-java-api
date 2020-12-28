@@ -128,18 +128,18 @@ class TheTVDBApiImplTest {
             return Stream.of(
                     of(route(() -> basicAPI.init(), "init()"), verify("/login", POST)),
                     of(route(() -> basicAPI.login(), "login()"), verify("/login", POST)),
-                    of(route(() -> basicAPI.getArtworkTypes(), "getArtworkTypes()"), ARTWORKTYPE_LIST),
+                    of(route(() -> basicAPI.getAllArtworkTypes(), "getAllArtworkTypes()"), ARTWORKTYPE_LIST),
                     of(route(() -> basicAPI.getArtwork(3447), "getArtwork()"), ARTWORK),
                     of(route(() -> basicAPI.getArtworkDetails(9403), "getArtworkDetails()"), ARTWORK_DETAILS),
                     of(route(() -> basicAPI.getCharacter(604784), "getCharacter()"), CHARACTER),
                     of(route(() -> basicAPI.getEpisode(141007), "getEpisode()"), EPISODE),
-                    of(route(() -> basicAPI.getGenres(), "getGenres()"), GENRE_LIST),
+                    of(route(() -> basicAPI.getAllGenres(), "getAllGenres()"), GENRE_LIST),
                     of(route(() -> basicAPI.getGenre(47), "getGenre()"), GENRE),
                     of(route(() -> basicAPI.getMovie(54394), "getMovie()"), MOVIE),
                     of(route(() -> basicAPI.getPeople(431071), "getPeople()"), PEOPLE),
                     of(route(() -> basicAPI.getSeason(34167), "getSeason()"), SEASON),
-                    of(route(() -> basicAPI.querySeries(null), "querySeries() without query parameters"), SERIES_LIST),
-                    of(route(() -> basicAPI.querySeries(params("value", "QuerySeries")), "querySeries() with query parameters"), SERIES_LIST),
+                    of(route(() -> basicAPI.getAllSeries(null), "getAllSeries() without query parameters"), SERIES_LIST),
+                    of(route(() -> basicAPI.getAllSeries(params("value", "QuerySeries")), "getAllSeries() with query parameters"), SERIES_LIST),
                     of(route(() -> basicAPI.getSeries(2845), "getSeries()"), SERIES),
                     of(route(() -> basicAPI.getSeriesDetails(9041), "getSeriesDetails()"), SERIES_DETAILS)
             );
@@ -223,18 +223,18 @@ class TheTVDBApiImplTest {
 
         private Stream<Arguments> withValidParameters() {
             return Stream.of(
-                    of(route(() -> basicAPI.getArtworkTypes(), "getArtworkTypes()"), ARTWORKTYPE_LIST),
+                    of(route(() -> basicAPI.getAllArtworkTypes(), "getAllArtworkTypes()"), ARTWORKTYPE_LIST),
                     of(route(() -> basicAPI.getArtwork(6701), "getArtwork()"), ARTWORK),
                     of(route(() -> basicAPI.getArtworkDetails(9100), "getArtworkDetails()"), ARTWORK_DETAILS),
                     of(route(() -> basicAPI.getCharacter(94347), "getCharacter()"), CHARACTER),
                     of(route(() -> basicAPI.getEpisode(640796), "getEpisode()"), EPISODE),
-                    of(route(() -> basicAPI.getGenres(), "getGenres()"), GENRE_LIST),
+                    of(route(() -> basicAPI.getAllGenres(), "getAllGenres()"), GENRE_LIST),
                     of(route(() -> basicAPI.getGenre(21), "getGenre()"), GENRE),
                     of(route(() -> basicAPI.getMovie(61714), "getMovie()"), MOVIE),
                     of(route(() -> basicAPI.getPeople(3647), "getPeople()"), PEOPLE),
                     of(route(() -> basicAPI.getSeason(18322), "getSeason()"), SEASON),
-                    of(route(() -> basicAPI.querySeries(null), "querySeries() without query parameters"), SERIES_LIST),
-                    of(route(() -> basicAPI.querySeries(params("value", "QuerySeriesJson")), "querySeries() with query parameters"), SERIES_LIST),
+                    of(route(() -> basicAPI.getAllSeries(null), "getAllSeries() without query parameters"), SERIES_LIST),
+                    of(route(() -> basicAPI.getAllSeries(params("value", "QuerySeriesJson")), "getAllSeries() with query parameters"), SERIES_LIST),
                     of(route(() -> basicAPI.getSeries(5003), "getSeries()"), SERIES),
                     of(route(() -> basicAPI.getSeriesDetails(5842), "getSeriesDetails()"), SERIES_DETAILS)
             );
@@ -300,18 +300,18 @@ class TheTVDBApiImplTest {
 
         private Stream<Arguments> withValidParameters() {
             return Stream.of(
-                    of(route(() -> basicAPI.getArtworkTypes(), "getArtworkTypes()"), ARTWORKTYPE_LIST),
+                    of(route(() -> basicAPI.getAllArtworkTypes(), "getAllArtworkTypes()"), ARTWORKTYPE_LIST),
                     of(route(() -> basicAPI.getArtwork(7099), "getArtwork()"), ARTWORK),
                     of(route(() -> basicAPI.getArtworkDetails(6471), "getArtworkDetails()"), ARTWORK_DETAILS),
                     of(route(() -> basicAPI.getCharacter(66470), "getCharacter()"), CHARACTER),
                     of(route(() -> basicAPI.getEpisode(30619), "getEpisode()"), EPISODE),
-                    of(route(() -> basicAPI.getGenres(), "getGenres()"), GENRE_LIST),
+                    of(route(() -> basicAPI.getAllGenres(), "getAllGenres()"), GENRE_LIST),
                     of(route(() -> basicAPI.getGenre(35), "getGenre()"), GENRE),
                     of(route(() -> basicAPI.getMovie(90034), "getMovie()"), MOVIE),
                     of(route(() -> basicAPI.getPeople(9891), "getPeople()"), PEOPLE),
                     of(route(() -> basicAPI.getSeason(52270), "getSeason()"), SEASON),
-                    of(route(() -> basicAPI.querySeries(null), "querySeries() without query parameters"), SERIES_LIST),
-                    of(route(() -> basicAPI.querySeries(params("value", "QuerySeriesExtended")), "querySeries() with query parameters"), SERIES_LIST),
+                    of(route(() -> basicAPI.getAllSeries(null), "getAllSeries() without query parameters"), SERIES_LIST),
+                    of(route(() -> basicAPI.getAllSeries(params("value", "QuerySeriesExtended")), "getAllSeries() with query parameters"), SERIES_LIST),
                     of(route(() -> basicAPI.getSeries(8131), "getSeries()"), SERIES),
                     of(route(() -> basicAPI.getSeriesDetails(5444), "getSeriesDetails()"), SERIES_DETAILS)
             );

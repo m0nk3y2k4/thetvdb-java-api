@@ -172,10 +172,10 @@ public interface TheTVDBApi {
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc.
-     * @see JSON#getArtworkTypes()
-     * @see Extended#getArtworkTypes()
+     * @see JSON#getAllArtworkTypes()
+     * @see Extended#getAllArtworkTypes()
      */
-    List<ArtworkType> getArtworkTypes() throws APIException;
+    List<ArtworkType> getAllArtworkTypes() throws APIException;
 
     /**
      * Returns basic information for a specific artwork mapped as Java DTO.
@@ -291,10 +291,10 @@ public interface TheTVDBApi {
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc.
-     * @see JSON#getGenres()
-     * @see Extended#getGenres()
+     * @see JSON#getAllGenres()
+     * @see Extended#getAllGenres()
      */
-    List<Genre> getGenres() throws APIException;
+    List<Genre> getAllGenres() throws APIException;
 
     /**
      * Returns information for a specific genre mapped as Java DTO.
@@ -377,10 +377,10 @@ public interface TheTVDBApi {
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc.
-     * @see JSON#querySeries(QueryParameters) TheTVDBApi.JSON.querySeries(queryParameters)
-     * @see Extended#querySeries(QueryParameters) TheTVDBApi.Extended.querySeries(queryParameters)
+     * @see JSON#getAllSeries(QueryParameters) TheTVDBApi.JSON.getAllSeries(queryParameters)
+     * @see Extended#getAllSeries(QueryParameters) TheTVDBApi.Extended.getAllSeries(queryParameters)
      */
-    List<Series> querySeries(QueryParameters queryParameters) throws APIException;
+    List<Series> getAllSeries(QueryParameters queryParameters) throws APIException;
 
     /**
      * Returns basic information for a specific series mapped as Java DTO.
@@ -458,10 +458,10 @@ public interface TheTVDBApi {
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
          *                      resource not found, etc.
-         * @see TheTVDBApi#getArtworkTypes() TheTVDBApi.getArtworkTypes()
-         * @see Extended#getArtworkTypes()
+         * @see TheTVDBApi#getAllArtworkTypes() TheTVDBApi.getAllArtworkTypes()
+         * @see Extended#getAllArtworkTypes()
          */
-        JsonNode getArtworkTypes() throws APIException;
+        JsonNode getAllArtworkTypes() throws APIException;
 
         /**
          * Returns basic information for a specific artwork as raw JSON.
@@ -575,10 +575,10 @@ public interface TheTVDBApi {
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
          *                      resource not found, etc.
-         * @see TheTVDBApi#getGenres() TheTVDBApi.getGenres()
-         * @see Extended#getGenres()
+         * @see TheTVDBApi#getAllGenres() TheTVDBApi.getAllGenres()
+         * @see Extended#getAllGenres()
          */
-        JsonNode getGenres() throws APIException;
+        JsonNode getAllGenres() throws APIException;
 
         /**
          * Returns information for a specific genre as raw JSON.
@@ -661,10 +661,10 @@ public interface TheTVDBApi {
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
          *                      resource not found, etc.
-         * @see TheTVDBApi#querySeries(QueryParameters) TheTVDBApi.querySeries(queryParameters)
-         * @see Extended#querySeries(QueryParameters) TheTVDBApi.Extended.querySeries(queryParameters)
+         * @see TheTVDBApi#getAllSeries(QueryParameters) TheTVDBApi.getAllSeries(queryParameters)
+         * @see Extended#getAllSeries(QueryParameters) TheTVDBApi.Extended.getAllSeries(queryParameters)
          */
-        JsonNode querySeries(QueryParameters queryParameters) throws APIException;
+        JsonNode getAllSeries(QueryParameters queryParameters) throws APIException;
 
         /**
          * Returns basic information for a specific series as raw JSON.
@@ -725,10 +725,10 @@ public interface TheTVDBApi {
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
          *                      resource not found, etc.
-         * @see JSON#getArtworkTypes()
-         * @see TheTVDBApi#getArtworkTypes() TheTVDBApi.getArtworkTypes()
+         * @see JSON#getAllArtworkTypes()
+         * @see TheTVDBApi#getAllArtworkTypes() TheTVDBApi.getAllArtworkTypes()
          */
-        APIResponse<List<ArtworkType>> getArtworkTypes() throws APIException;
+        APIResponse<List<ArtworkType>> getAllArtworkTypes() throws APIException;
 
         /**
          * Returns a response object containing basic information for a specific artwork mapped as Java DTO.
@@ -849,10 +849,10 @@ public interface TheTVDBApi {
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
          *                      resource not found, etc.
-         * @see JSON#getGenres()
-         * @see TheTVDBApi#getGenres() TheTVDBApi.getGenres()
+         * @see JSON#getAllGenres()
+         * @see TheTVDBApi#getAllGenres() TheTVDBApi.getAllGenres()
          */
-        APIResponse<List<Genre>> getGenres() throws APIException;
+        APIResponse<List<Genre>> getAllGenres() throws APIException;
 
         /**
          * Returns a response object containing information for a specific genre mapped as Java DTO.
@@ -940,10 +940,10 @@ public interface TheTVDBApi {
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
          *                      resource not found, etc.
-         * @see JSON#querySeries(QueryParameters) TheTVDBApi.JSON.querySeries(queryParameters)
-         * @see TheTVDBApi#querySeries(QueryParameters) TheTVDBApi.querySeries(queryParameters)
+         * @see JSON#getAllSeries(QueryParameters) TheTVDBApi.JSON.getAllSeries(queryParameters)
+         * @see TheTVDBApi#getAllSeries(QueryParameters) TheTVDBApi.getAllSeries(queryParameters)
          */
-        APIResponse<List<Series>> querySeries(QueryParameters queryParameters) throws APIException;
+        APIResponse<List<Series>> getAllSeries(QueryParameters queryParameters) throws APIException;
 
         /**
          * Returns a response object containing basic information for a specific series mapped as Java DTO.
