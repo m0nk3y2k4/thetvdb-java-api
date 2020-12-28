@@ -48,6 +48,7 @@ import java.util.stream.Stream;
 
 import com.github.m0nk3y2k4.thetvdb.api.Proxy;
 import com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi;
+import com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APIPreconditionException;
 import com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders;
@@ -114,13 +115,14 @@ class TheTVDBApiImplTest {
             client.when(request("/seasons/34167", GET)).respond(jsonResponse(SEASON));
             client.when(request("/series", GET)).respond(jsonResponse(SERIES_LIST));
             client.when(request("/series", GET, param("value", "QuerySeries"))).respond(jsonResponse(SERIES_LIST));
+            client.when(request("/series", GET, param(Series.PAGE, "2"))).respond(jsonResponse(SERIES_LIST));
             client.when(request("/series/2845", GET)).respond(jsonResponse(SERIES));
             client.when(request("/series/9041/extended", GET)).respond(jsonResponse(SERIES_DETAILS));
         }
 
         private Stream<Arguments> withInvalidParameters() {
             return Stream.of(
-                // ToDo: Create and return test arguments with invalid parameters
+                    of(route(() -> basicAPI.getAllSeries(-3), "getAllSeries() with negative page parameter"))
             );
         }
 
@@ -140,13 +142,13 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getSeason(34167), "getSeason()"), SEASON),
                     of(route(() -> basicAPI.getAllSeries(null), "getAllSeries() without query parameters"), SERIES_LIST),
                     of(route(() -> basicAPI.getAllSeries(params("value", "QuerySeries")), "getAllSeries() with query parameters"), SERIES_LIST),
+                    of(route(() -> basicAPI.getAllSeries(2), "getAllSeries() with page"), SERIES_LIST),
                     of(route(() -> basicAPI.getSeries(2845), "getSeries()"), SERIES),
                     of(route(() -> basicAPI.getSeriesDetails(9041), "getSeriesDetails()"), SERIES_DETAILS)
             );
         }
         //@EnableFormatting
 
-        @Disabled("New APIv4 implementation is still pending")
         @ParameterizedTest(name = "[{index}] Route TheTVDBApi.{0} rejected")
         @MethodSource("withInvalidParameters")
         <T> void invokeRoute_withInvalidParametersOrState_verifyParameterValidationAndPreconditionChecks(

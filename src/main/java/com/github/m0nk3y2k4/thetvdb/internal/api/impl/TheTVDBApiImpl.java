@@ -29,6 +29,7 @@ import com.github.m0nk3y2k4.thetvdb.api.APIKey;
 import com.github.m0nk3y2k4.thetvdb.api.Proxy;
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi;
+import com.github.m0nk3y2k4.thetvdb.api.constants.Query;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Artwork;
@@ -115,6 +116,18 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     private static void validateNotEmpty(String... params) {
         Parameters.validateCondition(APIUtil::hasValue, params,
                 new IllegalArgumentException("Method parameters must not be NULL or empty!"));
+    }
+
+    /**
+     * Validates that the given method {@code page} parameters is not negative
+     *
+     * @param page The method {@code page} parameter to check
+     *
+     * @throws IllegalArgumentException If the given parameter is a negative numerical value
+     */
+    private static void validatePage(long page) {
+        Parameters.validateCondition(value -> value >= 0, page,
+                new IllegalArgumentException("Page value must not be negative!"));
     }
 
     /**
@@ -232,6 +245,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     @Override
     public List<Series> getAllSeries(QueryParameters queryParameters) throws APIException {
         return extended().getAllSeries(queryParameters).getData();
+    }
+
+    @Override
+    public List<Series> getAllSeries(long page) throws APIException {
+        validatePage(page);
+        return getAllSeries(query(Map.of(Query.Series.PAGE, String.valueOf(page))));
     }
 
     @Override

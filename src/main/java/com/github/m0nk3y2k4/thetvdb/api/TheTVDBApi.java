@@ -383,6 +383,21 @@ public interface TheTVDBApi {
     List<Series> getAllSeries(QueryParameters queryParameters) throws APIException;
 
     /**
+     * Returns a limited list of series mapped as Java DTO. Due to the large amount of available series, the result will
+     * be paginated. Use the <em>{@code page}</em> parameter to browse to a specific result page. This is a
+     * shortcut-method for {@link #getAllSeries(QueryParameters) getAllSeries(queryParameters)} with a single "page"
+     * query parameter.
+     *
+     * @param page The result page to be returned (0 = 1st page, etc.)
+     *
+     * @return List of series mapped as Java DTO's based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     */
+    List<Series> getAllSeries(long page) throws APIException;
+
+    /**
      * Returns basic information for a specific series mapped as Java DTO.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/series/getSeriesBase">

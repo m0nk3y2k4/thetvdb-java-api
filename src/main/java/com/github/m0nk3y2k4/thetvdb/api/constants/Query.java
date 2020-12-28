@@ -33,7 +33,7 @@ public final class Query {
      */
     public static final class Series {
 
-        /** Query parameter "<i>page</i>" - Page of results to fetch. Defaults to page 1 if not provided */
+        /** Query parameter "<i>page</i>" - Page of results to fetch. Defaults to page 0 if not provided */
         public static final String PAGE = "page";
 
         private Series() {}     // Private constructor. Only constants in this class
