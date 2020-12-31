@@ -1,0 +1,14 @@
+{
+  "data": [
+    {
+      "id": 604,
+      "name": "Name1",
+      "hasSpecials": true
+    }, {
+      "id": 605,
+      "name": "Name2",
+      "hasSpecials": true
+    }
+  ],
+  "status": "success"
+}

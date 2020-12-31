@@ -39,6 +39,8 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategory;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategoryDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Company;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.CompanyType;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
@@ -53,6 +55,8 @@ import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ArtworkTypesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.AwardCategoriesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.CharactersAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.CompaniesAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.CompanyTypesAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.EntityTypesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.EpisodesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.GenresAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.LoginAPI;
@@ -231,6 +235,16 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public List<CompanyType> getAllCompanyTypes() throws APIException {
+        return extended().getAllCompanyTypes().getData();
+    }
+
+    @Override
+    public List<EntityType> getAllEntityTypes() throws APIException {
+        return extended().getAllEntityTypes().getData();
+    }
+
+    @Override
     public Episode getEpisode(long episodeId) throws APIException {
         return extended().getEpisode(episodeId).getData();
     }
@@ -339,6 +353,16 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public JsonNode getAllCompanyTypes() throws APIException {
+            return CompanyTypesAPI.getAllCompanyTypes(con);
+        }
+
+        @Override
+        public JsonNode getAllEntityTypes() throws APIException {
+            return EntityTypesAPI.getAllEntityTypes(con);
+        }
+
+        @Override
         public JsonNode getEpisode(long episodeId) throws APIException {
             return EpisodesAPI.getEpisodeBase(con, episodeId);
         }
@@ -429,6 +453,16 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public APIResponse<Company> getCompany(long companyId) throws APIException {
             return APIJsonMapper.readValue(json().getCompany(companyId), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<List<CompanyType>> getAllCompanyTypes() throws APIException {
+            return APIJsonMapper.readValue(json().getAllCompanyTypes(), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<List<EntityType>> getAllEntityTypes() throws APIException {
+            return APIJsonMapper.readValue(json().getAllEntityTypes(), new TypeReference<>() {});
         }
 
         @Override

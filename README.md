@@ -123,7 +123,7 @@ the upcoming APIv4.
     - [ ] [/companies/{id}/series]()
     - [ ] [/companies/{id}/seriesRollup]()
 - Company types
-    - [ ] [/company-types]()
+    - [x] [/company-types]()
 - Content ratings
     - [ ] [/content-ratings](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/content-ratings/getAllContentRatings)
 - Countries
@@ -132,7 +132,7 @@ the upcoming APIv4.
     - [ ] [/countries/{id}/movies]()
     - [ ] [/countries/{id}/networks]()
 - Entity types
-    - [ ] [/entity-types]()
+    - [x] [/entity-types]()
 - Episodes
     - [x] [/episodes/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/episodes/getEpisodeBase)
     - [ ] [/episodes/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/episodes/getEpisodeExtended)

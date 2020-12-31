@@ -45,6 +45,8 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategoryDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardNominee;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Company;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.CompanyType;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Franchise;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
@@ -69,6 +71,8 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AwardDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AwardNomineeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CharacterDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CompanyDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CompanyTypeDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EntityTypeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EpisodeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.FranchiseDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.GenreDTO;
@@ -128,9 +132,17 @@ public abstract class ResponseData<T> {
     public static final ResponseData<APIResponse<List<Company>>> COMPANY_LIST = new ResponseData<>(
             "company_list", companyList(), "List of company JSON response") {};
 
+    //********************* company-types *******************
+    public static final ResponseData<APIResponse<List<CompanyType>>> COMPANYTYPE_LIST = new ResponseData<>(
+            "companytype_list", companyTypeList(), "List of company types JSON response") {};
+
     //************************* DUMMY ***********************
     public static final ResponseData<APIResponse<Data>> DATA = new ResponseData<>(
             "data", data(), "Full JSON response with data and status node") {};
+
+    //********************* entity-types ********************
+    public static final ResponseData<APIResponse<List<EntityType>>> ENTITYTYPE_LIST = new ResponseData<>(
+            "entitytype_list", entityTypeList(), "List of entity types JSON response") {};
 
     //************************ episodes *********************
     public static final ResponseData<APIResponse<Episode>> EPISODE = new ResponseData<>(
@@ -249,8 +261,16 @@ public abstract class ResponseData<T> {
         return createAPIResponse(createTwo(companyModel()));
     }
 
+    private static APIResponse<List<CompanyType>> companyTypeList() {
+        return createAPIResponse(createTwo(companyTypeModel()));
+    }
+
     private static APIResponse<Data> data() {
         return createAPIResponse(Data.with("Some content"));
+    }
+
+    private static APIResponse<List<EntityType>> entityTypeList() {
+        return createAPIResponse(createTwo(entityTypeModel()));
     }
 
     private static APIResponse<Episode> episode(Shape shape) {
@@ -443,6 +463,15 @@ public abstract class ResponseData<T> {
             }
             return builder.build();
         };
+    }
+
+    private static BiFunction<Integer, Shape, CompanyType> companyTypeModel() {
+        return (Integer idx, Shape shape) -> new CompanyTypeDTO.Builder().id(7363L + idx).name("Name" + idx).build();
+    }
+
+    private static BiFunction<Integer, Shape, EntityType> entityTypeModel() {
+        return (Integer idx, Shape shape) -> new EntityTypeDTO.Builder().id(603L + idx).name("Name" + idx)
+                .hasSpecials(true).build();
     }
 
     private static BiFunction<Integer, Shape, Episode> episodeModel() {

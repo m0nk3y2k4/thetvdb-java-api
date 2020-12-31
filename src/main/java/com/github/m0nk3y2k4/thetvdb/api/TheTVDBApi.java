@@ -31,6 +31,8 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategory;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategoryDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Company;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.CompanyType;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
@@ -40,6 +42,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
 
 // ToDo: Revise JDoc once APIv4 implementation is finished
+// ToDo: company/entity-types endpoints currently not declared in API. Re-check with next documentation update.
 
 /**
  * Main interface of the <i>TheTVDB</i> API connector.
@@ -313,6 +316,38 @@ public interface TheTVDBApi {
      * @see Extended#getCompany(long) TheTVDBApi.Extended.getCompany(companyId)
      */
     Company getCompany(long companyId) throws APIException;
+
+    /**
+     * Returns a list of available company types mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/company-types/getAllCompanyTypes">
+     * <b>[GET]</b> /company-types</a>
+     *
+     * @return List of available company types mapped as Java DTO's based on the JSON data returned by the remote
+     *         service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see JSON#getAllCompanyTypes()
+     * @see Extended#getAllCompanyTypes()
+     */
+    List<CompanyType> getAllCompanyTypes() throws APIException;
+
+    /**
+     * Returns a list of available entity types mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/entity-types/getAllEntityTypes">
+     * <b>[GET]</b> /entity-types</a>
+     *
+     * @return List of available entity types mapped as Java DTO's based on the JSON data returned by the remote
+     *         service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see JSON#getAllEntityTypes()
+     * @see Extended#getAllEntityTypes()
+     */
+    List<EntityType> getAllEntityTypes() throws APIException;
 
     /**
      * Returns basic information for a specific episode mapped as Java DTO.
@@ -648,6 +683,36 @@ public interface TheTVDBApi {
         JsonNode getCompany(long companyId) throws APIException;
 
         /**
+         * Returns a list of available company types as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/company-types/getAllCompanyTypes">
+         * <b>[GET]</b> /company-types</a>
+         *
+         * @return JSON object containing a list of available company types
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see TheTVDBApi#getAllCompanyTypes() TheTVDBApi.getAllCompanyTypes()
+         * @see Extended#getAllCompanyTypes()
+         */
+        JsonNode getAllCompanyTypes() throws APIException;
+
+        /**
+         * Returns a list of available entity types as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/entity-types/getAllEntityTypes">
+         * <b>[GET]</b> /entity-types</a>
+         *
+         * @return JSON object containing a list of available entity types
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see TheTVDBApi#getAllEntityTypes() TheTVDBApi.getAllEntityTypes()
+         * @see Extended#getAllEntityTypes()
+         */
+        JsonNode getAllEntityTypes() throws APIException;
+
+        /**
          * Returns basic information for a specific episode as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/episodes/getEpisodeBase">
@@ -955,6 +1020,38 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getCompany(long) TheTVDBApi.getCompany(companyId)
          */
         APIResponse<Company> getCompany(long companyId) throws APIException;
+
+        /**
+         * Returns a response object containing a list of available company types mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/company-types/getAllCompanyTypes">
+         * <b>[GET]</b> /company-types</a>
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see JSON#getAllCompanyTypes()
+         * @see TheTVDBApi#getAllCompanyTypes() TheTVDBApi.getAllCompanyTypes()
+         */
+        APIResponse<List<CompanyType>> getAllCompanyTypes() throws APIException;
+
+        /**
+         * Returns a response object containing a list of available entity types mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/entity-types/getAllEntityTypes">
+         * <b>[GET]</b> /entity-types</a>
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see JSON#getAllEntityTypes()
+         * @see TheTVDBApi#getAllEntityTypes() TheTVDBApi.getAllEntityTypes()
+         */
+        APIResponse<List<EntityType>> getAllEntityTypes() throws APIException;
 
         /**
          * Returns a response object containing basic information for a specific episode mapped as Java DTO.
