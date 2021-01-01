@@ -14,26 +14,16 @@
  * limitations under the License.
  */
 
-package com.github.m0nk3y2k4.thetvdb.api;
+package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
-import static com.github.m0nk3y2k4.thetvdb.testutils.assertj.IntegrationTestAssertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import com.github.m0nk3y2k4.thetvdb.testutils.annotation.IntegrationTestSuite;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
-@IntegrationTestSuite("Episodes")
-class EpisodesIT {
+class EpisodeDetailsDTOTest {
 
     @Test
-    @Order(1)
-    void getEpisode(TheTVDBApi api) {
-        assertThat(() -> api.getEpisode(5840501)).as("/episodes/5840501").doesNotThrowAnyException();
-    }
-
-    @Test
-    @Order(2)
-    void getEpisodeDetails(TheTVDBApi api) {
-        assertThat(() -> api.getEpisodeDetails(6757076)).as("/episodes/6757076/extended").doesNotThrowAnyException();
+    void staticBuilderClass_newInstance_extendsDTOBuilder() {
+        assertThat(new EpisodeDetailsDTO.Builder()).isInstanceOf(EpisodeDetailsDTOBuilder.class);
     }
 }

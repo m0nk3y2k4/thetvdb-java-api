@@ -135,7 +135,7 @@ the upcoming APIv4.
     - [x] [/entity-types]()
 - Episodes
     - [x] [/episodes/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/episodes/getEpisodeBase)
-    - [ ] [/episodes/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/episodes/getEpisodeExtended)
+    - [x] [/episodes/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/episodes/getEpisodeExtended)
     - [ ] [/episodes/{id}/translations/{language}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/episodes/getEpisodeTranslation)
 - Genders
     - [ ] [/genders](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/genders/getAllGenders)

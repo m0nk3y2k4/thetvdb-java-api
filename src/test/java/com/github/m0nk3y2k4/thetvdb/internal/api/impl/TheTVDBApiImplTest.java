@@ -32,6 +32,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.COMPANYTYPE_LI
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.COMPANY_LIST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ENTITYTYPE_LIST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.EPISODE;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.EPISODE_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.GENRE;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.GENRE_LIST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.MOVIE;
@@ -119,6 +120,7 @@ class TheTVDBApiImplTest {
             client.when(request("/company-types", GET)).respond(jsonResponse(COMPANYTYPE_LIST));
             client.when(request("/entity-types", GET)).respond(jsonResponse(ENTITYTYPE_LIST));
             client.when(request("/episodes/141007", GET)).respond(jsonResponse(EPISODE));
+            client.when(request("/episodes/37017/extended", GET)).respond(jsonResponse(EPISODE_DETAILS));
             client.when(request("/genres", GET)).respond(jsonResponse(GENRE_LIST));
             client.when(request("/genres/47", GET)).respond(jsonResponse(GENRE));
             client.when(request("/movies/54394", GET)).respond(jsonResponse(MOVIE));
@@ -153,6 +155,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllCompanyTypes(), "getAllCompanyTypes()"), COMPANYTYPE_LIST),
                     of(route(() -> basicAPI.getAllEntityTypes(), "getAllEntityTypes()"), ENTITYTYPE_LIST),
                     of(route(() -> basicAPI.getEpisode(141007), "getEpisode()"), EPISODE),
+                    of(route(() -> basicAPI.getEpisodeDetails(37017), "getEpisodeDetails()"), EPISODE_DETAILS),
                     of(route(() -> basicAPI.getAllGenres(), "getAllGenres()"), GENRE_LIST),
                     of(route(() -> basicAPI.getGenre(47), "getGenre()"), GENRE),
                     of(route(() -> basicAPI.getMovie(54394), "getMovie()"), MOVIE),
@@ -229,6 +232,7 @@ class TheTVDBApiImplTest {
             client.when(request("/company-types", GET)).respond(jsonResponse(COMPANYTYPE_LIST));
             client.when(request("/entity-types", GET)).respond(jsonResponse(ENTITYTYPE_LIST));
             client.when(request("/episodes/640796", GET)).respond(jsonResponse(EPISODE));
+            client.when(request("/episodes/872404/extended", GET)).respond(jsonResponse(EPISODE_DETAILS));
             client.when(request("/genres", GET)).respond(jsonResponse(GENRE_LIST));
             client.when(request("/genres/21", GET)).respond(jsonResponse(GENRE));
             client.when(request("/movies/61714", GET)).respond(jsonResponse(MOVIE));
@@ -258,6 +262,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllCompanyTypes(), "getAllCompanyTypes()"), COMPANYTYPE_LIST),
                     of(route(() -> basicAPI.getAllEntityTypes(), "getAllEntityTypes()"), ENTITYTYPE_LIST),
                     of(route(() -> basicAPI.getEpisode(640796), "getEpisode()"), EPISODE),
+                    of(route(() -> basicAPI.getEpisodeDetails(872404), "getEpisodeDetails()"), EPISODE_DETAILS),
                     of(route(() -> basicAPI.getAllGenres(), "getAllGenres()"), GENRE_LIST),
                     of(route(() -> basicAPI.getGenre(21), "getGenre()"), GENRE),
                     of(route(() -> basicAPI.getMovie(61714), "getMovie()"), MOVIE),
@@ -316,6 +321,7 @@ class TheTVDBApiImplTest {
             client.when(request("/company-types", GET)).respond(jsonResponse(COMPANYTYPE_LIST));
             client.when(request("/entity-types", GET)).respond(jsonResponse(ENTITYTYPE_LIST));
             client.when(request("/episodes/30619", GET)).respond(jsonResponse(EPISODE));
+            client.when(request("/episodes/47149/extended", GET)).respond(jsonResponse(EPISODE_DETAILS));
             client.when(request("/genres", GET)).respond(jsonResponse(GENRE_LIST));
             client.when(request("/genres/35", GET)).respond(jsonResponse(GENRE));
             client.when(request("/movies/90034", GET)).respond(jsonResponse(MOVIE));
@@ -345,6 +351,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllCompanyTypes(), "getAllCompanyTypes()"), COMPANYTYPE_LIST),
                     of(route(() -> basicAPI.getAllEntityTypes(), "getAllEntityTypes()"), ENTITYTYPE_LIST),
                     of(route(() -> basicAPI.getEpisode(30619), "getEpisode()"), EPISODE),
+                    of(route(() -> basicAPI.getEpisodeDetails(47149), "getEpisodeDetails()"), EPISODE_DETAILS),
                     of(route(() -> basicAPI.getAllGenres(), "getAllGenres()"), GENRE_LIST),
                     of(route(() -> basicAPI.getGenre(35), "getGenre()"), GENRE),
                     of(route(() -> basicAPI.getMovie(90034), "getMovie()"), MOVIE),

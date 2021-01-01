@@ -1,0 +1,189 @@
+{
+  "data": {
+    "id": 647514,
+    "seriesId": 634044,
+    "name": "Name1",
+    "aired": "Aired1",
+    "runtime": 74,
+    "nameTranslations": [
+      "NameTranslation1", "NameTranslation2"
+    ],
+    "overviewTranslations": [
+      "OverviewTranslation1", "OverviewTranslation2"
+    ],
+    "image": "Image1",
+    "imageType": 574,
+    "isMovie": 1,
+    "seasons": [
+      {
+        "id": 47748,
+        "seriesId": 95874,
+        "type": 6954,
+        "name": "Name1",
+        "number": 6,
+        "nameTranslations": [
+          "NameTranslation1", "NameTranslation2"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation1", "OverviewTranslation2"
+        ],
+        "image": "Image1",
+        "imageType": 487,
+        "network": {
+          "id": 478,
+          "name": "Name1",
+          "slug": "Slug1",
+          "abbreviation": "Abbreviation1",
+          "country": "Country1"
+        }
+      }, {
+        "id": 47749,
+        "seriesId": 95875,
+        "type": 6955,
+        "name": "Name2",
+        "number": 7,
+        "nameTranslations": [
+          "NameTranslation3", "NameTranslation4"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation3", "OverviewTranslation4"
+        ],
+        "image": "Image2",
+        "imageType": 488,
+        "network": {
+          "id": 479,
+          "name": "Name2",
+          "slug": "Slug2",
+          "abbreviation": "Abbreviation2",
+          "country": "Country2"
+        }
+      }
+    ],
+    "number": 11,
+    "seasonNumber": 3,
+    "productionCode": "ProductionCode1",
+    "airsAfterSeason": 2,
+    "airsBeforeSeason": 4,
+    "airsBeforeEpisode": 12,
+    "network": {
+      "id": 478,
+      "name": "Name1",
+      "slug": "Slug1",
+      "abbreviation": "Abbreviation1",
+      "country": "Country1"
+    },
+    "awards": [
+      {
+        "id": 47,
+        "name": "Name1"
+      }, {
+        "id": 48,
+        "name": "Name2"
+      }
+    ],
+    "characters": [
+      {
+        "id": 36487,
+        "name": "Name1",
+        "peopleId": 569,
+        "seriesId": 45,
+        "movieId": 364,
+        "episodeId": 975,
+        "type": 12,
+        "image": "Image1",
+        "sort": 3,
+        "isFeatured": true,
+        "url": "Url1",
+        "nameTranslations": [
+          "NameTranslation1", "NameTranslation2"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation1", "OverviewTranslation2"
+        ],
+        "aliases": [
+          {
+            "language": "Language1",
+            "name": "Name1"
+          }, {
+            "language": "Language2",
+            "name": "Name2"
+          }
+        ]
+      }, {
+        "id": 36488,
+        "name": "Name2",
+        "peopleId": 570,
+        "seriesId": 46,
+        "movieId": 365,
+        "episodeId": 976,
+        "type": 13,
+        "image": "Image2",
+        "sort": 4,
+        "isFeatured": true,
+        "url": "Url2",
+        "nameTranslations": [
+          "NameTranslation3", "NameTranslation4"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation3", "OverviewTranslation4"
+        ],
+        "aliases": [
+          {
+            "language": "Language3",
+            "name": "Name3"
+          }, {
+            "language": "Language4",
+            "name": "Name4"
+          }
+        ]
+      }
+    ],
+    "contentRatings": [
+      {
+        "id": 247,
+        "name": "Name1"
+      }, {
+        "id": 248,
+        "name": "Name2"
+      }
+    ],
+    "remoteIds": [
+      {
+        "id": "Id1",
+        "type": 3070
+      }, {
+        "id": "Id2",
+        "type": 3071
+      }
+    ],
+    "tagOptions": [
+      {
+        "helpText": "HelpText1",
+        "id": 5797,
+        "name": "Name1",
+        "tag": 43,
+        "tagName": "TagName1"
+      }, {
+        "helpText": "HelpText2",
+        "id": 5798,
+        "name": "Name2",
+        "tag": 44,
+        "tagName": "TagName2"
+      }
+    ],
+    "trailers": [
+      {
+        "id": 6034,
+        "name": "Name1",
+        "language": "Language1",
+        "url": "Url1"
+      }, {
+        "id": 6035,
+        "name": "Name2",
+        "language": "Language2",
+        "url": "Url2"
+      }
+    ]
+  },
+  "status": "success"
+}

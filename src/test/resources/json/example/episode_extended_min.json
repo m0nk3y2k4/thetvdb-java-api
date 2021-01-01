@@ -1,0 +1,35 @@
+{
+  "data": {
+    "id": 647514,
+    "seriesId": 634044,
+    "name": null,
+    "aired": null,
+    "runtime": null,
+    "nameTranslations": null,
+    "overviewTranslations": [],
+    "image": null,
+    "imageType": null,
+    "isMovie": 1,
+    "seasons": null,
+    "number": null,
+    "seasonNumber": null,
+    "productionCode": null,
+    "airsAfterSeason": null,
+    "airsBeforeSeason": null,
+    "airsBeforeEpisode": null,
+    "network": {
+      "id": null,
+      "name": null,
+      "slug": null,
+      "abbreviation": null,
+      "country": null
+    },
+    "awards": [],
+    "characters": null,
+    "contentRatings": null,
+    "remoteIds": [],
+    "tagOptions": [],
+    "trailers": null
+  },
+  "status": "success"
+}

@@ -42,6 +42,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Company;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.CompanyType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.EpisodeDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
@@ -250,6 +251,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public EpisodeDetails getEpisodeDetails(long episodeId) throws APIException {
+        return extended().getEpisodeDetails(episodeId).getData();
+    }
+
+    @Override
     public List<Genre> getAllGenres() throws APIException {
         return extended().getAllGenres().getData();
     }
@@ -368,6 +374,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public JsonNode getEpisodeDetails(long episodeId) throws APIException {
+            return EpisodesAPI.getEpisodeExtended(con, episodeId);
+        }
+
+        @Override
         public JsonNode getAllGenres() throws APIException {
             return GenresAPI.getAllGenres(con);
         }
@@ -468,6 +479,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public APIResponse<Episode> getEpisode(long episodeId) throws APIException {
             return APIJsonMapper.readValue(json().getEpisode(episodeId), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<EpisodeDetails> getEpisodeDetails(long episodeId) throws APIException {
+            return APIJsonMapper.readValue(json().getEpisodeDetails(episodeId), new TypeReference<>() {});
         }
 
         @Override

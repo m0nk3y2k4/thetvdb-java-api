@@ -46,8 +46,10 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardNominee;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Company;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.CompanyType;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.ContentRating;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.EpisodeDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Franchise;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
@@ -59,6 +61,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesAirsDays;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Status;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.TagOption;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Trailer;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.APIResponseDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AliasDTO;
@@ -72,8 +75,10 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AwardNomineeDTO
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CharacterDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CompanyDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CompanyTypeDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ContentRatingDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EntityTypeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EpisodeDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EpisodeDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.FranchiseDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.GenreDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO;
@@ -85,11 +90,12 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesAirsDaysD
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.StatusDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TagOptionDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TrailerDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.util.json.deser.StaticTypeReference;
 import com.github.m0nk3y2k4.thetvdb.testutils.json.Data;
 
-@SuppressWarnings({"ClassWithTooManyFields", "unused", "OverlyLongLambda"})
+@SuppressWarnings({"ClassWithTooManyFields", "unused", "OverlyLongLambda", "OverlyComplexClass"})
 // Test class providing prefabbed test objects via reflection
 public abstract class ResponseData<T> {
 
@@ -149,6 +155,10 @@ public abstract class ResponseData<T> {
             "episode", episode(FULL), "Single episode JSON response") {};
     public static final ResponseData<APIResponse<Episode>> EPISODE_MIN = new ResponseData<>(
             "episode_min", episode(MIN), "Single episode JSON response with only mandatory fields") {};
+    public static final ResponseData<APIResponse<EpisodeDetails>> EPISODE_DETAILS = new ResponseData<>(
+            "episode_extended", episodeDetails(FULL), "Single extended episode JSON response") {};
+    public static final ResponseData<APIResponse<EpisodeDetails>> EPISODE_DETAILS_MIN = new ResponseData<>(
+            "episode_extended_min", episodeDetails(MIN), "Single extended episode JSON response with only mandatory fields") {};
 
     //************************* genres **********************
     public static final ResponseData<APIResponse<Genre>> GENRE = new ResponseData<>(
@@ -275,6 +285,10 @@ public abstract class ResponseData<T> {
 
     private static APIResponse<Episode> episode(Shape shape) {
         return createAPIResponse(create(episodeModel(), shape));
+    }
+
+    private static APIResponse<EpisodeDetails> episodeDetails(Shape shape) {
+        return createAPIResponse(create(episodeDetailsModel(), shape));
     }
 
     private static APIResponse<Genre> genre() {
@@ -469,6 +483,10 @@ public abstract class ResponseData<T> {
         return (Integer idx, Shape shape) -> new CompanyTypeDTO.Builder().id(7363L + idx).name("Name" + idx).build();
     }
 
+    private static BiFunction<Integer, Shape, ContentRating> contentRatingModel() {
+        return (Integer idx, Shape shape) -> new ContentRatingDTO.Builder().id(246L + idx).name("Name" + idx).build();
+    }
+
     private static BiFunction<Integer, Shape, EntityType> entityTypeModel() {
         return (Integer idx, Shape shape) -> new EntityTypeDTO.Builder().id(603L + idx).name("Name" + idx)
                 .hasSpecials(true).build();
@@ -485,6 +503,28 @@ public abstract class ResponseData<T> {
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .image("Image" + idx).imageType(4L + idx).seasons(createTwo(seasonModel(), listOffset))
                         .number(42L + idx).seasonNumber(8L + idx);
+            }
+            return builder.build();
+        };
+    }
+
+    private static BiFunction<Integer, Shape, EpisodeDetails> episodeDetailsModel() {
+        return (Integer idx, Shape shape) -> {
+            EpisodeDetailsDTO.Builder builder = new EpisodeDetailsDTO.Builder().id(647513L + idx)
+                    .seriesId(634043L + idx).isMovie(true).network(create(networkModel(), idx, shape));
+            if (shape == FULL) {
+                int listOffset = (idx << 1) - 1;
+                builder.name("Name" + idx).aired("Aired" + idx).runtime(73L + idx).image("Image" + idx)
+                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                        .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
+                        .imageType(573L + idx).seasons(createTwo(seasonModel(), listOffset)).number(10L + idx)
+                        .seasonNumber(2L + idx).productionCode("ProductionCode" + idx).airsAfterSeason(1 + idx)
+                        .airsBeforeSeason(3 + idx).airsBeforeEpisode(11 + idx)
+                        .awards(createTwo(awardModel(), listOffset)).characters(createTwo(characterModel(), listOffset))
+                        .contentRatings(createTwo(contentRatingModel(), listOffset))
+                        .remoteIds(createTwo(remoteIdModel(), listOffset))
+                        .tagOptions(createTwo(tagOptionModel(), listOffset))
+                        .trailers(createTwo(trailerModel(), listOffset));
             }
             return builder.build();
         };
@@ -559,13 +599,13 @@ public abstract class ResponseData<T> {
     private static BiFunction<Integer, Shape, Season> seasonModel() {
         return (Integer idx, Shape shape) -> {
             SeasonDTO.Builder builder = new SeasonDTO.Builder().seriesId(95873L + idx).type(6953L + idx)
-                    .number(5L + idx).network(new NetworkDTO.Builder().build());
+                    .number(5L + idx).network(create(networkModel(), idx, shape));
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
                 builder.id(47747L + idx).name("Name" + idx)
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .image("Image" + idx).imageType(486L + idx).network(create(networkModel(), idx));
+                        .image("Image" + idx).imageType(486L + idx);
             }
             return builder.build();
         };
@@ -623,6 +663,17 @@ public abstract class ResponseData<T> {
     private static BiFunction<Integer, Shape, Status> statusModel() {
         return (Integer idx, Shape shape) -> new StatusDTO.Builder().id(546L + idx).keepUpdated(TRUE).name("Name" + idx)
                 .recordType("RecordType" + idx).build();
+    }
+
+    private static BiFunction<Integer, Shape, TagOption> tagOptionModel() {
+        return (Integer idx, Shape shape) -> {
+            TagOptionDTO.Builder builder = new TagOptionDTO.Builder().id(5796L + idx).name("Name" + idx).tag(42L + idx)
+                    .tagName("TagName" + idx);
+            if (shape == FULL) {
+                builder.helpText("HelpText" + idx);
+            }
+            return builder.build();
+        };
     }
 
     private static BiFunction<Integer, Shape, Trailer> trailerModel() {
