@@ -6,12 +6,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- Util method `Parameters.isPositiveInteger` returning Predicate<String> used to check for positive numeric integers.
-- `Proxy` objects now support an additional path component.
 - New method `RemoteAPI.getDefault` which can be used to obtain an instance pointing to the actual _TheTVDB.com_ API.
 - Added maven dependency _com.fasterxml.jackson.datatype:jackson-datatype-jdk8_ for parsing Java8 Optionals from JSON.
 - Added maven dependency _org.mockito:mockito-junit-jupiter_ for Mockito JUnit 5 integration.
 - Util class for handling wildcards in remote API endpoint paths.
+
+### Changed
+- RemoteAPI builder no longer supports omitting properties (except for `path`).
+- The `APIConnection` constructor no longer accepts a `java.util.function.Supplier` for the RemoteAPI parameter.
+- Refactored class and package structure as well as method names of former `JsonDeserializer` class.
+- Changed method signature of `Resource.createResource` now accepting wildcard tokens in path parameter.
+- Changed method signature of `QueryResource.createQueryResource` now accepting wildcard tokens in path parameter.
+
+## [3.0.3] - 2021-01-01
+### Added
+- Util method `Parameters.isPositiveInteger` returning Predicate<String> used to check for positive numeric integers.
+- `Proxy` objects now support an additional path component.
 
 ### Changed
 - Method `APIUtil.prettyPrint(JsonNode)` now wraps lines with a fix Unix-style (LF) line separator.
@@ -28,11 +38,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Method `usingExtendedLayout` in TestTheTVDBAPICallAssert.java has been renamed to `isUsingExtendedLayout`.
 - Method `usingJsonLayout` in TestTheTVDBAPICallAssert.java has been renamed to `isUsingJsonLayout`.
 - Replace usage of anonymous classes in `QueryParametersImpl` to avoid the risk of memory leaks.
-- RemoteAPI builder no longer supports omitting properties (except for `path`).
-- The `APIConnection` constructor no longer accepts a `java.util.function.Supplier` for the RemoteAPI parameter.
-- Refactored class and package structure as well as method names of former `JsonDeserializer` class.
-- Changed method signature of `Resource.createResource` now accepting wildcard tokens in path parameter.
-- Changed method signature of `QueryResource.createQueryResource` now accepting wildcard tokens in path parameter.
+- Changed names of system properties used for running integration tests.
+- Updated multiple maven dependencies to latest version:
+  - _org.mockito:mockito-core_: `3.6.0` -> `3.6.28`
+  - _com.fasterxml:jackson.core_: `2.11.3` -> `2.12.0`
 
 ### Removed
 - Method `MockServerUtil.defaultAPIHttpHeaders(boolean)` has been replaced by two more convenient ones.
@@ -240,7 +249,8 @@ First stable release which is fully compatible with _TheTVDB.com_ RESTful remote
 ### Added
 - First basic implementation draft of TheTVDB.com RESTful API Java connector.
 
-[Unreleased]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/3.0.2...HEAD
+[Unreleased]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/3.0.3...HEAD
+[3.0.3]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/3.0.2...3.0.3
 [3.0.2]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/3.0.1...3.0.2
 [3.0.1]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/tvdb-japi-3.0.0...3.0.1
 [3.0.0]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/tvdb-japi-0.0.8...tvdb-japi-3.0.0
