@@ -25,6 +25,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Method `usingJsonLayout` in TestTheTVDBAPICallAssert.java has been renamed to `isUsingJsonLayout`.
 - Replace usage of anonymous classes in `QueryParametersImpl` to avoid the risk of memory leaks.
 - Changed names of system properties used for running integration tests.
+- Updated multiple maven dependencies to latest version:
+  - _org.mockito:mockito-core_: `3.6.0` -> `3.6.28`
+  - _com.fasterxml:jackson.core_: `2.11.3` -> `2.12.0`
 
 ### Removed
 - Method `MockServerUtil.defaultAPIHttpHeaders(boolean)` has been replaced by two more convenient ones.
