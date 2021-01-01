@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.0.3] - 2021-01-01
 ### Added
 - Util method `Parameters.isPositiveInteger` returning Predicate<String> used to check for positive numeric integers.
 - `Proxy` objects now support an additional path component.
@@ -235,7 +237,8 @@ First stable release which is fully compatible with _TheTVDB.com_ RESTful remote
 ### Added
 - First basic implementation draft of TheTVDB.com RESTful API Java connector.
 
-[Unreleased]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/3.0.2...HEAD
+[Unreleased]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/3.0.3...HEAD
+[3.0.3]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/3.0.2...3.0.3
 [3.0.2]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/3.0.1...3.0.2
 [3.0.1]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/tvdb-japi-3.0.0...3.0.1
 [3.0.0]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/tvdb-japi-0.0.8...tvdb-japi-3.0.0
