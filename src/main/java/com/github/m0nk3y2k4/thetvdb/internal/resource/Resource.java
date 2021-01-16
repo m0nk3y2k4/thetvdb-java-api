@@ -38,15 +38,19 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
  */
 public abstract class Resource {
 
+    /** Identifiers for common dynamic URL path parameters */
+    protected static final String PATH_ID = "id";
+    protected static final String PATH_LANGUAGE = "language";
+    /** Pattern used to validate the conformity of path Strings */
+    private static final Pattern API_PATH = Pattern.compile("/([A-Za-z0-9{}\\-_]+/)*([A-Za-z0-9{}\\-_]+)");
+    /** Pattern used to validate the conformity of 'language' path parameter value */
+    private static final Pattern LANGUAGE = Pattern.compile("[a-zA-Z]{2,3}");
+
     /** Validator for the common dynamic <em>{@code id}</em> URL path parameter */
     @SuppressWarnings("java:S4276")    // Validators must be of type Predicate<T> to comply with the general validation
     protected static final Predicate<Long> ID_VALIDATOR = value -> value > 0;
-
-    /** Identifiers for common dynamic URL path parameters */
-    protected static final String PATH_ID = "id";
-
-    /** Pattern used to validate the conformity of path Strings */
-    private static final Pattern API_PATH = Pattern.compile("/([A-Za-z0-9{}\\-_]+/)*([A-Za-z0-9{}\\-_]+)");
+    /** Validator for the common dynamic <em>{@code language}</em> URL path parameter */
+    protected static final Predicate<String> LANGUAGE_VALIDATOR = language -> LANGUAGE.matcher(language).matches();
 
     protected Resource() {}
 

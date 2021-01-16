@@ -1,0 +1,13 @@
+{
+  "data": {
+    "name": "Name1",
+    "isAlias": true,
+    "overview": "Overview1",
+    "language": "Language1",
+    "isPrimary": true,
+    "aliases": [
+      "Alias1", "Alias2"
+    ]
+  },
+  "status": "success"
+}

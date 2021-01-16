@@ -36,4 +36,11 @@ class EpisodesIT {
     void getEpisodeDetails(TheTVDBApi api) {
         assertThat(() -> api.getEpisodeDetails(6757076)).as("/episodes/6757076/extended").doesNotThrowAnyException();
     }
+
+    @Test
+    @Order(3)
+    void getEpisodeTranslation(TheTVDBApi api) {
+        assertThat(() -> api.getEpisodeTranslation(7578995, "spa")).as("/episodes/7578995/translations/spa")
+                .doesNotThrowAnyException();
+    }
 }

@@ -43,4 +43,11 @@ class SeriesIT {
     void getSeriesDetails(TheTVDBApi api) {
         assertThat(() -> api.getSeriesDetails(292157)).as("/series/292157/extended").doesNotThrowAnyException();
     }
+
+    @Test
+    @Order(4)
+    void getSeriesTranslation(TheTVDBApi api) {
+        assertThat(() -> api.getSeriesTranslation(361753, "nld")).as("/series/361753/translations/nld")
+                .doesNotThrowAnyException();
+    }
 }

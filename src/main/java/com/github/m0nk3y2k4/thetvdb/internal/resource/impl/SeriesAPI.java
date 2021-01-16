@@ -92,4 +92,26 @@ public final class SeriesAPI extends QueryResource {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
         return con.sendGET(createResource("/series/{id}/extended", id));
     }
+
+    /**
+     * Returns a translation record for a specific series as raw JSON.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/series/getSeriesTranslation">
+     * <b>[GET]</b> /series/{id}/translations/{language}</a>
+     *
+     * @param con      Initialized connection to be used for API communication
+     * @param id       The <i>TheTVDB.com</i> series ID
+     * @param language The 2- or 3-character language code
+     *
+     * @return JSON object containing a translation record for a specific series
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given
+     *                      series ID does not exist, no translation exists for the given language, etc.
+     */
+    public static JsonNode getSeriesTranslation(@Nonnull APIConnection con, long id, @Nonnull String language)
+            throws APIException {
+        Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
+        Parameters.validatePathParam(PATH_LANGUAGE, language, LANGUAGE_VALIDATOR);
+        return con.sendGET(createResource("/series/{id}/translations/{language}", id, language));
+    }
 }

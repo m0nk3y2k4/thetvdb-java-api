@@ -28,8 +28,15 @@ class MoviesIT {
 
     @Disabled("Movies endpoint is currently broken on TheTVDB.com side, constantly returning HTTP-404")
     @Test
-    @Order(1)
+    @Order(2)
     void getMovie(TheTVDBApi api) {
         assertThat(() -> api.getMovie(78743)).as("/movies/78743").doesNotThrowAnyException();
+    }
+
+    @Test
+    @Order(4)
+    void getMovieTranslation(TheTVDBApi api) {
+        assertThat(() -> api.getMovieTranslation(733, "ita")).as("/movies/67143/translations/ita")
+                .doesNotThrowAnyException();
     }
 }

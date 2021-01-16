@@ -63,6 +63,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Status;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.TagOption;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Trailer;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Translation;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.APIResponseDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AliasDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ArtworkDTO;
@@ -92,6 +93,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesDetailsDT
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.StatusDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TagOptionDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TrailerDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TranslationDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.util.json.deser.StaticTypeReference;
 import com.github.m0nk3y2k4.thetvdb.testutils.json.Data;
 
@@ -195,6 +197,12 @@ public abstract class ResponseData<T> {
             "series_extended_min", seriesDetails(MIN), "Single extended series JSON response with only mandatory fields") {};
     public static final ResponseData<APIResponse<List<Series>>> SERIES_LIST = new ResponseData<>(
             "series_list", seriesList(), "List of series JSON response") {};
+
+    //********************** translations *******************
+    public static final ResponseData<APIResponse<Translation>> TRANSLATION = new ResponseData<>(
+            "translation", translation(FULL), "Single translated entity JSON response") {};
+    public static final ResponseData<APIResponse<Translation>> TRANSLATION_MIN = new ResponseData<>(
+            "translation_min", translation(MIN), "Single translated entity JSON response with only mandatory fields") {};
     //@EnableFormatting
 
     /**
@@ -321,6 +329,10 @@ public abstract class ResponseData<T> {
 
     private static APIResponse<List<Series>> seriesList() {
         return createAPIResponse(createTwo(seriesModel()));
+    }
+
+    private static APIResponse<Translation> translation(Shape shape) {
+        return createAPIResponse(create(translationModel(), shape));
     }
 
     private static <T> APIResponse<T> createAPIResponse(T data) {
@@ -681,6 +693,18 @@ public abstract class ResponseData<T> {
             TrailerDTO.Builder builder = new TrailerDTO.Builder().id(6033L + idx);
             if (shape == FULL) {
                 builder.name("Name" + idx).language("Language" + idx).url("Url" + idx);
+            }
+            return builder.build();
+        };
+    }
+
+    private static BiFunction<Integer, Shape, Translation> translationModel() {
+        return (Integer idx, Shape shape) -> {
+            TranslationDTO.Builder builder = new TranslationDTO.Builder().language("Language" + idx).isPrimary(true);
+            if (shape == FULL) {
+                int listOffset = (idx << 1) - 1;
+                builder.name("Name" + idx).isAlias(true).overview("Overview" + idx)
+                        .addAliases("Alias" + listOffset, "Alias" + (listOffset + 1));
             }
             return builder.build();
         };

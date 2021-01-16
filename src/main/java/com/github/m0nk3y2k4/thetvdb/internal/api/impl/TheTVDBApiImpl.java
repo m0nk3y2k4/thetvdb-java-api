@@ -49,6 +49,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Season;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Translation;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ArtworkAPI;
@@ -256,6 +257,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public Translation getEpisodeTranslation(long episodeId, @Nonnull String language) throws APIException {
+        return extended().getEpisodeTranslation(episodeId, language).getData();
+    }
+
+    @Override
     public List<Genre> getAllGenres() throws APIException {
         return extended().getAllGenres().getData();
     }
@@ -271,6 +277,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public Translation getMovieTranslation(long movieId, @Nonnull String language) throws APIException {
+        return extended().getMovieTranslation(movieId, language).getData();
+    }
+
+    @Override
     public People getPeople(long peopleId) throws APIException {
         return extended().getPeople(peopleId).getData();
     }
@@ -278,6 +289,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     @Override
     public Season getSeason(long seasonId) throws APIException {
         return extended().getSeason(seasonId).getData();
+    }
+
+    @Override
+    public Translation getSeasonTranslation(long seasonId, @Nonnull String language) throws APIException {
+        return extended().getSeasonTranslation(seasonId, language).getData();
     }
 
     @Override
@@ -299,6 +315,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     @Override
     public SeriesDetails getSeriesDetails(long seriesId) throws APIException {
         return extended().getSeriesDetails(seriesId).getData();
+    }
+
+    @Override
+    public Translation getSeriesTranslation(long seriesId, @Nonnull String language) throws APIException {
+        return extended().getSeriesTranslation(seriesId, language).getData();
     }
 
     @Override
@@ -379,6 +400,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public JsonNode getEpisodeTranslation(long episodeId, @Nonnull String language) throws APIException {
+            return EpisodesAPI.getEpisodeTranslation(con, episodeId, language);
+        }
+
+        @Override
         public JsonNode getAllGenres() throws APIException {
             return GenresAPI.getAllGenres(con);
         }
@@ -394,6 +420,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public JsonNode getMovieTranslation(long movieId, @Nonnull String language) throws APIException {
+            return MoviesAPI.getMovieTranslation(con, movieId, language);
+        }
+
+        @Override
         public JsonNode getPeople(long peopleId) throws APIException {
             return PeopleAPI.getPeopleBase(con, peopleId);
         }
@@ -401,6 +432,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public JsonNode getSeason(long seasonId) throws APIException {
             return SeasonsAPI.getSeasonBase(con, seasonId);
+        }
+
+        @Override
+        public JsonNode getSeasonTranslation(long seasonId, @Nonnull String language) throws APIException {
+            return SeasonsAPI.getSeasonTranslation(con, seasonId, language);
         }
 
         @Override
@@ -416,6 +452,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public JsonNode getSeriesDetails(long seriesId) throws APIException {
             return SeriesAPI.getSeriesExtended(con, seriesId);
+        }
+
+        @Override
+        public JsonNode getSeriesTranslation(long seriesId, @Nonnull String language) throws APIException {
+            return SeriesAPI.getSeriesTranslation(con, seriesId, language);
         }
     }
 
@@ -487,6 +528,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public APIResponse<Translation> getEpisodeTranslation(long episodeId, @Nonnull String language)
+                throws APIException {
+            return APIJsonMapper.readValue(json().getEpisodeTranslation(episodeId, language), new TypeReference<>() {});
+        }
+
+        @Override
         public APIResponse<List<Genre>> getAllGenres() throws APIException {
             return APIJsonMapper.readValue(json().getAllGenres(), new TypeReference<>() {});
         }
@@ -502,6 +549,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public APIResponse<Translation> getMovieTranslation(long movieId, @Nonnull String language)
+                throws APIException {
+            return APIJsonMapper.readValue(json().getMovieTranslation(movieId, language), new TypeReference<>() {});
+        }
+
+        @Override
         public APIResponse<People> getPeople(long peopleId) throws APIException {
             return APIJsonMapper.readValue(json().getPeople(peopleId), new TypeReference<>() {});
         }
@@ -509,6 +562,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public APIResponse<Season> getSeason(long seasonId) throws APIException {
             return APIJsonMapper.readValue(json().getSeason(seasonId), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<Translation> getSeasonTranslation(long seasonId, @Nonnull String language)
+                throws APIException {
+            return APIJsonMapper.readValue(json().getSeasonTranslation(seasonId, language), new TypeReference<>() {});
         }
 
         @Override
@@ -524,6 +583,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public APIResponse<SeriesDetails> getSeriesDetails(long seriesId) throws APIException {
             return APIJsonMapper.readValue(json().getSeriesDetails(seriesId), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<Translation> getSeriesTranslation(long seriesId, @Nonnull String language)
+                throws APIException {
+            return APIJsonMapper.readValue(json().getSeriesTranslation(seriesId, language), new TypeReference<>() {});
         }
     }
 }

@@ -17,11 +17,13 @@
 package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.MoviesAPI.getMovieBase;
+import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.MoviesAPI.getMovieTranslation;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.MOVIE;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.TRANSLATION;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -47,18 +49,24 @@ class MoviesAPITest {
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
         client.when(request("/movies/648730", GET)).respond(jsonResponse(MOVIE));
+        client.when(request("/movies/57017/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
     }
 
     private static Stream<Arguments> withInvalidParameters() {
         return Stream.of(
                 of(route(con -> getMovieBase(con, 0), "getMovieBase() with ZERO movie ID")),
-                of(route(con -> getMovieBase(con, -4), "getMovieBase() with negative movie ID"))
+                of(route(con -> getMovieBase(con, -4), "getMovieBase() with negative movie ID")),
+                of(route(con -> getMovieTranslation(con, 0, "eng"), "getMovieTranslation() with ZERO movie ID")),
+                of(route(con -> getMovieTranslation(con, -1, "deu"), "getMovieTranslation() with negative movie ID")),
+                of(route(con -> getMovieTranslation(con, 5841, "e"), "getMovieTranslation() with invalid language code (1)")),
+                of(route(con -> getMovieTranslation(con, 147, "span"), "getMovieTranslation() with invalid language code (2)"))
         );
     }
 
     private static Stream<Arguments> withValidParameters() {
         return Stream.of(
-                of(route(con -> getMovieBase(con, 648730), "getMovieBase()"), MOVIE)
+                of(route(con -> getMovieBase(con, 648730), "getMovieBase()"), MOVIE),
+                of(route(con -> getMovieTranslation(con, 57017, "eng"), "getMovieTranslation()"), TRANSLATION)
         );
     }
     //@EnableFormatting

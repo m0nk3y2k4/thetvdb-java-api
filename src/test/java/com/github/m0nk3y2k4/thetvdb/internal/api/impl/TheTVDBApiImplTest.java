@@ -41,6 +41,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASON;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.TRANSLATION;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestTheTVDBAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
@@ -121,16 +122,20 @@ class TheTVDBApiImplTest {
             client.when(request("/entity-types", GET)).respond(jsonResponse(ENTITYTYPE_LIST));
             client.when(request("/episodes/141007", GET)).respond(jsonResponse(EPISODE));
             client.when(request("/episodes/37017/extended", GET)).respond(jsonResponse(EPISODE_DETAILS));
+            client.when(request("/episodes/35744/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/genres", GET)).respond(jsonResponse(GENRE_LIST));
             client.when(request("/genres/47", GET)).respond(jsonResponse(GENRE));
             client.when(request("/movies/54394", GET)).respond(jsonResponse(MOVIE));
+            client.when(request("/movies/69745/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/people/431071", GET)).respond(jsonResponse(PEOPLE));
             client.when(request("/seasons/34167", GET)).respond(jsonResponse(SEASON));
+            client.when(request("/seasons/27478/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/series", GET)).respond(jsonResponse(SERIES_LIST));
             client.when(request("/series", GET, param("value", "QuerySeries"))).respond(jsonResponse(SERIES_LIST));
             client.when(request("/series", GET, param(Series.PAGE, "2"))).respond(jsonResponse(SERIES_LIST));
             client.when(request("/series/2845", GET)).respond(jsonResponse(SERIES));
             client.when(request("/series/9041/extended", GET)).respond(jsonResponse(SERIES_DETAILS));
+            client.when(request("/series/6004/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
         }
 
         private Stream<Arguments> withInvalidParameters() {
@@ -156,16 +161,20 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllEntityTypes(), "getAllEntityTypes()"), ENTITYTYPE_LIST),
                     of(route(() -> basicAPI.getEpisode(141007), "getEpisode()"), EPISODE),
                     of(route(() -> basicAPI.getEpisodeDetails(37017), "getEpisodeDetails()"), EPISODE_DETAILS),
+                    of(route(() -> basicAPI.getEpisodeTranslation(35744, "eng"), "getEpisodeTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getAllGenres(), "getAllGenres()"), GENRE_LIST),
                     of(route(() -> basicAPI.getGenre(47), "getGenre()"), GENRE),
                     of(route(() -> basicAPI.getMovie(54394), "getMovie()"), MOVIE),
+                    of(route(() -> basicAPI.getMovieTranslation(69745, "eng"), "getMovieTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getPeople(431071), "getPeople()"), PEOPLE),
                     of(route(() -> basicAPI.getSeason(34167), "getSeason()"), SEASON),
+                    of(route(() -> basicAPI.getSeasonTranslation(27478, "eng"), "getSeasonTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getAllSeries(null), "getAllSeries() without query parameters"), SERIES_LIST),
                     of(route(() -> basicAPI.getAllSeries(params("value", "QuerySeries")), "getAllSeries() with query parameters"), SERIES_LIST),
                     of(route(() -> basicAPI.getAllSeries(2), "getAllSeries() with page"), SERIES_LIST),
                     of(route(() -> basicAPI.getSeries(2845), "getSeries()"), SERIES),
-                    of(route(() -> basicAPI.getSeriesDetails(9041), "getSeriesDetails()"), SERIES_DETAILS)
+                    of(route(() -> basicAPI.getSeriesDetails(9041), "getSeriesDetails()"), SERIES_DETAILS),
+                    of(route(() -> basicAPI.getSeriesTranslation(6004, "eng"), "getSeriesTranslation()"), TRANSLATION)
             );
         }
         //@EnableFormatting
@@ -174,7 +183,7 @@ class TheTVDBApiImplTest {
         @MethodSource("withInvalidParameters")
         <T> void invokeRoute_withInvalidParametersOrState_verifyParameterValidationAndPreconditionChecks(
                 TestTheTVDBAPICall<T> route) {
-            assertThat(catchThrowable(route::invoke)).isNotNull()
+            assertThat(catchThrowable(route::invoke))
                     .isInstanceOfAny(IllegalArgumentException.class, APIPreconditionException.class);
         }
 
@@ -190,7 +199,7 @@ class TheTVDBApiImplTest {
             final String token = "D78W4F5W.8F7WG4F.A69J7E";
             TheTVDBApi api = new TheTVDBApiImpl(CONTRACT_APIKEY, remoteAPI);
             api.init(token);
-            assertThat(api.getToken()).isNotEmpty().contains(token);
+            assertThat(api.getToken()).contains(token);
         }
 
         @Test
@@ -233,15 +242,19 @@ class TheTVDBApiImplTest {
             client.when(request("/entity-types", GET)).respond(jsonResponse(ENTITYTYPE_LIST));
             client.when(request("/episodes/640796", GET)).respond(jsonResponse(EPISODE));
             client.when(request("/episodes/872404/extended", GET)).respond(jsonResponse(EPISODE_DETAILS));
+            client.when(request("/episodes/379461/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/genres", GET)).respond(jsonResponse(GENRE_LIST));
             client.when(request("/genres/21", GET)).respond(jsonResponse(GENRE));
             client.when(request("/movies/61714", GET)).respond(jsonResponse(MOVIE));
+            client.when(request("/movies/74810/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/people/3647", GET)).respond(jsonResponse(PEOPLE));
             client.when(request("/seasons/18322", GET)).respond(jsonResponse(SEASON));
+            client.when(request("/seasons/67446/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/series", GET)).respond(jsonResponse(SERIES_LIST));
             client.when(request("/series", GET, param("value", "QuerySeriesJson"))).respond(jsonResponse(SERIES_LIST));
             client.when(request("/series/5003", GET)).respond(jsonResponse(SERIES));
             client.when(request("/series/5842/extended", GET)).respond(jsonResponse(SERIES_DETAILS));
+            client.when(request("/series/8024/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
         }
 
         private Stream<Arguments> withInvalidParameters() {
@@ -263,15 +276,19 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllEntityTypes(), "getAllEntityTypes()"), ENTITYTYPE_LIST),
                     of(route(() -> basicAPI.getEpisode(640796), "getEpisode()"), EPISODE),
                     of(route(() -> basicAPI.getEpisodeDetails(872404), "getEpisodeDetails()"), EPISODE_DETAILS),
+                    of(route(() -> basicAPI.getEpisodeTranslation(379461, "eng"), "getEpisodeTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getAllGenres(), "getAllGenres()"), GENRE_LIST),
                     of(route(() -> basicAPI.getGenre(21), "getGenre()"), GENRE),
                     of(route(() -> basicAPI.getMovie(61714), "getMovie()"), MOVIE),
+                    of(route(() -> basicAPI.getMovieTranslation(74810, "eng"), "getMovieTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getPeople(3647), "getPeople()"), PEOPLE),
                     of(route(() -> basicAPI.getSeason(18322), "getSeason()"), SEASON),
+                    of(route(() -> basicAPI.getSeasonTranslation(67446, "eng"), "getSeasonTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getAllSeries(null), "getAllSeries() without query parameters"), SERIES_LIST),
                     of(route(() -> basicAPI.getAllSeries(params("value", "QuerySeriesJson")), "getAllSeries() with query parameters"), SERIES_LIST),
                     of(route(() -> basicAPI.getSeries(5003), "getSeries()"), SERIES),
-                    of(route(() -> basicAPI.getSeriesDetails(5842), "getSeriesDetails()"), SERIES_DETAILS)
+                    of(route(() -> basicAPI.getSeriesDetails(5842), "getSeriesDetails()"), SERIES_DETAILS),
+                    of(route(() -> basicAPI.getSeriesTranslation(8024, "eng"), "getSeriesTranslation()"), TRANSLATION)
             );
         }
         //@EnableFormatting
@@ -281,7 +298,7 @@ class TheTVDBApiImplTest {
         @MethodSource("withInvalidParameters")
         <T> void invokeRoute_withInvalidParametersOrState_verifyParameterValidationAndPreconditionChecks(
                 TestTheTVDBAPICall<T> route) {
-            assertThat(catchThrowable(route::invoke)).isNotNull()
+            assertThat(catchThrowable(route::invoke))
                     .isInstanceOfAny(IllegalArgumentException.class, APIPreconditionException.class);
         }
 
@@ -322,15 +339,19 @@ class TheTVDBApiImplTest {
             client.when(request("/entity-types", GET)).respond(jsonResponse(ENTITYTYPE_LIST));
             client.when(request("/episodes/30619", GET)).respond(jsonResponse(EPISODE));
             client.when(request("/episodes/47149/extended", GET)).respond(jsonResponse(EPISODE_DETAILS));
+            client.when(request("/episodes/34771/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/genres", GET)).respond(jsonResponse(GENRE_LIST));
             client.when(request("/genres/35", GET)).respond(jsonResponse(GENRE));
             client.when(request("/movies/90034", GET)).respond(jsonResponse(MOVIE));
+            client.when(request("/movies/46011/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/people/9891", GET)).respond(jsonResponse(PEOPLE));
             client.when(request("/seasons/52270", GET)).respond(jsonResponse(SEASON));
+            client.when(request("/seasons/64714/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/series", GET)).respond(jsonResponse(SERIES_LIST));
             client.when(request("/series", GET, param("value", "QuerySeriesExtended"))).respond(jsonResponse(SERIES_LIST));
             client.when(request("/series/8131", GET)).respond(jsonResponse(SERIES));
             client.when(request("/series/5444/extended", GET)).respond(jsonResponse(SERIES_DETAILS));
+            client.when(request("/series/6170/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
         }
 
         private Stream<Arguments> withInvalidParameters() {
@@ -352,15 +373,19 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllEntityTypes(), "getAllEntityTypes()"), ENTITYTYPE_LIST),
                     of(route(() -> basicAPI.getEpisode(30619), "getEpisode()"), EPISODE),
                     of(route(() -> basicAPI.getEpisodeDetails(47149), "getEpisodeDetails()"), EPISODE_DETAILS),
+                    of(route(() -> basicAPI.getEpisodeTranslation(34771, "eng"), "getEpisodeTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getAllGenres(), "getAllGenres()"), GENRE_LIST),
                     of(route(() -> basicAPI.getGenre(35), "getGenre()"), GENRE),
                     of(route(() -> basicAPI.getMovie(90034), "getMovie()"), MOVIE),
+                    of(route(() -> basicAPI.getMovieTranslation(46011, "eng"), "getMovieTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getPeople(9891), "getPeople()"), PEOPLE),
                     of(route(() -> basicAPI.getSeason(52270), "getSeason()"), SEASON),
+                    of(route(() -> basicAPI.getSeasonTranslation(64714, "eng"), "getSeasonTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getAllSeries(null), "getAllSeries() without query parameters"), SERIES_LIST),
                     of(route(() -> basicAPI.getAllSeries(params("value", "QuerySeriesExtended")), "getAllSeries() with query parameters"), SERIES_LIST),
                     of(route(() -> basicAPI.getSeries(8131), "getSeries()"), SERIES),
-                    of(route(() -> basicAPI.getSeriesDetails(5444), "getSeriesDetails()"), SERIES_DETAILS)
+                    of(route(() -> basicAPI.getSeriesDetails(5444), "getSeriesDetails()"), SERIES_DETAILS),
+                    of(route(() -> basicAPI.getSeriesTranslation(6170, "eng"), "getSeriesTranslation()"), TRANSLATION)
             );
         }
         //@EnableFormatting
@@ -370,7 +395,7 @@ class TheTVDBApiImplTest {
         @MethodSource("withInvalidParameters")
         <T> void invokeRoute_withInvalidParametersOrState_verifyParameterValidationAndPreconditionChecks(
                 TestTheTVDBAPICall<T> route) {
-            assertThat(catchThrowable(route::invoke)).isNotNull()
+            assertThat(catchThrowable(route::invoke))
                     .isInstanceOfAny(IllegalArgumentException.class, APIPreconditionException.class);
         }
 

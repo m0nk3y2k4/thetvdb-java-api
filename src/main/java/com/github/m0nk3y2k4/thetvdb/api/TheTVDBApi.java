@@ -41,6 +41,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Season;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Translation;
 
 // ToDo: Revise JDoc once APIv4 implementation is finished
 // ToDo: company/entity-types endpoints currently not declared in API. Re-check with next documentation update.
@@ -371,7 +372,7 @@ public interface TheTVDBApi {
      * Returns detailed information for a specific episode mapped as Java DTO.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/episodes/getEpisodeExtended">
-     * <b>[GET]</b> /episode/{id}/extended</a>
+     * <b>[GET]</b> /episodes/{id}/extended</a>
      *
      * @param episodeId The <i>TheTVDB.com</i> episode ID
      *
@@ -383,6 +384,26 @@ public interface TheTVDBApi {
      * @see Extended#getEpisodeDetails(long) TheTVDBApi.Extended.getEpisodeDetails(episodeId)
      */
     EpisodeDetails getEpisodeDetails(long episodeId) throws APIException;
+
+    /**
+     * Returns a translation record for a specific episode mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/episodes/getEpisodeTranslation">
+     * <b>[GET]</b> /episodes/{id}/translations/{language}</a>
+     *
+     * @param episodeId The <i>TheTVDB.com</i> episode ID
+     * @param language  The 2- or 3-character language code
+     *
+     * @return Episode translation record mapped as Java DTO based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if the given episode ID does not exist or there is no translation for the
+     *                      requested language.
+     * @see JSON#getEpisodeTranslation(long, String) TheTVDBApi.JSON.getEpisodeTranslation(episodeId, language)
+     * @see Extended#getEpisodeTranslation(long, String) TheTVDBApi.Extended.getEpisodeTranslation(episodeId,
+     *         language)
+     */
+    Translation getEpisodeTranslation(long episodeId, @Nonnull String language) throws APIException;
 
     /**
      * Returns a list of available genres mapped as Java DTO.
@@ -434,6 +455,25 @@ public interface TheTVDBApi {
     Movie getMovie(long movieId) throws APIException;
 
     /**
+     * Returns a translation record for a specific movie mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/movies/getMovieTranslation">
+     * <b>[GET]</b> /movies/{id}/translations/{language}</a>
+     *
+     * @param movieId  The <i>TheTVDB.com</i> movie ID
+     * @param language The 2- or 3-character language code
+     *
+     * @return Movie translation record mapped as Java DTO based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if the given movie ID does not exist or there is no translation for the
+     *                      requested language.
+     * @see JSON#getMovieTranslation(long, String) TheTVDBApi.JSON.getMovieTranslation(movieId, language)
+     * @see Extended#getMovieTranslation(long, String) TheTVDBApi.Extended.getMovieTranslation(movieId, language)
+     */
+    Translation getMovieTranslation(long movieId, @Nonnull String language) throws APIException;
+
+    /**
      * Returns basic information for a specific people mapped as Java DTO.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/people/getPeopleBase">
@@ -466,6 +506,25 @@ public interface TheTVDBApi {
      * @see Extended#getSeason(long) TheTVDBApi.Extended.getSeason(seasonId)
      */
     Season getSeason(long seasonId) throws APIException;
+
+    /**
+     * Returns a translation record for a specific season mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/seasons/getSeasonTranslation">
+     * <b>[GET]</b> /seasons/{id}/translations/{language}</a>
+     *
+     * @param seasonId The <i>TheTVDB.com</i> season ID
+     * @param language The 2- or 3-character language code
+     *
+     * @return Season translation record mapped as Java DTO based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if the given season ID does not exist or there is no translation for the
+     *                      requested language.
+     * @see JSON#getSeasonTranslation(long, String) TheTVDBApi.JSON.getSeasonTranslation(seasonId, language)
+     * @see Extended#getSeasonTranslation(long, String) TheTVDBApi.Extended.getSeasonTranslation(seasonId, language)
+     */
+    Translation getSeasonTranslation(long seasonId, @Nonnull String language) throws APIException;
 
     /**
      * Returns a list of series based on the given query parameters mapped as Java DTO. The list contains basic
@@ -533,6 +592,25 @@ public interface TheTVDBApi {
      * @see Extended#getSeriesDetails(long) TheTVDBApi.Extended.getSeriesDetails(seriesId)
      */
     SeriesDetails getSeriesDetails(long seriesId) throws APIException;
+
+    /**
+     * Returns a translation record for a specific series mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/series/getSeriesTranslation">
+     * <b>[GET]</b> /series/{id}/translations/{language}</a>
+     *
+     * @param seriesId The <i>TheTVDB.com</i> series ID
+     * @param language The 2- or 3-character language code
+     *
+     * @return Series translation record mapped as Java DTO based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if the given series ID does not exist or there is no translation for the
+     *                      requested language.
+     * @see JSON#getSeriesTranslation(long, String) TheTVDBApi.JSON.getSeriesTranslation(seriesId, language)
+     * @see Extended#getSeriesTranslation(long, String) TheTVDBApi.Extended.getSeriesTranslation(seriesId, language)
+     */
+    Translation getSeriesTranslation(long seriesId, @Nonnull String language) throws APIException;
 
     /**
      * Provides access to the API's {@link JSON JSON} layout.
@@ -751,7 +829,7 @@ public interface TheTVDBApi {
          * Returns detailed information for a specific episode as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/episodes/getEpisodeExtended">
-         * <b>[GET]</b> /episode/{id}/extended</a>
+         * <b>[GET]</b> /episodes/{id}/extended</a>
          *
          * @param episodeId The <i>TheTVDB.com</i> episode ID
          *
@@ -763,6 +841,26 @@ public interface TheTVDBApi {
          * @see Extended#getEpisodeDetails(long) TheTVDBApi.Extended.getEpisodeDetails(episodeId)
          */
         JsonNode getEpisodeDetails(long episodeId) throws APIException;
+
+        /**
+         * Returns a translation record for a specific episode as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/episodes/getEpisodeTranslation">
+         * <b>[GET]</b> /episodes/{id}/translations/{language}</a>
+         *
+         * @param episodeId The <i>TheTVDB.com</i> episode ID
+         * @param language  The 2- or 3-character language code
+         *
+         * @return JSON object containing a translation record for a specific episode
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if the given episode ID does not exist or there is no
+         *                      translation for the requested language.
+         * @see TheTVDBApi#getEpisodeTranslation(long, String) TheTVDBApi.getEpisodeTranslation(episodeId, language)
+         * @see Extended#getEpisodeTranslation(long, String) TheTVDBApi.Extended.getEpisodeTranslation(episodeId,
+         *         language)
+         */
+        JsonNode getEpisodeTranslation(long episodeId, @Nonnull String language) throws APIException;
 
         /**
          * Returns a list of available genres as raw JSON.
@@ -814,6 +912,26 @@ public interface TheTVDBApi {
         JsonNode getMovie(long movieId) throws APIException;
 
         /**
+         * Returns a translation record for a specific movie as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/movies/getMovieTranslation">
+         * <b>[GET]</b> /movies/{id}/translations/{language}</a>
+         *
+         * @param movieId  The <i>TheTVDB.com</i> movie ID
+         * @param language The 2- or 3-character language code
+         *
+         * @return JSON object containing a translation record for a specific movie
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if the given movie ID does not exist or there is no
+         *                      translation for the requested language.
+         * @see TheTVDBApi#getMovieTranslation(long, String) TheTVDBApi.getMovieTranslation(movieId, language)
+         * @see Extended#getMovieTranslation(long, String) TheTVDBApi.Extended.getMovieTranslation(movieId,
+         *         language)
+         */
+        JsonNode getMovieTranslation(long movieId, @Nonnull String language) throws APIException;
+
+        /**
          * Returns basic information for a specific people as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/people/getPeopleBase">
@@ -846,6 +964,26 @@ public interface TheTVDBApi {
          * @see Extended#getSeason(long) TheTVDBApi.Extended.getSeason(seasonId)
          */
         JsonNode getSeason(long seasonId) throws APIException;
+
+        /**
+         * Returns a translation record for a specific season as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/seasons/getSeasonTranslation">
+         * <b>[GET]</b> /seasons/{id}/translations/{language}</a>
+         *
+         * @param seasonId The <i>TheTVDB.com</i> season ID
+         * @param language The 2- or 3-character language code
+         *
+         * @return JSON object containing a translation record for a specific season
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if the given season ID does not exist or there is no
+         *                      translation for the requested language.
+         * @see TheTVDBApi#getSeasonTranslation(long, String) TheTVDBApi.getSeasonTranslation(seasonId, language)
+         * @see Extended#getSeasonTranslation(long, String) TheTVDBApi.Extended.getSeasonTranslation(seasonId,
+         *         language)
+         */
+        JsonNode getSeasonTranslation(long seasonId, @Nonnull String language) throws APIException;
 
         /**
          * Returns a list of series based on the given query parameters as raw JSON. The list contains basic information
@@ -898,6 +1036,26 @@ public interface TheTVDBApi {
          * @see Extended#getSeriesDetails(long) TheTVDBApi.Extended.getSeriesDetails(seriesId)
          */
         JsonNode getSeriesDetails(long seriesId) throws APIException;
+
+        /**
+         * Returns a translation record for a specific series as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/series/getSeriesTranslation">
+         * <b>[GET]</b> /series/{id}/translations/{language}</a>
+         *
+         * @param seriesId The <i>TheTVDB.com</i> series ID
+         * @param language The 2- or 3-character language code
+         *
+         * @return JSON object containing a translation record for a specific series
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if the given series ID does not exist or there is no
+         *                      translation for the requested language.
+         * @see TheTVDBApi#getSeriesTranslation(long, String) TheTVDBApi.getSeriesTranslation(seriesId, language)
+         * @see Extended#getSeriesTranslation(long, String) TheTVDBApi.Extended.getSeriesTranslation(seriesId,
+         *         language)
+         */
+        JsonNode getSeriesTranslation(long seriesId, @Nonnull String language) throws APIException;
     }
 
     /**
@@ -1110,7 +1268,7 @@ public interface TheTVDBApi {
          * Returns a response object containing detailed information for a specific episode mapped as Java DTO.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/episodes/getEpisodeExtended">
-         * <b>[GET]</b> /episode/{id}/extended</a>
+         * <b>[GET]</b> /episodes/{id}/extended</a>
          *
          * @param episodeId The <i>TheTVDB.com</i> episode ID
          *
@@ -1123,6 +1281,26 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getEpisodeDetails(long) TheTVDBApi.getEpisodeDetails(episodeId)
          */
         APIResponse<EpisodeDetails> getEpisodeDetails(long episodeId) throws APIException;
+
+        /**
+         * Returns a response object containing a translation record for a specific episode mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/episodes/getEpisodeTranslation">
+         * <b>[GET]</b> /episodes/{id}/translations/{language}</a>
+         *
+         * @param episodeId The <i>TheTVDB.com</i> episode ID
+         * @param language  The 2- or 3-character language code
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if the given episode ID does not exist or there is no
+         *                      translation for the requested language.
+         * @see JSON#getEpisodeTranslation(long, String) TheTVDBApi.JSON.getEpisodeTranslation(episodeId, language)
+         * @see TheTVDBApi#getEpisodeTranslation(long, String) TheTVDBApi.getEpisodeTranslation(episodeId, language)
+         */
+        APIResponse<Translation> getEpisodeTranslation(long episodeId, @Nonnull String language) throws APIException;
 
         /**
          * Returns a response object containing a list of available genres mapped as Java DTO.
@@ -1177,6 +1355,26 @@ public interface TheTVDBApi {
         APIResponse<Movie> getMovie(long movieId) throws APIException;
 
         /**
+         * Returns a response object containing a translation record for a specific movie mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/movies/getMovieTranslation">
+         * <b>[GET]</b> /movies/{id}/translations/{language}</a>
+         *
+         * @param movieId  The <i>TheTVDB.com</i> movie ID
+         * @param language The 2- or 3-character language code
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if the given movie ID does not exist or there is no
+         *                      translation for the requested language.
+         * @see JSON#getMovieTranslation(long, String) TheTVDBApi.JSON.getMovieTranslation(movieId, language)
+         * @see TheTVDBApi#getMovieTranslation(long, String) TheTVDBApi.getMovieTranslation(movieId, language)
+         */
+        APIResponse<Translation> getMovieTranslation(long movieId, @Nonnull String language) throws APIException;
+
+        /**
          * Returns a response object containing basic information for a specific people mapped as Java DTO.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/people/getPeopleBase">
@@ -1211,6 +1409,26 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getSeason(long) TheTVDBApi.getSeason(seasonId)
          */
         APIResponse<Season> getSeason(long seasonId) throws APIException;
+
+        /**
+         * Returns a response object containing a translation record for a specific season mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/seasons/getSeasonTranslation">
+         * <b>[GET]</b> /seasons/{id}/translations/{language}</a>
+         *
+         * @param seasonId The <i>TheTVDB.com</i> season ID
+         * @param language The 2- or 3-character language code
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if the given season ID does not exist or there is no
+         *                      translation for the requested language.
+         * @see JSON#getSeasonTranslation(long, String) TheTVDBApi.JSON.getSeasonTranslation(seasonId, language)
+         * @see TheTVDBApi#getSeasonTranslation(long, String) TheTVDBApi.getSeasonTranslation(seasonId, language)
+         */
+        APIResponse<Translation> getSeasonTranslation(long seasonId, @Nonnull String language) throws APIException;
 
         /**
          * Returns a response object containing a list of series based on the given query parameters mapped as Java DTO.
@@ -1266,6 +1484,26 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getSeriesDetails(long) TheTVDBApi.getSeriesDetails(seriesId)
          */
         APIResponse<SeriesDetails> getSeriesDetails(long seriesId) throws APIException;
+
+        /**
+         * Returns a response object containing a translation record for a specific series mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/series/getSeriesTranslation">
+         * <b>[GET]</b> /series/{id}/translations/{language}</a>
+         *
+         * @param seriesId The <i>TheTVDB.com</i> series ID
+         * @param language The 2- or 3-character language code
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if the given series ID does not exist or there is no
+         *                      translation for the requested language.
+         * @see JSON#getSeriesTranslation(long, String) TheTVDBApi.JSON.getSeriesTranslation(seriesId, language)
+         * @see TheTVDBApi#getSeriesTranslation(long, String) TheTVDBApi.getSeriesTranslation(seriesId, language)
+         */
+        APIResponse<Translation> getSeriesTranslation(long seriesId, @Nonnull String language) throws APIException;
     }
 
     /**

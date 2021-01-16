@@ -17,11 +17,13 @@
 package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeasonsAPI.getSeasonBase;
+import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeasonsAPI.getSeasonTranslation;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASON;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.TRANSLATION;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -47,18 +49,24 @@ class SeasonsAPITest {
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
         client.when(request("/seasons/348109", GET)).respond(jsonResponse(SEASON));
+        client.when(request("/seasons/47443/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
     }
 
     private static Stream<Arguments> withInvalidParameters() {
         return Stream.of(
                 of(route(con -> getSeasonBase(con, 0), "getSeasonBase() with ZERO season ID")),
-                of(route(con -> getSeasonBase(con, -8), "getSeasonBase() with negative season ID"))
+                of(route(con -> getSeasonBase(con, -8), "getSeasonBase() with negative season ID")),
+                of(route(con -> getSeasonTranslation(con, 0, "eng"), "getSeasonTranslation() with ZERO season ID")),
+                of(route(con -> getSeasonTranslation(con, -3, "deu"), "getSeasonTranslation() with negative season ID")),
+                of(route(con -> getSeasonTranslation(con, 2721, "e"), "getSeasonTranslation() with invalid language code (1)")),
+                of(route(con -> getSeasonTranslation(con, 6741, "span"), "getSeasonTranslation() with invalid language code (2)"))
         );
     }
 
     private static Stream<Arguments> withValidParameters() {
         return Stream.of(
-                of(route(con -> getSeasonBase(con, 348109), "getSeasonBase()"), SEASON)
+                of(route(con -> getSeasonBase(con, 348109), "getSeasonBase()"), SEASON),
+                of(route(con -> getSeasonTranslation(con, 47443, "eng"), "getSeasonTranslation()"), TRANSLATION)
         );
     }
     //@EnableFormatting

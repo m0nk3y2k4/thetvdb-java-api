@@ -18,12 +18,14 @@ package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.EpisodesAPI.getEpisodeBase;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.EpisodesAPI.getEpisodeExtended;
+import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.EpisodesAPI.getEpisodeTranslation;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.EPISODE;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.EPISODE_DETAILS;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.TRANSLATION;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -50,6 +52,7 @@ class EpisodesAPITest {
     static void setUpRoutes(MockServerClient client) throws Exception {
         client.when(request("/episodes/78457", GET)).respond(jsonResponse(EPISODE));
         client.when(request("/episodes/96470/extended", GET)).respond(jsonResponse(EPISODE_DETAILS));
+        client.when(request("/episodes/67481/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
     }
 
     private static Stream<Arguments> withInvalidParameters() {
@@ -57,14 +60,19 @@ class EpisodesAPITest {
                 of(route(con -> getEpisodeBase(con, 0), "getEpisodeBase() with ZERO episode ID")),
                 of(route(con -> getEpisodeBase(con, -7), "getEpisodeBase() with negative episode ID")),
                 of(route(con -> getEpisodeExtended(con, 0), "getEpisodeExtended() with ZERO episode ID")),
-                of(route(con -> getEpisodeExtended(con, -3), "getEpisodeExtended() with negative episode ID"))
+                of(route(con -> getEpisodeExtended(con, -3), "getEpisodeExtended() with negative episode ID")),
+                of(route(con -> getEpisodeTranslation(con, 0, "eng"), "getEpisodeTranslation() with ZERO episode ID")),
+                of(route(con -> getEpisodeTranslation(con, -4, "deu"), "getEpisodeTranslation() with negative episode ID")),
+                of(route(con -> getEpisodeTranslation(con, 8774, "e"), "getEpisodeTranslation() with invalid language code (1)")),
+                of(route(con -> getEpisodeTranslation(con, 9647, "span"), "getEpisodeTranslation() with invalid language code (2)"))
         );
     }
 
     private static Stream<Arguments> withValidParameters() {
         return Stream.of(
                 of(route(con -> getEpisodeBase(con, 78457), "getEpisodeBase()"), EPISODE),
-                of(route(con -> getEpisodeExtended(con, 96470), "getEpisodeExtended()"), EPISODE_DETAILS)
+                of(route(con -> getEpisodeExtended(con, 96470), "getEpisodeExtended()"), EPISODE_DETAILS),
+                of(route(con -> getEpisodeTranslation(con, 67481, "eng"), "getEpisodeTranslation()"), TRANSLATION)
         );
     }
     //@EnableFormatting
