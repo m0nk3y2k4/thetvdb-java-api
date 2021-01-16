@@ -26,6 +26,8 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORK;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORKTYPE_LIST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORK_DETAILS;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.AWARDCATEGORY;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.AWARDCATEGORY_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.CHARACTER;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.COMPANY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.COMPANYTYPE_LIST;
@@ -113,6 +115,8 @@ class TheTVDBApiImplTest {
             client.when(request("/artwork-types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
             client.when(request("/artwork/3447", GET)).respond(jsonResponse(ARTWORK));
             client.when(request("/artwork/9403/extended", GET)).respond(jsonResponse(ARTWORK_DETAILS));
+            client.when(request("/award-categories/830", GET)).respond(jsonResponse(AWARDCATEGORY));
+            client.when(request("/award-categories/574/extended", GET)).respond(jsonResponse(AWARDCATEGORY_DETAILS));
             client.when(request("/characters/604784", GET)).respond(jsonResponse(CHARACTER));
             client.when(request("/companies", GET)).respond(jsonResponse(COMPANY_LIST));
             client.when(request("/companies", GET, param("value", "QueryCompanies"))).respond(jsonResponse(COMPANY_LIST));
@@ -152,6 +156,8 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllArtworkTypes(), "getAllArtworkTypes()"), ARTWORKTYPE_LIST),
                     of(route(() -> basicAPI.getArtwork(3447), "getArtwork()"), ARTWORK),
                     of(route(() -> basicAPI.getArtworkDetails(9403), "getArtworkDetails()"), ARTWORK_DETAILS),
+                    of(route(() -> basicAPI.getAwardCategory(830), "getAwardCategory()"), AWARDCATEGORY),
+                    of(route(() -> basicAPI.getAwardCategoryDetails(574), "getAwardCategoryDetails()"), AWARDCATEGORY_DETAILS),
                     of(route(() -> basicAPI.getCharacter(604784), "getCharacter()"), CHARACTER),
                     of(route(() -> basicAPI.getAllCompanies(null), "getAllCompanies() without query parameters"), COMPANY_LIST),
                     of(route(() -> basicAPI.getAllCompanies(params("value", "QueryCompanies")), "getAllCompanies() with query parameters"), COMPANY_LIST),
@@ -234,6 +240,8 @@ class TheTVDBApiImplTest {
             client.when(request("/artwork-types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
             client.when(request("/artwork/6701", GET)).respond(jsonResponse(ARTWORK));
             client.when(request("/artwork/9100/extended", GET)).respond(jsonResponse(ARTWORK_DETAILS));
+            client.when(request("/award-categories/411", GET)).respond(jsonResponse(AWARDCATEGORY));
+            client.when(request("/award-categories/623/extended", GET)).respond(jsonResponse(AWARDCATEGORY_DETAILS));
             client.when(request("/characters/94347", GET)).respond(jsonResponse(CHARACTER));
             client.when(request("/companies", GET)).respond(jsonResponse(COMPANY_LIST));
             client.when(request("/companies", GET, param("value", "QueryCompaniesJson"))).respond(jsonResponse(COMPANY_LIST));
@@ -268,6 +276,8 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllArtworkTypes(), "getAllArtworkTypes()"), ARTWORKTYPE_LIST),
                     of(route(() -> basicAPI.getArtwork(6701), "getArtwork()"), ARTWORK),
                     of(route(() -> basicAPI.getArtworkDetails(9100), "getArtworkDetails()"), ARTWORK_DETAILS),
+                    of(route(() -> basicAPI.getAwardCategory(411), "getAwardCategory()"), AWARDCATEGORY),
+                    of(route(() -> basicAPI.getAwardCategoryDetails(623), "getAwardCategoryDetails()"), AWARDCATEGORY_DETAILS),
                     of(route(() -> basicAPI.getCharacter(94347), "getCharacter()"), CHARACTER),
                     of(route(() -> basicAPI.getAllCompanies(null), "getAllCompanies() without query parameters"), COMPANY_LIST),
                     of(route(() -> basicAPI.getAllCompanies(params("value", "QueryCompaniesJson")), "getAllCompanies() with query parameters"), COMPANY_LIST),
@@ -331,6 +341,8 @@ class TheTVDBApiImplTest {
             client.when(request("/artwork-types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
             client.when(request("/artwork/7099", GET)).respond(jsonResponse(ARTWORK));
             client.when(request("/artwork/6471/extended", GET)).respond(jsonResponse(ARTWORK_DETAILS));
+            client.when(request("/award-categories/355", GET)).respond(jsonResponse(AWARDCATEGORY));
+            client.when(request("/award-categories/495/extended", GET)).respond(jsonResponse(AWARDCATEGORY_DETAILS));
             client.when(request("/characters/66470", GET)).respond(jsonResponse(CHARACTER));
             client.when(request("/companies", GET)).respond(jsonResponse(COMPANY_LIST));
             client.when(request("/companies", GET, param("value", "QueryCompaniesExtended"))).respond(jsonResponse(COMPANY_LIST));
@@ -365,6 +377,8 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllArtworkTypes(), "getAllArtworkTypes()"), ARTWORKTYPE_LIST),
                     of(route(() -> basicAPI.getArtwork(7099), "getArtwork()"), ARTWORK),
                     of(route(() -> basicAPI.getArtworkDetails(6471), "getArtworkDetails()"), ARTWORK_DETAILS),
+                    of(route(() -> basicAPI.getAwardCategory(355), "getAwardCategory()"), AWARDCATEGORY),
+                    of(route(() -> basicAPI.getAwardCategoryDetails(495), "getAwardCategoryDetails()"), AWARDCATEGORY_DETAILS),
                     of(route(() -> basicAPI.getCharacter(66470), "getCharacter()"), CHARACTER),
                     of(route(() -> basicAPI.getAllCompanies(null), "getAllCompanies() without query parameters"), COMPANY_LIST),
                     of(route(() -> basicAPI.getAllCompanies(params("value", "QueryCompaniesExtended")), "getAllCompanies() with query parameters"), COMPANY_LIST),
