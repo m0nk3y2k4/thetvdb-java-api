@@ -74,7 +74,7 @@ class HeadRequestTest {
         headers.put("List-Header", List.of("X", "Y", "Z"));
         doReturn(headers).when(connection).getHeaderFields();
         JsonNode dataNode = request.getData(connection).get("data");
-        assertThat(dataNode).isNotNull().hasSize(3);
+        assertThat(dataNode).hasSize(3);
         assertThat(dataNode.get("Empty-Header").isNull()).isTrue();
         assertThat(dataNode.get("Single-Header").textValue()).isEqualTo("value");
         assertThat(dataNode.get("List-Header")).extracting(JsonNode::textValue)

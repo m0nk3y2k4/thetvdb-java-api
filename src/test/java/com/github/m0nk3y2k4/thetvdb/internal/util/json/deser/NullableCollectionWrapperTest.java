@@ -73,6 +73,6 @@ class NullableCollectionWrapperTest {
 
     @Test
     void getNullValue_verifyEmptyCollectionIsReturned() {
-        assertThat(wrapper.getNullValue(ctxt)).isNotNull().isEmpty();
+        assertThat(wrapper.getNullValue(ctxt)).isEmpty();
     }
 }
