@@ -51,7 +51,7 @@ class TheTVDBApiFactoryTest {
     @Test
     void createQueryParameters() {
         QueryParameters parameters = TheTVDBApiFactory.createQueryParameters();
-        assertThat(parameters).isNotNull().isEmpty();
+        assertThat(parameters).isEmpty();
     }
 
     @Test
@@ -59,7 +59,7 @@ class TheTVDBApiFactoryTest {
         final Map<String, String> parameterMap = Map.of("SomeKey", "X", "AnotherKey", "Y");
         QueryParameters parameters = TheTVDBApiFactory.createQueryParameters(parameterMap);
         assertThat(parameterMap).hasSize(parameters.size());
-        parameterMap.forEach((key, value) -> assertThat(parameters.getParameterValue(key)).isPresent().contains(value));
+        parameterMap.forEach((key, value) -> assertThat(parameters.getParameterValue(key)).contains(value));
     }
 
     @Test

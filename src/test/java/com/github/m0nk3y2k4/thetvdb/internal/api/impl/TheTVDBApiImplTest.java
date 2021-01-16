@@ -291,7 +291,7 @@ class TheTVDBApiImplTest {
         @MethodSource("withInvalidParameters")
         <T> void invokeRoute_withInvalidParametersOrState_verifyParameterValidationAndPreconditionChecks(
                 TestTheTVDBAPICall<T> route) {
-            assertThat(catchThrowable(route::invoke)).isNotNull()
+            assertThat(catchThrowable(route::invoke))
                     .isInstanceOfAny(IllegalArgumentException.class, APIPreconditionException.class);
         }
 
@@ -307,7 +307,7 @@ class TheTVDBApiImplTest {
             final String token = "D78W4F5W.8F7WG4F.A69J7E";
             TheTVDBApi api = new TheTVDBApiImpl("ZWUD785K5H7F", remoteAPI);
             api.init(token);
-            assertThat(api.getToken()).isNotEmpty().contains(token);
+            assertThat(api.getToken()).contains(token);
         }
 
         @Test
@@ -442,7 +442,7 @@ class TheTVDBApiImplTest {
         @MethodSource("withInvalidParameters")
         <T> void invokeRoute_withInvalidParametersOrState_verifyParameterValidationAndPreconditionChecks(
                 TestTheTVDBAPICall<T> route) {
-            assertThat(catchThrowable(route::invoke)).isNotNull()
+            assertThat(catchThrowable(route::invoke))
                     .isInstanceOfAny(IllegalArgumentException.class, APIPreconditionException.class);
         }
 
@@ -574,7 +574,7 @@ class TheTVDBApiImplTest {
         @MethodSource("withInvalidParameters")
         <T> void invokeRoute_withInvalidParametersOrState_verifyParameterValidationAndPreconditionChecks(
                 TestTheTVDBAPICall<T> route) {
-            assertThat(catchThrowable(route::invoke)).isNotNull()
+            assertThat(catchThrowable(route::invoke))
                     .isInstanceOfAny(IllegalArgumentException.class, APIPreconditionException.class);
         }
 

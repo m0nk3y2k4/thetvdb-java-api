@@ -73,7 +73,7 @@ class MovieDTOTest {
         assertThat(getPeople.apply(movieWithPeopleForCategory)).as("Returns a list of people for an existing category")
                 .containsExactlyInAnyOrderElementsOf(peopleOfCategory);
         assertThat(getPeople.apply(movieWithoutPeopleForCategory))
-                .as("Returns an empty list for a non-existing category").isNotNull().isEmpty();
+                .as("Returns an empty list for a non-existing category").isEmpty();
     }
 
     @Test
