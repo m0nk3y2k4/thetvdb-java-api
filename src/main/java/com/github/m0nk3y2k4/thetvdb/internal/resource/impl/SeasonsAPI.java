@@ -47,8 +47,8 @@ public final class SeasonsAPI extends Resource {
      *
      * @return JSON object containing basic information for a specific season record
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given
-     *                      season ID does not exist, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no season
+     *                      record with the given ID exists, etc.
      */
     public static JsonNode getSeasonBase(@Nonnull APIConnection con, long id) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
@@ -67,8 +67,8 @@ public final class SeasonsAPI extends Resource {
      *
      * @return JSON object containing a translation record for a specific season
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given
-     *                      season ID does not exist, no translation exists for the given language, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no season
+     *                      translation record exists for the given ID and language, etc.
      */
     public static JsonNode getSeasonTranslation(@Nonnull APIConnection con, long id, @Nonnull String language)
             throws APIException {

@@ -66,8 +66,8 @@ public final class SeriesAPI extends QueryResource {
      *
      * @return JSON object containing basic information for a specific series record
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given
-     *                      series ID does not exist, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no series
+     *                      record with the given ID exists, etc.
      */
     public static JsonNode getSeriesBase(@Nonnull APIConnection con, long id) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
@@ -85,8 +85,8 @@ public final class SeriesAPI extends QueryResource {
      *
      * @return JSON object containing extended information for a specific series record
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given
-     *                      series ID does not exist, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no series
+     *                      record with the given ID exists, etc.
      */
     public static JsonNode getSeriesExtended(@Nonnull APIConnection con, long id) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
@@ -105,8 +105,8 @@ public final class SeriesAPI extends QueryResource {
      *
      * @return JSON object containing a translation record for a specific series
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given
-     *                      series ID does not exist, no translation exists for the given language, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no series
+     *                      translation record exists for the given ID and language, etc.
      */
     public static JsonNode getSeriesTranslation(@Nonnull APIConnection con, long id, @Nonnull String language)
             throws APIException {

@@ -47,8 +47,8 @@ public final class EpisodesAPI extends Resource {
      *
      * @return JSON object containing basic information for a specific episode record
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given
-     *                      episode ID does not exist, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no
+     *                      episode record with the given ID exists, etc.
      */
     public static JsonNode getEpisodeBase(@Nonnull APIConnection con, long id) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
@@ -66,8 +66,8 @@ public final class EpisodesAPI extends Resource {
      *
      * @return JSON object containing extended information for a specific episode record
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given
-     *                      episode ID does not exist, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no
+     *                      episode record with the given ID exists, etc.
      */
     public static JsonNode getEpisodeExtended(@Nonnull APIConnection con, long id) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
@@ -86,8 +86,8 @@ public final class EpisodesAPI extends Resource {
      *
      * @return JSON object containing a translation record for a specific episode
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given
-     *                      episode ID does not exist, no translation exists for the given language, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no
+     *                      episode translation record exists for the given ID and language, etc.
      */
     public static JsonNode getEpisodeTranslation(@Nonnull APIConnection con, long id, @Nonnull String language)
             throws APIException {

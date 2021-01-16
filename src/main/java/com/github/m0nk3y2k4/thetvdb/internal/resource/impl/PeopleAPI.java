@@ -47,8 +47,8 @@ public final class PeopleAPI extends Resource {
      *
      * @return JSON object containing basic information for a specific people record
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given
-     *                      people ID does not exist, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no people
+     *                      record with the given ID exists, etc.
      */
     public static JsonNode getPeopleBase(@Nonnull APIConnection con, long id) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);

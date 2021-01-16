@@ -67,8 +67,8 @@ public final class MoviesAPI extends Resource {
      *
      * @return JSON object containing a translation record for a specific movie
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given
-     *                      movie ID does not exist, no translation exists for the given language, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no movie
+     *                      translation record exists for the given ID and language, etc.
      */
     public static JsonNode getMovieTranslation(@Nonnull APIConnection con, long id, @Nonnull String language)
             throws APIException {

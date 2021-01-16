@@ -47,8 +47,8 @@ public final class AwardCategoriesAPI extends Resource {
      *
      * @return JSON object containing basic information for a specific award category
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given
-     *                      award category ID does not exist, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no award
+     *                      category record with the given ID exists, etc.
      */
     public static JsonNode getAwardCategoryBase(@Nonnull APIConnection con, long id) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
@@ -66,8 +66,8 @@ public final class AwardCategoriesAPI extends Resource {
      *
      * @return JSON object containing extended information for a specific award category
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given
-     *                      award category ID does not exist, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no award
+     *                      category record with the given ID exists, etc.
      */
     public static JsonNode getAwardCategoryExtended(@Nonnull APIConnection con, long id) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);

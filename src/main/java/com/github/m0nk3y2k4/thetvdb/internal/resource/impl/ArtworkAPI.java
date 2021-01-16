@@ -47,8 +47,8 @@ public final class ArtworkAPI extends Resource {
      *
      * @return JSON object containing basic information for a specific artwork record
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given
-     *                      artwork ID does not exist, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no
+     *                      artwork record with the given ID exists, etc.
      */
     public static JsonNode getArtworkBase(@Nonnull APIConnection con, long id) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
@@ -66,8 +66,8 @@ public final class ArtworkAPI extends Resource {
      *
      * @return JSON object containing extended information for a specific artwork record
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given
-     *                      artwork ID does not exist, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no
+     *                      artwork record with the given ID exists, etc.
      */
     public static JsonNode getArtworkExtended(@Nonnull APIConnection con, long id) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);

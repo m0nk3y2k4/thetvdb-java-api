@@ -65,8 +65,8 @@ public final class CompaniesAPI extends QueryResource {
      *
      * @return JSON object containing information for a specific company record
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, the given
-     *                      company ID does not exist, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no
+     *                      company record with the given ID exists, etc.
      */
     public static JsonNode getCompany(@Nonnull APIConnection con, long id) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);

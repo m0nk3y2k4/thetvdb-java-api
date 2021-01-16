@@ -194,7 +194,7 @@ public interface TheTVDBApi {
      * @return Basic artwork information mapped as Java DTO based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
-     *                      not found, etc. or if the given artwork ID does not exist.
+     *                      not found, etc. or if no artwork record with the given ID exists.
      * @see JSON#getArtwork(long) TheTVDBApi.JSON.getArtwork(artworkId)
      * @see Extended#getArtwork(long) TheTVDBApi.Extended.getArtwork(artworkId)
      */
@@ -211,7 +211,7 @@ public interface TheTVDBApi {
      * @return Detailed artwork information mapped as Java DTO based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
-     *                      not found, etc. or if the given artwork ID does not exist.
+     *                      not found, etc. or if no artwork record with the given ID exists.
      * @see JSON#getArtworkDetails(long) TheTVDBApi.JSON.getArtworkDetails(artworkId)
      * @see Extended#getArtworkDetails(long) TheTVDBApi.Extended.getArtworkDetails(artworkId)
      */
@@ -229,7 +229,7 @@ public interface TheTVDBApi {
      *         service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
-     *                      not found, etc. or if the given award category ID does not exist.
+     *                      not found, etc. or if no award category record with the given ID exists.
      * @see JSON#getAwardCategory(long) TheTVDBApi.JSON.getAwardCategory(awardCategoryId)
      * @see Extended#getAwardCategory(long) TheTVDBApi.Extended.getAwardCategory(awardCategoryId)
      */
@@ -247,7 +247,7 @@ public interface TheTVDBApi {
      *         service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
-     *                      not found, etc. or if the given award category ID does not exist.
+     *                      not found, etc. or if no award category record with the given ID exists.
      * @see JSON#getAwardCategoryDetails(long) TheTVDBApi.JSON.getAwardCategoryDetails(awardCategoryId)
      * @see Extended#getAwardCategoryDetails(long) TheTVDBApi.Extended.getAwardCategoryDetails(awardCategoryId)
      */
@@ -264,7 +264,7 @@ public interface TheTVDBApi {
      * @return Character information mapped as Java DTO based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
-     *                      not found, etc. or if the given character ID does not exist.
+     *                      not found, etc. or if no character record with the given ID exists.
      * @see JSON#getCharacter(long) TheTVDBApi.JSON.getCharacter(characterId)
      * @see Extended#getCharacter(long) TheTVDBApi.Extended.getCharacter(characterId)
      */
@@ -313,7 +313,7 @@ public interface TheTVDBApi {
      * @return Company information mapped as Java DTO based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
-     *                      not found, etc. or if the given company ID does not exist.
+     *                      not found, etc. or if no company record with the given ID exists.
      * @see JSON#getCompany(long) TheTVDBApi.JSON.getCompany(companyId)
      * @see Extended#getCompany(long) TheTVDBApi.Extended.getCompany(companyId)
      */
@@ -362,7 +362,7 @@ public interface TheTVDBApi {
      * @return Basic episode information mapped as Java DTO based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
-     *                      not found, etc. or if the given episode ID does not exist.
+     *                      not found, etc. or if no episode record with the given ID exists.
      * @see JSON#getEpisode(long) TheTVDBApi.JSON.getEpisode(episodeId)
      * @see Extended#getEpisode(long) TheTVDBApi.Extended.getEpisode(episodeId)
      */
@@ -379,7 +379,7 @@ public interface TheTVDBApi {
      * @return Detailed episode information mapped as Java DTO based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
-     *                      not found, etc. or if the given episode ID does not exist.
+     *                      not found, etc. or if no episode record with the given ID exists.
      * @see JSON#getEpisodeDetails(long) TheTVDBApi.JSON.getEpisodeDetails(episodeId)
      * @see Extended#getEpisodeDetails(long) TheTVDBApi.Extended.getEpisodeDetails(episodeId)
      */
@@ -397,8 +397,7 @@ public interface TheTVDBApi {
      * @return Episode translation record mapped as Java DTO based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
-     *                      not found, etc. or if the given episode ID does not exist or there is no translation for the
-     *                      requested language.
+     *                      not found, etc. or if no episode translation record exists for the given ID and language.
      * @see JSON#getEpisodeTranslation(long, String) TheTVDBApi.JSON.getEpisodeTranslation(episodeId, language)
      * @see Extended#getEpisodeTranslation(long, String) TheTVDBApi.Extended.getEpisodeTranslation(episodeId,
      *         language)
@@ -431,7 +430,7 @@ public interface TheTVDBApi {
      * @return Genre information mapped as Java DTO based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
-     *                      not found, etc. or if the given genre ID does not exist.
+     *                      not found, etc. or if no genre record with the given ID exists.
      * @see JSON#getGenre(long) TheTVDBApi.JSON.getGenre(genreId)
      * @see Extended#getGenre(long) TheTVDBApi.Extended.getGenre(genreId)
      */
@@ -448,7 +447,7 @@ public interface TheTVDBApi {
      * @return Basic movie information mapped as Java DTO based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
-     *                      not found, etc. or if the given movie ID does not exist.
+     *                      not found, etc. or if no movie record with the given ID exists.
      * @see JSON#getMovie(long) TheTVDBApi.JSON.getMovie(movieId)
      * @see Extended#getMovie(long) TheTVDBApi.Extended.getMovie(movieId)
      */
@@ -466,8 +465,7 @@ public interface TheTVDBApi {
      * @return Movie translation record mapped as Java DTO based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
-     *                      not found, etc. or if the given movie ID does not exist or there is no translation for the
-     *                      requested language.
+     *                      not found, etc. or if no movie translation record exists for the given ID and language.
      * @see JSON#getMovieTranslation(long, String) TheTVDBApi.JSON.getMovieTranslation(movieId, language)
      * @see Extended#getMovieTranslation(long, String) TheTVDBApi.Extended.getMovieTranslation(movieId, language)
      */
@@ -484,7 +482,7 @@ public interface TheTVDBApi {
      * @return Basic people information mapped as Java DTO based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
-     *                      not found, etc. or if the given people ID does not exist.
+     *                      not found, etc. or if no people record with the given ID exists.
      * @see JSON#getPeople(long) TheTVDBApi.JSON.getPeople(peopleId)
      * @see Extended#getPeople(long) TheTVDBApi.Extended.getPeople(peopleId)
      */
@@ -501,7 +499,7 @@ public interface TheTVDBApi {
      * @return Basic season information mapped as Java DTO based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
-     *                      not found, etc. or if the given season ID does not exist.
+     *                      not found, etc. or if no season record with the given ID exists.
      * @see JSON#getSeason(long) TheTVDBApi.JSON.getSeason(seasonId)
      * @see Extended#getSeason(long) TheTVDBApi.Extended.getSeason(seasonId)
      */
@@ -519,8 +517,7 @@ public interface TheTVDBApi {
      * @return Season translation record mapped as Java DTO based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
-     *                      not found, etc. or if the given season ID does not exist or there is no translation for the
-     *                      requested language.
+     *                      not found, etc. or if no season translation record exists for the given ID and language.
      * @see JSON#getSeasonTranslation(long, String) TheTVDBApi.JSON.getSeasonTranslation(seasonId, language)
      * @see Extended#getSeasonTranslation(long, String) TheTVDBApi.Extended.getSeasonTranslation(seasonId, language)
      */
@@ -570,7 +567,7 @@ public interface TheTVDBApi {
      * @return Basic series information mapped as Java DTO based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
-     *                      not found, etc. or if the given series ID does not exist.
+     *                      not found, etc. or if no series record with the given ID exists.
      * @see JSON#getSeries(long) TheTVDBApi.JSON.getSeries(seriesId)
      * @see Extended#getSeries(long) TheTVDBApi.Extended.getSeries(seriesId)
      */
@@ -587,7 +584,7 @@ public interface TheTVDBApi {
      * @return Detailed series information mapped as Java DTO based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
-     *                      not found, etc. or if the given series ID does not exist.
+     *                      not found, etc. or if no series record with the given ID exists.
      * @see JSON#getSeriesDetails(long) TheTVDBApi.JSON.getSeriesDetails(seriesId)
      * @see Extended#getSeriesDetails(long) TheTVDBApi.Extended.getSeriesDetails(seriesId)
      */
@@ -605,8 +602,7 @@ public interface TheTVDBApi {
      * @return Series translation record mapped as Java DTO based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
-     *                      not found, etc. or if the given series ID does not exist or there is no translation for the
-     *                      requested language.
+     *                      not found, etc. or if no series translation record exists for the given ID and language.
      * @see JSON#getSeriesTranslation(long, String) TheTVDBApi.JSON.getSeriesTranslation(seriesId, language)
      * @see Extended#getSeriesTranslation(long, String) TheTVDBApi.Extended.getSeriesTranslation(seriesId, language)
      */
@@ -670,7 +666,7 @@ public interface TheTVDBApi {
          * @return JSON object containing basic information for a specific artwork
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given artwork ID does not exist.
+         *                      resource not found, etc. or if no artwork record with the given ID exists.
          * @see TheTVDBApi#getArtwork(long) TheTVDBApi.getArtwork(artworkId)
          * @see Extended#getArtwork(long) TheTVDBApi.Extended.getArtwork(artworkId)
          */
@@ -687,7 +683,7 @@ public interface TheTVDBApi {
          * @return JSON object containing detailed information for a specific artwork
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given artwork ID does not exist.
+         *                      resource not found, etc. or if no artwork record with the given ID exists.
          * @see TheTVDBApi#getArtworkDetails(long) TheTVDBApi.getArtworkDetails(artworkId)
          * @see Extended#getArtworkDetails(long) TheTVDBApi.Extended.getArtworkDetails(artworkId)
          */
@@ -704,7 +700,7 @@ public interface TheTVDBApi {
          * @return JSON object containing basic information for a specific award category
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given award category ID does not exist.
+         *                      resource not found, etc. or if no award category record with the given ID exists.
          * @see TheTVDBApi#getAwardCategory(long) TheTVDBApi.getAwardCategory(awardCategoryId)
          * @see Extended#getAwardCategory(long) TheTVDBApi.Extended.getAwardCategory(awardCategoryId)
          */
@@ -721,7 +717,7 @@ public interface TheTVDBApi {
          * @return JSON object containing detailed information for a specific award category
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given award category ID does not exist.
+         *                      resource not found, etc. or if no award category record with the given ID exists.
          * @see TheTVDBApi#getAwardCategoryDetails(long) TheTVDBApi.getAwardCategoryDetails(awardCategoryId)
          * @see Extended#getAwardCategoryDetails(long) TheTVDBApi.Extended.getAwardCategoryDetails(awardCategoryId)
          */
@@ -738,7 +734,7 @@ public interface TheTVDBApi {
          * @return JSON object containing information for a specific character
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given character ID does not exist.
+         *                      resource not found, etc. or if no character record with the given ID exists.
          * @see TheTVDBApi#getCharacter(long) TheTVDBApi.getCharacter(characterId)
          * @see Extended#getCharacter(long) TheTVDBApi.Extended.getCharacter(characterId)
          */
@@ -772,7 +768,7 @@ public interface TheTVDBApi {
          * @return JSON object containing information for a specific company
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given company ID does not exist.
+         *                      resource not found, etc. or if no company record with the given ID exists.
          * @see TheTVDBApi#getCompany(long) TheTVDBApi.getCompany(companyId)
          * @see Extended#getCompany(long) TheTVDBApi.Extended.getCompany(companyId)
          */
@@ -819,7 +815,7 @@ public interface TheTVDBApi {
          * @return JSON object containing basic information for a specific episode
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given episode ID does not exist.
+         *                      resource not found, etc. or if no episode record with the given ID exists.
          * @see TheTVDBApi#getEpisode(long) TheTVDBApi.getEpisode(episodeId)
          * @see Extended#getEpisode(long) TheTVDBApi.Extended.getEpisode(episodeId)
          */
@@ -836,7 +832,7 @@ public interface TheTVDBApi {
          * @return JSON object containing detailed information for a specific episode
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given episode ID does not exist.
+         *                      resource not found, etc. or if no episode record with the given ID exists.
          * @see TheTVDBApi#getEpisodeDetails(long) TheTVDBApi.getEpisodeDetails(episodeId)
          * @see Extended#getEpisodeDetails(long) TheTVDBApi.Extended.getEpisodeDetails(episodeId)
          */
@@ -854,8 +850,8 @@ public interface TheTVDBApi {
          * @return JSON object containing a translation record for a specific episode
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given episode ID does not exist or there is no
-         *                      translation for the requested language.
+         *                      resource not found, etc. or if no episode translation record exists for the given ID and
+         *                      language.
          * @see TheTVDBApi#getEpisodeTranslation(long, String) TheTVDBApi.getEpisodeTranslation(episodeId, language)
          * @see Extended#getEpisodeTranslation(long, String) TheTVDBApi.Extended.getEpisodeTranslation(episodeId,
          *         language)
@@ -888,7 +884,7 @@ public interface TheTVDBApi {
          * @return JSON object containing information for a specific genre
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given genre ID does not exist.
+         *                      resource not found, etc. or if no genre record with the given ID exists.
          * @see TheTVDBApi#getGenre(long) TheTVDBApi.getGenre(genreId)
          * @see Extended#getGenre(long) TheTVDBApi.Extended.getGenre(genreId)
          */
@@ -905,7 +901,7 @@ public interface TheTVDBApi {
          * @return JSON object containing basic information for a specific movie
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given movie ID does not exist.
+         *                      resource not found, etc. or if no movie record with the given ID exists.
          * @see TheTVDBApi#getMovie(long) TheTVDBApi.getMovie(movieId)
          * @see Extended#getMovie(long) TheTVDBApi.Extended.getMovie(movieId)
          */
@@ -923,8 +919,8 @@ public interface TheTVDBApi {
          * @return JSON object containing a translation record for a specific movie
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given movie ID does not exist or there is no
-         *                      translation for the requested language.
+         *                      resource not found, etc. or if no movie translation record exists for the given ID and
+         *                      language.
          * @see TheTVDBApi#getMovieTranslation(long, String) TheTVDBApi.getMovieTranslation(movieId, language)
          * @see Extended#getMovieTranslation(long, String) TheTVDBApi.Extended.getMovieTranslation(movieId,
          *         language)
@@ -942,7 +938,7 @@ public interface TheTVDBApi {
          * @return JSON object containing basic information for a specific people
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given people ID does not exist.
+         *                      resource not found, etc. or if no people record with the given ID exists.
          * @see TheTVDBApi#getPeople(long) TheTVDBApi.getPeople(peopleId)
          * @see Extended#getPeople(long) TheTVDBApi.Extended.getPeople(peopleId)
          */
@@ -959,7 +955,7 @@ public interface TheTVDBApi {
          * @return JSON object containing basic information for a specific season
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given season ID does not exist.
+         *                      resource not found, etc. or if no season record with the given ID exists.
          * @see TheTVDBApi#getSeason(long) TheTVDBApi.getSeason(seasonId)
          * @see Extended#getSeason(long) TheTVDBApi.Extended.getSeason(seasonId)
          */
@@ -977,8 +973,8 @@ public interface TheTVDBApi {
          * @return JSON object containing a translation record for a specific season
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given season ID does not exist or there is no
-         *                      translation for the requested language.
+         *                      resource not found, etc. or if no season translation record exists for the given ID and
+         *                      language.
          * @see TheTVDBApi#getSeasonTranslation(long, String) TheTVDBApi.getSeasonTranslation(seasonId, language)
          * @see Extended#getSeasonTranslation(long, String) TheTVDBApi.Extended.getSeasonTranslation(seasonId,
          *         language)
@@ -1014,7 +1010,7 @@ public interface TheTVDBApi {
          * @return JSON object containing basic information for a specific series
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given series ID does not exist.
+         *                      resource not found, etc. or if no series record with the given ID exists.
          * @see TheTVDBApi#getSeries(long) TheTVDBApi.getSeries(seriesId)
          * @see Extended#getSeries(long) TheTVDBApi.Extended.getSeries(seriesId)
          */
@@ -1031,7 +1027,7 @@ public interface TheTVDBApi {
          * @return JSON object containing detailed information for a specific series
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given series ID does not exist.
+         *                      resource not found, etc. or if no series record with the given ID exists.
          * @see TheTVDBApi#getSeriesDetails(long) TheTVDBApi.getSeriesDetails(seriesId)
          * @see Extended#getSeriesDetails(long) TheTVDBApi.Extended.getSeriesDetails(seriesId)
          */
@@ -1049,8 +1045,8 @@ public interface TheTVDBApi {
          * @return JSON object containing a translation record for a specific series
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given series ID does not exist or there is no
-         *                      translation for the requested language.
+         *                      resource not found, etc. or if no series translation record exists for the given ID and
+         *                      language.
          * @see TheTVDBApi#getSeriesTranslation(long, String) TheTVDBApi.getSeriesTranslation(seriesId, language)
          * @see Extended#getSeriesTranslation(long, String) TheTVDBApi.Extended.getSeriesTranslation(seriesId,
          *         language)
@@ -1099,7 +1095,7 @@ public interface TheTVDBApi {
          *         information
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given artwork ID does not exist.
+         *                      resource not found, etc. or if no artwork record with the given ID exists.
          * @see JSON#getArtwork(long) TheTVDBApi.JSON.getArtwork(artworkId)
          * @see TheTVDBApi#getArtwork(long) TheTVDBApi.getArtwork(artworkId)
          */
@@ -1117,7 +1113,7 @@ public interface TheTVDBApi {
          *         information
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given artwork ID does not exist.
+         *                      resource not found, etc. or if no artwork record with the given ID exists.
          * @see JSON#getArtworkDetails(long) TheTVDBApi.JSON.getArtworkDetails(artworkId)
          * @see TheTVDBApi#getArtworkDetails(long) TheTVDBApi.getArtworkDetails(artworkId)
          */
@@ -1135,7 +1131,7 @@ public interface TheTVDBApi {
          *         information
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given award category ID does not exist.
+         *                      resource not found, etc. or if no award category record with the given ID exists.
          * @see JSON#getAwardCategory(long) TheTVDBApi.JSON.getAwardCategory(awardCategoryId)
          * @see TheTVDBApi#getAwardCategory(long) TheTVDBApi.getAwardCategory(awardCategoryId)
          */
@@ -1153,7 +1149,7 @@ public interface TheTVDBApi {
          *         information
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given award category ID does not exist.
+         *                      resource not found, etc. or if no award category record with the given ID exists.
          * @see JSON#getAwardCategoryDetails(long) TheTVDBApi.JSON.getAwardCategoryDetails(awardCategoryId)
          * @see TheTVDBApi#getAwardCategoryDetails(long) TheTVDBApi.getAwardCategoryDetails(awardCategoryId)
          */
@@ -1171,7 +1167,7 @@ public interface TheTVDBApi {
          *         information
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given character ID does not exist.
+         *                      resource not found, etc. or if no character record with the given ID exists.
          * @see JSON#getCharacter(long) TheTVDBApi.JSON.getCharacter(characterId)
          * @see TheTVDBApi#getCharacter(long) TheTVDBApi.getCharacter(characterId)
          */
@@ -1208,7 +1204,7 @@ public interface TheTVDBApi {
          *         information
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given company ID does not exist.
+         *                      resource not found, etc. or if no company record with the given ID exists.
          * @see JSON#getCompany(long) TheTVDBApi.JSON.getCompany(companyId)
          * @see TheTVDBApi#getCompany(long) TheTVDBApi.getCompany(companyId)
          */
@@ -1258,7 +1254,7 @@ public interface TheTVDBApi {
          *         information
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given episode ID does not exist.
+         *                      resource not found, etc. or if no episode record with the given ID exists.
          * @see JSON#getEpisode(long) TheTVDBApi.JSON.getEpisode(episodeId)
          * @see TheTVDBApi#getEpisode(long) TheTVDBApi.getEpisode(episodeId)
          */
@@ -1276,7 +1272,7 @@ public interface TheTVDBApi {
          *         information
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given episode ID does not exist.
+         *                      resource not found, etc. or if no episode record with the given ID exists.
          * @see JSON#getEpisodeDetails(long) TheTVDBApi.JSON.getEpisodeDetails(episodeId)
          * @see TheTVDBApi#getEpisodeDetails(long) TheTVDBApi.getEpisodeDetails(episodeId)
          */
@@ -1295,8 +1291,8 @@ public interface TheTVDBApi {
          *         information
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given episode ID does not exist or there is no
-         *                      translation for the requested language.
+         *                      resource not found, etc. or if no episode translation record exists for the given ID and
+         *                      language.
          * @see JSON#getEpisodeTranslation(long, String) TheTVDBApi.JSON.getEpisodeTranslation(episodeId, language)
          * @see TheTVDBApi#getEpisodeTranslation(long, String) TheTVDBApi.getEpisodeTranslation(episodeId, language)
          */
@@ -1330,7 +1326,7 @@ public interface TheTVDBApi {
          *         information
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given genre ID does not exist.
+         *                      resource not found, etc. or if no genre record with the given ID exists.
          * @see JSON#getGenre(long) TheTVDBApi.JSON.getGenre(genreId)
          * @see TheTVDBApi#getGenre(long) TheTVDBApi.getGenre(genreId)
          */
@@ -1348,7 +1344,7 @@ public interface TheTVDBApi {
          *         information
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given movie ID does not exist.
+         *                      resource not found, etc. or if no movie record with the given ID exists.
          * @see JSON#getMovie(long) TheTVDBApi.JSON.getMovie(movieId)
          * @see TheTVDBApi#getMovie(long) TheTVDBApi.getMovie(movieId)
          */
@@ -1367,8 +1363,8 @@ public interface TheTVDBApi {
          *         information
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given movie ID does not exist or there is no
-         *                      translation for the requested language.
+         *                      resource not found, etc. or if no movie translation record exists for the given ID and
+         *                      language.
          * @see JSON#getMovieTranslation(long, String) TheTVDBApi.JSON.getMovieTranslation(movieId, language)
          * @see TheTVDBApi#getMovieTranslation(long, String) TheTVDBApi.getMovieTranslation(movieId, language)
          */
@@ -1386,7 +1382,7 @@ public interface TheTVDBApi {
          *         information
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given people ID does not exist.
+         *                      resource not found, etc. or if no people record with the given ID exists.
          * @see JSON#getPeople(long) TheTVDBApi.JSON.getPeople(peopleId)
          * @see TheTVDBApi#getPeople(long) TheTVDBApi.getPeople(peopleId)
          */
@@ -1404,7 +1400,7 @@ public interface TheTVDBApi {
          *         information
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given season ID does not exist.
+         *                      resource not found, etc. or if no season record with the given ID exists.
          * @see JSON#getSeason(long) TheTVDBApi.JSON.getSeason(seasonId)
          * @see TheTVDBApi#getSeason(long) TheTVDBApi.getSeason(seasonId)
          */
@@ -1423,8 +1419,8 @@ public interface TheTVDBApi {
          *         information
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given season ID does not exist or there is no
-         *                      translation for the requested language.
+         *                      resource not found, etc. or if no season translation record exists for the given ID and
+         *                      language.
          * @see JSON#getSeasonTranslation(long, String) TheTVDBApi.JSON.getSeasonTranslation(seasonId, language)
          * @see TheTVDBApi#getSeasonTranslation(long, String) TheTVDBApi.getSeasonTranslation(seasonId, language)
          */
@@ -1461,7 +1457,7 @@ public interface TheTVDBApi {
          *         information
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given series ID does not exist.
+         *                      resource not found, etc. or if no series record with the given ID exists.
          * @see JSON#getSeries(long) TheTVDBApi.JSON.getSeries(seriesId)
          * @see TheTVDBApi#getSeries(long) TheTVDBApi.getSeries(seriesId)
          */
@@ -1479,7 +1475,7 @@ public interface TheTVDBApi {
          *         information
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given series ID does not exist.
+         *                      resource not found, etc. or if no series record with the given ID exists.
          * @see JSON#getSeriesDetails(long) TheTVDBApi.JSON.getSeriesDetails(seriesId)
          * @see TheTVDBApi#getSeriesDetails(long) TheTVDBApi.getSeriesDetails(seriesId)
          */
@@ -1498,8 +1494,8 @@ public interface TheTVDBApi {
          *         information
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
-         *                      resource not found, etc. or if the given series ID does not exist or there is no
-         *                      translation for the requested language.
+         *                      resource not found, etc. or if no series translation record exists for the given ID and
+         *                      language.
          * @see JSON#getSeriesTranslation(long, String) TheTVDBApi.JSON.getSeriesTranslation(seriesId, language)
          * @see TheTVDBApi#getSeriesTranslation(long, String) TheTVDBApi.getSeriesTranslation(seriesId, language)
          */
