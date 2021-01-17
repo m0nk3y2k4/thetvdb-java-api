@@ -19,6 +19,7 @@ package com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter;
 import static com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory.createAPIKey;
 
 import java.util.InvalidPropertiesFormatException;
+import java.util.Locale;
 
 import com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.TheTVDBApiImpl;
@@ -30,6 +31,8 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * JUnit5 extension providing some useful functionality for running integration tests against the actual
@@ -42,6 +45,9 @@ import org.junit.jupiter.api.extension.ParameterResolver;
  * @see IntegrationTestSuite
  */
 public class IntegrationTestExtension implements ParameterResolver, BeforeAllCallback {
+
+    /** Logger for verbose integration test information */
+    private static final Logger LOG = LoggerFactory.getLogger(IntegrationTestExtension.class);
 
     /** API instance referring to the actual <i>TheTVDB.com</i> RESTful remote API */
     private static final TheTVDBApi API = createConfigurationBasedApi();
@@ -69,6 +75,18 @@ public class IntegrationTestExtension implements ParameterResolver, BeforeAllCal
         }
     }
 
+    /**
+     * Pretty-prints the <i>value</i> attribute of the given annotation to the maven console
+     *
+     * @param suite Meta-annotation of an integration test class
+     */
+    private static void printSuiteName(IntegrationTestSuite suite) {
+        String name = suite.value().toUpperCase(Locale.ROOT);
+        LOG.info("+-------------------------------------------+");
+        LOG.info(String.format("|%-43s|", String.format("%" + (name.length() + (43 - name.length()) / 2) + "s", name)));
+        LOG.info("+-------------------------------------------+");
+    }
+
     @Override
     public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
             throws ParameterResolutionException {
@@ -85,6 +103,6 @@ public class IntegrationTestExtension implements ParameterResolver, BeforeAllCal
     public void beforeAll(ExtensionContext extensionContext) {
         extensionContext.getTestClass()
                 .map(clazz -> clazz.getAnnotation(IntegrationTestSuite.class))
-                .ifPresent(suite -> System.out.printf("*** %s ***%n", suite.value()));
+                .ifPresent(IntegrationTestExtension::printSuiteName);
     }
 }
