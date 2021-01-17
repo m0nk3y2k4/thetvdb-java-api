@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - Replaced the maven _NOPLogger_ dependency with _SimpleLogger_ implementation: `org.slf4j:slf4j-nop` -> `org.slf4j:slf4j-simple`.
+- Updated multiple maven dependencies to latest version:
+    - _org.mockito:mockito-core_: `3.6.28` -> `3.7.7`
+    - _com.fasterxml.jackson.core:jackson-databind_: `2.12.0` -> `2.12.1`
 
 ## [3.0.3] - 2021-01-01
 ### Added
@@ -30,8 +33,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Replace usage of anonymous classes in `QueryParametersImpl` to avoid the risk of memory leaks.
 - Changed names of system properties used for running integration tests.
 - Updated multiple maven dependencies to latest version:
-  - _org.mockito:mockito-core_: `3.6.0` -> `3.6.28`
-  - _com.fasterxml:jackson.core_: `2.11.3` -> `2.12.0`
+    - _org.mockito:mockito-core_: `3.6.0` -> `3.6.28`
+    - _com.fasterxml.jackson.core:jackson-databind_: `2.11.3` -> `2.12.0`
 
 ### Removed
 - Method `MockServerUtil.defaultAPIHttpHeaders(boolean)` has been replaced by two more convenient ones.
@@ -46,7 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - _org.junit.jupiter:*_: `5.6.2` -> `5.7.0`
     - _org.mockito:mockito-core_: `3.4.6` -> `3.6.0`
     - _org.assertj:assertj-core_: `3.16.1` -> `3.18.1`
-    - _com.fasterxml:jackson.core_: `2.11.2` -> `2.11.3`
+    - _com.fasterxml.jackson.core:jackson-databind_: `2.11.2` -> `2.11.3`
     - _org.mock-server:*_: `5.11.1` -> `5.11.2`
 
 ## [3.0.1] - 2020-08-29
