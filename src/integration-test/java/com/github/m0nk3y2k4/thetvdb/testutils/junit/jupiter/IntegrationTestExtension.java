@@ -74,6 +74,11 @@ public class IntegrationTestExtension implements ParameterResolver, BeforeAllCal
         }
     }
 
+    /**
+     * Pretty-prints the <i>value</i> attribute of the given annotation to the maven console
+     *
+     * @param suite Meta-annotation of an integration test class
+     */
     private static void printSuiteName(IntegrationTestSuite suite) {
         String name = suite.value().toUpperCase(Locale.ROOT);
         LOG.info("+-------------------------------------------+");
