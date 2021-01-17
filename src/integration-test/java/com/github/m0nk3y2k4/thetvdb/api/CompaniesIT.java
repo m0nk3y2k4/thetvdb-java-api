@@ -23,7 +23,7 @@ import com.github.m0nk3y2k4.thetvdb.testutils.annotation.IntegrationTestSuite;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
-@IntegrationTestSuite("AwardCategories")
+@IntegrationTestSuite("Companies")
 class CompaniesIT {
 
     @Test
