@@ -35,6 +35,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <generated.sources.annotations>${project.build.directory}/generated-sources/annotations</generated.sources.annotations>
+    <argLine>-Dorg.slf4j.simpleLogger.showThreadName=false -Dorg.slf4j.simpleLogger.showLogName=false -Dorg.slf4j.simpleLogger.levelInBrackets=true</argLine>
   </properties>
 
   <profiles>
@@ -348,10 +349,10 @@
         <version>1.7.30</version>
     </dependency>
 
-    <!-- Simple Logging Facade for Java: Binding for NOP (no operation) silently discarding all logging. -->
+    <!-- Simple Logging Facade for Java: Binding for Simple implementation, which outputs all events to System.err. -->
     <dependency>
         <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-nop</artifactId>
+        <artifactId>slf4j-simple</artifactId>
         <version>1.7.30</version>
         <scope>test</scope>
     </dependency>

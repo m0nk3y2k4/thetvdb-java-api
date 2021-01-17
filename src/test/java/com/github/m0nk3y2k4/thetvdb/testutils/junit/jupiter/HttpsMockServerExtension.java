@@ -43,6 +43,7 @@ import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 import org.mockserver.client.MockServerClient;
+import org.mockserver.configuration.ConfigurationProperties;
 import org.mockserver.logging.MockServerLogger;
 import org.mockserver.matchers.TimeToLive;
 import org.mockserver.matchers.Times;
@@ -69,7 +70,6 @@ class HttpsMockServerExtension implements ParameterResolver, BeforeAllCallback, 
     private static final int PRIO_ROUTE = -9;
 
     /** Client for accessing the mocked server running in the background */
-    @SuppressWarnings("resource")
     private final MockServerClient client = new MockServerClient(HOST, PORT);
 
     /** Preconfigured remote API pointing to the actual server mock */
@@ -92,6 +92,9 @@ class HttpsMockServerExtension implements ParameterResolver, BeforeAllCallback, 
 
     @Override
     public void beforeAll(ExtensionContext extensionContext) {
+        // Only log warnings and more severe information
+        ConfigurationProperties.logLevel("WARN");
+
         // Reset all expectations and recordings before each test class to avoid test classes interfering with each other
         client.reset();
 

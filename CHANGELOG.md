@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Replaced the maven _NOPLogger_ dependency with _SimpleLogger_ implementation: `org.slf4j:slf4j-nop` -> `org.slf4j:slf4j-simple`.
 
 ## [3.0.3] - 2021-01-01
 ### Added
@@ -17,9 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Reduced visibility of some public methods which were only used internally.
 - Declared several util and factory classes as being final.
 - The body of POST requests is now fix UTF-8 encoded.
-- Made several methods `static` that did not reference any non-static content are were not overidden in a sub class.
+- Made several methods `static` that did not reference any non-static content are were not overwritten in a sub class.
 - Enhanced some test classes to use static inner classes instead of anonymous classes to avoid possible memory leaks.
-- The methods `APISession.isInitialized`, `APISession.userAuthentication` and `QueryResource.isValidQueryParameter` now return primitve types.
+- The methods `APISession.isInitialized`, `APISession.userAuthentication` and `QueryResource.isValidQueryParameter` now return primitive types.
 - Method `JSONDeserializer.mapDataObject(...)` now accepts general `TypeReference<T>` objects.
 - `JsonResource.getJsonString` now uses fix UTF-8 encoding when loading JSON content from resource files.
 - Test util `MockServerUtil.contentLength` now accepts a more general CharSequence.

@@ -24,6 +24,8 @@ import javax.annotation.CheckForNull;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
 import org.assertj.core.api.AbstractAssert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Special abstract assertion for integration tests, wrapping some API route invocation
@@ -43,8 +45,11 @@ import org.assertj.core.api.AbstractAssert;
  */
 public abstract class AbstractIntegrationTestAssert<T> extends AbstractAssert<AbstractIntegrationTestAssert<T>, T> {
 
+    /** Logger for verbose integration test information */
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractIntegrationTestAssert.class);
+
     /** Cut response String representation to not spam the maven output */
-    private static final int MAX_OUTPUT_CHARACTERS = 180;
+    private static final int MAX_OUTPUT_CHARACTERS = 140;
 
     AbstractIntegrationTestAssert(T actual) {
         super(actual, AbstractIntegrationTestAssert.class);
@@ -68,17 +73,17 @@ public abstract class AbstractIntegrationTestAssert<T> extends AbstractAssert<Ab
     }
 
     /**
-     * Prints the description text and the given response String to the standard console-out stream, applying some
+     * Prints the description text and the given response String to the standard console-err stream, applying some
      * formatting first.
      *
      * @param result The response value from the remote API in its String representation
      */
     private void printOutput(@CheckForNull String result) {
-        String testOutput = String.format("%-50s%s", descriptionText(), "OK").replace(" ", ".");
+        String executionInfo = String.format("%-43s%s", descriptionText(), "OK").replace(" ", ".");
         if (result != null) {
-            testOutput = String.format("%-60s(%s)", testOutput, result);
+            executionInfo = String.format("%-53s%s", executionInfo, result);
         }
-        System.out.println(testOutput);
+        LOG.info(executionInfo);
     }
 
     /**
