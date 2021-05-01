@@ -27,8 +27,6 @@ import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.FundingModel;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.EnumSource;
 
 class TheTVDBApiFactoryTest {
 
@@ -81,12 +79,22 @@ class TheTVDBApiFactoryTest {
         assertThat(proxy.getPort()).isEqualTo(port);
     }
 
-    @ParameterizedTest(name = "[{index}] With funding model {0}")
-    @EnumSource(FundingModel.class)
-    void createAPIKey_withValidKeyAndFundingModel_verifyAPIKeyProperties(FundingModel fundingModel) {
+    @Test
+    void createAPIKey_contractBased_verifyAPIKeyProperties() {
         final String key = "FH7IK2H4S3Z4J";
-        APIKey apiKey = TheTVDBApiFactory.createAPIKey(key, fundingModel);
-        assertThat(apiKey.getKey()).isEqualTo(key);
-        assertThat(apiKey.getFundingModel()).isEqualTo(fundingModel);
+        APIKey apiKey = TheTVDBApiFactory.createAPIKey(key);
+        assertThat(apiKey.getApiKey()).isEqualTo(key);
+        assertThat(apiKey.getPin()).isEmpty();
+        assertThat(apiKey.getFundingModel()).isEqualTo(FundingModel.CONTRACT);
+    }
+
+    @Test
+    void createAPIKey_subscriptionBased_verifyAPIKeyProperties() {
+        final String key = "UG9OD4S0U4E56";
+        final String pin = "PIN";
+        APIKey apiKey = TheTVDBApiFactory.createAPIKey(key, pin);
+        assertThat(apiKey.getApiKey()).isEqualTo(key);
+        assertThat(apiKey.getPin()).contains(pin);
+        assertThat(apiKey.getFundingModel()).isEqualTo(FundingModel.SUBSCRIPTION);
     }
 }

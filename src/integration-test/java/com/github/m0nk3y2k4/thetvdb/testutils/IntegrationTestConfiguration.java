@@ -22,8 +22,6 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Optional;
 import java.util.Properties;
 
-import com.github.m0nk3y2k4.thetvdb.api.enumeration.FundingModel;
-
 /**
  * Configuration used for authentication at the <i>TheTVDB.com</i> RESTful remote API
  * <p><br>
@@ -35,8 +33,8 @@ public final class IntegrationTestConfiguration {
     /** System property holding the <i>TheTVDB.com</i> API-Key to be used for authentication */
     private static final String INTEGRATION_THETVDB_COM_APIKEY = "integration.thetvdb.com.apikey";
 
-    /** System property holding the funding model based on which the API-Key was issued */
-    private static final String INTEGRATION_THETVDB_COM_FUNDINGMODEL = "integration.thetvdb.com.fundingmodel";
+    /** System property holding the <i>TheTVDB.com</i> PIN to be used for subscription-based authentication */
+    private static final String INTEGRATION_THETVDB_COM_PIN = "integration.thetvdb.com.pin";
 
     /** Singleton instance */
     private static final IntegrationTestConfiguration INSTANCE = new IntegrationTestConfiguration();
@@ -80,22 +78,21 @@ public final class IntegrationTestConfiguration {
     }
 
     /**
-     * Fetches the funding model from the resource properties file or from the VM system properties
+     * Fetches the PIN from the resource properties file or from the VM system properties. If the PIN was neither
+     * provided via the "thetvdbapi.properties" file nor as a system property an empty Optional will be returned.
      *
-     * @return The funding model based on which the API-Key was issued
-     *
-     * @throws InvalidPropertiesFormatException If the funding model was neither provided via the
-     *                                          "thetvdbapi.properties" file nor as a system property
+     * @return The PIN to be used for <i>TheTVDB.com</i> remote API authentication or empty Optional if no PIN could be
+     *         retrieved
      */
-    public FundingModel getFundingModel() throws InvalidPropertiesFormatException {
-        return FundingModel.valueOf(getProperty(INTEGRATION_THETVDB_COM_FUNDINGMODEL));
+    public Optional<String> getPin() {
+        return getOptionalProperty(INTEGRATION_THETVDB_COM_PIN);
     }
 
     /**
      * Fetches the given property from the "thetvdbapi.properties" resource file. If the given property is not present,
      * load it from the system properties.
      *
-     * @param key The key of the property to be returned
+     * @param key The name of the property that should be fetched
      *
      * @return Property value for the given key
      *
@@ -103,8 +100,20 @@ public final class IntegrationTestConfiguration {
      *                                          file nor available as a system property
      */
     private String getProperty(String key) throws InvalidPropertiesFormatException {
-        return Optional.ofNullable(config.getProperty(key, System.getProperty(key))).orElseThrow(() ->
-                new InvalidPropertiesFormatException(String
-                        .format("Failed to lookup property <%s>. Please provide valid settings via the \"thetvdbapi.properties\" file!", key)));
+        return getOptionalProperty(key).orElseThrow(() -> new InvalidPropertiesFormatException(String
+                .format("Failed to lookup property <%s>. Please provide valid settings via the \"thetvdbapi.properties\" file!", key)));
+    }
+
+    /**
+     * Fetches the given property from the "thetvdbapi.properties" resource file. If the given property is not present,
+     * try to load it from the system properties. If no matching property could be retrieved an empty Optional will be
+     * returned.
+     *
+     * @param key The name of the property that should be fetched
+     *
+     * @return Property value for the given key or an empty Optional if no such property exists
+     */
+    private Optional<String> getOptionalProperty(String key) {
+        return Optional.ofNullable(config.getProperty(key, System.getProperty(key)));
     }
 }

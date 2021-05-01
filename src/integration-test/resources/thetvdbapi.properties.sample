@@ -1,3 +1,5 @@
 # Set the following properties according to your TheTVDB.com user account and rename this file to 'thetvdbapi.properties'
 integration.thetvdb.com.apikey=<PLEASE_FILL_IN_APIKEY>
-integration.thetvdb.com.fundingmodel=<PLEASE_FILL_IN_FUNDING_MODEL -> CONTRACT|SUBSCRIPTION>
+
+# The PIN is only required if want to access the TheTVDB.com API based on a specific end-user subscription account
+#integration.thetvdb.com.pin=<PLEASE_FILL_IN_PIN>

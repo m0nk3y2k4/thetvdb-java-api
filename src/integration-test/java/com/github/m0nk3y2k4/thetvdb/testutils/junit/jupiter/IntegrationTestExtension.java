@@ -16,12 +16,13 @@
 
 package com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter;
 
-import static com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory.createAPIKey;
-
 import java.util.InvalidPropertiesFormatException;
 import java.util.Locale;
+import java.util.Optional;
 
 import com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi;
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.FundingModel;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.APIKeyImpl;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.TheTVDBApiImpl;
 import com.github.m0nk3y2k4.thetvdb.testutils.IntegrationTestConfiguration;
 import com.github.m0nk3y2k4.thetvdb.testutils.annotation.IntegrationTestSuite;
@@ -69,7 +70,10 @@ public class IntegrationTestExtension implements ParameterResolver, BeforeAllCal
     private static TheTVDBApi createConfigurationBasedApi() {
         IntegrationTestConfiguration testConfig = IntegrationTestConfiguration.loadConfiguration();
         try {
-            return new TheTVDBApiImpl(createAPIKey(testConfig.getApiKey(), testConfig.getFundingModel()));
+            Optional<String> pin = testConfig.getPin();
+            FundingModel fundingModel = pin.isPresent() ? FundingModel.SUBSCRIPTION : FundingModel.CONTRACT;
+            return new TheTVDBApiImpl(new APIKeyImpl.Builder().apiKey(testConfig.getApiKey()).pin(pin)
+                    .fundingModel(fundingModel).build());
         } catch (InvalidPropertiesFormatException configurationException) {
             throw new ExtensionConfigurationException("Failed to initialize extension", configurationException);
         }

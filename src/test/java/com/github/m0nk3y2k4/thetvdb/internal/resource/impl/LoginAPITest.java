@@ -18,9 +18,11 @@ package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.POST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
+import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.INVALID_APIKEY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.SUBSCRIPTION_APIKEY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonSchemaFromResource;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 import static org.mockserver.model.HttpRequest.request;
 
 import java.util.stream.Stream;
@@ -31,6 +33,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.connection.APISession.Status;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI;
 import com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter.WithHttpsMockServer;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -66,16 +69,37 @@ class LoginAPITest {
         assertThat(con.getSessionStatus()).isEqualTo(Status.AUTHORIZED);
     }
 
+    @Test
+    void login_withInvalidApiKey_exceptionThrown() {
+        APIConnection con = new ConnectionWithInvalidApiKey();
+        assertThatIllegalStateException().isThrownBy(() -> LoginAPI.login(con))
+                .withMessage("For user subscription based authentication a PIN is required");
+    }
+
     /**
      * Extends the regular API connection, providing access to the sessions current (login) status
      */
-    private static final class Connection extends APIConnection {
+    private static class Connection extends APIConnection {
         private Connection(APIKey apiKey) {
             super(apiKey, remote);
         }
 
         private Status getSessionStatus() {
             return super.getStatus();
+        }
+    }
+
+    /**
+     * Specific API connection modified to returns an invalid API key
+     */
+    private static final class ConnectionWithInvalidApiKey extends Connection {
+        private ConnectionWithInvalidApiKey() {
+            super(CONTRACT_APIKEY); // The super constructor will check the API key so we have to use a valid one here
+        }
+
+        @Override
+        public APIKey getApiKey() {
+            return INVALID_APIKEY; // This key will be returned to LoginAPI#login()
         }
     }
 }

@@ -19,20 +19,19 @@ package com.github.m0nk3y2k4.thetvdb.internal.connection;
 import static com.github.m0nk3y2k4.thetvdb.internal.connection.APISession.ERR_JWT_EMPTY;
 import static com.github.m0nk3y2k4.thetvdb.internal.connection.APISession.ERR_JWT_INVALID;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
+import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.INVALID_APIKEY;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 import java.util.stream.Stream;
 
-import com.github.m0nk3y2k4.thetvdb.api.APIKey;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APISession.Status;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.NullSource;
 
 @SuppressWarnings("ConstantConditions")
 class APISessionTest {
@@ -65,10 +64,10 @@ class APISessionTest {
         assertThat(session.getToken()).isEmpty();
     }
 
-    @ParameterizedTest(name = "[{index}] Value {0} is not a valid API key")
-    @NullSource
-    void newAPISession_withInvalidApiKey_verifyParameterValidation(APIKey apiKey) {
-        assertThatIllegalArgumentException().isThrownBy(() -> new APISession(apiKey));
+    @Test
+    void newAPISession_withInvalidApiKey_verifyParameterValidation() {
+        assertThatIllegalArgumentException().isThrownBy(() -> new APISession(null));
+        assertThatIllegalArgumentException().isThrownBy(() -> new APISession(INVALID_APIKEY));
     }
 
     @Test

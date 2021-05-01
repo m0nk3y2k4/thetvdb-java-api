@@ -16,14 +16,15 @@
 
 package com.github.m0nk3y2k4.thetvdb.api;
 
+import java.util.Optional;
+
 import com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.FundingModel;
 
 /**
  * Interface representing a <i>TheTVDB.com</i> v4 API key to be used for remote API authentication. Such API keys may be
- * issued either based on a negotiated contract with <i>TheTVDB.com</i> or based on an end-user subscription. Whenever a
- * new instance of this interface is created you will have to provide which of the aforementioned funding models applies
- * to the API key that is to be used. Instances of this interface might be created via the {@link TheTVDBApiFactory}.
+ * issued either based on a negotiated contract with <i>TheTVDB.com</i> or based on an end-user subscription. Instances
+ * of this interface might be created via the {@link TheTVDBApiFactory}.
  */
 public interface APIKey {
 
@@ -32,7 +33,15 @@ public interface APIKey {
      *
      * @return The <i>TheTVDB.com</i> v4 API key
      */
-    String getKey();
+    String getApiKey();
+
+    /**
+     * Returns the PIN used for {@link FundingModel#SUBSCRIPTION user subscription} based authentication. Might be empty
+     * when authenticating using a public API key.
+     *
+     * @return The <i>TheTVDB.com</i> v4 end-user subscription PIN
+     */
+    Optional<String> getPin();
 
     /**
      * Returns the funding model based on which the API-Key was issued.

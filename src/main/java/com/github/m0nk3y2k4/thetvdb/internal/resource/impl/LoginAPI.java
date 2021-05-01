@@ -62,9 +62,10 @@ public final class LoginAPI {
         ObjectNode authentication = new ObjectMapper().getNodeFactory().objectNode();
         APIKey auth = con.getApiKey();
 
-        authentication.put("apikey", auth.getKey());
+        authentication.put("apikey", auth.getApiKey());
         if (auth.getFundingModel() == SUBSCRIPTION) {
-            authentication.put("pin", auth.getKey());
+            authentication.put("pin", auth.getPin()
+                    .orElseThrow(() -> new IllegalStateException("For user subscription based authentication a PIN is required")));
         }
 
         con.setStatus(APISession.Status.AUTHORIZATION_IN_PROGRESS);

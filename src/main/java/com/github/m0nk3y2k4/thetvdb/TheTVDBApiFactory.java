@@ -51,7 +51,8 @@ public final class TheTVDBApiFactory {
      *
      * @return A new TheTVDBApi instance using the given API key for authentication
      *
-     * @see TheTVDBApiFactory#createAPIKey(String, FundingModel) createAPIKey(apiKey, fundingModel)
+     * @see TheTVDBApiFactory#createAPIKey(String) createAPIKey(apiKey)
+     * @see TheTVDBApiFactory#createAPIKey(String, String) createAPIKey(apiKey, pin)
      */
     public static TheTVDBApi createApi(@Nonnull APIKey apiKey) {
         return new TheTVDBApiImpl(apiKey);
@@ -70,7 +71,8 @@ public final class TheTVDBApiFactory {
      * @return A new TheTVDBApi instance using the given API key for authentication forwarding all communication to the
      *         given proxy
      *
-     * @see TheTVDBApiFactory#createAPIKey(String, FundingModel) createAPIKey(apiKey, fundingModel)
+     * @see TheTVDBApiFactory#createAPIKey(String) createAPIKey(apiKey)
+     * @see TheTVDBApiFactory#createAPIKey(String, String) createAPIKey(apiKey, pin)
      */
     public static TheTVDBApi createApi(@Nonnull APIKey apiKey, @Nonnull Proxy proxy) {
         return new TheTVDBApiImpl(apiKey, proxy);
@@ -140,21 +142,43 @@ public final class TheTVDBApiFactory {
     }
 
     /**
-     * Creates a new APIKey instance based on the given parameters. Both parameters are available on your
-     * <a target="_blank" href="https://www.thetvdb.com/dashboard/account/apikey">TheTVDB.com Dashboard</a>
-     * under the "{@code v4 API Keys}" section. For keys that have been issued based on an end-user subscription, please
-     * use {@link FundingModel#SUBSCRIPTION}. For keys issued based on a negotiated contract with <i>TheTVDB.com</i> use
-     * the {@link FundingModel#CONTRACT} setting. The returned API key can be used to create a new TheTVDBApi instance.
+     * Creates a new APIKey instance based on the given value. This type of key will typically be issued based on a
+     * specific contract and is often publicly available. If you have negotiated your own contract with
+     * <i>TheTVDB.com</i> the API key should be available on your
+     * <a target="_blank" href="https://www.thetvdb.com/dashboard/account/apikey">TheTVDB.com dashboard</a> under the
+     * "{@code v4 API Keys}" section. For keys that have been issued based on an end-user subscription you will have to
+     * authenticate with an {@link #createAPIKey(String, String) additional PIN}. The returned API key can be used for
+     * creating new TheTVDBApi instances.
      *
-     * @param apiKey       Valid <i>TheTVDB.com</i> v4 API-Key
-     * @param fundingModel The funding model based on which the API-Key was issued
+     * @param apiKey Valid <i>TheTVDB.com</i> v4 API-Key
      *
      * @return API key used to create a new TheTVDBApi instance
      *
      * @see TheTVDBApiFactory#createApi(APIKey)
      * @see TheTVDBApiFactory#createApi(APIKey, Proxy)
+     * @see TheTVDBApiFactory#createAPIKey(String, String) createAPIKey(apiKey, pin)
      */
-    public static APIKey createAPIKey(@Nonnull String apiKey, @Nonnull FundingModel fundingModel) {
-        return new APIKeyImpl.Builder().key(apiKey).fundingModel(fundingModel).build();
+    public static APIKey createAPIKey(@Nonnull String apiKey) {
+        return new APIKeyImpl.Builder().apiKey(apiKey).fundingModel(FundingModel.CONTRACT).build();
+    }
+
+    /**
+     * Creates a new APIKey instance based on the given parameters. This method is to be used for private keys that have
+     * been issued based on an end-user subscription. This type of key requires an additional PIN for authentication.
+     * Both, the API key and the PIN are available on your
+     * <a target="_blank" href="https://www.thetvdb.com/dashboard/account/apikey">TheTVDB.com dashboard</a>
+     * under the "{@code v4 API Keys}" section. The returned API key can be used to create a new TheTVDBApi instance.
+     *
+     * @param apiKey Valid <i>TheTVDB.com</i> v4 API-Key
+     * @param pin    Additional PIN necessary for end-user subscription based authentication
+     *
+     * @return API key used to create a new TheTVDBApi instance
+     *
+     * @see TheTVDBApiFactory#createApi(APIKey)
+     * @see TheTVDBApiFactory#createApi(APIKey, Proxy)
+     * @see TheTVDBApiFactory#createAPIKey(String) createAPIKey(apiKey)
+     */
+    public static APIKey createAPIKey(@Nonnull String apiKey, @Nonnull String pin) {
+        return new APIKeyImpl.Builder().apiKey(apiKey).pin(pin).fundingModel(FundingModel.SUBSCRIPTION).build();
     }
 }

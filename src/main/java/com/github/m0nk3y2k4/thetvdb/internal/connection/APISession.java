@@ -85,6 +85,7 @@ public final class APISession {
      */
     APISession(@Nonnull APIKey apiKey) {
         Parameters.validateNotNull(apiKey, "API key must not be NULL");
+        Parameters.validateApiKey(apiKey);
 
         this.apiKey = apiKey;
     }

@@ -14,385 +14,387 @@
   ~ limitations under the License.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.github.m0nk3y2k4</groupId>
-  <artifactId>thetvdb-java-api</artifactId>
-  <version>4.0.0-SNAPSHOT</version>
+    <groupId>com.github.m0nk3y2k4</groupId>
+    <artifactId>thetvdb-java-api</artifactId>
+    <version>4.0.0-SNAPSHOT</version>
 
-  <name>thetvdb-java-api</name>
-  <description>Java connector for the TheTVDB.com. Allows simplified usage of the TheTVDB.com RESTful API from inside Java projects.</description>
-  <url>https://github.com/m0nk3y2k4/thetvdb-java-api</url>
+    <name>thetvdb-java-api</name>
+    <description>Java connector for the TheTVDB.com. Allows simplified usage of the TheTVDB.com RESTful API from inside Java projects.</description>
+    <url>https://github.com/m0nk3y2k4/thetvdb-java-api</url>
 
-  <licenses>
-      <license>
-          <name>The Apache License, Version 2.0</name>
-          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      </license>
-  </licenses>
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <generated.sources.annotations>${project.build.directory}/generated-sources/annotations</generated.sources.annotations>
-    <argLine>-Dorg.slf4j.simpleLogger.showThreadName=false -Dorg.slf4j.simpleLogger.showLogName=false -Dorg.slf4j.simpleLogger.levelInBrackets=true</argLine>
-  </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <generated.sources.annotations>${project.build.directory}/generated-sources/annotations</generated.sources.annotations>
+        <argLine>-Dorg.slf4j.simpleLogger.showThreadName=false -Dorg.slf4j.simpleLogger.showLogName=false -Dorg.slf4j.simpleLogger.levelInBrackets=true</argLine>
+    </properties>
 
-  <profiles>
-    <profile>
-      <id>integration-tests</id>
-      <build>
+    <profiles>
+        <profile>
+            <id>integration-tests</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>3.2.0</version>
+                        <executions>
+                            <execution>
+                                <id>add-integration-test-source</id>
+                                <phase>generate-test-sources</phase>
+                                <goals>
+                                    <goal>add-test-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>src/integration-test/java</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>add-integration-test-resource</id>
+                                <phase>generate-test-resources</phase>
+                                <goals>
+                                    <goal>add-test-resource</goal>
+                                </goals>
+                                <configuration>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/integration-test/resources</directory>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>3.0.0-M5</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <build>
         <plugins>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>10</source>
+                    <target>10</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.2.0</version>
                 <executions>
                     <execution>
-                        <id>add-integration-test-source</id>
-                        <phase>generate-test-sources</phase>
+                        <id>attach-javadocs</id>
                         <goals>
-                            <goal>add-test-source</goal>
+                            <goal>jar</goal>
                         </goals>
-                        <configuration>
-                            <sources>
-                                <source>src/integration-test/java</source>
-                            </sources>
-                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <doclint>all</doclint>
+                    <doctitle>TheTVDB Java ${project.version} API</doctitle>
+                    <windowtitle>Index(TheTVDB Java ${project.version} API)</windowtitle>
+                    <additionalOptions>-html5</additionalOptions>
+                    <sourcepath>${project.build.sourceDirectory};${generated.sources.annotations}</sourcepath>
+                    <groups>
+                        <group>
+                            <title>API Packages</title>
+                            <packages>com.github.m0nk3y2k4.thetvdb.api*</packages>
+                        </group>
+                        <group>
+                            <title>Internal Packages</title>
+                            <packages>com.github.m0nk3y2k4.thetvdb.internal*</packages>
+                        </group>
+                        <group>
+                            <title>Root Package</title>
+                            <packages>com.github.m0nk3y2k4.thetvdb</packages>
+                        </group>
+                    </groups>
+                    <quiet>true</quiet>
+                    <notimestamp>true</notimestamp>
+                    <show>protected</show>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.6</version>
+                <executions>
+                    <execution>
+                        <id>coverage-initialize</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
                     </execution>
                     <execution>
-                        <id>add-integration-test-resource</id>
-                        <phase>generate-test-resources</phase>
+                        <id>coverage-report</id>
+                        <phase>post-integration-test</phase>
                         <goals>
-                            <goal>add-test-resource</goal>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>coverage-check</id>
+                        <goals>
+                            <goal>check</goal>
                         </goals>
                         <configuration>
-                            <resources>
-                                <resource>
-                                    <directory>src/integration-test/resources</directory>
-                                </resource>
-                            </resources>
+                            <rules>
+                                <rule>
+                                    <element>CLASS</element>
+                                    <limits>
+                                        <limit>
+                                            <counter>LINE</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>80%</minimum>
+                                        </limit>
+                                        <limit>
+                                            <counter>CLASS</counter>
+                                            <value>MISSEDCOUNT</value>
+                                            <maximum>0</maximum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.0.0-M5</version>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.github.m0nk3y2k4.thetvdb.APIConnection</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
                 <executions>
                     <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
                         <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
+                            <goal>single</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <arguments>-Dmaven.deploy.skip=true</arguments>
+                    <tagNameFormat>@{project.version}</tagNameFormat>
+                    <pushChanges>false</pushChanges>
+                    <localCheckout>true</localCheckout>
+                </configuration>
+            </plugin>
         </plugins>
-      </build>
-    </profile>
-  </profiles>
+    </build>
 
-  <build>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.8.1</version>
-            <configuration>
-                <source>10</source>
-                <target>10</target>
-            </configuration>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-source-plugin</artifactId>
-            <version>3.2.1</version>
-            <executions>
-                <execution>
-                    <id>attach-sources</id>
-                    <goals>
-                        <goal>jar</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>3.2.0</version>
-            <executions>
-                <execution>
-                    <id>attach-javadocs</id>
-                    <goals>
-                        <goal>jar</goal>
-                    </goals>
-                </execution>
-            </executions>
-            <configuration>
-                <doclint>all</doclint>
-                <doctitle>TheTVDB Java ${project.version} API</doctitle>
-                <windowtitle>Index(TheTVDB Java ${project.version} API)</windowtitle>
-                <additionalOptions>-html5</additionalOptions>
-                <sourcepath>${project.build.sourceDirectory};${generated.sources.annotations}</sourcepath>
-                <groups>
-                    <group>
-                        <title>API Packages</title>
-                        <packages>com.github.m0nk3y2k4.thetvdb.api*</packages>
-                    </group>
-                    <group>
-                        <title>Internal Packages</title>
-                        <packages>com.github.m0nk3y2k4.thetvdb.internal*</packages>
-                    </group>
-                    <group>
-                        <title>Root Package</title>
-                        <packages>com.github.m0nk3y2k4.thetvdb</packages>
-                    </group>
-                </groups>
-                <quiet>true</quiet>
-                <notimestamp>true</notimestamp>
-                <show>protected</show>
-            </configuration>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.0.0-M5</version>
-        </plugin>
-        <plugin>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <version>0.8.6</version>
-            <executions>
-                <execution>
-                    <id>coverage-initialize</id>
-                    <goals>
-                        <goal>prepare-agent</goal>
-                    </goals>
-                </execution>
-                <execution>
-                    <id>coverage-report</id>
-                    <phase>post-integration-test</phase>
-                    <goals>
-                        <goal>report</goal>
-                    </goals>
-                </execution>
-                <execution>
-                    <id>coverage-check</id>
-                    <goals>
-                        <goal>check</goal>
-                    </goals>
-                    <configuration>
-                        <rules>
-                            <rule>
-                                <element>CLASS</element>
-                                <limits>
-                                    <limit>
-                                        <counter>LINE</counter>
-                                        <value>COVEREDRATIO</value>
-                                        <minimum>80%</minimum>
-                                    </limit>
-                                    <limit>
-                                        <counter>CLASS</counter>
-                                        <value>MISSEDCOUNT</value>
-                                        <maximum>0</maximum>
-                                    </limit>
-                                </limits>
-                            </rule>
-                        </rules>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <version>3.3.0</version>
-            <configuration>
-                <archive>
-                    <manifest>
-                        <mainClass>com.github.m0nk3y2k4.thetvdb.APIConnection</mainClass>
-                    </manifest>
-                </archive>
-                <descriptorRefs>
-                    <descriptorRef>jar-with-dependencies</descriptorRef>
-                </descriptorRefs>
-            </configuration>
-            <executions>
-                <execution>
-                    <id>make-assembly</id>
-                    <phase>package</phase>
-                    <goals>
-                        <goal>single</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-release-plugin</artifactId>
-            <version>2.5.3</version>
-            <configuration>
-                <arguments>-Dmaven.deploy.skip=true</arguments>
-                <tagNameFormat>@{project.version}</tagNameFormat>
-                <pushChanges>false</pushChanges>
-                <localCheckout>true</localCheckout>
-            </configuration>
-        </plugin>
-    </plugins>
-  </build>
+    <dependencies>
 
-  <dependencies>
+        <!--#####################################-->
+        <!--#####          Utility          #####-->
+        <!--#####################################-->
 
-    <!--#####################################-->
-    <!--#####          Utility          #####-->
-    <!--#####################################-->
+        <!-- JSON processing -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.12.1</version>
+        </dependency>
+        <!-- Support for JDK8 datatype deserialization -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jdk8</artifactId>
+            <version>2.12.1</version>
+        </dependency>
 
-    <!-- JSON processing -->
-    <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-databind</artifactId>
-        <version>2.12.1</version>
-    </dependency>
-    <!-- Support for JDK8 datatype deserialization -->
-    <dependency>
-        <groupId>com.fasterxml.jackson.datatype</groupId>
-        <artifactId>jackson-datatype-jdk8</artifactId>
-        <version>2.12.1</version>
-    </dependency>
+        <!--#####################################-->
+        <!--#####        Code quality       #####-->
+        <!--#####################################-->
 
-    <!--#####################################-->
-    <!--#####        Code quality       #####-->
-    <!--#####################################-->
+        <!-- Google find bugs -->
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>3.0.2</version>
+            <scope>provided</scope>
+        </dependency>
 
-    <!-- Google find bugs -->
-    <dependency>
-        <groupId>com.google.code.findbugs</groupId>
-        <artifactId>jsr305</artifactId>
-        <version>3.0.2</version>
-        <scope>provided</scope>
-    </dependency>
+        <!--#####################################-->
+        <!--#####      Code-generation      #####-->
+        <!--#####################################-->
 
-    <!--#####################################-->
-    <!--#####      Code-generation      #####-->
-    <!--#####################################-->
+        <!-- Immutables -->
+        <dependency>
+            <groupId>org.immutables</groupId>
+            <artifactId>value</artifactId>
+            <version>2.8.8</version>
+            <scope>provided</scope>
+        </dependency>
 
-    <!-- Immutables -->
-    <dependency>
-        <groupId>org.immutables</groupId>
-        <artifactId>value</artifactId>
-        <version>2.8.8</version>
-        <scope>provided</scope>
-    </dependency>
+        <!-- Compiletime indexing -->
+        <dependency>
+            <groupId>org.atteo.classindex</groupId>
+            <artifactId>classindex</artifactId>
+            <version>3.10</version>
+        </dependency>
 
-    <!-- Compiletime indexing -->
-    <dependency>
-        <groupId>org.atteo.classindex</groupId>
-        <artifactId>classindex</artifactId>
-        <version>3.10</version>
-    </dependency>
+        <!--#####################################-->
+        <!--#####          Testing          #####-->
+        <!--#####################################-->
 
-    <!--#####################################-->
-    <!--#####          Testing          #####-->
-    <!--#####################################-->
+        <!-- JUnit 5: engine -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.7.0</version>
+            <scope>test</scope>
+        </dependency>
 
-    <!-- JUnit 5: engine -->
-    <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-engine</artifactId>
-        <version>5.7.0</version>
-        <scope>test</scope>
-    </dependency>
+        <!-- JUnit 5: parameterized tests -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>5.7.0</version>
+            <scope>test</scope>
+        </dependency>
 
-    <!-- JUnit 5: parameterized tests -->
-    <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-params</artifactId>
-        <version>5.7.0</version>
-        <scope>test</scope>
-    </dependency>
+        <!-- Mockito 3.x -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>3.7.7</version>
+            <scope>test</scope>
+        </dependency>
 
-    <!-- Mockito 3.x -->
-    <dependency>
-        <groupId>org.mockito</groupId>
-        <artifactId>mockito-core</artifactId>
-        <version>3.7.7</version>
-        <scope>test</scope>
-    </dependency>
+        <!-- Mockito 3.x Junit 5 integration -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>3.7.7</version>
+            <scope>test</scope>
+        </dependency>
 
-    <!-- Mockito 3.x Junit 5 integration -->
-    <dependency>
-        <groupId>org.mockito</groupId>
-        <artifactId>mockito-junit-jupiter</artifactId>
-        <version>3.7.7</version>
-        <scope>test</scope>
-    </dependency>
+        <!-- Mockserver: server -->
+        <dependency>
+            <groupId>org.mock-server</groupId>
+            <artifactId>mockserver-netty</artifactId>
+            <version>5.11.2</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Mockserver: Java client -->
+        <dependency>
+            <groupId>org.mock-server</groupId>
+            <artifactId>mockserver-client-java</artifactId>
+            <version>5.11.2</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Mockserver: JUnit 5 extension -->
+        <dependency>
+            <groupId>org.mock-server</groupId>
+            <artifactId>mockserver-junit-jupiter</artifactId>
+            <version>5.11.2</version>
+            <scope>test</scope>
+        </dependency>
 
-    <!-- Mockserver: server -->
-    <dependency>
-        <groupId>org.mock-server</groupId>
-        <artifactId>mockserver-netty</artifactId>
-        <version>5.11.2</version>
-        <scope>test</scope>
-    </dependency>
-    <!-- Mockserver: Java client -->
-    <dependency>
-        <groupId>org.mock-server</groupId>
-        <artifactId>mockserver-client-java</artifactId>
-        <version>5.11.2</version>
-        <scope>test</scope>
-    </dependency>
-    <!-- Mockserver: JUnit 5 extension -->
-    <dependency>
-        <groupId>org.mock-server</groupId>
-        <artifactId>mockserver-junit-jupiter</artifactId>
-        <version>5.11.2</version>
-        <scope>test</scope>
-    </dependency>
+        <!-- AssertJ Fluent Assertions -->
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.18.1</version>
+            <scope>test</scope>
+        </dependency>
 
-    <!-- AssertJ Fluent Assertions -->
-    <dependency>
-        <groupId>org.assertj</groupId>
-        <artifactId>assertj-core</artifactId>
-        <version>3.18.1</version>
-        <scope>test</scope>
-    </dependency>
+        <!--#####################################-->
+        <!--#####          Logging          #####-->
+        <!--#####################################-->
 
-    <!--#####################################-->
-    <!--#####          Logging          #####-->
-    <!--#####################################-->
+        <!-- Simple Logging Facade for Java: logging wrapper API -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.30</version>
+        </dependency>
 
-    <!-- Simple Logging Facade for Java: logging wrapper API -->
-    <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-api</artifactId>
-        <version>1.7.30</version>
-    </dependency>
+        <!-- Simple Logging Facade for Java: Binding for Simple implementation, which outputs all events to System.err. -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.30</version>
+            <scope>test</scope>
+        </dependency>
 
-    <!-- Simple Logging Facade for Java: Binding for Simple implementation, which outputs all events to System.err. -->
-    <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-simple</artifactId>
-        <version>1.7.30</version>
-        <scope>test</scope>
-    </dependency>
+    </dependencies>
 
-  </dependencies>
+    <scm>
+        <url>https://github.com/m0nk3y2k4/thetvdb-java-api</url>
+        <connection>scm:git:git@github.com:m0nk3y2k4/thetvdb-java-api.git</connection>
+        <developerConnection>scm:git:git@github.com:m0nk3y2k4/thetvdb-java-api.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
 
-  <scm>
-    <url>https://github.com/m0nk3y2k4/thetvdb-java-api</url>
-    <connection>scm:git:git@github.com:m0nk3y2k4/thetvdb-java-api.git</connection>
-    <developerConnection>scm:git:git@github.com:m0nk3y2k4/thetvdb-java-api.git</developerConnection>
-    <tag>HEAD</tag>
-  </scm>
-
-  <developers>
-      <developer>
-          <name>Daniel</name>
-          <email>m0nk3y@t-online.de</email>
-          <organizationUrl>https://github.com/m0nk3y2k4</organizationUrl>
-      </developer>
-  </developers>
+    <developers>
+        <developer>
+            <name>Daniel</name>
+            <email>m0nk3y@t-online.de</email>
+            <organizationUrl>https://github.com/m0nk3y2k4</organizationUrl>
+        </developer>
+    </developers>
 
 </project>

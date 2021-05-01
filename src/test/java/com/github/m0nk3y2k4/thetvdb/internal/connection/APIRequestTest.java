@@ -99,7 +99,7 @@ class APIRequestTest {
         APIRequest request = new APIRequest(resource, method) {};
         Optional.ofNullable(status).map(x -> {
             APISession session = new APISession(new APIKeyImpl.Builder()
-                    .key(String.valueOf(Objects.hash(resource, method, status, remoteAPI)))
+                    .apiKey(String.valueOf(Objects.hash(resource, method, status, remoteAPI)))
                     .fundingModel(CONTRACT)
                     .build());
             session.setStatus(status);

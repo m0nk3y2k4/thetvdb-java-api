@@ -18,6 +18,8 @@ package com.github.m0nk3y2k4.thetvdb.internal.api.impl;
 
 import com.github.m0nk3y2k4.thetvdb.api.APIKey;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.WithHiddenImplementation;
+import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
+import org.immutables.value.Value.Check;
 import org.immutables.value.Value.Immutable;
 
 /**
@@ -30,6 +32,17 @@ import org.immutables.value.Value.Immutable;
 @Immutable
 @WithHiddenImplementation
 public abstract class APIKeyImpl implements APIKey {
+
+    /**
+     * Checks whether all required properties are set for this API key
+     * <p><br>
+     * This method prevents the client from creating invalid API key objects that are practically unusable for
+     * <i>TheTVDB.com</i> API authentication due to invalid or missing data.
+     */
+    @Check
+    protected void validate() {
+        Parameters.validateApiKey(this);
+    }
 
     /**
      * Builder used to create a new immutable {@link APIKeyImpl} implementation

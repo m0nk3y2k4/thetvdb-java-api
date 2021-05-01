@@ -22,7 +22,9 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
 
+import com.github.m0nk3y2k4.thetvdb.api.APIKey;
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.FundingModel;
 import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
 
 /**
@@ -167,5 +169,20 @@ public final class Parameters {
     public static Predicate<String> isPositiveInteger() {
         return value -> APIUtil.hasValue(value) && NUMERIC_INTEGER.matcher(value).matches()
                 && Long.valueOf(value).compareTo(0L) > 0;
+    }
+
+    /**
+     * Checks whether all required properties of the given API key are set
+     * <p><br>
+     * The keys <em>{@code apiKey}</em> property must not be null or empty and for subscription based API keys an
+     * additional PIN is required for authentication.
+     *
+     * @param key The API key to validate
+     */
+    public static void validateApiKey(APIKey key) {
+        validateNotEmpty(key.getApiKey(), "Invalid key: the apiKey property must not be empty");
+        if (key.getFundingModel() == FundingModel.SUBSCRIPTION) {
+            validateNotEmpty(key.getPin(), "Invalid key: for user subscription based authentication a PIN is required");
+        }
     }
 }
