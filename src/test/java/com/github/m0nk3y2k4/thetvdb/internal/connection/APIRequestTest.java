@@ -60,13 +60,12 @@ import com.github.m0nk3y2k4.thetvdb.internal.exception.APIPreconditionException;
 import com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders;
 import com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod;
 import com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter.WithHttpsMockServer;
+import com.github.m0nk3y2k4.thetvdb.testutils.parameterized.NullAndEmptyStringSource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.NullSource;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.mockserver.client.MockServerClient;
 import org.mockserver.model.Header;
 import org.mockserver.model.HttpStatusCode;
@@ -111,8 +110,7 @@ class APIRequestTest {
     }
 
     @ParameterizedTest(name = "[{index}] String \"{0}\" is not a valid resource")
-    @NullAndEmptySource
-    @ValueSource(strings = "   ")
+    @NullAndEmptyStringSource
     void newAPIRequest_withoutResource_verifyParameterValidation(String resource) {
         assertThatIllegalArgumentException().isThrownBy(() -> new TestAPIRequest(resource, DELETE));
     }

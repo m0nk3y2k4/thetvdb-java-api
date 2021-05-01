@@ -22,11 +22,11 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 
 import java.util.stream.Stream;
 
+import com.github.m0nk3y2k4.thetvdb.testutils.parameterized.NullAndEmptyStringSource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class ResourceTest {
@@ -53,8 +53,8 @@ class ResourceTest {
     }
 
     @ParameterizedTest(name = "[{index}] With path: <{0}>")
-    @NullAndEmptySource
-    @ValueSource(strings = {"  ", "/", "/path/", "/pa.th", "/p ath"})
+    @NullAndEmptyStringSource
+    @ValueSource(strings = {"/", "/path/", "/pa.th", "/p ath"})
     void createResource_withInvalidPath_verifyParameterValidation(String path) {
         assertThatIllegalArgumentException().isThrownBy(() -> Resource.createResource(path));
     }

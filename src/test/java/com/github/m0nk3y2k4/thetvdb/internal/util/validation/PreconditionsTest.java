@@ -26,13 +26,12 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APIPreconditionException;
+import com.github.m0nk3y2k4.thetvdb.testutils.parameterized.NullAndEmptyStringSource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.NullSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 class PreconditionsTest {
 
@@ -80,8 +79,7 @@ class PreconditionsTest {
     }
 
     @ParameterizedTest(name = "[{index}] String \"{0}\" is null or empty")
-    @NullAndEmptySource
-    @ValueSource(strings = "      ")
+    @NullAndEmptyStringSource
     void requireNonEmpty_withNullOrEmptyValue_exceptionThrown(String obj) {
         final String message = "Grrr...";
         APIPreconditionException thrown = catchThrowableOfType(() -> Preconditions

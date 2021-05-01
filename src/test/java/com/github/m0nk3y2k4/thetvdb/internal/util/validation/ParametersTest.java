@@ -31,11 +31,11 @@ import javax.annotation.Nonnull;
 
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.QueryParametersImpl;
+import com.github.m0nk3y2k4.thetvdb.testutils.parameterized.NullAndEmptyStringSource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -90,8 +90,7 @@ class ParametersTest {
     }
 
     @ParameterizedTest(name = "[{index}] String \"{0}\" is null or empty")
-    @NullAndEmptySource
-    @ValueSource(strings = "      ")
+    @NullAndEmptyStringSource
     void validateNotEmptyString_withNullOrEmptyString_exceptionThrown(String obj) {
         final String validationFailedMessage = "String is null or empty!";
         IllegalArgumentException exception = catchThrowableOfType(() -> Parameters
@@ -159,8 +158,7 @@ class ParametersTest {
     }
 
     @ParameterizedTest(name = "[{index}] Parameter \"{0}\" is null or empty")
-    @NullAndEmptySource
-    @ValueSource(strings = "   ")
+    @NullAndEmptyStringSource
     void validateQueryParam_withInvalidMandatoryQueryParameter_exceptionThrown(String queryParamNameValue) {
         final String queryParamName = "region";
         final QueryParameters queryParameters = new QueryParametersWithDisabledValueChecks()

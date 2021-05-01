@@ -26,12 +26,12 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 
 import java.util.stream.Stream;
 
+import com.github.m0nk3y2k4.thetvdb.testutils.parameterized.NullAndEmptyStringSource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class URLPathTokenTypeTest {
@@ -67,8 +67,8 @@ class URLPathTokenTypeTest {
     }
 
     @ParameterizedTest(name = "[{index}] With invalid token: \"{0}\"")
-    @NullAndEmptySource
-    @ValueSource(strings = {"  ", "{unknown}", "{ID}", "{123}", "{i-d}", "{_language}"})
+    @NullAndEmptyStringSource
+    @ValueSource(strings = {"{unknown}", "{ID}", "{123}", "{i-d}", "{_language}"})
     void forToken_withInvalidTokens_verifyIllegalArgumentExceptionIsThrown(String token) {
         assertThatIllegalArgumentException().isThrownBy(() -> URLPathTokenType.forToken(token));
     }
