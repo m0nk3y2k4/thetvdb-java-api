@@ -221,7 +221,11 @@
       {
         "id": 47748,
         "seriesId": 95874,
-        "type": 6954,
+        "type": {
+          "id": 6954,
+          "name": "Name1",
+          "type": "Type1"
+        },
         "name": "Name1",
         "number": 6,
         "nameTranslations": [
@@ -238,11 +242,16 @@
           "slug": "Slug1",
           "abbreviation": "Abbreviation1",
           "country": "Country1"
-        }
+        },
+        "companies": null
       }, {
         "id": 47749,
         "seriesId": 95875,
-        "type": 6955,
+        "type": {
+          "id": 6955,
+          "name": "Name2",
+          "type": "Type2"
+        },
         "name": "Name2",
         "number": 7,
         "nameTranslations": [
@@ -259,7 +268,8 @@
           "slug": "Slug2",
           "abbreviation": "Abbreviation2",
           "country": "Country2"
-        }
+        },
+        "companies": null
       }
     ]
   },

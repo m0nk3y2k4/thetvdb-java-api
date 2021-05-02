@@ -2,7 +2,11 @@
   "data": {
     "id": 47748,
     "seriesId": 95874,
-    "type": 6954,
+    "type": {
+      "id": 6954,
+      "name": "Name1",
+      "type": "Type1"
+    },
     "name": "Name1",
     "number": 6,
     "nameTranslations": [
@@ -19,7 +23,8 @@
       "slug": "Slug1",
       "abbreviation": "Abbreviation1",
       "country": "Country1"
-    }
+    },
+    "companies": null
   },
   "status": "success"
 }

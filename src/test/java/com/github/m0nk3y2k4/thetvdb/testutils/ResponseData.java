@@ -56,6 +56,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Network;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.RemoteId;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Season;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesAirsDays;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
@@ -86,6 +87,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.NetworkDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.PeopleDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.RemoteIdDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeasonDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeasonTypeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesAirsDaysDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesDetailsDTO;
@@ -585,7 +587,8 @@ public abstract class ResponseData<T> {
             SeasonDTO.Builder builder = new SeasonDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
-                builder.seriesId(95873L + idx).type(6953L + idx).number(5L + idx).id(47747L + idx).name("Name" + idx)
+                builder.seriesId(95873L + idx).number(5L + idx).id(47747L + idx).name("Name" + idx)
+                        .type(create(seasonTypeModel(), idx))
                         .network(create(networkModel(), idx, shape))
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
@@ -593,6 +596,11 @@ public abstract class ResponseData<T> {
             }
             return builder.build();
         };
+    }
+
+    private static BiFunction<Integer, Shape, SeasonType> seasonTypeModel() {
+        return (Integer idx, Shape shape) -> new SeasonTypeDTO.Builder().id(6953L + idx).name("Name" + idx)
+                .type("Type" + idx).build();
     }
 
     private static BiFunction<Integer, Shape, Series> seriesModel() {

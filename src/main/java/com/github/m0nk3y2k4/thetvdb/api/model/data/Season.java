@@ -57,8 +57,9 @@ public interface Season {
      *
      * @return The <em>{@code type}</em> property from the received JSON
      */
+    // ToDo: Property is currently declared as int64. Check this again after the next API update.
     @Nullable
-    Long getType();
+    SeasonType getType();
 
     /**
      * Get the value of the {<em>{@code data.name}</em>} JSON property
@@ -111,8 +112,16 @@ public interface Season {
      *
      * @return The <em>{@code network}</em> property from the received JSON
      */
-    // ToDo: SeasonBaseRecord does currently not reference NetworkBaseRecord. Check this again after the
-    //  next API update.
+    // ToDo: SeasonBaseRecord does currently not reference NetworkBaseRecord. Check this again after the next API update.
     @Nullable
     Network getNetwork();
+
+
+    /**
+     * Get the value of the {<em>{@code data.companies}</em>} JSON property
+     *
+     * @return The <em>{@code companies}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in SeasonBaseRecord but returned in JSON. Check again after the next API update.
+    List<Object> getCompanies();
 }
