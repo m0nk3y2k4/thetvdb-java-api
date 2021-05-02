@@ -16,8 +16,8 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
-import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.AwardCategoriesAPI.getAwardCategoryBase;
-import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.AwardCategoriesAPI.getAwardCategoryExtended;
+import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.AwardsAPI.getAwardCategoryBase;
+import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.AwardsAPI.getAwardCategoryExtended;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
@@ -43,13 +43,13 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockserver.client.MockServerClient;
 
 @WithHttpsMockServer
-class AwardCategoriesAPITest {
+class AwardsAPITest {
 
     //@DisableFormatting
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
-        client.when(request("/award-categories/5501", GET)).respond(jsonResponse(AWARDCATEGORY));
-        client.when(request("/award-categories/6874/extended", GET)).respond(jsonResponse(AWARDCATEGORY_DETAILS));
+        client.when(request("/awards/categories/5501", GET)).respond(jsonResponse(AWARDCATEGORY));
+        client.when(request("/awards/categories/6874/extended", GET)).respond(jsonResponse(AWARDCATEGORY_DETAILS));
     }
 
     private static Stream<Arguments> withInvalidParameters() {
@@ -69,14 +69,14 @@ class AwardCategoriesAPITest {
     }
     //@EnableFormatting
 
-    @ParameterizedTest(name = "[{index}] Route AwardCategoriesAPI.{0} rejected")
+    @ParameterizedTest(name = "[{index}] Route AwardsAPI.{0} rejected")
     @MethodSource("withInvalidParameters")
     void invokeRoute_withInvalidParameters_verifyParameterValidation(TestRemoteAPICall route, RemoteAPI remoteAPI) {
         assertThatIllegalArgumentException()
                 .isThrownBy(() -> route.invoke(new APIConnection(CONTRACT_APIKEY, remoteAPI)));
     }
 
-    @ParameterizedTest(name = "[{index}] Route AwardCategoriesAPI.{0} successfully invoked")
+    @ParameterizedTest(name = "[{index}] Route AwardsAPI.{0} successfully invoked")
     @MethodSource("withValidParameters")
     <T> void invokeRoute_withValidParameters_verifyResponse(TestRemoteAPICall route, ResponseData<T> expected,
             RemoteAPI remoteAPI) throws Exception {

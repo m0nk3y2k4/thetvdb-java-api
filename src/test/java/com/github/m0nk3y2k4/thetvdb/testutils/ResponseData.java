@@ -109,7 +109,7 @@ public abstract class ResponseData<T> {
     public static final ResponseData<APIResponse<ArtworkDetails>> ARTWORK_DETAILS = new ResponseData<>(
             "artwork_extended", artworkDetails(FULL), "Single extended artwork JSON response") {};
 
-    //******************* award-categories ******************
+    //************************ awards ***********************
     public static final ResponseData<APIResponse<AwardCategory>> AWARDCATEGORY = new ResponseData<>(
             "awardcategory", awardCategory(FULL), "Single award category JSON response") {};
     public static final ResponseData<APIResponse<AwardCategoryDetails>> AWARDCATEGORY_DETAILS = new ResponseData<>(

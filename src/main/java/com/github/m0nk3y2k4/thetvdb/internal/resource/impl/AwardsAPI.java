@@ -32,15 +32,15 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
  * Provides static access to all routes of this endpoint which may be used for obtaining either basic or extended award
  * category information.
  */
-public final class AwardCategoriesAPI extends Resource {
+public final class AwardsAPI extends Resource {
 
-    private AwardCategoriesAPI() {}        // Private constructor. Only static methods
+    private AwardsAPI() {}        // Private constructor. Only static methods
 
     /**
      * Returns basic information for a specific award category as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/award-categories/getAwardCategory">
-     * <b>[GET]</b> /award-categories/{id}</a>
+     * <b>[GET]</b> /awards/categories/{id}</a>
      *
      * @param con Initialized connection to be used for API communication
      * @param id  The <i>TheTVDB.com</i> award category ID
@@ -52,14 +52,14 @@ public final class AwardCategoriesAPI extends Resource {
      */
     public static JsonNode getAwardCategoryBase(@Nonnull APIConnection con, long id) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
-        return con.sendGET(createResource("/award-categories/{id}", id));
+        return con.sendGET(createResource("/awards/categories/{id}", id));
     }
 
     /**
      * Returns extended information for a specific award category as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/award-categories/getAwardCategoryExtended">
-     * <b>[GET]</b> /award-categories/{id}/extended</a>
+     * <b>[GET]</b> /awards/categories/{id}/extended</a>
      *
      * @param con Initialized connection to be used for API communication
      * @param id  The <i>TheTVDB.com</i> award category ID
@@ -71,6 +71,6 @@ public final class AwardCategoriesAPI extends Resource {
      */
     public static JsonNode getAwardCategoryExtended(@Nonnull APIConnection con, long id) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
-        return con.sendGET(createResource("/award-categories/{id}/extended", id));
+        return con.sendGET(createResource("/awards/categories/{id}/extended", id));
     }
 }

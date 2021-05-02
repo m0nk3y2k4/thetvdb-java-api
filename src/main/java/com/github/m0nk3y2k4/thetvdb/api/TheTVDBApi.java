@@ -221,7 +221,7 @@ public interface TheTVDBApi {
      * Returns basic information for a specific award category mapped as Java DTO.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/award-categories/getAwardCategory">
-     * <b>[GET]</b> /award-categories/{id}</a>
+     * <b>[GET]</b> /awards/categories/{id}</a>
      *
      * @param awardCategoryId The <i>TheTVDB.com</i> award category ID
      *
@@ -239,7 +239,7 @@ public interface TheTVDBApi {
      * Returns detailed information for a specific award category mapped as Java DTO.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/award-categories/getAwardCategoryExtended">
-     * <b>[GET]</b> /award-categories/{id}/extended</a>
+     * <b>[GET]</b> /awards/categories/{id}/extended</a>
      *
      * @param awardCategoryId The <i>TheTVDB.com</i> award category ID
      *
@@ -693,7 +693,7 @@ public interface TheTVDBApi {
          * Returns basic information for a specific award category as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/award-categories/getAwardCategory">
-         * <b>[GET]</b> /award-categories/{id}</a>
+         * <b>[GET]</b> /awards/categories/{id}</a>
          *
          * @param awardCategoryId The <i>TheTVDB.com</i> award category ID
          *
@@ -710,7 +710,7 @@ public interface TheTVDBApi {
          * Returns detailed information for a specific award category as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/award-categories/getAwardCategoryExtended">
-         * <b>[GET]</b> /award-categories/{id}/extended</a>
+         * <b>[GET]</b> /awards/categories/{id}/extended</a>
          *
          * @param awardCategoryId The <i>TheTVDB.com</i> award category ID
          *
@@ -1123,7 +1123,7 @@ public interface TheTVDBApi {
          * Returns a response object containing basic information for a specific award category mapped as Java DTO.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/award-categories/getAwardCategory">
-         * <b>[GET]</b> /award-categories/{id}</a>
+         * <b>[GET]</b> /awards/categories/{id}</a>
          *
          * @param awardCategoryId The <i>TheTVDB.com</i> award category ID
          *
@@ -1141,7 +1141,7 @@ public interface TheTVDBApi {
          * Returns a response object containing detailed information for a specific award category mapped as Java DTO.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/award-categories/getAwardCategoryExtended">
-         * <b>[GET]</b> /award-categories/{id}/extended</a>
+         * <b>[GET]</b> /awards/categories/{id}/extended</a>
          *
          * @param awardCategoryId The <i>TheTVDB.com</i> award category ID
          *

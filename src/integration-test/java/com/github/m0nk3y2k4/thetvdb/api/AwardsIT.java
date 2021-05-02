@@ -22,19 +22,19 @@ import com.github.m0nk3y2k4.thetvdb.testutils.annotation.IntegrationTestSuite;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
-@IntegrationTestSuite("AwardCategories")
-class AwardCategoriesIT {
+@IntegrationTestSuite("Awards")
+class AwardsIT {
 
     @Test
     @Order(1)
-    void getArtwork(TheTVDBApi api) {
-        assertThat(() -> api.getAwardCategory(1)).as("/award-categories/1").doesNotThrowAnyException();
+    void getAwardCategory(TheTVDBApi api) {
+        assertThat(() -> api.getAwardCategory(1)).as("/awards/categories/1").doesNotThrowAnyException();
     }
 
     @Test
     @Order(2)
-    void getArtworkDetails(TheTVDBApi api) {
-        assertThat(() -> api.getAwardCategoryDetails(10)).as("/award-categories/10/extended")
+    void getAwardCategoryDetails(TheTVDBApi api) {
+        assertThat(() -> api.getAwardCategoryDetails(10)).as("/awards/categories/10/extended")
                 .doesNotThrowAnyException();
     }
 }

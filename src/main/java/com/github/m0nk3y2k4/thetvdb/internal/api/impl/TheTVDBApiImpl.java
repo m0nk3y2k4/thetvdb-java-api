@@ -53,7 +53,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Translation;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ArtworkAPI;
-import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.AwardCategoriesAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.AwardsAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.CharactersAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.CompaniesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.CompanyTypesAPI;
@@ -355,12 +355,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
 
         @Override
         public JsonNode getAwardCategory(long awardCategoryId) throws APIException {
-            return AwardCategoriesAPI.getAwardCategoryBase(con, awardCategoryId);
+            return AwardsAPI.getAwardCategoryBase(con, awardCategoryId);
         }
 
         @Override
         public JsonNode getAwardCategoryDetails(long awardCategoryId) throws APIException {
-            return AwardCategoriesAPI.getAwardCategoryExtended(con, awardCategoryId);
+            return AwardsAPI.getAwardCategoryExtended(con, awardCategoryId);
         }
 
         @Override

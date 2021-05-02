@@ -115,8 +115,8 @@ class TheTVDBApiImplTest {
             client.when(request("/artwork/types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
             client.when(request("/artwork/3447", GET)).respond(jsonResponse(ARTWORK));
             client.when(request("/artwork/9403/extended", GET)).respond(jsonResponse(ARTWORK_DETAILS));
-            client.when(request("/award-categories/830", GET)).respond(jsonResponse(AWARDCATEGORY));
-            client.when(request("/award-categories/574/extended", GET)).respond(jsonResponse(AWARDCATEGORY_DETAILS));
+            client.when(request("/awards/categories/830", GET)).respond(jsonResponse(AWARDCATEGORY));
+            client.when(request("/awards/categories/574/extended", GET)).respond(jsonResponse(AWARDCATEGORY_DETAILS));
             client.when(request("/characters/604784", GET)).respond(jsonResponse(CHARACTER));
             client.when(request("/companies", GET)).respond(jsonResponse(COMPANY_LIST));
             client.when(request("/companies", GET, param("value", "QueryCompanies"))).respond(jsonResponse(COMPANY_LIST));
@@ -240,8 +240,8 @@ class TheTVDBApiImplTest {
             client.when(request("/artwork/types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
             client.when(request("/artwork/6701", GET)).respond(jsonResponse(ARTWORK));
             client.when(request("/artwork/9100/extended", GET)).respond(jsonResponse(ARTWORK_DETAILS));
-            client.when(request("/award-categories/411", GET)).respond(jsonResponse(AWARDCATEGORY));
-            client.when(request("/award-categories/623/extended", GET)).respond(jsonResponse(AWARDCATEGORY_DETAILS));
+            client.when(request("/awards/categories/411", GET)).respond(jsonResponse(AWARDCATEGORY));
+            client.when(request("/awards/categories/623/extended", GET)).respond(jsonResponse(AWARDCATEGORY_DETAILS));
             client.when(request("/characters/94347", GET)).respond(jsonResponse(CHARACTER));
             client.when(request("/companies", GET)).respond(jsonResponse(COMPANY_LIST));
             client.when(request("/companies", GET, param("value", "QueryCompaniesJson"))).respond(jsonResponse(COMPANY_LIST));
@@ -341,8 +341,8 @@ class TheTVDBApiImplTest {
             client.when(request("/artwork/types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
             client.when(request("/artwork/7099", GET)).respond(jsonResponse(ARTWORK));
             client.when(request("/artwork/6471/extended", GET)).respond(jsonResponse(ARTWORK_DETAILS));
-            client.when(request("/award-categories/355", GET)).respond(jsonResponse(AWARDCATEGORY));
-            client.when(request("/award-categories/495/extended", GET)).respond(jsonResponse(AWARDCATEGORY_DETAILS));
+            client.when(request("/awards/categories/355", GET)).respond(jsonResponse(AWARDCATEGORY));
+            client.when(request("/awards/categories/495/extended", GET)).respond(jsonResponse(AWARDCATEGORY_DETAILS));
             client.when(request("/characters/66470", GET)).respond(jsonResponse(CHARACTER));
             client.when(request("/companies", GET)).respond(jsonResponse(COMPANY_LIST));
             client.when(request("/companies", GET, param("value", "QueryCompaniesExtended"))).respond(jsonResponse(COMPANY_LIST));
