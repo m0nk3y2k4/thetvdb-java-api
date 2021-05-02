@@ -53,7 +53,6 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Translation;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ArtworkAPI;
-import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ArtworkTypesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.AwardCategoriesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.CharactersAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.CompaniesAPI;
@@ -341,7 +340,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
 
         @Override
         public JsonNode getAllArtworkTypes() throws APIException {
-            return ArtworkTypesAPI.getAllArtworkTypes(con);
+            return ArtworkAPI.getAllArtworkTypes(con);
         }
 
         @Override

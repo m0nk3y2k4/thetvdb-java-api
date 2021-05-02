@@ -27,6 +27,8 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 /**
  * Implementation of a connector for the remote API's
  * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/artwork">artwork</a>
+ * and
+ * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/artwork-types">artwork-types</a>
  * endpoint.
  * <p><br>
  * Provides static access to all routes of this endpoint which may be used for obtaining either basic, extended or
@@ -35,6 +37,23 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 public final class ArtworkAPI extends Resource {
 
     private ArtworkAPI() {}     // Private constructor. Only static methods
+
+    /**
+     * Returns a list of available artwork types as raw JSON.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/artwork-types/getAllArtworkTypes">
+     * <b>[GET]</b> /artwork/types</a>
+     *
+     * @param con Initialized connection to be used for API communication
+     *
+     * @return JSON object containing an overview of available artwork types
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     */
+    public static JsonNode getAllArtworkTypes(@Nonnull APIConnection con) throws APIException {
+        return con.sendGET(createResource("/artwork/types"));
+    }
 
     /**
      * Returns basic information for a specific artwork record as raw JSON.

@@ -171,7 +171,7 @@ public interface TheTVDBApi {
      * Returns a list of available artwork types mapped as Java DTO.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/artwork-types/getAllArtworkTypes">
-     * <b>[GET]</b> /artwork-types</a>
+     * <b>[GET]</b> /artwork/types</a>
      *
      * @return List of available artwork types mapped as Java DTO's based on the JSON data returned by the remote
      *         service
@@ -644,7 +644,7 @@ public interface TheTVDBApi {
          * Returns a list of available artwork types as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/artwork-types/getAllArtworkTypes">
-         * <b>[GET]</b> /artwork-types</a>
+         * <b>[GET]</b> /artwork/types</a>
          *
          * @return JSON object containing a list of available artwork types
          *
@@ -1071,7 +1071,7 @@ public interface TheTVDBApi {
          * Returns a response object containing a list of available artwork types mapped as Java DTO.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/artwork-types/getAllArtworkTypes">
-         * <b>[GET]</b> /artwork-types</a>
+         * <b>[GET]</b> /artwork/types</a>
          *
          * @return Extended API response containing the actually requested data as well as additional status
          *         information

@@ -101,7 +101,7 @@ the upcoming APIv4.
 - Artwork statuses
     - [ ] [/artwork/statuses](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/artwork-statuses/getAllArtworkStatuses)
 - Artwork types
-    - [x] [/artwork-types](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/artwork-types/getAllArtworkTypes)
+    - [x] [/artwork/types](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/artwork-types/getAllArtworkTypes)
 - Artwork
     - [x] [/artwork/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/artwork/getArtworkBase)
     - [x] [/artwork/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/artwork/getArtworkExtended)

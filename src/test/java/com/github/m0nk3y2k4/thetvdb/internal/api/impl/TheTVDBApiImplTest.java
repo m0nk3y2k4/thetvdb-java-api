@@ -112,7 +112,7 @@ class TheTVDBApiImplTest {
         //@DisableFormatting
         @BeforeAll
         void setUpRoutes(MockServerClient client) throws Exception {
-            client.when(request("/artwork-types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
+            client.when(request("/artwork/types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
             client.when(request("/artwork/3447", GET)).respond(jsonResponse(ARTWORK));
             client.when(request("/artwork/9403/extended", GET)).respond(jsonResponse(ARTWORK_DETAILS));
             client.when(request("/award-categories/830", GET)).respond(jsonResponse(AWARDCATEGORY));
@@ -237,7 +237,7 @@ class TheTVDBApiImplTest {
         //@DisableFormatting
         @BeforeAll
         void setUpRoutes(MockServerClient client) throws Exception {
-            client.when(request("/artwork-types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
+            client.when(request("/artwork/types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
             client.when(request("/artwork/6701", GET)).respond(jsonResponse(ARTWORK));
             client.when(request("/artwork/9100/extended", GET)).respond(jsonResponse(ARTWORK_DETAILS));
             client.when(request("/award-categories/411", GET)).respond(jsonResponse(AWARDCATEGORY));
@@ -338,7 +338,7 @@ class TheTVDBApiImplTest {
         //@DisableFormatting
         @BeforeAll
         void setUpRoutes(MockServerClient client) throws Exception {
-            client.when(request("/artwork-types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
+            client.when(request("/artwork/types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
             client.when(request("/artwork/7099", GET)).respond(jsonResponse(ARTWORK));
             client.when(request("/artwork/6471/extended", GET)).respond(jsonResponse(ARTWORK_DETAILS));
             client.when(request("/award-categories/355", GET)).respond(jsonResponse(AWARDCATEGORY));

@@ -16,6 +16,7 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
+import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ArtworkAPI.getAllArtworkTypes;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ArtworkAPI.getArtworkBase;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ArtworkAPI.getArtworkExtended;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
@@ -23,6 +24,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORK;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORKTYPE_LIST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORK_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -48,6 +50,7 @@ class ArtworkAPITest {
     //@DisableFormatting
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
+        client.when(request("/artwork/types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
         client.when(request("/artwork/3340", GET)).respond(jsonResponse(ARTWORK));
         client.when(request("/artwork/1007/extended", GET)).respond(jsonResponse(ARTWORK_DETAILS));
     }
@@ -61,8 +64,10 @@ class ArtworkAPITest {
         );
     }
 
+    @SuppressWarnings("Convert2MethodRef")
     private static Stream<Arguments> withValidParameters() {
         return Stream.of(
+                of(route(con -> getAllArtworkTypes(con), "getAllArtworkTypes()"), ARTWORKTYPE_LIST),
                 of(route(con -> getArtworkBase(con, 3340), "getArtworkBase()"), ARTWORK),
                 of(route(con -> getArtworkExtended(con, 1007), "getArtworkExtended()"), ARTWORK_DETAILS)
         );

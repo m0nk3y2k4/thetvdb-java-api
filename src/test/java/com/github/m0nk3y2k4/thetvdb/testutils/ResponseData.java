@@ -102,11 +102,9 @@ import com.github.m0nk3y2k4.thetvdb.testutils.json.Data;
 public abstract class ResponseData<T> {
 
     //@DisableFormatting
-    //********************* artwork-types *******************
-    public static final ResponseData<APIResponse<List<ArtworkType>>> ARTWORKTYPE_LIST = new ResponseData<>(
-            "artworktype_list", artworkType(), "List of artwork types JSON response") {};
-
     //************************ artwork **********************
+    public static final ResponseData<APIResponse<List<ArtworkType>>> ARTWORKTYPE_LIST = new ResponseData<>(
+            "artworktype_list", artworkTypeList(), "List of artwork types JSON response") {};
     public static final ResponseData<APIResponse<Artwork>> ARTWORK = new ResponseData<>(
             "artwork", artwork(FULL), "Single artwork JSON response") {};
     public static final ResponseData<APIResponse<Artwork>> ARTWORK_MIN = new ResponseData<>(
@@ -255,7 +253,7 @@ public abstract class ResponseData<T> {
         return createAPIResponse(create(artworkDetailsModel(), shape));
     }
 
-    private static APIResponse<List<ArtworkType>> artworkType() {
+    private static APIResponse<List<ArtworkType>> artworkTypeList() {
         return createAPIResponse(createTwo(artworkTypeModel()));
     }
 
