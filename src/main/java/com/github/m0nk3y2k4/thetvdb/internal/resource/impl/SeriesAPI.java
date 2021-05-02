@@ -27,7 +27,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 /**
  * Implementation of a connector for the remote API's
- * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/series">series</a>
+ * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series">series</a>
  * endpoint.
  * <p><br>
  * Provides static access to all routes of this endpoint which may be used for obtaining either basic, extended or
@@ -40,7 +40,7 @@ public final class SeriesAPI extends QueryResource {
     /**
      * Returns a list of series based on the given query parameters as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/series/getAllSeries">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series/getAllSeries">
      * <b>[GET]</b> /series</a>
      *
      * @param con    Initialized connection to be used for API communication
@@ -58,7 +58,7 @@ public final class SeriesAPI extends QueryResource {
     /**
      * Returns basic information for a specific series record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/series/getSeriesBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series/getSeriesBase">
      * <b>[GET]</b> /series/{id}</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -77,7 +77,7 @@ public final class SeriesAPI extends QueryResource {
     /**
      * Returns extended information for a specific series record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/series/getSeriesExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series/getSeriesExtended">
      * <b>[GET]</b> /series/{id}/extended</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -96,7 +96,7 @@ public final class SeriesAPI extends QueryResource {
     /**
      * Returns a translation record for a specific series as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/series/getSeriesTranslation">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series/getSeriesTranslation">
      * <b>[GET]</b> /series/{id}/translations/{language}</a>
      *
      * @param con      Initialized connection to be used for API communication

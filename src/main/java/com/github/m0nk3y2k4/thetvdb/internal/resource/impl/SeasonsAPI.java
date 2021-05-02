@@ -26,7 +26,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 /**
  * Implementation of a connector for the remote API's
- * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/seasons">seasons</a>
+ * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/seasons">seasons</a>
  * endpoint.
  * <p><br>
  * Provides static access to all routes of this endpoint which may be used for obtaining either basic, extended or
@@ -39,7 +39,7 @@ public final class SeasonsAPI extends Resource {
     /**
      * Returns basic information for a specific season record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/seasons/getSeasonBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/seasons/getSeasonBase">
      * <b>[GET]</b> /seasons/{id}</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -58,7 +58,7 @@ public final class SeasonsAPI extends Resource {
     /**
      * Returns a translation record for a specific season as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/seasons/getSeasonTranslation">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/seasons/getSeasonTranslation">
      * <b>[GET]</b> /seasons/{id}/translations/{language}</a>
      *
      * @param con      Initialized connection to be used for API communication

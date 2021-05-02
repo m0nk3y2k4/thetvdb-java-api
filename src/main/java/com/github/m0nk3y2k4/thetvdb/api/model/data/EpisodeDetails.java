@@ -22,7 +22,7 @@ import java.util.OptionalLong;
 
 /**
  * Interface representing a
- * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/EpisodeExtendedRecord">EpisodeExtendedRecord</a>
+ * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/EpisodeExtendedRecord">EpisodeExtendedRecord</a>
  * data transfer object.
  * <p><br>
  * The methods of this class provide easy access to all episode related data which was returned by the remote service in

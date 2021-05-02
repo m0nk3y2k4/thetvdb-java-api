@@ -25,7 +25,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.resource.Resource;
 
 /**
  * Implementation of a connector for the remote API's
- * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/artwork-types">artwork-types</a>
+ * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/artwork-types">artwork-types</a>
  * endpoint.
  * <p><br>
  * Provides static access to all routes of this endpoint which may be used for obtaining an overview of available
@@ -38,7 +38,7 @@ public final class ArtworkTypesAPI extends Resource {
     /**
      * Returns a list of available artwork types as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/artwork-types/getAllArtworkTypes">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/artwork-types/getAllArtworkTypes">
      * <b>[GET]</b> /artwork-types</a>
      *
      * @param con Initialized connection to be used for API communication

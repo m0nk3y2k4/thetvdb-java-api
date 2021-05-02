@@ -31,7 +31,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.functional.ThrowableFunctional
 
 /**
  * Implementation of a connector for the remote API's
- * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/login">login</a>
+ * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/login">login</a>
  * endpoint.
  * <p><br>
  * Provides static access to all routes of this endpoint which may be used for obtaining JWT tokens. Acquired tokens
@@ -50,7 +50,7 @@ public final class LoginAPI {
      * routes. However, if an API call is made without proper initialization, an implicit login attempt will be
      * performed.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/login/post_login">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/login/post_login">
      * <b>[POST]</b> /login</a>
      *
      * @param con Connection to be used for API communication and to which the Issued JWT token should be propagated to

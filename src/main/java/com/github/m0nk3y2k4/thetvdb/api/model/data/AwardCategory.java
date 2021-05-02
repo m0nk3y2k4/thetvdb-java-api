@@ -20,7 +20,7 @@ import java.util.Optional;
 
 /**
  * Interface representing an
- * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/AwardCategoryBaseRecord">AwardCategoryBaseRecord</a>
+ * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/AwardCategoryBaseRecord">AwardCategoryBaseRecord</a>
  * data transfer object.
  * <p><br>
  * The methods of this class provide easy access to all award category related data which was returned by the remote

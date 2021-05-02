@@ -18,7 +18,7 @@ package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
 /**
  * Interface representing an
- * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/ArtworkType">ArtworkType</a>
+ * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/ArtworkType">ArtworkType</a>
  * data transfer object.
  * <p><br>
  * The methods of this class provide easy access to all artwork type related data which was returned by the remote

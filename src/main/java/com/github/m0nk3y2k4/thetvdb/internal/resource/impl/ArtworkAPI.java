@@ -26,7 +26,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 /**
  * Implementation of a connector for the remote API's
- * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/artwork">artwork</a>
+ * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/artwork">artwork</a>
  * endpoint.
  * <p><br>
  * Provides static access to all routes of this endpoint which may be used for obtaining either basic, extended or
@@ -39,7 +39,7 @@ public final class ArtworkAPI extends Resource {
     /**
      * Returns basic information for a specific artwork record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/artwork/getArtworkBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/artwork/getArtworkBase">
      * <b>[GET]</b> /artwork/{id}</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -58,7 +58,7 @@ public final class ArtworkAPI extends Resource {
     /**
      * Returns extended information for a specific artwork record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/artwork/getArtworkExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/artwork/getArtworkExtended">
      * <b>[GET]</b> /artwork/{id}/extended</a>
      *
      * @param con Initialized connection to be used for API communication

@@ -26,7 +26,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 /**
  * Implementation of a connector for the remote API's
- * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/movies">movies</a>
+ * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movies">movies</a>
  * endpoint.
  * <p><br>
  * Provides static access to all routes of this endpoint which may be used for obtaining either basic, extended or
@@ -39,7 +39,7 @@ public final class MoviesAPI extends Resource {
     /**
      * Returns basic information for a specific movie record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/movies/getMovieBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movies/getMovieBase">
      * <b>[GET]</b> /movies/{id}</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -58,7 +58,7 @@ public final class MoviesAPI extends Resource {
     /**
      * Returns a translation record for a specific movie as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/movies/getMovieTranslation">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movies/getMovieTranslation">
      * <b>[GET]</b> /movies/{id}/translations/{language}</a>
      *
      * @param con      Initialized connection to be used for API communication

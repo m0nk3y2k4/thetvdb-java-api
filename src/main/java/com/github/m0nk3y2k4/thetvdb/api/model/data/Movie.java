@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Interface representing a
- * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0#/MovieBaseRecord">MovieBaseRecord</a>
+ * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/MovieBaseRecord">MovieBaseRecord</a>
  * data transfer object.
  * <p><br>
  * The methods of this class provide easy access to basic movie related data which was returned by the remote service in
