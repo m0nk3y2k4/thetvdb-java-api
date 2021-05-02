@@ -16,7 +16,7 @@
 
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
-import java.util.Optional;
+import javax.annotation.Nullable;
 
 /**
  * Interface representing a
@@ -24,8 +24,7 @@ import java.util.Optional;
  * data transfer object.
  * <p><br>
  * The methods of this class provide easy access to all tag option related data which was returned by the remote service
- * in JSON format. Properties that are declared to be nullable in the remote service documentation will be returned as
- * Java Optionals.
+ * in JSON format.
  * <p><br>
  * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service
  * in order to facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although
@@ -39,13 +38,15 @@ public interface TagOption {
      *
      * @return The <em>{@code helpText}</em> property from the received JSON
      */
-    Optional<String> getHelpText();
+    @Nullable
+    String getHelpText();
 
     /**
      * Get the value of the {<em>{@code <enclosing>.id}</em>} JSON property
      *
      * @return The <em>{@code id}</em> property from the received JSON
      */
+    @Nullable
     Long getId();
 
     /**
@@ -53,6 +54,7 @@ public interface TagOption {
      *
      * @return The <em>{@code name}</em> property from the received JSON
      */
+    @Nullable
     String getName();
 
     /**
@@ -60,6 +62,7 @@ public interface TagOption {
      *
      * @return The <em>{@code tag}</em> property from the received JSON
      */
+    @Nullable
     Long getTag();
 
     /**
@@ -67,5 +70,6 @@ public interface TagOption {
      *
      * @return The <em>{@code tagName}</em> property from the received JSON
      */
+    @Nullable
     String getTagName();
 }

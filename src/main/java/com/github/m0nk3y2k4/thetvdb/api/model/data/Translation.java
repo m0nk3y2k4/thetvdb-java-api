@@ -17,7 +17,8 @@
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
 import java.util.List;
-import java.util.Optional;
+
+import javax.annotation.Nullable;
 
 /**
  * Interface representing a
@@ -25,8 +26,7 @@ import java.util.Optional;
  * data transfer object.
  * <p><br>
  * The methods of this class provide easy access to all translation related data which was returned by the remote
- * service in JSON format. Properties that are declared to be nullable in the remote service documentation will be
- * returned as Java Optionals. Methods returning collection-based values will return an empty collection in case no
+ * service in JSON format. Methods returning collection-based values will return an empty collection in case no
  * corresponding data was received.
  * <p><br>
  * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service
@@ -41,27 +41,31 @@ public interface Translation {
      *
      * @return The <em>{@code name}</em> property from the received JSON
      */
-    Optional<String> getName();
+    @Nullable
+    String getName();
 
     /**
      * Get the value of the {<em>{@code data.isAlias}</em>} JSON property
      *
      * @return The <em>{@code isAlias}</em> property from the received JSON
      */
-    Optional<Boolean> isAlias();
+    @Nullable
+    Boolean isAlias();
 
     /**
      * Get the value of the {<em>{@code data.overview}</em>} JSON property
      *
      * @return The <em>{@code overview}</em> property from the received JSON
      */
-    Optional<String> getOverview();
+    @Nullable
+    String getOverview();
 
     /**
      * Get the value of the {<em>{@code data.language}</em>} JSON property
      *
      * @return The <em>{@code language}</em> property from the received JSON
      */
+    @Nullable
     String getLanguage();
 
     /**
@@ -69,6 +73,7 @@ public interface Translation {
      *
      * @return The <em>{@code isPrimary}</em> property from the received JSON
      */
+    @Nullable
     Boolean isPrimary();
 
     /**

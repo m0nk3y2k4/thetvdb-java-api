@@ -17,8 +17,8 @@
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.OptionalLong;
+
+import javax.annotation.Nullable;
 
 /**
  * Interface representing a
@@ -26,8 +26,7 @@ import java.util.OptionalLong;
  * data transfer object.
  * <p><br>
  * The methods of this class provide easy access to all character related data which was returned by the remote service
- * in JSON format. Properties that are declared to be nullable in the remote service documentation will be returned as
- * Java Optionals. Methods returning collection-based values will return an empty collection in case no corresponding
+ * in JSON format. Methods returning collection-based values will return an empty collection in case no corresponding
  * data was received.
  * <p><br>
  * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service
@@ -42,6 +41,7 @@ public interface Character {
      *
      * @return The <em>{@code id}</em> property from the received JSON
      */
+    @Nullable
     Long getId();
 
     /**
@@ -49,41 +49,47 @@ public interface Character {
      *
      * @return The <em>{@code name}</em> property from the received JSON
      */
-    Optional<String> getName();
+    @Nullable
+    String getName();
 
     /**
      * Get the value of the {<em>{@code data.peopleId}</em>} JSON property
      *
      * @return The <em>{@code peopleId}</em> property from the received JSON
      */
-    OptionalLong getPeopleId();
+    @Nullable
+    Long getPeopleId();
 
     /**
      * Get the value of the {<em>{@code data.seriesId}</em>} JSON property
      *
      * @return The <em>{@code seriesId}</em> property from the received JSON
      */
-    OptionalLong getSeriesId();
+    @Nullable
+    Long getSeriesId();
 
     /**
      * Get the value of the {<em>{@code data.movieId}</em>} JSON property
      *
      * @return The <em>{@code movieId}</em> property from the received JSON
      */
-    OptionalLong getMovieId();
+    @Nullable
+    Long getMovieId();
 
     /**
      * Get the value of the {<em>{@code data.episodeId}</em>} JSON property
      *
      * @return The <em>{@code episodeId}</em> property from the received JSON
      */
-    OptionalLong getEpisodeId();
+    @Nullable
+    Long getEpisodeId();
 
     /**
      * Get the value of the {<em>{@code data.type}</em>} JSON property
      *
      * @return The <em>{@code type}</em> property from the received JSON
      */
+    @Nullable
     Long getType();
 
     /**
@@ -91,13 +97,15 @@ public interface Character {
      *
      * @return The <em>{@code image}</em> property from the received JSON
      */
-    Optional<String> getImage();
+    @Nullable
+    String getImage();
 
     /**
      * Get the value of the {<em>{@code data.sort}</em>} JSON property
      *
      * @return The <em>{@code sort}</em> property from the received JSON
      */
+    @Nullable
     Long getSort();
 
     /**
@@ -105,6 +113,7 @@ public interface Character {
      *
      * @return The <em>{@code isFeatured}</em> property from the received JSON
      */
+    @Nullable
     Boolean isFeatured();
 
     /**
@@ -112,6 +121,7 @@ public interface Character {
      *
      * @return The <em>{@code url}</em> property from the received JSON
      */
+    @Nullable
     String getUrl();
 
     /**

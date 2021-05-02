@@ -16,7 +16,7 @@
 
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
-import java.util.Optional;
+import javax.annotation.Nullable;
 
 /**
  * Interface representing an
@@ -24,8 +24,7 @@ import java.util.Optional;
  * data transfer object.
  * <p><br>
  * The methods of this class provide easy access to all award nominee related data which was returned by the remote
- * service in JSON format. Properties that are declared to be nullable in the remote service documentation will be
- * returned as Java Optionals.
+ * service in JSON format.
  * <p><br>
  * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service
  * in order to facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although
@@ -39,6 +38,7 @@ public interface AwardNominee {
      *
      * @return The <em>{@code character}</em> property from the received JSON
      */
+    @Nullable
     Character getCharacter();
 
     /**
@@ -46,13 +46,15 @@ public interface AwardNominee {
      *
      * @return The <em>{@code details}</em> property from the received JSON
      */
-    Optional<String> getDetails();
+    @Nullable
+    String getDetails();
 
     /**
      * Get the value of the {<em>{@code <enclosing>.episode}</em>} JSON property
      *
      * @return The <em>{@code episode}</em> property from the received JSON
      */
+    @Nullable
     Episode getEpisode();
 
     /**
@@ -60,6 +62,7 @@ public interface AwardNominee {
      *
      * @return The <em>{@code id}</em> property from the received JSON
      */
+    @Nullable
     Long getId();
 
     /**
@@ -67,6 +70,7 @@ public interface AwardNominee {
      *
      * @return The <em>{@code isWinner}</em> property from the received JSON
      */
+    @Nullable
     Boolean isWinner();
 
     /**
@@ -74,6 +78,7 @@ public interface AwardNominee {
      *
      * @return The <em>{@code movie}</em> property from the received JSON
      */
+    @Nullable
     Movie getMovie();
 
     /**
@@ -81,6 +86,7 @@ public interface AwardNominee {
      *
      * @return The <em>{@code series}</em> property from the received JSON
      */
+    @Nullable
     Series getSeries();
 
     /**
@@ -88,5 +94,6 @@ public interface AwardNominee {
      *
      * @return The <em>{@code year}</em> property from the received JSON
      */
-    Optional<String> getYear();
+    @Nullable
+    String getYear();
 }

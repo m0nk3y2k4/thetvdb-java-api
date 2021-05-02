@@ -33,7 +33,7 @@ class APIJsonMapperTest {
     void readObject_withInvalidJSON_throwsAPIException() {
         assertThatExceptionOfType(APIException.class).isThrownBy(() ->
                 APIJsonMapper.readValue(new ObjectMapper().readTree(
-                        "{\"data\": {\"Invalid\": \"Content\"}, \"status\": \"success\"}"),
+                        "{\"data\": {\"id\": \"NaN\"}, \"status\": \"success\"}"),
                         ResponseData.ARTWORK.getType()));
     }
 

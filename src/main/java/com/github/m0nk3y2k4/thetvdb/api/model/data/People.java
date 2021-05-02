@@ -17,7 +17,8 @@
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
 import java.util.List;
-import java.util.Optional;
+
+import javax.annotation.Nullable;
 
 /**
  * Interface representing a
@@ -25,8 +26,7 @@ import java.util.Optional;
  * data transfer object.
  * <p><br>
  * The methods of this class provide easy access to basic people related data which was returned by the remote service
- * in JSON format. Properties that are declared to be nullable in the remote service documentation will be returned as
- * Java Optionals. Methods returning collection-based values will return an empty collection in case no corresponding
+ * in JSON format. Methods returning collection-based values will return an empty collection in case no corresponding
  * data was received.
  * <p><br>
  * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service
@@ -41,6 +41,7 @@ public interface People {
      *
      * @return The <em>{@code id}</em> property from the received JSON
      */
+    @Nullable
     Long getId();
 
     /**
@@ -48,14 +49,16 @@ public interface People {
      *
      * @return The <em>{@code name}</em> property from the received JSON
      */
-    Optional<String> getName();
+    @Nullable
+    String getName();
 
     /**
      * Get the value of the {<em>{@code data.image}</em>} JSON property
      *
      * @return The <em>{@code image}</em> property from the received JSON
      */
-    Optional<String> getImage();
+    @Nullable
+    String getImage();
 
     /**
      * Get the value of the {<em>{@code data.aliases}</em>} JSON property
@@ -69,5 +72,6 @@ public interface People {
      *
      * @return The <em>{@code score}</em> property from the received JSON
      */
+    @Nullable
     Long getScore();
 }

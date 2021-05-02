@@ -17,8 +17,8 @@
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.OptionalLong;
+
+import javax.annotation.Nullable;
 
 /**
  * Interface representing a
@@ -26,8 +26,7 @@ import java.util.OptionalLong;
  * data transfer object.
  * <p><br>
  * The methods of this class provide easy access to all episode related data which was returned by the remote service in
- * JSON format. Properties that are declared to be nullable in the remote service documentation will be returned as Java
- * Optionals. Methods returning collection-based values will return an empty collection in case no corresponding data
+ * JSON format. Methods returning collection-based values will return an empty collection in case no corresponding data
  * was received.
  * <p><br>
  * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service
@@ -42,6 +41,7 @@ public interface EpisodeDetails {
      *
      * @return The <em>{@code id}</em> property from the received JSON
      */
+    @Nullable
     Long getId();
 
     /**
@@ -49,6 +49,7 @@ public interface EpisodeDetails {
      *
      * @return The <em>{@code seriesId}</em> property from the received JSON
      */
+    @Nullable
     Long getSeriesId();
 
     /**
@@ -56,21 +57,24 @@ public interface EpisodeDetails {
      *
      * @return The <em>{@code name}</em> property from the received JSON
      */
-    Optional<String> getName();
+    @Nullable
+    String getName();
 
     /**
      * Get the value of the {<em>{@code data.aired}</em>} JSON property
      *
      * @return The <em>{@code aired}</em> property from the received JSON
      */
-    Optional<String> getAired();
+    @Nullable
+    String getAired();
 
     /**
      * Get the value of the {<em>{@code data.runtime}</em>} JSON property
      *
      * @return The <em>{@code runtime}</em> property from the received JSON
      */
-    OptionalLong getRuntime();
+    @Nullable
+    Long getRuntime();
 
     /**
      * Get the value of the {<em>{@code data.nameTranslations}</em>} JSON property
@@ -91,20 +95,23 @@ public interface EpisodeDetails {
      *
      * @return The <em>{@code image}</em> property from the received JSON
      */
-    Optional<String> getImage();
+    @Nullable
+    String getImage();
 
     /**
      * Get the value of the {<em>{@code data.imageType}</em>} JSON property
      *
      * @return The <em>{@code imageType}</em> property from the received JSON
      */
-    OptionalLong getImageType();
+    @Nullable
+    Long getImageType();
 
     /**
      * Get the value of the {<em>{@code data.isMovie}</em>} JSON property
      *
      * @return The <em>{@code isMovie}</em> property from the received JSON
      */
+    @Nullable
     Boolean isMovie();
 
     /**
@@ -119,48 +126,55 @@ public interface EpisodeDetails {
      *
      * @return The <em>{@code number}</em> property from the received JSON
      */
-    OptionalLong getNumber();
+    @Nullable
+    Long getNumber();
 
     /**
      * Get the value of the {<em>{@code data.seasonNumber}</em>} JSON property
      *
      * @return The <em>{@code seasonNumber}</em> property from the received JSON
      */
-    OptionalLong getSeasonNumber();
+    @Nullable
+    Long getSeasonNumber();
 
     /**
      * Get the value of the {<em>{@code data.productionCode}</em>} JSON property
      *
      * @return The <em>{@code productionCode}</em> property from the received JSON
      */
-    Optional<String> getProductionCode();
+    @Nullable
+    String getProductionCode();
 
     /**
      * Get the value of the {<em>{@code data.airsAfterSeason}</em>} JSON property
      *
      * @return The <em>{@code airsAfterSeason}</em> property from the received JSON
      */
-    OptionalLong getAirsAfterSeason();
+    @Nullable
+    Long getAirsAfterSeason();
 
     /**
      * Get the value of the {<em>{@code data.airsBeforeSeason}</em>} JSON property
      *
      * @return The <em>{@code airsBeforeSeason}</em> property from the received JSON
      */
-    OptionalLong getAirsBeforeSeason();
+    @Nullable
+    Long getAirsBeforeSeason();
 
     /**
      * Get the value of the {<em>{@code data.airsBeforeEpisode}</em>} JSON property
      *
      * @return The <em>{@code airsBeforeEpisode}</em> property from the received JSON
      */
-    OptionalLong getAirsBeforeEpisode();
+    @Nullable
+    Long getAirsBeforeEpisode();
 
     /**
      * Get the value of the {<em>{@code data.network}</em>} JSON property
      *
      * @return The <em>{@code network}</em> property from the received JSON
      */
+    @Nullable
     Network getNetwork();
 
     /**

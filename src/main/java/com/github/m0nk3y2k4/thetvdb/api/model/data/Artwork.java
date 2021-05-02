@@ -16,8 +16,7 @@
 
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
-import java.util.Optional;
-import java.util.OptionalDouble;
+import javax.annotation.Nullable;
 
 /**
  * Interface representing an
@@ -25,8 +24,7 @@ import java.util.OptionalDouble;
  * data transfer object.
  * <p><br>
  * The methods of this class provide easy access to all artwork related data which was returned by the remote service in
- * JSON format. Properties that are declared to be nullable in the remote service documentation will be returned as Java
- * Optionals.
+ * JSON format.
  * <p><br>
  * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service
  * in order to facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although
@@ -40,6 +38,7 @@ public interface Artwork {
      *
      * @return The <em>{@code id}</em> property from the received JSON
      */
+    @Nullable
     Long getId();
 
     /**
@@ -47,6 +46,7 @@ public interface Artwork {
      *
      * @return The <em>{@code image}</em> property from the received JSON
      */
+    @Nullable
     String getImage();
 
     /**
@@ -54,6 +54,7 @@ public interface Artwork {
      *
      * @return The <em>{@code thumbnail}</em> property from the received JSON
      */
+    @Nullable
     String getThumbnail();
 
     /**
@@ -61,13 +62,15 @@ public interface Artwork {
      *
      * @return The <em>{@code language}</em> property from the received JSON
      */
-    Optional<String> getLanguage();
+    @Nullable
+    String getLanguage();
 
     /**
      * Get the value of the {<em>{@code data.type}</em>} JSON property
      *
      * @return The <em>{@code type}</em> property from the received JSON
      */
+    @Nullable
     Long getType();
 
     /**
@@ -75,5 +78,6 @@ public interface Artwork {
      *
      * @return The <em>{@code score}</em> property from the received JSON
      */
-    OptionalDouble getScore();
+    @Nullable
+    Double getScore();
 }

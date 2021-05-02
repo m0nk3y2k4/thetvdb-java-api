@@ -17,7 +17,6 @@
 package com.github.m0nk3y2k4.thetvdb.testutils;
 
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.Shape.FULL;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.Shape.MIN;
 import static java.lang.Boolean.TRUE;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -97,7 +96,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TranslationDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.util.json.deser.StaticTypeReference;
 import com.github.m0nk3y2k4.thetvdb.testutils.json.Data;
 
-@SuppressWarnings({"ClassWithTooManyFields", "unused", "OverlyLongLambda", "OverlyComplexClass"})
+@SuppressWarnings({"ClassWithTooManyFields", "unused", "OverlyLongLambda", "OverlyComplexClass", "ConstantValueVariableUse"})
 // Test class providing prefabbed test objects via reflection
 public abstract class ResponseData<T> {
 
@@ -107,34 +106,22 @@ public abstract class ResponseData<T> {
             "artworktype_list", artworkTypeList(), "List of artwork types JSON response") {};
     public static final ResponseData<APIResponse<Artwork>> ARTWORK = new ResponseData<>(
             "artwork", artwork(FULL), "Single artwork JSON response") {};
-    public static final ResponseData<APIResponse<Artwork>> ARTWORK_MIN = new ResponseData<>(
-            "artwork_min", artwork(MIN), "Single artwork JSON response with only mandatory fields") {};
     public static final ResponseData<APIResponse<ArtworkDetails>> ARTWORK_DETAILS = new ResponseData<>(
             "artwork_extended", artworkDetails(FULL), "Single extended artwork JSON response") {};
-    public static final ResponseData<APIResponse<ArtworkDetails>> ARTWORK_DETAILS_MIN = new ResponseData<>(
-            "artwork_extended_min", artworkDetails(MIN), "Single extended artwork JSON response with only mandatory fields") {};
 
     //******************* award-categories ******************
     public static final ResponseData<APIResponse<AwardCategory>> AWARDCATEGORY = new ResponseData<>(
             "awardcategory", awardCategory(FULL), "Single award category JSON response") {};
-    public static final ResponseData<APIResponse<AwardCategory>> AWARDCATEGORY_MIN = new ResponseData<>(
-            "awardcategory_min", awardCategory(MIN), "Single award category JSON response with only mandatory fields") {};
     public static final ResponseData<APIResponse<AwardCategoryDetails>> AWARDCATEGORY_DETAILS = new ResponseData<>(
             "awardcategory_extended", awardCategoryDetails(FULL), "Single extended award category JSON response") {};
-    public static final ResponseData<APIResponse<AwardCategoryDetails>> AWARDCATEGORY_DETAILS_MIN = new ResponseData<>(
-            "awardcategory_extended_min", awardCategoryDetails(MIN), "Single extended award category JSON response with only mandatory fields") {};
 
     //*********************** characters ********************
     public static final ResponseData<APIResponse<Character>> CHARACTER = new ResponseData<>(
             "character", character(FULL), "Single character JSON response") {};
-    public static final ResponseData<APIResponse<Character>> CHARACTER_MIN = new ResponseData<>(
-            "character_min", character(MIN), "Single character JSON response with only mandatory fields") {};
 
     //*********************** companies *********************
     public static final ResponseData<APIResponse<Company>> COMPANY = new ResponseData<>(
             "company", company(FULL), "Single company JSON response") {};
-    public static final ResponseData<APIResponse<Company>> COMPANY_MIN = new ResponseData<>(
-            "company_min", company(MIN), "Single company JSON response with only mandatory fields") {};
     public static final ResponseData<APIResponse<List<Company>>> COMPANY_LIST = new ResponseData<>(
             "company_list", companyList(), "List of company JSON response") {};
 
@@ -153,12 +140,8 @@ public abstract class ResponseData<T> {
     //************************ episodes *********************
     public static final ResponseData<APIResponse<Episode>> EPISODE = new ResponseData<>(
             "episode", episode(FULL), "Single episode JSON response") {};
-    public static final ResponseData<APIResponse<Episode>> EPISODE_MIN = new ResponseData<>(
-            "episode_min", episode(MIN), "Single episode JSON response with only mandatory fields") {};
     public static final ResponseData<APIResponse<EpisodeDetails>> EPISODE_DETAILS = new ResponseData<>(
             "episode_extended", episodeDetails(FULL), "Single extended episode JSON response") {};
-    public static final ResponseData<APIResponse<EpisodeDetails>> EPISODE_DETAILS_MIN = new ResponseData<>(
-            "episode_extended_min", episodeDetails(MIN), "Single extended episode JSON response with only mandatory fields") {};
 
     //************************* genres **********************
     public static final ResponseData<APIResponse<Genre>> GENRE = new ResponseData<>(
@@ -169,51 +152,38 @@ public abstract class ResponseData<T> {
     //************************* movies **********************
     public static final ResponseData<APIResponse<Movie>> MOVIE = new ResponseData<>(
             "movie", movie(FULL), "Single movie JSON response") {};
-    public static final ResponseData<APIResponse<Movie>> MOVIE_MIN = new ResponseData<>(
-            "movie_min", movie(MIN), "Single movie JSON response with only mandatory fields") {};
 
     //************************* people **********************
     public static final ResponseData<APIResponse<People>> PEOPLE = new ResponseData<>(
             "people", people(FULL), "Single people JSON response") {};
-    public static final ResponseData<APIResponse<People>> PEOPLE_MIN = new ResponseData<>(
-            "people_min", people(MIN), "Single people JSON response with only mandatory fields") {};
 
     //************************ seasons **********************
     public static final ResponseData<APIResponse<Season>> SEASON = new ResponseData<>(
             "season", season(FULL), "Single season JSON response") {};
-    public static final ResponseData<APIResponse<Season>> SEASON_MIN = new ResponseData<>(
-            "season_min", season(MIN), "Single season JSON response with only mandatory fields") {};
 
     //************************* series **********************
     public static final ResponseData<APIResponse<Series>> SERIES = new ResponseData<>(
             "series", series(FULL), "Single series JSON response") {};
-    public static final ResponseData<APIResponse<Series>> SERIES_MIN = new ResponseData<>(
-            "series_min", series(MIN), "Single series JSON response with only mandatory fields") {};
     public static final ResponseData<APIResponse<SeriesDetails>> SERIES_DETAILS = new ResponseData<>(
             "series_extended", seriesDetails(FULL), "Single extended series JSON response") {};
-    public static final ResponseData<APIResponse<SeriesDetails>> SERIES_DETAILS_MIN = new ResponseData<>(
-            "series_extended_min", seriesDetails(MIN), "Single extended series JSON response with only mandatory fields") {};
     public static final ResponseData<APIResponse<List<Series>>> SERIES_LIST = new ResponseData<>(
             "series_list", seriesList(), "List of series JSON response") {};
 
     //********************** translations *******************
     public static final ResponseData<APIResponse<Translation>> TRANSLATION = new ResponseData<>(
             "translation", translation(FULL), "Single translated entity JSON response") {};
-    public static final ResponseData<APIResponse<Translation>> TRANSLATION_MIN = new ResponseData<>(
-            "translation_min", translation(MIN), "Single translated entity JSON response with only mandatory fields") {};
     //@EnableFormatting
 
     /**
      * Used to specify the actual content of a test data object.
      * <p><br>
-     * Some models support different amounts of content, for example, with all data or with only mandatory data. Use
-     * this enumeration to define the kind of content to be generated.
+     * <b>NOTE:</b> since all JSON fields have been declared being optional the MIN shape for testing mandatory
+     * fields is no longer needed. And although only FULL message tests are performed for the time being, I decided to
+     * not completely remove the "shaping" as there might be other use cases for which this can be used in the future.
      */
     enum Shape {
         /** With all data */
-        FULL,
-        /** With only mandatory data */
-        MIN
+        FULL
     }
 
     /** File name of the JSON template to be used by this response */
@@ -383,10 +353,10 @@ public abstract class ResponseData<T> {
 
     private static BiFunction<Integer, Shape, Artwork> artworkModel() {
         return (Integer idx, Shape shape) -> {
-            ArtworkDTO.Builder builder = new ArtworkDTO.Builder().id(4634L + idx).image("Image" + idx)
-                    .thumbnail("Thumbnail" + idx).type(53L + idx);
+            ArtworkDTO.Builder builder = new ArtworkDTO.Builder();
             if (shape == FULL) {
-                builder.language("Language" + idx).score(1.0 + idx);
+                builder.id(4634L + idx).image("Image" + idx).thumbnail("Thumbnail" + idx).type(53L + idx)
+                        .language("Language" + idx).score(1.0 + idx);
             }
             return builder.build();
         };
@@ -394,11 +364,12 @@ public abstract class ResponseData<T> {
 
     private static BiFunction<Integer, Shape, ArtworkDetails> artworkDetailsModel() {
         return (Integer idx, Shape shape) -> {
-            ArtworkDetailsDTO.Builder builder = new ArtworkDetailsDTO.Builder().height(1079L + idx).id(694400L + idx)
-                    .image("Image" + idx).thumbnail("Thumbnail" + idx).thumbnailHeight(399L + idx)
-                    .thumbnailWidth(599L + idx).type(4L + idx).updatedAt(16015470L + idx).width(1919L + idx);
+            ArtworkDetailsDTO.Builder builder = new ArtworkDetailsDTO.Builder();
             if (shape == FULL) {
-                builder.episodeId(39009L + idx).language("Language" + idx).movieId(573L + idx).networkId(66340L + idx)
+                builder.height(1079L + idx).id(694400L + idx).image("Image" + idx).thumbnail("Thumbnail" + idx)
+                        .thumbnailHeight(399L + idx).thumbnailWidth(599L + idx).type(4L + idx)
+                        .updatedAt(16015470L + idx).width(1919L + idx).episodeId(39009L + idx)
+                        .language("Language" + idx).movieId(573L + idx).networkId(66340L + idx)
                         .peopleId(97511L + idx).score(81D + idx).seasonId(574603L + idx).seriesId(669843L + idx)
                         .seriesPeopleId(646L + idx);
             }
@@ -424,10 +395,10 @@ public abstract class ResponseData<T> {
 
     private static BiFunction<Integer, Shape, AwardCategory> awardCategoryModel() {
         return (Integer idx, Shape shape) -> {
-            AwardCategoryDTO.Builder builder = new AwardCategoryDTO.Builder().allowCoNominees(true)
-                    .award(create(awardModel(), idx, shape)).forMovies(true).forSeries(true).id(8753L + idx);
+            AwardCategoryDTO.Builder builder = new AwardCategoryDTO.Builder();
             if (shape == FULL) {
-                builder.name("Name" + idx);
+                builder.allowCoNominees(true).award(create(awardModel(), idx, shape)).forMovies(true).forSeries(true)
+                        .id(8753L + idx).name("Name" + idx);
             }
             return builder.build();
         };
@@ -435,11 +406,11 @@ public abstract class ResponseData<T> {
 
     private static BiFunction<Integer, Shape, AwardCategoryDetails> awardCategoryDetailsModel() {
         return (Integer idx, Shape shape) -> {
-            AwardCategoryDetailsDTO.Builder builder = new AwardCategoryDetailsDTO.Builder().allowCoNominees(true)
-                    .award(create(awardModel(), idx, shape)).forMovies(true).forSeries(true).id(5449L + idx);
+            AwardCategoryDetailsDTO.Builder builder = new AwardCategoryDetailsDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
-                builder.name("Name" + idx).nominees(createTwo(awardNomineeModel(), listOffset));
+                builder.allowCoNominees(true).award(create(awardModel(), idx, shape)).forMovies(true).forSeries(true)
+                        .id(5449L + idx).name("Name" + idx).nominees(createTwo(awardNomineeModel(), listOffset));
             }
             return builder.build();
         };
@@ -447,12 +418,11 @@ public abstract class ResponseData<T> {
 
     private static BiFunction<Integer, Shape, AwardNominee> awardNomineeModel() {
         return (Integer idx, Shape shape) -> {
-            AwardNomineeDTO.Builder builder = new AwardNomineeDTO.Builder()
-                    .character(create(characterModel(), idx, shape)).episode(create(episodeModel(), idx, shape))
-                    .movie(create(movieModel(), idx, shape)).series(create(seriesModel(), idx, shape)).id(64119L + idx)
-                    .isWinner(true);
+            AwardNomineeDTO.Builder builder = new AwardNomineeDTO.Builder();
             if (shape == FULL) {
-                builder.details("Details" + idx).year("Year" + idx);
+                builder.character(create(characterModel(), idx, shape)).episode(create(episodeModel(), idx, shape))
+                        .movie(create(movieModel(), idx, shape)).series(create(seriesModel(), idx, shape))
+                        .id(64119L + idx).isWinner(true).details("Details" + idx).year("Year" + idx);
             }
             return builder.build();
         };
@@ -460,11 +430,11 @@ public abstract class ResponseData<T> {
 
     private static BiFunction<Integer, Shape, Character> characterModel() {
         return (Integer idx, Shape shape) -> {
-            CharacterDTO.Builder builder = new CharacterDTO.Builder().id(36486L + idx).type(11L + idx).sort(2L + idx)
-                    .isFeatured(TRUE).url("Url" + idx);
+            CharacterDTO.Builder builder = new CharacterDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
-                builder.name("Name" + idx).peopleId(568L + idx).seriesId(44L + idx).movieId(363L + idx)
+                builder.id(36486L + idx).type(11L + idx).sort(2L + idx).isFeatured(TRUE).url("Url" + idx)
+                        .name("Name" + idx).peopleId(568L + idx).seriesId(44L + idx).movieId(363L + idx)
                         .episodeId(974L + idx).image("Image" + idx)
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
@@ -476,11 +446,11 @@ public abstract class ResponseData<T> {
 
     private static BiFunction<Integer, Shape, Company> companyModel() {
         return (Integer idx, Shape shape) -> {
-            CompanyDTO.Builder builder = new CompanyDTO.Builder().id(64713L + idx).slug("Slug" + idx)
-                    .primaryCompanyType(513L + idx);
+            CompanyDTO.Builder builder = new CompanyDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
-                builder.nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                builder.id(64713L + idx).slug("Slug" + idx).primaryCompanyType(513L + idx)
+                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .aliases(createTwo(aliasModel(), listOffset)).country("Country" + idx)
                         .activeDate("ActiveDate" + idx).inactiveDate("InactiveDate" + idx).name("Name" + idx);
@@ -504,11 +474,11 @@ public abstract class ResponseData<T> {
 
     private static BiFunction<Integer, Shape, Episode> episodeModel() {
         return (Integer idx, Shape shape) -> {
-            EpisodeDTO.Builder builder = new EpisodeDTO.Builder().id(548744L + idx).seriesId(69553L + idx)
-                    .isMovie(true);
+            EpisodeDTO.Builder builder = new EpisodeDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
-                builder.name("Name" + idx).aired("Aired" + idx).runtime(61L + idx)
+                builder.id(548744L + idx).seriesId(69553L + idx).isMovie(true).name("Name" + idx).aired("Aired" + idx)
+                        .runtime(61L + idx)
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .image("Image" + idx).imageType(4L + idx).seasons(createTwo(seasonModel(), listOffset))
@@ -520,16 +490,17 @@ public abstract class ResponseData<T> {
 
     private static BiFunction<Integer, Shape, EpisodeDetails> episodeDetailsModel() {
         return (Integer idx, Shape shape) -> {
-            EpisodeDetailsDTO.Builder builder = new EpisodeDetailsDTO.Builder().id(647513L + idx)
-                    .seriesId(634043L + idx).isMovie(true).network(create(networkModel(), idx, shape));
+            EpisodeDetailsDTO.Builder builder = new EpisodeDetailsDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
-                builder.name("Name" + idx).aired("Aired" + idx).runtime(73L + idx).image("Image" + idx)
+                builder.id(647513L + idx).seriesId(634043L + idx).isMovie(true).name("Name" + idx).aired("Aired" + idx)
+                        .runtime(73L + idx).image("Image" + idx).imageType(573L + idx).seasonNumber(2L + idx)
+                        .productionCode("ProductionCode" + idx).airsAfterSeason(1L + idx).airsBeforeSeason(3L + idx)
+                        .airsBeforeEpisode(11L + idx)
+                        .network(create(networkModel(), idx, shape))
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .imageType(573L + idx).seasons(createTwo(seasonModel(), listOffset)).number(10L + idx)
-                        .seasonNumber(2L + idx).productionCode("ProductionCode" + idx).airsAfterSeason(1 + idx)
-                        .airsBeforeSeason(3 + idx).airsBeforeEpisode(11 + idx)
+                        .seasons(createTwo(seasonModel(), listOffset)).number(10L + idx)
                         .awards(createTwo(awardModel(), listOffset)).characters(createTwo(characterModel(), listOffset))
                         .contentRatings(createTwo(contentRatingModel(), listOffset))
                         .remoteIds(createTwo(remoteIdModel(), listOffset))
@@ -542,10 +513,11 @@ public abstract class ResponseData<T> {
 
     private static BiFunction<Integer, Shape, Franchise> franchiseModel() {
         return (Integer idx, Shape shape) -> {
-            FranchiseDTO.Builder builder = new FranchiseDTO.Builder().id(86L + idx).name("Name" + idx);
+            FranchiseDTO.Builder builder = new FranchiseDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
-                builder.nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                builder.id(86L + idx).name("Name" + idx)
+                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .addAliases("Alias" + listOffset, "Alias" + (listOffset + 1));
             }
@@ -575,11 +547,12 @@ public abstract class ResponseData<T> {
 
     private static BiFunction<Integer, Shape, Movie> movieModel() {
         return (Integer idx, Shape shape) -> {
-            MovieDTO.Builder builder = new MovieDTO.Builder().id(84755L + idx).name("Name" + idx).slug("Slug" + idx)
-                    .image("Image" + idx).score(1079D + idx).status(create(statusModel(), idx));
+            MovieDTO.Builder builder = new MovieDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
-                builder.nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                builder.id(84755L + idx).name("Name" + idx).slug("Slug" + idx).image("Image" + idx).score(1079D + idx)
+                        .status(create(statusModel(), idx))
+                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .aliases(createTwo(aliasModel(), listOffset));
             }
@@ -593,10 +566,11 @@ public abstract class ResponseData<T> {
 
     private static BiFunction<Integer, Shape, People> peopleModel() {
         return (Integer idx, Shape shape) -> {
-            PeopleDTO.Builder builder = new PeopleDTO.Builder().id(11353L + idx).score(486L + idx);
+            PeopleDTO.Builder builder = new PeopleDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
-                builder.name("Name" + idx).image("Image" + idx).aliases(createTwo(aliasModel(), listOffset));
+                builder.id(11353L + idx).score(486L + idx).name("Name" + idx).image("Image" + idx)
+                        .aliases(createTwo(aliasModel(), listOffset));
             }
             return builder.build();
         };
@@ -608,11 +582,11 @@ public abstract class ResponseData<T> {
 
     private static BiFunction<Integer, Shape, Season> seasonModel() {
         return (Integer idx, Shape shape) -> {
-            SeasonDTO.Builder builder = new SeasonDTO.Builder().seriesId(95873L + idx).type(6953L + idx)
-                    .number(5L + idx).network(create(networkModel(), idx, shape));
+            SeasonDTO.Builder builder = new SeasonDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
-                builder.id(47747L + idx).name("Name" + idx)
+                builder.seriesId(95873L + idx).type(6953L + idx).number(5L + idx).id(47747L + idx).name("Name" + idx)
+                        .network(create(networkModel(), idx, shape))
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .image("Image" + idx).imageType(486L + idx);
@@ -623,17 +597,19 @@ public abstract class ResponseData<T> {
 
     private static BiFunction<Integer, Shape, Series> seriesModel() {
         return (Integer idx, Shape shape) -> {
-            SeriesDTO.Builder builder = new SeriesDTO.Builder().nextAired("NextAired" + idx).score(67D + idx)
-                    .status(create(statusModel(), idx)).originalNetwork(create(networkModel(), idx, shape))
-                    .defaultSeasonType(468L + idx).isOrderRandomized(TRUE);
+            SeriesDTO.Builder builder = new SeriesDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
-                builder.id(34874L + idx).name("Name" + idx).slug("Slug" + idx).image("Image" + idx)
+                builder.nextAired("NextAired" + idx).score(67D + idx).lastAired("LastAired" + idx)
+                        .originalCountry("OriginalCountry" + idx).defaultSeasonType(468L + idx)
+                        .originalLanguage("OriginalLanguage" + idx).isOrderRandomized(TRUE)
+                        .id(34874L + idx).name("Name" + idx).slug("Slug" + idx).image("Image" + idx)
+                        .status(create(statusModel(), idx))
+                        .originalNetwork(create(networkModel(), idx, shape))
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .aliases(createTwo(aliasModel(), listOffset)).firstAired("FirstAired" + idx)
-                        .lastAired("LastAired" + idx).originalCountry("OriginalCountry" + idx)
-                        .originalLanguage("OriginalLanguage" + idx);
+                ;
             }
             return builder.build();
         };
@@ -646,24 +622,26 @@ public abstract class ResponseData<T> {
 
     private static BiFunction<Integer, Shape, SeriesDetails> seriesDetailsModel() {
         return (Integer idx, Shape shape) -> {
-            SeriesDetailsDTO.Builder builder = new SeriesDetailsDTO.Builder().nextAired("NextAired" + idx)
-                    .score(4D + idx).status(create(statusModel(), idx))
-                    .originalNetwork(create(networkModel(), idx, shape)).defaultSeasonType(56L + idx)
-                    .isOrderRandomized(TRUE).addTrailers(create(trailerModel(), idx, shape))
-                    .addFranchises(create(franchiseModel(), idx, shape)).airsDays(create(seriesAirsDaysModel(), idx));
+            SeriesDetailsDTO.Builder builder = new SeriesDetailsDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
-                builder.id(923L + idx).name("Name" + idx).slug("Slug" + idx).image("Image" + idx)
+                builder.nextAired("NextAired" + idx).score(4D + idx).defaultSeasonType(56L + idx)
+                        .isOrderRandomized(TRUE).firstAired("FirstAired" + idx).lastAired("LastAired" + idx)
+                        .id(923L + idx).name("Name" + idx).slug("Slug" + idx).image("Image" + idx)
+                        .originalCountry("OriginalCountry" + idx).originalLanguage("OriginalLanguage" + idx)
+                        .isOrderRandomized(TRUE).airsTime("AirsTime" + idx)
+                        .status(create(statusModel(), idx))
+                        .airsDays(create(seriesAirsDaysModel(), idx))
+                        .originalNetwork(create(networkModel(), idx, shape))
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .aliases(createTwo(aliasModel())).firstAired("FirstAired" + idx).lastAired("LastAired" + idx)
-                        .originalCountry("OriginalCountry" + idx).originalLanguage("OriginalLanguage" + idx)
-                        .isOrderRandomized(TRUE).artworks(createTwo(artworkModel(), listOffset))
+                        .aliases(createTwo(aliasModel()))
+                        .artworks(createTwo(artworkModel(), listOffset))
                         .networks(createTwo(networkModel(), listOffset)).genres(createTwo(genreModel(), listOffset))
                         .trailers(createTwo(trailerModel(), listOffset))
                         .franchises(createTwo(franchiseModel(), listOffset))
                         .remoteIds(createTwo(remoteIdModel(), listOffset))
-                        .characters(createTwo(characterModel(), listOffset)).airsTime("AirsTime" + idx)
+                        .characters(createTwo(characterModel(), listOffset))
                         .seasons(createTwo(seasonModel(), listOffset));
             }
             return builder.build();
@@ -677,10 +655,10 @@ public abstract class ResponseData<T> {
 
     private static BiFunction<Integer, Shape, TagOption> tagOptionModel() {
         return (Integer idx, Shape shape) -> {
-            TagOptionDTO.Builder builder = new TagOptionDTO.Builder().id(5796L + idx).name("Name" + idx).tag(42L + idx)
-                    .tagName("TagName" + idx);
+            TagOptionDTO.Builder builder = new TagOptionDTO.Builder();
             if (shape == FULL) {
-                builder.helpText("HelpText" + idx);
+                builder.id(5796L + idx).name("Name" + idx).tag(42L + idx).tagName("TagName" + idx)
+                        .helpText("HelpText" + idx);
             }
             return builder.build();
         };
@@ -688,9 +666,9 @@ public abstract class ResponseData<T> {
 
     private static BiFunction<Integer, Shape, Trailer> trailerModel() {
         return (Integer idx, Shape shape) -> {
-            TrailerDTO.Builder builder = new TrailerDTO.Builder().id(6033L + idx);
+            TrailerDTO.Builder builder = new TrailerDTO.Builder();
             if (shape == FULL) {
-                builder.name("Name" + idx).language("Language" + idx).url("Url" + idx);
+                builder.id(6033L + idx).name("Name" + idx).language("Language" + idx).url("Url" + idx);
             }
             return builder.build();
         };
@@ -698,11 +676,11 @@ public abstract class ResponseData<T> {
 
     private static BiFunction<Integer, Shape, Translation> translationModel() {
         return (Integer idx, Shape shape) -> {
-            TranslationDTO.Builder builder = new TranslationDTO.Builder().language("Language" + idx).isPrimary(true);
+            TranslationDTO.Builder builder = new TranslationDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
-                builder.name("Name" + idx).isAlias(true).overview("Overview" + idx)
-                        .addAliases("Alias" + listOffset, "Alias" + (listOffset + 1));
+                builder.language("Language" + idx).isPrimary(true).name("Name" + idx).isAlias(true)
+                        .overview("Overview" + idx).addAliases("Alias" + listOffset, "Alias" + (listOffset + 1));
             }
             return builder.build();
         };

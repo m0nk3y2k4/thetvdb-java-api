@@ -18,6 +18,8 @@ package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 /**
  * Interface representing a
  * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/FranchiseBaseRecord">FranchiseBaseRecord</a>
@@ -39,6 +41,7 @@ public interface Franchise {
      *
      * @return The <em>{@code id}</em> property from the received JSON
      */
+    @Nullable
     Long getId();
 
     /**
@@ -46,6 +49,7 @@ public interface Franchise {
      *
      * @return The <em>{@code name}</em> property from the received JSON
      */
+    @Nullable
     String getName();
 
     /**

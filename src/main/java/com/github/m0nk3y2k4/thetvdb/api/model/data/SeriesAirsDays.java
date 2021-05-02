@@ -16,6 +16,8 @@
 
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
+import javax.annotation.Nullable;
+
 /**
  * Interface representing a
  * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/SeriesAirsDays">SeriesAirsDays</a>
@@ -36,6 +38,7 @@ public interface SeriesAirsDays {
      *
      * @return The <em>{@code monday}</em> property from the received JSON
      */
+    @Nullable
     Boolean onMonday();
 
     /**
@@ -43,6 +46,7 @@ public interface SeriesAirsDays {
      *
      * @return The <em>{@code tuesday}</em> property from the received JSON
      */
+    @Nullable
     Boolean onTuesday();
 
     /**
@@ -50,6 +54,7 @@ public interface SeriesAirsDays {
      *
      * @return The <em>{@code wednesday}</em> property from the received JSON
      */
+    @Nullable
     Boolean onWednesday();
 
     /**
@@ -57,6 +62,7 @@ public interface SeriesAirsDays {
      *
      * @return The <em>{@code thursday}</em> property from the received JSON
      */
+    @Nullable
     Boolean onThursday();
 
     /**
@@ -64,6 +70,7 @@ public interface SeriesAirsDays {
      *
      * @return The <em>{@code friday}</em> property from the received JSON
      */
+    @Nullable
     Boolean onFriday();
 
     /**
@@ -71,6 +78,7 @@ public interface SeriesAirsDays {
      *
      * @return The <em>{@code saturday}</em> property from the received JSON
      */
+    @Nullable
     Boolean onSaturday();
 
     /**
@@ -78,5 +86,6 @@ public interface SeriesAirsDays {
      *
      * @return The <em>{@code sunday}</em> property from the received JSON
      */
+    @Nullable
     Boolean onSunday();
 }

@@ -17,8 +17,8 @@
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.OptionalLong;
+
+import javax.annotation.Nullable;
 
 /**
  * Interface representing a
@@ -26,8 +26,7 @@ import java.util.OptionalLong;
  * data transfer object.
  * <p><br>
  * The methods of this class provide easy access to basic season related data which was returned by the remote service
- * in JSON format. Properties that are declared to be nullable in the remote service documentation will be returned as
- * Java Optionals. Methods returning collection-based values will return an empty collection in case no corresponding
+ * in JSON format. Methods returning collection-based values will return an empty collection in case no corresponding
  * data was received.
  * <p><br>
  * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service
@@ -42,13 +41,15 @@ public interface Season {
      *
      * @return The <em>{@code id}</em> property from the received JSON
      */
-    OptionalLong getId();
+    @Nullable
+    Long getId();
 
     /**
      * Get the value of the {<em>{@code data.seriesId}</em>} JSON property
      *
      * @return The <em>{@code seriesId}</em> property from the received JSON
      */
+    @Nullable
     Long getSeriesId();
 
     /**
@@ -56,6 +57,7 @@ public interface Season {
      *
      * @return The <em>{@code type}</em> property from the received JSON
      */
+    @Nullable
     Long getType();
 
     /**
@@ -63,13 +65,15 @@ public interface Season {
      *
      * @return The <em>{@code name}</em> property from the received JSON
      */
-    Optional<String> getName();
+    @Nullable
+    String getName();
 
     /**
      * Get the value of the {<em>{@code data.number}</em>} JSON property
      *
      * @return The <em>{@code number}</em> property from the received JSON
      */
+    @Nullable
     Long getNumber();
 
     /**
@@ -91,14 +95,16 @@ public interface Season {
      *
      * @return The <em>{@code image}</em> property from the received JSON
      */
-    Optional<String> getImage();
+    @Nullable
+    String getImage();
 
     /**
      * Get the value of the {<em>{@code data.imageType}</em>} JSON property
      *
      * @return The <em>{@code imageType}</em> property from the received JSON
      */
-    OptionalLong getImageType();
+    @Nullable
+    Long getImageType();
 
     /**
      * Get the value of the {<em>{@code data.network}</em>} JSON property
@@ -107,5 +113,6 @@ public interface Season {
      */
     // ToDo: SeasonBaseRecord does currently not reference NetworkBaseRecord. Check this again after the
     //  next API update.
+    @Nullable
     Network getNetwork();
 }

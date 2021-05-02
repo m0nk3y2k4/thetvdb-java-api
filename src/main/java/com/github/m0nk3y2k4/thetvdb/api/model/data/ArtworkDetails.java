@@ -16,9 +16,7 @@
 
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
-import java.util.Optional;
-import java.util.OptionalDouble;
-import java.util.OptionalLong;
+import javax.annotation.Nullable;
 
 /**
  * Interface representing an
@@ -26,8 +24,7 @@ import java.util.OptionalLong;
  * data transfer object.
  * <p><br>
  * The methods of this class provide easy access to all artwork related data which was returned by the remote service in
- * JSON format. Properties that are declared to be nullable in the remote service documentation will be returned as Java
- * Optionals.
+ * JSON format.
  * <p><br>
  * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service
  * in order to facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although
@@ -41,13 +38,15 @@ public interface ArtworkDetails {
      *
      * @return The <em>{@code episodeId}</em> property from the received JSON
      */
-    OptionalLong getEpisodeId();
+    @Nullable
+    Long getEpisodeId();
 
     /**
      * Get the value of the {<em>{@code data.height}</em>} JSON property
      *
      * @return The <em>{@code height}</em> property from the received JSON
      */
+    @Nullable
     Long getHeight();
 
     /**
@@ -55,6 +54,7 @@ public interface ArtworkDetails {
      *
      * @return The <em>{@code id}</em> property from the received JSON
      */
+    @Nullable
     Long getId();
 
     /**
@@ -62,6 +62,7 @@ public interface ArtworkDetails {
      *
      * @return The <em>{@code image}</em> property from the received JSON
      */
+    @Nullable
     String getImage();
 
     /**
@@ -69,62 +70,71 @@ public interface ArtworkDetails {
      *
      * @return The <em>{@code language}</em> property from the received JSON
      */
-    Optional<String> getLanguage();
+    @Nullable
+    String getLanguage();
 
     /**
      * Get the value of the {<em>{@code data.movieId}</em>} JSON property
      *
      * @return The <em>{@code movieId}</em> property from the received JSON
      */
-    OptionalLong getMovieId();
+    @Nullable
+    Long getMovieId();
 
     /**
      * Get the value of the {<em>{@code data.networkId}</em>} JSON property
      *
      * @return The <em>{@code networkId}</em> property from the received JSON
      */
-    OptionalLong getNetworkId();
+    @Nullable
+    Long getNetworkId();
 
     /**
      * Get the value of the {<em>{@code data.peopleId}</em>} JSON property
      *
      * @return The <em>{@code peopleId}</em> property from the received JSON
      */
-    OptionalLong getPeopleId();
+    @Nullable
+    Long getPeopleId();
 
     /**
      * Get the value of the {<em>{@code data.score}</em>} JSON property
      *
      * @return The <em>{@code score}</em> property from the received JSON
      */
-    OptionalDouble getScore();
+    @Nullable
+    Double getScore();
 
     /**
      * Get the value of the {<em>{@code data.seasonId}</em>} JSON property
      *
      * @return The <em>{@code seasonId}</em> property from the received JSON
      */
-    OptionalLong getSeasonId();
+    @Nullable
+    Long getSeasonId();
 
     /**
      * Get the value of the {<em>{@code data.seriesId}</em>} JSON property
      *
      * @return The <em>{@code seriesId}</em> property from the received JSON
      */
-    OptionalLong getSeriesId();
+    @Nullable
+    Long getSeriesId();
 
     /**
      * Get the value of the {<em>{@code data.seriesPeopleId}</em>} JSON property
      *
      * @return The <em>{@code seriesPeopleId}</em> property from the received JSON
      */
-    OptionalLong getSeriesPeopleId();
+    @Nullable
+    Long getSeriesPeopleId();
 
     /**
      * Get the value of the {<em>{@code data.thumbnail}</em>} JSON property
      *
      * @return The <em>{@code thumbnail}</em> property from the received JSON
      */
+    @Nullable
     String getThumbnail();
 
     /**
@@ -132,6 +142,7 @@ public interface ArtworkDetails {
      *
      * @return The <em>{@code thumbnailHeight}</em> property from the received JSON
      */
+    @Nullable
     Long getThumbnailHeight();
 
     /**
@@ -139,6 +150,7 @@ public interface ArtworkDetails {
      *
      * @return The <em>{@code thumbnailWidth}</em> property from the received JSON
      */
+    @Nullable
     Long getThumbnailWidth();
 
     /**
@@ -146,6 +158,7 @@ public interface ArtworkDetails {
      *
      * @return The <em>{@code type}</em> property from the received JSON
      */
+    @Nullable
     Long getType();
 
     /**
@@ -153,6 +166,7 @@ public interface ArtworkDetails {
      *
      * @return The <em>{@code updatedAt}</em> property from the received JSON
      */
+    @Nullable
     Long getUpdatedAt();
 
     /**
@@ -160,5 +174,6 @@ public interface ArtworkDetails {
      *
      * @return The <em>{@code width}</em> property from the received JSON
      */
+    @Nullable
     Long getWidth();
 }

@@ -16,6 +16,8 @@
 
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
+import javax.annotation.Nullable;
+
 /**
  * Interface representing an
  * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/ArtworkType">ArtworkType</a>
@@ -36,6 +38,7 @@ public interface ArtworkType {
      *
      * @return The <em>{@code id}</em> property from the received JSON
      */
+    @Nullable
     Long getId();
 
     /**
@@ -43,6 +46,7 @@ public interface ArtworkType {
      *
      * @return The <em>{@code name}</em> property from the received JSON
      */
+    @Nullable
     String getName();
 
     /**
@@ -50,6 +54,7 @@ public interface ArtworkType {
      *
      * @return The <em>{@code recordType}</em> property from the received JSON
      */
+    @Nullable
     String getRecordType();
 
     /**
@@ -57,6 +62,7 @@ public interface ArtworkType {
      *
      * @return The <em>{@code slug}</em> property from the received JSON
      */
+    @Nullable
     String getSlug();
 
     /**
@@ -64,6 +70,7 @@ public interface ArtworkType {
      *
      * @return The <em>{@code imageFormat}</em> property from the received JSON
      */
+    @Nullable
     String getImageFormat();
 
     /**
@@ -71,6 +78,7 @@ public interface ArtworkType {
      *
      * @return The <em>{@code width}</em> property from the received JSON
      */
+    @Nullable
     Long getWidth();
 
     /**
@@ -78,6 +86,7 @@ public interface ArtworkType {
      *
      * @return The <em>{@code height}</em> property from the received JSON
      */
+    @Nullable
     Long getHeight();
 
     /**
@@ -85,6 +94,7 @@ public interface ArtworkType {
      *
      * @return The <em>{@code thumbWidth}</em> property from the received JSON
      */
+    @Nullable
     Long getThumbWidth();
 
     /**
@@ -92,5 +102,6 @@ public interface ArtworkType {
      *
      * @return The <em>{@code thumbHeight}</em> property from the received JSON
      */
+    @Nullable
     Long getThumbHeight();
 }

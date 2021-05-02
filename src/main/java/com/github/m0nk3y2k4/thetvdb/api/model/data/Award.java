@@ -16,8 +16,7 @@
 
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
-import java.util.Optional;
-import java.util.OptionalLong;
+import javax.annotation.Nullable;
 
 /**
  * Interface representing an
@@ -25,8 +24,7 @@ import java.util.OptionalLong;
  * data transfer object.
  * <p><br>
  * The methods of this class provide easy access to all award related data which was returned by the remote service in
- * JSON format. Properties that are declared to be nullable in the remote service documentation will be returned as Java
- * Optionals.
+ * JSON format.
  * <p><br>
  * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service
  * in order to facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although
@@ -40,12 +38,14 @@ public interface Award {
      *
      * @return The <em>{@code id}</em> property from the received JSON
      */
-    OptionalLong getId();
+    @Nullable
+    Long getId();
 
     /**
      * Get the value of the {<em>{@code data.name}</em>} JSON property
      *
      * @return The <em>{@code name}</em> property from the received JSON
      */
-    Optional<String> getName();
+    @Nullable
+    String getName();
 }

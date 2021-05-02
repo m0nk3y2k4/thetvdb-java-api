@@ -16,7 +16,7 @@
 
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
-import java.util.Optional;
+import javax.annotation.Nullable;
 
 /**
  * Interface representing a
@@ -24,8 +24,7 @@ import java.util.Optional;
  * data transfer object.
  * <p><br>
  * The methods of this class provide easy access to all trailer related data which was returned by the remote service in
- * JSON format. Properties that are declared to be nullable in the remote service documentation will be returned as Java
- * Optionals.
+ * JSON format.
  * <p><br>
  * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service
  * in order to facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although
@@ -39,6 +38,7 @@ public interface Trailer {
      *
      * @return The <em>{@code id}</em> property from the received JSON
      */
+    @Nullable
     Long getId();
 
     /**
@@ -46,19 +46,22 @@ public interface Trailer {
      *
      * @return The <em>{@code name}</em> property from the received JSON
      */
-    Optional<String> getName();
+    @Nullable
+    String getName();
 
     /**
      * Get the value of the {<em>{@code <enclosing>.language}</em>} JSON property
      *
      * @return The <em>{@code language}</em> property from the received JSON
      */
-    Optional<String> getLanguage();
+    @Nullable
+    String getLanguage();
 
     /**
      * Get the value of the {<em>{@code <enclosing>.url}</em>} JSON property
      *
      * @return The <em>{@code url}</em> property from the received JSON
      */
-    Optional<String> getUrl();
+    @Nullable
+    String getUrl();
 }

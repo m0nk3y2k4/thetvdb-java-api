@@ -17,7 +17,8 @@
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
 import java.util.List;
-import java.util.Optional;
+
+import javax.annotation.Nullable;
 
 /**
  * Interface representing an
@@ -25,8 +26,7 @@ import java.util.Optional;
  * data transfer object.
  * <p><br>
  * The methods of this class provide easy access to all award category related data which was returned by the remote
- * service in JSON format. Properties that are declared to be nullable in the remote service documentation will be
- * returned as Java Optionals. Methods returning collection-based values will return an empty collection in case no
+ * service in JSON format. Methods returning collection-based values will return an empty collection in case no
  * corresponding data was received
  * <p><br>
  * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service
@@ -41,6 +41,7 @@ public interface AwardCategoryDetails {
      *
      * @return The <em>{@code id}</em> property from the received JSON
      */
+    @Nullable
     Long getId();
 
     /**
@@ -48,13 +49,15 @@ public interface AwardCategoryDetails {
      *
      * @return The <em>{@code name}</em> property from the received JSON
      */
-    Optional<String> getName();
+    @Nullable
+    String getName();
 
     /**
      * Get the value of the {<em>{@code data.allowCoNominees}</em>} JSON property
      *
      * @return The <em>{@code allowCoNominees}</em> property from the received JSON
      */
+    @Nullable
     Boolean allowCoNominees();
 
     /**
@@ -62,6 +65,7 @@ public interface AwardCategoryDetails {
      *
      * @return The <em>{@code forSeries}</em> property from the received JSON
      */
+    @Nullable
     Boolean forSeries();
 
     /**
@@ -69,6 +73,7 @@ public interface AwardCategoryDetails {
      *
      * @return The <em>{@code forMovies}</em> property from the received JSON
      */
+    @Nullable
     Boolean forMovies();
 
     /**
@@ -76,6 +81,7 @@ public interface AwardCategoryDetails {
      *
      * @return The <em>{@code award}</em> property from the received JSON
      */
+    @Nullable
     Award getAward();
 
     /**

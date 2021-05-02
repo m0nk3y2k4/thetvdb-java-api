@@ -17,8 +17,8 @@
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.OptionalLong;
+
+import javax.annotation.Nullable;
 
 /**
  * Interface representing a
@@ -26,8 +26,7 @@ import java.util.OptionalLong;
  * data transfer object.
  * <p><br>
  * The methods of this class provide easy access to all series related data which was returned by the remote service in
- * JSON format. Properties that are declared to be nullable in the remote service documentation will be returned as Java
- * Optionals. Methods returning collection-based values will return an empty collection in case no corresponding data
+ * JSON format. Methods returning collection-based values will return an empty collection in case no corresponding data
  * was received.
  * <p><br>
  * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service
@@ -42,28 +41,32 @@ public interface SeriesDetails {
      *
      * @return The <em>{@code id}</em> property from the received JSON
      */
-    OptionalLong getId();
+    @Nullable
+    Long getId();
 
     /**
      * Get the value of the {<em>{@code data.name}</em>} JSON property
      *
      * @return The <em>{@code name}</em> property from the received JSON
      */
-    Optional<String> getName();
+    @Nullable
+    String getName();
 
     /**
      * Get the value of the {<em>{@code data.slug}</em>} JSON property
      *
      * @return The <em>{@code slug}</em> property from the received JSON
      */
-    Optional<String> getSlug();
+    @Nullable
+    String getSlug();
 
     /**
      * Get the value of the {<em>{@code data.image}</em>} JSON property
      *
      * @return The <em>{@code image}</em> property from the received JSON
      */
-    Optional<String> getImage();
+    @Nullable
+    String getImage();
 
     /**
      * Get the value of the {<em>{@code data.nameTranslations}</em>} JSON property
@@ -91,20 +94,23 @@ public interface SeriesDetails {
      *
      * @return The <em>{@code firstAired}</em> property from the received JSON
      */
-    Optional<String> getFirstAired();
+    @Nullable
+    String getFirstAired();
 
     /**
      * Get the value of the {<em>{@code data.lastAired}</em>} JSON property
      *
      * @return The <em>{@code lastAired}</em> property from the received JSON
      */
-    Optional<String> getLastAired();
+    @Nullable
+    String getLastAired();
 
     /**
      * Get the value of the {<em>{@code data.nextAired}</em>} JSON property
      *
      * @return The <em>{@code nextAired}</em> property from the received JSON
      */
+    @Nullable
     String getNextAired();
 
     /**
@@ -112,6 +118,7 @@ public interface SeriesDetails {
      *
      * @return The <em>{@code score}</em> property from the received JSON
      */
+    @Nullable
     Double getScore();
 
     /**
@@ -119,6 +126,7 @@ public interface SeriesDetails {
      *
      * @return The <em>{@code status}</em> property from the received JSON
      */
+    @Nullable
     Status getStatus();
 
     /**
@@ -126,14 +134,16 @@ public interface SeriesDetails {
      *
      * @return The <em>{@code originalCountry}</em> property from the received JSON
      */
-    Optional<String> getOriginalCountry();
+    @Nullable
+    String getOriginalCountry();
 
     /**
      * Get the value of the {<em>{@code data.originalLanguage}</em>} JSON property
      *
      * @return The <em>{@code originalLanguage}</em> property from the received JSON
      */
-    Optional<String> getOriginalLanguage();
+    @Nullable
+    String getOriginalLanguage();
 
     /**
      * Get the value of the {<em>{@code data.originalNetwork}</em>} JSON property
@@ -141,6 +151,7 @@ public interface SeriesDetails {
      * @return The <em>{@code originalNetwork}</em> property from the received JSON
      */
     // ToDo: Property is currently not declared in SeriesExtendedRecord. Check this again after the next API update.
+    @Nullable
     Network getOriginalNetwork();
 
     /**
@@ -148,6 +159,7 @@ public interface SeriesDetails {
      *
      * @return The <em>{@code defaultSeasonType}</em> property from the received JSON
      */
+    @Nullable
     Long getDefaultSeasonType();
 
     /**
@@ -155,6 +167,7 @@ public interface SeriesDetails {
      *
      * @return The <em>{@code isOrderRandomized}</em> property from the received JSON
      */
+    @Nullable
     Boolean isOrderRandomized();
 
     /**
@@ -211,6 +224,7 @@ public interface SeriesDetails {
      *
      * @return The <em>{@code airsDays}</em> property from the received JSON
      */
+    @Nullable
     SeriesAirsDays getAirsDays();
 
     /**
@@ -218,7 +232,8 @@ public interface SeriesDetails {
      *
      * @return The <em>{@code airsTime}</em> property from the received JSON
      */
-    Optional<String> getAirsTime();
+    @Nullable
+    String getAirsTime();
 
     /**
      * Get the value of the {<em>{@code data.seasons}</em>} JSON property
