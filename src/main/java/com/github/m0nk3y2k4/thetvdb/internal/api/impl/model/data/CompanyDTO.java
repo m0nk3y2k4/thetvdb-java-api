@@ -16,10 +16,19 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
+import java.util.Map;
+import java.util.Optional;
+
+import javax.annotation.Nullable;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Company;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.CompanyType;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.APIDataModel;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.WithHiddenImplementation;
+import org.immutables.value.Value.Auxiliary;
+import org.immutables.value.Value.Derived;
 import org.immutables.value.Value.Immutable;
 
 /**
@@ -34,6 +43,31 @@ import org.immutables.value.Value.Immutable;
 @WithHiddenImplementation
 @JsonDeserialize(builder = CompanyDTO.Builder.class)
 public abstract class CompanyDTO implements Company {
+
+    @Nullable
+    @Override
+    @Derived
+    public CompanyType getCompanyType() {
+        CompanyTypeDTOBuilder companyType = new CompanyTypeDTO.Builder();
+        Optional.ofNullable(getCompanyTypesJson().get("companyTypeId")).map(Object::toString).map(Long::valueOf)
+                .ifPresent(companyType::id);
+        Optional.ofNullable(getCompanyTypesJson().get("companyTypeName")).map(Object::toString)
+                .ifPresent(companyType::name);
+        return companyType.build();
+    }
+
+    /**
+     * Helper method used for mapping JSON data into a {@link CompanyType} model
+     * <p><br>
+     * For some unknown reason the names for the company type properties inside the Company JSON differ from the
+     * property names used in the company types overview. In order to reuse the existing type model some extended JSON
+     * mapping is required, based on the data returned by this method.
+     *
+     * @return List of key/value pairs representing the JSONs 'companyType' node properties
+     */
+    @Auxiliary
+    @JsonProperty("companyType")
+    abstract Map<String, Object> getCompanyTypesJson();
 
     /**
      * Builder used to create a new immutable {@link CompanyDTO} implementation

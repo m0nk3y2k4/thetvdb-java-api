@@ -123,5 +123,5 @@ public interface Season {
      * @return The <em>{@code companies}</em> property from the received JSON
      */
     // ToDo: Field is currently not declared in SeasonBaseRecord but returned in JSON. Check again after the next API update.
-    List<Object> getCompanies();
+    List<Company> getCompanies();
 }

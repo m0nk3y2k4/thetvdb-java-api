@@ -40,7 +40,63 @@
           "abbreviation": "Abbreviation1",
           "country": "Country1"
         },
-        "companies": null
+        "companies": [
+          {
+            "id": 64714,
+            "name": "Name1",
+            "slug": "Slug1",
+            "nameTranslations": [
+              "NameTranslation1", "NameTranslation2"
+            ],
+            "overviewTranslations": [
+              "OverviewTranslation1", "OverviewTranslation2"
+            ],
+            "aliases": [
+              {
+                "language": "Language1",
+                "name": "Name1"
+              }, {
+                "language": "Language2",
+                "name": "Name2"
+              }
+            ],
+            "country": "Country1",
+            "primaryCompanyType": 514,
+            "activeDate": "ActiveDate1",
+            "inactiveDate": "InactiveDate1",
+            "companyType": {
+              "companyTypeId": 356,
+              "companyTypeName": "Name1"
+            }
+          }, {
+            "id": 64715,
+            "name": "Name2",
+            "slug": "Slug2",
+            "nameTranslations": [
+              "NameTranslation3", "NameTranslation4"
+            ],
+            "overviewTranslations": [
+              "OverviewTranslation3", "OverviewTranslation4"
+            ],
+            "aliases": [
+              {
+                "language": "Language3",
+                "name": "Name3"
+              }, {
+                "language": "Language4",
+                "name": "Name4"
+              }
+            ],
+            "country": "Country2",
+            "primaryCompanyType": 515,
+            "activeDate": "ActiveDate2",
+            "inactiveDate": "InactiveDate2",
+            "companyType": {
+              "companyTypeId": 357,
+              "companyTypeName": "Name2"
+            }
+          }
+        ]
       }, {
         "id": 47749,
         "seriesId": 95875,
@@ -66,11 +122,69 @@
           "abbreviation": "Abbreviation2",
           "country": "Country2"
         },
-        "companies": null
+        "companies": [
+          {
+            "id": 64716,
+            "name": "Name3",
+            "slug": "Slug3",
+            "nameTranslations": [
+              "NameTranslation5", "NameTranslation6"
+            ],
+            "overviewTranslations": [
+              "OverviewTranslation5", "OverviewTranslation6"
+            ],
+            "aliases": [
+              {
+                "language": "Language5",
+                "name": "Name5"
+              }, {
+                "language": "Language6",
+                "name": "Name6"
+              }
+            ],
+            "country": "Country3",
+            "primaryCompanyType": 516,
+            "activeDate": "ActiveDate3",
+            "inactiveDate": "InactiveDate3",
+            "companyType": {
+              "companyTypeId": 358,
+              "companyTypeName": "Name3"
+            }
+          }, {
+            "id": 64717,
+            "name": "Name4",
+            "slug": "Slug4",
+            "nameTranslations": [
+              "NameTranslation7", "NameTranslation8"
+            ],
+            "overviewTranslations": [
+              "OverviewTranslation7", "OverviewTranslation8"
+            ],
+            "aliases": [
+              {
+                "language": "Language7",
+                "name": "Name7"
+              }, {
+                "language": "Language8",
+                "name": "Name8"
+              }
+            ],
+            "country": "Country4",
+            "primaryCompanyType": 517,
+            "activeDate": "ActiveDate4",
+            "inactiveDate": "InactiveDate4",
+            "companyType": {
+              "companyTypeId": 359,
+              "companyTypeName": "Name4"
+            }
+          }
+        ]
       }
     ],
     "number": 43,
-    "seasonNumber": 9
+    "seasonNumber": 9,
+    "lastUpdated": "LastUpdated1",
+    "finaleType": "FinaleType1"
   },
   "status": "success"
 }

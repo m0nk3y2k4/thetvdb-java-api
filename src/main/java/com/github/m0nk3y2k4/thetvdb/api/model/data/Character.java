@@ -144,4 +144,22 @@ public interface Character {
      * @return The <em>{@code aliases}</em> property from the received JSON
      */
     List<Alias> getAliases();
+
+    /**
+     * Get the value of the {<em>{@code data.peopleType}</em>} JSON property
+     *
+     * @return The <em>{@code peopleType}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in Character but returned in JSON. Check again after the next API update.
+    @Nullable
+    String getPeopleType();
+
+    /**
+     * Get the value of the {<em>{@code data.personName}</em>} JSON property
+     *
+     * @return The <em>{@code personName}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in Character but returned in JSON. Check again after the next API update.
+    @Nullable
+    String getPersonName();
 }

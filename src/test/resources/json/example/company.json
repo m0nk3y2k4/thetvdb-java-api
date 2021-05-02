@@ -21,7 +21,11 @@
     "country": "Country1",
     "primaryCompanyType": 514,
     "activeDate": "ActiveDate1",
-    "inactiveDate": "InactiveDate1"
+    "inactiveDate": "InactiveDate1",
+    "companyType": {
+      "companyTypeId": 356,
+      "companyTypeName": "Name1"
+    }
   },
   "status": "success"
 }

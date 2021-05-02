@@ -32,15 +32,11 @@
       },
       "originalCountry": "OriginalCountry1",
       "originalLanguage": "OriginalLanguage1",
-      "originalNetwork": {
-        "id": 478,
-        "name": "Name1",
-        "slug": "Slug1",
-        "abbreviation": "Abbreviation1",
-        "country": "Country1"
-      },
+      "abbreviation": "Abbreviation1",
+      "country": "Country1",
       "defaultSeasonType": 469,
-      "isOrderRandomized": true
+      "isOrderRandomized": true,
+      "lastUpdated": "LastUpdated1"
     }, {
       "id": 34876,
       "name": "Name2",
@@ -73,15 +69,11 @@
       },
       "originalCountry": "OriginalCountry2",
       "originalLanguage": "OriginalLanguage2",
-      "originalNetwork": {
-        "id": 479,
-        "name": "Name2",
-        "slug": "Slug2",
-        "abbreviation": "Abbreviation2",
-        "country": "Country2"
-      },
+      "abbreviation": "Abbreviation2",
+      "country": "Country2",
       "defaultSeasonType": 470,
-      "isOrderRandomized": true
+      "isOrderRandomized": true,
+      "lastUpdated": "LastUpdated2"
     }
   ],
   "status": "success"

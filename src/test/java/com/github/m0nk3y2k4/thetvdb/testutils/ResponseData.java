@@ -25,7 +25,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.ParameterizedType;
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -37,6 +39,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Alias;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Artwork;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkDetails;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkStatus;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Award;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategory;
@@ -68,6 +71,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.APIResponseDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AliasDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ArtworkDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ArtworkDetailsDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ArtworkStatusDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ArtworkTypeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AwardCategoryDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AwardCategoryDetailsDTO;
@@ -369,11 +373,12 @@ public abstract class ResponseData<T> {
             ArtworkDetailsDTO.Builder builder = new ArtworkDetailsDTO.Builder();
             if (shape == FULL) {
                 builder.height(1079L + idx).id(694400L + idx).image("Image" + idx).thumbnail("Thumbnail" + idx)
-                        .thumbnailHeight(399L + idx).thumbnailWidth(599L + idx).type(4L + idx)
-                        .updatedAt(16015470L + idx).width(1919L + idx).episodeId(39009L + idx)
-                        .language("Language" + idx).movieId(573L + idx).networkId(66340L + idx)
+                        .thumbnailHeight(399L + idx).thumbnailWidth(599L + idx).type(4L + idx).width(1919L + idx)
+                        .updatedAt(16015470L + idx).episodeId(39009L + idx).language("Language" + idx)
+                        .movieId(573L + idx).networkId(66340L + idx).seriesPeopleId(646L + idx)
                         .peopleId(97511L + idx).score(81D + idx).seasonId(574603L + idx).seriesId(669843L + idx)
-                        .seriesPeopleId(646L + idx);
+                        .status(create(artworkStatusModel(), idx))
+                        .tagOptions(create(tagOptionModel(), idx));
             }
             return builder.build();
         };
@@ -383,6 +388,10 @@ public abstract class ResponseData<T> {
         return (Integer idx, Shape shape) -> new ArtworkTypeDTO.Builder().id(4574L + idx).name("Name" + idx)
                 .recordType("RecordType" + idx).slug("Slug" + idx).imageFormat("ImageFormat" + idx).width(757L + idx)
                 .height(139L + idx).thumbWidth(893L + idx).thumbHeight(194L + idx).build();
+    }
+
+    private static BiFunction<Integer, Shape, ArtworkStatus> artworkStatusModel() {
+        return (Integer idx, Shape shape) -> new ArtworkStatusDTO.Builder().id(72L + idx).name("Name" + idx).build();
     }
 
     private static BiFunction<Integer, Shape, Award> awardModel() {
@@ -437,7 +446,8 @@ public abstract class ResponseData<T> {
                 int listOffset = (idx << 1) - 1;
                 builder.id(36486L + idx).type(11L + idx).sort(2L + idx).isFeatured(TRUE).url("Url" + idx)
                         .name("Name" + idx).peopleId(568L + idx).seriesId(44L + idx).movieId(363L + idx)
-                        .episodeId(974L + idx).image("Image" + idx)
+                        .episodeId(974L + idx).image("Image" + idx).peopleType("PeopleType" + idx)
+                        .personName("PersonName" + idx)
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .aliases(createTwo(aliasModel(), listOffset));
@@ -451,11 +461,12 @@ public abstract class ResponseData<T> {
             CompanyDTO.Builder builder = new CompanyDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
-                builder.id(64713L + idx).slug("Slug" + idx).primaryCompanyType(513L + idx)
+                builder.id(64713L + idx).slug("Slug" + idx).primaryCompanyType(513L + idx).country("Country" + idx)
+                        .activeDate("ActiveDate" + idx).inactiveDate("InactiveDate" + idx).name("Name" + idx)
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .aliases(createTwo(aliasModel(), listOffset)).country("Country" + idx)
-                        .activeDate("ActiveDate" + idx).inactiveDate("InactiveDate" + idx).name("Name" + idx);
+                        .aliases(createTwo(aliasModel(), listOffset))
+                        .companyTypesJson(Map.of("companyTypeId", 355 + idx, "companyTypeName", "Name" + idx));
             }
             return builder.build();
         };
@@ -466,7 +477,9 @@ public abstract class ResponseData<T> {
     }
 
     private static BiFunction<Integer, Shape, ContentRating> contentRatingModel() {
-        return (Integer idx, Shape shape) -> new ContentRatingDTO.Builder().id(246L + idx).name("Name" + idx).build();
+        return (Integer idx, Shape shape) -> new ContentRatingDTO.Builder().id(246L + idx).name("Name" + idx)
+                .country("Country" + idx).description("Description" + idx).contentType("ContentType" + idx)
+                .order(25L + idx).fullname("Fullname" + idx).build();
     }
 
     private static BiFunction<Integer, Shape, EntityType> entityTypeModel() {
@@ -484,7 +497,8 @@ public abstract class ResponseData<T> {
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .image("Image" + idx).imageType(4L + idx).seasons(createTwo(seasonModel(), listOffset))
-                        .number(42L + idx).seasonNumber(8L + idx);
+                        .number(42L + idx).seasonNumber(8L + idx).lastUpdated("LastUpdated" + idx)
+                        .finaleType("FinaleType" + idx);
             }
             return builder.build();
         };
@@ -498,8 +512,8 @@ public abstract class ResponseData<T> {
                 builder.id(647513L + idx).seriesId(634043L + idx).isMovie(true).name("Name" + idx).aired("Aired" + idx)
                         .runtime(73L + idx).image("Image" + idx).imageType(573L + idx).seasonNumber(2L + idx)
                         .productionCode("ProductionCode" + idx).airsAfterSeason(1L + idx).airsBeforeSeason(3L + idx)
-                        .airsBeforeEpisode(11L + idx)
-                        .network(create(networkModel(), idx, shape))
+                        .airsBeforeEpisode(11L + idx).lastUpdated("LastUpdated" + idx).finaleType("FinaleType" + idx)
+                        .networks(createTwo(networkModel(), listOffset))
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .seasons(createTwo(seasonModel(), listOffset)).number(10L + idx)
@@ -507,7 +521,9 @@ public abstract class ResponseData<T> {
                         .contentRatings(createTwo(contentRatingModel(), listOffset))
                         .remoteIds(createTwo(remoteIdModel(), listOffset))
                         .tagOptions(createTwo(tagOptionModel(), listOffset))
-                        .trailers(createTwo(trailerModel(), listOffset));
+                        .trailers(createTwo(trailerModel(), listOffset))
+                        .nominations(Collections.emptyList())
+                        .studios(Collections.emptyList());
             }
             return builder.build();
         };
@@ -553,6 +569,7 @@ public abstract class ResponseData<T> {
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
                 builder.id(84755L + idx).name("Name" + idx).slug("Slug" + idx).image("Image" + idx).score(1079D + idx)
+                        .runtime(46L + idx).lastUpdated("LastUpdated" + idx)
                         .status(create(statusModel(), idx))
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
@@ -572,14 +589,17 @@ public abstract class ResponseData<T> {
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
                 builder.id(11353L + idx).score(486L + idx).name("Name" + idx).image("Image" + idx)
-                        .aliases(createTwo(aliasModel(), listOffset));
+                        .aliases(createTwo(aliasModel(), listOffset))
+                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                        .overviewTranslations(createTwo(overviewTranslationModel(), listOffset));
             }
             return builder.build();
         };
     }
 
     private static BiFunction<Integer, Shape, RemoteId> remoteIdModel() {
-        return (Integer idx, Shape shape) -> new RemoteIdDTO.Builder().id("Id" + idx).type(3069L + idx).build();
+        return (Integer idx, Shape shape) -> new RemoteIdDTO.Builder().id("Id" + idx).type(3069L + idx)
+                .sourceName("SourceName" + idx).build();
     }
 
     private static BiFunction<Integer, Shape, Season> seasonModel() {
@@ -592,7 +612,8 @@ public abstract class ResponseData<T> {
                         .network(create(networkModel(), idx, shape))
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .image("Image" + idx).imageType(486L + idx);
+                        .image("Image" + idx).imageType(486L + idx)
+                        .companies(createTwo(companyModel(), listOffset));
             }
             return builder.build();
         };
@@ -609,11 +630,11 @@ public abstract class ResponseData<T> {
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
                 builder.nextAired("NextAired" + idx).score(67D + idx).lastAired("LastAired" + idx)
-                        .originalCountry("OriginalCountry" + idx).defaultSeasonType(468L + idx)
-                        .originalLanguage("OriginalLanguage" + idx).isOrderRandomized(TRUE)
-                        .id(34874L + idx).name("Name" + idx).slug("Slug" + idx).image("Image" + idx)
+                        .originalCountry("OriginalCountry" + idx).defaultSeasonType(468L + idx).country("Country" + idx)
+                        .originalLanguage("OriginalLanguage" + idx).isOrderRandomized(TRUE).id(34874L + idx)
+                        .name("Name" + idx).slug("Slug" + idx).image("Image" + idx).abbreviation("Abbreviation" + idx)
+                        .lastUpdated("LastUpdated" + idx)
                         .status(create(statusModel(), idx))
-                        .originalNetwork(create(networkModel(), idx, shape))
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .aliases(createTwo(aliasModel(), listOffset)).firstAired("FirstAired" + idx)
@@ -637,10 +658,11 @@ public abstract class ResponseData<T> {
                         .isOrderRandomized(TRUE).firstAired("FirstAired" + idx).lastAired("LastAired" + idx)
                         .id(923L + idx).name("Name" + idx).slug("Slug" + idx).image("Image" + idx)
                         .originalCountry("OriginalCountry" + idx).originalLanguage("OriginalLanguage" + idx)
-                        .isOrderRandomized(TRUE).airsTime("AirsTime" + idx)
+                        .isOrderRandomized(TRUE).airsTime("AirsTime" + idx).abbreviation("Abbreviation" + idx)
+                        .country("Country" + idx).lastUpdated("LastUpdated" + idx).airsTimeUTC("AirsTimeUTC" + idx)
                         .status(create(statusModel(), idx))
                         .airsDays(create(seriesAirsDaysModel(), idx))
-                        .originalNetwork(create(networkModel(), idx, shape))
+                        .companies(createTwo(companyModel(), listOffset))
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .aliases(createTwo(aliasModel()))

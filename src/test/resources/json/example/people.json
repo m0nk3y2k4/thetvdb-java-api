@@ -12,7 +12,13 @@
         "name": "Name2"
       }
     ],
-    "score": 487
+    "score": 487,
+    "nameTranslations": [
+      "NameTranslation1", "NameTranslation2"
+    ],
+    "overviewTranslations": [
+      "OverviewTranslation1", "OverviewTranslation2"
+    ]
   },
   "status": "success"
 }

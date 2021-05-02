@@ -17,7 +17,18 @@
     "thumbnailWidth": 600,
     "type": 5,
     "updatedAt": 16015471,
-    "width": 1920
+    "width": 1920,
+    "status": {
+      "id": 73,
+      "name": "Name1"
+    },
+    "tagOptions": {
+      "id": 5797,
+      "tag": 43,
+      "tagName": "TagName1",
+      "name": "Name1",
+      "helpText": "HelpText1"
+    }
   },
   "status": "success"
 }

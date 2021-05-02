@@ -136,4 +136,22 @@ public interface Episode {
      */
     @Nullable
     Long getSeasonNumber();
+
+    /**
+     * Get the value of the {<em>{@code data.lastUpdated}</em>} JSON property
+     *
+     * @return The <em>{@code lastUpdated}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in EpisodeBaseRecord but returned in JSON. Check again after the next API update.
+    @Nullable
+    String getLastUpdated();
+
+    /**
+     * Get the value of the {<em>{@code data.finaleType}</em>} JSON property
+     *
+     * @return The <em>{@code finaleType}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in EpisodeBaseRecord but returned in JSON. Check again after the next API update.
+    @Nullable
+    String getFinaleType();
 }

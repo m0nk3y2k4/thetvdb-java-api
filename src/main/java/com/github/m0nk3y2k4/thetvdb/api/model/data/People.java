@@ -74,4 +74,20 @@ public interface People {
      */
     @Nullable
     Long getScore();
+
+    /**
+     * Get the value of the {<em>{@code data.nameTranslations}</em>} JSON property
+     *
+     * @return The <em>{@code nameTranslations}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in PeopleBaseRecord but returned in JSON. Check again after the next API update.
+    List<String> getNameTranslations();
+
+    /**
+     * Get the value of the {<em>{@code data.overviewTranslations}</em>} JSON property
+     *
+     * @return The <em>{@code overviewTranslations}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in PeopleBaseRecord but returned in JSON. Check again after the next API update.
+    List<String> getOverviewTranslations();
 }

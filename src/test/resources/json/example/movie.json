@@ -20,12 +20,14 @@
       }
     ],
     "score": 1080,
+    "runtime": 47,
     "status": {
       "id": 547,
       "keepUpdated": true,
       "name": "Name1",
       "recordType": "RecordType1"
-    }
+    },
+    "lastUpdated": "LastUpdated1"
   },
   "status": "success"
 }

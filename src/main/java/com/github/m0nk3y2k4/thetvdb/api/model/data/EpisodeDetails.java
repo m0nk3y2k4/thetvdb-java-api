@@ -138,6 +138,24 @@ public interface EpisodeDetails {
     Long getSeasonNumber();
 
     /**
+     * Get the value of the {<em>{@code data.lastUpdated}</em>} JSON property
+     *
+     * @return The <em>{@code lastUpdated}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in EpisodeExtendedRecord but returned in JSON. Check again after the next API update.
+    @Nullable
+    String getLastUpdated();
+
+    /**
+     * Get the value of the {<em>{@code data.finaleType}</em>} JSON property
+     *
+     * @return The <em>{@code finaleType}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in EpisodeExtendedRecord but returned in JSON. Check again after the next API update.
+    @Nullable
+    String getFinaleType();
+
+    /**
      * Get the value of the {<em>{@code data.productionCode}</em>} JSON property
      *
      * @return The <em>{@code productionCode}</em> property from the received JSON
@@ -174,8 +192,8 @@ public interface EpisodeDetails {
      *
      * @return The <em>{@code network}</em> property from the received JSON
      */
-    @Nullable
-    Network getNetwork();
+    // ToDo: Field is currently declared as single 'network' in EpisodeExtendedRecord. Check again after the next API update.
+    List<Network> getNetworks();
 
     /**
      * Get the value of the {<em>{@code data.awards}</em>} JSON property
@@ -218,4 +236,20 @@ public interface EpisodeDetails {
      * @return The <em>{@code trailers}</em> property from the received JSON
      */
     List<Trailer> getTrailers();
+
+    /**
+     * Get the value of the {<em>{@code data.studios}</em>} JSON property
+     *
+     * @return The <em>{@code studios}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in EpisodeExtendedRecord but returned in JSON. Check again after the next API update.
+    List<String> getStudios();
+
+    /**
+     * Get the value of the {<em>{@code data.nominations}</em>} JSON property
+     *
+     * @return The <em>{@code nominations}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in EpisodeExtendedRecord but returned in JSON. Check again after the next API update.
+    List<String> getNominations();
 }

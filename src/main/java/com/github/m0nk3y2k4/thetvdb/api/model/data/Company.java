@@ -112,4 +112,13 @@ public interface Company {
      */
     @Nullable
     String getInactiveDate();
+
+    /**
+     * Get the value of the {<em>{@code data.companyType}</em>} JSON property
+     *
+     * @return The <em>{@code companyType}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in Company but returned in JSON. Check again after the next API update.
+    @Nullable
+    CompanyType getCompanyType();
 }

@@ -48,4 +48,45 @@ public interface ContentRating {
      */
     @Nullable
     String getName();
+
+    /**
+     * Get the value of the {<em>{@code data.country}</em>} JSON property
+     *
+     * @return The <em>{@code country}</em> property from the received JSON
+     */
+    @Nullable
+    String getCountry();
+
+    /**
+     * Get the value of the {<em>{@code data.description}</em>} JSON property
+     *
+     * @return The <em>{@code description}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in ContentRating but returned in JSON. Check again after the next API update.
+    @Nullable
+    String getDescription();
+
+    /**
+     * Get the value of the {<em>{@code data.contentType}</em>} JSON property
+     *
+     * @return The <em>{@code contentType}</em> property from the received JSON
+     */
+    @Nullable
+    String getContentType();
+
+    /**
+     * Get the value of the {<em>{@code data.order}</em>} JSON property
+     *
+     * @return The <em>{@code order}</em> property from the received JSON
+     */
+    @Nullable
+    Long getOrder();
+
+    /**
+     * Get the value of the {<em>{@code data.fullname}</em>} JSON property
+     *
+     * @return The <em>{@code fullname}</em> property from the received JSON
+     */
+    @Nullable
+    String getFullname();
 }

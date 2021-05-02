@@ -146,13 +146,20 @@ public interface SeriesDetails {
     String getOriginalLanguage();
 
     /**
-     * Get the value of the {<em>{@code data.originalNetwork}</em>} JSON property
+     * Get the value of the {<em>{@code data.abbreviation}</em>} JSON property
      *
-     * @return The <em>{@code originalNetwork}</em> property from the received JSON
+     * @return The <em>{@code abbreviation}</em> property from the received JSON
      */
-    // ToDo: Property is currently not declared in SeriesExtendedRecord. Check this again after the next API update.
     @Nullable
-    Network getOriginalNetwork();
+    String getAbbreviation();
+
+    /**
+     * Get the value of the {<em>{@code data.country}</em>} JSON property
+     *
+     * @return The <em>{@code country}</em> property from the received JSON
+     */
+    @Nullable
+    String getCountry();
 
     /**
      * Get the value of the {<em>{@code data.defaultSeasonType}</em>} JSON property
@@ -241,4 +248,30 @@ public interface SeriesDetails {
      * @return The <em>{@code seasons}</em> property from the received JSON
      */
     List<Season> getSeasons();
+
+    /**
+     * Get the value of the {<em>{@code data.lastUpdated}</em>} JSON property
+     *
+     * @return The <em>{@code lastUpdated}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in SeriesExtendedRecord but returned in JSON. Check again after the next API update.
+    @Nullable
+    String getLastUpdated();
+
+    /**
+     * Get the value of the {<em>{@code data.companies}</em>} JSON property
+     *
+     * @return The <em>{@code companies}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in SeriesExtendedRecord but returned in JSON. Check again after the next API update.
+    List<Company> getCompanies();
+
+    /**
+     * Get the value of the {<em>{@code data.airsTimeUTC}</em>} JSON property
+     *
+     * @return The <em>{@code airsTimeUTC}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in SeriesExtendedRecord but returned in JSON. Check again after the next API update.
+    @Nullable
+    String getAirsTimeUTC();
 }

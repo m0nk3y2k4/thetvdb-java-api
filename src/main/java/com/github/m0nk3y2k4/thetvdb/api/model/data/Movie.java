@@ -104,4 +104,22 @@ public interface Movie {
      */
     @Nullable
     Status getStatus();
+
+    /**
+     * Get the value of the {<em>{@code data.runtime}</em>} JSON property
+     *
+     * @return The <em>{@code runtime}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in MovieBaseRecord but returned in JSON. Check again after the next API update.
+    @Nullable
+    Long getRuntime();
+
+    /**
+     * Get the value of the {<em>{@code data.lastUpdated}</em>} JSON property
+     *
+     * @return The <em>{@code lastUpdated}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in MovieBaseRecord but returned in JSON. Check again after the next API update.
+    @Nullable
+    String getLastUpdated();
 }

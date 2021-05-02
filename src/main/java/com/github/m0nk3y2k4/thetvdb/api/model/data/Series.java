@@ -146,13 +146,20 @@ public interface Series {
     String getOriginalLanguage();
 
     /**
-     * Get the value of the {<em>{@code data.originalNetwork}</em>} JSON property
+     * Get the value of the {<em>{@code data.abbreviation}</em>} JSON property
      *
-     * @return The <em>{@code originalNetwork}</em> property from the received JSON
+     * @return The <em>{@code abbreviation}</em> property from the received JSON
      */
-    // ToDo: Property is currently not declared in SeriesBaseRecord. Check this again after the next API update.
     @Nullable
-    Network getOriginalNetwork();
+    String getAbbreviation();
+
+    /**
+     * Get the value of the {<em>{@code data.country}</em>} JSON property
+     *
+     * @return The <em>{@code country}</em> property from the received JSON
+     */
+    @Nullable
+    String getCountry();
 
     /**
      * Get the value of the {<em>{@code data.defaultSeasonType}</em>} JSON property
@@ -169,4 +176,13 @@ public interface Series {
      */
     @Nullable
     Boolean isOrderRandomized();
+
+    /**
+     * Get the value of the {<em>{@code data.lastUpdated}</em>} JSON property
+     *
+     * @return The <em>{@code lastUpdated}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in SeriesBaseRecord but returned in JSON. Check again after the next API update.
+    @Nullable
+    String getLastUpdated();
 }

@@ -31,15 +31,11 @@
     },
     "originalCountry": "OriginalCountry1",
     "originalLanguage": "OriginalLanguage1",
-    "originalNetwork": {
-      "id": 478,
-      "name": "Name1",
-      "slug": "Slug1",
-      "abbreviation": "Abbreviation1",
-      "country": "Country1"
-    },
+    "abbreviation": "Abbreviation1",
+    "country": "Country1",
     "defaultSeasonType": 469,
-    "isOrderRandomized": true
+    "isOrderRandomized": true,
+    "lastUpdated": "LastUpdated1"
   },
   "status": "success"
 }
