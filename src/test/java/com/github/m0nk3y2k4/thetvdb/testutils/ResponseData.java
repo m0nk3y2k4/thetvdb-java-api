@@ -49,7 +49,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.ContentRating;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EpisodeDetails;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Franchise;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.FCList;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Network;
@@ -79,7 +79,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ContentRatingDT
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EntityTypeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EpisodeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EpisodeDetailsDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.FranchiseDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.FCListDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.GenreDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.NetworkDTO;
@@ -511,15 +511,15 @@ public abstract class ResponseData<T> {
         };
     }
 
-    private static BiFunction<Integer, Shape, Franchise> franchiseModel() {
+    private static BiFunction<Integer, Shape, FCList> listModel() {
         return (Integer idx, Shape shape) -> {
-            FranchiseDTO.Builder builder = new FranchiseDTO.Builder();
+            FCListDTO.Builder builder = new FCListDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
-                builder.id(86L + idx).name("Name" + idx)
+                builder.id(94L + idx).name("Name" + idx).overview("Overview" + idx).url("Url" + idx).isOfficial(true)
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .addAliases("Alias" + listOffset, "Alias" + (listOffset + 1));
+                        .aliases(createTwo(aliasModel(), listOffset));
             }
             return builder.build();
         };
@@ -639,7 +639,7 @@ public abstract class ResponseData<T> {
                         .artworks(createTwo(artworkModel(), listOffset))
                         .networks(createTwo(networkModel(), listOffset)).genres(createTwo(genreModel(), listOffset))
                         .trailers(createTwo(trailerModel(), listOffset))
-                        .franchises(createTwo(franchiseModel(), listOffset))
+                        .lists(createTwo(listModel(), listOffset))
                         .remoteIds(createTwo(remoteIdModel(), listOffset))
                         .characters(createTwo(characterModel(), listOffset))
                         .seasons(createTwo(seasonModel(), listOffset));

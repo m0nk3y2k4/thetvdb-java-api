@@ -96,10 +96,13 @@
         "url": "Url2"
       }
     ],
-    "franchises": [
+    "lists": [
       {
-        "id": 87,
+        "id": 95,
         "name": "Name1",
+        "overview": "Overview1",
+        "url": "Url1",
+        "isOfficial": true,
         "nameTranslations": [
           "NameTranslation1", "NameTranslation2"
         ],
@@ -107,11 +110,20 @@
           "OverviewTranslation1", "OverviewTranslation2"
         ],
         "aliases": [
-          "Alias1", "Alias2"
+          {
+            "language": "Language1",
+            "name": "Name1"
+          }, {
+            "language": "Language2",
+            "name": "Name2"
+          }
         ]
       }, {
-        "id": 88,
+        "id": 96,
         "name": "Name2",
+        "overview": "Overview2",
+        "url": "Url2",
+        "isOfficial": true,
         "nameTranslations": [
           "NameTranslation3", "NameTranslation4"
         ],
@@ -119,7 +131,13 @@
           "OverviewTranslation3", "OverviewTranslation4"
         ],
         "aliases": [
-          "Alias3", "Alias4"
+          {
+            "language": "Language3",
+            "name": "Name3"
+          }, {
+            "language": "Language4",
+            "name": "Name4"
+          }
         ]
       }
     ],

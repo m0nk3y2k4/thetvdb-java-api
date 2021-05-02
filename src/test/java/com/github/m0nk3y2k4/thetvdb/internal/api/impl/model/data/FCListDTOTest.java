@@ -20,10 +20,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-class FranchiseDTOTest {
+class FCListDTOTest {
 
     @Test
     void staticBuilderClass_newInstance_extendsDTOBuilder() {
-        assertThat(new FranchiseDTO.Builder()).isInstanceOf(FranchiseDTOBuilder.class);
+        assertThat(new FCListDTO.Builder()).isInstanceOf(FCListDTOBuilder.class);
     }
 }

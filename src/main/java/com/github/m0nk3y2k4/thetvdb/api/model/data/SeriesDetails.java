@@ -199,11 +199,11 @@ public interface SeriesDetails {
     List<Trailer> getTrailers();
 
     /**
-     * Get the value of the {<em>{@code data.franchises}</em>} JSON property
+     * Get the value of the {<em>{@code data.lists}</em>} JSON property
      *
-     * @return The <em>{@code franchises}</em> property from the received JSON
+     * @return The <em>{@code lists}</em> property from the received JSON
      */
-    List<Franchise> getFranchises();
+    List<FCList> getLists();
 
     /**
      * Get the value of the {<em>{@code data.remoteIds}</em>} JSON property
