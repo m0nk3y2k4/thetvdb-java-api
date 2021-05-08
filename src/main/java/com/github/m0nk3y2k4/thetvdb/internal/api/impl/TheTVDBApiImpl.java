@@ -240,8 +240,8 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public List<EntityType> getAllEntityTypes() throws APIException {
-        return extended().getAllEntityTypes().getData();
+    public List<EntityType> getEntityTypes() throws APIException {
+        return extended().getEntityTypes().getData();
     }
 
     @Override
@@ -383,8 +383,8 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public JsonNode getAllEntityTypes() throws APIException {
-            return EntityTypesAPI.getAllEntityTypes(con);
+        public JsonNode getEntityTypes() throws APIException {
+            return EntityTypesAPI.getEntityTypes(con);
         }
 
         @Override
@@ -511,8 +511,8 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<List<EntityType>> getAllEntityTypes() throws APIException {
-            return APIJsonMapper.readValue(json().getAllEntityTypes(), new TypeReference<>() {});
+        public APIResponse<List<EntityType>> getEntityTypes() throws APIException {
+            return APIJsonMapper.readValue(json().getEntityTypes(), new TypeReference<>() {});
         }
 
         @Override

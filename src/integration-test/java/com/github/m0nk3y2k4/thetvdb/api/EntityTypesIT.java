@@ -27,7 +27,7 @@ class EntityTypesIT {
 
     @Test
     @Order(1)
-    void getAllEntityTypes(TheTVDBApi api) {
-        assertThat(api::getAllEntityTypes).as("/entity-types").doesNotThrowAnyException();
+    void getEntityTypes(TheTVDBApi api) {
+        assertThat(api::getEntityTypes).as("/entities/types").doesNotThrowAnyException();
     }
 }

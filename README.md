@@ -131,7 +131,7 @@ the upcoming APIv4.
     - [ ] [/countries/{id}/movies]()
     - [ ] [/countries/{id}/networks]()
 - Entity types
-    - [x] [/entity-types]()
+    - [x] [/entities/types](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/entity-types/getEntityTypes)
 - Episodes
     - [x] [/episodes/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/episodes/getEpisodeBase)
     - [x] [/episodes/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/episodes/getEpisodeExtended)

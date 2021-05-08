@@ -31,7 +31,6 @@ import com.github.m0nk3y2k4.thetvdb.internal.resource.Resource;
  * Provides static access to all routes of this endpoint which may be used for obtaining an overview of available entity
  * type records.
  */
-// ToDo: Endpoint currently not declared in API. Re-check with next documentation update.
 public final class EntityTypesAPI extends Resource {
 
     private EntityTypesAPI() {}        // Private constructor. Only static methods
@@ -39,8 +38,8 @@ public final class EntityTypesAPI extends Resource {
     /**
      * Returns a list of available entity types as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/entity-types/getAllEntityTypes">
-     * <b>[GET]</b> /entity-types</a>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/entity-types/getEntityTypes">
+     * <b>[GET]</b> /entities/types</a>
      *
      * @param con Initialized connection to be used for API communication
      *
@@ -49,7 +48,7 @@ public final class EntityTypesAPI extends Resource {
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc.
      */
-    public static JsonNode getAllEntityTypes(@Nonnull APIConnection con) throws APIException {
-        return con.sendGET(createResource("/entity-types"));
+    public static JsonNode getEntityTypes(@Nonnull APIConnection con) throws APIException {
+        return con.sendGET(createResource("/entities/types"));
     }
 }

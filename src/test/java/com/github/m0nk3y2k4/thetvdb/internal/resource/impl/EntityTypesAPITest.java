@@ -16,7 +16,7 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
-import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.EntityTypesAPI.getAllEntityTypes;
+import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.EntityTypesAPI.getEntityTypes;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
@@ -45,13 +45,13 @@ class EntityTypesAPITest {
     //@DisableFormatting
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
-        client.when(request("/entity-types", GET)).respond(jsonResponse(ENTITYTYPE_LIST));
+        client.when(request("/entities/types", GET)).respond(jsonResponse(ENTITYTYPE_LIST));
     }
 
     @SuppressWarnings("Convert2MethodRef")
     private static Stream<Arguments> withValidParameters() {
         return Stream.of(
-                of(route(con -> getAllEntityTypes(con), "getAllEntityTypes()"), ENTITYTYPE_LIST)
+                of(route(con -> getEntityTypes(con), "getEntityTypes()"), ENTITYTYPE_LIST)
         );
     }
     //@EnableFormatting
