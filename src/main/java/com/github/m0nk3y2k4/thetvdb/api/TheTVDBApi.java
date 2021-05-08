@@ -44,7 +44,6 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Translation;
 
 // ToDo: Revise JDoc once APIv4 implementation is finished
-// ToDo: company/entity-types endpoints currently not declared in API. Re-check with next documentation update.
 
 /**
  * Main interface of the <i>TheTVDB</i> API connector.

@@ -31,7 +31,6 @@ import javax.annotation.Nullable;
  * there will be no intense post-processing of the actual JSON values a type-casting may be applied to <u>some</u> of
  * them to improve the usability and relieve the API user of this task.
  */
-// ToDo: Model currently not declared in API. Re-check with next documentation update.
 public interface EntityType {
 
     /**
@@ -55,6 +54,7 @@ public interface EntityType {
      *
      * @return The <em>{@code hasSpecials}</em> property from the received JSON
      */
+    // ToDo: Field is currently not declared in EntityType but returned in JSON. Check again after the next API update.
     @Nullable
     Boolean hasSpecials();
 }
