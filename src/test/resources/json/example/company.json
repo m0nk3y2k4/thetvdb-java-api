@@ -24,7 +24,7 @@
     "inactiveDate": "InactiveDate1",
     "companyType": {
       "companyTypeId": 356,
-      "companyTypeName": "Name1"
+      "companyTypeName": "CompanyTypeName1"
     }
   },
   "status": "success"

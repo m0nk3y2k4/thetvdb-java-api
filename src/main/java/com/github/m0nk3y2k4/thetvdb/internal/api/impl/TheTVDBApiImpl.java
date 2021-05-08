@@ -56,7 +56,6 @@ import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ArtworkAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.AwardsAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.CharactersAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.CompaniesAPI;
-import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.CompanyTypesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.EntityTypesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.EpisodesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.GenresAPI;
@@ -231,13 +230,13 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public Company getCompany(long companyId) throws APIException {
-        return extended().getCompany(companyId).getData();
+    public List<CompanyType> getCompanyTypes() throws APIException {
+        return extended().getCompanyTypes().getData();
     }
 
     @Override
-    public List<CompanyType> getAllCompanyTypes() throws APIException {
-        return extended().getAllCompanyTypes().getData();
+    public Company getCompany(long companyId) throws APIException {
+        return extended().getCompany(companyId).getData();
     }
 
     @Override
@@ -374,13 +373,13 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public JsonNode getCompany(long companyId) throws APIException {
-            return CompaniesAPI.getCompany(con, companyId);
+        public JsonNode getCompanyTypes() throws APIException {
+            return CompaniesAPI.getCompanyTypes(con);
         }
 
         @Override
-        public JsonNode getAllCompanyTypes() throws APIException {
-            return CompanyTypesAPI.getAllCompanyTypes(con);
+        public JsonNode getCompany(long companyId) throws APIException {
+            return CompaniesAPI.getCompany(con, companyId);
         }
 
         @Override
@@ -502,13 +501,13 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<Company> getCompany(long companyId) throws APIException {
-            return APIJsonMapper.readValue(json().getCompany(companyId), new TypeReference<>() {});
+        public APIResponse<List<CompanyType>> getCompanyTypes() throws APIException {
+            return APIJsonMapper.readValue(json().getCompanyTypes(), new TypeReference<>() {});
         }
 
         @Override
-        public APIResponse<List<CompanyType>> getAllCompanyTypes() throws APIException {
-            return APIJsonMapper.readValue(json().getAllCompanyTypes(), new TypeReference<>() {});
+        public APIResponse<Company> getCompany(long companyId) throws APIException {
+            return APIJsonMapper.readValue(json().getCompany(companyId), new TypeReference<>() {});
         }
 
         @Override

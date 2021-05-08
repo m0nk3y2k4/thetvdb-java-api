@@ -50,7 +50,7 @@
         "inactiveDate": "InactiveDate1",
         "companyType": {
           "companyTypeId": 356,
-          "companyTypeName": "Name1"
+          "companyTypeName": "CompanyTypeName1"
         }
       }, {
         "id": 64715,
@@ -77,7 +77,7 @@
         "inactiveDate": "InactiveDate2",
         "companyType": {
           "companyTypeId": 357,
-          "companyTypeName": "Name2"
+          "companyTypeName": "CompanyTypeName2"
         }
       }
     ]

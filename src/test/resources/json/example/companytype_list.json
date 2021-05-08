@@ -1,11 +1,11 @@
 {
   "data": [
     {
-      "id": 7364,
-      "name": "Name1"
+      "companyTypeId": 356,
+      "companyTypeName": "CompanyTypeName1"
     }, {
-      "id": 7365,
-      "name": "Name2"
+      "companyTypeId": 357,
+      "companyTypeName": "CompanyTypeName2"
     }
   ],
   "status": "success"

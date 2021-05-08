@@ -34,6 +34,12 @@ class CompaniesIT {
 
     @Test
     @Order(2)
+    void getCompanyTypes(TheTVDBApi api) {
+        assertThat(api::getCompanyTypes).as("/companies/types").doesNotThrowAnyException();
+    }
+
+    @Test
+    @Order(3)
     void getCompany(TheTVDBApi api) {
         assertThat(() -> api.getCompany(266)).as("/companies/266").doesNotThrowAnyException();
     }

@@ -34,18 +34,20 @@ import javax.annotation.Nullable;
 public interface CompanyType {
 
     /**
-     * Get the value of the {<em>{@code data.id}</em>} JSON property
+     * Get the value of the {<em>{@code data.companyTypeId}</em>} JSON property
      *
-     * @return The <em>{@code id}</em> property from the received JSON
+     * @return The <em>{@code companyTypeId}</em> property from the received JSON
      */
+    // ToDo: Field is currently declared as "id" in CompanyType. Check again after the next API update.
     @Nullable
-    Long getId();
+    Long getCompanyTypeId();
 
     /**
-     * Get the value of the {<em>{@code data.name}</em>} JSON property
+     * Get the value of the {<em>{@code data.companyTypeName}</em>} JSON property
      *
-     * @return The <em>{@code name}</em> property from the received JSON
+     * @return The <em>{@code companyTypeName}</em> property from the received JSON
      */
+    // ToDo: Field is currently declared as "name" in CompanyType. Check again after the next API update.
     @Nullable
-    String getName();
+    String getCompanyTypeName();
 }

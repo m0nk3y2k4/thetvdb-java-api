@@ -55,6 +55,23 @@ public final class CompaniesAPI extends QueryResource {
     }
 
     /**
+     * Returns a list of available company types as raw JSON.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/companies/getCompanyTypes">
+     * <b>[GET]</b> /companies/types</a>
+     *
+     * @param con Initialized connection to be used for API communication
+     *
+     * @return JSON object containing an overview of available company types
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     */
+    public static JsonNode getCompanyTypes(@Nonnull APIConnection con) throws APIException {
+        return con.sendGET(createResource("/companies/types"));
+    }
+
+    /**
      * Returns information for a specific company record as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/companies/getCompany">

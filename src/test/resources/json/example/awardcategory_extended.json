@@ -109,7 +109,7 @@
                   "inactiveDate": "InactiveDate1",
                   "companyType": {
                     "companyTypeId": 356,
-                    "companyTypeName": "Name1"
+                    "companyTypeName": "CompanyTypeName1"
                   }
                 }, {
                   "id": 64715,
@@ -136,7 +136,7 @@
                   "inactiveDate": "InactiveDate2",
                   "companyType": {
                     "companyTypeId": 357,
-                    "companyTypeName": "Name2"
+                    "companyTypeName": "CompanyTypeName2"
                   }
                 }
               ]
@@ -191,7 +191,7 @@
                   "inactiveDate": "InactiveDate3",
                   "companyType": {
                     "companyTypeId": 358,
-                    "companyTypeName": "Name3"
+                    "companyTypeName": "CompanyTypeName3"
                   }
                 }, {
                   "id": 64717,
@@ -218,7 +218,7 @@
                   "inactiveDate": "InactiveDate4",
                   "companyType": {
                     "companyTypeId": 359,
-                    "companyTypeName": "Name4"
+                    "companyTypeName": "CompanyTypeName4"
                   }
                 }
               ]
@@ -399,7 +399,7 @@
                   "inactiveDate": "InactiveDate5",
                   "companyType": {
                     "companyTypeId": 360,
-                    "companyTypeName": "Name5"
+                    "companyTypeName": "CompanyTypeName5"
                   }
                 }, {
                   "id": 64719,
@@ -426,7 +426,7 @@
                   "inactiveDate": "InactiveDate6",
                   "companyType": {
                     "companyTypeId": 361,
-                    "companyTypeName": "Name6"
+                    "companyTypeName": "CompanyTypeName6"
                   }
                 }
               ]
@@ -481,7 +481,7 @@
                   "inactiveDate": "InactiveDate7",
                   "companyType": {
                     "companyTypeId": 362,
-                    "companyTypeName": "Name7"
+                    "companyTypeName": "CompanyTypeName7"
                   }
                 }, {
                   "id": 64721,
@@ -508,7 +508,7 @@
                   "inactiveDate": "InactiveDate8",
                   "companyType": {
                     "companyTypeId": 363,
-                    "companyTypeName": "Name8"
+                    "companyTypeName": "CompanyTypeName8"
                   }
                 }
               ]

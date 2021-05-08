@@ -27,7 +27,6 @@ import java.lang.reflect.ParameterizedType;
 import java.net.URL;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -127,12 +126,10 @@ public abstract class ResponseData<T> {
     //*********************** companies *********************
     public static final ResponseData<APIResponse<Company>> COMPANY = new ResponseData<>(
             "company", company(FULL), "Single company JSON response") {};
-    public static final ResponseData<APIResponse<List<Company>>> COMPANY_LIST = new ResponseData<>(
-            "company_list", companyList(), "List of company JSON response") {};
-
-    //********************* company-types *******************
     public static final ResponseData<APIResponse<List<CompanyType>>> COMPANYTYPE_LIST = new ResponseData<>(
             "companytype_list", companyTypeList(), "List of company types JSON response") {};
+    public static final ResponseData<APIResponse<List<Company>>> COMPANY_LIST = new ResponseData<>(
+            "company_list", companyList(), "List of company JSON response") {};
 
     //************************* DUMMY ***********************
     public static final ResponseData<APIResponse<Data>> DATA = new ResponseData<>(
@@ -464,14 +461,15 @@ public abstract class ResponseData<T> {
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .aliases(createTwo(aliasModel(), listOffset))
-                        .companyTypesJson(Map.of("companyTypeId", 355 + idx, "companyTypeName", "Name" + idx));
+                        .companyType(create(companyTypeModel(), idx));
             }
             return builder.build();
         };
     }
 
     private static SimpleDtoSupplier<CompanyType> companyTypeModel() {
-        return idx -> new CompanyTypeDTO.Builder().id(7363L + idx).name("Name" + idx).build();
+        return idx -> new CompanyTypeDTO.Builder().companyTypeId(355L + idx).companyTypeName("CompanyTypeName" + idx)
+                .build();
     }
 
     private static SimpleDtoSupplier<ContentRating> contentRatingModel() {
