@@ -22,7 +22,7 @@ jobs:
       run: >
         mvn -B verify -P integration-tests
         -Dintegration.thetvdb.com.apikey=$APIKEY
-        -Dintegration.thetvdb.com.fundingmodel=$FUNDINGMODEL
+        -Dintegration.thetvdb.com.pin=$PIN
       env:
         APIKEY: ${{ secrets.THETVDB_APIKEY }}
-        FUNDINGMODEL: ${{ secrets.THETVDB_FUNDINGMODEL }}
+        PIN: ${{ secrets.THETVDB_PIN }}
