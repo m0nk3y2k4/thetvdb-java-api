@@ -28,7 +28,6 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -318,33 +317,33 @@ public abstract class ResponseData<T> {
     // **********               Utils for DTO creation                **********
     // *************************************************************************
 
-    private static <T> T create(BiFunction<Integer, Shape, T> producer) {
-        return create(producer, FULL);
+    private static <T> T create(DtoSupplier<T> supplier) {
+        return create(supplier, FULL);
     }
 
-    private static <T> T create(BiFunction<Integer, Shape, T> producer, Shape shape) {
-        return create(producer, 1, shape);
+    private static <T> T create(DtoSupplier<T> supplier, Shape shape) {
+        return create(supplier, 1, shape);
     }
 
-    private static <T> T create(BiFunction<Integer, Shape, T> producer, int startIndex) {
-        return create(producer, startIndex, FULL);
+    private static <T> T create(DtoSupplier<T> supplier, int startIndex) {
+        return create(supplier, startIndex, FULL);
     }
 
-    private static <T> T create(BiFunction<Integer, Shape, T> producer, int startIndex, Shape shape) {
-        return create(1, producer, startIndex, shape).get(0);
+    private static <T> T create(DtoSupplier<T> supplier, int startIndex, Shape shape) {
+        return create(1, supplier, startIndex, shape).get(0);
     }
 
-    private static <T> List<T> createTwo(BiFunction<Integer, Shape, T> producer) {
-        return createTwo(producer, 1);
+    private static <T> List<T> createTwo(DtoSupplier<T> supplier) {
+        return createTwo(supplier, 1);
     }
 
-    private static <T> List<T> createTwo(BiFunction<Integer, Shape, T> producer, int startIndex) {
-        return create(2, producer, startIndex, FULL);
+    private static <T> List<T> createTwo(DtoSupplier<T> supplier, int startIndex) {
+        return create(2, supplier, startIndex, FULL);
     }
 
-    private static <T> List<T> create(int amount, BiFunction<Integer, Shape, T> producer, int startIndex, Shape shape) {
+    private static <T> List<T> create(int amount, DtoSupplier<T> supplier, int startIndex, Shape shape) {
         return IntStream.range(startIndex, startIndex + amount)
-                .mapToObj(idx -> producer.apply(idx, shape)).collect(Collectors.toList());
+                .mapToObj(idx -> supplier.get(idx, shape)).collect(Collectors.toList());
     }
 
 
@@ -352,13 +351,12 @@ public abstract class ResponseData<T> {
     // **********              Data model DTO creation                **********
     // *************************************************************************
 
-    private static BiFunction<Integer, Shape, Alias> aliasModel() {
-        return (Integer idx, Shape shape) -> new AliasDTO.Builder().language("Language" + idx).name("Name" + idx)
-                .build();
+    private static SimpleDtoSupplier<Alias> aliasModel() {
+        return idx -> new AliasDTO.Builder().language("Language" + idx).name("Name" + idx).build();
     }
 
-    private static BiFunction<Integer, Shape, Artwork> artworkModel() {
-        return (Integer idx, Shape shape) -> {
+    private static DtoSupplier<Artwork> artworkModel() {
+        return (idx, shape) -> {
             ArtworkDTO.Builder builder = new ArtworkDTO.Builder();
             if (shape == FULL) {
                 builder.id(4634L + idx).image("Image" + idx).thumbnail("Thumbnail" + idx).type(53L + idx)
@@ -368,8 +366,8 @@ public abstract class ResponseData<T> {
         };
     }
 
-    private static BiFunction<Integer, Shape, ArtworkDetails> artworkDetailsModel() {
-        return (Integer idx, Shape shape) -> {
+    private static DtoSupplier<ArtworkDetails> artworkDetailsModel() {
+        return (idx, shape) -> {
             ArtworkDetailsDTO.Builder builder = new ArtworkDetailsDTO.Builder();
             if (shape == FULL) {
                 builder.height(1079L + idx).id(694400L + idx).image("Image" + idx).thumbnail("Thumbnail" + idx)
@@ -384,18 +382,18 @@ public abstract class ResponseData<T> {
         };
     }
 
-    private static BiFunction<Integer, Shape, ArtworkType> artworkTypeModel() {
-        return (Integer idx, Shape shape) -> new ArtworkTypeDTO.Builder().id(4574L + idx).name("Name" + idx)
-                .recordType("RecordType" + idx).slug("Slug" + idx).imageFormat("ImageFormat" + idx).width(757L + idx)
-                .height(139L + idx).thumbWidth(893L + idx).thumbHeight(194L + idx).build();
+    private static SimpleDtoSupplier<ArtworkType> artworkTypeModel() {
+        return idx -> new ArtworkTypeDTO.Builder().id(4574L + idx).name("Name" + idx).recordType("RecordType" + idx)
+                .slug("Slug" + idx).imageFormat("ImageFormat" + idx).width(757L + idx).height(139L + idx)
+                .thumbWidth(893L + idx).thumbHeight(194L + idx).build();
     }
 
-    private static BiFunction<Integer, Shape, ArtworkStatus> artworkStatusModel() {
-        return (Integer idx, Shape shape) -> new ArtworkStatusDTO.Builder().id(72L + idx).name("Name" + idx).build();
+    private static SimpleDtoSupplier<ArtworkStatus> artworkStatusModel() {
+        return idx -> new ArtworkStatusDTO.Builder().id(72L + idx).name("Name" + idx).build();
     }
 
-    private static BiFunction<Integer, Shape, Award> awardModel() {
-        return (Integer idx, Shape shape) -> {
+    private static DtoSupplier<Award> awardModel() {
+        return (idx, shape) -> {
             AwardDTO.Builder builder = new AwardDTO.Builder();
             if (shape == FULL) {
                 builder.id(46L + idx).name("Name" + idx);
@@ -404,8 +402,8 @@ public abstract class ResponseData<T> {
         };
     }
 
-    private static BiFunction<Integer, Shape, AwardCategory> awardCategoryModel() {
-        return (Integer idx, Shape shape) -> {
+    private static DtoSupplier<AwardCategory> awardCategoryModel() {
+        return (idx, shape) -> {
             AwardCategoryDTO.Builder builder = new AwardCategoryDTO.Builder();
             if (shape == FULL) {
                 builder.allowCoNominees(true).award(create(awardModel(), idx, shape)).forMovies(true).forSeries(true)
@@ -415,8 +413,8 @@ public abstract class ResponseData<T> {
         };
     }
 
-    private static BiFunction<Integer, Shape, AwardCategoryDetails> awardCategoryDetailsModel() {
-        return (Integer idx, Shape shape) -> {
+    private static DtoSupplier<AwardCategoryDetails> awardCategoryDetailsModel() {
+        return (idx, shape) -> {
             AwardCategoryDetailsDTO.Builder builder = new AwardCategoryDetailsDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
@@ -427,8 +425,8 @@ public abstract class ResponseData<T> {
         };
     }
 
-    private static BiFunction<Integer, Shape, AwardNominee> awardNomineeModel() {
-        return (Integer idx, Shape shape) -> {
+    private static DtoSupplier<AwardNominee> awardNomineeModel() {
+        return (idx, shape) -> {
             AwardNomineeDTO.Builder builder = new AwardNomineeDTO.Builder();
             if (shape == FULL) {
                 builder.character(create(characterModel(), idx, shape)).episode(create(episodeModel(), idx, shape))
@@ -439,8 +437,8 @@ public abstract class ResponseData<T> {
         };
     }
 
-    private static BiFunction<Integer, Shape, Character> characterModel() {
-        return (Integer idx, Shape shape) -> {
+    private static DtoSupplier<Character> characterModel() {
+        return (idx, shape) -> {
             CharacterDTO.Builder builder = new CharacterDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
@@ -456,8 +454,8 @@ public abstract class ResponseData<T> {
         };
     }
 
-    private static BiFunction<Integer, Shape, Company> companyModel() {
-        return (Integer idx, Shape shape) -> {
+    private static DtoSupplier<Company> companyModel() {
+        return (idx, shape) -> {
             CompanyDTO.Builder builder = new CompanyDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
@@ -472,23 +470,22 @@ public abstract class ResponseData<T> {
         };
     }
 
-    private static BiFunction<Integer, Shape, CompanyType> companyTypeModel() {
-        return (Integer idx, Shape shape) -> new CompanyTypeDTO.Builder().id(7363L + idx).name("Name" + idx).build();
+    private static SimpleDtoSupplier<CompanyType> companyTypeModel() {
+        return idx -> new CompanyTypeDTO.Builder().id(7363L + idx).name("Name" + idx).build();
     }
 
-    private static BiFunction<Integer, Shape, ContentRating> contentRatingModel() {
-        return (Integer idx, Shape shape) -> new ContentRatingDTO.Builder().id(246L + idx).name("Name" + idx)
-                .country("Country" + idx).description("Description" + idx).contentType("ContentType" + idx)
-                .order(25L + idx).fullname("Fullname" + idx).build();
+    private static SimpleDtoSupplier<ContentRating> contentRatingModel() {
+        return idx -> new ContentRatingDTO.Builder().id(246L + idx).name("Name" + idx).country("Country" + idx)
+                .description("Description" + idx).contentType("ContentType" + idx).order(25L + idx)
+                .fullname("Fullname" + idx).build();
     }
 
-    private static BiFunction<Integer, Shape, EntityType> entityTypeModel() {
-        return (Integer idx, Shape shape) -> new EntityTypeDTO.Builder().id(603L + idx).name("Name" + idx)
-                .hasSpecials(true).build();
+    private static SimpleDtoSupplier<EntityType> entityTypeModel() {
+        return idx -> new EntityTypeDTO.Builder().id(603L + idx).name("Name" + idx).hasSpecials(true).build();
     }
 
-    private static BiFunction<Integer, Shape, Episode> episodeModel() {
-        return (Integer idx, Shape shape) -> {
+    private static DtoSupplier<Episode> episodeModel() {
+        return (idx, shape) -> {
             EpisodeDTO.Builder builder = new EpisodeDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
@@ -504,8 +501,8 @@ public abstract class ResponseData<T> {
         };
     }
 
-    private static BiFunction<Integer, Shape, EpisodeDetails> episodeDetailsModel() {
-        return (Integer idx, Shape shape) -> {
+    private static DtoSupplier<EpisodeDetails> episodeDetailsModel() {
+        return (idx, shape) -> {
             EpisodeDetailsDTO.Builder builder = new EpisodeDetailsDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
@@ -529,8 +526,8 @@ public abstract class ResponseData<T> {
         };
     }
 
-    private static BiFunction<Integer, Shape, FCList> listModel() {
-        return (Integer idx, Shape shape) -> {
+    private static DtoSupplier<FCList> listModel() {
+        return (idx, shape) -> {
             FCListDTO.Builder builder = new FCListDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
@@ -543,17 +540,16 @@ public abstract class ResponseData<T> {
         };
     }
 
-    private static BiFunction<Integer, Shape, Genre> genreModel() {
-        return (Integer idx, Shape shape) -> new GenreDTO.Builder().id(2L + idx).name("Name" + idx).slug("Slug" + idx)
-                .build();
+    private static SimpleDtoSupplier<Genre> genreModel() {
+        return idx -> new GenreDTO.Builder().id(2L + idx).name("Name" + idx).slug("Slug" + idx).build();
     }
 
-    private static BiFunction<Integer, Shape, String> nameTranslationModel() {
-        return (Integer idx, Shape shape) -> "NameTranslation" + idx;
+    private static SimpleDtoSupplier<String> nameTranslationModel() {
+        return idx -> "NameTranslation" + idx;
     }
 
-    private static BiFunction<Integer, Shape, Network> networkModel() {
-        return (Integer idx, Shape shape) -> {
+    private static DtoSupplier<Network> networkModel() {
+        return (idx, shape) -> {
             NetworkDTO.Builder builder = new NetworkDTO.Builder();
             if (shape == FULL) {
                 builder.id(477L + idx).name("Name" + idx).slug("Slug" + idx).abbreviation("Abbreviation" + idx)
@@ -563,8 +559,8 @@ public abstract class ResponseData<T> {
         };
     }
 
-    private static BiFunction<Integer, Shape, Movie> movieModel() {
-        return (Integer idx, Shape shape) -> {
+    private static DtoSupplier<Movie> movieModel() {
+        return (idx, shape) -> {
             MovieDTO.Builder builder = new MovieDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
@@ -579,12 +575,12 @@ public abstract class ResponseData<T> {
         };
     }
 
-    private static BiFunction<Integer, Shape, String> overviewTranslationModel() {
-        return (Integer idx, Shape shape) -> "OverviewTranslation" + idx;
+    private static SimpleDtoSupplier<String> overviewTranslationModel() {
+        return idx -> "OverviewTranslation" + idx;
     }
 
-    private static BiFunction<Integer, Shape, People> peopleModel() {
-        return (Integer idx, Shape shape) -> {
+    private static DtoSupplier<People> peopleModel() {
+        return (idx, shape) -> {
             PeopleDTO.Builder builder = new PeopleDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
@@ -597,13 +593,12 @@ public abstract class ResponseData<T> {
         };
     }
 
-    private static BiFunction<Integer, Shape, RemoteId> remoteIdModel() {
-        return (Integer idx, Shape shape) -> new RemoteIdDTO.Builder().id("Id" + idx).type(3069L + idx)
-                .sourceName("SourceName" + idx).build();
+    private static SimpleDtoSupplier<RemoteId> remoteIdModel() {
+        return idx -> new RemoteIdDTO.Builder().id("Id" + idx).type(3069L + idx).sourceName("SourceName" + idx).build();
     }
 
-    private static BiFunction<Integer, Shape, Season> seasonModel() {
-        return (Integer idx, Shape shape) -> {
+    private static DtoSupplier<Season> seasonModel() {
+        return (idx, shape) -> {
             SeasonDTO.Builder builder = new SeasonDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
@@ -619,13 +614,12 @@ public abstract class ResponseData<T> {
         };
     }
 
-    private static BiFunction<Integer, Shape, SeasonType> seasonTypeModel() {
-        return (Integer idx, Shape shape) -> new SeasonTypeDTO.Builder().id(6953L + idx).name("Name" + idx)
-                .type("Type" + idx).build();
+    private static SimpleDtoSupplier<SeasonType> seasonTypeModel() {
+        return idx -> new SeasonTypeDTO.Builder().id(6953L + idx).name("Name" + idx).type("Type" + idx).build();
     }
 
-    private static BiFunction<Integer, Shape, Series> seriesModel() {
-        return (Integer idx, Shape shape) -> {
+    private static DtoSupplier<Series> seriesModel() {
+        return (idx, shape) -> {
             SeriesDTO.Builder builder = new SeriesDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
@@ -644,13 +638,13 @@ public abstract class ResponseData<T> {
         };
     }
 
-    private static BiFunction<Integer, Shape, SeriesAirsDays> seriesAirsDaysModel() {
-        return (Integer idx, Shape shape) -> new SeriesAirsDaysDTO.Builder().onFriday(TRUE).onMonday(TRUE)
-                .onSaturday(TRUE).onSunday(TRUE).onThursday(TRUE).onTuesday(TRUE).onWednesday(TRUE).build();
+    private static SimpleDtoSupplier<SeriesAirsDays> seriesAirsDaysModel() {
+        return idx -> new SeriesAirsDaysDTO.Builder().onFriday(TRUE).onMonday(TRUE).onSaturday(TRUE).onSunday(TRUE)
+                .onThursday(TRUE).onTuesday(TRUE).onWednesday(TRUE).build();
     }
 
-    private static BiFunction<Integer, Shape, SeriesDetails> seriesDetailsModel() {
-        return (Integer idx, Shape shape) -> {
+    private static DtoSupplier<SeriesDetails> seriesDetailsModel() {
+        return (idx, shape) -> {
             SeriesDetailsDTO.Builder builder = new SeriesDetailsDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
@@ -678,13 +672,13 @@ public abstract class ResponseData<T> {
         };
     }
 
-    private static BiFunction<Integer, Shape, Status> statusModel() {
-        return (Integer idx, Shape shape) -> new StatusDTO.Builder().id(546L + idx).keepUpdated(TRUE).name("Name" + idx)
+    private static SimpleDtoSupplier<Status> statusModel() {
+        return idx -> new StatusDTO.Builder().id(546L + idx).keepUpdated(TRUE).name("Name" + idx)
                 .recordType("RecordType" + idx).build();
     }
 
-    private static BiFunction<Integer, Shape, TagOption> tagOptionModel() {
-        return (Integer idx, Shape shape) -> {
+    private static DtoSupplier<TagOption> tagOptionModel() {
+        return (idx, shape) -> {
             TagOptionDTO.Builder builder = new TagOptionDTO.Builder();
             if (shape == FULL) {
                 builder.id(5796L + idx).name("Name" + idx).tag(42L + idx).tagName("TagName" + idx)
@@ -694,8 +688,8 @@ public abstract class ResponseData<T> {
         };
     }
 
-    private static BiFunction<Integer, Shape, Trailer> trailerModel() {
-        return (Integer idx, Shape shape) -> {
+    private static DtoSupplier<Trailer> trailerModel() {
+        return (idx, shape) -> {
             TrailerDTO.Builder builder = new TrailerDTO.Builder();
             if (shape == FULL) {
                 builder.id(6033L + idx).name("Name" + idx).language("Language" + idx).url("Url" + idx);
@@ -704,8 +698,8 @@ public abstract class ResponseData<T> {
         };
     }
 
-    private static BiFunction<Integer, Shape, Translation> translationModel() {
-        return (Integer idx, Shape shape) -> {
+    private static DtoSupplier<Translation> translationModel() {
+        return (idx, shape) -> {
             TranslationDTO.Builder builder = new TranslationDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
@@ -714,6 +708,32 @@ public abstract class ResponseData<T> {
             }
             return builder.build();
         };
+    }
+
+    /**
+     * Functional interface for the creation of shaped test object DTOs. Invokes the object creation method with an
+     * index and a {@link Shape} parameter.
+     *
+     * @param <T> The DTOs interface type
+     */
+    @FunctionalInterface
+    private interface DtoSupplier<T> {
+        T get(Integer idx, Shape shape);
+    }
+
+    /**
+     * Functional interface for the creation of simple, unshaped test object DTOs. Invokes the object creation method
+     * with an index parameter only.
+     *
+     * @param <T> The DTOs interface type
+     */
+    @FunctionalInterface
+    private interface SimpleDtoSupplier<T> extends DtoSupplier<T> {
+        T get(Integer idx);
+
+        default T get(Integer idx, Shape shape) {
+            return get(idx);
+        }
     }
 
 
