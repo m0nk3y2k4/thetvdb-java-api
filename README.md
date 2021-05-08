@@ -124,7 +124,7 @@ the upcoming APIv4.
     - [ ] [/companies/{id}/series]()
     - [ ] [/companies/{id}/seriesRollup]()
 - Content ratings
-    - [ ] [/content-ratings](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/content-ratings/getAllContentRatings)
+    - [ ] [/content/ratings](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/content-ratings/getAllContentRatings)
 - Countries
     - [ ] [~~/countries~~](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/countries/getAllCountries)
     - [ ] [/countries/{id}/series]()
@@ -146,20 +146,21 @@ the upcoming APIv4.
 - ~~Languages~~
     - [ ] [~~/languages~~](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/languages/getAllLanguages)
 - Lists
+    - [ ] [/lists/{id}/translations/{language}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getListTranslation)
     - [ ] [/lists](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getAllLists)
     - [ ] [/lists/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getList)
     - [ ] [/lists/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getListExtended)
 - Login
     - [x] [/login](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/login/post_login)
 - Movie statuses
-    - [ ] [/movie-statuses](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movie-statuses/getAllMovieStatuses)
+    - [ ] [/movies/statuses](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movie-statuses/getAllMovieStatuses)
 - Movies
     - [ ] [/movies](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movies/getAllMovie)
     - [x] [/movies/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movies/getMovieBase)
     - [ ] [/movies/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movies/getMovieExtended)
     - [x] [/movies/{id}/translations/{language}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movies/getMovieTranslation)
 - People types
-    - [ ] [/people-types](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/people-types/getAllPeopleTypes)
+    - [ ] [/people/types](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/people-types/getAllPeopleTypes)
 - People
     - [x] [/people/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/people/getPeopleBase)
     - [ ] [/people/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/people/getPeopleExtended)
@@ -169,16 +170,18 @@ the upcoming APIv4.
 - Seasons
     - [x] [/seasons/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/seasons/getSeasonBase)
     - [ ] [/seasons/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/seasons/getSeasonExtended)
+    - [ ] [/seasons/types](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/seasons/getSeasonTypes)
     - [x] [/seasons/{id}/translations/{language}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/seasons/getSeasonTranslation)
 - Series
     - [x] [/series](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series/getAllSeries)
     - [x] [/series/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series/getSeriesBase)
     - [x] [/series/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series/getSeriesExtended)
+    - [ ] [/series/{id}/episodes/{season-type}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series/getSeriesEpisodes)
     - [x] [/series/{id}/translations/{language}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series/getSeriesTranslation)
 - Series statuses
-    - [ ] [/series-statuses](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series-statuses/getAllSeriesStatuses)
+    - [ ] [/series/statuses](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series-statuses/getAllSeriesStatuses)
 - Source types
-    - [ ] [/source-types](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/source-types/getAllSourceTypes)
+    - [ ] [/source/types](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/source-types/getAllSourceTypes)
 - Updates
     - [ ] [/updates](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/updates/updates)
 </details>
