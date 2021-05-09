@@ -24,6 +24,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.params;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORK;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORKSTATUS_LIST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORKTYPE_LIST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORK_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.AWARDCATEGORY;
@@ -112,6 +113,7 @@ class TheTVDBApiImplTest {
         //@DisableFormatting
         @BeforeAll
         void setUpRoutes(MockServerClient client) throws Exception {
+            client.when(request("/artwork/statuses", GET)).respond(jsonResponse(ARTWORKSTATUS_LIST));
             client.when(request("/artwork/types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
             client.when(request("/artwork/3447", GET)).respond(jsonResponse(ARTWORK));
             client.when(request("/artwork/9403/extended", GET)).respond(jsonResponse(ARTWORK_DETAILS));
@@ -153,6 +155,7 @@ class TheTVDBApiImplTest {
             return Stream.of(
                     of(route(() -> basicAPI.init(), "init()"), verify("/login", POST)),
                     of(route(() -> basicAPI.login(), "login()"), verify("/login", POST)),
+                    of(route(() -> basicAPI.getAllArtworkStatuses(), "getAllArtworkStatuses()"), ARTWORKSTATUS_LIST),
                     of(route(() -> basicAPI.getAllArtworkTypes(), "getAllArtworkTypes()"), ARTWORKTYPE_LIST),
                     of(route(() -> basicAPI.getArtwork(3447), "getArtwork()"), ARTWORK),
                     of(route(() -> basicAPI.getArtworkDetails(9403), "getArtworkDetails()"), ARTWORK_DETAILS),
@@ -237,6 +240,7 @@ class TheTVDBApiImplTest {
         //@DisableFormatting
         @BeforeAll
         void setUpRoutes(MockServerClient client) throws Exception {
+            client.when(request("/artwork/statuses", GET)).respond(jsonResponse(ARTWORKSTATUS_LIST));
             client.when(request("/artwork/types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
             client.when(request("/artwork/6701", GET)).respond(jsonResponse(ARTWORK));
             client.when(request("/artwork/9100/extended", GET)).respond(jsonResponse(ARTWORK_DETAILS));
@@ -273,6 +277,7 @@ class TheTVDBApiImplTest {
 
         private Stream<Arguments> withValidParameters() {
             return Stream.of(
+                    of(route(() -> basicAPI.getAllArtworkStatuses(), "getAllArtworkStatuses()"), ARTWORKSTATUS_LIST),
                     of(route(() -> basicAPI.getAllArtworkTypes(), "getAllArtworkTypes()"), ARTWORKTYPE_LIST),
                     of(route(() -> basicAPI.getArtwork(6701), "getArtwork()"), ARTWORK),
                     of(route(() -> basicAPI.getArtworkDetails(9100), "getArtworkDetails()"), ARTWORK_DETAILS),
@@ -338,6 +343,7 @@ class TheTVDBApiImplTest {
         //@DisableFormatting
         @BeforeAll
         void setUpRoutes(MockServerClient client) throws Exception {
+            client.when(request("/artwork/statuses", GET)).respond(jsonResponse(ARTWORKSTATUS_LIST));
             client.when(request("/artwork/types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
             client.when(request("/artwork/7099", GET)).respond(jsonResponse(ARTWORK));
             client.when(request("/artwork/6471/extended", GET)).respond(jsonResponse(ARTWORK_DETAILS));
@@ -374,6 +380,7 @@ class TheTVDBApiImplTest {
 
         private Stream<Arguments> withValidParameters() {
             return Stream.of(
+                    of(route(() -> basicAPI.getAllArtworkStatuses(), "getAllArtworkStatuses()"), ARTWORKSTATUS_LIST),
                     of(route(() -> basicAPI.getAllArtworkTypes(), "getAllArtworkTypes()"), ARTWORKTYPE_LIST),
                     of(route(() -> basicAPI.getArtwork(7099), "getArtwork()"), ARTWORK),
                     of(route(() -> basicAPI.getArtworkDetails(6471), "getArtworkDetails()"), ARTWORK_DETAILS),

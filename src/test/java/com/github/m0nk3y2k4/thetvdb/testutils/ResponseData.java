@@ -106,6 +106,8 @@ public abstract class ResponseData<T> {
 
     //@DisableFormatting
     //************************ artwork **********************
+    public static final ResponseData<APIResponse<List<ArtworkStatus>>> ARTWORKSTATUS_LIST = new ResponseData<>(
+            "artworkstatus_list", artworkStatusList(), "List of artwork statuses JSON response") {};
     public static final ResponseData<APIResponse<List<ArtworkType>>> ARTWORKTYPE_LIST = new ResponseData<>(
             "artworktype_list", artworkTypeList(), "List of artwork types JSON response") {};
     public static final ResponseData<APIResponse<Artwork>> ARTWORK = new ResponseData<>(
@@ -227,6 +229,10 @@ public abstract class ResponseData<T> {
 
     private static APIResponse<List<ArtworkType>> artworkTypeList() {
         return createAPIResponse(createTwo(artworkTypeModel()));
+    }
+
+    private static APIResponse<List<ArtworkStatus>> artworkStatusList() {
+        return createAPIResponse(createTwo(artworkStatusModel()));
     }
 
     private static APIResponse<AwardCategory> awardCategory(Shape shape) {

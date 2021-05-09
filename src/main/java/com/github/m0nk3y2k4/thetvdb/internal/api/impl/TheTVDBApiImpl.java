@@ -34,6 +34,7 @@ import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Artwork;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkDetails;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkStatus;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategory;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategoryDetails;
@@ -189,6 +190,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public List<ArtworkStatus> getAllArtworkStatuses() throws APIException {
+        return extended().getAllArtworkStatuses().getData();
+    }
+
+    @Override
     public List<ArtworkType> getAllArtworkTypes() throws APIException {
         return extended().getAllArtworkTypes().getData();
     }
@@ -338,6 +344,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     private class JSONApi implements JSON {
 
         @Override
+        public JsonNode getAllArtworkStatuses() throws APIException {
+            return ArtworkAPI.getAllArtworkStatuses(con);
+        }
+
+        @Override
         public JsonNode getAllArtworkTypes() throws APIException {
             return ArtworkAPI.getAllArtworkTypes(con);
         }
@@ -464,6 +475,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
      * APIResponse&lt;DTO&gt;} objects containing additional error and paging information.
      */
     private class ExtendedApi implements Extended {
+
+        @Override
+        public APIResponse<List<ArtworkStatus>> getAllArtworkStatuses() throws APIException {
+            return APIJsonMapper.readValue(json().getAllArtworkStatuses(), new TypeReference<>() {});
+        }
 
         @Override
         public APIResponse<List<ArtworkType>> getAllArtworkTypes() throws APIException {

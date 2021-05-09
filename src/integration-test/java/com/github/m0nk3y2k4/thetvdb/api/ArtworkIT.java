@@ -27,18 +27,24 @@ class ArtworkIT {
 
     @Test
     @Order(1)
+    void getAllArtworkStatuses(TheTVDBApi api) {
+        assertThat(api::getAllArtworkStatuses).as("/artwork/statuses").doesNotThrowAnyException();
+    }
+
+    @Test
+    @Order(2)
     void getAllArtworkTypes(TheTVDBApi api) {
         assertThat(api::getAllArtworkTypes).as("/artwork/types").doesNotThrowAnyException();
     }
 
     @Test
-    @Order(2)
+    @Order(3)
     void getArtwork(TheTVDBApi api) {
         assertThat(() -> api.getArtwork(1069160)).as("/artwork/1069160").doesNotThrowAnyException();
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     void getArtworkDetails(TheTVDBApi api) {
         assertThat(() -> api.getArtworkDetails(62000530)).as("/artwork/62000530/extended").doesNotThrowAnyException();
     }

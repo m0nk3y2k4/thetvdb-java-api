@@ -26,6 +26,7 @@ import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Artwork;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkDetails;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkStatus;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategory;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategoryDetails;
@@ -165,6 +166,22 @@ public interface TheTVDBApi {
      *                      not found, etc.
      */
     void refreshToken() throws APIException;
+
+    /**
+     * Returns a list of available artwork statuses mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/artwork-statuses/getAllArtworkStatuses">
+     * <b>[GET]</b> /artwork/statuses</a>
+     *
+     * @return List of available artwork statuses mapped as Java DTO's based on the JSON data returned by the remote
+     *         service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see JSON#getAllArtworkStatuses()
+     * @see Extended#getAllArtworkStatuses()
+     */
+    List<ArtworkStatus> getAllArtworkStatuses() throws APIException;
 
     /**
      * Returns a list of available artwork types mapped as Java DTO.
@@ -640,6 +657,21 @@ public interface TheTVDBApi {
     interface JSON {
 
         /**
+         * Returns a list of available artwork statuses as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/artwork-statuses/getAllArtworkStatuses">
+         * <b>[GET]</b> /artwork/statuses</a>
+         *
+         * @return JSON object containing a list of available artwork statuses
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see TheTVDBApi#getAllArtworkStatuses() TheTVDBApi.getAllArtworkStatuses()
+         * @see Extended#getAllArtworkStatuses()
+         */
+        JsonNode getAllArtworkStatuses() throws APIException;
+
+        /**
          * Returns a list of available artwork types as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/artwork-types/getAllArtworkTypes">
@@ -1065,6 +1097,22 @@ public interface TheTVDBApi {
      * @see #extended()
      */
     interface Extended {
+
+        /**
+         * Returns a response object containing a list of available artwork statuses mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/artwork-statuses/getAllArtworkStatuses">
+         * <b>[GET]</b> /artwork/statuses</a>
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see JSON#getAllArtworkStatuses()
+         * @see TheTVDBApi#getAllArtworkStatuses() TheTVDBApi.getAllArtworkStatuses()
+         */
+        APIResponse<List<ArtworkStatus>> getAllArtworkStatuses() throws APIException;
 
         /**
          * Returns a response object containing a list of available artwork types mapped as Java DTO.
