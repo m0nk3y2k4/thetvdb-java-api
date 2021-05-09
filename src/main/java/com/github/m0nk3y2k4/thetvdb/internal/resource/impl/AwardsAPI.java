@@ -73,4 +73,59 @@ public final class AwardsAPI extends Resource {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
         return con.sendGET(createResource("/awards/categories/{id}/extended", id));
     }
+
+    /**
+     * Returns a list of available awards as raw JSON.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/awards/getAllAwards">
+     * <b>[GET]</b> /awards</a>
+     *
+     * @param con Initialized connection to be used for API communication
+     *
+     * @return JSON object containing an overview of available awards
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     */
+    public static JsonNode getAllAwards(@Nonnull APIConnection con) throws APIException {
+        return con.sendGET(createResource("/awards"));
+    }
+
+    /**
+     * Returns basic information for a specific award record as raw JSON.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/awards/getAward">
+     * <b>[GET]</b> /awards/{id}</a>
+     *
+     * @param con Initialized connection to be used for API communication
+     * @param id  The <i>TheTVDB.com</i> award ID
+     *
+     * @return JSON object containing basic information for a specific award record
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no
+     *                      award record with the given ID exists, etc.
+     */
+    public static JsonNode getAwardBase(@Nonnull APIConnection con, long id) throws APIException {
+        Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
+        return con.sendGET(createResource("/awards/{id}", id));
+    }
+
+    /**
+     * Returns extended information for a specific award record as raw JSON.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/awards/getAwardExtended">
+     * <b>[GET]</b> /awards/{id}/extended</a>
+     *
+     * @param con Initialized connection to be used for API communication
+     * @param id  The <i>TheTVDB.com</i> award ID
+     *
+     * @return JSON object containing extended information for a specific award record
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no award
+     *                      record with the given ID exists, etc.
+     */
+    public static JsonNode getAwardExtended(@Nonnull APIConnection con, long id) throws APIException {
+        Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
+        return con.sendGET(createResource("/awards/{id}/extended", id));
+    }
 }

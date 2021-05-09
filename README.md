@@ -110,9 +110,9 @@ the upcoming APIv4.
     - [x] [/awards/categories/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/award-categories/getAwardCategory)
     - [x] [/awards/categories/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/award-categories/getAwardCategoryExtended)
 - Awards
-    - [ ] [/awards](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/awards/getAllAwards)
-    - [ ] [/awards/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/awards/getAward)
-    - [ ] [/awards/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/awards/getAwardExtended)
+    - [x] [/awards](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/awards/getAllAwards)
+    - [x] [/awards/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/awards/getAward)
+    - [x] [/awards/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/awards/getAwardExtended)
 - Characters
     - [x] [/characters/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/characters/getCharacterBase)
 - Companies

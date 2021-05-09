@@ -42,6 +42,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Award;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategory;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategoryDetails;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardNominee;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Company;
@@ -74,6 +75,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ArtworkTypeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AwardCategoryDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AwardCategoryDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AwardDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AwardDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AwardNomineeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CharacterDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CompanyDTO;
@@ -120,6 +122,12 @@ public abstract class ResponseData<T> {
             "awardcategory", awardCategory(FULL), "Single award category JSON response") {};
     public static final ResponseData<APIResponse<AwardCategoryDetails>> AWARDCATEGORY_DETAILS = new ResponseData<>(
             "awardcategory_extended", awardCategoryDetails(FULL), "Single extended award category JSON response") {};
+    public static final ResponseData<APIResponse<List<Award>>> AWARD_LIST = new ResponseData<>(
+            "award_list", awardList(), "List of awards JSON response") {};
+    public static final ResponseData<APIResponse<Award>> AWARD = new ResponseData<>(
+            "award", award(), "Single award JSON response") {};
+    public static final ResponseData<APIResponse<AwardDetails>> AWARD_DETAILS = new ResponseData<>(
+            "award_extended", awardDetails(FULL), "Single extended award JSON response") {};
 
     //*********************** characters ********************
     public static final ResponseData<APIResponse<Character>> CHARACTER = new ResponseData<>(
@@ -131,7 +139,7 @@ public abstract class ResponseData<T> {
     public static final ResponseData<APIResponse<List<CompanyType>>> COMPANYTYPE_LIST = new ResponseData<>(
             "companytype_list", companyTypeList(), "List of company types JSON response") {};
     public static final ResponseData<APIResponse<List<Company>>> COMPANY_LIST = new ResponseData<>(
-            "company_list", companyList(), "List of company JSON response") {};
+            "company_list", companyList(), "List of companies JSON response") {};
 
     //************************* DUMMY ***********************
     public static final ResponseData<APIResponse<Data>> DATA = new ResponseData<>(
@@ -241,6 +249,18 @@ public abstract class ResponseData<T> {
 
     private static APIResponse<AwardCategoryDetails> awardCategoryDetails(Shape shape) {
         return createAPIResponse(create(awardCategoryDetailsModel(), shape));
+    }
+
+    private static APIResponse<List<Award>> awardList() {
+        return createAPIResponse(createTwo(awardModel()));
+    }
+
+    private static APIResponse<Award> award() {
+        return createAPIResponse(create(awardModel()));
+    }
+
+    private static APIResponse<AwardDetails> awardDetails(Shape shape) {
+        return createAPIResponse(create(awardDetailsModel(), shape));
     }
 
     private static APIResponse<Character> character(Shape shape) {
@@ -400,6 +420,18 @@ public abstract class ResponseData<T> {
             AwardDTO.Builder builder = new AwardDTO.Builder();
             if (shape == FULL) {
                 builder.id(46L + idx).name("Name" + idx);
+            }
+            return builder.build();
+        };
+    }
+
+    private static DtoSupplier<AwardDetails> awardDetailsModel() {
+        return (idx, shape) -> {
+            AwardDetailsDTO.Builder builder = new AwardDetailsDTO.Builder();
+            if (shape == FULL) {
+                int listOffset = (idx << 1) - 1;
+                builder.id(61L + idx).name("Name" + idx).score(5L + idx).
+                        categories(createTwo(awardCategoryModel(), listOffset));
             }
             return builder.build();
         };

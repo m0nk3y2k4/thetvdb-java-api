@@ -37,4 +37,22 @@ class AwardsIT {
         assertThat(() -> api.getAwardCategoryDetails(10)).as("/awards/categories/10/extended")
                 .doesNotThrowAnyException();
     }
+
+    @Test
+    @Order(3)
+    void getAllAwards(TheTVDBApi api) {
+        assertThat(api::getAllAwards).as("/awards").doesNotThrowAnyException();
+    }
+
+    @Test
+    @Order(4)
+    void getAward(TheTVDBApi api) {
+        assertThat(() -> api.getAward(6)).as("/awards/6").doesNotThrowAnyException();
+    }
+
+    @Test
+    @Order(5)
+    void getAwardDetails(TheTVDBApi api) {
+        assertThat(() -> api.getAwardDetails(11)).as("/awards/11/extended").doesNotThrowAnyException();
+    }
 }

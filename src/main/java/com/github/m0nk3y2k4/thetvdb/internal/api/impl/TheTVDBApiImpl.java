@@ -36,8 +36,10 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Artwork;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkStatus;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkType;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Award;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategory;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategoryDetails;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Company;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.CompanyType;
@@ -220,6 +222,21 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public List<Award> getAllAwards() throws APIException {
+        return extended().getAllAwards().getData();
+    }
+
+    @Override
+    public Award getAward(long awardId) throws APIException {
+        return extended().getAward(awardId).getData();
+    }
+
+    @Override
+    public AwardDetails getAwardDetails(long awardId) throws APIException {
+        return extended().getAwardDetails(awardId).getData();
+    }
+
+    @Override
     public Character getCharacter(long characterId) throws APIException {
         return extended().getCharacter(characterId).getData();
     }
@@ -374,6 +391,21 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public JsonNode getAllAwards() throws APIException {
+            return AwardsAPI.getAllAwards(con);
+        }
+
+        @Override
+        public JsonNode getAward(long awardId) throws APIException {
+            return AwardsAPI.getAwardBase(con, awardId);
+        }
+
+        @Override
+        public JsonNode getAwardDetails(long awardId) throws APIException {
+            return AwardsAPI.getAwardExtended(con, awardId);
+        }
+
+        @Override
         public JsonNode getCharacter(long characterId) throws APIException {
             return CharactersAPI.getCharacterBase(con, characterId);
         }
@@ -504,6 +536,21 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public APIResponse<AwardCategoryDetails> getAwardCategoryDetails(long awardCategoryId) throws APIException {
             return APIJsonMapper.readValue(json().getAwardCategoryDetails(awardCategoryId), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<List<Award>> getAllAwards() throws APIException {
+            return APIJsonMapper.readValue(json().getAllAwards(), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<Award> getAward(long awardId) throws APIException {
+            return APIJsonMapper.readValue(json().getAward(awardId), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<AwardDetails> getAwardDetails(long awardId) throws APIException {
+            return APIJsonMapper.readValue(json().getAwardDetails(awardId), new TypeReference<>() {});
         }
 
         @Override
