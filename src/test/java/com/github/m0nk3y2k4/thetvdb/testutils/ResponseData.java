@@ -52,6 +52,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EpisodeDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.FCList;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Gender;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Network;
@@ -85,6 +86,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EntityTypeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EpisodeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EpisodeDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.FCListDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.GenderDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.GenreDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.NetworkDTO;
@@ -158,6 +160,10 @@ public abstract class ResponseData<T> {
             "episode", episode(FULL), "Single episode JSON response") {};
     public static final ResponseData<APIResponse<EpisodeDetails>> EPISODE_DETAILS = new ResponseData<>(
             "episode_extended", episodeDetails(FULL), "Single extended episode JSON response") {};
+
+    //************************ genders **********************
+    public static final ResponseData<APIResponse<List<Gender>>> GENDER_LIST = new ResponseData<>(
+            "gender_list", genderList(), "List of genders JSON response") {};
 
     //************************* genres **********************
     public static final ResponseData<APIResponse<Genre>> GENRE = new ResponseData<>(
@@ -305,6 +311,10 @@ public abstract class ResponseData<T> {
 
     private static APIResponse<Genre> genre() {
         return createAPIResponse(create(genreModel()));
+    }
+
+    private static APIResponse<List<Gender>> genderList() {
+        return createAPIResponse(createTwo(genderModel()));
     }
 
     private static APIResponse<List<Genre>> genreList() {
@@ -582,6 +592,10 @@ public abstract class ResponseData<T> {
             }
             return builder.build();
         };
+    }
+
+    private static SimpleDtoSupplier<Gender> genderModel() {
+        return idx -> new GenderDTO.Builder().id(656L + idx).name("Name" + idx).build();
     }
 
     private static SimpleDtoSupplier<Genre> genreModel() {

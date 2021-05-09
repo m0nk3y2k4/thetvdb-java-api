@@ -39,6 +39,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.ContentRating;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EpisodeDetails;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Gender;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
@@ -487,6 +488,21 @@ public interface TheTVDBApi {
      *         language)
      */
     Translation getEpisodeTranslation(long episodeId, @Nonnull String language) throws APIException;
+
+    /**
+     * Returns a list of available genders mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/genders/getAllGenders">
+     * <b>[GET]</b> /genders</a>
+     *
+     * @return List of available genders mapped as Java DTO's based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see JSON#getAllGenders()
+     * @see Extended#getAllGenders()
+     */
+    List<Gender> getAllGenders() throws APIException;
 
     /**
      * Returns a list of available genres mapped as Java DTO.
@@ -1022,6 +1038,21 @@ public interface TheTVDBApi {
         JsonNode getEpisodeTranslation(long episodeId, @Nonnull String language) throws APIException;
 
         /**
+         * Returns a list of available genders as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/genders/getAllGenders">
+         * <b>[GET]</b> /genders</a>
+         *
+         * @return JSON object containing a list of available genders
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see TheTVDBApi#getAllGenders() TheTVDBApi.getAllGenders()
+         * @see Extended#getAllGenders()
+         */
+        JsonNode getAllGenders() throws APIException;
+
+        /**
          * Returns a list of available genres as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/genres/getAllGenres">
@@ -1544,6 +1575,22 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getEpisodeTranslation(long, String) TheTVDBApi.getEpisodeTranslation(episodeId, language)
          */
         APIResponse<Translation> getEpisodeTranslation(long episodeId, @Nonnull String language) throws APIException;
+
+        /**
+         * Returns a response object containing a list of available genders mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/genders/getAllGenders">
+         * <b>[GET]</b> /genders</a>
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see JSON#getAllGenders()
+         * @see TheTVDBApi#getAllGenders() TheTVDBApi.getAllGenders()
+         */
+        APIResponse<List<Gender>> getAllGenders() throws APIException;
 
         /**
          * Returns a response object containing a list of available genres mapped as Java DTO.

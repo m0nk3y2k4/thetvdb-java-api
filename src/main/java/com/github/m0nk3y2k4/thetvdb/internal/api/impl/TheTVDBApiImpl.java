@@ -47,6 +47,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.ContentRating;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EpisodeDetails;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Gender;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
@@ -63,6 +64,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.CompaniesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ContentRatingsAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.EntityTypesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.EpisodesAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.GendersAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.GenresAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.LoginAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.MoviesAPI;
@@ -290,6 +292,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public List<Gender> getAllGenders() throws APIException {
+        return extended().getAllGenders().getData();
+    }
+
+    @Override
     public List<Genre> getAllGenres() throws APIException {
         return extended().getAllGenres().getData();
     }
@@ -458,6 +465,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public JsonNode getAllGenders() throws APIException {
+            return GendersAPI.getAllGenders(con);
+        }
+
+        @Override
         public JsonNode getAllGenres() throws APIException {
             return GenresAPI.getAllGenres(con);
         }
@@ -609,6 +621,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         public APIResponse<Translation> getEpisodeTranslation(long episodeId, @Nonnull String language)
                 throws APIException {
             return APIJsonMapper.readValue(json().getEpisodeTranslation(episodeId, language), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<List<Gender>> getAllGenders() throws APIException {
+            return APIJsonMapper.readValue(json().getAllGenders(), new TypeReference<>() {});
         }
 
         @Override
