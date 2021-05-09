@@ -43,6 +43,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Company;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.CompanyType;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.ContentRating;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EpisodeDetails;
@@ -59,6 +60,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ArtworkAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.AwardsAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.CharactersAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.CompaniesAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ContentRatingsAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.EntityTypesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.EpisodesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.GenresAPI;
@@ -263,6 +265,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public List<ContentRating> getAllContentRatings() throws APIException {
+        return extended().getAllContentRatings().getData();
+    }
+
+    @Override
     public List<EntityType> getEntityTypes() throws APIException {
         return extended().getEntityTypes().getData();
     }
@@ -426,6 +433,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public JsonNode getAllContentRatings() throws APIException {
+            return ContentRatingsAPI.getAllContentRatings(con);
+        }
+
+        @Override
         public JsonNode getEntityTypes() throws APIException {
             return EntityTypesAPI.getEntityTypes(con);
         }
@@ -571,6 +583,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public APIResponse<Company> getCompany(long companyId) throws APIException {
             return APIJsonMapper.readValue(json().getCompany(companyId), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<List<ContentRating>> getAllContentRatings() throws APIException {
+            return APIJsonMapper.readValue(json().getAllContentRatings(), new TypeReference<>() {});
         }
 
         @Override

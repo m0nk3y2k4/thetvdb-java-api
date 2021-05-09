@@ -141,6 +141,10 @@ public abstract class ResponseData<T> {
     public static final ResponseData<APIResponse<List<Company>>> COMPANY_LIST = new ResponseData<>(
             "company_list", companyList(), "List of companies JSON response") {};
 
+    //******************** content-ratings ******************
+    public static final ResponseData<APIResponse<List<ContentRating>>> CONTENTRATING_LIST = new ResponseData<>(
+            "contentrating_list", contentRatingList(), "List of content ratings JSON response") {};
+
     //************************* DUMMY ***********************
     public static final ResponseData<APIResponse<Data>> DATA = new ResponseData<>(
             "data", data(), "Full JSON response with data and status node") {};
@@ -277,6 +281,10 @@ public abstract class ResponseData<T> {
 
     private static APIResponse<List<CompanyType>> companyTypeList() {
         return createAPIResponse(createTwo(companyTypeModel()));
+    }
+
+    private static APIResponse<List<ContentRating>> contentRatingList() {
+        return createAPIResponse(createTwo(contentRatingModel()));
     }
 
     private static APIResponse<Data> data() {

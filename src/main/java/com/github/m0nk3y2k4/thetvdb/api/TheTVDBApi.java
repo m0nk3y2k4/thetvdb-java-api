@@ -35,6 +35,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Company;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.CompanyType;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.ContentRating;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EpisodeDetails;
@@ -401,6 +402,22 @@ public interface TheTVDBApi {
      * @see Extended#getCompany(long) TheTVDBApi.Extended.getCompany(companyId)
      */
     Company getCompany(long companyId) throws APIException;
+
+    /**
+     * Returns a list of available content ratings mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/content-ratings/getAllContentRatings">
+     * <b>[GET]</b> /content/ratings</a>
+     *
+     * @return List of available content ratings mapped as Java DTO's based on the JSON data returned by the remote
+     *         service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see JSON#getAllContentRatings()
+     * @see Extended#getAllContentRatings()
+     */
+    List<ContentRating> getAllContentRatings() throws APIException;
 
     /**
      * Returns a list of available entity types mapped as Java DTO.
@@ -921,6 +938,21 @@ public interface TheTVDBApi {
         JsonNode getCompany(long companyId) throws APIException;
 
         /**
+         * Returns a list of available content ratings as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/content-ratings/getAllContentRatings">
+         * <b>[GET]</b> /content/ratings</a>
+         *
+         * @return JSON object containing a list of available content ratings
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see TheTVDBApi#getAllContentRatings() TheTVDBApi.getAllContentRatings()
+         * @see Extended#getAllContentRatings()
+         */
+        JsonNode getAllContentRatings() throws APIException;
+
+        /**
          * Returns a list of available entity types as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/entity-types/getEntityTypes">
@@ -1424,6 +1456,22 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getCompany(long) TheTVDBApi.getCompany(companyId)
          */
         APIResponse<Company> getCompany(long companyId) throws APIException;
+
+        /**
+         * Returns a response object containing a list of available content ratings mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/content-ratings/getAllContentRatings">
+         * <b>[GET]</b> /content/ratings</a>
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see JSON#getAllContentRatings()
+         * @see TheTVDBApi#getAllContentRatings() TheTVDBApi.getAllContentRatings()
+         */
+        APIResponse<List<ContentRating>> getAllContentRatings() throws APIException;
 
         /**
          * Returns a response object containing a list of available entity types mapped as Java DTO.

@@ -33,6 +33,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.CHARACTER;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.COMPANY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.COMPANYTYPE_LIST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.COMPANY_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.CONTENTRATING_LIST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ENTITYTYPE_LIST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.EPISODE;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.EPISODE_DETAILS;
@@ -125,6 +126,7 @@ class TheTVDBApiImplTest {
             client.when(request("/companies", GET, param(Companies.PAGE, "1"))).respond(jsonResponse(COMPANY_LIST));
             client.when(request("/companies/types", GET)).respond(jsonResponse(COMPANYTYPE_LIST));
             client.when(request("/companies/241", GET)).respond(jsonResponse(COMPANY));
+            client.when(request("/content/ratings", GET)).respond(jsonResponse(CONTENTRATING_LIST));
             client.when(request("/entities/types", GET)).respond(jsonResponse(ENTITYTYPE_LIST));
             client.when(request("/episodes/141007", GET)).respond(jsonResponse(EPISODE));
             client.when(request("/episodes/37017/extended", GET)).respond(jsonResponse(EPISODE_DETAILS));
@@ -167,6 +169,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllCompanies(1), "getAllCompanies() with page"), COMPANY_LIST),
                     of(route(() -> basicAPI.getCompany(241), "getCompany()"), COMPANY),
                     of(route(() -> basicAPI.getCompanyTypes(), "getCompanyTypes()"), COMPANYTYPE_LIST),
+                    of(route(() -> basicAPI.getAllContentRatings(), "getAllContentRatings()"), CONTENTRATING_LIST),
                     of(route(() -> basicAPI.getEntityTypes(), "getEntityTypes()"), ENTITYTYPE_LIST),
                     of(route(() -> basicAPI.getEpisode(141007), "getEpisode()"), EPISODE),
                     of(route(() -> basicAPI.getEpisodeDetails(37017), "getEpisodeDetails()"), EPISODE_DETAILS),
@@ -251,6 +254,7 @@ class TheTVDBApiImplTest {
             client.when(request("/companies", GET, param("value", "QueryCompaniesJson"))).respond(jsonResponse(COMPANY_LIST));
             client.when(request("/companies/types", GET)).respond(jsonResponse(COMPANYTYPE_LIST));
             client.when(request("/companies/117", GET)).respond(jsonResponse(COMPANY));
+            client.when(request("/content/ratings", GET)).respond(jsonResponse(CONTENTRATING_LIST));
             client.when(request("/entities/types", GET)).respond(jsonResponse(ENTITYTYPE_LIST));
             client.when(request("/episodes/640796", GET)).respond(jsonResponse(EPISODE));
             client.when(request("/episodes/872404/extended", GET)).respond(jsonResponse(EPISODE_DETAILS));
@@ -288,6 +292,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllCompanies(params("value", "QueryCompaniesJson")), "getAllCompanies() with query parameters"), COMPANY_LIST),
                     of(route(() -> basicAPI.getCompany(117), "getCompany()"), COMPANY),
                     of(route(() -> basicAPI.getCompanyTypes(), "getCompanyTypes()"), COMPANYTYPE_LIST),
+                    of(route(() -> basicAPI.getAllContentRatings(), "getAllContentRatings()"), CONTENTRATING_LIST),
                     of(route(() -> basicAPI.getEntityTypes(), "getEntityTypes()"), ENTITYTYPE_LIST),
                     of(route(() -> basicAPI.getEpisode(640796), "getEpisode()"), EPISODE),
                     of(route(() -> basicAPI.getEpisodeDetails(872404), "getEpisodeDetails()"), EPISODE_DETAILS),
@@ -354,6 +359,7 @@ class TheTVDBApiImplTest {
             client.when(request("/companies", GET, param("value", "QueryCompaniesExtended"))).respond(jsonResponse(COMPANY_LIST));
             client.when(request("/companies/types", GET)).respond(jsonResponse(COMPANYTYPE_LIST));
             client.when(request("/companies/64", GET)).respond(jsonResponse(COMPANY));
+            client.when(request("/content/ratings", GET)).respond(jsonResponse(CONTENTRATING_LIST));
             client.when(request("/entities/types", GET)).respond(jsonResponse(ENTITYTYPE_LIST));
             client.when(request("/episodes/30619", GET)).respond(jsonResponse(EPISODE));
             client.when(request("/episodes/47149/extended", GET)).respond(jsonResponse(EPISODE_DETAILS));
@@ -391,6 +397,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllCompanies(params("value", "QueryCompaniesExtended")), "getAllCompanies() with query parameters"), COMPANY_LIST),
                     of(route(() -> basicAPI.getCompany(64), "getCompany()"), COMPANY),
                     of(route(() -> basicAPI.getCompanyTypes(), "getCompanyTypes()"), COMPANYTYPE_LIST),
+                    of(route(() -> basicAPI.getAllContentRatings(), "getAllContentRatings()"), CONTENTRATING_LIST),
                     of(route(() -> basicAPI.getEntityTypes(), "getEntityTypes()"), ENTITYTYPE_LIST),
                     of(route(() -> basicAPI.getEpisode(30619), "getEpisode()"), EPISODE),
                     of(route(() -> basicAPI.getEpisodeDetails(47149), "getEpisodeDetails()"), EPISODE_DETAILS),

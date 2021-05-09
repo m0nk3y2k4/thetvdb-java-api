@@ -124,7 +124,7 @@ the upcoming APIv4.
     - [ ] [/companies/{id}/series]()
     - [ ] [/companies/{id}/seriesRollup]()
 - Content ratings
-    - [ ] [/content/ratings](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/content-ratings/getAllContentRatings)
+    - [x] [/content/ratings](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/content-ratings/getAllContentRatings)
 - Countries
     - [ ] [~~/countries~~](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/countries/getAllCountries)
     - [ ] [/countries/{id}/series]()
