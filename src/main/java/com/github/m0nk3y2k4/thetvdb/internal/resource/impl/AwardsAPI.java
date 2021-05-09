@@ -30,7 +30,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
  * endpoint.
  * <p><br>
  * Provides static access to all routes of this endpoint which may be used for obtaining either basic or extended award
- * category information.
+ * and award category information as well as overviews of available records for these types.
  */
 public final class AwardsAPI extends Resource {
 
@@ -102,8 +102,8 @@ public final class AwardsAPI extends Resource {
      *
      * @return JSON object containing basic information for a specific award record
      *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no
-     *                      award record with the given ID exists, etc.
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no award
+     *                      record with the given ID exists, etc.
      */
     public static JsonNode getAwardBase(@Nonnull APIConnection con, long id) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);

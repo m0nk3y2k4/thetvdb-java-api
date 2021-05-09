@@ -23,7 +23,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.CONTENTRATING_LIST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPICall.route;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.of;
 
 import java.util.stream.Stream;

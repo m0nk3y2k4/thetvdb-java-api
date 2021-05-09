@@ -32,7 +32,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
  * endpoint.
  * <p><br>
  * Provides static access to all routes of this endpoint which may be used for obtaining either basic, extended or
- * translated artwork information.
+ * translated artwork information as well as an overview of available artwork status and artwork type records.
  */
 public final class ArtworkAPI extends Resource {
 
