@@ -6,6 +6,8 @@ name: Java CI with Maven
 on:
   push:
     branches: [ release/rel_3 ]
+  schedule:
+    - cron: '15 9 * * *'
 
 jobs:
   build:
