@@ -28,6 +28,8 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 /**
  * Implementation of a connector for the remote API's
  * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series">series</a>
+ * and
+ * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series-statuses">series-statuses</a>
  * endpoint.
  * <p><br>
  * Provides static access to all routes of this endpoint which may be used for obtaining either basic, extended or
