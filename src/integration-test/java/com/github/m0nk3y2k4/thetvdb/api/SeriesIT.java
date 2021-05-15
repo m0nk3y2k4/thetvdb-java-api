@@ -28,24 +28,30 @@ class SeriesIT {
 
     @Test
     @Order(1)
+    void getAllSeriesStatuses(TheTVDBApi api) {
+        assertThat(api::getAllSeriesStatuses).as("/series/statuses").doesNotThrowAnyException();
+    }
+
+    @Test
+    @Order(2)
     void getAllSeries(TheTVDBApi api) {
         assertThat(() -> api.getAllSeries(createQueryParameters())).as("/series").doesNotThrowAnyException();
     }
 
     @Test
-    @Order(2)
+    @Order(3)
     void getSeries(TheTVDBApi api) {
         assertThat(() -> api.getSeries(280619)).as("/series/280619").doesNotThrowAnyException();
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     void getSeriesDetails(TheTVDBApi api) {
         assertThat(() -> api.getSeriesDetails(292157)).as("/series/292157/extended").doesNotThrowAnyException();
     }
 
     @Test
-    @Order(4)
+    @Order(6)
     void getSeriesTranslation(TheTVDBApi api) {
         assertThat(() -> api.getSeriesTranslation(361753, "nld")).as("/series/361753/translations/nld")
                 .doesNotThrowAnyException();

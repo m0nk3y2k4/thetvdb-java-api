@@ -38,6 +38,23 @@ public final class SeriesAPI extends QueryResource {
     private SeriesAPI() {}      // Private constructor. Only static methods
 
     /**
+     * Returns a list of available series statuses as raw JSON.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series-statuses/getAllSeriesStatuses">
+     * <b>[GET]</b> /series/statuses</a>
+     *
+     * @param con Initialized connection to be used for API communication
+     *
+     * @return JSON object containing an overview of available series statuses
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     */
+    public static JsonNode getAllSeriesStatuses(@Nonnull APIConnection con) throws APIException {
+        return con.sendGET(createResource("/series/statuses"));
+    }
+
+    /**
      * Returns a list of series based on the given query parameters as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series/getAllSeries">

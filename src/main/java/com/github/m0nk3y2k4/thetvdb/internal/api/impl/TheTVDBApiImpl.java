@@ -355,6 +355,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public List<Status> getAllSeriesStatuses() throws APIException {
+        return extended().getAllSeriesStatuses().getData();
+    }
+
+    @Override
     public List<Series> getAllSeries(QueryParameters queryParameters) throws APIException {
         return extended().getAllSeries(queryParameters).getData();
     }
@@ -543,6 +548,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public JsonNode getAllSeriesStatuses() throws APIException {
+            return SeriesAPI.getAllSeriesStatuses(con);
+        }
+
+        @Override
         public JsonNode getAllSeries(QueryParameters queryParameters) throws APIException {
             return SeriesAPI.getAllSeries(con, queryParameters);
         }
@@ -716,6 +726,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         public APIResponse<Translation> getSeasonTranslation(long seasonId, @Nonnull String language)
                 throws APIException {
             return APIJsonMapper.readValue(json().getSeasonTranslation(seasonId, language), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<List<Status>> getAllSeriesStatuses() throws APIException {
+            return APIJsonMapper.readValue(json().getAllSeriesStatuses(), new TypeReference<>() {});
         }
 
         @Override

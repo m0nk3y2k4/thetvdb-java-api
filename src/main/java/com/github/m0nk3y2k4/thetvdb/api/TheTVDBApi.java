@@ -692,6 +692,22 @@ public interface TheTVDBApi {
     Translation getSeasonTranslation(long seasonId, @Nonnull String language) throws APIException;
 
     /**
+     * Returns a list of available series statuses mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series-statuses/getAllSeriesStatuses">
+     * <b>[GET]</b> /series/statuses</a>
+     *
+     * @return List of available series statuses mapped as Java DTO's based on the JSON data returned by the remote
+     *         service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see JSON#getAllSeriesStatuses()
+     * @see Extended#getAllSeriesStatuses()
+     */
+    List<Status> getAllSeriesStatuses() throws APIException;
+
+    /**
      * Returns a list of series based on the given query parameters mapped as Java DTO. The list contains basic
      * information of all series matching the query parameters.
      * <p><br>
@@ -1294,6 +1310,21 @@ public interface TheTVDBApi {
         JsonNode getSeasonTranslation(long seasonId, @Nonnull String language) throws APIException;
 
         /**
+         * Returns a list of available series statuses as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series-statuses/getAllSeriesStatuses">
+         * <b>[GET]</b> /series/statuses</a>
+         *
+         * @return JSON object containing a list of available series statuses
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see TheTVDBApi#getAllSeriesStatuses() TheTVDBApi.getAllSeriesStatuses()
+         * @see Extended#getAllSeriesStatuses()
+         */
+        JsonNode getAllSeriesStatuses() throws APIException;
+
+        /**
          * Returns a list of series based on the given query parameters as raw JSON. The list contains basic information
          * of all series matching the query parameters.
          * <p><br>
@@ -1890,6 +1921,22 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getSeasonTranslation(long, String) TheTVDBApi.getSeasonTranslation(seasonId, language)
          */
         APIResponse<Translation> getSeasonTranslation(long seasonId, @Nonnull String language) throws APIException;
+
+        /**
+         * Returns a response object containing a list of available series statuses mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series-statuses/getAllSeriesStatuses">
+         * <b>[GET]</b> /series/statuses</a>
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see JSON#getAllSeriesStatuses()
+         * @see TheTVDBApi#getAllSeriesStatuses() TheTVDBApi.getAllSeriesStatuses()
+         */
+        APIResponse<List<Status>> getAllSeriesStatuses() throws APIException;
 
         /**
          * Returns a response object containing a list of series based on the given query parameters mapped as Java DTO.

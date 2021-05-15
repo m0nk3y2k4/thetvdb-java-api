@@ -17,6 +17,7 @@
 package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI.getAllSeries;
+import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI.getAllSeriesStatuses;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI.getSeriesBase;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI.getSeriesExtended;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI.getSeriesTranslation;
@@ -28,6 +29,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.STATUS_LIST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.TRANSLATION;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -54,6 +56,7 @@ class SeriesAPITest {
     //@DisableFormatting
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
+        client.when(request("/series/statuses", GET)).respond(jsonResponse(STATUS_LIST));
         client.when(request("/series", GET, param("page", "3"))).respond(jsonResponse(SERIES_LIST));
         client.when(request("/series/100348", GET)).respond(jsonResponse(SERIES));
         client.when(request("/series/49710/extended", GET)).respond(jsonResponse(SERIES_DETAILS));
@@ -73,8 +76,10 @@ class SeriesAPITest {
         );
     }
 
+    @SuppressWarnings("Convert2MethodRef")
     private static Stream<Arguments> withValidParameters() {
         return Stream.of(
+                of(route(con -> getAllSeriesStatuses(con), "getAllSeriesStatuses()"), STATUS_LIST),
                 of(route(con -> getAllSeries(con, params("page", "3")), "getAllSeries()"), SERIES_LIST),
                 of(route(con -> getSeriesBase(con, 100348), "getSeriesBase()"), SERIES),
                 of(route(con -> getSeriesExtended(con, 49710), "getSeriesExtended()"), SERIES_DETAILS),

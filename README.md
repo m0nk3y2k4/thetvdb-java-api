@@ -179,7 +179,7 @@ the upcoming APIv4.
     - [ ] [/series/{id}/episodes/{season-type}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series/getSeriesEpisodes)
     - [x] [/series/{id}/translations/{language}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series/getSeriesTranslation)
 - Series statuses
-    - [ ] [/series/statuses](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series-statuses/getAllSeriesStatuses)
+    - [x] [/series/statuses](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series-statuses/getAllSeriesStatuses)
 - Source types
     - [ ] [/source/types](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/source-types/getAllSourceTypes)
 - Updates
