@@ -74,7 +74,7 @@ the upcoming APIv4.
     - [x] [/series/{id}/episodes](https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes)
     - [x] [/series/{id}/episodes/query](https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_query)
     - [x] [/series/{id}/episodes/query/params](https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_query_params)
-     [/series/{id}/episodes/summary](https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_summary)
+    - [x] [/series/{id}/episodes/summary](https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes_summary)
     - [x] [/series/{id}/filter](https://api.thetvdb.com/swagger#!/Series/get_series_id_filter)
     - [x] [/series/{id}/filter/params](https://api.thetvdb.com/swagger#!/Series/get_series_id_filter_params)
     - [x] [/series/{id}/images](https://api.thetvdb.com/swagger#!/Series/get_series_id_images)
