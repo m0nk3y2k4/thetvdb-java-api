@@ -160,7 +160,7 @@ the upcoming APIv4.
     - [x] [/movies/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movies/getMovieExtended)
     - [x] [/movies/{id}/translations/{language}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movies/getMovieTranslation)
 - People types
-    - [ ] [/people/types](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/people-types/getAllPeopleTypes)
+    - [x] [/people/types](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/people-types/getAllPeopleTypes)
 - People
     - [x] [/people/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/people/getPeopleBase)
     - [ ] [/people/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/people/getPeopleExtended)

@@ -58,6 +58,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.MovieDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Network;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.PeopleType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Release;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.RemoteId;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Season;
@@ -96,6 +97,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.NetworkDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.PeopleDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.PeopleTypeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ReleaseDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.RemoteIdDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeasonDTO;
@@ -188,6 +190,8 @@ public abstract class ResponseData<T> {
             "movie_list", movieList(), "List of movies JSON response") {};
 
     //************************* people **********************
+    public static final ResponseData<APIResponse<List<PeopleType>>> PEOPLETYPE_LIST = new ResponseData<>(
+            "peopletype_list", peopleTypeList(), "List of people types JSON response") {};
     public static final ResponseData<APIResponse<People>> PEOPLE = new ResponseData<>(
             "people", people(FULL), "Single people JSON response") {};
 
@@ -351,6 +355,10 @@ public abstract class ResponseData<T> {
 
     private static APIResponse<People> people(Shape shape) {
         return createAPIResponse(create(peopleModel(), shape));
+    }
+
+    private static APIResponse<List<PeopleType>> peopleTypeList() {
+        return createAPIResponse(createTwo(peopleTypeModel()));
     }
 
     private static APIResponse<Season> season(Shape shape) {
@@ -709,6 +717,10 @@ public abstract class ResponseData<T> {
             }
             return builder.build();
         };
+    }
+
+    private static SimpleDtoSupplier<PeopleType> peopleTypeModel() {
+        return idx -> new PeopleTypeDTO.Builder().id(21L + idx).name("Name" + idx).build();
     }
 
     private static SimpleDtoSupplier<Release> releaseModel() {

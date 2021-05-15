@@ -44,6 +44,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.MovieDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.PeopleType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Season;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
@@ -638,6 +639,22 @@ public interface TheTVDBApi {
      * @see Extended#getMovieTranslation(long, String) TheTVDBApi.Extended.getMovieTranslation(movieId, language)
      */
     Translation getMovieTranslation(long movieId, @Nonnull String language) throws APIException;
+
+    /**
+     * Returns a list of available people types mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/people-types/getAllPeopleTypes">
+     * <b>[GET]</b> /people/types</a>
+     *
+     * @return List of available people types mapped as Java DTO's based on the JSON data returned by the remote
+     *         service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see JSON#getAllPeopleTypes()
+     * @see Extended#getAllPeopleTypes()
+     */
+    List<PeopleType> getAllPeopleTypes() throws APIException;
 
     /**
      * Returns basic information for a specific people mapped as Java DTO.
@@ -1256,6 +1273,21 @@ public interface TheTVDBApi {
         JsonNode getMovieTranslation(long movieId, @Nonnull String language) throws APIException;
 
         /**
+         * Returns a list of available people types as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/people-types/getAllPeopleTypes">
+         * <b>[GET]</b> /people/types</a>
+         *
+         * @return JSON object containing a list of available people types
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see TheTVDBApi#getAllPeopleTypes() TheTVDBApi.getAllPeopleTypes()
+         * @see Extended#getAllPeopleTypes()
+         */
+        JsonNode getAllPeopleTypes() throws APIException;
+
+        /**
          * Returns basic information for a specific people as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/people/getPeopleBase">
@@ -1865,6 +1897,22 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getMovieTranslation(long, String) TheTVDBApi.getMovieTranslation(movieId, language)
          */
         APIResponse<Translation> getMovieTranslation(long movieId, @Nonnull String language) throws APIException;
+
+        /**
+         * Returns a response object containing a list of available people types mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/people-types/getAllPeopleTypes">
+         * <b>[GET]</b> /people/types</a>
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see JSON#getAllPeopleTypes()
+         * @see TheTVDBApi#getAllPeopleTypes() TheTVDBApi.getAllPeopleTypes()
+         */
+        APIResponse<List<PeopleType>> getAllPeopleTypes() throws APIException;
 
         /**
          * Returns a response object containing basic information for a specific people mapped as Java DTO.

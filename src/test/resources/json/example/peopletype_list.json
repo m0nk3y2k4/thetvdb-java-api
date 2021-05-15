@@ -1,0 +1,12 @@
+{
+  "data": [
+    {
+      "id": 22,
+      "name": "Name1"
+    }, {
+      "id": 23,
+      "name": "Name2"
+    }
+  ],
+  "status": "success"
+}

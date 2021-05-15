@@ -37,6 +37,23 @@ public final class PeopleAPI extends Resource {
     private PeopleAPI() {}      // Private constructor. Only static methods
 
     /**
+     * Returns a list of available people types as raw JSON.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/people-types/getAllPeopleTypes">
+     * <b>[GET]</b> /people/types</a>
+     *
+     * @param con Initialized connection to be used for API communication
+     *
+     * @return JSON object containing an overview of available people types
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     */
+    public static JsonNode getAllPeopleTypes(@Nonnull APIConnection con) throws APIException {
+        return con.sendGET(createResource("/people/types"));
+    }
+
+    /**
      * Returns basic information for a specific people record as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/people/getPeopleBase">
