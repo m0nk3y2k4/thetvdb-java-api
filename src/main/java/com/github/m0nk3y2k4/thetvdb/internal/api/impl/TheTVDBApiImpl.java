@@ -54,6 +54,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.MovieDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.PeopleType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Season;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Status;
@@ -356,6 +357,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public List<SeasonType> getSeasonTypes() throws APIException {
+        return extended().getSeasonTypes().getData();
+    }
+
+    @Override
     public Translation getSeasonTranslation(long seasonId, @Nonnull String language) throws APIException {
         return extended().getSeasonTranslation(seasonId, language).getData();
     }
@@ -554,6 +560,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public JsonNode getSeasonTypes() throws APIException {
+            return SeasonsAPI.getSeasonTypes(con);
+        }
+
+        @Override
         public JsonNode getSeasonTranslation(long seasonId, @Nonnull String language) throws APIException {
             return SeasonsAPI.getSeasonTranslation(con, seasonId, language);
         }
@@ -736,6 +747,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public APIResponse<Season> getSeason(long seasonId) throws APIException {
             return APIJsonMapper.readValue(json().getSeason(seasonId), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<List<SeasonType>> getSeasonTypes() throws APIException {
+            return APIJsonMapper.readValue(json().getSeasonTypes(), new TypeReference<>() {});
         }
 
         @Override

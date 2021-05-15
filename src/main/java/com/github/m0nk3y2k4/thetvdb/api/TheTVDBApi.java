@@ -46,6 +46,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.MovieDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.PeopleType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Season;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Status;
@@ -691,6 +692,22 @@ public interface TheTVDBApi {
     Season getSeason(long seasonId) throws APIException;
 
     /**
+     * Returns a list of available season types mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/seasons/getSeasonTypes">
+     * <b>[GET]</b> /seasons/types</a>
+     *
+     * @return List of available season types mapped as Java DTO's based on the JSON data returned by the remote
+     *         service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see JSON#getSeasonTypes()
+     * @see Extended#getSeasonTypes()
+     */
+    List<SeasonType> getSeasonTypes() throws APIException;
+
+    /**
      * Returns a translation record for a specific season mapped as Java DTO.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/seasons/getSeasonTranslation">
@@ -1322,6 +1339,21 @@ public interface TheTVDBApi {
         JsonNode getSeason(long seasonId) throws APIException;
 
         /**
+         * Returns a list of available season types as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/seasons/getSeasonTypes">
+         * <b>[GET]</b> /seasons/types</a>
+         *
+         * @return JSON object containing a list of available season types
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see TheTVDBApi#getSeasonTypes() TheTVDBApi.getSeasonTypes()
+         * @see Extended#getSeasonTypes()
+         */
+        JsonNode getSeasonTypes() throws APIException;
+
+        /**
          * Returns a translation record for a specific season as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/seasons/getSeasonTranslation">
@@ -1949,6 +1981,22 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getSeason(long) TheTVDBApi.getSeason(seasonId)
          */
         APIResponse<Season> getSeason(long seasonId) throws APIException;
+
+        /**
+         * Returns a response object containing a list of available season types mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/seasons/getSeasonTypes">
+         * <b>[GET]</b> /seasons/types</a>
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see JSON#getSeasonTypes()
+         * @see TheTVDBApi#getSeasonTypes() TheTVDBApi.getSeasonTypes()
+         */
+        APIResponse<List<SeasonType>> getSeasonTypes() throws APIException;
 
         /**
          * Returns a response object containing a translation record for a specific season mapped as Java DTO.

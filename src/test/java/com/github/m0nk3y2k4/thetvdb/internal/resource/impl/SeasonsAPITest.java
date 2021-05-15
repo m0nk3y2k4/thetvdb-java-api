@@ -18,11 +18,13 @@ package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeasonsAPI.getSeasonBase;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeasonsAPI.getSeasonTranslation;
+import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeasonsAPI.getSeasonTypes;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASON;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASONTYPE_LIST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.TRANSLATION;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -49,6 +51,7 @@ class SeasonsAPITest {
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
         client.when(request("/seasons/348109", GET)).respond(jsonResponse(SEASON));
+        client.when(request("/seasons/types", GET)).respond(jsonResponse(SEASONTYPE_LIST));
         client.when(request("/seasons/47443/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
     }
 
@@ -63,9 +66,11 @@ class SeasonsAPITest {
         );
     }
 
+    @SuppressWarnings("Convert2MethodRef")
     private static Stream<Arguments> withValidParameters() {
         return Stream.of(
                 of(route(con -> getSeasonBase(con, 348109), "getSeasonBase()"), SEASON),
+                of(route(con -> getSeasonTypes(con), "getSeasonTypes()"), SEASONTYPE_LIST),
                 of(route(con -> getSeasonTranslation(con, 47443, "eng"), "getSeasonTranslation()"), TRANSLATION)
         );
     }

@@ -198,6 +198,8 @@ public abstract class ResponseData<T> {
     //************************ seasons **********************
     public static final ResponseData<APIResponse<Season>> SEASON = new ResponseData<>(
             "season", season(FULL), "Single season JSON response") {};
+    public static final ResponseData<APIResponse<List<SeasonType>>> SEASONTYPE_LIST = new ResponseData<>(
+            "seasontype_list", seasonTypeList(), "List of season types JSON response") {};
 
     //************************* series **********************
     public static final ResponseData<APIResponse<Series>> SERIES = new ResponseData<>(
@@ -363,6 +365,10 @@ public abstract class ResponseData<T> {
 
     private static APIResponse<Season> season(Shape shape) {
         return createAPIResponse(create(seasonModel(), shape));
+    }
+
+    private static APIResponse<List<SeasonType>> seasonTypeList() {
+        return createAPIResponse(createTwo(seasonTypeModel()));
     }
 
     private static APIResponse<Series> series(Shape shape) {

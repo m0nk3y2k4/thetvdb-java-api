@@ -1,0 +1,14 @@
+{
+  "data": [
+    {
+      "id": 6954,
+      "name": "Name1",
+      "type": "Type1"
+    }, {
+      "id": 6955,
+      "name": "Name2",
+      "type": "Type2"
+    }
+  ],
+  "status": "success"
+}
