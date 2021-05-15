@@ -274,4 +274,13 @@ public interface SeriesDetails {
     // ToDo: Field is currently not declared in SeriesExtendedRecord but returned in JSON. Check again after the next API update.
     @Nullable
     String getAirsTimeUTC();
+
+    /**
+     * Get the value of the {<em>{@code data.translations}</em>} JSON property
+     *
+     * @return The <em>{@code translations}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in SeriesExtendedRecord but returned in JSON. Check again after the next API update.
+    @Nullable
+    Translations getTranslations();
 }

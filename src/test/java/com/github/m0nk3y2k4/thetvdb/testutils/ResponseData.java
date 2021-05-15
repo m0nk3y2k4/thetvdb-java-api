@@ -67,6 +67,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Status;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.TagOption;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Trailer;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Translation;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Translations;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.APIResponseDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AliasDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ArtworkDTO;
@@ -101,6 +102,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.StatusDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TagOptionDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TrailerDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TranslationDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TranslationsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.util.json.deser.StaticTypeReference;
 import com.github.m0nk3y2k4.thetvdb.testutils.json.Data;
 
@@ -719,12 +721,14 @@ public abstract class ResponseData<T> {
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .aliases(createTwo(aliasModel()))
                         .artworks(createTwo(artworkModel(), listOffset))
-                        .networks(createTwo(networkModel(), listOffset)).genres(createTwo(genreModel(), listOffset))
+                        .networks(createTwo(networkModel(), listOffset))
+                        .genres(createTwo(genreModel(), listOffset))
                         .trailers(createTwo(trailerModel(), listOffset))
                         .lists(createTwo(listModel(), listOffset))
                         .remoteIds(createTwo(remoteIdModel(), listOffset))
                         .characters(createTwo(characterModel(), listOffset))
-                        .seasons(createTwo(seasonModel(), listOffset));
+                        .seasons(createTwo(seasonModel(), listOffset))
+                        .translations(create(translationsModel(), listOffset));
             }
             return builder.build();
         };
@@ -751,6 +755,19 @@ public abstract class ResponseData<T> {
             TrailerDTO.Builder builder = new TrailerDTO.Builder();
             if (shape == FULL) {
                 builder.id(6033L + idx).name("Name" + idx).language("Language" + idx).url("Url" + idx);
+            }
+            return builder.build();
+        };
+    }
+
+    private static DtoSupplier<Translations> translationsModel() {
+        return (idx, shape) -> {
+            TranslationsDTO.Builder builder = new TranslationsDTO.Builder();
+            if (shape == FULL) {
+                int listOffset = (idx << 1) - 1;
+                builder.addAliases("Alias" + listOffset, "Alias" + (listOffset + 1))
+                        .nameTranslations(createTwo(translationModel(), listOffset))
+                        .overviewTranslations(createTwo(translationModel(), listOffset));
             }
             return builder.build();
         };

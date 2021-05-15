@@ -443,7 +443,54 @@
           }
         ]
       }
-    ]
+    ],
+    "translations": {
+      "nameTranslations": [
+        {
+          "name": "Name1",
+          "isAlias": true,
+          "overview": "Overview1",
+          "language": "Language1",
+          "isPrimary": true,
+          "aliases": [
+            "Alias1", "Alias2"
+          ]
+        }, {
+          "name": "Name2",
+          "isAlias": true,
+          "overview": "Overview2",
+          "language": "Language2",
+          "isPrimary": true,
+          "aliases": [
+            "Alias3", "Alias4"
+          ]
+        }
+      ],
+      "overviewTranslations": [
+        {
+          "name": "Name1",
+          "isAlias": true,
+          "overview": "Overview1",
+          "language": "Language1",
+          "isPrimary": true,
+          "aliases": [
+            "Alias1", "Alias2"
+          ]
+        }, {
+          "name": "Name2",
+          "isAlias": true,
+          "overview": "Overview2",
+          "language": "Language2",
+          "isPrimary": true,
+          "aliases": [
+            "Alias3", "Alias4"
+          ]
+        }
+      ],
+      "aliases": [
+        "Alias1", "Alias2"
+      ]
+    }
   },
   "status": "success"
 }
