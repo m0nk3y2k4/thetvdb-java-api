@@ -602,7 +602,7 @@ public abstract class ResponseData<T> {
                         .tagOptions(createTwo(tagOptionModel(), listOffset))
                         .trailers(createTwo(trailerModel(), listOffset))
                         .nominations(Collections.emptyList())
-                        .studios(Collections.emptyList());
+                        .studios(createTwo(studioModel(), listOffset));
             }
             return builder.build();
         };

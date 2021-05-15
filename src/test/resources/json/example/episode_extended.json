@@ -333,7 +333,17 @@
         "url": "Url2"
       }
     ],
-    "studios": null
+    "studios": [
+      {
+        "id": 87,
+        "name": "Name1",
+        "parentStudio": 16
+      }, {
+        "id": 88,
+        "name": "Name2",
+        "parentStudio": 17
+      }
+    ]
   },
   "status": "success"
 }

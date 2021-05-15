@@ -243,7 +243,7 @@ public interface EpisodeDetails {
      * @return The <em>{@code studios}</em> property from the received JSON
      */
     // ToDo: Field is currently not declared in EpisodeExtendedRecord but returned in JSON. Check again after the next API update.
-    List<String> getStudios();
+    List<Studio> getStudios();
 
     /**
      * Get the value of the {<em>{@code data.nominations}</em>} JSON property
