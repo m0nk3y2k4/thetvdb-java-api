@@ -121,7 +121,7 @@ public class APIConnection {
      *
      * @param resource The remote API resource to be invoked
      *
-     * @return The raw JSON response as received by the remote service
+     * @return The raw JSON response as received from the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc.
@@ -137,7 +137,7 @@ public class APIConnection {
      * @param resource The remote API resource to be invoked
      * @param data     The request payload to be pushed to the remote service
      *
-     * @return The raw JSON response as received by the remote service
+     * @return The raw JSON response as received from the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc.
@@ -152,7 +152,7 @@ public class APIConnection {
      *
      * @param resource The remote API resource to be invoked
      *
-     * @return The raw JSON response as received by the remote service
+     * @return The raw JSON response as received from the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc.
@@ -167,7 +167,7 @@ public class APIConnection {
      *
      * @param resource The remote API resource to be invoked
      *
-     * @return The raw JSON response as received by the remote service
+     * @return The raw JSON response as received from the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc.
@@ -182,7 +182,7 @@ public class APIConnection {
      *
      * @param resource The remote API resource to be invoked
      *
-     * @return The raw JSON response as received by the remote service
+     * @return The raw JSON response as received from the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc.
@@ -281,7 +281,7 @@ public class APIConnection {
      *
      * @param request The request to be invoked
      *
-     * @return Raw JSON response as received by the remote service
+     * @return Raw JSON response as received from the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc.
@@ -456,7 +456,7 @@ abstract class APIRequest {
      * #prepareRequest(HttpsURLConnection) prepareRequest(connection)} method which allows for additional request
      * specific preparation.
      *
-     * @return Raw JSON as received by the remote service
+     * @return Raw JSON as received from the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc.

@@ -26,8 +26,8 @@ import org.immutables.value.Value.Immutable;
 /**
  * DTO implementation of the {@link SeriesAirsDays} interface
  * <p><br>
- * Objects of this class reflect the data received by the remote service and are immutable so that their content can not
- * be changed once an instance has been created. New objects of this class may be created by using the corresponding
+ * Objects of this class reflect the data received from the remote service and are immutable so that their content can
+ * not be changed once an instance has been created. New objects of this class may be created by using the corresponding
  * {@link Builder}.
  */
 @Immutable
