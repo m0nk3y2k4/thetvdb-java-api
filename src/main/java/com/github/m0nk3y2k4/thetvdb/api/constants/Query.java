@@ -33,10 +33,21 @@ public final class Query {
      */
     public static final class Companies {
 
-        /** Query parameter "<i>page</i>" - Page of results to fetch. Defaults to page 0 if not provided */
+        /** Query parameter "<i>page</i>" - Page of results to fetch. Defaults to page 0 if not provided. */
         public static final String PAGE = "page";
 
         private Companies() {}     // Private constructor. Only constants in this class
+    }
+
+    /**
+     * Collection of query parameters for API route <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movies">/movies</a>
+     */
+    public static final class Movies {
+
+        /** Query parameter "<i>page</i>" - Page of results to fetch. Defaults to page 0 if not provided. */
+        public static final String PAGE = "page";
+
+        private Movies() {}     // Private constructor. Only constants in this class
     }
 
     /**
@@ -44,7 +55,7 @@ public final class Query {
      */
     public static final class Series {
 
-        /** Query parameter "<i>page</i>" - Page of results to fetch. Defaults to page 0 if not provided */
+        /** Query parameter "<i>page</i>" - Page of results to fetch. Defaults to page 0 if not provided. */
         public static final String PAGE = "page";
 
         private Series() {}     // Private constructor. Only constants in this class

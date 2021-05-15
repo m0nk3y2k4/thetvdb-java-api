@@ -42,10 +42,12 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.EpisodeDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Gender;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.MovieDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Season;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Status;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Translation;
 
 // ToDo: Revise JDoc once APIv4 implementation is finished
@@ -537,6 +539,55 @@ public interface TheTVDBApi {
     Genre getGenre(long genreId) throws APIException;
 
     /**
+     * Returns a list of available movie statuses mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movie-statuses/getAllMovieStatuses">
+     * <b>[GET]</b> /movies/statuses</a>
+     *
+     * @return List of available movie statuses mapped as Java DTO's based on the JSON data returned by the remote
+     *         service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see JSON#getAllMovieStatuses()
+     * @see Extended#getAllMovieStatuses()
+     */
+    List<Status> getAllMovieStatuses() throws APIException;
+
+    /**
+     * Returns a list of movies based on the given query parameters mapped as Java DTO. The list contains basic
+     * information of all movies matching the query parameters.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movies/getAllMovie">
+     * <b>[GET]</b> /movies</a>
+     *
+     * @param queryParameters Object containing key/value pairs of query parameters
+     *
+     * @return List of movies mapped as Java DTO's based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see JSON#getAllMovies(QueryParameters) TheTVDBApi.JSON.getAllMovies(queryParameters)
+     * @see Extended#getAllMovies(QueryParameters) TheTVDBApi.Extended.getAllMovies(queryParameters)
+     */
+    List<Movie> getAllMovies(QueryParameters queryParameters) throws APIException;
+
+    /**
+     * Returns a limited list of movies mapped as Java DTO. Due to the large amount of available movies, the result will
+     * be paginated. Use the <em>{@code page}</em> parameter to browse to a specific result page. This is a
+     * shortcut-method for {@link #getAllMovies(QueryParameters) getAllMovies(queryParameters)} with a single "page"
+     * query parameter.
+     *
+     * @param page The result page to be returned (zero-based)
+     *
+     * @return List of movies mapped as Java DTO's based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     */
+    List<Movie> getAllMovies(long page) throws APIException;
+
+    /**
      * Returns basic information for a specific movie mapped as Java DTO.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movies/getMovieBase">
@@ -552,6 +603,23 @@ public interface TheTVDBApi {
      * @see Extended#getMovie(long) TheTVDBApi.Extended.getMovie(movieId)
      */
     Movie getMovie(long movieId) throws APIException;
+
+    /**
+     * Returns detailed information for a specific movie mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movies/getMovieExtended">
+     * <b>[GET]</b> /movies/{id}/extended</a>
+     *
+     * @param movieId The <i>TheTVDB.com</i> movie ID
+     *
+     * @return Detailed movie information mapped as Java DTO based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if no movie record with the given ID exists.
+     * @see JSON#getMovieDetails(long) TheTVDBApi.JSON.getMovieDetails(movieId)
+     * @see Extended#getMovieDetails(long) TheTVDBApi.Extended.getMovieDetails(movieId)
+     */
+    MovieDetails getMovieDetails(long movieId) throws APIException;
 
     /**
      * Returns a translation record for a specific movie mapped as Java DTO.
@@ -1085,6 +1153,39 @@ public interface TheTVDBApi {
         JsonNode getGenre(long genreId) throws APIException;
 
         /**
+         * Returns a list of available movie statuses as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movie-statuses/getAllMovieStatuses">
+         * <b>[GET]</b> /movies/statuses</a>
+         *
+         * @return JSON object containing a list of available movie statuses
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see TheTVDBApi#getAllMovieStatuses() TheTVDBApi.getAllMovieStatuses()
+         * @see Extended#getAllMovieStatuses()
+         */
+        JsonNode getAllMovieStatuses() throws APIException;
+
+        /**
+         * Returns a list of movies based on the given query parameters as raw JSON. The list contains basic information
+         * of all movies matching the query parameters.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movies/getAllMovie">
+         * <b>[GET]</b> /movies</a>
+         *
+         * @param queryParameters Object containing key/value pairs of query parameters
+         *
+         * @return JSON object containing a list of movies
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see TheTVDBApi#getAllMovies(QueryParameters) TheTVDBApi.getAllMovies(queryParameters)
+         * @see Extended#getAllMovies(QueryParameters) TheTVDBApi.Extended.getAllMovies(queryParameters)
+         */
+        JsonNode getAllMovies(QueryParameters queryParameters) throws APIException;
+
+        /**
          * Returns basic information for a specific movie as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movies/getMovieBase">
@@ -1100,6 +1201,23 @@ public interface TheTVDBApi {
          * @see Extended#getMovie(long) TheTVDBApi.Extended.getMovie(movieId)
          */
         JsonNode getMovie(long movieId) throws APIException;
+
+        /**
+         * Returns detailed information for a specific movie as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movies/getMovieExtended">
+         * <b>[GET]</b> /movies/{id}/extended</a>
+         *
+         * @param movieId The <i>TheTVDB.com</i> movie ID
+         *
+         * @return JSON object containing detailed information for a specific movie
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if no movie record with the given ID exists.
+         * @see TheTVDBApi#getMovieDetails(long) TheTVDBApi.getMovieDetails(movieId)
+         * @see Extended#getMovieDetails(long) TheTVDBApi.Extended.getMovieDetails(movieId)
+         */
+        JsonNode getMovieDetails(long movieId) throws APIException;
 
         /**
          * Returns a translation record for a specific movie as raw JSON.
@@ -1627,6 +1745,41 @@ public interface TheTVDBApi {
         APIResponse<Genre> getGenre(long genreId) throws APIException;
 
         /**
+         * Returns a response object containing a list of available movie statuses mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movie-statuses/getAllMovieStatuses">
+         * <b>[GET]</b> /movies/statuses</a>
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see JSON#getAllMovieStatuses()
+         * @see TheTVDBApi#getAllMovieStatuses() TheTVDBApi.getAllMovieStatuses()
+         */
+        APIResponse<List<Status>> getAllMovieStatuses() throws APIException;
+
+        /**
+         * Returns a response object containing a list of movies based on the given query parameters mapped as Java DTO.
+         * The list contains basic information of all movies matching the query parameters.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movies/getAllMovie">
+         * <b>[GET]</b> /movies</a>
+         *
+         * @param queryParameters Object containing key/value pairs of query parameters
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see JSON#getAllMovies(QueryParameters) TheTVDBApi.JSON.getAllMovies(queryParameters)
+         * @see TheTVDBApi#getAllMovies(QueryParameters) TheTVDBApi.getAllMovies(queryParameters)
+         */
+        APIResponse<List<Movie>> getAllMovies(QueryParameters queryParameters) throws APIException;
+
+        /**
          * Returns a response object containing basic information for a specific movie mapped as Java DTO.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movies/getMovieBase">
@@ -1643,6 +1796,24 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getMovie(long) TheTVDBApi.getMovie(movieId)
          */
         APIResponse<Movie> getMovie(long movieId) throws APIException;
+
+        /**
+         * Returns a response object containing detailed information for a specific movie mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movies/getMovieExtended">
+         * <b>[GET]</b> /movies/{id}/extended</a>
+         *
+         * @param movieId The <i>TheTVDB.com</i> movie ID
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if no movie record with the given ID exists.
+         * @see JSON#getMovieDetails(long) TheTVDBApi.JSON.getMovieDetails(movieId)
+         * @see TheTVDBApi#getMovieDetails(long) TheTVDBApi.getMovieDetails(movieId)
+         */
+        APIResponse<MovieDetails> getMovieDetails(long movieId) throws APIException;
 
         /**
          * Returns a response object containing a translation record for a specific movie mapped as Java DTO.

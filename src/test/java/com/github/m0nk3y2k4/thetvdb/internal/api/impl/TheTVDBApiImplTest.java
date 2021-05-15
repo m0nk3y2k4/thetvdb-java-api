@@ -41,11 +41,14 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.GENDER_LIST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.GENRE;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.GENRE_LIST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.MOVIE;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.MOVIE_DETAILS;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.MOVIE_LIST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.PEOPLE;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASON;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.STATUS_LIST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.TRANSLATION;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestTheTVDBAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -135,7 +138,12 @@ class TheTVDBApiImplTest {
             client.when(request("/genders", GET)).respond(jsonResponse(GENDER_LIST));
             client.when(request("/genres", GET)).respond(jsonResponse(GENRE_LIST));
             client.when(request("/genres/47", GET)).respond(jsonResponse(GENRE));
+            client.when(request("/movies/statuses", GET)).respond(jsonResponse(STATUS_LIST));
+            client.when(request("/movies", GET)).respond(jsonResponse(MOVIE_LIST));
+            client.when(request("/movies", GET, param("value", "QueryMovies"))).respond(jsonResponse(MOVIE_LIST));
+            client.when(request("/movies", GET, param(Series.PAGE, "3"))).respond(jsonResponse(MOVIE_LIST));
             client.when(request("/movies/54394", GET)).respond(jsonResponse(MOVIE));
+            client.when(request("/movies/46994/extended", GET)).respond(jsonResponse(MOVIE_DETAILS));
             client.when(request("/movies/69745/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/people/431071", GET)).respond(jsonResponse(PEOPLE));
             client.when(request("/seasons/34167", GET)).respond(jsonResponse(SEASON));
@@ -151,6 +159,7 @@ class TheTVDBApiImplTest {
         private Stream<Arguments> withInvalidParameters() {
             return Stream.of(
                     of(route(() -> basicAPI.getAllCompanies(-1), "getAllCompanies() with negative page parameter")),
+                    of(route(() -> basicAPI.getAllMovies(-4), "getAllMovies() with negative page parameter")),
                     of(route(() -> basicAPI.getAllSeries(-3), "getAllSeries() with negative page parameter"))
             );
         }
@@ -179,7 +188,12 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllGenders(), "getAllGenders()"), GENDER_LIST),
                     of(route(() -> basicAPI.getAllGenres(), "getAllGenres()"), GENRE_LIST),
                     of(route(() -> basicAPI.getGenre(47), "getGenre()"), GENRE),
+                    of(route(() -> basicAPI.getAllMovieStatuses(), "getAllMovieStatuses()"), STATUS_LIST),
+                    of(route(() -> basicAPI.getAllMovies(null), "getAllMovies() without query parameters"), MOVIE_LIST),
+                    of(route(() -> basicAPI.getAllMovies(params("value", "QueryMovies")), "getAllMovies() with query parameters"), MOVIE_LIST),
+                    of(route(() -> basicAPI.getAllMovies(3), "getAllMovies() with page"), MOVIE_LIST),
                     of(route(() -> basicAPI.getMovie(54394), "getMovie()"), MOVIE),
+                    of(route(() -> basicAPI.getMovieDetails(46994), "getMovieDetails()"), MOVIE_DETAILS),
                     of(route(() -> basicAPI.getMovieTranslation(69745, "eng"), "getMovieTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getPeople(431071), "getPeople()"), PEOPLE),
                     of(route(() -> basicAPI.getSeason(34167), "getSeason()"), SEASON),
@@ -265,7 +279,11 @@ class TheTVDBApiImplTest {
             client.when(request("/genders", GET)).respond(jsonResponse(GENDER_LIST));
             client.when(request("/genres", GET)).respond(jsonResponse(GENRE_LIST));
             client.when(request("/genres/21", GET)).respond(jsonResponse(GENRE));
+            client.when(request("/movies/statuses", GET)).respond(jsonResponse(STATUS_LIST));
+            client.when(request("/movies", GET)).respond(jsonResponse(MOVIE_LIST));
+            client.when(request("/movies", GET, param("value", "QueryMoviesJson"))).respond(jsonResponse(MOVIE_LIST));
             client.when(request("/movies/61714", GET)).respond(jsonResponse(MOVIE));
+            client.when(request("/movies/54801/extended", GET)).respond(jsonResponse(MOVIE_DETAILS));
             client.when(request("/movies/74810/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/people/3647", GET)).respond(jsonResponse(PEOPLE));
             client.when(request("/seasons/18322", GET)).respond(jsonResponse(SEASON));
@@ -304,7 +322,11 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllGenders(), "getAllGenders()"), GENDER_LIST),
                     of(route(() -> basicAPI.getAllGenres(), "getAllGenres()"), GENRE_LIST),
                     of(route(() -> basicAPI.getGenre(21), "getGenre()"), GENRE),
+                    of(route(() -> basicAPI.getAllMovieStatuses(), "getAllMovieStatuses()"), STATUS_LIST),
+                    of(route(() -> basicAPI.getAllMovies(null), "getAllMovies() without query parameters"), MOVIE_LIST),
+                    of(route(() -> basicAPI.getAllMovies(params("value", "QueryMoviesJson")), "getAllMovies() with query parameters"), MOVIE_LIST),
                     of(route(() -> basicAPI.getMovie(61714), "getMovie()"), MOVIE),
+                    of(route(() -> basicAPI.getMovieDetails(54801), "getMovieDetails()"), MOVIE_DETAILS),
                     of(route(() -> basicAPI.getMovieTranslation(74810, "eng"), "getMovieTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getPeople(3647), "getPeople()"), PEOPLE),
                     of(route(() -> basicAPI.getSeason(18322), "getSeason()"), SEASON),
@@ -372,7 +394,11 @@ class TheTVDBApiImplTest {
             client.when(request("/genders", GET)).respond(jsonResponse(GENDER_LIST));
             client.when(request("/genres", GET)).respond(jsonResponse(GENRE_LIST));
             client.when(request("/genres/35", GET)).respond(jsonResponse(GENRE));
+            client.when(request("/movies/statuses", GET)).respond(jsonResponse(STATUS_LIST));
+            client.when(request("/movies", GET)).respond(jsonResponse(MOVIE_LIST));
+            client.when(request("/movies", GET, param("value", "QueryMoviesExtended"))).respond(jsonResponse(MOVIE_LIST));
             client.when(request("/movies/90034", GET)).respond(jsonResponse(MOVIE));
+            client.when(request("/movies/31101/extended", GET)).respond(jsonResponse(MOVIE_DETAILS));
             client.when(request("/movies/46011/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/people/9891", GET)).respond(jsonResponse(PEOPLE));
             client.when(request("/seasons/52270", GET)).respond(jsonResponse(SEASON));
@@ -411,7 +437,11 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllGenders(), "getAllGenders()"), GENDER_LIST),
                     of(route(() -> basicAPI.getAllGenres(), "getAllGenres()"), GENRE_LIST),
                     of(route(() -> basicAPI.getGenre(35), "getGenre()"), GENRE),
+                    of(route(() -> basicAPI.getAllMovieStatuses(), "getAllMovieStatuses()"), STATUS_LIST),
+                    of(route(() -> basicAPI.getAllMovies(null), "getAllMovies() without query parameters"), MOVIE_LIST),
+                    of(route(() -> basicAPI.getAllMovies(params("value", "QueryMoviesExtended")), "getAllMovies() with query parameters"), MOVIE_LIST),
                     of(route(() -> basicAPI.getMovie(90034), "getMovie()"), MOVIE),
+                    of(route(() -> basicAPI.getMovieDetails(31101), "getMovieDetails()"), MOVIE_DETAILS),
                     of(route(() -> basicAPI.getMovieTranslation(46011, "eng"), "getMovieTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getPeople(9891), "getPeople()"), PEOPLE),
                     of(route(() -> basicAPI.getSeason(52270), "getSeason()"), SEASON),

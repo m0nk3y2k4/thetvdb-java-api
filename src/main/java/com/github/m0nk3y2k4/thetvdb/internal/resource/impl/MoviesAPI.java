@@ -19,9 +19,10 @@ package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 import javax.annotation.Nonnull;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
-import com.github.m0nk3y2k4.thetvdb.internal.resource.Resource;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.QueryResource;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 /**
@@ -30,11 +31,46 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
  * endpoint.
  * <p><br>
  * Provides static access to all routes of this endpoint which may be used for obtaining either basic, extended or
- * translated movie information.
+ * translated movie information as well as an overview of available movie and movie status records.
  */
-public final class MoviesAPI extends Resource {
+public final class MoviesAPI extends QueryResource {
 
     private MoviesAPI() {}      // Private constructor. Only static methods
+
+    /**
+     * Returns a list of available movie statuses as raw JSON.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movie-statuses/getAllMovieStatuses">
+     * <b>[GET]</b> /movies/statuses</a>
+     *
+     * @param con Initialized connection to be used for API communication
+     *
+     * @return JSON object containing an overview of available movie statuses
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     */
+    public static JsonNode getAllMovieStatuses(@Nonnull APIConnection con) throws APIException {
+        return con.sendGET(createResource("/movies/statuses"));
+    }
+
+    /**
+     * Returns a list of movies based on the given query parameters as raw JSON.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movies/getAllMovie">
+     * <b>[GET]</b> /movies</a>
+     *
+     * @param con    Initialized connection to be used for API communication
+     * @param params Object containing key/value pairs of query parameters
+     *
+     * @return JSON object containing a limited overview of movies
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     */
+    public static JsonNode getAllMovies(@Nonnull APIConnection con, QueryParameters params) throws APIException {
+        return con.sendGET(createQueryResource("/movies", params));
+    }
 
     /**
      * Returns basic information for a specific movie record as raw JSON.
@@ -53,6 +89,25 @@ public final class MoviesAPI extends Resource {
     public static JsonNode getMovieBase(@Nonnull APIConnection con, long id) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
         return con.sendGET(createResource("/movies/{id}", id));
+    }
+
+    /**
+     * Returns extended information for a specific movie record as raw JSON.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/movies/getMovieExtended">
+     * <b>[GET]</b> /movies/{id}/extended</a>
+     *
+     * @param con Initialized connection to be used for API communication
+     * @param id  The <i>TheTVDB.com</i> movie ID
+     *
+     * @return JSON object containing extended information for a specific movie record
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no movie
+     *                      record with the given ID exists, etc.
+     */
+    public static JsonNode getMovieExtended(@Nonnull APIConnection con, long id) throws APIException {
+        Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
+        return con.sendGET(createResource("/movies/{id}/extended", id));
     }
 
     /**

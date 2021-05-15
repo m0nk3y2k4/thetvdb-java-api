@@ -55,8 +55,10 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.FCList;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Gender;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.MovieDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Network;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Release;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.RemoteId;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Season;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonType;
@@ -64,6 +66,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesAirsDays;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Status;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Studio;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.TagOption;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Trailer;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Translation;
@@ -90,8 +93,10 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.FCListDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.GenderDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.GenreDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.NetworkDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.PeopleDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ReleaseDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.RemoteIdDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeasonDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeasonTypeDTO;
@@ -99,6 +104,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesAirsDaysD
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.StatusDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.StudioDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TagOptionDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TrailerDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TranslationDTO;
@@ -176,6 +182,10 @@ public abstract class ResponseData<T> {
     //************************* movies **********************
     public static final ResponseData<APIResponse<Movie>> MOVIE = new ResponseData<>(
             "movie", movie(FULL), "Single movie JSON response") {};
+    public static final ResponseData<APIResponse<MovieDetails>> MOVIE_DETAILS = new ResponseData<>(
+            "movie_extended", movieDetails(FULL), "Single extended movie JSON response") {};
+    public static final ResponseData<APIResponse<List<Movie>>> MOVIE_LIST = new ResponseData<>(
+            "movie_list", movieList(), "List of movies JSON response") {};
 
     //************************* people **********************
     public static final ResponseData<APIResponse<People>> PEOPLE = new ResponseData<>(
@@ -192,6 +202,10 @@ public abstract class ResponseData<T> {
             "series_extended", seriesDetails(FULL), "Single extended series JSON response") {};
     public static final ResponseData<APIResponse<List<Series>>> SERIES_LIST = new ResponseData<>(
             "series_list", seriesList(), "List of series JSON response") {};
+
+    //************************* status **********************
+    public static final ResponseData<APIResponse<List<Status>>> STATUS_LIST = new ResponseData<>(
+            "status_list", statusList(), "List of statuses JSON response") {};
 
     //********************** translations *******************
     public static final ResponseData<APIResponse<Translation>> TRANSLATION = new ResponseData<>(
@@ -327,6 +341,14 @@ public abstract class ResponseData<T> {
         return createAPIResponse(create(movieModel(), shape));
     }
 
+    private static APIResponse<MovieDetails> movieDetails(Shape shape) {
+        return createAPIResponse(create(movieDetailsModel(), shape));
+    }
+
+    private static APIResponse<List<Movie>> movieList() {
+        return createAPIResponse(createTwo(movieModel()));
+    }
+
     private static APIResponse<People> people(Shape shape) {
         return createAPIResponse(create(peopleModel(), shape));
     }
@@ -345,6 +367,10 @@ public abstract class ResponseData<T> {
 
     private static APIResponse<List<Series>> seriesList() {
         return createAPIResponse(createTwo(seriesModel()));
+    }
+
+    private static APIResponse<List<Status>> statusList() {
+        return createAPIResponse(createTwo(statusModel()));
     }
 
     private static APIResponse<Translation> translation(Shape shape) {
@@ -635,6 +661,38 @@ public abstract class ResponseData<T> {
         };
     }
 
+    private static DtoSupplier<MovieDetails> movieDetailsModel() {
+        return (idx, shape) -> {
+            MovieDetailsDTO.Builder builder = new MovieDetailsDTO.Builder();
+            if (shape == FULL) {
+                int listOffset = (idx << 1) - 1;
+                builder.id(33247L + idx).image("Image" + idx).name("Name" + idx).slug("Slug" + idx).score(32D + idx)
+                        .boxOffice("BoxOffice" + idx).budget("Budget" + idx).originalCountry("OriginalCountry" + idx)
+                        .originalLanguage("OriginalLanguage" + idx).runtime(160L + idx).lastUpdated("LastUpdated" + idx)
+                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                        .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
+                        .aliases(createTwo(aliasModel(), listOffset))
+                        .artworks(createTwo(artworkModel(), listOffset))
+                        .addAudioLanguages("AudioLanguage" + listOffset, "AudioLanguage" + (listOffset + 1))
+                        .awards(createTwo(awardModel(), listOffset))
+                        .characters(createTwo(characterModel(), listOffset))
+                        .companies(createTwo(companyModel(), listOffset))
+                        .contentRatings(createTwo(contentRatingModel(), listOffset))
+                        .lists(createTwo(listModel(), listOffset))
+                        .genres(createTwo(genreModel(), listOffset))
+                        .releases(createTwo(releaseModel(), listOffset))
+                        .remoteIds(createTwo(remoteIdModel(), listOffset))
+                        .status(create(statusModel(), idx))
+                        .studios(createTwo(studioModel(), listOffset))
+                        .addSubtitleLanguages("SubtitleLanguage" + listOffset, "SubtitleLanguage" + (listOffset + 1))
+                        .tagOptions(createTwo(tagOptionModel(), listOffset))
+                        .trailers(createTwo(trailerModel(), listOffset))
+                ;
+            }
+            return builder.build();
+        };
+    }
+
     private static SimpleDtoSupplier<String> overviewTranslationModel() {
         return idx -> "OverviewTranslation" + idx;
     }
@@ -651,6 +709,11 @@ public abstract class ResponseData<T> {
             }
             return builder.build();
         };
+    }
+
+    private static SimpleDtoSupplier<Release> releaseModel() {
+        return idx -> new ReleaseDTO.Builder().country("Country" + idx).date("Date" + idx).detail("Detail" + idx)
+                .build();
     }
 
     private static SimpleDtoSupplier<RemoteId> remoteIdModel() {
@@ -737,6 +800,10 @@ public abstract class ResponseData<T> {
     private static SimpleDtoSupplier<Status> statusModel() {
         return idx -> new StatusDTO.Builder().id(546L + idx).keepUpdated(TRUE).name("Name" + idx)
                 .recordType("RecordType" + idx).build();
+    }
+
+    private static SimpleDtoSupplier<Studio> studioModel() {
+        return idx -> new StudioDTO.Builder().id(86L + idx).name("Name" + idx).parentStudio(15L + idx).build();
     }
 
     private static DtoSupplier<TagOption> tagOptionModel() {

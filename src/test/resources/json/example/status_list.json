@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "id": 547,
+      "keepUpdated": true,
+      "name": "Name1",
+      "recordType": "RecordType1"
+    }, {
+      "id": 548,
+      "keepUpdated": true,
+      "name": "Name2",
+      "recordType": "RecordType2"
+    }
+  ],
+  "status": "success"
+}

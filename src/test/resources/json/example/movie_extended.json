@@ -1,0 +1,323 @@
+{
+  "data": {
+    "id": 33248,
+    "image": "Image1",
+    "name": "Name1",
+    "slug": "Slug1",
+    "nameTranslations": [
+      "NameTranslation1", "NameTranslation2"
+    ],
+    "overviewTranslations": [
+      "OverviewTranslation1", "OverviewTranslation2"
+    ],
+    "aliases": [
+      {
+        "language": "Language1",
+        "name": "Name1"
+      }, {
+        "language": "Language2",
+        "name": "Name2"
+      }
+    ],
+    "artworks": [
+      {
+        "id": 4635,
+        "image": "Image1",
+        "thumbnail": "Thumbnail1",
+        "language": "Language1",
+        "type": 54,
+        "score": 2
+      }, {
+        "id": 4636,
+        "image": "Image2",
+        "thumbnail": "Thumbnail2",
+        "language": "Language2",
+        "type": 55,
+        "score": 3
+      }
+    ],
+    "audioLanguages": [
+      "AudioLanguage1", "AudioLanguage2"
+    ],
+    "awards": [
+      {
+        "id": 47,
+        "name": "Name1"
+      }, {
+        "id": 48,
+        "name": "Name2"
+      }
+    ],
+    "boxOffice": "BoxOffice1",
+    "budget": "Budget1",
+    "characters": [
+      {
+        "id": 36487,
+        "name": "Name1",
+        "peopleId": 569,
+        "seriesId": 45,
+        "movieId": 364,
+        "episodeId": 975,
+        "type": 12,
+        "image": "Image1",
+        "sort": 3,
+        "isFeatured": true,
+        "url": "Url1",
+        "nameTranslations": [
+          "NameTranslation1", "NameTranslation2"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation1", "OverviewTranslation2"
+        ],
+        "aliases": [
+          {
+            "language": "Language1",
+            "name": "Name1"
+          }, {
+            "language": "Language2",
+            "name": "Name2"
+          }
+        ],
+        "peopleType": "PeopleType1",
+        "personName": "PersonName1"
+      }, {
+        "id": 36488,
+        "name": "Name2",
+        "peopleId": 570,
+        "seriesId": 46,
+        "movieId": 365,
+        "episodeId": 976,
+        "type": 13,
+        "image": "Image2",
+        "sort": 4,
+        "isFeatured": true,
+        "url": "Url2",
+        "nameTranslations": [
+          "NameTranslation3", "NameTranslation4"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation3", "OverviewTranslation4"
+        ],
+        "aliases": [
+          {
+            "language": "Language3",
+            "name": "Name3"
+          }, {
+            "language": "Language4",
+            "name": "Name4"
+          }
+        ],
+        "peopleType": "PeopleType2",
+        "personName": "PersonName2"
+      }
+    ],
+    "companies": [
+      {
+        "id": 64714,
+        "name": "Name1",
+        "slug": "Slug1",
+        "nameTranslations": [
+          "NameTranslation1", "NameTranslation2"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation1", "OverviewTranslation2"
+        ],
+        "aliases": [
+          {
+            "language": "Language1",
+            "name": "Name1"
+          }, {
+            "language": "Language2",
+            "name": "Name2"
+          }
+        ],
+        "country": "Country1",
+        "primaryCompanyType": 514,
+        "activeDate": "ActiveDate1",
+        "inactiveDate": "InactiveDate1",
+        "companyType": {
+          "companyTypeId": 356,
+          "companyTypeName": "CompanyTypeName1"
+        }
+      }, {
+        "id": 64715,
+        "name": "Name2",
+        "slug": "Slug2",
+        "nameTranslations": [
+          "NameTranslation3", "NameTranslation4"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation3", "OverviewTranslation4"
+        ],
+        "aliases": [
+          {
+            "language": "Language3",
+            "name": "Name3"
+          }, {
+            "language": "Language4",
+            "name": "Name4"
+          }
+        ],
+        "country": "Country2",
+        "primaryCompanyType": 515,
+        "activeDate": "ActiveDate2",
+        "inactiveDate": "InactiveDate2",
+        "companyType": {
+          "companyTypeId": 357,
+          "companyTypeName": "CompanyTypeName2"
+        }
+      }
+    ],
+    "contentRatings": [
+      {
+        "id": 247,
+        "name": "Name1",
+        "country": "Country1",
+        "description": "Description1",
+        "contentType": "ContentType1",
+        "order": 26,
+        "fullname": "Fullname1"
+      }, {
+        "id": 248,
+        "name": "Name2",
+        "country": "Country2",
+        "description": "Description2",
+        "contentType": "ContentType2",
+        "order": 27,
+        "fullname": "Fullname2"
+      }
+    ],
+    "lastUpdated": "LastUpdated1",
+    "lists": [
+      {
+        "id": 95,
+        "name": "Name1",
+        "overview": "Overview1",
+        "url": "Url1",
+        "isOfficial": true,
+        "nameTranslations": [
+          "NameTranslation1", "NameTranslation2"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation1", "OverviewTranslation2"
+        ],
+        "aliases": [
+          {
+            "language": "Language1",
+            "name": "Name1"
+          }, {
+            "language": "Language2",
+            "name": "Name2"
+          }
+        ]
+      }, {
+        "id": 96,
+        "name": "Name2",
+        "overview": "Overview2",
+        "url": "Url2",
+        "isOfficial": true,
+        "nameTranslations": [
+          "NameTranslation3", "NameTranslation4"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation3", "OverviewTranslation4"
+        ],
+        "aliases": [
+          {
+            "language": "Language3",
+            "name": "Name3"
+          }, {
+            "language": "Language4",
+            "name": "Name4"
+          }
+        ]
+      }
+    ],
+    "genres": [
+      {
+        "id": 3,
+        "name": "Name1",
+        "slug": "Slug1"
+      }, {
+        "id": 4,
+        "name": "Name2",
+        "slug": "Slug2"
+      }
+    ],
+    "originalCountry": "OriginalCountry1",
+    "originalLanguage": "OriginalLanguage1",
+    "releases": [
+      {
+        "country": "Country1",
+        "date": "Date1",
+        "detail": "Detail1"
+      }, {
+        "country": "Country2",
+        "date": "Date2",
+        "detail": "Detail2"
+      }
+    ],
+    "remoteIds": [
+      {
+        "id": "Id1",
+        "type": 3070,
+        "sourceName": "SourceName1"
+      }, {
+        "id": "Id2",
+        "type": 3071,
+        "sourceName": "SourceName2"
+      }
+    ],
+    "runtime": 161,
+    "score": 33,
+    "status": {
+      "id": 547,
+      "keepUpdated": true,
+      "name": "Name1",
+      "recordType": "RecordType1"
+    },
+    "studios": [
+      {
+        "id": 87,
+        "name": "Name1",
+        "parentStudio": 16
+      }, {
+        "id": 88,
+        "name": "Name2",
+        "parentStudio": 17
+      }
+    ],
+    "subtitleLanguages": [
+      "SubtitleLanguage1", "SubtitleLanguage2"
+    ],
+    "tagOptions": [
+      {
+        "helpText": "HelpText1",
+        "id": 5797,
+        "name": "Name1",
+        "tag": 43,
+        "tagName": "TagName1"
+      }, {
+        "helpText": "HelpText2",
+        "id": 5798,
+        "name": "Name2",
+        "tag": 44,
+        "tagName": "TagName2"
+      }
+    ],
+    "trailers": [
+      {
+        "id": 6034,
+        "name": "Name1",
+        "language": "Language1",
+        "url": "Url1"
+      }, {
+        "id": 6035,
+        "name": "Name2",
+        "language": "Language2",
+        "url": "Url2"
+      }
+    ]
+  },
+  "status": "success"
+}

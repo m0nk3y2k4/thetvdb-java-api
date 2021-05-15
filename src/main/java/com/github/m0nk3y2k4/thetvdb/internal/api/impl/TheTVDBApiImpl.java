@@ -50,10 +50,12 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.EpisodeDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Gender;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.MovieDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Season;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Status;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Translation;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI;
@@ -307,8 +309,29 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public List<Status> getAllMovieStatuses() throws APIException {
+        return extended().getAllMovieStatuses().getData();
+    }
+
+    @Override
+    public List<Movie> getAllMovies(QueryParameters queryParameters) throws APIException {
+        return extended().getAllMovies(queryParameters).getData();
+    }
+
+    @Override
+    public List<Movie> getAllMovies(long page) throws APIException {
+        validatePage(page);
+        return getAllMovies(query(Map.of(Query.Movies.PAGE, String.valueOf(page))));
+    }
+
+    @Override
     public Movie getMovie(long movieId) throws APIException {
         return extended().getMovie(movieId).getData();
+    }
+
+    @Override
+    public MovieDetails getMovieDetails(long movieId) throws APIException {
+        return extended().getMovieDetails(movieId).getData();
     }
 
     @Override
@@ -480,8 +503,23 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public JsonNode getAllMovieStatuses() throws APIException {
+            return MoviesAPI.getAllMovieStatuses(con);
+        }
+
+        @Override
+        public JsonNode getAllMovies(QueryParameters queryParameters) throws APIException {
+            return MoviesAPI.getAllMovies(con, queryParameters);
+        }
+
+        @Override
         public JsonNode getMovie(long movieId) throws APIException {
             return MoviesAPI.getMovieBase(con, movieId);
+        }
+
+        @Override
+        public JsonNode getMovieDetails(long movieId) throws APIException {
+            return MoviesAPI.getMovieExtended(con, movieId);
         }
 
         @Override
@@ -639,8 +677,23 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public APIResponse<List<Status>> getAllMovieStatuses() throws APIException {
+            return APIJsonMapper.readValue(json().getAllMovieStatuses(), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<List<Movie>> getAllMovies(QueryParameters queryParameters) throws APIException {
+            return APIJsonMapper.readValue(json().getAllMovies(queryParameters), new TypeReference<>() {});
+        }
+
+        @Override
         public APIResponse<Movie> getMovie(long movieId) throws APIException {
             return APIJsonMapper.readValue(json().getMovie(movieId), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<MovieDetails> getMovieDetails(long movieId) throws APIException {
+            return APIJsonMapper.readValue(json().getMovieDetails(movieId), new TypeReference<>() {});
         }
 
         @Override
