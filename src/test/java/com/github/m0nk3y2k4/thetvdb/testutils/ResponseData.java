@@ -743,9 +743,9 @@ public abstract class ResponseData<T> {
             SeasonDTO.Builder builder = new SeasonDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
-                builder.seriesId(95873L + idx).number(5L + idx).id(47747L + idx).name("Name" + idx)
+                builder.seriesId(95873L + idx).number(5L + idx).id(47747L + idx).name("Name" + idx).slug("Slug" + idx)
+                        .abbreviation("Abbreviation" + idx).country("Country" + idx)
                         .type(create(seasonTypeModel(), idx))
-                        .network(create(networkModel(), idx, shape))
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .image("Image" + idx).imageType(486L + idx)

@@ -33,13 +33,9 @@
         ],
         "image": "Image1",
         "imageType": 487,
-        "network": {
-          "id": 478,
-          "name": "Name1",
-          "slug": "Slug1",
-          "abbreviation": "Abbreviation1",
-          "country": "Country1"
-        },
+        "slug": "Slug1",
+        "abbreviation": "Abbreviation1",
+        "country": "Country1",
         "companies": [
           {
             "id": 64714,
@@ -115,13 +111,9 @@
         ],
         "image": "Image2",
         "imageType": 488,
-        "network": {
-          "id": 479,
-          "name": "Name2",
-          "slug": "Slug2",
-          "abbreviation": "Abbreviation2",
-          "country": "Country2"
-        },
+        "slug": "Slug2",
+        "abbreviation": "Abbreviation2",
+        "country": "Country2",
         "companies": [
           {
             "id": 64716,

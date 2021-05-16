@@ -17,13 +17,9 @@
     ],
     "image": "Image1",
     "imageType": 487,
-    "network": {
-      "id": 478,
-      "name": "Name1",
-      "slug": "Slug1",
-      "abbreviation": "Abbreviation1",
-      "country": "Country1"
-    },
+    "slug": "Slug1",
+    "abbreviation": "Abbreviation1",
+    "country": "Country1",
     "companies": [
       {
         "id": 64714,
