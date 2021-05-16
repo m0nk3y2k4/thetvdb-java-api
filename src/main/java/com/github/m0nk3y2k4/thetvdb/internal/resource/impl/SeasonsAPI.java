@@ -56,6 +56,25 @@ public final class SeasonsAPI extends Resource {
     }
 
     /**
+     * Returns extended information for a specific season record as raw JSON.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/seasons/getSeasonExtended">
+     * <b>[GET]</b> /seasons/{id}/extended</a>
+     *
+     * @param con Initialized connection to be used for API communication
+     * @param id  The <i>TheTVDB.com</i> season ID
+     *
+     * @return JSON object containing extended information for a specific season record
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no season
+     *                      record with the given ID exists, etc.
+     */
+    public static JsonNode getSeasonExtended(@Nonnull APIConnection con, long id) throws APIException {
+        Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
+        return con.sendGET(createResource("/seasons/{id}/extended", id));
+    }
+
+    /**
      * Returns a list of available season types as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/seasons/getSeasonTypes">

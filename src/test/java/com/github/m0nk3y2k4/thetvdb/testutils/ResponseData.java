@@ -62,6 +62,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.PeopleType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Release;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.RemoteId;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Season;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesAirsDays;
@@ -101,6 +102,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.PeopleTypeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ReleaseDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.RemoteIdDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeasonDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeasonDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeasonTypeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesAirsDaysDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesDTO;
@@ -198,6 +200,8 @@ public abstract class ResponseData<T> {
     //************************ seasons **********************
     public static final ResponseData<APIResponse<Season>> SEASON = new ResponseData<>(
             "season", season(FULL), "Single season JSON response") {};
+    public static final ResponseData<APIResponse<SeasonDetails>> SEASON_DETAILS = new ResponseData<>(
+            "season_extended", seasonDetails(FULL), "Single extended season JSON response") {};
     public static final ResponseData<APIResponse<List<SeasonType>>> SEASONTYPE_LIST = new ResponseData<>(
             "seasontype_list", seasonTypeList(), "List of season types JSON response") {};
 
@@ -365,6 +369,10 @@ public abstract class ResponseData<T> {
 
     private static APIResponse<Season> season(Shape shape) {
         return createAPIResponse(create(seasonModel(), shape));
+    }
+
+    private static APIResponse<SeasonDetails> seasonDetails(Shape shape) {
+        return createAPIResponse(create(seasonDetailsModel(), shape));
     }
 
     private static APIResponse<List<SeasonType>> seasonTypeList() {
@@ -744,12 +752,32 @@ public abstract class ResponseData<T> {
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
                 builder.seriesId(95873L + idx).number(5L + idx).id(47747L + idx).name("Name" + idx).slug("Slug" + idx)
-                        .abbreviation("Abbreviation" + idx).country("Country" + idx)
+                        .abbreviation("Abbreviation" + idx).country("Country" + idx).image("Image" + idx)
+                        .imageType(486L + idx)
                         .type(create(seasonTypeModel(), idx))
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .image("Image" + idx).imageType(486L + idx)
                         .companies(createTwo(companyModel(), listOffset));
+            }
+            return builder.build();
+        };
+    }
+
+    private static DtoSupplier<SeasonDetails> seasonDetailsModel() {
+        return (idx, shape) -> {
+            SeasonDetailsDTO.Builder builder = new SeasonDetailsDTO.Builder();
+            if (shape == FULL) {
+                int listOffset = (idx << 1) - 1;
+                builder.seriesId(30013L + idx).number(11L + idx).id(67409L + idx).name("Name" + idx).slug("Slug" + idx)
+                        .abbreviation("Abbreviation" + idx).country("Country" + idx).image("Image" + idx)
+                        .imageType(654L + idx)
+                        .type(create(seasonTypeModel(), idx))
+                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                        .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
+                        .companies(createTwo(companyModel(), listOffset))
+                        .artwork(createTwo(artworkModel(), listOffset))
+                        .episodes(createTwo(episodeModel(), listOffset))
+                        .trailers(createTwo(trailerModel(), listOffset));
             }
             return builder.build();
         };

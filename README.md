@@ -169,7 +169,7 @@ the upcoming APIv4.
     - [ ] [/search](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/search/getSearchResults)
 - Seasons
     - [x] [/seasons/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/seasons/getSeasonBase)
-    - [ ] [/seasons/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/seasons/getSeasonExtended)
+    - [x] [/seasons/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/seasons/getSeasonExtended)
     - [x] [/seasons/types](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/seasons/getSeasonTypes)
     - [x] [/seasons/{id}/translations/{language}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/seasons/getSeasonTranslation)
 - Series

@@ -46,6 +46,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.MovieDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.PeopleType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Season;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
@@ -690,6 +691,23 @@ public interface TheTVDBApi {
      * @see Extended#getSeason(long) TheTVDBApi.Extended.getSeason(seasonId)
      */
     Season getSeason(long seasonId) throws APIException;
+
+    /**
+     * Returns detailed information for a specific season mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/seasons/getSeasonExtended">
+     * <b>[GET]</b> /seasons/{id}/extended</a>
+     *
+     * @param seasonId The <i>TheTVDB.com</i> season ID
+     *
+     * @return Detailed season information mapped as Java DTO based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if no season record with the given ID exists.
+     * @see JSON#getSeasonDetails(long) TheTVDBApi.JSON.getSeasonDetails(seasonId)
+     * @see Extended#getSeasonDetails(long) TheTVDBApi.Extended.getSeasonDetails(seasonId)
+     */
+    SeasonDetails getSeasonDetails(long seasonId) throws APIException;
 
     /**
      * Returns a list of available season types mapped as Java DTO.
@@ -1339,6 +1357,23 @@ public interface TheTVDBApi {
         JsonNode getSeason(long seasonId) throws APIException;
 
         /**
+         * Returns detailed information for a specific season as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/seasons/getSeasonExtended">
+         * <b>[GET]</b> /seasons/{id}/extended</a>
+         *
+         * @param seasonId The <i>TheTVDB.com</i> season ID
+         *
+         * @return JSON object containing detailed information for a specific season
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if no season record with the given ID exists.
+         * @see TheTVDBApi#getSeasonDetails(long) TheTVDBApi.getSeasonDetails(seasonId)
+         * @see Extended#getSeasonDetails(long) TheTVDBApi.Extended.getSeasonDetails(seasonId)
+         */
+        JsonNode getSeasonDetails(long seasonId) throws APIException;
+
+        /**
          * Returns a list of available season types as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/seasons/getSeasonTypes">
@@ -1981,6 +2016,24 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getSeason(long) TheTVDBApi.getSeason(seasonId)
          */
         APIResponse<Season> getSeason(long seasonId) throws APIException;
+
+        /**
+         * Returns a response object containing detailed information for a specific season mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/seasons/getSeasonExtended">
+         * <b>[GET]</b> /seasons/{id}/extended</a>
+         *
+         * @param seasonId The <i>TheTVDB.com</i> season ID
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if no season record with the given ID exists.
+         * @see JSON#getSeasonDetails(long) TheTVDBApi.JSON.getSeasonDetails(seasonId)
+         * @see TheTVDBApi#getSeasonDetails(long) TheTVDBApi.getSeasonDetails(seasonId)
+         */
+        APIResponse<SeasonDetails> getSeasonDetails(long seasonId) throws APIException;
 
         /**
          * Returns a response object containing a list of available season types mapped as Java DTO.
