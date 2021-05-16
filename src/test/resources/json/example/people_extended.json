@@ -1,0 +1,184 @@
+{
+  "data": {
+    "id": 5875,
+    "name": "Name1",
+    "image": "Image1",
+    "aliases": [
+      {
+        "language": "Language1",
+        "name": "Name1"
+      }, {
+        "language": "Language2",
+        "name": "Name2"
+      }
+    ],
+    "score": 24,
+    "nameTranslations": [
+      "NameTranslation1", "NameTranslation2"
+    ],
+    "overviewTranslations": [
+      "OverviewTranslation1", "OverviewTranslation2"
+    ],
+    "awards": [
+      {
+        "id": 47,
+        "name": "Name1"
+      }, {
+        "id": 48,
+        "name": "Name2"
+      }
+    ],
+    "biographies": [
+      {
+        "biography": "Biography1",
+        "language": "Language1"
+      }, {
+        "biography": "Biography2",
+        "language": "Language2"
+      }
+    ],
+    "birth": "Birth1",
+    "birthPlace": "BirthPlace1",
+    "characters": [
+      {
+        "id": 36487,
+        "name": "Name1",
+        "peopleId": 569,
+        "seriesId": 45,
+        "movieId": 364,
+        "episodeId": 975,
+        "type": 12,
+        "image": "Image1",
+        "sort": 3,
+        "isFeatured": true,
+        "url": "Url1",
+        "nameTranslations": [
+          "NameTranslation1", "NameTranslation2"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation1", "OverviewTranslation2"
+        ],
+        "aliases": [
+          {
+            "language": "Language1",
+            "name": "Name1"
+          }, {
+            "language": "Language2",
+            "name": "Name2"
+          }
+        ],
+        "peopleType": "PeopleType1",
+        "personName": "PersonName1"
+      }, {
+        "id": 36488,
+        "name": "Name2",
+        "peopleId": 570,
+        "seriesId": 46,
+        "movieId": 365,
+        "episodeId": 976,
+        "type": 13,
+        "image": "Image2",
+        "sort": 4,
+        "isFeatured": true,
+        "url": "Url2",
+        "nameTranslations": [
+          "NameTranslation3", "NameTranslation4"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation3", "OverviewTranslation4"
+        ],
+        "aliases": [
+          {
+            "language": "Language3",
+            "name": "Name3"
+          }, {
+            "language": "Language4",
+            "name": "Name4"
+          }
+        ],
+        "peopleType": "PeopleType2",
+        "personName": "PersonName2"
+      }
+    ],
+    "death": "Death1",
+    "gender": 3,
+    "races": [
+      {
+      }
+    ],
+    "remoteIds": [
+      {
+        "id": "Id1",
+        "type": 3070,
+        "sourceName": "SourceName1"
+      }, {
+        "id": "Id2",
+        "type": 3071,
+        "sourceName": "SourceName2"
+      }
+    ],
+    "tagOptions": [
+      {
+        "helpText": "HelpText1",
+        "id": 5797,
+        "name": "Name1",
+        "tag": 43,
+        "tagName": "TagName1"
+      }, {
+        "helpText": "HelpText2",
+        "id": 5798,
+        "name": "Name2",
+        "tag": 44,
+        "tagName": "TagName2"
+      }
+    ],
+    "translations": {
+      "nameTranslations": [
+        {
+          "name": "Name1",
+          "isAlias": true,
+          "overview": "Overview1",
+          "language": "Language1",
+          "isPrimary": true,
+          "aliases": [
+            "Alias1", "Alias2"
+          ]
+        }, {
+          "name": "Name2",
+          "isAlias": true,
+          "overview": "Overview2",
+          "language": "Language2",
+          "isPrimary": true,
+          "aliases": [
+            "Alias3", "Alias4"
+          ]
+        }
+      ],
+      "overviewTranslations": [
+        {
+          "name": "Name1",
+          "isAlias": true,
+          "overview": "Overview1",
+          "language": "Language1",
+          "isPrimary": true,
+          "aliases": [
+            "Alias1", "Alias2"
+          ]
+        }, {
+          "name": "Name2",
+          "isAlias": true,
+          "overview": "Overview2",
+          "language": "Language2",
+          "isPrimary": true,
+          "aliases": [
+            "Alias3", "Alias4"
+          ]
+        }
+      ],
+      "aliases": [
+        "Alias1", "Alias2"
+      ]
+    }
+  },
+  "status": "success"
+}

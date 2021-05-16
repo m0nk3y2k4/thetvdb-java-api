@@ -45,6 +45,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.MOVIE_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.MOVIE_LIST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.PEOPLE;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.PEOPLETYPE_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.PEOPLE_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASON;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASONTYPE_LIST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASON_DETAILS;
@@ -150,6 +151,7 @@ class TheTVDBApiImplTest {
             client.when(request("/movies/69745/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/people/types", GET)).respond(jsonResponse(PEOPLETYPE_LIST));
             client.when(request("/people/431071", GET)).respond(jsonResponse(PEOPLE));
+            client.when(request("/people/574101/extended", GET)).respond(jsonResponse(PEOPLE_DETAILS));
             client.when(request("/seasons/34167", GET)).respond(jsonResponse(SEASON));
             client.when(request("/seasons/69761/extended", GET)).respond(jsonResponse(SEASON_DETAILS));
             client.when(request("/seasons/types", GET)).respond(jsonResponse(SEASONTYPE_LIST));
@@ -204,6 +206,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getMovieTranslation(69745, "eng"), "getMovieTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getAllPeopleTypes(), "getAllPeopleTypes()"), PEOPLETYPE_LIST),
                     of(route(() -> basicAPI.getPeople(431071), "getPeople()"), PEOPLE),
+                    of(route(() -> basicAPI.getPeopleDetails(574101), "getPeopleDetails()"), PEOPLE_DETAILS),
                     of(route(() -> basicAPI.getSeason(34167), "getSeason()"), SEASON),
                     of(route(() -> basicAPI.getSeasonDetails(69761), "getSeasonDetails()"), SEASON_DETAILS),
                     of(route(() -> basicAPI.getSeasonTypes(), "getSeasonTypes()"), SEASONTYPE_LIST),
@@ -298,6 +301,7 @@ class TheTVDBApiImplTest {
             client.when(request("/movies/74810/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/people/types", GET)).respond(jsonResponse(PEOPLETYPE_LIST));
             client.when(request("/people/3647", GET)).respond(jsonResponse(PEOPLE));
+            client.when(request("/people/6904/extended", GET)).respond(jsonResponse(PEOPLE_DETAILS));
             client.when(request("/seasons/18322", GET)).respond(jsonResponse(SEASON));
             client.when(request("/seasons/48874/extended", GET)).respond(jsonResponse(SEASON_DETAILS));
             client.when(request("/seasons/types", GET)).respond(jsonResponse(SEASONTYPE_LIST));
@@ -345,6 +349,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getMovieTranslation(74810, "eng"), "getMovieTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getAllPeopleTypes(), "getAllPeopleTypes()"), PEOPLETYPE_LIST),
                     of(route(() -> basicAPI.getPeople(3647), "getPeople()"), PEOPLE),
+                    of(route(() -> basicAPI.getPeopleDetails(6904), "getPeopleDetails()"), PEOPLE_DETAILS),
                     of(route(() -> basicAPI.getSeason(18322), "getSeason()"), SEASON),
                     of(route(() -> basicAPI.getSeasonDetails(48874), "getSeasonDetails()"), SEASON_DETAILS),
                     of(route(() -> basicAPI.getSeasonTypes(), "getSeasonTypes()"), SEASONTYPE_LIST),
@@ -421,6 +426,7 @@ class TheTVDBApiImplTest {
             client.when(request("/movies/46011/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/people/types", GET)).respond(jsonResponse(PEOPLETYPE_LIST));
             client.when(request("/people/9891", GET)).respond(jsonResponse(PEOPLE));
+            client.when(request("/people/1067/extended", GET)).respond(jsonResponse(PEOPLE_DETAILS));
             client.when(request("/seasons/52270", GET)).respond(jsonResponse(SEASON));
             client.when(request("/seasons/69714/extended", GET)).respond(jsonResponse(SEASON_DETAILS));
             client.when(request("/seasons/types", GET)).respond(jsonResponse(SEASONTYPE_LIST));
@@ -468,6 +474,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getMovieTranslation(46011, "eng"), "getMovieTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getAllPeopleTypes(), "getAllPeopleTypes()"), PEOPLETYPE_LIST),
                     of(route(() -> basicAPI.getPeople(9891), "getPeople()"), PEOPLE),
+                    of(route(() -> basicAPI.getPeopleDetails(1067), "getPeopleDetails()"), PEOPLE_DETAILS),
                     of(route(() -> basicAPI.getSeason(52270), "getSeason()"), SEASON),
                     of(route(() -> basicAPI.getSeasonDetails(69714), "getSeasonDetails()"), SEASON_DETAILS),
                     of(route(() -> basicAPI.getSeasonTypes(), "getSeasonTypes()"), SEASONTYPE_LIST),

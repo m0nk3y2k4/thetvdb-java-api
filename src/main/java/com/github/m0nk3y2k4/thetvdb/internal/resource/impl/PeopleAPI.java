@@ -73,4 +73,23 @@ public final class PeopleAPI extends Resource {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
         return con.sendGET(createResource("/people/{id}", id));
     }
+
+    /**
+     * Returns extended information for a specific people record as raw JSON.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/people/getPeopleExtended">
+     * <b>[GET]</b> /people/{id}/extended</a>
+     *
+     * @param con Initialized connection to be used for API communication
+     * @param id  The <i>TheTVDB.com</i> people ID
+     *
+     * @return JSON object containing extended information for a specific people record
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no people
+     *                      record with the given ID exists, etc.
+     */
+    public static JsonNode getPeopleExtended(@Nonnull APIConnection con, long id) throws APIException {
+        Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
+        return con.sendGET(createResource("/people/{id}/extended", id));
+    }
 }

@@ -36,4 +36,10 @@ class PeopleIT {
     void getPeople(TheTVDBApi api) {
         assertThat(() -> api.getPeople(294100)).as("/people/294100").doesNotThrowAnyException();
     }
+
+    @Test
+    @Order(3)
+    void getPeopleDetails(TheTVDBApi api) {
+        assertThat(() -> api.getPeopleDetails(254786)).as("/people/254786/extended").doesNotThrowAnyException();
+    }
 }

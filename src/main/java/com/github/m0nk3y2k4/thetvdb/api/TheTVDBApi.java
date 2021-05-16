@@ -44,6 +44,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.MovieDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.PeopleDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.PeopleType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Season;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonDetails;
@@ -674,6 +675,23 @@ public interface TheTVDBApi {
      * @see Extended#getPeople(long) TheTVDBApi.Extended.getPeople(peopleId)
      */
     People getPeople(long peopleId) throws APIException;
+
+    /**
+     * Returns detailed information for a specific people mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/people/getPeopleExtended">
+     * <b>[GET]</b> /people/{id}/extended</a>
+     *
+     * @param peopleId The <i>TheTVDB.com</i> people ID
+     *
+     * @return Detailed people information mapped as Java DTO based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if no people record with the given ID exists.
+     * @see JSON#getPeopleDetails(long) TheTVDBApi.JSON.getPeopleDetails(peopleId)
+     * @see Extended#getPeopleDetails(long) TheTVDBApi.Extended.getPeopleDetails(peopleId)
+     */
+    PeopleDetails getPeopleDetails(long peopleId) throws APIException;
 
     /**
      * Returns basic information for a specific season mapped as Java DTO.
@@ -1340,6 +1358,23 @@ public interface TheTVDBApi {
         JsonNode getPeople(long peopleId) throws APIException;
 
         /**
+         * Returns detailed information for a specific people as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/people/getPeopleExtended">
+         * <b>[GET]</b> /people/{id}/extended</a>
+         *
+         * @param peopleId The <i>TheTVDB.com</i> people ID
+         *
+         * @return JSON object containing detailed information for a specific people
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if no people record with the given ID exists.
+         * @see TheTVDBApi#getPeopleDetails(long) TheTVDBApi.getPeopleDetails(peopleId)
+         * @see Extended#getPeopleDetails(long) TheTVDBApi.Extended.getPeopleDetails(peopleId)
+         */
+        JsonNode getPeopleDetails(long peopleId) throws APIException;
+
+        /**
          * Returns basic information for a specific season as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/seasons/getSeasonBase">
@@ -1998,6 +2033,24 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getPeople(long) TheTVDBApi.getPeople(peopleId)
          */
         APIResponse<People> getPeople(long peopleId) throws APIException;
+
+        /**
+         * Returns a response object containing detailed information for a specific people mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/people/getPeopleExtended">
+         * <b>[GET]</b> /people/{id}/extended</a>
+         *
+         * @param peopleId The <i>TheTVDB.com</i> people ID
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if no people record with the given ID exists.
+         * @see JSON#getPeopleDetails(long) TheTVDBApi.JSON.getPeopleDetails(peopleId)
+         * @see TheTVDBApi#getPeopleDetails(long) TheTVDBApi.getPeopleDetails(peopleId)
+         */
+        APIResponse<PeopleDetails> getPeopleDetails(long peopleId) throws APIException;
 
         /**
          * Returns a response object containing basic information for a specific season mapped as Java DTO.

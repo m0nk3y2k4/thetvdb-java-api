@@ -44,6 +44,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategory;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardCategoryDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardNominee;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Biography;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Company;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.CompanyType;
@@ -58,7 +59,9 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.MovieDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Network;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.PeopleDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.PeopleType;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Race;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Release;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.RemoteId;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Season;
@@ -84,6 +87,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AwardCategoryDe
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AwardDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AwardDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AwardNomineeDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.BiographyDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CharacterDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CompanyDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CompanyTypeDTO;
@@ -98,7 +102,9 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.NetworkDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.PeopleDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.PeopleDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.PeopleTypeDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.RaceDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ReleaseDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.RemoteIdDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeasonDTO;
@@ -196,6 +202,8 @@ public abstract class ResponseData<T> {
             "peopletype_list", peopleTypeList(), "List of people types JSON response") {};
     public static final ResponseData<APIResponse<People>> PEOPLE = new ResponseData<>(
             "people", people(FULL), "Single people JSON response") {};
+    public static final ResponseData<APIResponse<PeopleDetails>> PEOPLE_DETAILS = new ResponseData<>(
+            "people_extended", peopleDetails(FULL), "Single extended people JSON response") {};
 
     //************************ seasons **********************
     public static final ResponseData<APIResponse<Season>> SEASON = new ResponseData<>(
@@ -361,6 +369,10 @@ public abstract class ResponseData<T> {
 
     private static APIResponse<People> people(Shape shape) {
         return createAPIResponse(create(peopleModel(), shape));
+    }
+
+    private static APIResponse<PeopleDetails> peopleDetails(Shape shape) {
+        return createAPIResponse(create(peopleDetailsModel(), shape));
     }
 
     private static APIResponse<List<PeopleType>> peopleTypeList() {
@@ -538,6 +550,10 @@ public abstract class ResponseData<T> {
             }
             return builder.build();
         };
+    }
+
+    private static SimpleDtoSupplier<Biography> biographyModel() {
+        return idx -> new BiographyDTO.Builder().biography("Biography" + idx).language("Language" + idx).build();
     }
 
     private static DtoSupplier<Character> characterModel() {
@@ -733,8 +749,34 @@ public abstract class ResponseData<T> {
         };
     }
 
+    private static DtoSupplier<PeopleDetails> peopleDetailsModel() {
+        return (idx, shape) -> {
+            PeopleDetailsDTO.Builder builder = new PeopleDetailsDTO.Builder();
+            if (shape == FULL) {
+                int listOffset = (idx << 1) - 1;
+                builder.id(5874L + idx).name("Name" + idx).image("Image" + idx).score(23L + idx).birth("Birth" + idx)
+                        .birthPlace("BirthPlace" + idx).death("Death" + idx).gender(2L + idx)
+                        .aliases(createTwo(aliasModel(), listOffset))
+                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                        .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
+                        .awards(createTwo(awardModel(), listOffset))
+                        .biographies(createTwo(biographyModel(), listOffset))
+                        .characters(createTwo(characterModel(), listOffset))
+                        .races(create(1, raceModel(), idx, shape))
+                        .remoteIds(createTwo(remoteIdModel(), listOffset))
+                        .tagOptions(createTwo(tagOptionModel(), listOffset))
+                        .translations(create(translationsModel(), listOffset));
+            }
+            return builder.build();
+        };
+    }
+
     private static SimpleDtoSupplier<PeopleType> peopleTypeModel() {
         return idx -> new PeopleTypeDTO.Builder().id(21L + idx).name("Name" + idx).build();
+    }
+
+    private static SimpleDtoSupplier<Race> raceModel() {
+        return idx -> new RaceDTO.Builder().build();
     }
 
     private static SimpleDtoSupplier<Release> releaseModel() {
