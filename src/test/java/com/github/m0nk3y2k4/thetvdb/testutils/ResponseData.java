@@ -19,6 +19,7 @@ package com.github.m0nk3y2k4.thetvdb.testutils;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.Shape.FULL;
 import static java.lang.Boolean.TRUE;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.util.Collections.singletonList;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -49,10 +50,12 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Company;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.CompanyType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ContentRating;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Entity;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EpisodeDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.FCList;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.FCListDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Gender;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
@@ -92,10 +95,12 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CharacterDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CompanyDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CompanyTypeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ContentRatingDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EntityDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EntityTypeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EpisodeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EpisodeDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.FCListDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.FCListDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.GenderDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.GenreDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO;
@@ -179,6 +184,14 @@ public abstract class ResponseData<T> {
     public static final ResponseData<APIResponse<EpisodeDetails>> EPISODE_DETAILS = new ResponseData<>(
             "episode_extended", episodeDetails(FULL), "Single extended episode JSON response") {};
 
+    //************************* lists ***********************
+    public static final ResponseData<APIResponse<List<FCList>>> LIST_LIST = new ResponseData<>(
+            "list_list", listList(), "List of lists JSON response") {};
+    public static final ResponseData<APIResponse<FCList>> LIST = new ResponseData<>(
+            "list", list(FULL), "Single list JSON response") {};
+    public static final ResponseData<APIResponse<FCListDetails>> LIST_DETAILS = new ResponseData<>(
+            "list_extended", listDetails(FULL), "Single extended list JSON response") {};
+
     //************************ genders **********************
     public static final ResponseData<APIResponse<List<Gender>>> GENDER_LIST = new ResponseData<>(
             "gender_list", genderList(), "List of genders JSON response") {};
@@ -228,6 +241,9 @@ public abstract class ResponseData<T> {
     //********************** translations *******************
     public static final ResponseData<APIResponse<Translation>> TRANSLATION = new ResponseData<>(
             "translation", translation(FULL), "Single translated entity JSON response") {};
+    // ToDo: Remove this and switch to single translation object after remote API has been fixed
+    public static final ResponseData<APIResponse<List<Translation>>> TRANSLATION_LIST = new ResponseData<>(
+            "translation_list", createAPIResponse(singletonList(create(translationModel(), FULL))), "List of translated entities JSON response") {};
     //@EnableFormatting
 
     /**
@@ -341,6 +357,18 @@ public abstract class ResponseData<T> {
 
     private static APIResponse<EpisodeDetails> episodeDetails(Shape shape) {
         return createAPIResponse(create(episodeDetailsModel(), shape));
+    }
+
+    private static APIResponse<FCList> list(Shape shape) {
+        return createAPIResponse(create(listModel(), shape));
+    }
+
+    private static APIResponse<FCListDetails> listDetails(Shape shape) {
+        return createAPIResponse(create(listDetailsModel(), shape));
+    }
+
+    private static APIResponse<List<FCList>> listList() {
+        return createAPIResponse(createTwo(listModel()));
     }
 
     private static APIResponse<Genre> genre() {
@@ -600,6 +628,10 @@ public abstract class ResponseData<T> {
                 .fullname("Fullname" + idx).build();
     }
 
+    private static SimpleDtoSupplier<Entity> entityModel() {
+        return idx -> new EntityDTO.Builder().order(6L + idx).seriesId(2835L + idx).movieId(1264L + idx).build();
+    }
+
     private static SimpleDtoSupplier<EntityType> entityTypeModel() {
         return idx -> new EntityTypeDTO.Builder().id(603L + idx).name("Name" + idx).hasSpecials(true).build();
     }
@@ -655,6 +687,22 @@ public abstract class ResponseData<T> {
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .aliases(createTwo(aliasModel(), listOffset));
+            }
+            return builder.build();
+        };
+    }
+
+    private static DtoSupplier<FCListDetails> listDetailsModel() {
+        return (idx, shape) -> {
+            FCListDetailsDTO.Builder builder = new FCListDetailsDTO.Builder();
+            if (shape == FULL) {
+                int listOffset = (idx << 1) - 1;
+                builder.id(66L + idx).name("Name" + idx).overview("Overview" + idx).url("Url" + idx).isOfficial(true)
+                        .score(8L + idx)
+                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                        .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
+                        .aliases(createTwo(aliasModel(), listOffset))
+                        .entities(createTwo(entityModel(), listOffset));
             }
             return builder.build();
         };

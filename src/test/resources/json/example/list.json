@@ -1,0 +1,25 @@
+{
+  "data": {
+    "id": 95,
+    "name": "Name1",
+    "overview": "Overview1",
+    "url": "Url1",
+    "isOfficial": true,
+    "nameTranslations": [
+      "NameTranslation1", "NameTranslation2"
+    ],
+    "overviewTranslations": [
+      "OverviewTranslation1", "OverviewTranslation2"
+    ],
+    "aliases": [
+      {
+        "language": "Language1",
+        "name": "Name1"
+      }, {
+        "language": "Language2",
+        "name": "Name2"
+      }
+    ]
+  },
+  "status": "success"
+}

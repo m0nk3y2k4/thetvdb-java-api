@@ -146,10 +146,10 @@ the upcoming APIv4.
 - ~~Languages~~
     - [ ] [~~/languages~~](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/languages/getAllLanguages)
 - Lists
-    - [ ] [/lists/{id}/translations/{language}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getListTranslation)
-    - [ ] [/lists](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getAllLists)
-    - [ ] [/lists/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getList)
-    - [ ] [/lists/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getListExtended)
+    - [x] [/lists/{id}/translations/{language}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getListTranslation)
+    - [x] [/lists](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getAllLists)
+    - [x] [/lists/{id}](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getList)
+    - [x] [/lists/{id}/extended](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getListExtended)
 - Login
     - [x] [/login](https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/login/post_login)
 - Movie statuses

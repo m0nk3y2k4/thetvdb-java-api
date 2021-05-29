@@ -47,6 +47,8 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.ContentRating;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EpisodeDetails;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.FCList;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.FCListDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Gender;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
@@ -61,6 +63,8 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Status;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Translation;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.APIResponseDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TranslationDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ArtworkAPI;
@@ -72,6 +76,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.EntityTypesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.EpisodesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.GendersAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.GenresAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ListsAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.LoginAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.MoviesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.PeopleAPI;
@@ -298,6 +303,32 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public Translation getListTranslation(long listId, @Nonnull String language) throws APIException {
+        return extended().getListTranslation(listId, language).getData();
+    }
+
+    @Override
+    public List<FCList> getAllLists(QueryParameters queryParameters) throws APIException {
+        return extended().getAllLists(queryParameters).getData();
+    }
+
+    @Override
+    public List<FCList> getAllLists(long page) throws APIException {
+        validatePage(page);
+        return getAllLists(query(Map.of(Query.Lists.PAGE, String.valueOf(page))));
+    }
+
+    @Override
+    public FCList getList(long listId) throws APIException {
+        return extended().getList(listId).getData();
+    }
+
+    @Override
+    public FCListDetails getListDetails(long listId) throws APIException {
+        return extended().getListDetails(listId).getData();
+    }
+
+    @Override
     public List<Gender> getAllGenders() throws APIException {
         return extended().getAllGenders().getData();
     }
@@ -517,6 +548,26 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public JsonNode getListTranslation(long listId, @Nonnull String language) throws APIException {
+            return ListsAPI.getListTranslation(con, listId, language);
+        }
+
+        @Override
+        public JsonNode getAllLists(QueryParameters queryParameters) throws APIException {
+            return ListsAPI.getAllLists(con, queryParameters);
+        }
+
+        @Override
+        public JsonNode getList(long listId) throws APIException {
+            return ListsAPI.getListBase(con, listId);
+        }
+
+        @Override
+        public JsonNode getListDetails(long listId) throws APIException {
+            return ListsAPI.getListExtended(con, listId);
+        }
+
+        @Override
         public JsonNode getAllGenders() throws APIException {
             return GendersAPI.getAllGenders(con);
         }
@@ -713,6 +764,31 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         public APIResponse<Translation> getEpisodeTranslation(long episodeId, @Nonnull String language)
                 throws APIException {
             return APIJsonMapper.readValue(json().getEpisodeTranslation(episodeId, language), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<Translation> getListTranslation(long listId, @Nonnull String language) throws APIException {
+            // ToDo: Route is currently declared to return a single Translation object but the JSON actually contains an array. Check again after next API update.
+            APIResponse<List<Translation>> apiResponse = APIJsonMapper
+                    .readValue(json().getListTranslation(listId, language), new TypeReference<>() {});
+            return new APIResponseDTO.Builder<Translation>().status(apiResponse.getStatus())
+                    .data(apiResponse.getData().stream().findFirst()
+                            .orElseGet(() -> new TranslationDTO.Builder().build())).build();
+        }
+
+        @Override
+        public APIResponse<List<FCList>> getAllLists(QueryParameters queryParameters) throws APIException {
+            return APIJsonMapper.readValue(json().getAllLists(queryParameters), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<FCList> getList(long listId) throws APIException {
+            return APIJsonMapper.readValue(json().getList(listId), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<FCListDetails> getListDetails(long listId) throws APIException {
+            return APIJsonMapper.readValue(json().getListDetails(listId), new TypeReference<>() {});
         }
 
         @Override

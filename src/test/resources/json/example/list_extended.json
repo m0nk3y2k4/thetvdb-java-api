@@ -1,0 +1,37 @@
+{
+  "data": {
+    "id": 67,
+    "name": "Name1",
+    "overview": "Overview1",
+    "url": "Url1",
+    "isOfficial": true,
+    "score": 9,
+    "nameTranslations": [
+      "NameTranslation1", "NameTranslation2"
+    ],
+    "overviewTranslations": [
+      "OverviewTranslation1", "OverviewTranslation2"
+    ],
+    "aliases": [
+      {
+        "language": "Language1",
+        "name": "Name1"
+      }, {
+        "language": "Language2",
+        "name": "Name2"
+      }
+    ],
+    "entities": [
+      {
+        "order": 7,
+        "seriesId": 2836,
+        "movieId": 1265
+      }, {
+        "order": 8,
+        "seriesId": 2837,
+        "movieId": 1266
+      }
+    ]
+  },
+  "status": "success"
+}

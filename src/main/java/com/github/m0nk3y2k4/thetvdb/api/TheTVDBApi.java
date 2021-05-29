@@ -39,6 +39,8 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.ContentRating;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EpisodeDetails;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.FCList;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.FCListDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Gender;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
@@ -494,6 +496,90 @@ public interface TheTVDBApi {
      *         language)
      */
     Translation getEpisodeTranslation(long episodeId, @Nonnull String language) throws APIException;
+
+    /**
+     * Returns a translation record for a specific list mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getListTranslation">
+     * <b>[GET]</b> /lists/{id}/translations/{language}</a>
+     *
+     * @param listId   The <i>TheTVDB.com</i> list ID
+     * @param language The 2- or 3-character language code
+     *
+     * @return List translation record mapped as Java DTO based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if no list translation record exists for the given ID and language.
+     * @see JSON#getListTranslation(long, String) TheTVDBApi.JSON.getListTranslation(listId, language)
+     * @see Extended#getListTranslation(long, String) TheTVDBApi.Extended.getListTranslation(listId, language)
+     */
+    Translation getListTranslation(long listId, @Nonnull String language) throws APIException;
+
+    /**
+     * Returns a list of available lists mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getAllLists">
+     * <b>[GET]</b> /lists</a>
+     *
+     * @param queryParameters Object containing key/value pairs of query parameters
+     *
+     * @return List of available lists mapped as Java DTO's based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see JSON#getAllLists(QueryParameters) TheTVDBApi.JSON.getAllLists(queryParameters)
+     * @see Extended#getAllLists(QueryParameters) TheTVDBApi.Extended.getAllLists(queryParameters)
+     */
+    List<FCList> getAllLists(QueryParameters queryParameters) throws APIException;
+
+    /**
+     * Returns a limited list of lists mapped as Java DTO. Due to the large amount of available lists, the result will
+     * be paginated. Use the <em>{@code page}</em> parameter to browse to a specific result page. This is a
+     * shortcut-method for {@link #getAllLists(QueryParameters) getAllLists(queryParameters)} with a single "page" query
+     * parameter.
+     *
+     * @param page The result page to be returned (zero-based)
+     *
+     * @return List of lists mapped as Java DTO's based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     */
+    List<FCList> getAllLists(long page) throws APIException;
+
+    /**
+     * Returns basic information for a specific list mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getList">
+     * <b>[GET]</b> /lists/{id}</a>
+     *
+     * @param listId The <i>TheTVDB.com</i> list ID
+     *
+     * @return Basic list information mapped as Java DTO based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if no list record with the given ID exists.
+     * @see JSON#getList(long) TheTVDBApi.JSON.getList(listId)
+     * @see Extended#getList(long) TheTVDBApi.Extended.getList(listId)
+     */
+    FCList getList(long listId) throws APIException;
+
+    /**
+     * Returns detailed information for a specific list mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getListExtended">
+     * <b>[GET]</b> /lists/{id}/extended</a>
+     *
+     * @param listId The <i>TheTVDB.com</i> list ID
+     *
+     * @return Detailed list information mapped as Java DTO based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if no list record with the given ID exists.
+     * @see JSON#getListDetails(long) TheTVDBApi.JSON.getListDetails(listId)
+     * @see Extended#getListDetails(long) TheTVDBApi.Extended.getListDetails(listId)
+     */
+    FCListDetails getListDetails(long listId) throws APIException;
 
     /**
      * Returns a list of available genders mapped as Java DTO.
@@ -1192,6 +1278,76 @@ public interface TheTVDBApi {
         JsonNode getEpisodeTranslation(long episodeId, @Nonnull String language) throws APIException;
 
         /**
+         * Returns a translation record for a specific list as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getListTranslation">
+         * <b>[GET]</b> /lists/{id}/translations/{language}</a>
+         *
+         * @param listId   The <i>TheTVDB.com</i> list ID
+         * @param language The 2- or 3-character language code
+         *
+         * @return JSON object containing a translation record for a specific list
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if no list translation record exists for the given ID and
+         *                      language.
+         * @see TheTVDBApi#getListTranslation(long, String) TheTVDBApi.getListTranslation(listId, language)
+         * @see Extended#getListTranslation(long, String) TheTVDBApi.Extended.getListTranslation(listId, language)
+         */
+        JsonNode getListTranslation(long listId, @Nonnull String language) throws APIException;
+
+        /**
+         * Returns a list of available lists as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getAllLists">
+         * <b>[GET]</b> /lists</a>
+         *
+         * @param queryParameters Object containing key/value pairs of query parameters
+         *
+         * @return JSON object containing a list of available lists
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see TheTVDBApi#getAllLists(QueryParameters) TheTVDBApi.getAllLists(queryParameters)
+         * @see Extended#getAllLists(QueryParameters) TheTVDBApi.Extended.getAllLists(queryParameters)
+         */
+        JsonNode getAllLists(QueryParameters queryParameters) throws APIException;
+
+        /**
+         * Returns basic information for a specific list as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getList">
+         * <b>[GET]</b> /lists/{id}</a>
+         *
+         * @param listId The <i>TheTVDB.com</i> list ID
+         *
+         * @return JSON object containing basic information for a specific list
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if no list record with the given ID exists.
+         * @see TheTVDBApi#getList(long) TheTVDBApi.getList(listId)
+         * @see Extended#getList(long) TheTVDBApi.Extended.getList(listId)
+         */
+        JsonNode getList(long listId) throws APIException;
+
+        /**
+         * Returns detailed information for a specific list as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getListExtended">
+         * <b>[GET]</b> /lists/{id}/extended</a>
+         *
+         * @param listId The <i>TheTVDB.com</i> list ID
+         *
+         * @return JSON object containing detailed information for a specific list
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if no list record with the given ID exists.
+         * @see TheTVDBApi#getListDetails(long) TheTVDBApi.getListDetails(listId)
+         * @see Extended#getListDetails(long) TheTVDBApi.Extended.getListDetails(listId)
+         */
+        JsonNode getListDetails(long listId) throws APIException;
+
+        /**
          * Returns a list of available genders as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/genders/getAllGenders">
@@ -1858,6 +2014,80 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getEpisodeTranslation(long, String) TheTVDBApi.getEpisodeTranslation(episodeId, language)
          */
         APIResponse<Translation> getEpisodeTranslation(long episodeId, @Nonnull String language) throws APIException;
+
+        /**
+         * Returns a response object containing a translation record for a specific list mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getListTranslation">
+         * <b>[GET]</b> /lists/{id}/translations/{language}</a>
+         *
+         * @param listId   The <i>TheTVDB.com</i> list ID
+         * @param language The 2- or 3-character language code
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if no list translation record exists for the given ID and
+         *                      language.
+         * @see JSON#getListTranslation(long, String) TheTVDBApi.JSON.getListTranslation(listId, language)
+         * @see TheTVDBApi#getListTranslation(long, String) TheTVDBApi.getListTranslation(listId, language)
+         */
+        APIResponse<Translation> getListTranslation(long listId, @Nonnull String language) throws APIException;
+
+        /**
+         * Returns a response object containing a list of available lists mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getAllLists">
+         * <b>[GET]</b> /lists</a>
+         *
+         * @param queryParameters Object containing key/value pairs of query parameters
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see JSON#getAllLists(QueryParameters) TheTVDBApi.JSON.getAllLists(queryParameters)
+         * @see TheTVDBApi#getAllLists(QueryParameters) TheTVDBApi.getAllLists(queryParameters)
+         */
+        APIResponse<List<FCList>> getAllLists(QueryParameters queryParameters) throws APIException;
+
+        /**
+         * Returns a response object containing basic information for a specific list mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getList">
+         * <b>[GET]</b> /lists/{id}</a>
+         *
+         * @param listId The <i>TheTVDB.com</i> list ID
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if no list record with the given ID exists.
+         * @see JSON#getList(long) TheTVDBApi.JSON.getList(listId)
+         * @see TheTVDBApi#getList(long) TheTVDBApi.getList(listId)
+         */
+        APIResponse<FCList> getList(long listId) throws APIException;
+
+        /**
+         * Returns a response object containing detailed information for a specific list mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getListExtended">
+         * <b>[GET]</b> /lists/{id}/extended</a>
+         *
+         * @param listId The <i>TheTVDB.com</i> list ID
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if no list record with the given ID exists.
+         * @see JSON#getListDetails(long) TheTVDBApi.JSON.getListDetails(listId)
+         * @see TheTVDBApi#getListDetails(long) TheTVDBApi.getListDetails(listId)
+         */
+        APIResponse<FCListDetails> getListDetails(long listId) throws APIException;
 
         /**
          * Returns a response object containing a list of available genders mapped as Java DTO.
