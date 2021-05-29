@@ -25,8 +25,8 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.params;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.COMPANY;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.COMPANYTYPE_LIST;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.COMPANY_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.COMPANYTYPE_OVERVIEW;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.COMPANY_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -52,8 +52,8 @@ class CompaniesAPITest {
     //@DisableFormatting
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
-        client.when(request("/companies", GET, param("page", "1"))).respond(jsonResponse(COMPANY_LIST));
-        client.when(request("/companies/types", GET)).respond(jsonResponse(COMPANYTYPE_LIST));
+        client.when(request("/companies", GET, param("page", "1"))).respond(jsonResponse(COMPANY_OVERVIEW));
+        client.when(request("/companies/types", GET)).respond(jsonResponse(COMPANYTYPE_OVERVIEW));
         client.when(request("/companies/749", GET)).respond(jsonResponse(COMPANY));
     }
 
@@ -67,8 +67,8 @@ class CompaniesAPITest {
     @SuppressWarnings("Convert2MethodRef")
     private static Stream<Arguments> withValidParameters() {
         return Stream.of(
-                of(route(con -> getAllCompanies(con, params("page", "1")), "getAllCompanies()"), COMPANY_LIST),
-                of(route(con -> getCompanyTypes(con), "getCompanyTypes()"), COMPANYTYPE_LIST),
+                of(route(con -> getAllCompanies(con, params("page", "1")), "getAllCompanies()"), COMPANY_OVERVIEW),
+                of(route(con -> getCompanyTypes(con), "getCompanyTypes()"), COMPANYTYPE_OVERVIEW),
                 of(route(con -> getCompany(con, 749), "getCompany()"), COMPANY)
         );
     }

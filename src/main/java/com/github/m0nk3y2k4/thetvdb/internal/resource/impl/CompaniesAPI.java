@@ -37,7 +37,7 @@ public final class CompaniesAPI extends QueryResource {
     private CompaniesAPI() {}       // Private constructor. Only static methods
 
     /**
-     * Returns a list of companies based on the given query parameters as raw JSON.
+     * Returns an overview of companies based on the given query parameters as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/companies/getAllCompanies">
      * <b>[GET]</b> /companies</a>
@@ -55,7 +55,7 @@ public final class CompaniesAPI extends QueryResource {
     }
 
     /**
-     * Returns a list of available company types as raw JSON.
+     * Returns an overview of available company types as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/companies/getCompanyTypes">
      * <b>[GET]</b> /companies/types</a>

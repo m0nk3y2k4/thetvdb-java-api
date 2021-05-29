@@ -36,7 +36,7 @@ public final class GendersAPI extends Resource {
     private GendersAPI() {}        // Private constructor. Only static methods
 
     /**
-     * Returns a list of available genders as raw JSON.
+     * Returns an overview of available genders as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/genders/getAllGenders">
      * <b>[GET]</b> /genders</a>

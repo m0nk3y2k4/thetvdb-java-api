@@ -24,40 +24,40 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.params;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORK;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORKSTATUS_LIST;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORKTYPE_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORKSTATUS_OVERVIEW;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORKTYPE_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORK_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.AWARDCATEGORY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.AWARDCATEGORY_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.CHARACTER;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.COMPANY;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.COMPANYTYPE_LIST;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.COMPANY_LIST;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.CONTENTRATING_LIST;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ENTITYTYPE_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.COMPANYTYPE_OVERVIEW;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.COMPANY_OVERVIEW;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.CONTENTRATING_OVERVIEW;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ENTITYTYPE_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.EPISODE;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.EPISODE_DETAILS;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.GENDER_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.GENDER_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.GENRE;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.GENRE_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.GENRE_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.LIST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.LIST_DETAILS;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.LIST_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.LIST_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.MOVIE;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.MOVIE_DETAILS;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.MOVIE_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.MOVIE_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.PEOPLE;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.PEOPLETYPE_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.PEOPLETYPE_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.PEOPLE_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASON;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASONTYPE_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASONTYPE_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASON_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES_DETAILS;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES_LIST;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.STATUS_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES_OVERVIEW;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.STATUS_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.TRANSLATION;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.TRANSLATION_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.TRANSLATIONS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestTheTVDBAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
@@ -128,50 +128,50 @@ class TheTVDBApiImplTest {
         //@DisableFormatting
         @BeforeAll
         void setUpRoutes(MockServerClient client) throws Exception {
-            client.when(request("/artwork/statuses", GET)).respond(jsonResponse(ARTWORKSTATUS_LIST));
-            client.when(request("/artwork/types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
+            client.when(request("/artwork/statuses", GET)).respond(jsonResponse(ARTWORKSTATUS_OVERVIEW));
+            client.when(request("/artwork/types", GET)).respond(jsonResponse(ARTWORKTYPE_OVERVIEW));
             client.when(request("/artwork/3447", GET)).respond(jsonResponse(ARTWORK));
             client.when(request("/artwork/9403/extended", GET)).respond(jsonResponse(ARTWORK_DETAILS));
             client.when(request("/awards/categories/830", GET)).respond(jsonResponse(AWARDCATEGORY));
             client.when(request("/awards/categories/574/extended", GET)).respond(jsonResponse(AWARDCATEGORY_DETAILS));
             client.when(request("/characters/604784", GET)).respond(jsonResponse(CHARACTER));
-            client.when(request("/companies", GET)).respond(jsonResponse(COMPANY_LIST));
-            client.when(request("/companies", GET, param("value", "QueryCompanies"))).respond(jsonResponse(COMPANY_LIST));
-            client.when(request("/companies", GET, param(Companies.PAGE, "1"))).respond(jsonResponse(COMPANY_LIST));
-            client.when(request("/companies/types", GET)).respond(jsonResponse(COMPANYTYPE_LIST));
+            client.when(request("/companies", GET)).respond(jsonResponse(COMPANY_OVERVIEW));
+            client.when(request("/companies", GET, param("value", "QueryCompanies"))).respond(jsonResponse(COMPANY_OVERVIEW));
+            client.when(request("/companies", GET, param(Companies.PAGE, "1"))).respond(jsonResponse(COMPANY_OVERVIEW));
+            client.when(request("/companies/types", GET)).respond(jsonResponse(COMPANYTYPE_OVERVIEW));
             client.when(request("/companies/241", GET)).respond(jsonResponse(COMPANY));
-            client.when(request("/content/ratings", GET)).respond(jsonResponse(CONTENTRATING_LIST));
-            client.when(request("/entities/types", GET)).respond(jsonResponse(ENTITYTYPE_LIST));
+            client.when(request("/content/ratings", GET)).respond(jsonResponse(CONTENTRATING_OVERVIEW));
+            client.when(request("/entities/types", GET)).respond(jsonResponse(ENTITYTYPE_OVERVIEW));
             client.when(request("/episodes/141007", GET)).respond(jsonResponse(EPISODE));
             client.when(request("/episodes/37017/extended", GET)).respond(jsonResponse(EPISODE_DETAILS));
             client.when(request("/episodes/35744/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
-            client.when(request("/lists/54047/translations/fra", GET)).respond(jsonResponse(TRANSLATION_LIST));
-            client.when(request("/lists", GET)).respond(jsonResponse(LIST_LIST));
-            client.when(request("/lists", GET, param("value", "QueryLists"))).respond(jsonResponse(LIST_LIST));
-            client.when(request("/lists", GET, param(Lists.PAGE, "4"))).respond(jsonResponse(LIST_LIST));
+            client.when(request("/lists/54047/translations/fra", GET)).respond(jsonResponse(TRANSLATIONS));
+            client.when(request("/lists", GET)).respond(jsonResponse(LIST_OVERVIEW));
+            client.when(request("/lists", GET, param("value", "QueryLists"))).respond(jsonResponse(LIST_OVERVIEW));
+            client.when(request("/lists", GET, param(Lists.PAGE, "4"))).respond(jsonResponse(LIST_OVERVIEW));
             client.when(request("/lists/6740", GET)).respond(jsonResponse(LIST));
             client.when(request("/lists/7901/extended", GET)).respond(jsonResponse(LIST_DETAILS));
-            client.when(request("/genders", GET)).respond(jsonResponse(GENDER_LIST));
-            client.when(request("/genres", GET)).respond(jsonResponse(GENRE_LIST));
+            client.when(request("/genders", GET)).respond(jsonResponse(GENDER_OVERVIEW));
+            client.when(request("/genres", GET)).respond(jsonResponse(GENRE_OVERVIEW));
             client.when(request("/genres/47", GET)).respond(jsonResponse(GENRE));
-            client.when(request("/movies/statuses", GET)).respond(jsonResponse(STATUS_LIST));
-            client.when(request("/movies", GET)).respond(jsonResponse(MOVIE_LIST));
-            client.when(request("/movies", GET, param("value", "QueryMovies"))).respond(jsonResponse(MOVIE_LIST));
-            client.when(request("/movies", GET, param(Movies.PAGE, "3"))).respond(jsonResponse(MOVIE_LIST));
+            client.when(request("/movies/statuses", GET)).respond(jsonResponse(STATUS_OVERVIEW));
+            client.when(request("/movies", GET)).respond(jsonResponse(MOVIE_OVERVIEW));
+            client.when(request("/movies", GET, param("value", "QueryMovies"))).respond(jsonResponse(MOVIE_OVERVIEW));
+            client.when(request("/movies", GET, param(Movies.PAGE, "3"))).respond(jsonResponse(MOVIE_OVERVIEW));
             client.when(request("/movies/54394", GET)).respond(jsonResponse(MOVIE));
             client.when(request("/movies/46994/extended", GET)).respond(jsonResponse(MOVIE_DETAILS));
             client.when(request("/movies/69745/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
-            client.when(request("/people/types", GET)).respond(jsonResponse(PEOPLETYPE_LIST));
+            client.when(request("/people/types", GET)).respond(jsonResponse(PEOPLETYPE_OVERVIEW));
             client.when(request("/people/431071", GET)).respond(jsonResponse(PEOPLE));
             client.when(request("/people/574101/extended", GET)).respond(jsonResponse(PEOPLE_DETAILS));
             client.when(request("/seasons/34167", GET)).respond(jsonResponse(SEASON));
             client.when(request("/seasons/69761/extended", GET)).respond(jsonResponse(SEASON_DETAILS));
-            client.when(request("/seasons/types", GET)).respond(jsonResponse(SEASONTYPE_LIST));
+            client.when(request("/seasons/types", GET)).respond(jsonResponse(SEASONTYPE_OVERVIEW));
             client.when(request("/seasons/27478/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
-            client.when(request("/series/statuses", GET)).respond(jsonResponse(STATUS_LIST));
-            client.when(request("/series", GET)).respond(jsonResponse(SERIES_LIST));
-            client.when(request("/series", GET, param("value", "QuerySeries"))).respond(jsonResponse(SERIES_LIST));
-            client.when(request("/series", GET, param(Series.PAGE, "2"))).respond(jsonResponse(SERIES_LIST));
+            client.when(request("/series/statuses", GET)).respond(jsonResponse(STATUS_OVERVIEW));
+            client.when(request("/series", GET)).respond(jsonResponse(SERIES_OVERVIEW));
+            client.when(request("/series", GET, param("value", "QuerySeries"))).respond(jsonResponse(SERIES_OVERVIEW));
+            client.when(request("/series", GET, param(Series.PAGE, "2"))).respond(jsonResponse(SERIES_OVERVIEW));
             client.when(request("/series/2845", GET)).respond(jsonResponse(SERIES));
             client.when(request("/series/9041/extended", GET)).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/6004/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
@@ -190,50 +190,50 @@ class TheTVDBApiImplTest {
             return Stream.of(
                     of(route(() -> basicAPI.init(), "init()"), verify("/login", POST)),
                     of(route(() -> basicAPI.login(), "login()"), verify("/login", POST)),
-                    of(route(() -> basicAPI.getAllArtworkStatuses(), "getAllArtworkStatuses()"), ARTWORKSTATUS_LIST),
-                    of(route(() -> basicAPI.getAllArtworkTypes(), "getAllArtworkTypes()"), ARTWORKTYPE_LIST),
+                    of(route(() -> basicAPI.getAllArtworkStatuses(), "getAllArtworkStatuses()"), ARTWORKSTATUS_OVERVIEW),
+                    of(route(() -> basicAPI.getAllArtworkTypes(), "getAllArtworkTypes()"), ARTWORKTYPE_OVERVIEW),
                     of(route(() -> basicAPI.getArtwork(3447), "getArtwork()"), ARTWORK),
                     of(route(() -> basicAPI.getArtworkDetails(9403), "getArtworkDetails()"), ARTWORK_DETAILS),
                     of(route(() -> basicAPI.getAwardCategory(830), "getAwardCategory()"), AWARDCATEGORY),
                     of(route(() -> basicAPI.getAwardCategoryDetails(574), "getAwardCategoryDetails()"), AWARDCATEGORY_DETAILS),
                     of(route(() -> basicAPI.getCharacter(604784), "getCharacter()"), CHARACTER),
-                    of(route(() -> basicAPI.getAllCompanies(null), "getAllCompanies() without query parameters"), COMPANY_LIST),
-                    of(route(() -> basicAPI.getAllCompanies(params("value", "QueryCompanies")), "getAllCompanies() with query parameters"), COMPANY_LIST),
-                    of(route(() -> basicAPI.getAllCompanies(1), "getAllCompanies() with page"), COMPANY_LIST),
+                    of(route(() -> basicAPI.getAllCompanies(null), "getAllCompanies() without query parameters"), COMPANY_OVERVIEW),
+                    of(route(() -> basicAPI.getAllCompanies(params("value", "QueryCompanies")), "getAllCompanies() with query parameters"), COMPANY_OVERVIEW),
+                    of(route(() -> basicAPI.getAllCompanies(1), "getAllCompanies() with page"), COMPANY_OVERVIEW),
                     of(route(() -> basicAPI.getCompany(241), "getCompany()"), COMPANY),
-                    of(route(() -> basicAPI.getCompanyTypes(), "getCompanyTypes()"), COMPANYTYPE_LIST),
-                    of(route(() -> basicAPI.getAllContentRatings(), "getAllContentRatings()"), CONTENTRATING_LIST),
-                    of(route(() -> basicAPI.getEntityTypes(), "getEntityTypes()"), ENTITYTYPE_LIST),
+                    of(route(() -> basicAPI.getCompanyTypes(), "getCompanyTypes()"), COMPANYTYPE_OVERVIEW),
+                    of(route(() -> basicAPI.getAllContentRatings(), "getAllContentRatings()"), CONTENTRATING_OVERVIEW),
+                    of(route(() -> basicAPI.getEntityTypes(), "getEntityTypes()"), ENTITYTYPE_OVERVIEW),
                     of(route(() -> basicAPI.getEpisode(141007), "getEpisode()"), EPISODE),
                     of(route(() -> basicAPI.getEpisodeDetails(37017), "getEpisodeDetails()"), EPISODE_DETAILS),
                     of(route(() -> basicAPI.getEpisodeTranslation(35744, "eng"), "getEpisodeTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getListTranslation(54047, "fra"), "getListTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getAllLists(null), "getAllLists() without query parameters"), LIST_LIST),
-                    of(route(() -> basicAPI.getAllLists(params("value", "QueryLists")), "getAllLists() with query parameters"), LIST_LIST),
-                    of(route(() -> basicAPI.getAllLists(4), "getAllLists() with page"), LIST_LIST),
+                    of(route(() -> basicAPI.getAllLists(null), "getAllLists() without query parameters"), LIST_OVERVIEW),
+                    of(route(() -> basicAPI.getAllLists(params("value", "QueryLists")), "getAllLists() with query parameters"), LIST_OVERVIEW),
+                    of(route(() -> basicAPI.getAllLists(4), "getAllLists() with page"), LIST_OVERVIEW),
                     of(route(() -> basicAPI.getList(6740), "getList()"), LIST),
                     of(route(() -> basicAPI.getListDetails(7901), "getListDetails()"), LIST_DETAILS),
-                    of(route(() -> basicAPI.getAllGenders(), "getAllGenders()"), GENDER_LIST),
-                    of(route(() -> basicAPI.getAllGenres(), "getAllGenres()"), GENRE_LIST),
+                    of(route(() -> basicAPI.getAllGenders(), "getAllGenders()"), GENDER_OVERVIEW),
+                    of(route(() -> basicAPI.getAllGenres(), "getAllGenres()"), GENRE_OVERVIEW),
                     of(route(() -> basicAPI.getGenre(47), "getGenre()"), GENRE),
-                    of(route(() -> basicAPI.getAllMovieStatuses(), "getAllMovieStatuses()"), STATUS_LIST),
-                    of(route(() -> basicAPI.getAllMovies(null), "getAllMovies() without query parameters"), MOVIE_LIST),
-                    of(route(() -> basicAPI.getAllMovies(params("value", "QueryMovies")), "getAllMovies() with query parameters"), MOVIE_LIST),
-                    of(route(() -> basicAPI.getAllMovies(3), "getAllMovies() with page"), MOVIE_LIST),
+                    of(route(() -> basicAPI.getAllMovieStatuses(), "getAllMovieStatuses()"), STATUS_OVERVIEW),
+                    of(route(() -> basicAPI.getAllMovies(null), "getAllMovies() without query parameters"), MOVIE_OVERVIEW),
+                    of(route(() -> basicAPI.getAllMovies(params("value", "QueryMovies")), "getAllMovies() with query parameters"), MOVIE_OVERVIEW),
+                    of(route(() -> basicAPI.getAllMovies(3), "getAllMovies() with page"), MOVIE_OVERVIEW),
                     of(route(() -> basicAPI.getMovie(54394), "getMovie()"), MOVIE),
                     of(route(() -> basicAPI.getMovieDetails(46994), "getMovieDetails()"), MOVIE_DETAILS),
                     of(route(() -> basicAPI.getMovieTranslation(69745, "eng"), "getMovieTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getAllPeopleTypes(), "getAllPeopleTypes()"), PEOPLETYPE_LIST),
+                    of(route(() -> basicAPI.getAllPeopleTypes(), "getAllPeopleTypes()"), PEOPLETYPE_OVERVIEW),
                     of(route(() -> basicAPI.getPeople(431071), "getPeople()"), PEOPLE),
                     of(route(() -> basicAPI.getPeopleDetails(574101), "getPeopleDetails()"), PEOPLE_DETAILS),
                     of(route(() -> basicAPI.getSeason(34167), "getSeason()"), SEASON),
                     of(route(() -> basicAPI.getSeasonDetails(69761), "getSeasonDetails()"), SEASON_DETAILS),
-                    of(route(() -> basicAPI.getSeasonTypes(), "getSeasonTypes()"), SEASONTYPE_LIST),
+                    of(route(() -> basicAPI.getSeasonTypes(), "getSeasonTypes()"), SEASONTYPE_OVERVIEW),
                     of(route(() -> basicAPI.getSeasonTranslation(27478, "eng"), "getSeasonTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getAllSeriesStatuses(), "getAllSeriesStatuses()"), STATUS_LIST),
-                    of(route(() -> basicAPI.getAllSeries(null), "getAllSeries() without query parameters"), SERIES_LIST),
-                    of(route(() -> basicAPI.getAllSeries(params("value", "QuerySeries")), "getAllSeries() with query parameters"), SERIES_LIST),
-                    of(route(() -> basicAPI.getAllSeries(2), "getAllSeries() with page"), SERIES_LIST),
+                    of(route(() -> basicAPI.getAllSeriesStatuses(), "getAllSeriesStatuses()"), STATUS_OVERVIEW),
+                    of(route(() -> basicAPI.getAllSeries(null), "getAllSeries() without query parameters"), SERIES_OVERVIEW),
+                    of(route(() -> basicAPI.getAllSeries(params("value", "QuerySeries")), "getAllSeries() with query parameters"), SERIES_OVERVIEW),
+                    of(route(() -> basicAPI.getAllSeries(2), "getAllSeries() with page"), SERIES_OVERVIEW),
                     of(route(() -> basicAPI.getSeries(2845), "getSeries()"), SERIES),
                     of(route(() -> basicAPI.getSeriesDetails(9041), "getSeriesDetails()"), SERIES_DETAILS),
                     of(route(() -> basicAPI.getSeriesTranslation(6004, "eng"), "getSeriesTranslation()"), TRANSLATION)
@@ -293,46 +293,46 @@ class TheTVDBApiImplTest {
         //@DisableFormatting
         @BeforeAll
         void setUpRoutes(MockServerClient client) throws Exception {
-            client.when(request("/artwork/statuses", GET)).respond(jsonResponse(ARTWORKSTATUS_LIST));
-            client.when(request("/artwork/types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
+            client.when(request("/artwork/statuses", GET)).respond(jsonResponse(ARTWORKSTATUS_OVERVIEW));
+            client.when(request("/artwork/types", GET)).respond(jsonResponse(ARTWORKTYPE_OVERVIEW));
             client.when(request("/artwork/6701", GET)).respond(jsonResponse(ARTWORK));
             client.when(request("/artwork/9100/extended", GET)).respond(jsonResponse(ARTWORK_DETAILS));
             client.when(request("/awards/categories/411", GET)).respond(jsonResponse(AWARDCATEGORY));
             client.when(request("/awards/categories/623/extended", GET)).respond(jsonResponse(AWARDCATEGORY_DETAILS));
             client.when(request("/characters/94347", GET)).respond(jsonResponse(CHARACTER));
-            client.when(request("/companies", GET)).respond(jsonResponse(COMPANY_LIST));
-            client.when(request("/companies", GET, param("value", "QueryCompaniesJson"))).respond(jsonResponse(COMPANY_LIST));
-            client.when(request("/companies/types", GET)).respond(jsonResponse(COMPANYTYPE_LIST));
+            client.when(request("/companies", GET)).respond(jsonResponse(COMPANY_OVERVIEW));
+            client.when(request("/companies", GET, param("value", "QueryCompaniesJson"))).respond(jsonResponse(COMPANY_OVERVIEW));
+            client.when(request("/companies/types", GET)).respond(jsonResponse(COMPANYTYPE_OVERVIEW));
             client.when(request("/companies/117", GET)).respond(jsonResponse(COMPANY));
-            client.when(request("/content/ratings", GET)).respond(jsonResponse(CONTENTRATING_LIST));
-            client.when(request("/entities/types", GET)).respond(jsonResponse(ENTITYTYPE_LIST));
+            client.when(request("/content/ratings", GET)).respond(jsonResponse(CONTENTRATING_OVERVIEW));
+            client.when(request("/entities/types", GET)).respond(jsonResponse(ENTITYTYPE_OVERVIEW));
             client.when(request("/episodes/640796", GET)).respond(jsonResponse(EPISODE));
             client.when(request("/episodes/872404/extended", GET)).respond(jsonResponse(EPISODE_DETAILS));
             client.when(request("/episodes/379461/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/lists/2400/translations/fra", GET)).respond(jsonResponse(TRANSLATION));
-            client.when(request("/lists", GET)).respond(jsonResponse(LIST_LIST));
-            client.when(request("/lists", GET, param("value", "QueryListsJson"))).respond(jsonResponse(LIST_LIST));
+            client.when(request("/lists", GET)).respond(jsonResponse(LIST_OVERVIEW));
+            client.when(request("/lists", GET, param("value", "QueryListsJson"))).respond(jsonResponse(LIST_OVERVIEW));
             client.when(request("/lists/1151", GET)).respond(jsonResponse(LIST));
             client.when(request("/lists/3463/extended", GET)).respond(jsonResponse(LIST_DETAILS));
-            client.when(request("/genders", GET)).respond(jsonResponse(GENDER_LIST));
-            client.when(request("/genres", GET)).respond(jsonResponse(GENRE_LIST));
+            client.when(request("/genders", GET)).respond(jsonResponse(GENDER_OVERVIEW));
+            client.when(request("/genres", GET)).respond(jsonResponse(GENRE_OVERVIEW));
             client.when(request("/genres/21", GET)).respond(jsonResponse(GENRE));
-            client.when(request("/movies/statuses", GET)).respond(jsonResponse(STATUS_LIST));
-            client.when(request("/movies", GET)).respond(jsonResponse(MOVIE_LIST));
-            client.when(request("/movies", GET, param("value", "QueryMoviesJson"))).respond(jsonResponse(MOVIE_LIST));
+            client.when(request("/movies/statuses", GET)).respond(jsonResponse(STATUS_OVERVIEW));
+            client.when(request("/movies", GET)).respond(jsonResponse(MOVIE_OVERVIEW));
+            client.when(request("/movies", GET, param("value", "QueryMoviesJson"))).respond(jsonResponse(MOVIE_OVERVIEW));
             client.when(request("/movies/61714", GET)).respond(jsonResponse(MOVIE));
             client.when(request("/movies/54801/extended", GET)).respond(jsonResponse(MOVIE_DETAILS));
             client.when(request("/movies/74810/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
-            client.when(request("/people/types", GET)).respond(jsonResponse(PEOPLETYPE_LIST));
+            client.when(request("/people/types", GET)).respond(jsonResponse(PEOPLETYPE_OVERVIEW));
             client.when(request("/people/3647", GET)).respond(jsonResponse(PEOPLE));
             client.when(request("/people/6904/extended", GET)).respond(jsonResponse(PEOPLE_DETAILS));
             client.when(request("/seasons/18322", GET)).respond(jsonResponse(SEASON));
             client.when(request("/seasons/48874/extended", GET)).respond(jsonResponse(SEASON_DETAILS));
-            client.when(request("/seasons/types", GET)).respond(jsonResponse(SEASONTYPE_LIST));
+            client.when(request("/seasons/types", GET)).respond(jsonResponse(SEASONTYPE_OVERVIEW));
             client.when(request("/seasons/67446/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
-            client.when(request("/series/statuses", GET)).respond(jsonResponse(STATUS_LIST));
-            client.when(request("/series", GET)).respond(jsonResponse(SERIES_LIST));
-            client.when(request("/series", GET, param("value", "QuerySeriesJson"))).respond(jsonResponse(SERIES_LIST));
+            client.when(request("/series/statuses", GET)).respond(jsonResponse(STATUS_OVERVIEW));
+            client.when(request("/series", GET)).respond(jsonResponse(SERIES_OVERVIEW));
+            client.when(request("/series", GET, param("value", "QuerySeriesJson"))).respond(jsonResponse(SERIES_OVERVIEW));
             client.when(request("/series/5003", GET)).respond(jsonResponse(SERIES));
             client.when(request("/series/5842/extended", GET)).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/8024/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
@@ -346,46 +346,46 @@ class TheTVDBApiImplTest {
 
         private Stream<Arguments> withValidParameters() {
             return Stream.of(
-                    of(route(() -> basicAPI.getAllArtworkStatuses(), "getAllArtworkStatuses()"), ARTWORKSTATUS_LIST),
-                    of(route(() -> basicAPI.getAllArtworkTypes(), "getAllArtworkTypes()"), ARTWORKTYPE_LIST),
+                    of(route(() -> basicAPI.getAllArtworkStatuses(), "getAllArtworkStatuses()"), ARTWORKSTATUS_OVERVIEW),
+                    of(route(() -> basicAPI.getAllArtworkTypes(), "getAllArtworkTypes()"), ARTWORKTYPE_OVERVIEW),
                     of(route(() -> basicAPI.getArtwork(6701), "getArtwork()"), ARTWORK),
                     of(route(() -> basicAPI.getArtworkDetails(9100), "getArtworkDetails()"), ARTWORK_DETAILS),
                     of(route(() -> basicAPI.getAwardCategory(411), "getAwardCategory()"), AWARDCATEGORY),
                     of(route(() -> basicAPI.getAwardCategoryDetails(623), "getAwardCategoryDetails()"), AWARDCATEGORY_DETAILS),
                     of(route(() -> basicAPI.getCharacter(94347), "getCharacter()"), CHARACTER),
-                    of(route(() -> basicAPI.getAllCompanies(null), "getAllCompanies() without query parameters"), COMPANY_LIST),
-                    of(route(() -> basicAPI.getAllCompanies(params("value", "QueryCompaniesJson")), "getAllCompanies() with query parameters"), COMPANY_LIST),
+                    of(route(() -> basicAPI.getAllCompanies(null), "getAllCompanies() without query parameters"), COMPANY_OVERVIEW),
+                    of(route(() -> basicAPI.getAllCompanies(params("value", "QueryCompaniesJson")), "getAllCompanies() with query parameters"), COMPANY_OVERVIEW),
                     of(route(() -> basicAPI.getCompany(117), "getCompany()"), COMPANY),
-                    of(route(() -> basicAPI.getCompanyTypes(), "getCompanyTypes()"), COMPANYTYPE_LIST),
-                    of(route(() -> basicAPI.getAllContentRatings(), "getAllContentRatings()"), CONTENTRATING_LIST),
-                    of(route(() -> basicAPI.getEntityTypes(), "getEntityTypes()"), ENTITYTYPE_LIST),
+                    of(route(() -> basicAPI.getCompanyTypes(), "getCompanyTypes()"), COMPANYTYPE_OVERVIEW),
+                    of(route(() -> basicAPI.getAllContentRatings(), "getAllContentRatings()"), CONTENTRATING_OVERVIEW),
+                    of(route(() -> basicAPI.getEntityTypes(), "getEntityTypes()"), ENTITYTYPE_OVERVIEW),
                     of(route(() -> basicAPI.getEpisode(640796), "getEpisode()"), EPISODE),
                     of(route(() -> basicAPI.getEpisodeDetails(872404), "getEpisodeDetails()"), EPISODE_DETAILS),
                     of(route(() -> basicAPI.getEpisodeTranslation(379461, "eng"), "getEpisodeTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getListTranslation(2400, "fra"), "getListTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getAllLists(null), "getAllLists() without query parameters"), LIST_LIST),
-                    of(route(() -> basicAPI.getAllLists(params("value", "QueryListsJson")), "getAllLists() with query parameters"), LIST_LIST),
+                    of(route(() -> basicAPI.getAllLists(null), "getAllLists() without query parameters"), LIST_OVERVIEW),
+                    of(route(() -> basicAPI.getAllLists(params("value", "QueryListsJson")), "getAllLists() with query parameters"), LIST_OVERVIEW),
                     of(route(() -> basicAPI.getList(1151), "getList()"), LIST),
                     of(route(() -> basicAPI.getListDetails(3463), "getListDetails()"), LIST_DETAILS),
-                    of(route(() -> basicAPI.getAllGenders(), "getAllGenders()"), GENDER_LIST),
-                    of(route(() -> basicAPI.getAllGenres(), "getAllGenres()"), GENRE_LIST),
+                    of(route(() -> basicAPI.getAllGenders(), "getAllGenders()"), GENDER_OVERVIEW),
+                    of(route(() -> basicAPI.getAllGenres(), "getAllGenres()"), GENRE_OVERVIEW),
                     of(route(() -> basicAPI.getGenre(21), "getGenre()"), GENRE),
-                    of(route(() -> basicAPI.getAllMovieStatuses(), "getAllMovieStatuses()"), STATUS_LIST),
-                    of(route(() -> basicAPI.getAllMovies(null), "getAllMovies() without query parameters"), MOVIE_LIST),
-                    of(route(() -> basicAPI.getAllMovies(params("value", "QueryMoviesJson")), "getAllMovies() with query parameters"), MOVIE_LIST),
+                    of(route(() -> basicAPI.getAllMovieStatuses(), "getAllMovieStatuses()"), STATUS_OVERVIEW),
+                    of(route(() -> basicAPI.getAllMovies(null), "getAllMovies() without query parameters"), MOVIE_OVERVIEW),
+                    of(route(() -> basicAPI.getAllMovies(params("value", "QueryMoviesJson")), "getAllMovies() with query parameters"), MOVIE_OVERVIEW),
                     of(route(() -> basicAPI.getMovie(61714), "getMovie()"), MOVIE),
                     of(route(() -> basicAPI.getMovieDetails(54801), "getMovieDetails()"), MOVIE_DETAILS),
                     of(route(() -> basicAPI.getMovieTranslation(74810, "eng"), "getMovieTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getAllPeopleTypes(), "getAllPeopleTypes()"), PEOPLETYPE_LIST),
+                    of(route(() -> basicAPI.getAllPeopleTypes(), "getAllPeopleTypes()"), PEOPLETYPE_OVERVIEW),
                     of(route(() -> basicAPI.getPeople(3647), "getPeople()"), PEOPLE),
                     of(route(() -> basicAPI.getPeopleDetails(6904), "getPeopleDetails()"), PEOPLE_DETAILS),
                     of(route(() -> basicAPI.getSeason(18322), "getSeason()"), SEASON),
                     of(route(() -> basicAPI.getSeasonDetails(48874), "getSeasonDetails()"), SEASON_DETAILS),
-                    of(route(() -> basicAPI.getSeasonTypes(), "getSeasonTypes()"), SEASONTYPE_LIST),
+                    of(route(() -> basicAPI.getSeasonTypes(), "getSeasonTypes()"), SEASONTYPE_OVERVIEW),
                     of(route(() -> basicAPI.getSeasonTranslation(67446, "eng"), "getSeasonTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getAllSeriesStatuses(), "getAllSeriesStatuses()"), STATUS_LIST),
-                    of(route(() -> basicAPI.getAllSeries(null), "getAllSeries() without query parameters"), SERIES_LIST),
-                    of(route(() -> basicAPI.getAllSeries(params("value", "QuerySeriesJson")), "getAllSeries() with query parameters"), SERIES_LIST),
+                    of(route(() -> basicAPI.getAllSeriesStatuses(), "getAllSeriesStatuses()"), STATUS_OVERVIEW),
+                    of(route(() -> basicAPI.getAllSeries(null), "getAllSeries() without query parameters"), SERIES_OVERVIEW),
+                    of(route(() -> basicAPI.getAllSeries(params("value", "QuerySeriesJson")), "getAllSeries() with query parameters"), SERIES_OVERVIEW),
                     of(route(() -> basicAPI.getSeries(5003), "getSeries()"), SERIES),
                     of(route(() -> basicAPI.getSeriesDetails(5842), "getSeriesDetails()"), SERIES_DETAILS),
                     of(route(() -> basicAPI.getSeriesTranslation(8024, "eng"), "getSeriesTranslation()"), TRANSLATION)
@@ -428,46 +428,46 @@ class TheTVDBApiImplTest {
         //@DisableFormatting
         @BeforeAll
         void setUpRoutes(MockServerClient client) throws Exception {
-            client.when(request("/artwork/statuses", GET)).respond(jsonResponse(ARTWORKSTATUS_LIST));
-            client.when(request("/artwork/types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
+            client.when(request("/artwork/statuses", GET)).respond(jsonResponse(ARTWORKSTATUS_OVERVIEW));
+            client.when(request("/artwork/types", GET)).respond(jsonResponse(ARTWORKTYPE_OVERVIEW));
             client.when(request("/artwork/7099", GET)).respond(jsonResponse(ARTWORK));
             client.when(request("/artwork/6471/extended", GET)).respond(jsonResponse(ARTWORK_DETAILS));
             client.when(request("/awards/categories/355", GET)).respond(jsonResponse(AWARDCATEGORY));
             client.when(request("/awards/categories/495/extended", GET)).respond(jsonResponse(AWARDCATEGORY_DETAILS));
             client.when(request("/characters/66470", GET)).respond(jsonResponse(CHARACTER));
-            client.when(request("/companies", GET)).respond(jsonResponse(COMPANY_LIST));
-            client.when(request("/companies", GET, param("value", "QueryCompaniesExtended"))).respond(jsonResponse(COMPANY_LIST));
-            client.when(request("/companies/types", GET)).respond(jsonResponse(COMPANYTYPE_LIST));
+            client.when(request("/companies", GET)).respond(jsonResponse(COMPANY_OVERVIEW));
+            client.when(request("/companies", GET, param("value", "QueryCompaniesExtended"))).respond(jsonResponse(COMPANY_OVERVIEW));
+            client.when(request("/companies/types", GET)).respond(jsonResponse(COMPANYTYPE_OVERVIEW));
             client.when(request("/companies/64", GET)).respond(jsonResponse(COMPANY));
-            client.when(request("/content/ratings", GET)).respond(jsonResponse(CONTENTRATING_LIST));
-            client.when(request("/entities/types", GET)).respond(jsonResponse(ENTITYTYPE_LIST));
+            client.when(request("/content/ratings", GET)).respond(jsonResponse(CONTENTRATING_OVERVIEW));
+            client.when(request("/entities/types", GET)).respond(jsonResponse(ENTITYTYPE_OVERVIEW));
             client.when(request("/episodes/30619", GET)).respond(jsonResponse(EPISODE));
             client.when(request("/episodes/47149/extended", GET)).respond(jsonResponse(EPISODE_DETAILS));
             client.when(request("/episodes/34771/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
-            client.when(request("/lists/64114/translations/fra", GET)).respond(jsonResponse(TRANSLATION_LIST));
-            client.when(request("/lists", GET)).respond(jsonResponse(LIST_LIST));
-            client.when(request("/lists", GET, param("value", "QueryListsExtended"))).respond(jsonResponse(LIST_LIST));
+            client.when(request("/lists/64114/translations/fra", GET)).respond(jsonResponse(TRANSLATIONS));
+            client.when(request("/lists", GET)).respond(jsonResponse(LIST_OVERVIEW));
+            client.when(request("/lists", GET, param("value", "QueryListsExtended"))).respond(jsonResponse(LIST_OVERVIEW));
             client.when(request("/lists/4641", GET)).respond(jsonResponse(LIST));
             client.when(request("/lists/3169/extended", GET)).respond(jsonResponse(LIST_DETAILS));
-            client.when(request("/genders", GET)).respond(jsonResponse(GENDER_LIST));
-            client.when(request("/genres", GET)).respond(jsonResponse(GENRE_LIST));
+            client.when(request("/genders", GET)).respond(jsonResponse(GENDER_OVERVIEW));
+            client.when(request("/genres", GET)).respond(jsonResponse(GENRE_OVERVIEW));
             client.when(request("/genres/35", GET)).respond(jsonResponse(GENRE));
-            client.when(request("/movies/statuses", GET)).respond(jsonResponse(STATUS_LIST));
-            client.when(request("/movies", GET)).respond(jsonResponse(MOVIE_LIST));
-            client.when(request("/movies", GET, param("value", "QueryMoviesExtended"))).respond(jsonResponse(MOVIE_LIST));
+            client.when(request("/movies/statuses", GET)).respond(jsonResponse(STATUS_OVERVIEW));
+            client.when(request("/movies", GET)).respond(jsonResponse(MOVIE_OVERVIEW));
+            client.when(request("/movies", GET, param("value", "QueryMoviesExtended"))).respond(jsonResponse(MOVIE_OVERVIEW));
             client.when(request("/movies/90034", GET)).respond(jsonResponse(MOVIE));
             client.when(request("/movies/31101/extended", GET)).respond(jsonResponse(MOVIE_DETAILS));
             client.when(request("/movies/46011/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
-            client.when(request("/people/types", GET)).respond(jsonResponse(PEOPLETYPE_LIST));
+            client.when(request("/people/types", GET)).respond(jsonResponse(PEOPLETYPE_OVERVIEW));
             client.when(request("/people/9891", GET)).respond(jsonResponse(PEOPLE));
             client.when(request("/people/1067/extended", GET)).respond(jsonResponse(PEOPLE_DETAILS));
             client.when(request("/seasons/52270", GET)).respond(jsonResponse(SEASON));
             client.when(request("/seasons/69714/extended", GET)).respond(jsonResponse(SEASON_DETAILS));
-            client.when(request("/seasons/types", GET)).respond(jsonResponse(SEASONTYPE_LIST));
+            client.when(request("/seasons/types", GET)).respond(jsonResponse(SEASONTYPE_OVERVIEW));
             client.when(request("/seasons/64714/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
-            client.when(request("/series/statuses", GET)).respond(jsonResponse(STATUS_LIST));
-            client.when(request("/series", GET)).respond(jsonResponse(SERIES_LIST));
-            client.when(request("/series", GET, param("value", "QuerySeriesExtended"))).respond(jsonResponse(SERIES_LIST));
+            client.when(request("/series/statuses", GET)).respond(jsonResponse(STATUS_OVERVIEW));
+            client.when(request("/series", GET)).respond(jsonResponse(SERIES_OVERVIEW));
+            client.when(request("/series", GET, param("value", "QuerySeriesExtended"))).respond(jsonResponse(SERIES_OVERVIEW));
             client.when(request("/series/8131", GET)).respond(jsonResponse(SERIES));
             client.when(request("/series/5444/extended", GET)).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/6170/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
@@ -481,46 +481,46 @@ class TheTVDBApiImplTest {
 
         private Stream<Arguments> withValidParameters() {
             return Stream.of(
-                    of(route(() -> basicAPI.getAllArtworkStatuses(), "getAllArtworkStatuses()"), ARTWORKSTATUS_LIST),
-                    of(route(() -> basicAPI.getAllArtworkTypes(), "getAllArtworkTypes()"), ARTWORKTYPE_LIST),
+                    of(route(() -> basicAPI.getAllArtworkStatuses(), "getAllArtworkStatuses()"), ARTWORKSTATUS_OVERVIEW),
+                    of(route(() -> basicAPI.getAllArtworkTypes(), "getAllArtworkTypes()"), ARTWORKTYPE_OVERVIEW),
                     of(route(() -> basicAPI.getArtwork(7099), "getArtwork()"), ARTWORK),
                     of(route(() -> basicAPI.getArtworkDetails(6471), "getArtworkDetails()"), ARTWORK_DETAILS),
                     of(route(() -> basicAPI.getAwardCategory(355), "getAwardCategory()"), AWARDCATEGORY),
                     of(route(() -> basicAPI.getAwardCategoryDetails(495), "getAwardCategoryDetails()"), AWARDCATEGORY_DETAILS),
                     of(route(() -> basicAPI.getCharacter(66470), "getCharacter()"), CHARACTER),
-                    of(route(() -> basicAPI.getAllCompanies(null), "getAllCompanies() without query parameters"), COMPANY_LIST),
-                    of(route(() -> basicAPI.getAllCompanies(params("value", "QueryCompaniesExtended")), "getAllCompanies() with query parameters"), COMPANY_LIST),
+                    of(route(() -> basicAPI.getAllCompanies(null), "getAllCompanies() without query parameters"), COMPANY_OVERVIEW),
+                    of(route(() -> basicAPI.getAllCompanies(params("value", "QueryCompaniesExtended")), "getAllCompanies() with query parameters"), COMPANY_OVERVIEW),
                     of(route(() -> basicAPI.getCompany(64), "getCompany()"), COMPANY),
-                    of(route(() -> basicAPI.getCompanyTypes(), "getCompanyTypes()"), COMPANYTYPE_LIST),
-                    of(route(() -> basicAPI.getAllContentRatings(), "getAllContentRatings()"), CONTENTRATING_LIST),
-                    of(route(() -> basicAPI.getEntityTypes(), "getEntityTypes()"), ENTITYTYPE_LIST),
+                    of(route(() -> basicAPI.getCompanyTypes(), "getCompanyTypes()"), COMPANYTYPE_OVERVIEW),
+                    of(route(() -> basicAPI.getAllContentRatings(), "getAllContentRatings()"), CONTENTRATING_OVERVIEW),
+                    of(route(() -> basicAPI.getEntityTypes(), "getEntityTypes()"), ENTITYTYPE_OVERVIEW),
                     of(route(() -> basicAPI.getEpisode(30619), "getEpisode()"), EPISODE),
                     of(route(() -> basicAPI.getEpisodeDetails(47149), "getEpisodeDetails()"), EPISODE_DETAILS),
                     of(route(() -> basicAPI.getEpisodeTranslation(34771, "eng"), "getEpisodeTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getListTranslation(64114, "fra"), "getListTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getAllLists(null), "getAllLists() without query parameters"), LIST_LIST),
-                    of(route(() -> basicAPI.getAllLists(params("value", "QueryListsExtended")), "getAllLists() with query parameters"), LIST_LIST),
+                    of(route(() -> basicAPI.getAllLists(null), "getAllLists() without query parameters"), LIST_OVERVIEW),
+                    of(route(() -> basicAPI.getAllLists(params("value", "QueryListsExtended")), "getAllLists() with query parameters"), LIST_OVERVIEW),
                     of(route(() -> basicAPI.getList(4641), "getList()"), LIST),
                     of(route(() -> basicAPI.getListDetails(3169), "getListDetails()"), LIST_DETAILS),
-                    of(route(() -> basicAPI.getAllGenders(), "getAllGenders()"), GENDER_LIST),
-                    of(route(() -> basicAPI.getAllGenres(), "getAllGenres()"), GENRE_LIST),
+                    of(route(() -> basicAPI.getAllGenders(), "getAllGenders()"), GENDER_OVERVIEW),
+                    of(route(() -> basicAPI.getAllGenres(), "getAllGenres()"), GENRE_OVERVIEW),
                     of(route(() -> basicAPI.getGenre(35), "getGenre()"), GENRE),
-                    of(route(() -> basicAPI.getAllMovieStatuses(), "getAllMovieStatuses()"), STATUS_LIST),
-                    of(route(() -> basicAPI.getAllMovies(null), "getAllMovies() without query parameters"), MOVIE_LIST),
-                    of(route(() -> basicAPI.getAllMovies(params("value", "QueryMoviesExtended")), "getAllMovies() with query parameters"), MOVIE_LIST),
+                    of(route(() -> basicAPI.getAllMovieStatuses(), "getAllMovieStatuses()"), STATUS_OVERVIEW),
+                    of(route(() -> basicAPI.getAllMovies(null), "getAllMovies() without query parameters"), MOVIE_OVERVIEW),
+                    of(route(() -> basicAPI.getAllMovies(params("value", "QueryMoviesExtended")), "getAllMovies() with query parameters"), MOVIE_OVERVIEW),
                     of(route(() -> basicAPI.getMovie(90034), "getMovie()"), MOVIE),
                     of(route(() -> basicAPI.getMovieDetails(31101), "getMovieDetails()"), MOVIE_DETAILS),
                     of(route(() -> basicAPI.getMovieTranslation(46011, "eng"), "getMovieTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getAllPeopleTypes(), "getAllPeopleTypes()"), PEOPLETYPE_LIST),
+                    of(route(() -> basicAPI.getAllPeopleTypes(), "getAllPeopleTypes()"), PEOPLETYPE_OVERVIEW),
                     of(route(() -> basicAPI.getPeople(9891), "getPeople()"), PEOPLE),
                     of(route(() -> basicAPI.getPeopleDetails(1067), "getPeopleDetails()"), PEOPLE_DETAILS),
                     of(route(() -> basicAPI.getSeason(52270), "getSeason()"), SEASON),
                     of(route(() -> basicAPI.getSeasonDetails(69714), "getSeasonDetails()"), SEASON_DETAILS),
-                    of(route(() -> basicAPI.getSeasonTypes(), "getSeasonTypes()"), SEASONTYPE_LIST),
+                    of(route(() -> basicAPI.getSeasonTypes(), "getSeasonTypes()"), SEASONTYPE_OVERVIEW),
                     of(route(() -> basicAPI.getSeasonTranslation(64714, "eng"), "getSeasonTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getAllSeriesStatuses(), "getAllSeriesStatuses()"), STATUS_LIST),
-                    of(route(() -> basicAPI.getAllSeries(null), "getAllSeries() without query parameters"), SERIES_LIST),
-                    of(route(() -> basicAPI.getAllSeries(params("value", "QuerySeriesExtended")), "getAllSeries() with query parameters"), SERIES_LIST),
+                    of(route(() -> basicAPI.getAllSeriesStatuses(), "getAllSeriesStatuses()"), STATUS_OVERVIEW),
+                    of(route(() -> basicAPI.getAllSeries(null), "getAllSeries() without query parameters"), SERIES_OVERVIEW),
+                    of(route(() -> basicAPI.getAllSeries(params("value", "QuerySeriesExtended")), "getAllSeries() with query parameters"), SERIES_OVERVIEW),
                     of(route(() -> basicAPI.getSeries(8131), "getSeries()"), SERIES),
                     of(route(() -> basicAPI.getSeriesDetails(5444), "getSeriesDetails()"), SERIES_DETAILS),
                     of(route(() -> basicAPI.getSeriesTranslation(6170, "eng"), "getSeriesTranslation()"), TRANSLATION)

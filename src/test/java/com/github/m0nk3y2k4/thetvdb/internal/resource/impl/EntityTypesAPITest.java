@@ -21,7 +21,7 @@ import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ENTITYTYPE_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ENTITYTYPE_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.of;
@@ -45,13 +45,13 @@ class EntityTypesAPITest {
     //@DisableFormatting
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
-        client.when(request("/entities/types", GET)).respond(jsonResponse(ENTITYTYPE_LIST));
+        client.when(request("/entities/types", GET)).respond(jsonResponse(ENTITYTYPE_OVERVIEW));
     }
 
     @SuppressWarnings("Convert2MethodRef")
     private static Stream<Arguments> withValidParameters() {
         return Stream.of(
-                of(route(con -> getEntityTypes(con), "getEntityTypes()"), ENTITYTYPE_LIST)
+                of(route(con -> getEntityTypes(con), "getEntityTypes()"), ENTITYTYPE_OVERVIEW)
         );
     }
     //@EnableFormatting

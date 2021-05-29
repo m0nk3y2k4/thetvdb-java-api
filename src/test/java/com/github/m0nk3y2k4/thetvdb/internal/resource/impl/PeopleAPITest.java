@@ -24,7 +24,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.PEOPLE;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.PEOPLETYPE_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.PEOPLETYPE_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.PEOPLE_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -50,7 +50,7 @@ class PeopleAPITest {
     //@DisableFormatting
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
-        client.when(request("/people/types", GET)).respond(jsonResponse(PEOPLETYPE_LIST));
+        client.when(request("/people/types", GET)).respond(jsonResponse(PEOPLETYPE_OVERVIEW));
         client.when(request("/people/5404", GET)).respond(jsonResponse(PEOPLE));
         client.when(request("/people/8741/extended", GET)).respond(jsonResponse(PEOPLE_DETAILS));
     }
@@ -67,7 +67,7 @@ class PeopleAPITest {
     @SuppressWarnings("Convert2MethodRef")
     private static Stream<Arguments> withValidParameters() {
         return Stream.of(
-                of(route(con -> getAllPeopleTypes(con), "getAllPeopleTypes()"), PEOPLETYPE_LIST),
+                of(route(con -> getAllPeopleTypes(con), "getAllPeopleTypes()"), PEOPLETYPE_OVERVIEW),
                 of(route(con -> getPeopleBase(con, 5404), "getPeopleBase()"), PEOPLE),
                 of(route(con -> getPeopleExtended(con, 8741), "getPeopleExtended()"), PEOPLE_DETAILS)
         );

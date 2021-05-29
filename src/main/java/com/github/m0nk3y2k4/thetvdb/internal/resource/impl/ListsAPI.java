@@ -60,7 +60,7 @@ public final class ListsAPI extends QueryResource {
     }
 
     /**
-     * Returns a list of lists based on the given query parameters as raw JSON.
+     * Returns an overview of lists based on the given query parameters as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getAllLists">
      * <b>[GET]</b> /lists</a>

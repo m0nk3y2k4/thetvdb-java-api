@@ -36,7 +36,7 @@ public final class GenresAPI extends Resource {
     private GenresAPI() {}      // Private constructor. Only static methods
 
     /**
-     * Returns a list of available genres as raw JSON.
+     * Returns an overview of available genres as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/genres/getAllGenres">
      * <b>[GET]</b> /genres</a>

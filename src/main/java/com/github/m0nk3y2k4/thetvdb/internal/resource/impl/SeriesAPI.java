@@ -40,7 +40,7 @@ public final class SeriesAPI extends QueryResource {
     private SeriesAPI() {}      // Private constructor. Only static methods
 
     /**
-     * Returns a list of available series statuses as raw JSON.
+     * Returns an overview of available series statuses as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series-statuses/getAllSeriesStatuses">
      * <b>[GET]</b> /series/statuses</a>
@@ -57,7 +57,7 @@ public final class SeriesAPI extends QueryResource {
     }
 
     /**
-     * Returns a list of series based on the given query parameters as raw JSON.
+     * Returns an overview of series based on the given query parameters as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series/getAllSeries">
      * <b>[GET]</b> /series</a>

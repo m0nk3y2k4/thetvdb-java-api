@@ -25,7 +25,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASON;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASONTYPE_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASONTYPE_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASON_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.TRANSLATION;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPICall.route;
@@ -54,7 +54,7 @@ class SeasonsAPITest {
     static void setUpRoutes(MockServerClient client) throws Exception {
         client.when(request("/seasons/348109", GET)).respond(jsonResponse(SEASON));
         client.when(request("/seasons/540773/extended", GET)).respond(jsonResponse(SEASON_DETAILS));
-        client.when(request("/seasons/types", GET)).respond(jsonResponse(SEASONTYPE_LIST));
+        client.when(request("/seasons/types", GET)).respond(jsonResponse(SEASONTYPE_OVERVIEW));
         client.when(request("/seasons/47443/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
     }
 
@@ -76,7 +76,7 @@ class SeasonsAPITest {
         return Stream.of(
                 of(route(con -> getSeasonBase(con, 348109), "getSeasonBase()"), SEASON),
                 of(route(con -> getSeasonExtended(con, 540773), "getSeasonExtended()"), SEASON_DETAILS),
-                of(route(con -> getSeasonTypes(con), "getSeasonTypes()"), SEASONTYPE_LIST),
+                of(route(con -> getSeasonTypes(con), "getSeasonTypes()"), SEASONTYPE_OVERVIEW),
                 of(route(con -> getSeasonTranslation(con, 47443, "eng"), "getSeasonTranslation()"), TRANSLATION)
         );
     }

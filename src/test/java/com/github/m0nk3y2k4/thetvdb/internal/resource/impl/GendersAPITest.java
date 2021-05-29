@@ -21,7 +21,7 @@ import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.GENDER_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.GENDER_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.of;
@@ -45,13 +45,13 @@ class GendersAPITest {
     //@DisableFormatting
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
-        client.when(request("/genders", GET)).respond(jsonResponse(GENDER_LIST));
+        client.when(request("/genders", GET)).respond(jsonResponse(GENDER_OVERVIEW));
     }
 
     @SuppressWarnings("Convert2MethodRef")
     private static Stream<Arguments> withValidParameters() {
         return Stream.of(
-                of(route(con -> getAllGenders(con), "getAllGenders()"), GENDER_LIST)
+                of(route(con -> getAllGenders(con), "getAllGenders()"), GENDER_OVERVIEW)
         );
     }
     //@EnableFormatting

@@ -39,7 +39,7 @@ public final class ArtworkAPI extends Resource {
     private ArtworkAPI() {}     // Private constructor. Only static methods
 
     /**
-     * Returns a list of available artwork statuses as raw JSON.
+     * Returns an overview of available artwork statuses as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/artwork-statuses/getAllArtworkStatuses">
      * <b>[GET]</b> /artwork/statuses</a>
@@ -56,7 +56,7 @@ public final class ArtworkAPI extends Resource {
     }
 
     /**
-     * Returns a list of available artwork types as raw JSON.
+     * Returns an overview of available artwork types as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/artwork-types/getAllArtworkTypes">
      * <b>[GET]</b> /artwork/types</a>

@@ -25,8 +25,8 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORK;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORKSTATUS_LIST;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORKTYPE_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORKSTATUS_OVERVIEW;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORKTYPE_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORK_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -52,8 +52,8 @@ class ArtworkAPITest {
     //@DisableFormatting
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
-        client.when(request("/artwork/statuses", GET)).respond(jsonResponse(ARTWORKSTATUS_LIST));
-        client.when(request("/artwork/types", GET)).respond(jsonResponse(ARTWORKTYPE_LIST));
+        client.when(request("/artwork/statuses", GET)).respond(jsonResponse(ARTWORKSTATUS_OVERVIEW));
+        client.when(request("/artwork/types", GET)).respond(jsonResponse(ARTWORKTYPE_OVERVIEW));
         client.when(request("/artwork/3340", GET)).respond(jsonResponse(ARTWORK));
         client.when(request("/artwork/1007/extended", GET)).respond(jsonResponse(ARTWORK_DETAILS));
     }
@@ -70,8 +70,8 @@ class ArtworkAPITest {
     @SuppressWarnings("Convert2MethodRef")
     private static Stream<Arguments> withValidParameters() {
         return Stream.of(
-                of(route(con -> getAllArtworkStatuses(con), "getAllArtworkStatuses()"), ARTWORKSTATUS_LIST),
-                of(route(con -> getAllArtworkTypes(con), "getAllArtworkTypes()"), ARTWORKTYPE_LIST),
+                of(route(con -> getAllArtworkStatuses(con), "getAllArtworkStatuses()"), ARTWORKSTATUS_OVERVIEW),
+                of(route(con -> getAllArtworkTypes(con), "getAllArtworkTypes()"), ARTWORKTYPE_OVERVIEW),
                 of(route(con -> getArtworkBase(con, 3340), "getArtworkBase()"), ARTWORK),
                 of(route(con -> getArtworkExtended(con, 1007), "getArtworkExtended()"), ARTWORK_DETAILS)
         );

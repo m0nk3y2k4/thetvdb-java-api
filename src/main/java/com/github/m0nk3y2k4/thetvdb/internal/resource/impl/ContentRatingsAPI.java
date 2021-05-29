@@ -36,7 +36,7 @@ public final class ContentRatingsAPI extends Resource {
     private ContentRatingsAPI() {}        // Private constructor. Only static methods
 
     /**
-     * Returns a list of available content ratings as raw JSON.
+     * Returns an overview of available content ratings as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/content-ratings/getAllContentRatings">
      * <b>[GET]</b> /content/ratings</a>

@@ -16,7 +16,7 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
@@ -207,12 +207,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public List<ArtworkStatus> getAllArtworkStatuses() throws APIException {
+    public Collection<ArtworkStatus> getAllArtworkStatuses() throws APIException {
         return extended().getAllArtworkStatuses().getData();
     }
 
     @Override
-    public List<ArtworkType> getAllArtworkTypes() throws APIException {
+    public Collection<ArtworkType> getAllArtworkTypes() throws APIException {
         return extended().getAllArtworkTypes().getData();
     }
 
@@ -237,7 +237,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public List<Award> getAllAwards() throws APIException {
+    public Collection<Award> getAllAwards() throws APIException {
         return extended().getAllAwards().getData();
     }
 
@@ -257,18 +257,18 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public List<Company> getAllCompanies(QueryParameters queryParameters) throws APIException {
+    public Collection<Company> getAllCompanies(QueryParameters queryParameters) throws APIException {
         return extended().getAllCompanies(queryParameters).getData();
     }
 
     @Override
-    public List<Company> getAllCompanies(long page) throws APIException {
+    public Collection<Company> getAllCompanies(long page) throws APIException {
         validatePage(page);
         return getAllCompanies(query(Map.of(Query.Companies.PAGE, String.valueOf(page))));
     }
 
     @Override
-    public List<CompanyType> getCompanyTypes() throws APIException {
+    public Collection<CompanyType> getCompanyTypes() throws APIException {
         return extended().getCompanyTypes().getData();
     }
 
@@ -278,12 +278,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public List<ContentRating> getAllContentRatings() throws APIException {
+    public Collection<ContentRating> getAllContentRatings() throws APIException {
         return extended().getAllContentRatings().getData();
     }
 
     @Override
-    public List<EntityType> getEntityTypes() throws APIException {
+    public Collection<EntityType> getEntityTypes() throws APIException {
         return extended().getEntityTypes().getData();
     }
 
@@ -308,12 +308,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public List<FCList> getAllLists(QueryParameters queryParameters) throws APIException {
+    public Collection<FCList> getAllLists(QueryParameters queryParameters) throws APIException {
         return extended().getAllLists(queryParameters).getData();
     }
 
     @Override
-    public List<FCList> getAllLists(long page) throws APIException {
+    public Collection<FCList> getAllLists(long page) throws APIException {
         validatePage(page);
         return getAllLists(query(Map.of(Query.Lists.PAGE, String.valueOf(page))));
     }
@@ -329,12 +329,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public List<Gender> getAllGenders() throws APIException {
+    public Collection<Gender> getAllGenders() throws APIException {
         return extended().getAllGenders().getData();
     }
 
     @Override
-    public List<Genre> getAllGenres() throws APIException {
+    public Collection<Genre> getAllGenres() throws APIException {
         return extended().getAllGenres().getData();
     }
 
@@ -344,17 +344,17 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public List<Status> getAllMovieStatuses() throws APIException {
+    public Collection<Status> getAllMovieStatuses() throws APIException {
         return extended().getAllMovieStatuses().getData();
     }
 
     @Override
-    public List<Movie> getAllMovies(QueryParameters queryParameters) throws APIException {
+    public Collection<Movie> getAllMovies(QueryParameters queryParameters) throws APIException {
         return extended().getAllMovies(queryParameters).getData();
     }
 
     @Override
-    public List<Movie> getAllMovies(long page) throws APIException {
+    public Collection<Movie> getAllMovies(long page) throws APIException {
         validatePage(page);
         return getAllMovies(query(Map.of(Query.Movies.PAGE, String.valueOf(page))));
     }
@@ -375,7 +375,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public List<PeopleType> getAllPeopleTypes() throws APIException {
+    public Collection<PeopleType> getAllPeopleTypes() throws APIException {
         return extended().getAllPeopleTypes().getData();
     }
 
@@ -400,7 +400,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public List<SeasonType> getSeasonTypes() throws APIException {
+    public Collection<SeasonType> getSeasonTypes() throws APIException {
         return extended().getSeasonTypes().getData();
     }
 
@@ -410,17 +410,17 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public List<Status> getAllSeriesStatuses() throws APIException {
+    public Collection<Status> getAllSeriesStatuses() throws APIException {
         return extended().getAllSeriesStatuses().getData();
     }
 
     @Override
-    public List<Series> getAllSeries(QueryParameters queryParameters) throws APIException {
+    public Collection<Series> getAllSeries(QueryParameters queryParameters) throws APIException {
         return extended().getAllSeries(queryParameters).getData();
     }
 
     @Override
-    public List<Series> getAllSeries(long page) throws APIException {
+    public Collection<Series> getAllSeries(long page) throws APIException {
         validatePage(page);
         return getAllSeries(query(Map.of(Query.Series.PAGE, String.valueOf(page))));
     }
@@ -676,12 +676,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     private class ExtendedApi implements Extended {
 
         @Override
-        public APIResponse<List<ArtworkStatus>> getAllArtworkStatuses() throws APIException {
+        public APIResponse<Collection<ArtworkStatus>> getAllArtworkStatuses() throws APIException {
             return APIJsonMapper.readValue(json().getAllArtworkStatuses(), new TypeReference<>() {});
         }
 
         @Override
-        public APIResponse<List<ArtworkType>> getAllArtworkTypes() throws APIException {
+        public APIResponse<Collection<ArtworkType>> getAllArtworkTypes() throws APIException {
             return APIJsonMapper.readValue(json().getAllArtworkTypes(), new TypeReference<>() {});
         }
 
@@ -706,7 +706,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<List<Award>> getAllAwards() throws APIException {
+        public APIResponse<Collection<Award>> getAllAwards() throws APIException {
             return APIJsonMapper.readValue(json().getAllAwards(), new TypeReference<>() {});
         }
 
@@ -726,12 +726,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<List<Company>> getAllCompanies(QueryParameters queryParameters) throws APIException {
+        public APIResponse<Collection<Company>> getAllCompanies(QueryParameters queryParameters) throws APIException {
             return APIJsonMapper.readValue(json().getAllCompanies(queryParameters), new TypeReference<>() {});
         }
 
         @Override
-        public APIResponse<List<CompanyType>> getCompanyTypes() throws APIException {
+        public APIResponse<Collection<CompanyType>> getCompanyTypes() throws APIException {
             return APIJsonMapper.readValue(json().getCompanyTypes(), new TypeReference<>() {});
         }
 
@@ -741,12 +741,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<List<ContentRating>> getAllContentRatings() throws APIException {
+        public APIResponse<Collection<ContentRating>> getAllContentRatings() throws APIException {
             return APIJsonMapper.readValue(json().getAllContentRatings(), new TypeReference<>() {});
         }
 
         @Override
-        public APIResponse<List<EntityType>> getEntityTypes() throws APIException {
+        public APIResponse<Collection<EntityType>> getEntityTypes() throws APIException {
             return APIJsonMapper.readValue(json().getEntityTypes(), new TypeReference<>() {});
         }
 
@@ -769,7 +769,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public APIResponse<Translation> getListTranslation(long listId, @Nonnull String language) throws APIException {
             // ToDo: Route is currently declared to return a single Translation object but the JSON actually contains an array. Check again after next API update.
-            APIResponse<List<Translation>> apiResponse = APIJsonMapper
+            APIResponse<Collection<Translation>> apiResponse = APIJsonMapper
                     .readValue(json().getListTranslation(listId, language), new TypeReference<>() {});
             return new APIResponseDTO.Builder<Translation>().status(apiResponse.getStatus())
                     .data(apiResponse.getData().stream().findFirst()
@@ -777,7 +777,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<List<FCList>> getAllLists(QueryParameters queryParameters) throws APIException {
+        public APIResponse<Collection<FCList>> getAllLists(QueryParameters queryParameters) throws APIException {
             return APIJsonMapper.readValue(json().getAllLists(queryParameters), new TypeReference<>() {});
         }
 
@@ -792,12 +792,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<List<Gender>> getAllGenders() throws APIException {
+        public APIResponse<Collection<Gender>> getAllGenders() throws APIException {
             return APIJsonMapper.readValue(json().getAllGenders(), new TypeReference<>() {});
         }
 
         @Override
-        public APIResponse<List<Genre>> getAllGenres() throws APIException {
+        public APIResponse<Collection<Genre>> getAllGenres() throws APIException {
             return APIJsonMapper.readValue(json().getAllGenres(), new TypeReference<>() {});
         }
 
@@ -807,12 +807,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<List<Status>> getAllMovieStatuses() throws APIException {
+        public APIResponse<Collection<Status>> getAllMovieStatuses() throws APIException {
             return APIJsonMapper.readValue(json().getAllMovieStatuses(), new TypeReference<>() {});
         }
 
         @Override
-        public APIResponse<List<Movie>> getAllMovies(QueryParameters queryParameters) throws APIException {
+        public APIResponse<Collection<Movie>> getAllMovies(QueryParameters queryParameters) throws APIException {
             return APIJsonMapper.readValue(json().getAllMovies(queryParameters), new TypeReference<>() {});
         }
 
@@ -833,7 +833,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<List<PeopleType>> getAllPeopleTypes() throws APIException {
+        public APIResponse<Collection<PeopleType>> getAllPeopleTypes() throws APIException {
             return APIJsonMapper.readValue(json().getAllPeopleTypes(), new TypeReference<>() {});
         }
 
@@ -858,7 +858,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<List<SeasonType>> getSeasonTypes() throws APIException {
+        public APIResponse<Collection<SeasonType>> getSeasonTypes() throws APIException {
             return APIJsonMapper.readValue(json().getSeasonTypes(), new TypeReference<>() {});
         }
 
@@ -869,12 +869,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<List<Status>> getAllSeriesStatuses() throws APIException {
+        public APIResponse<Collection<Status>> getAllSeriesStatuses() throws APIException {
             return APIJsonMapper.readValue(json().getAllSeriesStatuses(), new TypeReference<>() {});
         }
 
         @Override
-        public APIResponse<List<Series>> getAllSeries(QueryParameters queryParameters) throws APIException {
+        public APIResponse<Collection<Series>> getAllSeries(QueryParameters queryParameters) throws APIException {
             return APIJsonMapper.readValue(json().getAllSeries(queryParameters), new TypeReference<>() {});
         }
 

@@ -26,8 +26,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.ParameterizedType;
 import java.net.URL;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -133,10 +133,10 @@ public abstract class ResponseData<T> {
 
     //@DisableFormatting
     //************************ artwork **********************
-    public static final ResponseData<APIResponse<List<ArtworkStatus>>> ARTWORKSTATUS_LIST = new ResponseData<>(
-            "artworkstatus_list", artworkStatusList(), "List of artwork statuses JSON response") {};
-    public static final ResponseData<APIResponse<List<ArtworkType>>> ARTWORKTYPE_LIST = new ResponseData<>(
-            "artworktype_list", artworkTypeList(), "List of artwork types JSON response") {};
+    public static final ResponseData<APIResponse<Collection<ArtworkStatus>>> ARTWORKSTATUS_OVERVIEW = new ResponseData<>(
+            "artworkstatus_overview", artworkStatusOverview(), "Overview of artwork statuses JSON response") {};
+    public static final ResponseData<APIResponse<Collection<ArtworkType>>> ARTWORKTYPE_OVERVIEW = new ResponseData<>(
+            "artworktype_overview", artworkTypeOverview(), "Overview of artwork types JSON response") {};
     public static final ResponseData<APIResponse<Artwork>> ARTWORK = new ResponseData<>(
             "artwork", artwork(FULL), "Single artwork JSON response") {};
     public static final ResponseData<APIResponse<ArtworkDetails>> ARTWORK_DETAILS = new ResponseData<>(
@@ -147,8 +147,8 @@ public abstract class ResponseData<T> {
             "awardcategory", awardCategory(FULL), "Single award category JSON response") {};
     public static final ResponseData<APIResponse<AwardCategoryDetails>> AWARDCATEGORY_DETAILS = new ResponseData<>(
             "awardcategory_extended", awardCategoryDetails(FULL), "Single extended award category JSON response") {};
-    public static final ResponseData<APIResponse<List<Award>>> AWARD_LIST = new ResponseData<>(
-            "award_list", awardList(), "List of awards JSON response") {};
+    public static final ResponseData<APIResponse<Collection<Award>>> AWARD_OVERVIEW = new ResponseData<>(
+            "award_overview", awardOverview(), "Overview of awards JSON response") {};
     public static final ResponseData<APIResponse<Award>> AWARD = new ResponseData<>(
             "award", award(), "Single award JSON response") {};
     public static final ResponseData<APIResponse<AwardDetails>> AWARD_DETAILS = new ResponseData<>(
@@ -161,22 +161,22 @@ public abstract class ResponseData<T> {
     //*********************** companies *********************
     public static final ResponseData<APIResponse<Company>> COMPANY = new ResponseData<>(
             "company", company(FULL), "Single company JSON response") {};
-    public static final ResponseData<APIResponse<List<CompanyType>>> COMPANYTYPE_LIST = new ResponseData<>(
-            "companytype_list", companyTypeList(), "List of company types JSON response") {};
-    public static final ResponseData<APIResponse<List<Company>>> COMPANY_LIST = new ResponseData<>(
-            "company_list", companyList(), "List of companies JSON response") {};
+    public static final ResponseData<APIResponse<Collection<CompanyType>>> COMPANYTYPE_OVERVIEW = new ResponseData<>(
+            "companytype_overview", companyTypeOverview(), "Overview of company types JSON response") {};
+    public static final ResponseData<APIResponse<Collection<Company>>> COMPANY_OVERVIEW = new ResponseData<>(
+            "company_overview", companyOverview(), "Overview of companies JSON response") {};
 
     //******************** content-ratings ******************
-    public static final ResponseData<APIResponse<List<ContentRating>>> CONTENTRATING_LIST = new ResponseData<>(
-            "contentrating_list", contentRatingList(), "List of content ratings JSON response") {};
+    public static final ResponseData<APIResponse<Collection<ContentRating>>> CONTENTRATING_OVERVIEW = new ResponseData<>(
+            "contentrating_overview", contentRatingOverview(), "Overview of content ratings JSON response") {};
 
     //************************* DUMMY ***********************
     public static final ResponseData<APIResponse<Data>> DATA = new ResponseData<>(
             "data", data(), "Full JSON response with data and status node") {};
 
     //********************* entity-types ********************
-    public static final ResponseData<APIResponse<List<EntityType>>> ENTITYTYPE_LIST = new ResponseData<>(
-            "entitytype_list", entityTypeList(), "List of entity types JSON response") {};
+    public static final ResponseData<APIResponse<Collection<EntityType>>> ENTITYTYPE_OVERVIEW = new ResponseData<>(
+            "entitytype_overview", entityTypeOverview(), "Overview of entity types JSON response") {};
 
     //************************ episodes *********************
     public static final ResponseData<APIResponse<Episode>> EPISODE = new ResponseData<>(
@@ -185,34 +185,34 @@ public abstract class ResponseData<T> {
             "episode_extended", episodeDetails(FULL), "Single extended episode JSON response") {};
 
     //************************* lists ***********************
-    public static final ResponseData<APIResponse<List<FCList>>> LIST_LIST = new ResponseData<>(
-            "list_list", listList(), "List of lists JSON response") {};
+    public static final ResponseData<APIResponse<Collection<FCList>>> LIST_OVERVIEW = new ResponseData<>(
+            "list_overview", listOverview(), "Overview of lists JSON response") {};
     public static final ResponseData<APIResponse<FCList>> LIST = new ResponseData<>(
             "list", list(FULL), "Single list JSON response") {};
     public static final ResponseData<APIResponse<FCListDetails>> LIST_DETAILS = new ResponseData<>(
             "list_extended", listDetails(FULL), "Single extended list JSON response") {};
 
     //************************ genders **********************
-    public static final ResponseData<APIResponse<List<Gender>>> GENDER_LIST = new ResponseData<>(
-            "gender_list", genderList(), "List of genders JSON response") {};
+    public static final ResponseData<APIResponse<Collection<Gender>>> GENDER_OVERVIEW = new ResponseData<>(
+            "gender_overview", genderOverview(), "Overview of genders JSON response") {};
 
     //************************* genres **********************
     public static final ResponseData<APIResponse<Genre>> GENRE = new ResponseData<>(
             "genre", genre(), "Single genre JSON response") {};
-    public static final ResponseData<APIResponse<List<Genre>>> GENRE_LIST = new ResponseData<>(
-            "genre_list", genreList(), "List of genres JSON response") {};
+    public static final ResponseData<APIResponse<Collection<Genre>>> GENRE_OVERVIEW = new ResponseData<>(
+            "genre_overview", genreOverview(), "Overview of genres JSON response") {};
 
     //************************* movies **********************
     public static final ResponseData<APIResponse<Movie>> MOVIE = new ResponseData<>(
             "movie", movie(FULL), "Single movie JSON response") {};
     public static final ResponseData<APIResponse<MovieDetails>> MOVIE_DETAILS = new ResponseData<>(
             "movie_extended", movieDetails(FULL), "Single extended movie JSON response") {};
-    public static final ResponseData<APIResponse<List<Movie>>> MOVIE_LIST = new ResponseData<>(
-            "movie_list", movieList(), "List of movies JSON response") {};
+    public static final ResponseData<APIResponse<Collection<Movie>>> MOVIE_OVERVIEW = new ResponseData<>(
+            "movie_overview", movieOverview(), "Overview of movies JSON response") {};
 
     //************************* people **********************
-    public static final ResponseData<APIResponse<List<PeopleType>>> PEOPLETYPE_LIST = new ResponseData<>(
-            "peopletype_list", peopleTypeList(), "List of people types JSON response") {};
+    public static final ResponseData<APIResponse<Collection<PeopleType>>> PEOPLETYPE_OVERVIEW = new ResponseData<>(
+            "peopletype_overview", peopleTypeOverview(), "Overview of people types JSON response") {};
     public static final ResponseData<APIResponse<People>> PEOPLE = new ResponseData<>(
             "people", people(FULL), "Single people JSON response") {};
     public static final ResponseData<APIResponse<PeopleDetails>> PEOPLE_DETAILS = new ResponseData<>(
@@ -223,27 +223,27 @@ public abstract class ResponseData<T> {
             "season", season(FULL), "Single season JSON response") {};
     public static final ResponseData<APIResponse<SeasonDetails>> SEASON_DETAILS = new ResponseData<>(
             "season_extended", seasonDetails(FULL), "Single extended season JSON response") {};
-    public static final ResponseData<APIResponse<List<SeasonType>>> SEASONTYPE_LIST = new ResponseData<>(
-            "seasontype_list", seasonTypeList(), "List of season types JSON response") {};
+    public static final ResponseData<APIResponse<Collection<SeasonType>>> SEASONTYPE_OVERVIEW = new ResponseData<>(
+            "seasontype_overview", seasonTypeOverview(), "Overview of season types JSON response") {};
 
     //************************* series **********************
     public static final ResponseData<APIResponse<Series>> SERIES = new ResponseData<>(
             "series", series(FULL), "Single series JSON response") {};
     public static final ResponseData<APIResponse<SeriesDetails>> SERIES_DETAILS = new ResponseData<>(
             "series_extended", seriesDetails(FULL), "Single extended series JSON response") {};
-    public static final ResponseData<APIResponse<List<Series>>> SERIES_LIST = new ResponseData<>(
-            "series_list", seriesList(), "List of series JSON response") {};
+    public static final ResponseData<APIResponse<Collection<Series>>> SERIES_OVERVIEW = new ResponseData<>(
+            "series_overview", seriesOverview(), "Overview of series JSON response") {};
 
     //************************* status **********************
-    public static final ResponseData<APIResponse<List<Status>>> STATUS_LIST = new ResponseData<>(
-            "status_list", statusList(), "List of statuses JSON response") {};
+    public static final ResponseData<APIResponse<Collection<Status>>> STATUS_OVERVIEW = new ResponseData<>(
+            "status_overview", statusOverview(), "Overview of statuses JSON response") {};
 
     //********************** translations *******************
     public static final ResponseData<APIResponse<Translation>> TRANSLATION = new ResponseData<>(
             "translation", translation(FULL), "Single translated entity JSON response") {};
     // ToDo: Remove this and switch to single translation object after remote API has been fixed
-    public static final ResponseData<APIResponse<List<Translation>>> TRANSLATION_LIST = new ResponseData<>(
-            "translation_list", createAPIResponse(singletonList(create(translationModel(), FULL))), "List of translated entities JSON response") {};
+    public static final ResponseData<APIResponse<Collection<Translation>>> TRANSLATIONS = new ResponseData<>(
+            "translations", createAPIResponse(singletonList(create(translationModel(), FULL))), "List of translated entities JSON response") {};
     //@EnableFormatting
 
     /**
@@ -295,11 +295,11 @@ public abstract class ResponseData<T> {
         return createAPIResponse(create(artworkDetailsModel(), shape));
     }
 
-    private static APIResponse<List<ArtworkType>> artworkTypeList() {
+    private static APIResponse<Collection<ArtworkType>> artworkTypeOverview() {
         return createAPIResponse(createTwo(artworkTypeModel()));
     }
 
-    private static APIResponse<List<ArtworkStatus>> artworkStatusList() {
+    private static APIResponse<Collection<ArtworkStatus>> artworkStatusOverview() {
         return createAPIResponse(createTwo(artworkStatusModel()));
     }
 
@@ -311,7 +311,7 @@ public abstract class ResponseData<T> {
         return createAPIResponse(create(awardCategoryDetailsModel(), shape));
     }
 
-    private static APIResponse<List<Award>> awardList() {
+    private static APIResponse<Collection<Award>> awardOverview() {
         return createAPIResponse(createTwo(awardModel()));
     }
 
@@ -331,15 +331,15 @@ public abstract class ResponseData<T> {
         return createAPIResponse(create(companyModel(), shape));
     }
 
-    private static APIResponse<List<Company>> companyList() {
+    private static APIResponse<Collection<Company>> companyOverview() {
         return createAPIResponse(createTwo(companyModel()));
     }
 
-    private static APIResponse<List<CompanyType>> companyTypeList() {
+    private static APIResponse<Collection<CompanyType>> companyTypeOverview() {
         return createAPIResponse(createTwo(companyTypeModel()));
     }
 
-    private static APIResponse<List<ContentRating>> contentRatingList() {
+    private static APIResponse<Collection<ContentRating>> contentRatingOverview() {
         return createAPIResponse(createTwo(contentRatingModel()));
     }
 
@@ -347,7 +347,7 @@ public abstract class ResponseData<T> {
         return createAPIResponse(Data.with("Some content"));
     }
 
-    private static APIResponse<List<EntityType>> entityTypeList() {
+    private static APIResponse<Collection<EntityType>> entityTypeOverview() {
         return createAPIResponse(createTwo(entityTypeModel()));
     }
 
@@ -359,6 +359,10 @@ public abstract class ResponseData<T> {
         return createAPIResponse(create(episodeDetailsModel(), shape));
     }
 
+    private static APIResponse<Collection<FCList>> listOverview() {
+        return createAPIResponse(createTwo(listModel()));
+    }
+
     private static APIResponse<FCList> list(Shape shape) {
         return createAPIResponse(create(listModel(), shape));
     }
@@ -367,19 +371,15 @@ public abstract class ResponseData<T> {
         return createAPIResponse(create(listDetailsModel(), shape));
     }
 
-    private static APIResponse<List<FCList>> listList() {
-        return createAPIResponse(createTwo(listModel()));
-    }
-
     private static APIResponse<Genre> genre() {
         return createAPIResponse(create(genreModel()));
     }
 
-    private static APIResponse<List<Gender>> genderList() {
+    private static APIResponse<Collection<Gender>> genderOverview() {
         return createAPIResponse(createTwo(genderModel()));
     }
 
-    private static APIResponse<List<Genre>> genreList() {
+    private static APIResponse<Collection<Genre>> genreOverview() {
         return createAPIResponse(createTwo(genreModel()));
     }
 
@@ -391,7 +391,7 @@ public abstract class ResponseData<T> {
         return createAPIResponse(create(movieDetailsModel(), shape));
     }
 
-    private static APIResponse<List<Movie>> movieList() {
+    private static APIResponse<Collection<Movie>> movieOverview() {
         return createAPIResponse(createTwo(movieModel()));
     }
 
@@ -403,7 +403,7 @@ public abstract class ResponseData<T> {
         return createAPIResponse(create(peopleDetailsModel(), shape));
     }
 
-    private static APIResponse<List<PeopleType>> peopleTypeList() {
+    private static APIResponse<Collection<PeopleType>> peopleTypeOverview() {
         return createAPIResponse(createTwo(peopleTypeModel()));
     }
 
@@ -415,7 +415,7 @@ public abstract class ResponseData<T> {
         return createAPIResponse(create(seasonDetailsModel(), shape));
     }
 
-    private static APIResponse<List<SeasonType>> seasonTypeList() {
+    private static APIResponse<Collection<SeasonType>> seasonTypeOverview() {
         return createAPIResponse(createTwo(seasonTypeModel()));
     }
 
@@ -427,11 +427,11 @@ public abstract class ResponseData<T> {
         return createAPIResponse(create(seriesDetailsModel(), shape));
     }
 
-    private static APIResponse<List<Series>> seriesList() {
+    private static APIResponse<Collection<Series>> seriesOverview() {
         return createAPIResponse(createTwo(seriesModel()));
     }
 
-    private static APIResponse<List<Status>> statusList() {
+    private static APIResponse<Collection<Status>> statusOverview() {
         return createAPIResponse(createTwo(statusModel()));
     }
 
@@ -461,18 +461,18 @@ public abstract class ResponseData<T> {
     }
 
     private static <T> T create(DtoSupplier<T> supplier, int startIndex, Shape shape) {
-        return create(1, supplier, startIndex, shape).get(0);
+        return create(1, supplier, startIndex, shape).stream().findFirst().orElseThrow();
     }
 
-    private static <T> List<T> createTwo(DtoSupplier<T> supplier) {
+    private static <T> Collection<T> createTwo(DtoSupplier<T> supplier) {
         return createTwo(supplier, 1);
     }
 
-    private static <T> List<T> createTwo(DtoSupplier<T> supplier, int startIndex) {
+    private static <T> Collection<T> createTwo(DtoSupplier<T> supplier, int startIndex) {
         return create(2, supplier, startIndex, FULL);
     }
 
-    private static <T> List<T> create(int amount, DtoSupplier<T> supplier, int startIndex, Shape shape) {
+    private static <T> Collection<T> create(int amount, DtoSupplier<T> supplier, int startIndex, Shape shape) {
         return IntStream.range(startIndex, startIndex + amount)
                 .mapToObj(idx -> supplier.get(idx, shape)).collect(Collectors.toList());
     }

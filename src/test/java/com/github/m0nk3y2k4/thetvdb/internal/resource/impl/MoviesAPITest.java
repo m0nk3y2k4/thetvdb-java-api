@@ -28,8 +28,8 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.MOVIE;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.MOVIE_DETAILS;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.MOVIE_LIST;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.STATUS_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.MOVIE_OVERVIEW;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.STATUS_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.TRANSLATION;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -56,8 +56,8 @@ class MoviesAPITest {
     //@DisableFormatting
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
-        client.when(request("/movies/statuses", GET)).respond(jsonResponse(STATUS_LIST));
-        client.when(request("/movies", GET, param("page", "9"))).respond(jsonResponse(MOVIE_LIST));
+        client.when(request("/movies/statuses", GET)).respond(jsonResponse(STATUS_OVERVIEW));
+        client.when(request("/movies", GET, param("page", "9"))).respond(jsonResponse(MOVIE_OVERVIEW));
         client.when(request("/movies/648730", GET)).respond(jsonResponse(MOVIE));
         client.when(request("/movies/95574/extended", GET)).respond(jsonResponse(MOVIE_DETAILS));
         client.when(request("/movies/57017/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
@@ -79,8 +79,8 @@ class MoviesAPITest {
     @SuppressWarnings("Convert2MethodRef")
     private static Stream<Arguments> withValidParameters() {
         return Stream.of(
-                of(route(con -> getAllMovieStatuses(con), "getAllMovieStatuses()"), STATUS_LIST),
-                of(route(con -> getAllMovies(con, params("page", "9")), "getAllMovies()"), MOVIE_LIST),
+                of(route(con -> getAllMovieStatuses(con), "getAllMovieStatuses()"), STATUS_OVERVIEW),
+                of(route(con -> getAllMovies(con, params("page", "9")), "getAllMovies()"), MOVIE_OVERVIEW),
                 of(route(con -> getMovieBase(con, 648730), "getMovieBase()"), MOVIE),
                 of(route(con -> getMovieExtended(con, 95574), "getMovieExtended()"), MOVIE_DETAILS),
                 of(route(con -> getMovieTranslation(con, 57017, "eng"), "getMovieTranslation()"), TRANSLATION)

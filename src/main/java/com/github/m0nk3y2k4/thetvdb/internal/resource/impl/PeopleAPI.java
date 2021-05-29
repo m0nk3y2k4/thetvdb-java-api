@@ -39,7 +39,7 @@ public final class PeopleAPI extends Resource {
     private PeopleAPI() {}      // Private constructor. Only static methods
 
     /**
-     * Returns a list of available people types as raw JSON.
+     * Returns an overview of available people types as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/people-types/getAllPeopleTypes">
      * <b>[GET]</b> /people/types</a>

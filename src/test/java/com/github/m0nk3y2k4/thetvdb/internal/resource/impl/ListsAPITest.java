@@ -27,7 +27,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.LIST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.LIST_DETAILS;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.LIST_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.LIST_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.TRANSLATION;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -55,7 +55,7 @@ class ListsAPITest {
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
         client.when(request("/lists/39880/translations/fra", GET)).respond(jsonResponse(TRANSLATION));
-        client.when(request("/lists", GET, param("page", "6"))).respond(jsonResponse(LIST_LIST));
+        client.when(request("/lists", GET, param("page", "6"))).respond(jsonResponse(LIST_OVERVIEW));
         client.when(request("/lists/5771", GET)).respond(jsonResponse(LIST));
         client.when(request("/lists/2414/extended", GET)).respond(jsonResponse(LIST_DETAILS));
     }
@@ -76,7 +76,7 @@ class ListsAPITest {
     private static Stream<Arguments> withValidParameters() {
         return Stream.of(
                 of(route(con -> getListTranslation(con, 39880, "fra"), "getListTranslation()"), TRANSLATION),
-                of(route(con -> getAllLists(con, params("page", "6")), "getAllLists()"), LIST_LIST),
+                of(route(con -> getAllLists(con, params("page", "6")), "getAllLists()"), LIST_OVERVIEW),
                 of(route(con -> getListBase(con, 5771), "getListBase()"), LIST),
                 of(route(con -> getListExtended(con, 2414), "getListExtended()"), LIST_DETAILS)
         );

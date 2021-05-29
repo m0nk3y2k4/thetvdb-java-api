@@ -36,7 +36,7 @@ public final class EntityTypesAPI extends Resource {
     private EntityTypesAPI() {}        // Private constructor. Only static methods
 
     /**
-     * Returns a list of available entity types as raw JSON.
+     * Returns an overview of available entity types as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/entity-types/getEntityTypes">
      * <b>[GET]</b> /entities/types</a>

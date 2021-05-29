@@ -29,7 +29,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.AWARD;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.AWARDCATEGORY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.AWARDCATEGORY_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.AWARD_DETAILS;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.AWARD_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.AWARD_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -56,7 +56,7 @@ class AwardsAPITest {
     static void setUpRoutes(MockServerClient client) throws Exception {
         client.when(request("/awards/categories/5501", GET)).respond(jsonResponse(AWARDCATEGORY));
         client.when(request("/awards/categories/6874/extended", GET)).respond(jsonResponse(AWARDCATEGORY_DETAILS));
-        client.when(request("/awards", GET)).respond(jsonResponse(AWARD_LIST));
+        client.when(request("/awards", GET)).respond(jsonResponse(AWARD_OVERVIEW));
         client.when(request("/awards/87", GET)).respond(jsonResponse(AWARD));
         client.when(request("/awards/894/extended", GET)).respond(jsonResponse(AWARD_DETAILS));
     }
@@ -79,7 +79,7 @@ class AwardsAPITest {
         return Stream.of(
                 of(route(con -> getAwardCategoryBase(con, 5501), "getAwardCategoryBase()"), AWARDCATEGORY),
                 of(route(con -> getAwardCategoryExtended(con, 6874), "getAwardCategoryExtended()"), AWARDCATEGORY_DETAILS),
-                of(route(con -> getAllAwards(con), "getAllAwards()"), AWARD_LIST),
+                of(route(con -> getAllAwards(con), "getAllAwards()"), AWARD_OVERVIEW),
                 of(route(con -> getAwardBase(con, 87), "getAwardBase()"), AWARD),
                 of(route(con -> getAwardExtended(con, 894), "getAwardExtended()"), AWARD_DETAILS)
         );

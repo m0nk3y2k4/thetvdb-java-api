@@ -67,7 +67,7 @@ import org.junit.platform.commons.util.Preconditions;
  *
  *     {@literal @ResponseDataSource}(mode = Mode.MATCH_ANY, names = "ARTWORK.*")
  *     void testArtworkStuff(ResponseData data) {
- *         // Runs the test with all artwork related test data objects, e.g. ARTWORK, ARTWORKTYPE_LIST, ...
+ *         // Runs the test with all artwork related test data objects, e.g. ARTWORK, ARTWORKTYPE_OVERVIEW, ...
  *     }
  * </code></pre>
  */

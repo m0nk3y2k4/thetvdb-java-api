@@ -21,7 +21,7 @@ import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
-import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.CONTENTRATING_LIST;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.CONTENTRATING_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.of;
@@ -45,13 +45,13 @@ class ContentRatingsAPITest {
     //@DisableFormatting
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
-        client.when(request("/content/ratings", GET)).respond(jsonResponse(CONTENTRATING_LIST));
+        client.when(request("/content/ratings", GET)).respond(jsonResponse(CONTENTRATING_OVERVIEW));
     }
 
     @SuppressWarnings("Convert2MethodRef")
     private static Stream<Arguments> withValidParameters() {
         return Stream.of(
-                of(route(con -> getAllContentRatings(con), "getAllContentRatings()"), CONTENTRATING_LIST)
+                of(route(con -> getAllContentRatings(con), "getAllContentRatings()"), CONTENTRATING_OVERVIEW)
         );
     }
     //@EnableFormatting
