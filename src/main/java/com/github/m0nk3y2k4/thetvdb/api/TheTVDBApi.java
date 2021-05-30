@@ -37,6 +37,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Company;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.CompanyType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ContentRating;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityType;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityUpdate;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EpisodeDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.FCList;
@@ -970,6 +971,40 @@ public interface TheTVDBApi {
     Collection<SourceType> getAllSourceTypes() throws APIException;
 
     /**
+     * Returns a collection of recently updated entities based on the given query parameters mapped as Java DTO. The
+     * collection contains basic information of all entities matching the query parameters.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/updates/updates">
+     * <b>[GET]</b> /updates</a>
+     *
+     * @param queryParameters Object containing key/value pairs of query parameters
+     *
+     * @return Collection of updated entities mapped as Java DTO's based on the JSON data returned by the remote
+     *         service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see JSON#getUpdates(QueryParameters) TheTVDBApi.JSON.getUpdates(queryParameters)
+     * @see Extended#getUpdates(QueryParameters) TheTVDBApi.Extended.getUpdates(queryParameters)
+     */
+    Collection<EntityUpdate> getUpdates(QueryParameters queryParameters) throws APIException;
+
+    /**
+     * Returns a collection of entities which have been updated since the given Epoch time mapped as Java DTO. This is a
+     * shortcut-method for {@link #getUpdates(QueryParameters) getUpdates(queryParameters)} with a single {@value
+     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#SINCE} query parameter.
+     *
+     * @param since UNIX Epoch time (GMT) in seconds. Must be in the past.
+     *
+     * @return Collection of entities updated since the given Epoch time mapped as Java DTO's based on the JSON data
+     *         returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or the timestamp lies in the future.
+     */
+    Collection<EntityUpdate> getUpdates(long since) throws APIException;
+
+    /**
      * Provides access to the API's {@link JSON JSON} layout.
      * <p><br>
      * In this layout, all methods will return the raw, unmodified JSON as received from the remove service.
@@ -1722,6 +1757,24 @@ public interface TheTVDBApi {
          * @see Extended#getAllSourceTypes()
          */
         JsonNode getAllSourceTypes() throws APIException;
+
+        /**
+         * Returns a collection of recently updated entities based on the given query parameters as raw JSON. It
+         * contains basic information of all entities matching the query parameters.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/updates/updates">
+         * <b>[GET]</b> /updates</a>
+         *
+         * @param queryParameters Object containing key/value pairs of query parameters
+         *
+         * @return JSON object containing the updated entities
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see TheTVDBApi#getUpdates(QueryParameters) TheTVDBApi.getUpdates(queryParameters)
+         * @see Extended#getUpdates(QueryParameters) TheTVDBApi.Extended.getUpdates(queryParameters)
+         */
+        JsonNode getUpdates(QueryParameters queryParameters) throws APIException;
     }
 
     /**
@@ -2498,6 +2551,26 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getAllSourceTypes() TheTVDBApi.getAllSourceTypes()
          */
         APIResponse<Collection<SourceType>> getAllSourceTypes() throws APIException;
+
+        /**
+         * Returns a response object containing a collection of recently updated entities based on the given query
+         * parameters mapped as Java DTO. The collection contains basic information of all entities matching the query
+         * parameters.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/updates/updates">
+         * <b>[GET]</b> /updates</a>
+         *
+         * @param queryParameters Object containing key/value pairs of query parameters
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see JSON#getUpdates(QueryParameters) TheTVDBApi.JSON.getUpdates(queryParameters)
+         * @see TheTVDBApi#getUpdates(QueryParameters) TheTVDBApi.getUpdates(queryParameters)
+         */
+        APIResponse<Collection<EntityUpdate>> getUpdates(QueryParameters queryParameters) throws APIException;
     }
 
     /**

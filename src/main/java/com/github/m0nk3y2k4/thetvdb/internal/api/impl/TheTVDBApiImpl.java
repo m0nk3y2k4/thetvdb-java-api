@@ -45,6 +45,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Company;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.CompanyType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ContentRating;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityType;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityUpdate;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EpisodeDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.FCList;
@@ -84,6 +85,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.PeopleAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeasonsAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SourceTypesAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.UpdatesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
 import com.github.m0nk3y2k4.thetvdb.internal.util.json.APIJsonMapper;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
@@ -448,6 +450,16 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public Collection<EntityUpdate> getUpdates(QueryParameters queryParameters) throws APIException {
+        return extended().getUpdates(queryParameters).getData();
+    }
+
+    @Override
+    public Collection<EntityUpdate> getUpdates(long since) throws APIException {
+        return getUpdates(query(Map.of(Query.Updates.SINCE, String.valueOf(since))));
+    }
+
+    @Override
     public JSON json() {
         return jsonApi;
     }
@@ -677,6 +689,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public JsonNode getAllSourceTypes() throws APIException {
             return SourceTypesAPI.getAllSourceTypes(con);
+        }
+
+        @Override
+        public JsonNode getUpdates(QueryParameters queryParameters) throws APIException {
+            return UpdatesAPI.getUpdates(con, queryParameters);
         }
     }
 
@@ -909,6 +926,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public APIResponse<Collection<SourceType>> getAllSourceTypes() throws APIException {
             return APIJsonMapper.readValue(json().getAllSourceTypes(), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<Collection<EntityUpdate>> getUpdates(QueryParameters queryParameters) throws APIException {
+            return APIJsonMapper.readValue(json().getUpdates(queryParameters), new TypeReference<>() {});
         }
     }
 }

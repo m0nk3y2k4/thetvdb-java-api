@@ -52,6 +52,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.CompanyType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ContentRating;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Entity;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityType;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityUpdate;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EpisodeDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.FCList;
@@ -98,6 +99,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CompanyTypeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ContentRatingDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EntityDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EntityTypeDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EntityUpdateDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EpisodeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EpisodeDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.FCListDTO;
@@ -250,6 +252,10 @@ public abstract class ResponseData<T> {
     // ToDo: Remove this and switch to single translation object after remote API has been fixed
     public static final ResponseData<APIResponse<Collection<Translation>>> TRANSLATIONS = new ResponseData<>(
             "translations", createAPIResponse(singletonList(create(translationModel(), FULL))), "List of translated entities JSON response") {};
+
+    //************************ updates **********************
+    public static final ResponseData<APIResponse<Collection<EntityUpdate>>> UPDATE_OVERVIEW = new ResponseData<>(
+            "update_overview", updateOverview(), "Overview of updates JSON response") {};
     //@EnableFormatting
 
     /**
@@ -451,6 +457,10 @@ public abstract class ResponseData<T> {
 
     private static <T> APIResponse<T> createAPIResponse(T data) {
         return new APIResponseDTO.Builder<T>().data(data).status("success").build();
+    }
+
+    private static APIResponse<Collection<EntityUpdate>> updateOverview() {
+        return createAPIResponse(createTwo(entityUpdateModel()));
     }
 
 
@@ -1001,6 +1011,11 @@ public abstract class ResponseData<T> {
             }
             return builder.build();
         };
+    }
+
+    private static SimpleDtoSupplier<EntityUpdate> entityUpdateModel() {
+        return idx -> new EntityUpdateDTO.Builder().recordId(39003L + idx).method("Method" + idx)
+                .timeStamp(16245743L + idx).entityType("EntityType" + idx).build();
     }
 
     /**

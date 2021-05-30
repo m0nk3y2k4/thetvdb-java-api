@@ -71,4 +71,15 @@ public final class Query {
 
         private Series() {}     // Private constructor. Only constants in this class
     }
+
+    /**
+     * Collection of query parameters for API endpoint <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/updates">/updates</a>
+     */
+    public static final class Updates {
+
+        /** Query parameter "<i>since</i>" - UNIX Epoch time in seconds. Remote service uses GMT as reference. */
+        public static final String SINCE = "since";
+
+        private Updates() {}     // Private constructor. Only constants in this class
+    }
 }

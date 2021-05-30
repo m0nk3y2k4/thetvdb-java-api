@@ -59,6 +59,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SOURCETYPE_OVE
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.STATUS_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.TRANSLATION;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.TRANSLATIONS;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.UPDATE_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestTheTVDBAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
@@ -75,6 +76,7 @@ import com.github.m0nk3y2k4.thetvdb.api.constants.Query.Companies;
 import com.github.m0nk3y2k4.thetvdb.api.constants.Query.Lists;
 import com.github.m0nk3y2k4.thetvdb.api.constants.Query.Movies;
 import com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series;
+import com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APIPreconditionException;
 import com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders;
@@ -177,6 +179,8 @@ class TheTVDBApiImplTest {
             client.when(request("/series/9041/extended", GET)).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/6004/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/sources/types", GET)).respond(jsonResponse(SOURCETYPE_OVERVIEW));
+            client.when(request("/updates", GET, param(Updates.SINCE, "16247601"), param("value", "QueryUpdates"))).respond(jsonResponse(UPDATE_OVERVIEW));
+            client.when(request("/updates", GET, param(Updates.SINCE, "162365745"))).respond(jsonResponse(UPDATE_OVERVIEW));
         }
 
         private Stream<Arguments> withInvalidParameters() {
@@ -239,7 +243,9 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getSeries(2845), "getSeries()"), SERIES),
                     of(route(() -> basicAPI.getSeriesDetails(9041), "getSeriesDetails()"), SERIES_DETAILS),
                     of(route(() -> basicAPI.getSeriesTranslation(6004, "eng"), "getSeriesTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW)
+                    of(route(() -> basicAPI.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
+                    of(route(() -> basicAPI.getUpdates(params(Updates.SINCE, "16247601", "value", "QueryUpdates")), "getUpdates() with query parameters"), UPDATE_OVERVIEW),
+                    of(route(() -> basicAPI.getUpdates(162365745), "getUpdates() with Epoch time"), UPDATE_OVERVIEW)
             );
         }
         //@EnableFormatting
@@ -340,6 +346,7 @@ class TheTVDBApiImplTest {
             client.when(request("/series/5842/extended", GET)).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/8024/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/sources/types", GET)).respond(jsonResponse(SOURCETYPE_OVERVIEW));
+            client.when(request("/updates", GET, param(Updates.SINCE, "16258740"), param("value", "QueryUpdatesJson"))).respond(jsonResponse(UPDATE_OVERVIEW));
         }
 
         private Stream<Arguments> withInvalidParameters() {
@@ -393,7 +400,8 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getSeries(5003), "getSeries()"), SERIES),
                     of(route(() -> basicAPI.getSeriesDetails(5842), "getSeriesDetails()"), SERIES_DETAILS),
                     of(route(() -> basicAPI.getSeriesTranslation(8024, "eng"), "getSeriesTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW)
+                    of(route(() -> basicAPI.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
+                    of(route(() -> basicAPI.getUpdates(params(Updates.SINCE, "16258740", "value", "QueryUpdatesJson")), "getUpdates() with query parameters"), UPDATE_OVERVIEW)
             );
         }
         //@EnableFormatting
@@ -477,6 +485,7 @@ class TheTVDBApiImplTest {
             client.when(request("/series/5444/extended", GET)).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/6170/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/sources/types", GET)).respond(jsonResponse(SOURCETYPE_OVERVIEW));
+            client.when(request("/updates", GET, param(Updates.SINCE, "16245743"), param("value", "QueryUpdatesExtended"))).respond(jsonResponse(UPDATE_OVERVIEW));
         }
 
         private Stream<Arguments> withInvalidParameters() {
@@ -530,7 +539,8 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getSeries(8131), "getSeries()"), SERIES),
                     of(route(() -> basicAPI.getSeriesDetails(5444), "getSeriesDetails()"), SERIES_DETAILS),
                     of(route(() -> basicAPI.getSeriesTranslation(6170, "eng"), "getSeriesTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW)
+                    of(route(() -> basicAPI.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
+                    of(route(() -> basicAPI.getUpdates(params(Updates.SINCE, "16245743", "value", "QueryUpdatesExtended")), "getUpdates() with query parameters"), UPDATE_OVERVIEW)
             );
         }
         //@EnableFormatting
