@@ -34,60 +34,7 @@ import javax.annotation.Nullable;
  * there will be no intense post-processing of the actual JSON values a type-casting may be applied to <u>some</u> of
  * them to improve the usability and relieve the API user of this task.
  */
-public interface MovieDetails {
-
-    /**
-     * Get the value of the {<em>{@code data.id}</em>} JSON property
-     *
-     * @return The <em>{@code id}</em> property from the received JSON
-     */
-    @Nullable
-    Long getId();
-
-    /**
-     * Get the value of the {<em>{@code data.image}</em>} JSON property
-     *
-     * @return The <em>{@code image}</em> property from the received JSON
-     */
-    @Nullable
-    String getImage();
-
-    /**
-     * Get the value of the {<em>{@code data.name}</em>} JSON property
-     *
-     * @return The <em>{@code name}</em> property from the received JSON
-     */
-    @Nullable
-    String getName();
-
-    /**
-     * Get the value of the {<em>{@code data.slug}</em>} JSON property
-     *
-     * @return The <em>{@code slug}</em> property from the received JSON
-     */
-    @Nullable
-    String getSlug();
-
-    /**
-     * Get the value of the {<em>{@code data.nameTranslations}</em>} JSON property
-     *
-     * @return The <em>{@code nameTranslations}</em> property from the received JSON
-     */
-    List<String> getNameTranslations();
-
-    /**
-     * Get the value of the {<em>{@code data.overviewTranslations}</em>} JSON property
-     *
-     * @return The <em>{@code overviewTranslations}</em> property from the received JSON
-     */
-    List<String> getOverviewTranslations();
-
-    /**
-     * Get the value of the {<em>{@code data.aliases}</em>} JSON property
-     *
-     * @return The <em>{@code aliases}</em> property from the received JSON
-     */
-    List<Alias> getAliases();
+public interface MovieDetails extends Movie {
 
     /**
      * Get the value of the {<em>{@code data.artworks}</em>} JSON property
@@ -150,15 +97,6 @@ public interface MovieDetails {
     List<ContentRating> getContentRatings();
 
     /**
-     * Get the value of the {<em>{@code data.lastUpdated}</em>} JSON property
-     *
-     * @return The <em>{@code lastUpdated}</em> property from the received JSON
-     */
-    // ToDo: Field is currently not declared in MovieExtendedRecord but returned in JSON. Check again after the next API update.
-    @Nullable
-    String getLastUpdated();
-
-    /**
      * Get the value of the {<em>{@code data.lists}</em>} JSON property
      *
      * @return The <em>{@code lists}</em> property from the received JSON
@@ -201,31 +139,6 @@ public interface MovieDetails {
      * @return The <em>{@code remoteIds}</em> property from the received JSON
      */
     List<RemoteId> getRemoteIds();
-
-    /**
-     * Get the value of the {<em>{@code data.runtime}</em>} JSON property
-     *
-     * @return The <em>{@code runtime}</em> property from the received JSON
-     */
-    // ToDo: Field is currently not declared in MovieExtendedRecord but returned in JSON. Check again after the next API update.
-    @Nullable
-    Long getRuntime();
-
-    /**
-     * Get the value of the {<em>{@code data.score}</em>} JSON property
-     *
-     * @return The <em>{@code score}</em> property from the received JSON
-     */
-    @Nullable
-    Double getScore();
-
-    /**
-     * Get the value of the {<em>{@code data.status}</em>} JSON property
-     *
-     * @return The <em>{@code status}</em> property from the received JSON
-     */
-    @Nullable
-    Status getStatus();
 
     /**
      * Get the value of the {<em>{@code data.studios}</em>} JSON property

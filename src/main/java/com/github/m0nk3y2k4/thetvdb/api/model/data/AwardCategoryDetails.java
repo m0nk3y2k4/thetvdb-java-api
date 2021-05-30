@@ -18,8 +18,6 @@ package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 /**
  * Interface representing an
  * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/AwardCategoryExtendedRecord">AwardCategoryExtendedRecord</a>
@@ -34,55 +32,7 @@ import javax.annotation.Nullable;
  * there will be no intense post-processing of the actual JSON values a type-casting may be applied to <u>some</u> of
  * them to improve the usability and relieve the API user of this task.
  */
-public interface AwardCategoryDetails {
-
-    /**
-     * Get the value of the {<em>{@code data.id}</em>} JSON property
-     *
-     * @return The <em>{@code id}</em> property from the received JSON
-     */
-    @Nullable
-    Long getId();
-
-    /**
-     * Get the value of the {<em>{@code data.name}</em>} JSON property
-     *
-     * @return The <em>{@code name}</em> property from the received JSON
-     */
-    @Nullable
-    String getName();
-
-    /**
-     * Get the value of the {<em>{@code data.allowCoNominees}</em>} JSON property
-     *
-     * @return The <em>{@code allowCoNominees}</em> property from the received JSON
-     */
-    @Nullable
-    Boolean allowCoNominees();
-
-    /**
-     * Get the value of the {<em>{@code data.forSeries}</em>} JSON property
-     *
-     * @return The <em>{@code forSeries}</em> property from the received JSON
-     */
-    @Nullable
-    Boolean forSeries();
-
-    /**
-     * Get the value of the {<em>{@code data.forMovies}</em>} JSON property
-     *
-     * @return The <em>{@code forMovies}</em> property from the received JSON
-     */
-    @Nullable
-    Boolean forMovies();
-
-    /**
-     * Get the value of the {<em>{@code data.award}</em>} JSON property
-     *
-     * @return The <em>{@code award}</em> property from the received JSON
-     */
-    @Nullable
-    Award getAward();
+public interface AwardCategoryDetails extends AwardCategory {
 
     /**
      * Get the value of the {<em>{@code data.nominees}</em>} JSON property

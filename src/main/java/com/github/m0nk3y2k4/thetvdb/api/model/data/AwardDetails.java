@@ -34,23 +34,7 @@ import javax.annotation.Nullable;
  * there will be no intense post-processing of the actual JSON values a type-casting may be applied to <u>some</u> of
  * them to improve the usability and relieve the API user of this task.
  */
-public interface AwardDetails {
-
-    /**
-     * Get the value of the {<em>{@code data.id}</em>} JSON property
-     *
-     * @return The <em>{@code id}</em> property from the received JSON
-     */
-    @Nullable
-    Long getId();
-
-    /**
-     * Get the value of the {<em>{@code data.name}</em>} JSON property
-     *
-     * @return The <em>{@code name}</em> property from the received JSON
-     */
-    @Nullable
-    String getName();
+public interface AwardDetails extends Award {
 
     /**
      * Get the value of the {<em>{@code data.categories}</em>} JSON property
