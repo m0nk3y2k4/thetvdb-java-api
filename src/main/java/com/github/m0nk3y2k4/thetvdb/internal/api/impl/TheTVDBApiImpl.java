@@ -61,6 +61,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.SourceType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Status;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Translation;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.APIResponseDTO;
@@ -82,6 +83,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.MoviesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.PeopleAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeasonsAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SourceTypesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
 import com.github.m0nk3y2k4.thetvdb.internal.util.json.APIJsonMapper;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
@@ -441,6 +443,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public Collection<SourceType> getAllSourceTypes() throws APIException {
+        return extended().getAllSourceTypes().getData();
+    }
+
+    @Override
     public JSON json() {
         return jsonApi;
     }
@@ -665,6 +672,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public JsonNode getSeriesTranslation(long seriesId, @Nonnull String language) throws APIException {
             return SeriesAPI.getSeriesTranslation(con, seriesId, language);
+        }
+
+        @Override
+        public JsonNode getAllSourceTypes() throws APIException {
+            return SourceTypesAPI.getAllSourceTypes(con);
         }
     }
 
@@ -892,6 +904,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         public APIResponse<Translation> getSeriesTranslation(long seriesId, @Nonnull String language)
                 throws APIException {
             return APIJsonMapper.readValue(json().getSeriesTranslation(seriesId, language), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<Collection<SourceType>> getAllSourceTypes() throws APIException {
+            return APIJsonMapper.readValue(json().getAllSourceTypes(), new TypeReference<>() {});
         }
     }
 }

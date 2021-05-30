@@ -55,6 +55,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASON_DETAILS
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES_OVERVIEW;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SOURCETYPE_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.STATUS_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.TRANSLATION;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.TRANSLATIONS;
@@ -175,6 +176,7 @@ class TheTVDBApiImplTest {
             client.when(request("/series/2845", GET)).respond(jsonResponse(SERIES));
             client.when(request("/series/9041/extended", GET)).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/6004/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
+            client.when(request("/sources/types", GET)).respond(jsonResponse(SOURCETYPE_OVERVIEW));
         }
 
         private Stream<Arguments> withInvalidParameters() {
@@ -236,7 +238,8 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllSeries(2), "getAllSeries() with page"), SERIES_OVERVIEW),
                     of(route(() -> basicAPI.getSeries(2845), "getSeries()"), SERIES),
                     of(route(() -> basicAPI.getSeriesDetails(9041), "getSeriesDetails()"), SERIES_DETAILS),
-                    of(route(() -> basicAPI.getSeriesTranslation(6004, "eng"), "getSeriesTranslation()"), TRANSLATION)
+                    of(route(() -> basicAPI.getSeriesTranslation(6004, "eng"), "getSeriesTranslation()"), TRANSLATION),
+                    of(route(() -> basicAPI.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW)
             );
         }
         //@EnableFormatting
@@ -336,6 +339,7 @@ class TheTVDBApiImplTest {
             client.when(request("/series/5003", GET)).respond(jsonResponse(SERIES));
             client.when(request("/series/5842/extended", GET)).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/8024/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
+            client.when(request("/sources/types", GET)).respond(jsonResponse(SOURCETYPE_OVERVIEW));
         }
 
         private Stream<Arguments> withInvalidParameters() {
@@ -388,7 +392,8 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllSeries(params("value", "QuerySeriesJson")), "getAllSeries() with query parameters"), SERIES_OVERVIEW),
                     of(route(() -> basicAPI.getSeries(5003), "getSeries()"), SERIES),
                     of(route(() -> basicAPI.getSeriesDetails(5842), "getSeriesDetails()"), SERIES_DETAILS),
-                    of(route(() -> basicAPI.getSeriesTranslation(8024, "eng"), "getSeriesTranslation()"), TRANSLATION)
+                    of(route(() -> basicAPI.getSeriesTranslation(8024, "eng"), "getSeriesTranslation()"), TRANSLATION),
+                    of(route(() -> basicAPI.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW)
             );
         }
         //@EnableFormatting
@@ -471,6 +476,7 @@ class TheTVDBApiImplTest {
             client.when(request("/series/8131", GET)).respond(jsonResponse(SERIES));
             client.when(request("/series/5444/extended", GET)).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/6170/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
+            client.when(request("/sources/types", GET)).respond(jsonResponse(SOURCETYPE_OVERVIEW));
         }
 
         private Stream<Arguments> withInvalidParameters() {
@@ -523,7 +529,8 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllSeries(params("value", "QuerySeriesExtended")), "getAllSeries() with query parameters"), SERIES_OVERVIEW),
                     of(route(() -> basicAPI.getSeries(8131), "getSeries()"), SERIES),
                     of(route(() -> basicAPI.getSeriesDetails(5444), "getSeriesDetails()"), SERIES_DETAILS),
-                    of(route(() -> basicAPI.getSeriesTranslation(6170, "eng"), "getSeriesTranslation()"), TRANSLATION)
+                    of(route(() -> basicAPI.getSeriesTranslation(6170, "eng"), "getSeriesTranslation()"), TRANSLATION),
+                    of(route(() -> basicAPI.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW)
             );
         }
         //@EnableFormatting

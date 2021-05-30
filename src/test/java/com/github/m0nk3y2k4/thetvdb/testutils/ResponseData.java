@@ -73,6 +73,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesAirsDays;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.SourceType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Status;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Studio;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.TagOption;
@@ -118,6 +119,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeasonTypeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesAirsDaysDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesDetailsDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SourceTypeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.StatusDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.StudioDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TagOptionDTO;
@@ -233,6 +235,10 @@ public abstract class ResponseData<T> {
             "series_extended", seriesDetails(FULL), "Single extended series JSON response") {};
     public static final ResponseData<APIResponse<Collection<Series>>> SERIES_OVERVIEW = new ResponseData<>(
             "series_overview", seriesOverview(), "Overview of series JSON response") {};
+
+    //********************** source-types *******************
+    public static final ResponseData<APIResponse<Collection<SourceType>>> SOURCETYPE_OVERVIEW = new ResponseData<>(
+            "sourcetype_overview", sourceTypeOverview(), "Overview of source types JSON response") {};
 
     //************************* status **********************
     public static final ResponseData<APIResponse<Collection<Status>>> STATUS_OVERVIEW = new ResponseData<>(
@@ -429,6 +435,10 @@ public abstract class ResponseData<T> {
 
     private static APIResponse<Collection<Series>> seriesOverview() {
         return createAPIResponse(createTwo(seriesModel()));
+    }
+
+    private static APIResponse<Collection<SourceType>> sourceTypeOverview() {
+        return createAPIResponse(createTwo(sourceTypeModel()));
     }
 
     private static APIResponse<Collection<Status>> statusOverview() {
@@ -931,6 +941,11 @@ public abstract class ResponseData<T> {
             }
             return builder.build();
         };
+    }
+
+    private static SimpleDtoSupplier<SourceType> sourceTypeModel() {
+        return idx -> new SourceTypeDTO.Builder().id(629L + idx).name("Name" + idx).slug("Slug" + idx)
+                .prefix("Prefix" + idx).postfix("Postfix" + idx).sort(16L + idx).build();
     }
 
     private static SimpleDtoSupplier<Status> statusModel() {

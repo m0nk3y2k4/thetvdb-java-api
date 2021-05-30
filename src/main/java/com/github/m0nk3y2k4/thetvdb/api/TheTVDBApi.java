@@ -53,6 +53,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.SourceType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Status;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Translation;
 
@@ -953,6 +954,22 @@ public interface TheTVDBApi {
     Translation getSeriesTranslation(long seriesId, @Nonnull String language) throws APIException;
 
     /**
+     * Returns a collection of available source types mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/source-types/getAllSourceTypes">
+     * <b>[GET]</b> /sources/types</a>
+     *
+     * @return Collection of available source types mapped as Java DTO's based on the JSON data returned by the remote
+     *         service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see JSON#getAllSourceTypes()
+     * @see Extended#getAllSourceTypes()
+     */
+    Collection<SourceType> getAllSourceTypes() throws APIException;
+
+    /**
      * Provides access to the API's {@link JSON JSON} layout.
      * <p><br>
      * In this layout, all methods will return the raw, unmodified JSON as received from the remove service.
@@ -1690,6 +1707,21 @@ public interface TheTVDBApi {
          *         language)
          */
         JsonNode getSeriesTranslation(long seriesId, @Nonnull String language) throws APIException;
+
+        /**
+         * Returns a collection of available source types as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/source-types/getAllSourceTypes">
+         * <b>[GET]</b> /sources/types</a>
+         *
+         * @return JSON object containing the available source types
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see TheTVDBApi#getAllSourceTypes() TheTVDBApi.getAllSourceTypes()
+         * @see Extended#getAllSourceTypes()
+         */
+        JsonNode getAllSourceTypes() throws APIException;
     }
 
     /**
@@ -2450,6 +2482,22 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getSeriesTranslation(long, String) TheTVDBApi.getSeriesTranslation(seriesId, language)
          */
         APIResponse<Translation> getSeriesTranslation(long seriesId, @Nonnull String language) throws APIException;
+
+        /**
+         * Returns a response object containing a collection of available source types mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/source-types/getAllSourceTypes">
+         * <b>[GET]</b> /sources/types</a>
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see JSON#getAllSourceTypes()
+         * @see TheTVDBApi#getAllSourceTypes() TheTVDBApi.getAllSourceTypes()
+         */
+        APIResponse<Collection<SourceType>> getAllSourceTypes() throws APIException;
     }
 
     /**
