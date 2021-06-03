@@ -16,9 +16,11 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.util.http;
 
+import static com.github.m0nk3y2k4.thetvdb.api.constants.Path.Series.SeasonType.ALTERNATE;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.URLPathTokenType.ID;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.URLPathTokenType.LANGUAGE;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.URLPathTokenType.LITERAL;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.URLPathTokenType.SEASON_TYPE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -40,6 +42,7 @@ class URLPathTokenTypeTest {
         return Stream.of(
                 Arguments.of("{id}", ID),
                 Arguments.of("{language}", LANGUAGE),
+                Arguments.of("{season-type}", SEASON_TYPE),
                 Arguments.of("nonWildcardToken", LITERAL)
         );
     }
@@ -47,7 +50,8 @@ class URLPathTokenTypeTest {
     private static Stream<Arguments> wildcardTypesWithCompatibleReplacementParameters() {
         return Stream.of(
                 Arguments.of(ID, 4712L),
-                Arguments.of(LANGUAGE, "eng")
+                Arguments.of(LANGUAGE, "eng"),
+                Arguments.of(SEASON_TYPE, ALTERNATE)
         );
     }
 
@@ -56,7 +60,9 @@ class URLPathTokenTypeTest {
                 Arguments.of(ID, null),
                 Arguments.of(ID, "Some String"),
                 Arguments.of(LANGUAGE, null),
-                Arguments.of(LANGUAGE, 4711L)
+                Arguments.of(LANGUAGE, 4711L),
+                Arguments.of(SEASON_TYPE, null),
+                Arguments.of(SEASON_TYPE, "DVD String")
         );
     }
 
@@ -92,7 +98,7 @@ class URLPathTokenTypeTest {
     void checkParameterCompatibility_withIncompatibleParameterTypes_verifyIllegalArgumentExceptionIsThrown(
             URLPathTokenType type, Object parameter) {
         assertThatIllegalArgumentException().isThrownBy(() -> type.checkParameterCompatibility(parameter))
-                .withMessageMatching("Wildcard replacements for \\{[a-z]+} must be of type <[\\w.]+>");
+                .withMessageMatching("Wildcard replacements for \\{[a-z\\-_]+} must be of type <[A-Za-z0-9.$]+>");
     }
 
     @ParameterizedTest(name = "[{index}] Type {0} is wildcard token")

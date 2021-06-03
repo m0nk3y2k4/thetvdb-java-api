@@ -74,6 +74,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesAirsDays;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesEpisodes;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SourceType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Status;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Studio;
@@ -121,6 +122,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeasonTypeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesAirsDaysDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesDetailsDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeriesEpisodesDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SourceTypeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.StatusDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.StudioDTO;
@@ -235,6 +237,8 @@ public abstract class ResponseData<T> {
             "series", series(FULL), "Single series JSON response") {};
     public static final ResponseData<APIResponse<SeriesDetails>> SERIES_DETAILS = new ResponseData<>(
             "series_extended", seriesDetails(FULL), "Single extended series JSON response") {};
+    public static final ResponseData<APIResponse<SeriesEpisodes>> SERIESEPISODES = new ResponseData<>(
+            "seriesepisodes", seriesEpisodes(FULL), "Single series episodes JSON response") {};
     public static final ResponseData<APIResponse<Collection<Series>>> SERIES_OVERVIEW = new ResponseData<>(
             "series_overview", seriesOverview(), "Overview of series JSON response") {};
 
@@ -437,6 +441,10 @@ public abstract class ResponseData<T> {
 
     private static APIResponse<SeriesDetails> seriesDetails(Shape shape) {
         return createAPIResponse(create(seriesDetailsModel(), shape));
+    }
+
+    private static APIResponse<SeriesEpisodes> seriesEpisodes(Shape shape) {
+        return createAPIResponse(create(seriesEpisodesModel(), shape));
     }
 
     private static APIResponse<Collection<Series>> seriesOverview() {
@@ -948,6 +956,18 @@ public abstract class ResponseData<T> {
                         .characters(createTwo(characterModel(), listOffset))
                         .seasons(createTwo(seasonModel(), listOffset))
                         .translations(create(translationsModel(), listOffset));
+            }
+            return builder.build();
+        };
+    }
+
+    private static DtoSupplier<SeriesEpisodes> seriesEpisodesModel() {
+        return (idx, shape) -> {
+            SeriesEpisodesDTO.Builder builder = new SeriesEpisodesDTO.Builder();
+            if (shape == FULL) {
+                int listOffset = (idx << 1) - 1;
+                builder.series(create(seriesModel(), idx))
+                        .episodes(createTwo(episodeModel(), listOffset));
             }
             return builder.build();
         };

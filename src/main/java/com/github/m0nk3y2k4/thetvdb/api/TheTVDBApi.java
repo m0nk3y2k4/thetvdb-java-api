@@ -22,6 +22,7 @@ import java.util.Optional;
 import javax.annotation.Nonnull;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.github.m0nk3y2k4.thetvdb.api.constants.Path;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Artwork;
@@ -54,6 +55,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesEpisodes;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SourceType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Status;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Translation;
@@ -937,6 +939,65 @@ public interface TheTVDBApi {
     SeriesDetails getSeriesDetails(long seriesId) throws APIException;
 
     /**
+     * Returns the episodes of a particular series based on the given query parameters mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series/getSeriesEpisodes">
+     * <b>[GET]</b> /series/{id}/episodes/{season-type}</a>
+     *
+     * @param seriesId        The <i>TheTVDB.com</i> series ID
+     * @param seasonType      The type of season for which episodes should be returned
+     * @param queryParameters Object containing key/value pairs of query parameters
+     *
+     * @return A series episodes mapped as Java DTO based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if no series record with the given ID exists.
+     * @see JSON#getSeriesEpisodes(long, Path.Series.SeasonType, QueryParameters) TheTVDBApi.JSON.getSeriesEpisodes(seriesId,
+     *         seasonType, queryParameters)
+     * @see Extended#getSeriesEpisodes(long, Path.Series.SeasonType, QueryParameters)
+     *         TheTVDBApi.Extended.getSeriesEpisodes(seriesId, seasonType, queryParameters)
+     */
+    SeriesEpisodes getSeriesEpisodes(long seriesId, Path.Series.SeasonType seasonType, QueryParameters queryParameters)
+            throws APIException;
+
+    /**
+     * Returns a limited overview of episodes of a particular series mapped as Java DTO. Since some series have many
+     * episodes, the result will be paginated. This is a shortcut-method for {@link #getSeriesEpisodes(long,
+     * Path.Series.SeasonType, QueryParameters) getAllSeries(seriesId, seasonType, queryParameters)} which will always
+     * return the first page only what may be convenient for series with few episodes.
+     *
+     * @param seriesId   The <i>TheTVDB.com</i> series ID
+     * @param seasonType The type of season for which episodes should be returned
+     *
+     * @return First page of a series episodes mapped as Java DTO's based on the JSON data returned by the remote
+     *         service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if no series record with the given ID exists.
+     * @see #getSeriesEpisodes(long, Path.Series.SeasonType, long) getSeriesEpisodes(seriesId, seasonType, page)
+     */
+    SeriesEpisodes getSeriesEpisodes(long seriesId, Path.Series.SeasonType seasonType) throws APIException;
+
+    /**
+     * Returns a limited overview of episodes of a particular series mapped as Java DTO. Since some series have many
+     * episodes, the result will be paginated. Use the <em>{@code page}</em> parameter to browse to a specific result
+     * page. This is a shortcut-method for {@link #getSeriesEpisodes(long, Path.Series.SeasonType, QueryParameters)
+     * getAllSeries(seriesId, seasonType, queryParameters)} with a single {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series#PAGE}
+     * query parameter.
+     *
+     * @param seriesId   The <i>TheTVDB.com</i> series ID
+     * @param seasonType The type of season for which episodes should be returned
+     * @param page       The result page to be returned (zero-based)
+     *
+     * @return A series episodes mapped as Java DTO's based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if no series record with the given ID exists.
+     * @see #getSeriesEpisodes(long, Path.Series.SeasonType) getSeriesEpisodes(seriesId, seasonType)
+     */
+    SeriesEpisodes getSeriesEpisodes(long seriesId, Path.Series.SeasonType seasonType, long page) throws APIException;
+
+    /**
      * Returns a translation record for a specific series mapped as Java DTO.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series/getSeriesTranslation">
@@ -1722,6 +1783,28 @@ public interface TheTVDBApi {
          * @see Extended#getSeriesDetails(long) TheTVDBApi.Extended.getSeriesDetails(seriesId)
          */
         JsonNode getSeriesDetails(long seriesId) throws APIException;
+
+        /**
+         * Returns the episodes of a particular series based on the given query parameters as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series/getSeriesEpisodes">
+         * <b>[GET]</b> /series/{id}/episodes/{season-type}</a>
+         *
+         * @param seriesId        The <i>TheTVDB.com</i> series ID
+         * @param seasonType      The type of season for which episodes should be returned
+         * @param queryParameters Object containing key/value pairs of query parameters
+         *
+         * @return JSON object containing a series episodes
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if no series record with the given ID exists.
+         * @see TheTVDBApi#getSeriesEpisodes(long, Path.Series.SeasonType, QueryParameters)
+         *         TheTVDBApi.getSeriesEpisodes(seriesId, seasonType, queryParameters)
+         * @see Extended#getSeriesEpisodes(long, Path.Series.SeasonType, QueryParameters)
+         *         TheTVDBApi.Extended.getSeriesEpisodes(seriesId, seasonType, queryParameters)
+         */
+        JsonNode getSeriesEpisodes(long seriesId, Path.Series.SeasonType seasonType, QueryParameters queryParameters)
+                throws APIException;
 
         /**
          * Returns a translation record for a specific series as raw JSON.
@@ -2515,6 +2598,29 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getSeriesDetails(long) TheTVDBApi.getSeriesDetails(seriesId)
          */
         APIResponse<SeriesDetails> getSeriesDetails(long seriesId) throws APIException;
+
+        /**
+         * Returns the episodes of a particular series based on the given query parameters mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series/getSeriesEpisodes">
+         * <b>[GET]</b> /series/{id}/episodes/{season-type}</a>
+         *
+         * @param seriesId        The <i>TheTVDB.com</i> series ID
+         * @param seasonType      The type of season for which episodes should be returned
+         * @param queryParameters Object containing key/value pairs of query parameters
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if no series record with the given ID exists.
+         * @see JSON#getSeriesEpisodes(long, Path.Series.SeasonType, QueryParameters)
+         *         TheTVDBApi.JSON.getSeriesEpisodes(seriesId, seasonType, queryParameters)
+         * @see TheTVDBApi#getSeriesEpisodes(long, Path.Series.SeasonType, QueryParameters)
+         *         TheTVDBApi.getSeriesEpisodes(seriesId, seasonType, queryParameters)
+         */
+        APIResponse<SeriesEpisodes> getSeriesEpisodes(long seriesId, Path.Series.SeasonType seasonType,
+                QueryParameters queryParameters) throws APIException;
 
         /**
          * Returns a response object containing a translation record for a specific series mapped as Java DTO.

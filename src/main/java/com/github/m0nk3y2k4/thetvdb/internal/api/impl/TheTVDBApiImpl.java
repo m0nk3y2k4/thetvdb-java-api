@@ -29,6 +29,7 @@ import com.github.m0nk3y2k4.thetvdb.api.APIKey;
 import com.github.m0nk3y2k4.thetvdb.api.Proxy;
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi;
+import com.github.m0nk3y2k4.thetvdb.api.constants.Path;
 import com.github.m0nk3y2k4.thetvdb.api.constants.Query;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
@@ -62,6 +63,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Series;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesEpisodes;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SourceType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Status;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Translation;
@@ -440,6 +442,24 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public SeriesEpisodes getSeriesEpisodes(long seriesId, Path.Series.SeasonType seasonType,
+            QueryParameters queryParameters) throws APIException {
+        return extended().getSeriesEpisodes(seriesId, seasonType, queryParameters).getData();
+    }
+
+    @Override
+    public SeriesEpisodes getSeriesEpisodes(long seriesId, Path.Series.SeasonType seasonType) throws APIException {
+        return getSeriesEpisodes(seriesId, seasonType, emptyQuery());
+    }
+
+    @Override
+    public SeriesEpisodes getSeriesEpisodes(long seriesId, Path.Series.SeasonType seasonType, long page)
+            throws APIException {
+        validatePage(page);
+        return getSeriesEpisodes(seriesId, seasonType, query(Map.of(Query.Series.PAGE, String.valueOf(page))));
+    }
+
+    @Override
     public Translation getSeriesTranslation(long seriesId, @Nonnull String language) throws APIException {
         return extended().getSeriesTranslation(seriesId, language).getData();
     }
@@ -682,6 +702,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public JsonNode getSeriesEpisodes(long seriesId, Path.Series.SeasonType seasonType,
+                QueryParameters queryParameters) throws APIException {
+            return SeriesAPI.getSeriesEpisodes(con, seriesId, seasonType, queryParameters);
+        }
+
+        @Override
         public JsonNode getSeriesTranslation(long seriesId, @Nonnull String language) throws APIException {
             return SeriesAPI.getSeriesTranslation(con, seriesId, language);
         }
@@ -915,6 +941,13 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public APIResponse<SeriesDetails> getSeriesDetails(long seriesId) throws APIException {
             return APIJsonMapper.readValue(json().getSeriesDetails(seriesId), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<SeriesEpisodes> getSeriesEpisodes(long seriesId, Path.Series.SeasonType seasonType,
+                QueryParameters queryParameters) throws APIException {
+            return APIJsonMapper.readValue(json()
+                    .getSeriesEpisodes(seriesId, seasonType, queryParameters), new TypeReference<>() {});
         }
 
         @Override

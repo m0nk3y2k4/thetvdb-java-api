@@ -16,10 +16,14 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
+import java.util.Objects;
+import java.util.function.Predicate;
+
 import javax.annotation.Nonnull;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
+import com.github.m0nk3y2k4.thetvdb.api.constants.Path.Series.SeasonType;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.QueryResource;
@@ -36,6 +40,12 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
  * translated series information.
  */
 public final class SeriesAPI extends QueryResource {
+
+    /** Identifiers for dynamic URL path parameters */
+    private static final String PATH_SEASONTYPE = "season-type";
+
+    /** Validator for the dynamic <em>{@code season-type}</em> URL path parameter */
+    private static final Predicate<SeasonType> SEASONTYPE_VALIDATOR = Objects::nonNull;
 
     private SeriesAPI() {}      // Private constructor. Only static methods
 
@@ -110,6 +120,29 @@ public final class SeriesAPI extends QueryResource {
     public static JsonNode getSeriesExtended(@Nonnull APIConnection con, long id) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
         return con.sendGET(createResource("/series/{id}/extended", id));
+    }
+
+    /**
+     * Returns the episodes of a particular series based on the given query parameters as raw JSON.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/series/getSeriesEpisodes">
+     * <b>[GET]</b> /series/{id}/episodes/{season-type}</a>
+     *
+     * @param con        Initialized connection to be used for API communication
+     * @param id         The <i>TheTVDB.com</i> series ID
+     * @param seasonType The type of season for which episodes should be returned
+     * @param params     Object containing key/value pairs of query parameters
+     *
+     * @return JSON object containing a limited overview of a series episodes
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no series
+     *                      record with the given ID exists, etc.
+     */
+    public static JsonNode getSeriesEpisodes(@Nonnull APIConnection con, long id, @Nonnull SeasonType seasonType,
+            QueryParameters params) throws APIException {
+        Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
+        Parameters.validatePathParam(PATH_SEASONTYPE, seasonType, SEASONTYPE_VALIDATOR);
+        return con.sendGET(createQueryResource("/series/{id}/episodes/{season-type}", params, id, seasonType));
     }
 
     /**

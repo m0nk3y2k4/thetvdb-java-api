@@ -17,6 +17,7 @@
 package com.github.m0nk3y2k4.thetvdb.api;
 
 import static com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory.createQueryParameters;
+import static com.github.m0nk3y2k4.thetvdb.api.constants.Path.Series.SeasonType.OFFICIAL;
 import static com.github.m0nk3y2k4.thetvdb.testutils.assertj.IntegrationTestAssertions.assertThat;
 
 import com.github.m0nk3y2k4.thetvdb.testutils.annotation.IntegrationTestSuite;
@@ -48,6 +49,13 @@ class SeriesIT {
     @Order(4)
     void getSeriesDetails(TheTVDBApi api) {
         assertThat(() -> api.getSeriesDetails(292157)).as("/series/292157/extended").doesNotThrowAnyException();
+    }
+
+    @Test
+    @Order(5)
+    void getSeriesEpisodes(TheTVDBApi api) {
+        assertThat(() -> api.getSeriesEpisodes(71470, OFFICIAL)).as("/series/71470/episodes/official")
+                .doesNotThrowAnyException();
     }
 
     @Test

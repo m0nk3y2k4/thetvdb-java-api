@@ -16,6 +16,11 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl;
 
+import static com.github.m0nk3y2k4.thetvdb.api.constants.Path.Series.SeasonType.ALTERNATE;
+import static com.github.m0nk3y2k4.thetvdb.api.constants.Path.Series.SeasonType.DEFAULT;
+import static com.github.m0nk3y2k4.thetvdb.api.constants.Path.Series.SeasonType.DVD;
+import static com.github.m0nk3y2k4.thetvdb.api.constants.Path.Series.SeasonType.OFFICIAL;
+import static com.github.m0nk3y2k4.thetvdb.api.constants.Path.Series.SeasonType.REGIONAL;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.POST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
@@ -53,6 +58,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASON;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASONTYPE_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASON_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIESEPISODES;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SOURCETYPE_OVERVIEW;
@@ -173,6 +179,9 @@ class TheTVDBApiImplTest {
             client.when(request("/series", GET, param(Series.PAGE, "2"))).respond(jsonResponse(SERIES_OVERVIEW));
             client.when(request("/series/2845", GET)).respond(jsonResponse(SERIES));
             client.when(request("/series/9041/extended", GET)).respond(jsonResponse(SERIES_DETAILS));
+            client.when(request("/series/3789/episodes/default", GET)).respond(jsonResponse(SERIESEPISODES));
+            client.when(request("/series/7000/episodes/alternate", GET, param("value", "QuerySeriesEpisodes"))).respond(jsonResponse(SERIESEPISODES));
+            client.when(request("/series/2147/episodes/regional", GET, param(Series.PAGE, "4"))).respond(jsonResponse(SERIESEPISODES));
             client.when(request("/series/6004/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/sources/types", GET)).respond(jsonResponse(SOURCETYPE_OVERVIEW));
             client.when(request("/updates", GET, param(Updates.SINCE, "16247601"), param("value", "QueryUpdates"))).respond(jsonResponse(UPDATE_OVERVIEW));
@@ -184,7 +193,8 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllCompanies(-1), "getAllCompanies() with negative page parameter")),
                     of(route(() -> basicAPI.getAllLists(-5), "getAllLists() with negative page parameter")),
                     of(route(() -> basicAPI.getAllMovies(-4), "getAllMovies() with negative page parameter")),
-                    of(route(() -> basicAPI.getAllSeries(-3), "getAllSeries() with negative page parameter"))
+                    of(route(() -> basicAPI.getAllSeries(-3), "getAllSeries() with negative page parameter")),
+                    of(route(() -> basicAPI.getSeriesEpisodes(41257, DVD, -6), "getSeriesEpisodes() with negative page parameter"))
             );
         }
 
@@ -234,6 +244,9 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllSeries(2), "getAllSeries() with page"), SERIES_OVERVIEW),
                     of(route(() -> basicAPI.getSeries(2845), "getSeries()"), SERIES),
                     of(route(() -> basicAPI.getSeriesDetails(9041), "getSeriesDetails()"), SERIES_DETAILS),
+                    of(route(() -> basicAPI.getSeriesEpisodes(3789, DEFAULT), "getSeriesEpisodes()"), SERIESEPISODES),
+                    of(route(() -> basicAPI.getSeriesEpisodes(7000, ALTERNATE, params("value", "QuerySeriesEpisodes")), "getSeriesEpisodes() with query parameters"), SERIESEPISODES),
+                    of(route(() -> basicAPI.getSeriesEpisodes(2147, REGIONAL, 4), "getSeriesEpisodes() with page"), SERIESEPISODES),
                     of(route(() -> basicAPI.getSeriesTranslation(6004, "eng"), "getSeriesTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
                     of(route(() -> basicAPI.getUpdates(params(Updates.SINCE, "16247601", "value", "QueryUpdates")), "getUpdates() with query parameters"), UPDATE_OVERVIEW),
@@ -332,6 +345,7 @@ class TheTVDBApiImplTest {
             client.when(request("/series", GET, param("value", "QuerySeriesJson"))).respond(jsonResponse(SERIES_OVERVIEW));
             client.when(request("/series/5003", GET)).respond(jsonResponse(SERIES));
             client.when(request("/series/5842/extended", GET)).respond(jsonResponse(SERIES_DETAILS));
+            client.when(request("/series/98043/episodes/official", GET, param("value", "QuerySeriesEpisodesJson"))).respond(jsonResponse(SERIESEPISODES));
             client.when(request("/series/8024/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/sources/types", GET)).respond(jsonResponse(SOURCETYPE_OVERVIEW));
             client.when(request("/updates", GET, param(Updates.SINCE, "16258740"), param("value", "QueryUpdatesJson"))).respond(jsonResponse(UPDATE_OVERVIEW));
@@ -383,6 +397,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllSeries(params("value", "QuerySeriesJson")), "getAllSeries() with query parameters"), SERIES_OVERVIEW),
                     of(route(() -> basicAPI.getSeries(5003), "getSeries()"), SERIES),
                     of(route(() -> basicAPI.getSeriesDetails(5842), "getSeriesDetails()"), SERIES_DETAILS),
+                    of(route(() -> basicAPI.getSeriesEpisodes(98043, OFFICIAL, params("value", "QuerySeriesEpisodesJson")), "getSeriesEpisodes() with query parameters"), SERIESEPISODES),
                     of(route(() -> basicAPI.getSeriesTranslation(8024, "eng"), "getSeriesTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
                     of(route(() -> basicAPI.getUpdates(params(Updates.SINCE, "16258740", "value", "QueryUpdatesJson")), "getUpdates() with query parameters"), UPDATE_OVERVIEW)
@@ -463,6 +478,7 @@ class TheTVDBApiImplTest {
             client.when(request("/series", GET, param("value", "QuerySeriesExtended"))).respond(jsonResponse(SERIES_OVERVIEW));
             client.when(request("/series/8131", GET)).respond(jsonResponse(SERIES));
             client.when(request("/series/5444/extended", GET)).respond(jsonResponse(SERIES_DETAILS));
+            client.when(request("/series/5711/episodes/dvd", GET, param("value", "QuerySeriesEpisodesExtended"))).respond(jsonResponse(SERIESEPISODES));
             client.when(request("/series/6170/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/sources/types", GET)).respond(jsonResponse(SOURCETYPE_OVERVIEW));
             client.when(request("/updates", GET, param(Updates.SINCE, "16245743"), param("value", "QueryUpdatesExtended"))).respond(jsonResponse(UPDATE_OVERVIEW));
@@ -514,6 +530,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllSeries(params("value", "QuerySeriesExtended")), "getAllSeries() with query parameters"), SERIES_OVERVIEW),
                     of(route(() -> basicAPI.getSeries(8131), "getSeries()"), SERIES),
                     of(route(() -> basicAPI.getSeriesDetails(5444), "getSeriesDetails()"), SERIES_DETAILS),
+                    of(route(() -> basicAPI.getSeriesEpisodes(5711, DVD, params("value", "QuerySeriesEpisodesExtended")), "getSeriesEpisodes() with query parameters"), SERIESEPISODES),
                     of(route(() -> basicAPI.getSeriesTranslation(6170, "eng"), "getSeriesTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
                     of(route(() -> basicAPI.getUpdates(params(Updates.SINCE, "16245743", "value", "QueryUpdatesExtended")), "getUpdates() with query parameters"), UPDATE_OVERVIEW)
