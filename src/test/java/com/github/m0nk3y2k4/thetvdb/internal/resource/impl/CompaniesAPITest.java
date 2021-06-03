@@ -52,6 +52,7 @@ class CompaniesAPITest {
     //@DisableFormatting
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
+        client.when(request("/companies", GET)).respond(jsonResponse(COMPANY_OVERVIEW));
         client.when(request("/companies", GET, param("page", "1"))).respond(jsonResponse(COMPANY_OVERVIEW));
         client.when(request("/companies/types", GET)).respond(jsonResponse(COMPANYTYPE_OVERVIEW));
         client.when(request("/companies/749", GET)).respond(jsonResponse(COMPANY));
@@ -67,7 +68,8 @@ class CompaniesAPITest {
     @SuppressWarnings("Convert2MethodRef")
     private static Stream<Arguments> withValidParameters() {
         return Stream.of(
-                of(route(con -> getAllCompanies(con, params("page", "1")), "getAllCompanies()"), COMPANY_OVERVIEW),
+                of(route(con -> getAllCompanies(con, null), "getAllCompanies() without query parameters"), COMPANY_OVERVIEW),
+                of(route(con -> getAllCompanies(con, params("page", "1")), "getAllCompanies() with query parameters"), COMPANY_OVERVIEW),
                 of(route(con -> getCompanyTypes(con), "getCompanyTypes()"), COMPANYTYPE_OVERVIEW),
                 of(route(con -> getCompany(con, 749), "getCompany()"), COMPANY)
         );

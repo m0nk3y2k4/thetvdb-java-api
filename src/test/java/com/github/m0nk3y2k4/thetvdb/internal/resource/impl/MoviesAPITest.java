@@ -57,6 +57,7 @@ class MoviesAPITest {
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
         client.when(request("/movies/statuses", GET)).respond(jsonResponse(STATUS_OVERVIEW));
+        client.when(request("/movies", GET)).respond(jsonResponse(MOVIE_OVERVIEW));
         client.when(request("/movies", GET, param("page", "9"))).respond(jsonResponse(MOVIE_OVERVIEW));
         client.when(request("/movies/648730", GET)).respond(jsonResponse(MOVIE));
         client.when(request("/movies/95574/extended", GET)).respond(jsonResponse(MOVIE_DETAILS));
@@ -80,7 +81,8 @@ class MoviesAPITest {
     private static Stream<Arguments> withValidParameters() {
         return Stream.of(
                 of(route(con -> getAllMovieStatuses(con), "getAllMovieStatuses()"), STATUS_OVERVIEW),
-                of(route(con -> getAllMovies(con, params("page", "9")), "getAllMovies()"), MOVIE_OVERVIEW),
+                of(route(con -> getAllMovies(con, null), "getAllMovies() without query parameters"), MOVIE_OVERVIEW),
+                of(route(con -> getAllMovies(con, params("page", "9")), "getAllMovies() with query parameters"), MOVIE_OVERVIEW),
                 of(route(con -> getMovieBase(con, 648730), "getMovieBase()"), MOVIE),
                 of(route(con -> getMovieExtended(con, 95574), "getMovieExtended()"), MOVIE_DETAILS),
                 of(route(con -> getMovieTranslation(con, 57017, "eng"), "getMovieTranslation()"), TRANSLATION)

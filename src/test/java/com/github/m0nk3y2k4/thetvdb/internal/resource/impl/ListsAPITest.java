@@ -55,6 +55,7 @@ class ListsAPITest {
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
         client.when(request("/lists/39880/translations/fra", GET)).respond(jsonResponse(TRANSLATION));
+        client.when(request("/lists", GET)).respond(jsonResponse(LIST_OVERVIEW));
         client.when(request("/lists", GET, param("page", "6"))).respond(jsonResponse(LIST_OVERVIEW));
         client.when(request("/lists/5771", GET)).respond(jsonResponse(LIST));
         client.when(request("/lists/2414/extended", GET)).respond(jsonResponse(LIST_DETAILS));
@@ -76,7 +77,8 @@ class ListsAPITest {
     private static Stream<Arguments> withValidParameters() {
         return Stream.of(
                 of(route(con -> getListTranslation(con, 39880, "fra"), "getListTranslation()"), TRANSLATION),
-                of(route(con -> getAllLists(con, params("page", "6")), "getAllLists()"), LIST_OVERVIEW),
+                of(route(con -> getAllLists(con, null), "getAllLists() without query parameters"), LIST_OVERVIEW),
+                of(route(con -> getAllLists(con, params("page", "6")), "getAllLists() with query parameters"), LIST_OVERVIEW),
                 of(route(con -> getListBase(con, 5771), "getListBase()"), LIST),
                 of(route(con -> getListExtended(con, 2414), "getListExtended()"), LIST_DETAILS)
         );
