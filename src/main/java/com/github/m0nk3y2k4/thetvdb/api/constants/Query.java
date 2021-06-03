@@ -19,7 +19,11 @@ package com.github.m0nk3y2k4.thetvdb.api.constants;
 /**
  * Collection of query parameter constants used throughout the various <i>TheTVDB.com</i> routes.
  * <ul>
+ *     <li>{@link Companies}</li>
+ *     <li>{@link Movies}</li>
+ *     <li>{@link Lists}</li>
  *     <li>{@link Series}</li>
+ *     <li>{@link Updates}</li>
  * </ul>
  * The parameters of this class may be used to create own {@link com.github.m0nk3y2k4.thetvdb.api.QueryParameters QueryParameters} objects.
  */
