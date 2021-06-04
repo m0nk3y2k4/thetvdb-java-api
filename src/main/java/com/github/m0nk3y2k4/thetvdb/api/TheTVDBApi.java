@@ -373,7 +373,7 @@ public interface TheTVDBApi {
      * Returns a limited collection of companies mapped as Java DTO. Due to the large amount of available companies, the
      * result will be paginated. Use the <em>{@code page}</em> parameter to browse to a specific result page. This is a
      * shortcut-method for {@link #getAllCompanies(QueryParameters) getAllCompanies(queryParameters)} with a single
-     * "page" query parameter.
+     * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Companies#PAGE} query parameter.
      *
      * @param page The result page to be returned (zero-based)
      *
@@ -541,8 +541,8 @@ public interface TheTVDBApi {
     /**
      * Returns a limited collection of lists mapped as Java DTO. Due to the large amount of available lists, the result
      * will be paginated. Use the <em>{@code page}</em> parameter to browse to a specific result page. This is a
-     * shortcut-method for {@link #getAllLists(QueryParameters) getAllLists(queryParameters)} with a single "page" query
-     * parameter.
+     * shortcut-method for {@link #getAllLists(QueryParameters) getAllLists(queryParameters)} with a single {@value
+     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Lists#PAGE} query parameter.
      *
      * @param page The result page to be returned (zero-based)
      *
@@ -673,8 +673,8 @@ public interface TheTVDBApi {
     /**
      * Returns a limited collection of movies mapped as Java DTO. Due to the large amount of available movies, the
      * result will be paginated. Use the <em>{@code page}</em> parameter to browse to a specific result page. This is a
-     * shortcut-method for {@link #getAllMovies(QueryParameters) getAllMovies(queryParameters)} with a single "page"
-     * query parameter.
+     * shortcut-method for {@link #getAllMovies(QueryParameters) getAllMovies(queryParameters)} with a single {@value
+     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Movies#PAGE} query parameter.
      *
      * @param page The result page to be returned (zero-based)
      *
@@ -892,8 +892,8 @@ public interface TheTVDBApi {
     /**
      * Returns a limited collection of series mapped as Java DTO. Due to the large amount of available series, the
      * result will be paginated. Use the <em>{@code page}</em> parameter to browse to a specific result page. This is a
-     * shortcut-method for {@link #getAllSeries(QueryParameters) getAllSeries(queryParameters)} with a single "page"
-     * query parameter.
+     * shortcut-method for {@link #getAllSeries(QueryParameters) getAllSeries(queryParameters)} with a single {@value
+     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series#PAGE} query parameter.
      *
      * @param page The result page to be returned (zero-based)
      *
