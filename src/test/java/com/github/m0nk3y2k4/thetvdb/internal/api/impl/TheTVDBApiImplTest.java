@@ -16,11 +16,11 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl;
 
-import static com.github.m0nk3y2k4.thetvdb.api.constants.Path.Series.SeasonType.ALTERNATE;
-import static com.github.m0nk3y2k4.thetvdb.api.constants.Path.Series.SeasonType.DEFAULT;
-import static com.github.m0nk3y2k4.thetvdb.api.constants.Path.Series.SeasonType.DVD;
-import static com.github.m0nk3y2k4.thetvdb.api.constants.Path.Series.SeasonType.OFFICIAL;
-import static com.github.m0nk3y2k4.thetvdb.api.constants.Path.Series.SeasonType.REGIONAL;
+import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.ALTERNATE;
+import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.DEFAULT;
+import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.DVD;
+import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.OFFICIAL;
+import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.REGIONAL;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.POST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;

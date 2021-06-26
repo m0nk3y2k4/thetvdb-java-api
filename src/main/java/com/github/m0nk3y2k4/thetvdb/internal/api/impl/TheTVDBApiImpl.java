@@ -29,8 +29,8 @@ import com.github.m0nk3y2k4.thetvdb.api.APIKey;
 import com.github.m0nk3y2k4.thetvdb.api.Proxy;
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi;
-import com.github.m0nk3y2k4.thetvdb.api.constants.Path;
 import com.github.m0nk3y2k4.thetvdb.api.constants.Query;
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Artwork;
@@ -442,18 +442,18 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public SeriesEpisodes getSeriesEpisodes(long seriesId, Path.Series.SeasonType seasonType,
-            QueryParameters queryParameters) throws APIException {
+    public SeriesEpisodes getSeriesEpisodes(long seriesId, SeriesSeasonType seasonType, QueryParameters queryParameters)
+            throws APIException {
         return extended().getSeriesEpisodes(seriesId, seasonType, queryParameters).getData();
     }
 
     @Override
-    public SeriesEpisodes getSeriesEpisodes(long seriesId, Path.Series.SeasonType seasonType) throws APIException {
+    public SeriesEpisodes getSeriesEpisodes(long seriesId, SeriesSeasonType seasonType) throws APIException {
         return getSeriesEpisodes(seriesId, seasonType, emptyQuery());
     }
 
     @Override
-    public SeriesEpisodes getSeriesEpisodes(long seriesId, Path.Series.SeasonType seasonType, long page)
+    public SeriesEpisodes getSeriesEpisodes(long seriesId, SeriesSeasonType seasonType, long page)
             throws APIException {
         validatePage(page);
         return getSeriesEpisodes(seriesId, seasonType, query(Map.of(Query.Series.PAGE, String.valueOf(page))));
@@ -702,8 +702,8 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public JsonNode getSeriesEpisodes(long seriesId, Path.Series.SeasonType seasonType,
-                QueryParameters queryParameters) throws APIException {
+        public JsonNode getSeriesEpisodes(long seriesId, SeriesSeasonType seasonType, QueryParameters queryParameters)
+                throws APIException {
             return SeriesAPI.getSeriesEpisodes(con, seriesId, seasonType, queryParameters);
         }
 
@@ -944,7 +944,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<SeriesEpisodes> getSeriesEpisodes(long seriesId, Path.Series.SeasonType seasonType,
+        public APIResponse<SeriesEpisodes> getSeriesEpisodes(long seriesId, SeriesSeasonType seasonType,
                 QueryParameters queryParameters) throws APIException {
             return APIJsonMapper.readValue(json()
                     .getSeriesEpisodes(seriesId, seasonType, queryParameters), new TypeReference<>() {});

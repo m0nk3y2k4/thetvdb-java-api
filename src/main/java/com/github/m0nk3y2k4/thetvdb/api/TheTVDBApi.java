@@ -22,7 +22,7 @@ import java.util.Optional;
 import javax.annotation.Nonnull;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.github.m0nk3y2k4.thetvdb.api.constants.Path;
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Artwork;
@@ -952,19 +952,19 @@ public interface TheTVDBApi {
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc. or if no series record with the given ID exists.
-     * @see JSON#getSeriesEpisodes(long, Path.Series.SeasonType, QueryParameters) TheTVDBApi.JSON.getSeriesEpisodes(seriesId,
+     * @see JSON#getSeriesEpisodes(long, SeriesSeasonType, QueryParameters) TheTVDBApi.JSON.getSeriesEpisodes(seriesId,
      *         seasonType, queryParameters)
-     * @see Extended#getSeriesEpisodes(long, Path.Series.SeasonType, QueryParameters)
-     *         TheTVDBApi.Extended.getSeriesEpisodes(seriesId, seasonType, queryParameters)
+     * @see Extended#getSeriesEpisodes(long, SeriesSeasonType, QueryParameters) TheTVDBApi.Extended.getSeriesEpisodes(seriesId,
+     *         seasonType, queryParameters)
      */
-    SeriesEpisodes getSeriesEpisodes(long seriesId, Path.Series.SeasonType seasonType, QueryParameters queryParameters)
+    SeriesEpisodes getSeriesEpisodes(long seriesId, SeriesSeasonType seasonType, QueryParameters queryParameters)
             throws APIException;
 
     /**
      * Returns a limited overview of episodes of a particular series mapped as Java DTO. Since some series have many
      * episodes, the result will be paginated. This is a shortcut-method for {@link #getSeriesEpisodes(long,
-     * Path.Series.SeasonType, QueryParameters) getAllSeries(seriesId, seasonType, queryParameters)} which will always
-     * return the first page only what may be convenient for series with few episodes.
+     * SeriesSeasonType, QueryParameters) getAllSeries(seriesId, seasonType, queryParameters)} which will always return
+     * the first page only what may be convenient for series with few episodes.
      *
      * @param seriesId   The <i>TheTVDB.com</i> series ID
      * @param seasonType The type of season for which episodes should be returned
@@ -974,14 +974,14 @@ public interface TheTVDBApi {
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc. or if no series record with the given ID exists.
-     * @see #getSeriesEpisodes(long, Path.Series.SeasonType, long) getSeriesEpisodes(seriesId, seasonType, page)
+     * @see #getSeriesEpisodes(long, SeriesSeasonType, long) getSeriesEpisodes(seriesId, seasonType, page)
      */
-    SeriesEpisodes getSeriesEpisodes(long seriesId, Path.Series.SeasonType seasonType) throws APIException;
+    SeriesEpisodes getSeriesEpisodes(long seriesId, SeriesSeasonType seasonType) throws APIException;
 
     /**
      * Returns a limited overview of episodes of a particular series mapped as Java DTO. Since some series have many
      * episodes, the result will be paginated. Use the <em>{@code page}</em> parameter to browse to a specific result
-     * page. This is a shortcut-method for {@link #getSeriesEpisodes(long, Path.Series.SeasonType, QueryParameters)
+     * page. This is a shortcut-method for {@link #getSeriesEpisodes(long, SeriesSeasonType, QueryParameters)
      * getAllSeries(seriesId, seasonType, queryParameters)} with a single {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series#PAGE}
      * query parameter.
      *
@@ -993,9 +993,9 @@ public interface TheTVDBApi {
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc. or if no series record with the given ID exists.
-     * @see #getSeriesEpisodes(long, Path.Series.SeasonType) getSeriesEpisodes(seriesId, seasonType)
+     * @see #getSeriesEpisodes(long, SeriesSeasonType) getSeriesEpisodes(seriesId, seasonType)
      */
-    SeriesEpisodes getSeriesEpisodes(long seriesId, Path.Series.SeasonType seasonType, long page) throws APIException;
+    SeriesEpisodes getSeriesEpisodes(long seriesId, SeriesSeasonType seasonType, long page) throws APIException;
 
     /**
      * Returns a translation record for a specific series mapped as Java DTO.
@@ -1798,12 +1798,12 @@ public interface TheTVDBApi {
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
          *                      resource not found, etc. or if no series record with the given ID exists.
-         * @see TheTVDBApi#getSeriesEpisodes(long, Path.Series.SeasonType, QueryParameters)
+         * @see TheTVDBApi#getSeriesEpisodes(long, SeriesSeasonType, QueryParameters)
          *         TheTVDBApi.getSeriesEpisodes(seriesId, seasonType, queryParameters)
-         * @see Extended#getSeriesEpisodes(long, Path.Series.SeasonType, QueryParameters)
-         *         TheTVDBApi.Extended.getSeriesEpisodes(seriesId, seasonType, queryParameters)
+         * @see Extended#getSeriesEpisodes(long, SeriesSeasonType, QueryParameters) TheTVDBApi.Extended.getSeriesEpisodes(seriesId,
+         *         seasonType, queryParameters)
          */
-        JsonNode getSeriesEpisodes(long seriesId, Path.Series.SeasonType seasonType, QueryParameters queryParameters)
+        JsonNode getSeriesEpisodes(long seriesId, SeriesSeasonType seasonType, QueryParameters queryParameters)
                 throws APIException;
 
         /**
@@ -2614,12 +2614,12 @@ public interface TheTVDBApi {
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
          *                      resource not found, etc. or if no series record with the given ID exists.
-         * @see JSON#getSeriesEpisodes(long, Path.Series.SeasonType, QueryParameters)
-         *         TheTVDBApi.JSON.getSeriesEpisodes(seriesId, seasonType, queryParameters)
-         * @see TheTVDBApi#getSeriesEpisodes(long, Path.Series.SeasonType, QueryParameters)
+         * @see JSON#getSeriesEpisodes(long, SeriesSeasonType, QueryParameters) TheTVDBApi.JSON.getSeriesEpisodes(seriesId,
+         *         seasonType, queryParameters)
+         * @see TheTVDBApi#getSeriesEpisodes(long, SeriesSeasonType, QueryParameters)
          *         TheTVDBApi.getSeriesEpisodes(seriesId, seasonType, queryParameters)
          */
-        APIResponse<SeriesEpisodes> getSeriesEpisodes(long seriesId, Path.Series.SeasonType seasonType,
+        APIResponse<SeriesEpisodes> getSeriesEpisodes(long seriesId, SeriesSeasonType seasonType,
                 QueryParameters queryParameters) throws APIException;
 
         /**

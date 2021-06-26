@@ -16,7 +16,7 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.util.http;
 
-import static com.github.m0nk3y2k4.thetvdb.api.constants.Path.Series.SeasonType.ALTERNATE;
+import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.ALTERNATE;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.URLPathTokenType.ID;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.URLPathTokenType.LANGUAGE;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.URLPathTokenType.LITERAL;

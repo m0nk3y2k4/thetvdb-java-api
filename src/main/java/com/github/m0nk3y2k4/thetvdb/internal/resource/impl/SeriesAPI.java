@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
-import com.github.m0nk3y2k4.thetvdb.api.constants.Path.Series.SeasonType;
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.QueryResource;
@@ -45,7 +45,7 @@ public final class SeriesAPI extends QueryResource {
     private static final String PATH_SEASONTYPE = "season-type";
 
     /** Validator for the dynamic <em>{@code season-type}</em> URL path parameter */
-    private static final Predicate<SeasonType> SEASONTYPE_VALIDATOR = Objects::nonNull;
+    private static final Predicate<SeriesSeasonType> SEASONTYPE_VALIDATOR = Objects::nonNull;
 
     private SeriesAPI() {}      // Private constructor. Only static methods
 
@@ -138,7 +138,7 @@ public final class SeriesAPI extends QueryResource {
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no series
      *                      record with the given ID exists, etc.
      */
-    public static JsonNode getSeriesEpisodes(@Nonnull APIConnection con, long id, @Nonnull SeasonType seasonType,
+    public static JsonNode getSeriesEpisodes(@Nonnull APIConnection con, long id, @Nonnull SeriesSeasonType seasonType,
             QueryParameters params) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
         Parameters.validatePathParam(PATH_SEASONTYPE, seasonType, SEASONTYPE_VALIDATOR);

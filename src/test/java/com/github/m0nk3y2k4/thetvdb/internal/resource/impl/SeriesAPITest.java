@@ -16,10 +16,10 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
-import static com.github.m0nk3y2k4.thetvdb.api.constants.Path.Series.SeasonType.ABSOLUTE;
-import static com.github.m0nk3y2k4.thetvdb.api.constants.Path.Series.SeasonType.DVD;
-import static com.github.m0nk3y2k4.thetvdb.api.constants.Path.Series.SeasonType.OFFICIAL;
-import static com.github.m0nk3y2k4.thetvdb.api.constants.Path.Series.SeasonType.REGIONAL;
+import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.ABSOLUTE;
+import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.DVD;
+import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.OFFICIAL;
+import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.REGIONAL;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI.getAllSeries;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI.getAllSeriesStatuses;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI.getSeriesBase;

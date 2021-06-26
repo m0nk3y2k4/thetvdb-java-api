@@ -17,7 +17,7 @@
 package com.github.m0nk3y2k4.thetvdb.api;
 
 import static com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory.createQueryParameters;
-import static com.github.m0nk3y2k4.thetvdb.api.constants.Path.Series.SeasonType.OFFICIAL;
+import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.OFFICIAL;
 import static com.github.m0nk3y2k4.thetvdb.testutils.assertj.IntegrationTestAssertions.assertThat;
 
 import com.github.m0nk3y2k4.thetvdb.testutils.annotation.IntegrationTestSuite;

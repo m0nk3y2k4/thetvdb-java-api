@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
 
-import com.github.m0nk3y2k4.thetvdb.api.constants.Path.Series.SeasonType;
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 /**
@@ -45,7 +45,7 @@ public enum URLPathTokenType {
     LANGUAGE("language", String.class),
 
     /** Type representing a <b>{@code {season-type}}</b> wildcard token */
-    SEASON_TYPE("season-type", SeasonType.class),
+    SEASON_TYPE("season-type", SeriesSeasonType.class),
 
     /** Type representing a literal token which is not a wildcard */
     LITERAL(null, null);
