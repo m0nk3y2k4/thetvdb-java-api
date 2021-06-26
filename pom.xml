@@ -123,7 +123,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-            <version>3.3.0</version>
+                <version>3.3.0</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -303,7 +303,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-        <version>5.7.2</version>
+            <version>5.7.2</version>
             <scope>test</scope>
         </dependency>
 
@@ -311,7 +311,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
-        <version>5.7.2</version>
+            <version>5.7.2</version>
             <scope>test</scope>
         </dependency>
 
@@ -319,7 +319,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-        <version>3.11.2</version>
+            <version>3.11.2</version>
             <scope>test</scope>
         </dependency>
 
@@ -357,7 +357,7 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-        <version>3.20.2</version>
+            <version>3.20.2</version>
             <scope>test</scope>
         </dependency>
 
@@ -369,14 +369,14 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-        <version>1.7.31</version>
+            <version>1.7.31</version>
         </dependency>
 
         <!-- Simple Logging Facade for Java: Binding for Simple implementation, which outputs all events to System.err. -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-        <version>1.7.31</version>
+            <version>1.7.31</version>
             <scope>test</scope>
         </dependency>
 
