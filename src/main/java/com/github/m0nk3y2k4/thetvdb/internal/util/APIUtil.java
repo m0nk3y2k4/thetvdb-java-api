@@ -137,7 +137,7 @@ public final class APIUtil {
         BRACKETS("[", "]"),
         /** Braces a.k.a. curly brackets: '{ }' */
         BRACES("{", "}"),
-        /** Angle brackets a.k.a. chevrons: '< >' */
+        /** Angle brackets a.k.a. chevrons: '&lt; &gt;' */
         ANGLE("<", ">");
 
         /** Opening bracket for this type */
