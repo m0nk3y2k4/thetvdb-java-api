@@ -16,6 +16,10 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.util;
 
+import static com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil.BracketType.ANGLE;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil.BracketType.BRACES;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil.BracketType.BRACKETS;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil.BracketType.PARENTHESES;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.JSON_SUCCESS;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -26,9 +30,11 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil.BracketType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 class APIUtilTest {
@@ -110,6 +116,55 @@ class APIUtilTest {
     @MethodSource
     void toString_withDefaultValue(Supplier<?> valueSupplier, String nullDefault, String expected) {
         assertThat(APIUtil.toString(valueSupplier, nullDefault)).isEqualTo(expected);
+    }
+
+    @ParameterizedTest
+    @EnumSource(value = BracketType.class, mode = EnumSource.Mode.EXCLUDE, names = "PARENTHESES")
+    void removeEnclosingBrackets_RoundBrackets_VerifyOtherBracketTypesNotBeingRemoved(BracketType type) {
+        String value = type.opening + "value" + type.closing;
+        assertThat(APIUtil.removeEnclosingBrackets(value, PARENTHESES)).isEqualTo(value);
+    }
+
+    @ParameterizedTest
+    @EnumSource(value = BracketType.class, mode = EnumSource.Mode.EXCLUDE, names = "BRACKETS")
+    void removeEnclosingBrackets_SquareBrackets_VerifyOtherBracketTypesNotBeingRemoved(BracketType type) {
+        String value = type.opening + "value" + type.closing;
+        assertThat(APIUtil.removeEnclosingBrackets(value, BRACKETS)).isEqualTo(value);
+    }
+
+    @ParameterizedTest
+    @EnumSource(value = BracketType.class, mode = EnumSource.Mode.EXCLUDE, names = "BRACES")
+    void removeEnclosingBrackets_CurlyBrackets_VerifyOtherBracketTypesNotBeingRemoved(BracketType type) {
+        String value = type.opening + "value" + type.closing;
+        assertThat(APIUtil.removeEnclosingBrackets(value, BRACES)).isEqualTo(value);
+    }
+
+    @ParameterizedTest
+    @EnumSource(value = BracketType.class, mode = EnumSource.Mode.EXCLUDE, names = "ANGLE")
+    void removeEnclosingBrackets_AngleBrackets_VerifyOtherBracketTypesNotBeingRemoved(BracketType type) {
+        String value = type.opening + "value" + type.closing;
+        assertThat(APIUtil.removeEnclosingBrackets(value, ANGLE)).isEqualTo(value);
+    }
+
+    @ParameterizedTest
+    @EnumSource(BracketType.class)
+    void removeEnclosingBrackets_AllTypesWithOpeningBracket_VerifyBracketsNotBeingRemoved(BracketType type) {
+        String value = "WithOpeningBracketsOnly";
+        assertThat(APIUtil.removeEnclosingBrackets(type.opening + value, type)).isEqualTo(value);
+    }
+
+    @ParameterizedTest
+    @EnumSource(BracketType.class)
+    void removeEnclosingBrackets_AllTypesWithClosingBracket_VerifyBracketsNotBeingRemoved(BracketType type) {
+        String value = "WithClosingBracketsOnly";
+        assertThat(APIUtil.removeEnclosingBrackets(value + type.closing, type)).isEqualTo(value);
+    }
+
+    @ParameterizedTest
+    @EnumSource(BracketType.class)
+    void removeEnclosingBrackets_AllTypesWithOpeningAndClosingBracket_VerifyBracketsNotBeingRemoved(BracketType type) {
+        String value = "WithOpeningAndClosingBrackets";
+        assertThat(APIUtil.removeEnclosingBrackets(type.opening + value + type.closing, type)).isEqualTo(value);
     }
 
     private static final class SomeObject {

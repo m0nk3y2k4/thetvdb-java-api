@@ -129,4 +129,48 @@ public final class APIUtil {
         }
         return nullDefault;
     }
+
+    public enum BracketType {
+        /** Parentheses a.k.a. round brackets: '( )' */
+        PARENTHESES("(", ")"),
+        /** Brackets a.k.a. square brackets: '[ ]' */
+        BRACKETS("[", "]"),
+        /** Braces a.k.a. curly brackets: '{ }' */
+        BRACES("{", "}"),
+        /** Angle brackets a.k.a. chevrons: '< >' */
+        ANGLE("<", ">");
+
+        /** Opening bracket for this type */
+        final String opening;
+        /** Closing bracket for this type */
+        final String closing;
+
+        /**
+         * Creates a new bracket type constant
+         *
+         * @param opening The opening bracket for this type
+         * @param closing The closing bracket for this type
+         */
+        BracketType(String opening, String closing) {
+            this.opening = opening;
+            this.closing = closing;
+        }
+    }
+
+    /**
+     * Removes leading and tailing brackets of a specific type from the given String value if present. Only the first
+     * and the last occurrence will be removed. Also supports Strings that only contain an opening but no closing
+     * bracket and vice versa.
+     *
+     * @param value       The value to remove the brackets from
+     * @param bracketType The type of brackets to be removed
+     *
+     * @return String value without leading and tailing brackets
+     */
+    public static String removeEnclosingBrackets(String value, BracketType bracketType) {
+        return value.substring(
+                value.startsWith(bracketType.opening) ? 1 : 0,
+                value.endsWith(bracketType.closing) ? value.length() - 1 : value.length()
+        );
+    }
 }
