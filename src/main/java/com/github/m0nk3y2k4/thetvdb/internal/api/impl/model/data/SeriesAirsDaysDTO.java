@@ -16,7 +16,7 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesAirsDays;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.APIDataModel;
@@ -37,31 +37,31 @@ import org.immutables.value.Value.Immutable;
 public abstract class SeriesAirsDaysDTO implements SeriesAirsDays {
 
     @Override
-    @JsonProperty("monday")
+    @JsonAlias("monday")
     public abstract Boolean onMonday();
 
     @Override
-    @JsonProperty("tuesday")
+    @JsonAlias("tuesday")
     public abstract Boolean onTuesday();
 
     @Override
-    @JsonProperty("wednesday")
+    @JsonAlias("wednesday")
     public abstract Boolean onWednesday();
 
     @Override
-    @JsonProperty("thursday")
+    @JsonAlias("thursday")
     public abstract Boolean onThursday();
 
     @Override
-    @JsonProperty("friday")
+    @JsonAlias("friday")
     public abstract Boolean onFriday();
 
     @Override
-    @JsonProperty("saturday")
+    @JsonAlias("saturday")
     public abstract Boolean onSaturday();
 
     @Override
-    @JsonProperty("sunday")
+    @JsonAlias("sunday")
     public abstract Boolean onSunday();
 
     /**
