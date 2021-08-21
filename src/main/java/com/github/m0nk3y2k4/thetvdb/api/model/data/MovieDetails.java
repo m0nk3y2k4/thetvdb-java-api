@@ -85,8 +85,7 @@ public interface MovieDetails extends Movie {
      *
      * @return The <em>{@code companies}</em> property from the received JSON
      */
-    // ToDo: Field is currently not declared in MovieExtendedRecord but returned in JSON. Check again after the next API update.
-    List<Company> getCompanies();
+    Companies getCompanies();
 
     /**
      * Get the value of the {<em>{@code data.contentRatings}</em>} JSON property

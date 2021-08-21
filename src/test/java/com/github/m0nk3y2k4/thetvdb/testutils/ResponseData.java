@@ -47,6 +47,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.AwardNominee;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Biography;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Companies;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Company;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.CompanyType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ContentRating;
@@ -95,6 +96,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AwardDetailsDTO
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AwardNomineeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.BiographyDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CharacterDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CompaniesDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CompanyDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CompanyTypeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ContentRatingDTO;
@@ -629,6 +631,21 @@ public abstract class ResponseData<T> {
         };
     }
 
+    private static DtoSupplier<Companies> companiesModel() {
+        return (idx, shape) -> {
+            CompaniesDTO.Builder builder = new CompaniesDTO.Builder();
+            if (shape == FULL) {
+                int listOffset = (idx << 1) - 1;
+                builder.studio(createTwo(companyModel(), listOffset))
+                        .network(createTwo(companyModel(), listOffset))
+                        .production(createTwo(companyModel(), listOffset))
+                        .distributor(createTwo(companyModel(), listOffset))
+                        .specialEffects(createTwo(companyModel(), listOffset));
+            }
+            return builder.build();
+        };
+    }
+
     private static DtoSupplier<Company> companyModel() {
         return (idx, shape) -> {
             CompanyDTO.Builder builder = new CompanyDTO.Builder();
@@ -790,7 +807,7 @@ public abstract class ResponseData<T> {
                         .addAudioLanguages("AudioLanguage" + listOffset, "AudioLanguage" + (listOffset + 1))
                         .awards(createTwo(awardModel(), listOffset))
                         .characters(createTwo(characterModel(), listOffset))
-                        .companies(createTwo(companyModel(), listOffset))
+                        .companies(create(companiesModel(), idx))
                         .contentRatings(createTwo(contentRatingModel(), listOffset))
                         .lists(createTwo(listModel(), listOffset))
                         .genres(createTwo(genreModel(), listOffset))
@@ -875,7 +892,7 @@ public abstract class ResponseData<T> {
                         .type(create(seasonTypeModel(), idx))
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .companies(createTwo(companyModel(), listOffset));
+                        .companies(create(companiesModel(), idx));
             }
             return builder.build();
         };
@@ -892,7 +909,7 @@ public abstract class ResponseData<T> {
                         .type(create(seasonTypeModel(), idx))
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .companies(createTwo(companyModel(), listOffset))
+                        .companies(create(companiesModel(), idx))
                         .artwork(createTwo(artworkModel(), listOffset))
                         .episodes(createTwo(episodeModel(), listOffset))
                         .trailers(createTwo(trailerModel(), listOffset));
@@ -1081,7 +1098,7 @@ public abstract class ResponseData<T> {
     }
 
     /**
-     * Returns this responses JSON content as String
+     * Returns the responses JSON content as String
      *
      * @return This response as JSON String
      *

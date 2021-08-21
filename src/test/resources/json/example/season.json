@@ -20,63 +20,293 @@
     "slug": "Slug1",
     "abbreviation": "Abbreviation1",
     "country": "Country1",
-    "companies": [
-      {
-        "id": 64714,
-        "name": "Name1",
-        "slug": "Slug1",
-        "nameTranslations": [
-          "NameTranslation1", "NameTranslation2"
-        ],
-        "overviewTranslations": [
-          "OverviewTranslation1", "OverviewTranslation2"
-        ],
-        "aliases": [
-          {
-            "language": "Language1",
-            "name": "Name1"
-          }, {
-            "language": "Language2",
-            "name": "Name2"
+    "companies": {
+      "studio": [
+        {
+          "id": 64714,
+          "name": "Name1",
+          "slug": "Slug1",
+          "nameTranslations": [
+            "NameTranslation1", "NameTranslation2"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation1", "OverviewTranslation2"
+          ],
+          "aliases": [
+            {
+              "language": "Language1",
+              "name": "Name1"
+            }, {
+              "language": "Language2",
+              "name": "Name2"
+            }
+          ],
+          "country": "Country1",
+          "primaryCompanyType": 514,
+          "activeDate": "ActiveDate1",
+          "inactiveDate": "InactiveDate1",
+          "companyType": {
+            "companyTypeId": 356,
+            "companyTypeName": "CompanyTypeName1"
           }
-        ],
-        "country": "Country1",
-        "primaryCompanyType": 514,
-        "activeDate": "ActiveDate1",
-        "inactiveDate": "InactiveDate1",
-        "companyType": {
-          "companyTypeId": 356,
-          "companyTypeName": "CompanyTypeName1"
-        }
-      }, {
-        "id": 64715,
-        "name": "Name2",
-        "slug": "Slug2",
-        "nameTranslations": [
-          "NameTranslation3", "NameTranslation4"
-        ],
-        "overviewTranslations": [
-          "OverviewTranslation3", "OverviewTranslation4"
-        ],
-        "aliases": [
-          {
-            "language": "Language3",
-            "name": "Name3"
-          }, {
-            "language": "Language4",
-            "name": "Name4"
+        }, {
+          "id": 64715,
+          "name": "Name2",
+          "slug": "Slug2",
+          "nameTranslations": [
+            "NameTranslation3", "NameTranslation4"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation3", "OverviewTranslation4"
+          ],
+          "aliases": [
+            {
+              "language": "Language3",
+              "name": "Name3"
+            }, {
+              "language": "Language4",
+              "name": "Name4"
+            }
+          ],
+          "country": "Country2",
+          "primaryCompanyType": 515,
+          "activeDate": "ActiveDate2",
+          "inactiveDate": "InactiveDate2",
+          "companyType": {
+            "companyTypeId": 357,
+            "companyTypeName": "CompanyTypeName2"
           }
-        ],
-        "country": "Country2",
-        "primaryCompanyType": 515,
-        "activeDate": "ActiveDate2",
-        "inactiveDate": "InactiveDate2",
-        "companyType": {
-          "companyTypeId": 357,
-          "companyTypeName": "CompanyTypeName2"
         }
-      }
-    ]
+      ],
+      "network": [
+        {
+          "id": 64714,
+          "name": "Name1",
+          "slug": "Slug1",
+          "nameTranslations": [
+            "NameTranslation1", "NameTranslation2"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation1", "OverviewTranslation2"
+          ],
+          "aliases": [
+            {
+              "language": "Language1",
+              "name": "Name1"
+            }, {
+              "language": "Language2",
+              "name": "Name2"
+            }
+          ],
+          "country": "Country1",
+          "primaryCompanyType": 514,
+          "activeDate": "ActiveDate1",
+          "inactiveDate": "InactiveDate1",
+          "companyType": {
+            "companyTypeId": 356,
+            "companyTypeName": "CompanyTypeName1"
+          }
+        }, {
+          "id": 64715,
+          "name": "Name2",
+          "slug": "Slug2",
+          "nameTranslations": [
+            "NameTranslation3", "NameTranslation4"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation3", "OverviewTranslation4"
+          ],
+          "aliases": [
+            {
+              "language": "Language3",
+              "name": "Name3"
+            }, {
+              "language": "Language4",
+              "name": "Name4"
+            }
+          ],
+          "country": "Country2",
+          "primaryCompanyType": 515,
+          "activeDate": "ActiveDate2",
+          "inactiveDate": "InactiveDate2",
+          "companyType": {
+            "companyTypeId": 357,
+            "companyTypeName": "CompanyTypeName2"
+          }
+        }
+      ],
+      "production": [
+        {
+          "id": 64714,
+          "name": "Name1",
+          "slug": "Slug1",
+          "nameTranslations": [
+            "NameTranslation1", "NameTranslation2"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation1", "OverviewTranslation2"
+          ],
+          "aliases": [
+            {
+              "language": "Language1",
+              "name": "Name1"
+            }, {
+              "language": "Language2",
+              "name": "Name2"
+            }
+          ],
+          "country": "Country1",
+          "primaryCompanyType": 514,
+          "activeDate": "ActiveDate1",
+          "inactiveDate": "InactiveDate1",
+          "companyType": {
+            "companyTypeId": 356,
+            "companyTypeName": "CompanyTypeName1"
+          }
+        }, {
+          "id": 64715,
+          "name": "Name2",
+          "slug": "Slug2",
+          "nameTranslations": [
+            "NameTranslation3", "NameTranslation4"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation3", "OverviewTranslation4"
+          ],
+          "aliases": [
+            {
+              "language": "Language3",
+              "name": "Name3"
+            }, {
+              "language": "Language4",
+              "name": "Name4"
+            }
+          ],
+          "country": "Country2",
+          "primaryCompanyType": 515,
+          "activeDate": "ActiveDate2",
+          "inactiveDate": "InactiveDate2",
+          "companyType": {
+            "companyTypeId": 357,
+            "companyTypeName": "CompanyTypeName2"
+          }
+        }
+      ],
+      "distributor": [
+        {
+          "id": 64714,
+          "name": "Name1",
+          "slug": "Slug1",
+          "nameTranslations": [
+            "NameTranslation1", "NameTranslation2"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation1", "OverviewTranslation2"
+          ],
+          "aliases": [
+            {
+              "language": "Language1",
+              "name": "Name1"
+            }, {
+              "language": "Language2",
+              "name": "Name2"
+            }
+          ],
+          "country": "Country1",
+          "primaryCompanyType": 514,
+          "activeDate": "ActiveDate1",
+          "inactiveDate": "InactiveDate1",
+          "companyType": {
+            "companyTypeId": 356,
+            "companyTypeName": "CompanyTypeName1"
+          }
+        }, {
+          "id": 64715,
+          "name": "Name2",
+          "slug": "Slug2",
+          "nameTranslations": [
+            "NameTranslation3", "NameTranslation4"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation3", "OverviewTranslation4"
+          ],
+          "aliases": [
+            {
+              "language": "Language3",
+              "name": "Name3"
+            }, {
+              "language": "Language4",
+              "name": "Name4"
+            }
+          ],
+          "country": "Country2",
+          "primaryCompanyType": 515,
+          "activeDate": "ActiveDate2",
+          "inactiveDate": "InactiveDate2",
+          "companyType": {
+            "companyTypeId": 357,
+            "companyTypeName": "CompanyTypeName2"
+          }
+        }
+      ],
+      "special_effects": [
+        {
+          "id": 64714,
+          "name": "Name1",
+          "slug": "Slug1",
+          "nameTranslations": [
+            "NameTranslation1", "NameTranslation2"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation1", "OverviewTranslation2"
+          ],
+          "aliases": [
+            {
+              "language": "Language1",
+              "name": "Name1"
+            }, {
+              "language": "Language2",
+              "name": "Name2"
+            }
+          ],
+          "country": "Country1",
+          "primaryCompanyType": 514,
+          "activeDate": "ActiveDate1",
+          "inactiveDate": "InactiveDate1",
+          "companyType": {
+            "companyTypeId": 356,
+            "companyTypeName": "CompanyTypeName1"
+          }
+        }, {
+          "id": 64715,
+          "name": "Name2",
+          "slug": "Slug2",
+          "nameTranslations": [
+            "NameTranslation3", "NameTranslation4"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation3", "OverviewTranslation4"
+          ],
+          "aliases": [
+            {
+              "language": "Language3",
+              "name": "Name3"
+            }, {
+              "language": "Language4",
+              "name": "Name4"
+            }
+          ],
+          "country": "Country2",
+          "primaryCompanyType": 515,
+          "activeDate": "ActiveDate2",
+          "inactiveDate": "InactiveDate2",
+          "companyType": {
+            "companyTypeId": 357,
+            "companyTypeName": "CompanyTypeName2"
+          }
+        }
+      ]
+    }
   },
   "status": "success"
 }
