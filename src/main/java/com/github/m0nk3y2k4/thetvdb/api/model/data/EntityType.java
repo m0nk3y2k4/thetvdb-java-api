@@ -19,9 +19,7 @@ package com.github.m0nk3y2k4.thetvdb.api.model.data;
 import javax.annotation.Nullable;
 
 /**
- * Interface representing a
- * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/EntityType">EntityType</a>
- * data transfer object.
+ * Interface representing a <em>{@code EntityType}</em> data transfer object.
  * <p><br>
  * The methods of this class provide easy access to all entity type related data which was returned by the remote
  * service in JSON format.

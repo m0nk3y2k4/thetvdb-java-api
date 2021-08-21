@@ -19,9 +19,7 @@ package com.github.m0nk3y2k4.thetvdb.api.model.data;
 import javax.annotation.Nullable;
 
 /**
- * Interface representing an
- * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/ArtworkExtendedRecord">ArtworkExtendedRecord</a>
- * data transfer object.
+ * Interface representing an <em>{@code ArtworkExtendedRecord}</em> data transfer object.
  * <p><br>
  * The methods of this class provide easy access to all artwork related data which was returned by the remote service in
  * JSON format.

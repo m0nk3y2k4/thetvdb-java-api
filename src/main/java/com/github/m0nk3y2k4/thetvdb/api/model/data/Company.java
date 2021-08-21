@@ -21,9 +21,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 /**
- * Interface representing a
- * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/Company">Company</a>
- * data transfer object.
+ * Interface representing a <em>{@code Company}</em> data transfer object.
  * <p><br>
  * The methods of this class provide easy access to all company related data which was returned by the remote service in
  * JSON format. Methods returning collection-based values will return an empty collection in case no corresponding data

@@ -19,9 +19,7 @@ package com.github.m0nk3y2k4.thetvdb.api.model.data;
 import java.util.List;
 
 /**
- * Interface representing an
- * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/AwardCategoryExtendedRecord">AwardCategoryExtendedRecord</a>
- * data transfer object.
+ * Interface representing an <em>{@code AwardCategoryExtendedRecord}</em> data transfer object.
  * <p><br>
  * The methods of this class provide easy access to all award category related data which was returned by the remote
  * service in JSON format. Methods returning collection-based values will return an empty collection in case no
