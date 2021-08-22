@@ -117,6 +117,7 @@ public final class SeriesAPI extends QueryResource {
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no series
      *                      record with the given ID exists, etc.
      */
+    // ToDo: Extend with query parameters (translations)
     public static JsonNode getSeriesExtended(@Nonnull APIConnection con, long id) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
         return con.sendGET(createResource("/series/{id}/extended", id));

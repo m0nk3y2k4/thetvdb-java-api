@@ -69,6 +69,7 @@ public final class EpisodesAPI extends Resource {
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no
      *                      episode record with the given ID exists, etc.
      */
+    // ToDo: Extend with query parameters (translations)
     public static JsonNode getEpisodeExtended(@Nonnull APIConnection con, long id) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
         return con.sendGET(createResource("/episodes/{id}/extended", id));

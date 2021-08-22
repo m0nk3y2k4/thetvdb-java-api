@@ -1064,6 +1064,7 @@ public interface TheTVDBApi {
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc. or the timestamp lies in the future.
      */
+    // ToDo: Additional convenience methods for new parameters [type] and [action]
     Collection<EntityUpdate> getUpdates(long since) throws APIException;
 
     /**
