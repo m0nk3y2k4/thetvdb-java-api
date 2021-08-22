@@ -749,9 +749,12 @@
           "country": "Country1",
           "defaultSeasonType": 469,
           "isOrderRandomized": true,
-          "lastUpdated": "LastUpdated1"
+          "lastUpdated": "LastUpdated1",
+          "averageRuntime": 42
         },
-        "year": "Year1"
+        "year": "Year1",
+        "category": "Category1",
+        "name": "Name1"
       }, {
         "character": {
           "id": 36488,
@@ -1491,9 +1494,12 @@
           "country": "Country2",
           "defaultSeasonType": 470,
           "isOrderRandomized": true,
-          "lastUpdated": "LastUpdated2"
+          "lastUpdated": "LastUpdated2",
+          "averageRuntime": 43
         },
-        "year": "Year2"
+        "year": "Year2",
+        "category": "Category2",
+        "name": "Name2"
       }
     ]
   },

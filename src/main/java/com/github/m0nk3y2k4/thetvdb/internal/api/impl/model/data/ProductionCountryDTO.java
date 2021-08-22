@@ -16,18 +16,14 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Companies;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Company;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.ProductionCountry;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.APIDataModel;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.WithHiddenImplementation;
 import org.immutables.value.Value.Immutable;
 
 /**
- * DTO implementation of the {@link Companies} interface
+ * DTO implementation of the {@link ProductionCountry} interface
  * <p><br>
  * Objects of this class reflect the data received from the remote service and are immutable so that their content can
  * not be changed once an instance has been created. New objects of this class may be created by using the corresponding
@@ -36,21 +32,16 @@ import org.immutables.value.Value.Immutable;
 @Immutable
 @APIDataModel
 @WithHiddenImplementation
-@JsonDeserialize(builder = CompaniesDTO.Builder.class)
-public abstract class CompaniesDTO implements Companies {
-
-    @Override
-    @JsonAlias("special_effects")
-    // ToDo: Property is declared as "specialEffects" in API documentation but send as "special_effects" in JSON. Check again after next API update.
-    public abstract List<Company> getSpecialEffects();
+@JsonDeserialize(builder = ProductionCountryDTO.Builder.class)
+public abstract class ProductionCountryDTO implements ProductionCountry {
 
     /**
-     * Builder used to create a new immutable {@link CompaniesDTO} implementation
+     * Builder used to create a new immutable {@link ProductionCountryDTO} implementation
      * <p><br>
      * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link
-     * CompaniesDTO} instance based on these properties. New builders may be initialized with some existing DTO
+     * ProductionCountryDTO} instance based on these properties. New builders may be initialized with some existing DTO
      * instance, which presets the builders properties to the values of the given DTO, still retaining the option to
      * make additional changes before actually building a new immutable object.
      */
-    public static class Builder extends CompaniesDTOBuilder {}
+    public static class Builder extends ProductionCountryDTOBuilder {}
 }

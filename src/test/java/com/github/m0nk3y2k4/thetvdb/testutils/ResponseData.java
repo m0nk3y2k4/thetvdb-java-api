@@ -60,12 +60,14 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.FCList;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.FCListDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Gender;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Inspiration;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.MovieDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Network;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.PeopleDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.PeopleType;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.ProductionCountry;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Race;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Release;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.RemoteId;
@@ -109,12 +111,14 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.FCListDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.FCListDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.GenderDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.GenreDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.InspirationDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.NetworkDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.PeopleDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.PeopleDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.PeopleTypeDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ProductionCountryDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.RaceDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ReleaseDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.RemoteIdDTO;
@@ -604,7 +608,8 @@ public abstract class ResponseData<T> {
             if (shape == FULL) {
                 builder.character(create(characterModel(), idx, shape)).episode(create(episodeModel(), idx, shape))
                         .movie(create(movieModel(), idx, shape)).series(create(seriesModel(), idx, shape))
-                        .id(64119L + idx).isWinner(true).details("Details" + idx).year("Year" + idx);
+                        .id(64119L + idx).isWinner(true).details("Details" + idx).year("Year" + idx)
+                        .category("Category" + idx).name("Name" + idx);
             }
             return builder.build();
         };
@@ -729,6 +734,7 @@ public abstract class ResponseData<T> {
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
                 builder.id(94L + idx).name("Name" + idx).overview("Overview" + idx).url("Url" + idx).isOfficial(true)
+                        .score(6L + idx)
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .aliases(createTwo(aliasModel(), listOffset));
@@ -759,6 +765,11 @@ public abstract class ResponseData<T> {
 
     private static SimpleDtoSupplier<Genre> genreModel() {
         return idx -> new GenreDTO.Builder().id(2L + idx).name("Name" + idx).slug("Slug" + idx).build();
+    }
+
+    private static SimpleDtoSupplier<Inspiration> inspirationModel() {
+        return idx -> new InspirationDTO.Builder().id(97L + idx).type("Type" + idx).typeName("TypeName" + idx)
+                .url("Url" + idx).build();
     }
 
     private static SimpleDtoSupplier<String> nameTranslationModel() {
@@ -818,7 +829,10 @@ public abstract class ResponseData<T> {
                         .addSubtitleLanguages("SubtitleLanguage" + listOffset, "SubtitleLanguage" + (listOffset + 1))
                         .tagOptions(createTwo(tagOptionModel(), listOffset))
                         .trailers(createTwo(trailerModel(), listOffset))
-                ;
+                        .inspirations(createTwo(inspirationModel(), listOffset))
+                        .productionCountries(createTwo(productionCountryModel(), listOffset))
+                        .addSpokenLanguages("SpokenLanguage" + listOffset, "SpokenLanguage" + (listOffset + 1))
+                        .firstRelease(create(releaseModel(), idx));
             }
             return builder.build();
         };
@@ -868,6 +882,11 @@ public abstract class ResponseData<T> {
         return idx -> new PeopleTypeDTO.Builder().id(21L + idx).name("Name" + idx).build();
     }
 
+    private static SimpleDtoSupplier<ProductionCountry> productionCountryModel() {
+        return idx -> new ProductionCountryDTO.Builder().id(43L + idx).country("Country" + idx).name("Name" + idx)
+                .build();
+    }
+
     private static SimpleDtoSupplier<Race> raceModel() {
         return idx -> new RaceDTO.Builder().build();
     }
@@ -912,7 +931,8 @@ public abstract class ResponseData<T> {
                         .companies(create(companiesModel(), idx))
                         .artwork(createTwo(artworkModel(), listOffset))
                         .episodes(createTwo(episodeModel(), listOffset))
-                        .trailers(createTwo(trailerModel(), listOffset));
+                        .trailers(createTwo(trailerModel(), listOffset))
+                        .tagOptions(createTwo(tagOptionModel(), listOffset));
             }
             return builder.build();
         };
@@ -931,7 +951,7 @@ public abstract class ResponseData<T> {
                         .originalCountry("OriginalCountry" + idx).defaultSeasonType(468L + idx).country("Country" + idx)
                         .originalLanguage("OriginalLanguage" + idx).isOrderRandomized(TRUE).id(34874L + idx)
                         .name("Name" + idx).slug("Slug" + idx).image("Image" + idx).abbreviation("Abbreviation" + idx)
-                        .lastUpdated("LastUpdated" + idx)
+                        .lastUpdated("LastUpdated" + idx).averageRuntime(41L + idx)
                         .status(create(statusModel(), idx))
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
@@ -958,6 +978,7 @@ public abstract class ResponseData<T> {
                         .originalCountry("OriginalCountry" + idx).originalLanguage("OriginalLanguage" + idx)
                         .isOrderRandomized(TRUE).airsTime("AirsTime" + idx).abbreviation("Abbreviation" + idx)
                         .country("Country" + idx).lastUpdated("LastUpdated" + idx).airsTimeUTC("AirsTimeUTC" + idx)
+                        .averageRuntime(50L + idx)
                         .status(create(statusModel(), idx))
                         .airsDays(create(seriesAirsDaysModel(), idx))
                         .companies(createTwo(companyModel(), listOffset))
@@ -965,14 +986,14 @@ public abstract class ResponseData<T> {
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .aliases(createTwo(aliasModel()))
                         .artworks(createTwo(artworkModel(), listOffset))
-                        .networks(createTwo(networkModel(), listOffset))
                         .genres(createTwo(genreModel(), listOffset))
                         .trailers(createTwo(trailerModel(), listOffset))
                         .lists(createTwo(listModel(), listOffset))
                         .remoteIds(createTwo(remoteIdModel(), listOffset))
                         .characters(createTwo(characterModel(), listOffset))
                         .seasons(createTwo(seasonModel(), listOffset))
-                        .translations(create(translationsModel(), listOffset));
+                        .translations(create(translationsModel(), listOffset))
+                        .episodes(createTwo(episodeModel(), listOffset));
             }
             return builder.build();
         };

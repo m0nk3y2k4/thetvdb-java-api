@@ -94,4 +94,13 @@ public interface FCList {
      */
     @Nullable
     String getUrl();
+
+    /**
+     * Get the value of the {<em>{@code data.score}</em>} JSON property
+     *
+     * @return The <em>{@code score}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in ListBaseRecord but returned in JSON. Check again after the next API update.
+    @Nullable
+    Long getScore();
 }

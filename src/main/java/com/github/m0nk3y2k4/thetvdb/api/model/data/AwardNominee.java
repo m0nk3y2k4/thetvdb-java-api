@@ -94,4 +94,20 @@ public interface AwardNominee {
      */
     @Nullable
     String getYear();
+
+    /**
+     * Get the value of the {<em>{@code <enclosing>.category}</em>} JSON property
+     *
+     * @return The <em>{@code category}</em> property from the received JSON
+     */
+    @Nullable
+    String getCategory();
+
+    /**
+     * Get the value of the {<em>{@code <enclosing>.name}</em>} JSON property
+     *
+     * @return The <em>{@code name}</em> property from the received JSON
+     */
+    @Nullable
+    String getName();
 }

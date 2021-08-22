@@ -36,7 +36,8 @@
       "country": "Country1",
       "defaultSeasonType": 469,
       "isOrderRandomized": true,
-      "lastUpdated": "LastUpdated1"
+      "lastUpdated": "LastUpdated1",
+      "averageRuntime": 42
     }, {
       "id": 34876,
       "name": "Name2",
@@ -73,7 +74,8 @@
       "country": "Country2",
       "defaultSeasonType": 470,
       "isOrderRandomized": true,
-      "lastUpdated": "LastUpdated2"
+      "lastUpdated": "LastUpdated2",
+      "averageRuntime": 43
     }
   ],
   "status": "success"

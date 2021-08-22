@@ -439,7 +439,8 @@
             "language": "Language2",
             "name": "Name2"
           }
-        ]
+        ],
+        "score": 7
       }, {
         "id": 96,
         "name": "Name2",
@@ -460,7 +461,8 @@
             "language": "Language4",
             "name": "Name4"
           }
-        ]
+        ],
+        "score": 8
       }
     ],
     "genres": [
@@ -547,7 +549,41 @@
         "language": "Language2",
         "url": "Url2"
       }
-    ]
+    ],
+    "production_countries": [
+      {
+        "id": 44,
+        "country": "Country1",
+        "name": "Name1"
+      },
+      {
+        "id": 45,
+        "country": "Country2",
+        "name": "Name2"
+      }
+    ],
+    "inspirations": [
+      {
+        "id": 98,
+        "type": "Type1",
+        "type_name": "TypeName1",
+        "url": "Url1"
+      },
+      {
+        "id": 99,
+        "type": "Type2",
+        "type_name": "TypeName2",
+        "url": "Url2"
+      }
+    ],
+    "spoken_languages": [
+      "SpokenLanguage1", "SpokenLanguage2"
+    ],
+    "first_release": {
+      "country": "Country1",
+      "date": "Date1",
+      "detail": "Detail1"
+    }
   },
   "status": "success"
 }

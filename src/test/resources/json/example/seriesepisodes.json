@@ -36,7 +36,8 @@
       "country": "Country1",
       "defaultSeasonType": 469,
       "isOrderRandomized": true,
-      "lastUpdated": "LastUpdated1"
+      "lastUpdated": "LastUpdated1",
+      "averageRuntime": 42
     },
     "episodes": [
       {

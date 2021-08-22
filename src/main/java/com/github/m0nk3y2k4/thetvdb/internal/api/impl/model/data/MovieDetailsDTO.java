@@ -16,8 +16,13 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.MovieDetails;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.ProductionCountry;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Release;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.APIDataModel;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.WithHiddenImplementation;
 import org.immutables.value.Value.Immutable;
@@ -34,6 +39,21 @@ import org.immutables.value.Value.Immutable;
 @WithHiddenImplementation
 @JsonDeserialize(builder = MovieDetailsDTO.Builder.class)
 public abstract class MovieDetailsDTO implements MovieDetails {
+
+    @Override
+    @JsonAlias("first_release")
+    // ToDo: Property is declared as "firstRelease" in API documentation but send as "first_release" in JSON. Check again after next API update.
+    public abstract Release getFirstRelease();
+
+    @Override
+    @JsonAlias("production_countries")
+    // ToDo: Property is declared as "productionCountries" in API documentation but send as "production_countries" in JSON. Check again after next API update.
+    public abstract List<ProductionCountry> getProductionCountries();
+
+    @Override
+    @JsonAlias("spoken_languages")
+    // ToDo: Property is declared as "spokenLanguages" in API documentation but send as "spoken_languages" in JSON. Check again after next API update.
+    public abstract List<String> getSpokenLanguages();
 
     /**
      * Builder used to create a new immutable {@link MovieDetailsDTO} implementation

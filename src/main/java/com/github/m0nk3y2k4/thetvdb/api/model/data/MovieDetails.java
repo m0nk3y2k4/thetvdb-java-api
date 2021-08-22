@@ -93,6 +93,14 @@ public interface MovieDetails extends Movie {
     List<ContentRating> getContentRatings();
 
     /**
+     * Get the value of the {<em>{@code data.firstRelease}</em>} JSON property
+     *
+     * @return The <em>{@code firstRelease}</em> property from the received JSON
+     */
+    @Nullable
+    Release getFirstRelease();
+
+    /**
      * Get the value of the {<em>{@code data.lists}</em>} JSON property
      *
      * @return The <em>{@code lists}</em> property from the received JSON
@@ -105,6 +113,13 @@ public interface MovieDetails extends Movie {
      * @return The <em>{@code genres}</em> property from the received JSON
      */
     List<Genre> getGenres();
+
+    /**
+     * Get the value of the {<em>{@code data.inspirations}</em>} JSON property
+     *
+     * @return The <em>{@code inspirations}</em> property from the received JSON
+     */
+    List<Inspiration> getInspirations();
 
     /**
      * Get the value of the {<em>{@code data.originalCountry}</em>} JSON property
@@ -123,6 +138,13 @@ public interface MovieDetails extends Movie {
     String getOriginalLanguage();
 
     /**
+     * Get the value of the {<em>{@code data.productionCountries}</em>} JSON property
+     *
+     * @return The <em>{@code productionCountries}</em> property from the received JSON
+     */
+    List<ProductionCountry> getProductionCountries();
+
+    /**
      * Get the value of the {<em>{@code data.releases}</em>} JSON property
      *
      * @return The <em>{@code releases}</em> property from the received JSON
@@ -135,6 +157,13 @@ public interface MovieDetails extends Movie {
      * @return The <em>{@code remoteIds}</em> property from the received JSON
      */
     List<RemoteId> getRemoteIds();
+
+    /**
+     * Get the value of the {<em>{@code data.spokenLanguages}</em>} JSON property
+     *
+     * @return The <em>{@code spokenLanguages}</em> property from the received JSON
+     */
+    List<String> getSpokenLanguages();
 
     /**
      * Get the value of the {<em>{@code data.studios}</em>} JSON property

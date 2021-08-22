@@ -42,13 +42,6 @@ public interface SeriesDetails extends Series {
     List<Artwork> getArtworks();
 
     /**
-     * Get the value of the {<em>{@code data.networks}</em>} JSON property
-     *
-     * @return The <em>{@code networks}</em> property from the received JSON
-     */
-    List<Network> getNetworks();
-
-    /**
      * Get the value of the {<em>{@code data.genres}</em>} JSON property
      *
      * @return The <em>{@code genres}</em> property from the received JSON
@@ -130,4 +123,12 @@ public interface SeriesDetails extends Series {
     // ToDo: Field is currently not declared in SeriesExtendedRecord but returned in JSON. Check again after the next API update.
     @Nullable
     Translations getTranslations();
+
+    /**
+     * Get the value of the {<em>{@code data.episodes}</em>} JSON property
+     *
+     * @return The <em>{@code episodes}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in SeriesExtendedRecord but returned in JSON. Check again after the next API update.
+    List<Episode> getEpisodes();
 }

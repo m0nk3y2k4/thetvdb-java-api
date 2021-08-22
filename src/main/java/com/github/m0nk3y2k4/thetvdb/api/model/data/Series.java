@@ -183,4 +183,13 @@ public interface Series {
     // ToDo: Field is currently not declared in SeriesBaseRecord but returned in JSON. Check again after the next API update.
     @Nullable
     String getLastUpdated();
+
+    /**
+     * Get the value of the {<em>{@code data.averageRuntime}</em>} JSON property
+     *
+     * @return The <em>{@code averageRuntime}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in SeriesBaseRecord but returned in JSON. Check again after the next API update.
+    @Nullable
+    Long getAverageRuntime();
 }
