@@ -27,7 +27,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 /**
  * Implementation of a connector for the remote API's
- * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists">lists</a>
+ * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/lists">lists</a>
  * endpoint.
  * <p><br>
  * Provides static access to all routes of this endpoint which may be used for obtaining either basic, extended or
@@ -40,7 +40,7 @@ public final class ListsAPI extends QueryResource {
     /**
      * Returns a translation record for a specific list as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getListTranslation">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/lists/getListTranslation">
      * <b>[GET]</b> /lists/{id}/translations/{language}</a>
      *
      * @param con      Initialized connection to be used for API communication
@@ -62,7 +62,7 @@ public final class ListsAPI extends QueryResource {
     /**
      * Returns an overview of lists based on the given query parameters as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getAllLists">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/lists/getAllLists">
      * <b>[GET]</b> /lists</a>
      *
      * @param con    Initialized connection to be used for API communication
@@ -80,7 +80,7 @@ public final class ListsAPI extends QueryResource {
     /**
      * Returns basic information for a specific list record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getList">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/lists/getList">
      * <b>[GET]</b> /lists/{id}</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -99,7 +99,7 @@ public final class ListsAPI extends QueryResource {
     /**
      * Returns extended information for a specific list record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/lists/getListExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/lists/getListExtended">
      * <b>[GET]</b> /lists/{id}/extended</a>
      *
      * @param con Initialized connection to be used for API communication

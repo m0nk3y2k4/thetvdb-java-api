@@ -26,7 +26,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 /**
  * Implementation of a connector for the remote API's
- * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/award-categories">award-categories</a>
+ * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/award-categories">award-categories</a>
  * endpoint.
  * <p><br>
  * Provides static access to all routes of this endpoint which may be used for obtaining either basic or extended award
@@ -39,7 +39,7 @@ public final class AwardsAPI extends Resource {
     /**
      * Returns basic information for a specific award category as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/award-categories/getAwardCategory">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/award-categories/getAwardCategory">
      * <b>[GET]</b> /awards/categories/{id}</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -58,7 +58,7 @@ public final class AwardsAPI extends Resource {
     /**
      * Returns extended information for a specific award category as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/award-categories/getAwardCategoryExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/award-categories/getAwardCategoryExtended">
      * <b>[GET]</b> /awards/categories/{id}/extended</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -77,7 +77,7 @@ public final class AwardsAPI extends Resource {
     /**
      * Returns an overview of available awards as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/awards/getAllAwards">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/awards/getAllAwards">
      * <b>[GET]</b> /awards</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -94,7 +94,7 @@ public final class AwardsAPI extends Resource {
     /**
      * Returns basic information for a specific award record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/awards/getAward">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/awards/getAward">
      * <b>[GET]</b> /awards/{id}</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -113,7 +113,7 @@ public final class AwardsAPI extends Resource {
     /**
      * Returns extended information for a specific award record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/awards/getAwardExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/awards/getAwardExtended">
      * <b>[GET]</b> /awards/{id}/extended</a>
      *
      * @param con Initialized connection to be used for API communication

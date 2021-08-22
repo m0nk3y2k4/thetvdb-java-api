@@ -25,7 +25,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.resource.Resource;
 
 /**
  * Implementation of a connector for the remote API's
- * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/source-types">source-types</a>
+ * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/source-types">source-types</a>
  * endpoint.
  * <p><br>
  * Provides static access to all routes of this endpoint which may be used for obtaining an overview of available source
@@ -38,7 +38,7 @@ public final class SourceTypesAPI extends Resource {
     /**
      * Returns an overview of available source types as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.3.2#/source-types/getAllSourceTypes">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/source-types/getAllSourceTypes">
      * <b>[GET]</b> /sources/types</a>
      *
      * @param con Initialized connection to be used for API communication
