@@ -253,7 +253,7 @@
     <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
-        <version>2.12.3</version>
+        <version>2.12.4</version>
     </dependency>
 
     <!--#####################################-->
@@ -304,7 +304,7 @@
     <dependency>
         <groupId>org.mockito</groupId>
         <artifactId>mockito-core</artifactId>
-        <version>3.11.2</version>
+        <version>3.12.1</version>
         <scope>test</scope>
     </dependency>
 
@@ -346,14 +346,14 @@
     <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
-        <version>1.7.31</version>
+        <version>1.7.32</version>
     </dependency>
 
     <!-- Simple Logging Facade for Java: Binding for Simple implementation, which outputs all events to System.err. -->
     <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-simple</artifactId>
-        <version>1.7.31</version>
+        <version>1.7.32</version>
         <scope>test</scope>
     </dependency>
 

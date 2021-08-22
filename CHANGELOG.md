@@ -9,10 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Replaced the maven _NOPLogger_ dependency with _SimpleLogger_ implementation: `org.slf4j:slf4j-nop` -> `org.slf4j:slf4j-simple`.
 - Updated multiple maven dependencies and plugins to latest version:
     - _org.junit.jupiter:*_: `5.7.0` -> `5.7.2`
-    - _org.mockito:mockito-core_: `3.6.28` -> `3.11.2`
-    - _com.fasterxml.jackson.core:jackson-databind_: `2.12.0` -> `2.12.3`
+    - _org.mockito:mockito-core_: `3.6.28` -> `3.12.1`
+    - _com.fasterxml.jackson.core:jackson-databind_: `2.12.0` -> `2.12.4`
     - _org.assertj:assertj-core_: `3.18.1` -> `3.20.2`
-    - _org.slf4j:*_: `1.7.30` -> `1.7.31`
+    - _org.slf4j:*_: `1.7.30` -> `1.7.32`
     - _org.jacoco:jacoco-maven-plugin_: `0.8.6` -> `0.8.7`
     - _org.apache.maven.plugins:maven-javadoc-plugin_: `3.2.0` -> `3.3.0`
 
