@@ -182,7 +182,7 @@ public final class APISession {
      *
      * @return The current status of this session
      */
-    Status getStatus() { return status; }
+    Status getStatus() {return status;}
 
     /**
      * Check if this session has already been initialized

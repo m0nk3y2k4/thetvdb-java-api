@@ -120,8 +120,8 @@ public final class APIJsonMapper {
         SimpleAbstractTypeResolver dtoTypeResolver = new SimpleAbstractTypeResolver();
         ClassFilter.only().classes().annotatedWith(JsonDeserialize.class)
                 .from(ClassIndex.getAnnotated(APIDataModel.class)).forEach(dto ->
-                Arrays.stream(dto.getInterfaces()).forEach(dtoInterface ->
-                        dtoTypeResolver.addMapping((Class<T>)dtoInterface, (Class<? extends T>)dto)));
+                        Arrays.stream(dto.getInterfaces()).forEach(dtoInterface ->
+                                dtoTypeResolver.addMapping((Class<T>)dtoInterface, (Class<? extends T>)dto)));
 
         SimpleModule dataModule = new SimpleModule();
         dataModule.setDeserializerModifier(new CollectionDeserializerModifier()).setAbstractTypes(dtoTypeResolver);
