@@ -962,7 +962,8 @@
         "number": 43,
         "seasonNumber": 9,
         "lastUpdated": "LastUpdated1",
-        "finaleType": "FinaleType1"
+        "finaleType": "FinaleType1",
+        "overview": "Overview1"
       }, {
         "id": 548746,
         "seriesId": 69555,
@@ -1600,7 +1601,8 @@
         "number": 44,
         "seasonNumber": 10,
         "lastUpdated": "LastUpdated2",
-        "finaleType": "FinaleType2"
+        "finaleType": "FinaleType2",
+        "overview": "Overview2"
       }
     ],
     "trailers": [

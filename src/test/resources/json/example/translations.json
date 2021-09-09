@@ -5,7 +5,7 @@
       "isAlias": true,
       "overview": "Overview1",
       "language": "Language1",
-      "isPrimary": true,
+      "IsPrimary": true,
       "aliases": [
         "Alias1", "Alias2"
       ],

@@ -697,7 +697,7 @@ public abstract class ResponseData<T> {
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .image("Image" + idx).imageType(4L + idx).seasons(createTwo(seasonModel(), listOffset))
                         .number(42L + idx).seasonNumber(8L + idx).lastUpdated("LastUpdated" + idx)
-                        .finaleType("FinaleType" + idx);
+                        .finaleType("FinaleType" + idx).overview("Overview" + idx);
             }
             return builder.build();
         };
@@ -712,6 +712,7 @@ public abstract class ResponseData<T> {
                         .runtime(73L + idx).image("Image" + idx).imageType(573L + idx).seasonNumber(2L + idx)
                         .productionCode("ProductionCode" + idx).airsAfterSeason(1L + idx).airsBeforeSeason(3L + idx)
                         .airsBeforeEpisode(11L + idx).lastUpdated("LastUpdated" + idx).finaleType("FinaleType" + idx)
+                        .overview("Overview" + idx)
                         .networks(createTwo(networkModel(), listOffset))
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))

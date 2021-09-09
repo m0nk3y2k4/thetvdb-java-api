@@ -152,4 +152,13 @@ public interface Episode {
     // ToDo: Field is currently not declared in EpisodeBaseRecord but returned in JSON. Check again after the next API update.
     @Nullable
     String getFinaleType();
+
+    /**
+     * Get the value of the {<em>{@code data.overview}</em>} JSON property
+     *
+     * @return The <em>{@code overview}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in EpisodeBaseRecord but returned in JSON. Check again after the next API update.
+    @Nullable
+    String getOverview();
 }

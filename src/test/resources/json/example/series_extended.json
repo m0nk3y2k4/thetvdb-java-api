@@ -937,7 +937,7 @@
           "isAlias": true,
           "overview": "Overview1",
           "language": "Language1",
-          "isPrimary": true,
+          "IsPrimary": true,
           "aliases": [
             "Alias1", "Alias2"
           ],
@@ -947,7 +947,7 @@
           "isAlias": true,
           "overview": "Overview2",
           "language": "Language2",
-          "isPrimary": true,
+          "IsPrimary": true,
           "aliases": [
             "Alias3", "Alias4"
           ],
@@ -960,7 +960,7 @@
           "isAlias": true,
           "overview": "Overview1",
           "language": "Language1",
-          "isPrimary": true,
+          "IsPrimary": true,
           "aliases": [
             "Alias1", "Alias2"
           ],
@@ -970,7 +970,7 @@
           "isAlias": true,
           "overview": "Overview2",
           "language": "Language2",
-          "isPrimary": true,
+          "IsPrimary": true,
           "aliases": [
             "Alias3", "Alias4"
           ],
@@ -1619,7 +1619,8 @@
         "number": 43,
         "seasonNumber": 9,
         "lastUpdated": "LastUpdated1",
-        "finaleType": "FinaleType1"
+        "finaleType": "FinaleType1",
+        "overview": "Overview1"
       }, {
         "id": 548746,
         "seriesId": 69555,
@@ -2257,7 +2258,8 @@
         "number": 44,
         "seasonNumber": 10,
         "lastUpdated": "LastUpdated2",
-        "finaleType": "FinaleType2"
+        "finaleType": "FinaleType2",
+        "overview": "Overview2"
       }
     ]
   },

@@ -636,7 +636,8 @@
     "number": 43,
     "seasonNumber": 9,
     "lastUpdated": "LastUpdated1",
-    "finaleType": "FinaleType1"
+    "finaleType": "FinaleType1",
+    "overview": "Overview1"
   },
   "status": "success"
 }
