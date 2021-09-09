@@ -52,7 +52,6 @@ public interface RemoteId {
      *
      * @return The <em>{@code sourceName}</em> property from the received JSON
      */
-    // ToDo: Field is currently not declared in RemoteID but returned in JSON. Check again after the next API update.
     @Nullable
     String getSourceName();
 }
