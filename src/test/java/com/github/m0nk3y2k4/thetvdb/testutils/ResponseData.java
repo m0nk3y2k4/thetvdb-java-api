@@ -1065,7 +1065,8 @@ public abstract class ResponseData<T> {
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
                 builder.language("Language" + idx).isPrimary(true).name("Name" + idx).isAlias(true)
-                        .overview("Overview" + idx).addAliases("Alias" + listOffset, "Alias" + (listOffset + 1));
+                        .overview("Overview" + idx).tagline("Tagline" + idx)
+                        .addAliases("Alias" + listOffset, "Alias" + (listOffset + 1));
             }
             return builder.build();
         };

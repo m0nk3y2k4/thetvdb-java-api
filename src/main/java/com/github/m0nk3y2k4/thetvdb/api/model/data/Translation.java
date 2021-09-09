@@ -80,4 +80,12 @@ public interface Translation {
      * @return The <em>{@code aliases}</em> property from the received JSON
      */
     List<String> getAliases();
+
+    /**
+     * Get the value of the {<em>{@code data.tagline}</em>} JSON property
+     *
+     * @return The <em>{@code tagline}</em> property from the received JSON
+     */
+    @Nullable
+    String getTagline();
 }

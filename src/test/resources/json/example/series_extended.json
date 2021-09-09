@@ -894,7 +894,8 @@
           "isPrimary": true,
           "aliases": [
             "Alias1", "Alias2"
-          ]
+          ],
+          "tagline": "Tagline1"
         }, {
           "name": "Name2",
           "isAlias": true,
@@ -903,7 +904,8 @@
           "isPrimary": true,
           "aliases": [
             "Alias3", "Alias4"
-          ]
+          ],
+          "tagline": "Tagline2"
         }
       ],
       "overviewTranslations": [
@@ -915,7 +917,8 @@
           "isPrimary": true,
           "aliases": [
             "Alias1", "Alias2"
-          ]
+          ],
+          "tagline": "Tagline1"
         }, {
           "name": "Name2",
           "isAlias": true,
@@ -924,7 +927,8 @@
           "isPrimary": true,
           "aliases": [
             "Alias3", "Alias4"
-          ]
+          ],
+          "tagline": "Tagline2"
         }
       ],
       "aliases": [
