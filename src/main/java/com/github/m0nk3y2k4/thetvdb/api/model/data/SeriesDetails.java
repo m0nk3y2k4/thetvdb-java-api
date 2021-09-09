@@ -39,7 +39,7 @@ public interface SeriesDetails extends Series {
      *
      * @return The <em>{@code artworks}</em> property from the received JSON
      */
-    List<Artwork> getArtworks();
+    List<ArtworkDetails> getArtworks();
 
     /**
      * Get the value of the {<em>{@code data.genres}</em>} JSON property

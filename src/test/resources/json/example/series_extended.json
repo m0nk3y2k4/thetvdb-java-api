@@ -39,19 +39,65 @@
     "averageRuntime": 51,
     "artworks": [
       {
-        "id": 4635,
+        "episodeId": 39010,
+        "height": 1080,
+        "id": 694401,
         "image": "Image1",
-        "thumbnail": "Thumbnail1",
         "language": "Language1",
-        "type": 54,
-        "score": 2
+        "movieId": 574,
+        "networkId": 66341,
+        "peopleId": 97512,
+        "score": 82,
+        "seasonId": 574604,
+        "seriesId": 669844,
+        "seriesPeopleId": 647,
+        "thumbnail": "Thumbnail1",
+        "thumbnailHeight": 400,
+        "thumbnailWidth": 600,
+        "type": 5,
+        "updatedAt": 16015471,
+        "width": 1920,
+        "status": {
+          "id": 73,
+          "name": "Name1"
+        },
+        "tagOptions": {
+          "id": 5797,
+          "tag": 43,
+          "tagName": "TagName1",
+          "name": "Name1",
+          "helpText": "HelpText1"
+        }
       }, {
-        "id": 4636,
+        "episodeId": 39011,
+        "height": 1081,
+        "id": 694402,
         "image": "Image2",
-        "thumbnail": "Thumbnail2",
         "language": "Language2",
-        "type": 55,
-        "score": 3
+        "movieId": 575,
+        "networkId": 66342,
+        "peopleId": 97513,
+        "score": 83,
+        "seasonId": 574605,
+        "seriesId": 669845,
+        "seriesPeopleId": 648,
+        "thumbnail": "Thumbnail2",
+        "thumbnailHeight": 401,
+        "thumbnailWidth": 601,
+        "type": 6,
+        "updatedAt": 16015472,
+        "width": 1921,
+        "status": {
+          "id": 74,
+          "name": "Name2"
+        },
+        "tagOptions": {
+          "id": 5798,
+          "tag": 44,
+          "tagName": "TagName2",
+          "name": "Name2",
+          "helpText": "HelpText2"
+        }
       }
     ],
     "companies": [

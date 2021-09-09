@@ -985,7 +985,7 @@ public abstract class ResponseData<T> {
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .aliases(createTwo(aliasModel()))
-                        .artworks(createTwo(artworkModel(), listOffset))
+                        .artworks(createTwo(artworkDetailsModel(), listOffset))
                         .genres(createTwo(genreModel(), listOffset))
                         .trailers(createTwo(trailerModel(), listOffset))
                         .lists(createTwo(listModel(), listOffset))
