@@ -23,6 +23,8 @@ import javax.annotation.Nonnull;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType;
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.UpdateAction;
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.UpdateEntityType;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Artwork;
@@ -1052,20 +1054,47 @@ public interface TheTVDBApi {
     Collection<EntityUpdate> getUpdates(QueryParameters queryParameters) throws APIException;
 
     /**
-     * Returns a collection of entities which have been updated since the given Epoch time mapped as Java DTO. This is a
-     * shortcut-method for {@link #getUpdates(QueryParameters) getUpdates(queryParameters)} with a single {@value
-     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#SINCE} query parameter.
+     * Returns a collection of entities which have been updated since the given Epoch time mapped as Java DTO. Due to
+     * the possibly large amount of updates, the result will be paginated. Use the <em>{@code page}</em> parameter to
+     * browse to a specific result page. This is a shortcut-method for {@link #getUpdates(QueryParameters)
+     * getUpdates(queryParameters)} with {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#SINCE} and
+     * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#PAGE} query parameters.
      *
      * @param since UNIX Epoch time (GMT) in seconds. Must be in the past.
+     * @param page  The result page to be returned (zero-based)
      *
      * @return Collection of entities updated since the given Epoch time mapped as Java DTO's based on the JSON data
      *         returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc. or the timestamp lies in the future.
+     * @see #getUpdates(long, UpdateEntityType, UpdateAction, long) getUpdates(since, type, action, page)
      */
-    // ToDo: Additional convenience methods for new parameters [type] and [action]
-    Collection<EntityUpdate> getUpdates(long since) throws APIException;
+    Collection<EntityUpdate> getUpdates(long since, long page) throws APIException;
+
+    /**
+     * Returns a collection of entities which have been updated since the given Epoch time, restricted to a specific
+     * type of entities and some particular update action, mapped as Java DTO. Due to the possibly large amount of
+     * updates, the result will be paginated. Use the <em>{@code page}</em> parameter to browse to a specific result
+     * page. This is a shortcut-method for {@link #getUpdates(QueryParameters) getUpdates(queryParameters)} with {@value
+     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#SINCE}, {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#TYPE},
+     * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#ACTION} and {@value
+     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#PAGE} query parameters.
+     *
+     * @param since  UNIX Epoch time (GMT) in seconds. Must be in the past.
+     * @param type   The type of entity to be restricted to
+     * @param action The type of update action to be restricted to
+     * @param page   The result page to be returned (zero-based)
+     *
+     * @return Collection of entities changed since the given Epoch time mapped as Java DTO's based on the JSON data
+     *         returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or the timestamp lies in the future.
+     * @see #getUpdates(long, long) getUpdates(since, page)
+     */
+    Collection<EntityUpdate> getUpdates(long since, UpdateEntityType type, UpdateAction action, long page)
+            throws APIException;
 
     /**
      * Provides access to the API's {@link JSON JSON} layout.

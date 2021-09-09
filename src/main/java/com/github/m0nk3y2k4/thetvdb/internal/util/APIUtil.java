@@ -49,7 +49,7 @@ public final class APIUtil {
     private APIUtil() {}     // Hidden constructor. Only static methods
 
     /**
-     * Checks if all of the given Strings are non-empty character sequences
+     * Checks if all the given Strings are non-empty character sequences
      *
      * @param strings The strings to check
      *

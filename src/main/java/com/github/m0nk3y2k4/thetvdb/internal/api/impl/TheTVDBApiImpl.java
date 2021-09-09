@@ -31,6 +31,8 @@ import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi;
 import com.github.m0nk3y2k4.thetvdb.api.constants.Query;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType;
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.UpdateAction;
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.UpdateEntityType;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Artwork;
@@ -475,8 +477,26 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public Collection<EntityUpdate> getUpdates(long since) throws APIException {
-        return getUpdates(query(Map.of(Query.Updates.SINCE, String.valueOf(since))));
+    public Collection<EntityUpdate> getUpdates(long since, long page) throws APIException {
+        validatePage(page);
+        return getUpdates(query(Map.of(
+                Query.Updates.SINCE, String.valueOf(since),
+                Query.Updates.PAGE, String.valueOf(page)))
+        );
+    }
+
+    @Override
+    public Collection<EntityUpdate> getUpdates(long since, UpdateEntityType type, UpdateAction action, long page)
+            throws APIException {
+        validatePage(page);
+        Parameters.validateNotNull(type, "Update entity type must not be NULL");
+        Parameters.validateNotNull(action, "Update action must not be NULL");
+        return getUpdates(query(Map.of(
+                Query.Updates.SINCE, String.valueOf(since),
+                Query.Updates.TYPE, String.valueOf(type),
+                Query.Updates.ACTION, String.valueOf(action),
+                Query.Updates.PAGE, String.valueOf(page)))
+        );
     }
 
     @Override

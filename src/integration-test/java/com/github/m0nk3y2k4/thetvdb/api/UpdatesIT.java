@@ -31,7 +31,7 @@ class UpdatesIT {
     @Test
     @Order(1)
     void getUpdates(TheTVDBApi api) {
-        assertThat(() -> api.getUpdates(Instant.now().minus(30, ChronoUnit.MINUTES).getEpochSecond()))
+        assertThat(() -> api.getUpdates(Instant.now().minus(30, ChronoUnit.MINUTES).getEpochSecond(), 0))
                 .as("/updates").doesNotThrowAnyException();
     }
 }

@@ -81,8 +81,14 @@ public final class Query {
      */
     public static final class Updates {
 
+        /** Query parameter "<i>action</i>" - Restrict results to a specific update action like creation or deletion */
+        public static final String ACTION = "action";
+        /** Query parameter "<i>page</i>" - Page of results to fetch. Defaults to page 0 if not provided. */
+        public static final String PAGE = "page";
         /** Query parameter "<i>since</i>" - UNIX Epoch time in seconds. Remote service uses GMT as reference. */
         public static final String SINCE = "since";
+        /** Query parameter "<i>type</i>" - Restrict results to a specific entity type */
+        public static final String TYPE = "type";
 
         private Updates() {}     // Private constructor. Only constants in this class
     }

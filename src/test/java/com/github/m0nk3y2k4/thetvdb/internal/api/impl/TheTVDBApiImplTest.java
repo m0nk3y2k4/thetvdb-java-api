@@ -21,6 +21,8 @@ import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.DEFA
 import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.DVD;
 import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.OFFICIAL;
 import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.REGIONAL;
+import static com.github.m0nk3y2k4.thetvdb.api.enumeration.UpdateAction.CREATE;
+import static com.github.m0nk3y2k4.thetvdb.api.enumeration.UpdateEntityType.TRANSLATED_EPISODES;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.POST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
@@ -185,7 +187,8 @@ class TheTVDBApiImplTest {
             client.when(request("/series/6004/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/sources/types", GET)).respond(jsonResponse(SOURCETYPE_OVERVIEW));
             client.when(request("/updates", GET, param(Updates.SINCE, "16247601"), param("value", "QueryUpdates"))).respond(jsonResponse(UPDATE_OVERVIEW));
-            client.when(request("/updates", GET, param(Updates.SINCE, "162365745"))).respond(jsonResponse(UPDATE_OVERVIEW));
+            client.when(request("/updates", GET, param(Updates.SINCE, "16236514"), param(Updates.PAGE, "3"))).respond(jsonResponse(UPDATE_OVERVIEW));
+            client.when(request("/updates", GET, param(Updates.SINCE, "16239876"), param(Updates.TYPE, String.valueOf(TRANSLATED_EPISODES)), param(Updates.ACTION, String.valueOf(CREATE)), param(Updates.PAGE, "2"))).respond(jsonResponse(UPDATE_OVERVIEW));
         }
 
         private Stream<Arguments> withInvalidParameters() {
@@ -194,7 +197,11 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllLists(-5), "getAllLists() with negative page parameter")),
                     of(route(() -> basicAPI.getAllMovies(-4), "getAllMovies() with negative page parameter")),
                     of(route(() -> basicAPI.getAllSeries(-3), "getAllSeries() with negative page parameter")),
-                    of(route(() -> basicAPI.getSeriesEpisodes(41257, DVD, -6), "getSeriesEpisodes() with negative page parameter"))
+                    of(route(() -> basicAPI.getSeriesEpisodes(41257, DVD, -6), "getSeriesEpisodes() with negative page parameter")),
+                    of(route(() -> basicAPI.getUpdates(16237785, -8), "getUpdates() with negative page parameter")),
+                    of(route(() -> basicAPI.getUpdates(16237871, null, CREATE, 3), "getUpdates() with missing type parameter")),
+                    of(route(() -> basicAPI.getUpdates(16237945, TRANSLATED_EPISODES, null, 5), "getUpdates() with missing action parameter")),
+                    of(route(() -> basicAPI.getUpdates(16238547, TRANSLATED_EPISODES, CREATE, -7), "getUpdates() with type, action and negative page parameter"))
             );
         }
 
@@ -250,7 +257,8 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getSeriesTranslation(6004, "eng"), "getSeriesTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
                     of(route(() -> basicAPI.getUpdates(params(Updates.SINCE, "16247601", "value", "QueryUpdates")), "getUpdates() with query parameters"), UPDATE_OVERVIEW),
-                    of(route(() -> basicAPI.getUpdates(162365745), "getUpdates() with Epoch time"), UPDATE_OVERVIEW)
+                    of(route(() -> basicAPI.getUpdates(16236514, 3), "getUpdates() with Epoch time and page"), UPDATE_OVERVIEW),
+                    of(route(() -> basicAPI.getUpdates(16239876, TRANSLATED_EPISODES, CREATE, 2), "getUpdates() with Epoch time, type, action and page"), UPDATE_OVERVIEW)
             );
         }
         //@EnableFormatting
