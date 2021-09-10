@@ -18,6 +18,7 @@ package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.APIResponseDTO.LinksDTO;
 import com.github.m0nk3y2k4.thetvdb.testutils.json.Data;
 import org.junit.jupiter.api.Test;
 
@@ -27,15 +28,32 @@ class APIResponseDTOTest {
     void toString_withEmptyDTOs_verifyDefaultValuesInStringRepresentation() {
         assertThat(new APIResponseDTO.Builder<Data>().data(new Data())
                 .status("")
+                .links(new LinksDTO.Builder().build())
                 .build())
-                .asString().isEqualTo("Data: [], Status: []");
+                .asString().isEqualTo("Data: [], Status: [], Links: [Previous: , Self: , Next: ]");
     }
 
     @Test
     void toString_withFilledDTOs_verifyStringRepresentation() {
         assertThat(new APIResponseDTO.Builder<Data>().data(Data.with("Content"))
                 .status("Success")
+                .links(new LinksDTO.Builder()
+                        .previous("Prev")
+                        .self("Self")
+                        .next("Next")
+                        .build())
                 .build())
-                .asString().isEqualTo("Data: [Content], Status: [Success]");
+                .asString()
+                .isEqualTo("Data: [Content], Status: [Success], Links: [Previous: Prev, Self: Self, Next: Next]");
+    }
+
+    @Test
+    void staticBuilderClass_newApiResponseInstance_extendsDTOBuilder() {
+        assertThat(new APIResponseDTO.Builder<>()).isInstanceOf(APIResponseDTOBuilder.class);
+    }
+
+    @Test
+    void staticBuilderClass_newLinksInstance_extendsDTOBuilder() {
+        assertThat(new LinksDTO.Builder()).isInstanceOf(LinksDTOBuilder.class);
     }
 }

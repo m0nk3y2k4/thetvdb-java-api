@@ -20,11 +20,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
+import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse.Links;
 import com.github.m0nk3y2k4.thetvdb.testutils.ResponseData;
 import com.github.m0nk3y2k4.thetvdb.testutils.json.Data;
 import com.github.m0nk3y2k4.thetvdb.testutils.parameterized.ResponseDataSource;
@@ -40,6 +42,10 @@ class APIResponseDeserializerTest {
     private static final String MISSING_STATUS_PROPERTY =
             "\"data\": {\"content\": \"Some content\"}";
 
+    private static final String MISSING_LINKS_PROPERTY =
+            "\"data\": {\"content\": \"Some content\"}," +
+            "\"status\": \"success\"";
+
     private static final String NULL_DATA_PROPERTY =
             "\"data\": null," +
             "\"status\": \"success\"";
@@ -47,6 +53,16 @@ class APIResponseDeserializerTest {
     private static final String NULL_STATUS_PROPERTY =
             "\"data\": {\"content\": \"Some content\"}," +
             "\"status\": null";
+
+    private static final String NULL_LINKS_PROPERTY =
+            "\"data\": {\"content\": \"Some content\"}," +
+            "\"status\": \"success\"," +
+            "\"links\": null";
+
+    private static final String EMPTY_LINKS_PROPERTY =
+            "\"data\": {\"content\": \"Some content\"}," +
+                    "\"status\": \"success\"," +
+                    "\"links\": {}";
     //@EnableFormatting
 
     private final APIResponseDeserializer<Data, IOException> functionalDeserializer =
@@ -54,10 +70,21 @@ class APIResponseDeserializerTest {
 
     @ParameterizedTest(name = "[{index}] JSON [{0}] throws IllegalArgumentException")
     @ValueSource(strings = {MISSING_DATA_PROPERTY, NULL_DATA_PROPERTY, MISSING_STATUS_PROPERTY, NULL_STATUS_PROPERTY})
-    void deserialize_withMissingOrNullProperty_throwsIllegalArgumentException(String jsonContent) throws Exception {
+    void deserialize_withMandatoryPropertyMissingOrNull_throwsIllegalArgumentException(String jsonContent)
+            throws Exception {
         JsonParser jsonParser = new JsonFactory().createParser("{" + jsonContent + "}");
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() ->
                 functionalDeserializer.deserialize(jsonParser, null));
+    }
+
+    @ParameterizedTest(name = "[{index}] Optional fields in JSON [{0}] are mapped to empty object")
+    @ValueSource(strings = {MISSING_LINKS_PROPERTY, NULL_LINKS_PROPERTY, EMPTY_LINKS_PROPERTY})
+    void deserialize_withOptionalPropertyMissingOrNull_mappedToEmptyObject(String jsonContent) throws Exception {
+        JsonParser jsonParser = new JsonFactory().createParser("{" + jsonContent + "}");
+        APIResponse<Data> result = functionalDeserializer.deserialize(jsonParser, null);
+
+        assertThat(result.getLinks()).extracting(Links::getPrevious, Links::getSelf, Links::getNext)
+                .containsOnly(Optional.empty());
     }
 
     @ParameterizedTest(name = "[{index}] {0} is deserialized properly")

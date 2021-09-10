@@ -35,6 +35,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
+import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse.Links;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Alias;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Artwork;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ArtworkDetails;
@@ -309,6 +310,18 @@ public abstract class ResponseData<T> {
     // **********                APIResponse creation                 **********
     // *************************************************************************
 
+    private static <T> APIResponse<T> createAPIResponse(T data) {
+        return createAPIResponse(data, new APIResponseDTO.LinksDTO.Builder().build());
+    }
+
+    private static <T> APIResponse<T> createAPIResponseWithLinks(T data) {
+        return createAPIResponse(data, create(linksModel()));
+    }
+
+    private static <T> APIResponse<T> createAPIResponse(T data, Links links) {
+        return new APIResponseDTO.Builder<T>().data(data).status("success").links(links).build();
+    }
+
     private static APIResponse<Artwork> artwork(Shape shape) {
         return createAPIResponse(create(artworkModel(), shape));
     }
@@ -366,7 +379,7 @@ public abstract class ResponseData<T> {
     }
 
     private static APIResponse<Data> data() {
-        return createAPIResponse(Data.with("Some content"));
+        return createAPIResponseWithLinks(Data.with("Some content"));
     }
 
     private static APIResponse<Collection<EntityType>> entityTypeOverview() {
@@ -414,7 +427,7 @@ public abstract class ResponseData<T> {
     }
 
     private static APIResponse<Collection<Movie>> movieOverview() {
-        return createAPIResponse(createTwo(movieModel()));
+        return createAPIResponseWithLinks(createTwo(movieModel()));
     }
 
     private static APIResponse<People> people(Shape shape) {
@@ -450,11 +463,11 @@ public abstract class ResponseData<T> {
     }
 
     private static APIResponse<SeriesEpisodes> seriesEpisodes(Shape shape) {
-        return createAPIResponse(create(seriesEpisodesModel(), shape));
+        return createAPIResponseWithLinks(create(seriesEpisodesModel(), shape));
     }
 
     private static APIResponse<Collection<Series>> seriesOverview() {
-        return createAPIResponse(createTwo(seriesModel()));
+        return createAPIResponseWithLinks(createTwo(seriesModel()));
     }
 
     private static APIResponse<Collection<SourceType>> sourceTypeOverview() {
@@ -469,12 +482,8 @@ public abstract class ResponseData<T> {
         return createAPIResponse(create(translationModel(), shape));
     }
 
-    private static <T> APIResponse<T> createAPIResponse(T data) {
-        return new APIResponseDTO.Builder<T>().data(data).status("success").build();
-    }
-
     private static APIResponse<Collection<EntityUpdate>> updateOverview() {
-        return createAPIResponse(createTwo(entityUpdateModel()));
+        return createAPIResponseWithLinks(createTwo(entityUpdateModel()));
     }
 
 
@@ -771,6 +780,11 @@ public abstract class ResponseData<T> {
     private static SimpleDtoSupplier<Inspiration> inspirationModel() {
         return idx -> new InspirationDTO.Builder().id(97L + idx).type("Type" + idx).typeName("TypeName" + idx)
                 .url("Url" + idx).build();
+    }
+
+    private static SimpleDtoSupplier<Links> linksModel() {
+        return idx -> new APIResponseDTO.LinksDTO.Builder().previous("Prev" + idx).self("Self" + idx).next("Next" + idx)
+                .build();
     }
 
     private static SimpleDtoSupplier<String> nameTranslationModel() {

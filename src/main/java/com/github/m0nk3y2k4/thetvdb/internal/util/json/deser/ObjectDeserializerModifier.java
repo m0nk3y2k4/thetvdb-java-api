@@ -20,25 +20,22 @@ import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.deser.BeanDeserializerModifier;
-import com.fasterxml.jackson.databind.deser.std.CollectionDeserializer;
-import com.fasterxml.jackson.databind.deser.std.StringCollectionDeserializer;
-import com.fasterxml.jackson.databind.type.CollectionType;
+import com.fasterxml.jackson.databind.deser.BuilderBasedDeserializer;
 
 /**
- * JSON deserialization modifier used to participate in constructing {@code JsonDeserializer} instances for JSON list
+ * JSON deserialization modifier used to participate in constructing {@code JsonDeserializer} instances for JSON object
  * properties.
  * <p><br>
  * Objects of this class are used to alter some aspects of deserialization process, especially with regard to the
- * handling of nullable collections.
+ * handling of nullable objects.
  */
-public final class CollectionDeserializerModifier extends BeanDeserializerModifier {
+class ObjectDeserializerModifier extends BeanDeserializerModifier {
 
     /**
      * Tucks the given {@code JsonDeserializer} into a corresponding wrapper class if necessary. Wrapping will be
      * performed based on the actual type of the deserializer.
      * <ul>
-     *     <li>{@link com.fasterxml.jackson.databind.deser.std.StringCollectionDeserializer}: New {@link NullableStringCollectionWrapper} instance</li>
-     *     <li>{@link com.fasterxml.jackson.databind.deser.std.CollectionDeserializer}: New {@link NullableCollectionWrapper} instance</li>
+     *     <li>{@link com.fasterxml.jackson.databind.deser.BuilderBasedDeserializer}: New {@link NullableObjectWrapper} instance</li>
      * </ul>
      * JsonDeserializers other than the aforementioned will <u>not</u> be wrapped but will simply be returned unchanged.
      *
@@ -46,21 +43,18 @@ public final class CollectionDeserializerModifier extends BeanDeserializerModifi
      *
      * @return New wrapper instance for the listed deserializer types or the (unwrapped) provided deserializer itself
      */
-    @SuppressWarnings("java:S1452") // Generic wildcard type is part of the superclass contract
-    static JsonDeserializer<?> wrapCollectionDeserializers(JsonDeserializer<?> deserializer) {
-        if (deserializer instanceof StringCollectionDeserializer) {
-            return new NullableStringCollectionWrapper((StringCollectionDeserializer)deserializer);
-        } else if (deserializer instanceof CollectionDeserializer) {
-            return new NullableCollectionWrapper((CollectionDeserializer)deserializer);
+    @SuppressWarnings("java:S1452")  // Generic wildcard type is part of the superclass contract
+    static JsonDeserializer<?> wrapObjectDeserializer(JsonDeserializer<?> deserializer) {
+        if (deserializer instanceof BuilderBasedDeserializer) {
+            return new NullableObjectWrapper((BuilderBasedDeserializer)deserializer);
         } else {
             return deserializer;        // No wrapping
         }
     }
 
     @Override
-    public JsonDeserializer<?> modifyCollectionDeserializer(DeserializationConfig config, CollectionType type,
-            BeanDescription beanDesc, JsonDeserializer<?> deserializer) {
-        // Wrap certain collection JsonDeserializers to extend their handling, e.g. of null values
-        return wrapCollectionDeserializers(deserializer);
+    public JsonDeserializer<?> modifyDeserializer(DeserializationConfig config, BeanDescription beanDesc,
+            JsonDeserializer<?> deserializer) {
+        return wrapObjectDeserializer(deserializer);
     }
 }

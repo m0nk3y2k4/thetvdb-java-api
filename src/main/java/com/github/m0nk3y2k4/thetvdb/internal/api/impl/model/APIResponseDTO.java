@@ -16,6 +16,9 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model;
 
+import java.util.Optional;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.WithHiddenImplementation;
@@ -36,9 +39,10 @@ public abstract class APIResponseDTO<T> implements APIResponse<T> {
 
     @Override
     public String toString() {
-        return String.format("Data: [%s], Status: [%s]",
+        return String.format("Data: [%s], Status: [%s], Links: [%s]",
                 APIUtil.toString(this::getData),
-                APIUtil.toString(this::getStatus));
+                APIUtil.toString(this::getStatus),
+                APIUtil.toString(this::getLinks));
     }
 
     /**
@@ -50,4 +54,39 @@ public abstract class APIResponseDTO<T> implements APIResponse<T> {
      * make additional changes before actually building a new immutable object.
      */
     public static class Builder<T> extends APIResponseDTOBuilder<T> {}
+
+    /**
+     * DTO implementation of the {@link Links} interface
+     * <p><br>
+     * Objects of this class reflect the data received by the remote service and are immutable so that their content can
+     * not be changed once an instance has been created. New objects of this class may be created by using the
+     * corresponding {@link Builder}.
+     */
+    @Immutable
+    @WithHiddenImplementation
+    @JsonDeserialize(builder = LinksDTO.Builder.class)
+    public abstract static class LinksDTO implements Links {
+
+        @Override
+        @JsonAlias("prev")
+        public abstract Optional<String> getPrevious();
+
+        @Override
+        public String toString() {
+            return String.format("Previous: %s, Self: %s, Next: %s",
+                    APIUtil.toString(this::getPrevious),
+                    APIUtil.toString(this::getSelf),
+                    APIUtil.toString(this::getNext));
+        }
+
+        /**
+         * Builder used to create a new immutable {@link LinksDTO} implementation
+         * <p><br>
+         * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link
+         * LinksDTO} instance based on these properties. New builders may be initialized with some existing DTO
+         * instance, which presets the builders properties to the values of the given DTO, still retaining the option to
+         * make additional changes before actually building a new immutable object.
+         */
+        public static class Builder extends LinksDTOBuilder {}
+    }
 }

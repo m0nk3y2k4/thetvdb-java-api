@@ -846,9 +846,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
             // ToDo: Route is currently declared to return a single Translation object but the JSON actually contains an array. Check again after next API update.
             APIResponse<Collection<Translation>> apiResponse = APIJsonMapper
                     .readValue(json().getListTranslation(listId, language), new TypeReference<>() {});
-            return new APIResponseDTO.Builder<Translation>().status(apiResponse.getStatus())
+            return new APIResponseDTO.Builder<Translation>()
                     .data(apiResponse.getData().stream().findFirst()
-                            .orElseGet(() -> new TranslationDTO.Builder().build())).build();
+                            .orElseGet(() -> new TranslationDTO.Builder().build()))
+                    .status(apiResponse.getStatus())
+                    .links(apiResponse.getLinks())
+                    .build();
         }
 
         @Override

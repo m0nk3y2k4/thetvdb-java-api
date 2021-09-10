@@ -2,5 +2,10 @@
   "data": {
     "content": "Some content"
   },
-  "status": "success"
+  "status": "success",
+  "links": {
+    "prev": "Prev1",
+    "self": "Self1",
+    "next": "Next1"
+  }
 }
