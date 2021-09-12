@@ -61,6 +61,7 @@ class MoviesAPITest {
         client.when(request("/movies", GET, param("page", "9"))).respond(jsonResponse(MOVIE_OVERVIEW));
         client.when(request("/movies/648730", GET)).respond(jsonResponse(MOVIE));
         client.when(request("/movies/95574/extended", GET)).respond(jsonResponse(MOVIE_DETAILS));
+        client.when(request("/movies/54717/extended", GET, param("meta", "translations"))).respond(jsonResponse(MOVIE_DETAILS));
         client.when(request("/movies/57017/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
     }
 
@@ -68,8 +69,8 @@ class MoviesAPITest {
         return Stream.of(
                 of(route(con -> getMovieBase(con, 0), "getMovieBase() with ZERO movie ID")),
                 of(route(con -> getMovieBase(con, -4), "getMovieBase() with negative movie ID")),
-                of(route(con -> getMovieExtended(con, 0), "getMovieExtended() with ZERO movie ID")),
-                of(route(con -> getMovieExtended(con, -5), "getMovieExtended() with negative movie ID")),
+                of(route(con -> getMovieExtended(con, 0, null), "getMovieExtended() with ZERO movie ID")),
+                of(route(con -> getMovieExtended(con, -5, null), "getMovieExtended() with negative movie ID")),
                 of(route(con -> getMovieTranslation(con, 0, "eng"), "getMovieTranslation() with ZERO movie ID")),
                 of(route(con -> getMovieTranslation(con, -1, "deu"), "getMovieTranslation() with negative movie ID")),
                 of(route(con -> getMovieTranslation(con, 5841, "e"), "getMovieTranslation() with invalid language code (1)")),
@@ -84,7 +85,8 @@ class MoviesAPITest {
                 of(route(con -> getAllMovies(con, null), "getAllMovies() without query parameters"), MOVIE_OVERVIEW),
                 of(route(con -> getAllMovies(con, params("page", "9")), "getAllMovies() with query parameters"), MOVIE_OVERVIEW),
                 of(route(con -> getMovieBase(con, 648730), "getMovieBase()"), MOVIE),
-                of(route(con -> getMovieExtended(con, 95574), "getMovieExtended()"), MOVIE_DETAILS),
+                of(route(con -> getMovieExtended(con, 95574, null), "getMovieExtended() without query parameters"), MOVIE_DETAILS),
+                of(route(con -> getMovieExtended(con, 54717, params("meta", "translations")), "getMovieExtended() with query parameters"), MOVIE_DETAILS),
                 of(route(con -> getMovieTranslation(con, 57017, "eng"), "getMovieTranslation()"), TRANSLATION)
         );
     }

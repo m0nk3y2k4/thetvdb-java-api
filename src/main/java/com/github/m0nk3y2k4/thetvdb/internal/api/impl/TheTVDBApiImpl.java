@@ -30,6 +30,10 @@ import com.github.m0nk3y2k4.thetvdb.api.Proxy;
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi;
 import com.github.m0nk3y2k4.thetvdb.api.constants.Query;
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.EpisodeMeta;
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.MovieMeta;
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.PeopleMeta;
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesMeta;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.UpdateAction;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.UpdateEntityType;
@@ -301,8 +305,19 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public EpisodeDetails getEpisodeDetails(long episodeId, QueryParameters queryParameters) throws APIException {
+        return extended().getEpisodeDetails(episodeId, queryParameters).getData();
+    }
+
+    @Override
     public EpisodeDetails getEpisodeDetails(long episodeId) throws APIException {
-        return extended().getEpisodeDetails(episodeId).getData();
+        return getEpisodeDetails(episodeId, emptyQuery());
+    }
+
+    @Override
+    public EpisodeDetails getEpisodeDetails(long episodeId, EpisodeMeta meta) throws APIException {
+        Parameters.validateNotNull(meta, "Episode meta must not be NULL");
+        return getEpisodeDetails(episodeId, query(Map.of(Query.Episodes.META, String.valueOf(meta))));
     }
 
     @Override
@@ -373,8 +388,19 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public MovieDetails getMovieDetails(long movieId, QueryParameters queryParameters) throws APIException {
+        return extended().getMovieDetails(movieId, queryParameters).getData();
+    }
+
+    @Override
     public MovieDetails getMovieDetails(long movieId) throws APIException {
-        return extended().getMovieDetails(movieId).getData();
+        return getMovieDetails(movieId, emptyQuery());
+    }
+
+    @Override
+    public MovieDetails getMovieDetails(long movieId, MovieMeta meta) throws APIException {
+        Parameters.validateNotNull(meta, "Movie meta must not be NULL");
+        return getMovieDetails(movieId, query(Map.of(Query.Movies.META, String.valueOf(meta))));
     }
 
     @Override
@@ -393,8 +419,19 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public PeopleDetails getPeopleDetails(long peopleId, QueryParameters queryParameters) throws APIException {
+        return extended().getPeopleDetails(peopleId, queryParameters).getData();
+    }
+
+    @Override
     public PeopleDetails getPeopleDetails(long peopleId) throws APIException {
-        return extended().getPeopleDetails(peopleId).getData();
+        return getPeopleDetails(peopleId, emptyQuery());
+    }
+
+    @Override
+    public PeopleDetails getPeopleDetails(long peopleId, PeopleMeta meta) throws APIException {
+        Parameters.validateNotNull(meta, "People meta must not be NULL");
+        return getPeopleDetails(peopleId, query(Map.of(Query.People.META, String.valueOf(meta))));
     }
 
     @Override
@@ -439,8 +476,19 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public SeriesDetails getSeriesDetails(long seriesId, QueryParameters queryParameters) throws APIException {
+        return extended().getSeriesDetails(seriesId, queryParameters).getData();
+    }
+
+    @Override
     public SeriesDetails getSeriesDetails(long seriesId) throws APIException {
-        return extended().getSeriesDetails(seriesId).getData();
+        return getSeriesDetails(seriesId, emptyQuery());
+    }
+
+    @Override
+    public SeriesDetails getSeriesDetails(long seriesId, SeriesMeta meta) throws APIException {
+        Parameters.validateNotNull(meta, "Series meta must not be NULL");
+        return getSeriesDetails(seriesId, query(Map.of(Query.Series.META, String.valueOf(meta))));
     }
 
     @Override
@@ -597,8 +645,8 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public JsonNode getEpisodeDetails(long episodeId) throws APIException {
-            return EpisodesAPI.getEpisodeExtended(con, episodeId);
+        public JsonNode getEpisodeDetails(long episodeId, QueryParameters queryParameters) throws APIException {
+            return EpisodesAPI.getEpisodeExtended(con, episodeId, queryParameters);
         }
 
         @Override
@@ -657,8 +705,8 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public JsonNode getMovieDetails(long movieId) throws APIException {
-            return MoviesAPI.getMovieExtended(con, movieId);
+        public JsonNode getMovieDetails(long movieId, QueryParameters queryParameters) throws APIException {
+            return MoviesAPI.getMovieExtended(con, movieId, queryParameters);
         }
 
         @Override
@@ -677,8 +725,8 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public JsonNode getPeopleDetails(long peopleId) throws APIException {
-            return PeopleAPI.getPeopleExtended(con, peopleId);
+        public JsonNode getPeopleDetails(long peopleId, QueryParameters queryParameters) throws APIException {
+            return PeopleAPI.getPeopleExtended(con, peopleId, queryParameters);
         }
 
         @Override
@@ -717,8 +765,8 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public JsonNode getSeriesDetails(long seriesId) throws APIException {
-            return SeriesAPI.getSeriesExtended(con, seriesId);
+        public JsonNode getSeriesDetails(long seriesId, QueryParameters queryParameters) throws APIException {
+            return SeriesAPI.getSeriesExtended(con, seriesId, queryParameters);
         }
 
         @Override
@@ -831,8 +879,9 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<EpisodeDetails> getEpisodeDetails(long episodeId) throws APIException {
-            return APIJsonMapper.readValue(json().getEpisodeDetails(episodeId), new TypeReference<>() {});
+        public APIResponse<EpisodeDetails> getEpisodeDetails(long episodeId, QueryParameters queryParameters)
+                throws APIException {
+            return APIJsonMapper.readValue(json().getEpisodeDetails(episodeId, queryParameters), new TypeReference<>() {});
         }
 
         @Override
@@ -900,8 +949,9 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<MovieDetails> getMovieDetails(long movieId) throws APIException {
-            return APIJsonMapper.readValue(json().getMovieDetails(movieId), new TypeReference<>() {});
+        public APIResponse<MovieDetails> getMovieDetails(long movieId, QueryParameters queryParameters)
+                throws APIException {
+            return APIJsonMapper.readValue(json().getMovieDetails(movieId, queryParameters), new TypeReference<>() {});
         }
 
         @Override
@@ -921,8 +971,9 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<PeopleDetails> getPeopleDetails(long peopleId) throws APIException {
-            return APIJsonMapper.readValue(json().getPeopleDetails(peopleId), new TypeReference<>() {});
+        public APIResponse<PeopleDetails> getPeopleDetails(long peopleId, QueryParameters queryParameters)
+                throws APIException {
+            return APIJsonMapper.readValue(json().getPeopleDetails(peopleId, queryParameters), new TypeReference<>() {});
         }
 
         @Override
@@ -962,8 +1013,9 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<SeriesDetails> getSeriesDetails(long seriesId) throws APIException {
-            return APIJsonMapper.readValue(json().getSeriesDetails(seriesId), new TypeReference<>() {});
+        public APIResponse<SeriesDetails> getSeriesDetails(long seriesId, QueryParameters queryParameters)
+                throws APIException {
+            return APIJsonMapper.readValue(json().getSeriesDetails(seriesId, queryParameters), new TypeReference<>() {});
         }
 
         @Override

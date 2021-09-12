@@ -732,7 +732,8 @@ public abstract class ResponseData<T> {
                         .tagOptions(createTwo(tagOptionModel(), listOffset))
                         .trailers(createTwo(trailerModel(), listOffset))
                         .nominations(Collections.emptyList())
-                        .studios(createTwo(studioModel(), listOffset));
+                        .studios(createTwo(studioModel(), listOffset))
+                        .translations(create(translationsModel(), idx));
             }
             return builder.build();
         };
@@ -836,6 +837,7 @@ public abstract class ResponseData<T> {
                         .companies(create(companiesModel(), idx))
                         .contentRatings(createTwo(contentRatingModel(), listOffset))
                         .lists(createTwo(listModel(), listOffset))
+                        .translations(create(translationsModel(), idx))
                         .genres(createTwo(genreModel(), listOffset))
                         .releases(createTwo(releaseModel(), listOffset))
                         .remoteIds(createTwo(remoteIdModel(), listOffset))

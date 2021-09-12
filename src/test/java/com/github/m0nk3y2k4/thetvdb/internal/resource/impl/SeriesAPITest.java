@@ -67,6 +67,7 @@ class SeriesAPITest {
         client.when(request("/series", GET, param("page", "3"))).respond(jsonResponse(SERIES_OVERVIEW));
         client.when(request("/series/100348", GET)).respond(jsonResponse(SERIES));
         client.when(request("/series/49710/extended", GET)).respond(jsonResponse(SERIES_DETAILS));
+        client.when(request("/series/34879/extended", GET, param("meta", "episodes"))).respond(jsonResponse(SERIES_DETAILS));
         client.when(request("/series/58709/episodes/official", GET)).respond(jsonResponse(SERIESEPISODES));
         client.when(request("/series/22147/episodes/dvd", GET, param("page", "4"))).respond(jsonResponse(SERIESEPISODES));
         client.when(request("/series/69423/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
@@ -77,8 +78,8 @@ class SeriesAPITest {
         return Stream.of(
                 of(route(con -> getSeriesBase(con, 0), "getSeriesBase() with ZERO series ID")),
                 of(route(con -> getSeriesBase(con, -2), "getSeriesBase() with negative series ID")),
-                of(route(con -> getSeriesExtended(con, 0), "getSeriesExtended() with ZERO series ID")),
-                of(route(con -> getSeriesExtended(con, -9), "getSeriesExtended() with negative series ID")),
+                of(route(con -> getSeriesExtended(con, 0, null), "getSeriesExtended() with ZERO series ID")),
+                of(route(con -> getSeriesExtended(con, -9, null), "getSeriesExtended() with negative series ID")),
                 of(route(con -> getSeriesEpisodes(con, 0, ABSOLUTE, null), "getSeriesEpisodes() with ZERO series ID")),
                 of(route(con -> getSeriesEpisodes(con, -4, REGIONAL, null), "getSeriesEpisodes() with negative series ID")),
                 of(route(con -> getSeriesEpisodes(con, 548, null, null), "getSeriesEpisodes() without season-type")),
@@ -96,7 +97,8 @@ class SeriesAPITest {
                 of(route(con -> getAllSeries(con, null), "getAllSeries() without query parameters"), SERIES_OVERVIEW),
                 of(route(con -> getAllSeries(con, params("page", "3")), "getAllSeries() with query parameters"), SERIES_OVERVIEW),
                 of(route(con -> getSeriesBase(con, 100348), "getSeriesBase()"), SERIES),
-                of(route(con -> getSeriesExtended(con, 49710), "getSeriesExtended()"), SERIES_DETAILS),
+                of(route(con -> getSeriesExtended(con, 49710, null), "getSeriesExtended() without query parameters"), SERIES_DETAILS),
+                of(route(con -> getSeriesExtended(con, 34879, params("meta", "episodes")), "getSeriesExtended() with query parameters"), SERIES_DETAILS),
                 of(route(con -> getSeriesEpisodes(con, 58709, OFFICIAL, null), "getSeriesEpisodes() without query parameters"), SERIESEPISODES),
                 of(route(con -> getSeriesEpisodes(con, 22147, DVD, params("page", "4")), "getSeriesEpisodes() with query parameters"), SERIESEPISODES),
                 of(route(con -> getSeriesTranslation(con, 69423, "eng"), "getSeriesTranslation()"), TRANSLATION)

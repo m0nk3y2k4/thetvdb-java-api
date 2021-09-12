@@ -20,8 +20,10 @@ package com.github.m0nk3y2k4.thetvdb.api.constants;
  * Collection of query parameter constants used throughout the various <i>TheTVDB.com</i> routes.
  * <ul>
  *     <li>{@link Companies}</li>
+ *     <li>{@link Episodes}</li>
  *     <li>{@link Movies}</li>
  *     <li>{@link Lists}</li>
+ *     <li>{@link People}</li>
  *     <li>{@link Series}</li>
  *     <li>{@link Updates}</li>
  * </ul>
@@ -44,9 +46,23 @@ public final class Query {
     }
 
     /**
+     * Collection of query parameters for API endpoint <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Episodes">/episodes</a>
+     */
+    public static final class Episodes {
+
+        /** Query parameter "<i>meta</i>" - Used to request additional information. */
+        public static final String META = "meta";
+
+        private Episodes() {}     // Private constructor. Only constants in this class
+    }
+
+    /**
      * Collection of query parameters for API endpoint <a target="_blank" href="https://thetvdb.github.io/v4-api/#/movies">/movies</a>
      */
     public static final class Movies {
+
+        /** Query parameter "<i>meta</i>" - Used to request additional information. */
+        public static final String META = "meta";
 
         /** Query parameter "<i>page</i>" - Page of results to fetch. Defaults to page 0 if not provided. */
         public static final String PAGE = "page";
@@ -66,10 +82,23 @@ public final class Query {
     }
 
     /**
+     * Collection of query parameters for API endpoint <a target="_blank" href="https://thetvdb.github.io/v4-api/#/People">/people</a>
+     */
+    public static final class People {
+
+        /** Query parameter "<i>meta</i>" - Used to request additional information. */
+        public static final String META = "meta";
+
+        private People() {}     // Private constructor. Only constants in this class
+    }
+
+    /**
      * Collection of query parameters for API endpoint <a target="_blank" href="https://thetvdb.github.io/v4-api/#/series">/series</a>
      */
     public static final class Series {
 
+        /** Query parameter "<i>meta</i>" - Used to request additional information. */
+        public static final String META = "meta";
         /** Query parameter "<i>page</i>" - Page of results to fetch. Defaults to page 0 if not provided. */
         public static final String PAGE = "page";
 

@@ -131,4 +131,16 @@ public interface EpisodeDetails extends Episode {
      */
     // ToDo: Field is currently not declared in EpisodeExtendedRecord but returned in JSON. Check again after the next API update.
     List<String> getNominations();
+
+    /**
+     * Get the value of the {<em>{@code data.translations}</em>} JSON property
+     * <p><br>
+     * <b>Note:</b> Field will be <em>{@code null}</em> unless these data is explicitly requested. See {@link
+     * com.github.m0nk3y2k4.thetvdb.api.enumeration.EpisodeMeta#TRANSLATIONS EpisodeMeta.TRANSLATIONS}.
+     *
+     * @return The <em>{@code translations}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in EpisodeExtendedRecord but can be returned in JSON. Check again after the next API update.
+    @Nullable
+    Translations getTranslations();
 }

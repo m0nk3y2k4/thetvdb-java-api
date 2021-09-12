@@ -22,6 +22,10 @@ import java.util.Optional;
 import javax.annotation.Nonnull;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.EpisodeMeta;
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.MovieMeta;
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.PeopleMeta;
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesMeta;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.UpdateAction;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.UpdateEntityType;
@@ -470,10 +474,29 @@ public interface TheTVDBApi {
     Episode getEpisode(long episodeId) throws APIException;
 
     /**
-     * Returns detailed information for a specific episode mapped as Java DTO.
+     * Returns detailed information for a specific episode based on the given query parameters mapped as Java DTO.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/episodes/getEpisodeExtended">
      * <b>[GET]</b> /episodes/{id}/extended</a>
+     *
+     * @param episodeId       The <i>TheTVDB.com</i> episode ID
+     * @param queryParameters Object containing key/value pairs of query parameters
+     *
+     * @return Detailed episode information mapped as Java DTO based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if no episode record with the given ID exists.
+     * @see JSON#getEpisodeDetails(long, QueryParameters) TheTVDBApi.JSON.getEpisodeDetails(episodeId,
+     *         queryParameters)
+     * @see Extended#getEpisodeDetails(long, QueryParameters) TheTVDBApi.Extended.getEpisodeDetails(episodeId,
+     *         queryParameters)
+     */
+    EpisodeDetails getEpisodeDetails(long episodeId, QueryParameters queryParameters) throws APIException;
+
+    /**
+     * Returns detailed information for a specific episode mapped as Java DTO. This is a shortcut-method for {@link
+     * #getEpisodeDetails(long, QueryParameters) getEpisodeDetails(episodeId, queryParameters)} with no additional query
+     * parameters.
      *
      * @param episodeId The <i>TheTVDB.com</i> episode ID
      *
@@ -481,10 +504,24 @@ public interface TheTVDBApi {
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc. or if no episode record with the given ID exists.
-     * @see JSON#getEpisodeDetails(long) TheTVDBApi.JSON.getEpisodeDetails(episodeId)
-     * @see Extended#getEpisodeDetails(long) TheTVDBApi.Extended.getEpisodeDetails(episodeId)
      */
     EpisodeDetails getEpisodeDetails(long episodeId) throws APIException;
+
+    /**
+     * Returns detailed information as well as the requested additional meta information for a specific episode mapped
+     * as Java DTO. This is a shortcut-method for {@link #getEpisodeDetails(long, QueryParameters)
+     * getEpisodeDetails(episodeId, queryParameters)} with a single {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Episodes#META}
+     * query parameter.
+     *
+     * @param episodeId The <i>TheTVDB.com</i> episode ID
+     * @param meta      Additional information to be included in the response
+     *
+     * @return Detailed episode information mapped as Java DTO based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if no episode record with the given ID exists.
+     */
+    EpisodeDetails getEpisodeDetails(long episodeId, EpisodeMeta meta) throws APIException;
 
     /**
      * Returns a translation record for a specific episode mapped as Java DTO.
@@ -706,10 +743,28 @@ public interface TheTVDBApi {
     Movie getMovie(long movieId) throws APIException;
 
     /**
-     * Returns detailed information for a specific movie mapped as Java DTO.
+     * Returns detailed information for a specific movie based on the given query parameters mapped as Java DTO.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/movies/getMovieExtended">
      * <b>[GET]</b> /movies/{id}/extended</a>
+     *
+     * @param movieId         The <i>TheTVDB.com</i> movie ID
+     * @param queryParameters Object containing key/value pairs of query parameters
+     *
+     * @return Detailed movie information mapped as Java DTO based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if no movie record with the given ID exists.
+     * @see JSON#getMovieDetails(long, QueryParameters) TheTVDBApi.JSON.getMovieDetails(movieId, queryParameters)
+     * @see Extended#getMovieDetails(long, QueryParameters) TheTVDBApi.Extended.getMovieDetails(movieId,
+     *         queryParameters)
+     */
+    MovieDetails getMovieDetails(long movieId, QueryParameters queryParameters) throws APIException;
+
+    /**
+     * Returns detailed information for a specific movie mapped as Java DTO. This is a shortcut-method for {@link
+     * #getMovieDetails(long, QueryParameters) getMovieDetails(movieId, queryParameters)} with no additional query
+     * parameters.
      *
      * @param movieId The <i>TheTVDB.com</i> movie ID
      *
@@ -717,10 +772,24 @@ public interface TheTVDBApi {
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc. or if no movie record with the given ID exists.
-     * @see JSON#getMovieDetails(long) TheTVDBApi.JSON.getMovieDetails(movieId)
-     * @see Extended#getMovieDetails(long) TheTVDBApi.Extended.getMovieDetails(movieId)
      */
     MovieDetails getMovieDetails(long movieId) throws APIException;
+
+    /**
+     * Returns detailed information as well as the requested additional meta information for a specific movie based on
+     * the given query parameters mapped as Java DTO. This is a shortcut-method for {@link #getMovieDetails(long,
+     * QueryParameters) getMovieDetails(movieId, queryParameters)} with a single {@value
+     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Movies#META} query parameter.
+     *
+     * @param movieId The <i>TheTVDB.com</i> movie ID
+     * @param meta    Additional information to be included in the response
+     *
+     * @return Detailed movie information mapped as Java DTO based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if no movie record with the given ID exists.
+     */
+    MovieDetails getMovieDetails(long movieId, MovieMeta meta) throws APIException;
 
     /**
      * Returns a translation record for a specific movie mapped as Java DTO.
@@ -774,10 +843,28 @@ public interface TheTVDBApi {
     People getPeople(long peopleId) throws APIException;
 
     /**
-     * Returns detailed information for a specific people mapped as Java DTO.
+     * Returns detailed information for a specific people based on the given query parameters mapped as Java DTO.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/people/getPeopleExtended">
      * <b>[GET]</b> /people/{id}/extended</a>
+     *
+     * @param peopleId        The <i>TheTVDB.com</i> people ID
+     * @param queryParameters Object containing key/value pairs of query parameters
+     *
+     * @return Detailed people information mapped as Java DTO based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if no people record with the given ID exists.
+     * @see JSON#getPeopleDetails(long, QueryParameters) TheTVDBApi.JSON.getPeopleDetails(peopleId, queryParameters)
+     * @see Extended#getPeopleDetails(long, QueryParameters) TheTVDBApi.Extended.getPeopleDetails(peopleId,
+     *         queryParameters)
+     */
+    PeopleDetails getPeopleDetails(long peopleId, QueryParameters queryParameters) throws APIException;
+
+    /**
+     * Returns detailed information for a specific people mapped as Java DTO. This is a shortcut-method for {@link
+     * #getPeopleDetails(long, QueryParameters) getPeopleDetails(peopleId, queryParameters)} with no additional query
+     * parameters.
      *
      * @param peopleId The <i>TheTVDB.com</i> people ID
      *
@@ -785,10 +872,24 @@ public interface TheTVDBApi {
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc. or if no people record with the given ID exists.
-     * @see JSON#getPeopleDetails(long) TheTVDBApi.JSON.getPeopleDetails(peopleId)
-     * @see Extended#getPeopleDetails(long) TheTVDBApi.Extended.getPeopleDetails(peopleId)
      */
     PeopleDetails getPeopleDetails(long peopleId) throws APIException;
+
+    /**
+     * Returns detailed information as well as the requested additional meta information for a specific people based on
+     * the given query parameters mapped as Java DTO. This is a shortcut-method for {@link #getPeopleDetails(long,
+     * QueryParameters) getPeopleDetails(peopleId, queryParameters)} with a single {@value
+     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.People#META} query parameter.
+     *
+     * @param peopleId The <i>TheTVDB.com</i> people ID
+     * @param meta     Additional information to be included in the response
+     *
+     * @return Detailed people information mapped as Java DTO based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if no people record with the given ID exists.
+     */
+    PeopleDetails getPeopleDetails(long peopleId, PeopleMeta meta) throws APIException;
 
     /**
      * Returns basic information for a specific season mapped as Java DTO.
@@ -925,10 +1026,28 @@ public interface TheTVDBApi {
     Series getSeries(long seriesId) throws APIException;
 
     /**
-     * Returns detailed information for a specific series mapped as Java DTO.
+     * Returns detailed information for a specific series based on the given query parameters mapped as Java DTO.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/series/getSeriesExtended">
      * <b>[GET]</b> /series/{id}/extended</a>
+     *
+     * @param seriesId        The <i>TheTVDB.com</i> series ID
+     * @param queryParameters Object containing key/value pairs of query parameters
+     *
+     * @return Detailed series information mapped as Java DTO based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if no series record with the given ID exists.
+     * @see JSON#getSeriesDetails(long, QueryParameters) TheTVDBApi.JSON.getSeriesDetails(seriesId, queryParameters)
+     * @see Extended#getSeriesDetails(long, QueryParameters) TheTVDBApi.Extended.getSeriesDetails(seriesId,
+     *         queryParameters)
+     */
+    SeriesDetails getSeriesDetails(long seriesId, QueryParameters queryParameters) throws APIException;
+
+    /**
+     * Returns detailed information for a specific series mapped as Java DTO. This is a shortcut-method for {@link
+     * #getSeriesDetails(long, QueryParameters) getSeriesDetails(seriesId, queryParameters)} with no additional query
+     * parameters.
      *
      * @param seriesId The <i>TheTVDB.com</i> series ID
      *
@@ -936,10 +1055,24 @@ public interface TheTVDBApi {
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc. or if no series record with the given ID exists.
-     * @see JSON#getSeriesDetails(long) TheTVDBApi.JSON.getSeriesDetails(seriesId)
-     * @see Extended#getSeriesDetails(long) TheTVDBApi.Extended.getSeriesDetails(seriesId)
      */
     SeriesDetails getSeriesDetails(long seriesId) throws APIException;
+
+    /**
+     * Returns detailed information as well as the requested additional meta information for a specific series based on
+     * the given query parameters mapped as Java DTO. This is a shortcut-method for {@link #getSeriesDetails(long,
+     * QueryParameters) getSeriesDetails(seriesId, queryParameters)} with a single {@value
+     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series#META} query parameter.
+     *
+     * @param seriesId The <i>TheTVDB.com</i> series ID
+     * @param meta     Additional information to be included in the response
+     *
+     * @return Detailed series information mapped as Java DTO based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if no series record with the given ID exists.
+     */
+    SeriesDetails getSeriesDetails(long seriesId, SeriesMeta meta) throws APIException;
 
     /**
      * Returns the episodes of a particular series based on the given query parameters mapped as Java DTO.
@@ -1389,21 +1522,24 @@ public interface TheTVDBApi {
         JsonNode getEpisode(long episodeId) throws APIException;
 
         /**
-         * Returns detailed information for a specific episode as raw JSON.
+         * Returns detailed information for a specific episode based on the given query parameters as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/episodes/getEpisodeExtended">
          * <b>[GET]</b> /episodes/{id}/extended</a>
          *
-         * @param episodeId The <i>TheTVDB.com</i> episode ID
+         * @param episodeId       The <i>TheTVDB.com</i> episode ID
+         * @param queryParameters Object containing key/value pairs of query parameters
          *
          * @return JSON object containing detailed information for a specific episode
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
          *                      resource not found, etc. or if no episode record with the given ID exists.
-         * @see TheTVDBApi#getEpisodeDetails(long) TheTVDBApi.getEpisodeDetails(episodeId)
-         * @see Extended#getEpisodeDetails(long) TheTVDBApi.Extended.getEpisodeDetails(episodeId)
+         * @see TheTVDBApi#getEpisodeDetails(long, QueryParameters) TheTVDBApi.getEpisodeDetails(episodeId,
+         *         queryParameters)
+         * @see Extended#getEpisodeDetails(long, QueryParameters) TheTVDBApi.Extended.getEpisodeDetails(episodeId,
+         *         queryParameters)
          */
-        JsonNode getEpisodeDetails(long episodeId) throws APIException;
+        JsonNode getEpisodeDetails(long episodeId, QueryParameters queryParameters) throws APIException;
 
         /**
          * Returns a translation record for a specific episode as raw JSON.
@@ -1594,21 +1730,24 @@ public interface TheTVDBApi {
         JsonNode getMovie(long movieId) throws APIException;
 
         /**
-         * Returns detailed information for a specific movie as raw JSON.
+         * Returns detailed information for a specific movie based on the given query parameters as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/movies/getMovieExtended">
          * <b>[GET]</b> /movies/{id}/extended</a>
          *
-         * @param movieId The <i>TheTVDB.com</i> movie ID
+         * @param movieId         The <i>TheTVDB.com</i> movie ID
+         * @param queryParameters Object containing key/value pairs of query parameters
          *
          * @return JSON object containing detailed information for a specific movie
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
          *                      resource not found, etc. or if no movie record with the given ID exists.
-         * @see TheTVDBApi#getMovieDetails(long) TheTVDBApi.getMovieDetails(movieId)
-         * @see Extended#getMovieDetails(long) TheTVDBApi.Extended.getMovieDetails(movieId)
+         * @see TheTVDBApi#getMovieDetails(long, QueryParameters) TheTVDBApi.getMovieDetails(movieId,
+         *         queryParameters)
+         * @see Extended#getMovieDetails(long, QueryParameters) TheTVDBApi.Extended.getMovieDetails(movieId,
+         *         queryParameters)
          */
-        JsonNode getMovieDetails(long movieId) throws APIException;
+        JsonNode getMovieDetails(long movieId, QueryParameters queryParameters) throws APIException;
 
         /**
          * Returns a translation record for a specific movie as raw JSON.
@@ -1663,21 +1802,24 @@ public interface TheTVDBApi {
         JsonNode getPeople(long peopleId) throws APIException;
 
         /**
-         * Returns detailed information for a specific people as raw JSON.
+         * Returns detailed information for a specific people based on the given query parameters as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/people/getPeopleExtended">
          * <b>[GET]</b> /people/{id}/extended</a>
          *
-         * @param peopleId The <i>TheTVDB.com</i> people ID
+         * @param peopleId        The <i>TheTVDB.com</i> people ID
+         * @param queryParameters Object containing key/value pairs of query parameters
          *
          * @return JSON object containing detailed information for a specific people
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
          *                      resource not found, etc. or if no people record with the given ID exists.
-         * @see TheTVDBApi#getPeopleDetails(long) TheTVDBApi.getPeopleDetails(peopleId)
-         * @see Extended#getPeopleDetails(long) TheTVDBApi.Extended.getPeopleDetails(peopleId)
+         * @see TheTVDBApi#getPeopleDetails(long, QueryParameters) TheTVDBApi.getPeopleDetails(peopleId,
+         *         queryParameters)
+         * @see Extended#getPeopleDetails(long, QueryParameters) TheTVDBApi.Extended.getPeopleDetails(peopleId,
+         *         queryParameters)
          */
-        JsonNode getPeopleDetails(long peopleId) throws APIException;
+        JsonNode getPeopleDetails(long peopleId, QueryParameters queryParameters) throws APIException;
 
         /**
          * Returns basic information for a specific season as raw JSON.
@@ -1799,21 +1941,24 @@ public interface TheTVDBApi {
         JsonNode getSeries(long seriesId) throws APIException;
 
         /**
-         * Returns detailed information for a specific series as raw JSON.
+         * Returns detailed information for a specific series based on the given query parameters as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/series/getSeriesExtended">
          * <b>[GET]</b> /series/{id}/extended</a>
          *
-         * @param seriesId The <i>TheTVDB.com</i> series ID
+         * @param seriesId        The <i>TheTVDB.com</i> series ID
+         * @param queryParameters Object containing key/value pairs of query parameters
          *
          * @return JSON object containing detailed information for a specific series
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
          *                      resource not found, etc. or if no series record with the given ID exists.
-         * @see TheTVDBApi#getSeriesDetails(long) TheTVDBApi.getSeriesDetails(seriesId)
-         * @see Extended#getSeriesDetails(long) TheTVDBApi.Extended.getSeriesDetails(seriesId)
+         * @see TheTVDBApi#getSeriesDetails(long, QueryParameters) TheTVDBApi.getSeriesDetails(seriesId,
+         *         queryParameters)
+         * @see Extended#getSeriesDetails(long, QueryParameters) TheTVDBApi.Extended.getSeriesDetails(seriesId,
+         *         queryParameters)
          */
-        JsonNode getSeriesDetails(long seriesId) throws APIException;
+        JsonNode getSeriesDetails(long seriesId, QueryParameters queryParameters) throws APIException;
 
         /**
          * Returns the episodes of a particular series based on the given query parameters as raw JSON.
@@ -2182,22 +2327,27 @@ public interface TheTVDBApi {
         APIResponse<Episode> getEpisode(long episodeId) throws APIException;
 
         /**
-         * Returns a response object containing detailed information for a specific episode mapped as Java DTO.
+         * Returns a response object containing detailed information for a specific episode based on the given query
+         * parameters mapped as Java DTO.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/episodes/getEpisodeExtended">
          * <b>[GET]</b> /episodes/{id}/extended</a>
          *
-         * @param episodeId The <i>TheTVDB.com</i> episode ID
+         * @param episodeId       The <i>TheTVDB.com</i> episode ID
+         * @param queryParameters Object containing key/value pairs of query parameters
          *
          * @return Extended API response containing the actually requested data as well as additional status
          *         information
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
          *                      resource not found, etc. or if no episode record with the given ID exists.
-         * @see JSON#getEpisodeDetails(long) TheTVDBApi.JSON.getEpisodeDetails(episodeId)
-         * @see TheTVDBApi#getEpisodeDetails(long) TheTVDBApi.getEpisodeDetails(episodeId)
+         * @see JSON#getEpisodeDetails(long, QueryParameters) TheTVDBApi.JSON.getEpisodeDetails(episodeId,
+         *         queryParameters)
+         * @see TheTVDBApi#getEpisodeDetails(long, QueryParameters) TheTVDBApi.getEpisodeDetails(episodeId,
+         *         queryParameters)
          */
-        APIResponse<EpisodeDetails> getEpisodeDetails(long episodeId) throws APIException;
+        APIResponse<EpisodeDetails> getEpisodeDetails(long episodeId, QueryParameters queryParameters)
+                throws APIException;
 
         /**
          * Returns a response object containing a translation record for a specific episode mapped as Java DTO.
@@ -2398,22 +2548,26 @@ public interface TheTVDBApi {
         APIResponse<Movie> getMovie(long movieId) throws APIException;
 
         /**
-         * Returns a response object containing detailed information for a specific movie mapped as Java DTO.
+         * Returns a response object containing detailed information for a specific movie based on the given query
+         * parameters mapped as Java DTO.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/movies/getMovieExtended">
          * <b>[GET]</b> /movies/{id}/extended</a>
          *
-         * @param movieId The <i>TheTVDB.com</i> movie ID
+         * @param movieId         The <i>TheTVDB.com</i> movie ID
+         * @param queryParameters Object containing key/value pairs of query parameters
          *
          * @return Extended API response containing the actually requested data as well as additional status
          *         information
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
          *                      resource not found, etc. or if no movie record with the given ID exists.
-         * @see JSON#getMovieDetails(long) TheTVDBApi.JSON.getMovieDetails(movieId)
-         * @see TheTVDBApi#getMovieDetails(long) TheTVDBApi.getMovieDetails(movieId)
+         * @see JSON#getMovieDetails(long, QueryParameters) TheTVDBApi.JSON.getMovieDetails(movieId,
+         *         queryParameters)
+         * @see TheTVDBApi#getMovieDetails(long, QueryParameters) TheTVDBApi.getMovieDetails(movieId,
+         *         queryParameters)
          */
-        APIResponse<MovieDetails> getMovieDetails(long movieId) throws APIException;
+        APIResponse<MovieDetails> getMovieDetails(long movieId, QueryParameters queryParameters) throws APIException;
 
         /**
          * Returns a response object containing a translation record for a specific movie mapped as Java DTO.
@@ -2470,22 +2624,26 @@ public interface TheTVDBApi {
         APIResponse<People> getPeople(long peopleId) throws APIException;
 
         /**
-         * Returns a response object containing detailed information for a specific people mapped as Java DTO.
+         * Returns a response object containing detailed information for a specific people based on the given query
+         * parameters mapped as Java DTO.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/people/getPeopleExtended">
          * <b>[GET]</b> /people/{id}/extended</a>
          *
-         * @param peopleId The <i>TheTVDB.com</i> people ID
+         * @param peopleId        The <i>TheTVDB.com</i> people ID
+         * @param queryParameters Object containing key/value pairs of query parameters
          *
          * @return Extended API response containing the actually requested data as well as additional status
          *         information
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
          *                      resource not found, etc. or if no people record with the given ID exists.
-         * @see JSON#getPeopleDetails(long) TheTVDBApi.JSON.getPeopleDetails(peopleId)
-         * @see TheTVDBApi#getPeopleDetails(long) TheTVDBApi.getPeopleDetails(peopleId)
+         * @see JSON#getPeopleDetails(long, QueryParameters) TheTVDBApi.JSON.getPeopleDetails(peopleId,
+         *         queryParameters)
+         * @see TheTVDBApi#getPeopleDetails(long, QueryParameters) TheTVDBApi.getPeopleDetails(peopleId,
+         *         queryParameters)
          */
-        APIResponse<PeopleDetails> getPeopleDetails(long peopleId) throws APIException;
+        APIResponse<PeopleDetails> getPeopleDetails(long peopleId, QueryParameters queryParameters) throws APIException;
 
         /**
          * Returns a response object containing basic information for a specific season mapped as Java DTO.
@@ -2613,22 +2771,26 @@ public interface TheTVDBApi {
         APIResponse<Series> getSeries(long seriesId) throws APIException;
 
         /**
-         * Returns a response object containing detailed information for a specific series mapped as Java DTO.
+         * Returns a response object containing detailed information for a specific series based on the given query
+         * parameters mapped as Java DTO.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/series/getSeriesExtended">
          * <b>[GET]</b> /series/{id}/extended</a>
          *
-         * @param seriesId The <i>TheTVDB.com</i> series ID
+         * @param seriesId        The <i>TheTVDB.com</i> series ID
+         * @param queryParameters Object containing key/value pairs of query parameters
          *
          * @return Extended API response containing the actually requested data as well as additional status
          *         information
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
          *                      resource not found, etc. or if no series record with the given ID exists.
-         * @see JSON#getSeriesDetails(long) TheTVDBApi.JSON.getSeriesDetails(seriesId)
-         * @see TheTVDBApi#getSeriesDetails(long) TheTVDBApi.getSeriesDetails(seriesId)
+         * @see JSON#getSeriesDetails(long, QueryParameters) TheTVDBApi.JSON.getSeriesDetails(seriesId,
+         *         queryParameters)
+         * @see TheTVDBApi#getSeriesDetails(long, QueryParameters) TheTVDBApi.getSeriesDetails(seriesId,
+         *         queryParameters)
          */
-        APIResponse<SeriesDetails> getSeriesDetails(long seriesId) throws APIException;
+        APIResponse<SeriesDetails> getSeriesDetails(long seriesId, QueryParameters queryParameters) throws APIException;
 
         /**
          * Returns the episodes of a particular series based on the given query parameters mapped as Java DTO.

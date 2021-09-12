@@ -19,9 +19,10 @@ package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 import javax.annotation.Nonnull;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
-import com.github.m0nk3y2k4.thetvdb.internal.resource.Resource;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.QueryResource;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 /**
@@ -34,7 +35,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
  * Provides static access to all routes of this endpoint which may be used for obtaining either basic, extended or
  * translated people information.
  */
-public final class PeopleAPI extends Resource {
+public final class PeopleAPI extends QueryResource {
 
     private PeopleAPI() {}      // Private constructor. Only static methods
 
@@ -75,22 +76,24 @@ public final class PeopleAPI extends Resource {
     }
 
     /**
-     * Returns extended information for a specific people record as raw JSON.
+     * Returns extended information for a specific people record based on the given query parameters as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/people/getPeopleExtended">
      * <b>[GET]</b> /people/{id}/extended</a>
      *
-     * @param con Initialized connection to be used for API communication
-     * @param id  The <i>TheTVDB.com</i> people ID
+     * @param con    Initialized connection to be used for API communication
+     * @param id     The <i>TheTVDB.com</i> people ID
+     * @param params Object containing key/value pairs of query parameters
      *
      * @return JSON object containing extended information for a specific people record
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no people
      *                      record with the given ID exists, etc.
      */
-    // ToDo: Extend with query parameters (translations)
-    public static JsonNode getPeopleExtended(@Nonnull APIConnection con, long id) throws APIException {
+    // ToDo: Invoking the resource with meta=translations leads to HTTP-500. Check after next API update.
+    public static JsonNode getPeopleExtended(@Nonnull APIConnection con, long id, QueryParameters params)
+            throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
-        return con.sendGET(createResource("/people/{id}/extended", id));
+        return con.sendGET(createQueryResource("/people/{id}/extended", params, id));
     }
 }

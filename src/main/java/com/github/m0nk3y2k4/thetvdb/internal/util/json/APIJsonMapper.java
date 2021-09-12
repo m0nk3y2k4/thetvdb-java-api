@@ -81,7 +81,7 @@ public final class APIJsonMapper {
                     .registerModule(createAPIResponseModule(((ParameterizedType)typeReference.getType())
                             .getActualTypeArguments()[0]))
                     .readValue(json.toString(), typeReference);
-        } catch (JsonProcessingException ex) {
+        } catch (JsonProcessingException | IllegalArgumentException ex) {
             throw new APIException(String.format(API_JSON_PARSE_ERROR, ex.getMessage()), ex);
         }
     }

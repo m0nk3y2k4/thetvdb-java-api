@@ -94,23 +94,24 @@ public final class MoviesAPI extends QueryResource {
     }
 
     /**
-     * Returns extended information for a specific movie record as raw JSON.
+     * Returns extended information for a specific movie record based on the given query parameters as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/movies/getMovieExtended">
      * <b>[GET]</b> /movies/{id}/extended</a>
      *
-     * @param con Initialized connection to be used for API communication
-     * @param id  The <i>TheTVDB.com</i> movie ID
+     * @param con    Initialized connection to be used for API communication
+     * @param id     The <i>TheTVDB.com</i> movie ID
+     * @param params Object containing key/value pairs of query parameters
      *
      * @return JSON object containing extended information for a specific movie record
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no movie
      *                      record with the given ID exists, etc.
      */
-    // ToDo: Extend with query parameters (translations)
-    public static JsonNode getMovieExtended(@Nonnull APIConnection con, long id) throws APIException {
+    public static JsonNode getMovieExtended(@Nonnull APIConnection con, long id, QueryParameters params)
+            throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
-        return con.sendGET(createResource("/movies/{id}/extended", id));
+        return con.sendGET(createQueryResource("/movies/{id}/extended", params, id));
     }
 
     /**
