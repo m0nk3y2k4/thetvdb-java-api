@@ -25,7 +25,6 @@ package com.github.m0nk3y2k4.thetvdb.api.enumeration;
 public enum FundingModel {
     /** Negotiated contract */
     CONTRACT,
-
     /** End-user subscription */
     SUBSCRIPTION
 }

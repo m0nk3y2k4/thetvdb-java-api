@@ -23,7 +23,6 @@ package com.github.m0nk3y2k4.thetvdb.api.enumeration;
  * <b>[GET]</b> /updates</a> route.
  * <p><br>
  * Used to restrict results to a specific change action like creation, update or deletion.
- * <p>
  *
  * @see com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#ACTION
  * @see com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi#getUpdates(long, UpdateEntityType, UpdateAction, long)

@@ -105,7 +105,6 @@ the upcoming APIv4.
 - Artwork
     - [x] [/artwork/{id}](https://thetvdb.github.io/v4-api/#/artwork/getArtworkBase)
     - [x] [/artwork/{id}/extended](https://thetvdb.github.io/v4-api/#/artwork/getArtworkExtended)
-    - [ ] [~~/artwork/{id}/translations/{language}~~](https://thetvdb.github.io/v4-api/#/artwork/getArtworkTranslation)
 - Award categories
     - [x] [/awards/categories/{id}](https://thetvdb.github.io/v4-api/#/award-categories/getAwardCategory)
     - [x] [/awards/categories/{id}/extended](https://thetvdb.github.io/v4-api/#/award-categories/getAwardCategoryExtended)
