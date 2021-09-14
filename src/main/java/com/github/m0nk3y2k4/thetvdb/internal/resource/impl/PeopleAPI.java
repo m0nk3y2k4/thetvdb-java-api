@@ -90,7 +90,6 @@ public final class PeopleAPI extends QueryResource {
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no people
      *                      record with the given ID exists, etc.
      */
-    // ToDo: Invoking the resource with meta=translations leads to HTTP-500. Check after next API update.
     public static JsonNode getPeopleExtended(@Nonnull APIConnection con, long id, QueryParameters params)
             throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
