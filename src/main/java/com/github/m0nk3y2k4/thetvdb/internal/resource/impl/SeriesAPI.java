@@ -31,9 +31,8 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 /**
  * Implementation of a connector for the remote API's
- * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/series">series</a>
- * and
- * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/series-statuses">series-statuses</a>
+ * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series">Series</a> and
+ * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series%20Statuses">Series Statuses</a>
  * endpoint.
  * <p><br>
  * Provides static access to all routes of this endpoint which may be used for obtaining either basic, extended or
@@ -52,7 +51,7 @@ public final class SeriesAPI extends QueryResource {
     /**
      * Returns an overview of available series statuses as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/series-statuses/getAllSeriesStatuses">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series%20Statuses/getAllSeriesStatuses">
      * <b>[GET]</b> /series/statuses</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -69,7 +68,7 @@ public final class SeriesAPI extends QueryResource {
     /**
      * Returns an overview of series based on the given query parameters as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/series/getAllSeries">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getAllSeries">
      * <b>[GET]</b> /series</a>
      *
      * @param con    Initialized connection to be used for API communication
@@ -87,7 +86,7 @@ public final class SeriesAPI extends QueryResource {
     /**
      * Returns basic information for a specific series record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/series/getSeriesBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesBase">
      * <b>[GET]</b> /series/{id}</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -106,7 +105,7 @@ public final class SeriesAPI extends QueryResource {
     /**
      * Returns extended information for a specific series record based on the given query parameters as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/series/getSeriesExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesExtended">
      * <b>[GET]</b> /series/{id}/extended</a>
      *
      * @param con    Initialized connection to be used for API communication
@@ -127,7 +126,7 @@ public final class SeriesAPI extends QueryResource {
     /**
      * Returns the episodes of a particular series based on the given query parameters as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/series/getSeriesEpisodes">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesEpisodes">
      * <b>[GET]</b> /series/{id}/episodes/{season-type}</a>
      *
      * @param con        Initialized connection to be used for API communication
@@ -150,7 +149,7 @@ public final class SeriesAPI extends QueryResource {
     /**
      * Returns a translation record for a specific series as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/series/getSeriesTranslation">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesTranslation">
      * <b>[GET]</b> /series/{id}/translations/{language}</a>
      *
      * @param con      Initialized connection to be used for API communication

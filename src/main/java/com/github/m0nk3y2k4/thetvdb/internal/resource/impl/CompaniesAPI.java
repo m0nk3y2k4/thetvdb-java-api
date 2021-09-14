@@ -27,7 +27,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 /**
  * Implementation of a connector for the remote API's
- * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/companies">companies</a>
+ * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Companies">Companies</a>
  * endpoint.
  * <p><br>
  * Provides static access to all routes of this endpoint which may be used for obtaining specific company information.
@@ -39,7 +39,7 @@ public final class CompaniesAPI extends QueryResource {
     /**
      * Returns an overview of companies based on the given query parameters as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/companies/getAllCompanies">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Companies/getAllCompanies">
      * <b>[GET]</b> /companies</a>
      *
      * @param con    Initialized connection to be used for API communication
@@ -57,7 +57,7 @@ public final class CompaniesAPI extends QueryResource {
     /**
      * Returns an overview of available company types as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/companies/getCompanyTypes">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Companies/getCompanyTypes">
      * <b>[GET]</b> /companies/types</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -74,7 +74,7 @@ public final class CompaniesAPI extends QueryResource {
     /**
      * Returns information for a specific company record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/companies/getCompany">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Companies/getCompany">
      * <b>[GET]</b> /companies/{id}</a>
      *
      * @param con Initialized connection to be used for API communication

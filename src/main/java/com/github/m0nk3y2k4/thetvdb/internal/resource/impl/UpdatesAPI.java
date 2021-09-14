@@ -30,7 +30,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 /**
  * Implementation of a connector for the remote API's
- * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/updates">updates</a>
+ * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Updates">Updates</a>
  * endpoint.
  * <p><br>
  * Provides static access to all routes of this endpoint which may be used for obtaining an overview of recently updated
@@ -45,7 +45,7 @@ public final class UpdatesAPI extends QueryResource {
      * given query parameters must always contain a valid <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#SINCE}</em>
      * Epoch timestamp key.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/updates/updates">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Updates/updates">
      * <b>[GET]</b> /updates</a>
      *
      * @param con    Initialized connection to be used for API communication

@@ -27,7 +27,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 /**
  * Implementation of a connector for the remote API's
- * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/episodes">episodes</a>
+ * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Episodes">Episodes</a>
  * endpoint.
  * <p><br>
  * Provides static access to all routes of this endpoint which may be used for obtaining either basic, extended or
@@ -40,7 +40,7 @@ public final class EpisodesAPI extends QueryResource {
     /**
      * Returns basic information for a specific episode record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/episodes/getEpisodeBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeBase">
      * <b>[GET]</b> /episodes/{id}</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -59,7 +59,7 @@ public final class EpisodesAPI extends QueryResource {
     /**
      * Returns extended information for a specific episode record based on the given query parameters as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/episodes/getEpisodeExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeExtended">
      * <b>[GET]</b> /episodes/{id}/extended</a>
      *
      * @param con    Initialized connection to be used for API communication
@@ -80,7 +80,7 @@ public final class EpisodesAPI extends QueryResource {
     /**
      * Returns a translation record for a specific episode as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/episodes/getEpisodeTranslation">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeTranslation">
      * <b>[GET]</b> /episodes/{id}/translations/{language}</a>
      *
      * @param con      Initialized connection to be used for API communication

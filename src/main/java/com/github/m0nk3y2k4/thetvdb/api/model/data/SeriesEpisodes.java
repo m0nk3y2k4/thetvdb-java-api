@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 
 /**
  * Interface representing a data transfer object for records returned by the
- * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/series/getSeriesEpisodes">series-episodes</a>
+ * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesEpisodes">series-episodes</a>
  * route.
  * <p><br>
  * The methods of this class provide easy access to series episode related data which was returned by the remote service

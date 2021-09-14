@@ -18,7 +18,7 @@ package com.github.m0nk3y2k4.thetvdb.api.enumeration;
 
 /**
  * Constants for the "<i>season-type</i>" path parameter of the APIs
- * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/series/getSeriesEpisodes">
+ * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesEpisodes">
  * <b>[GET]</b> /series/{id}/episodes/{season-type}</a> route.
  * <p><br>
  * Used for fetching series episodes of a specified season type.

@@ -35,7 +35,7 @@ public final class Query {
     private Query() {}
 
     /**
-     * Collection of query parameters for API endpoint <a target="_blank" href="https://thetvdb.github.io/v4-api/#/companies">/companies</a>
+     * Collection of query parameters for API endpoint <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Companies">Companies</a>
      */
     public static final class Companies {
 
@@ -46,7 +46,7 @@ public final class Query {
     }
 
     /**
-     * Collection of query parameters for API endpoint <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Episodes">/episodes</a>
+     * Collection of query parameters for API endpoint <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Episodes">Episodes</a>
      */
     public static final class Episodes {
 
@@ -57,7 +57,7 @@ public final class Query {
     }
 
     /**
-     * Collection of query parameters for API endpoint <a target="_blank" href="https://thetvdb.github.io/v4-api/#/movies">/movies</a>
+     * Collection of query parameters for API endpoint <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies">Movies</a>
      */
     public static final class Movies {
 
@@ -71,7 +71,7 @@ public final class Query {
     }
 
     /**
-     * Collection of query parameters for API endpoint <a target="_blank" href="https://thetvdb.github.io/v4-api/#/lists">/lists</a>
+     * Collection of query parameters for API endpoint <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Lists">Lists</a>
      */
     public static final class Lists {
 
@@ -82,7 +82,7 @@ public final class Query {
     }
 
     /**
-     * Collection of query parameters for API endpoint <a target="_blank" href="https://thetvdb.github.io/v4-api/#/People">/people</a>
+     * Collection of query parameters for API endpoint <a target="_blank" href="https://thetvdb.github.io/v4-api/#/People">People</a>
      */
     public static final class People {
 
@@ -93,7 +93,7 @@ public final class Query {
     }
 
     /**
-     * Collection of query parameters for API endpoint <a target="_blank" href="https://thetvdb.github.io/v4-api/#/series">/series</a>
+     * Collection of query parameters for API endpoint <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series">Series</a>
      */
     public static final class Series {
 
@@ -106,7 +106,7 @@ public final class Query {
     }
 
     /**
-     * Collection of query parameters for API endpoint <a target="_blank" href="https://thetvdb.github.io/v4-api/#/updates">/updates</a>
+     * Collection of query parameters for API endpoint <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Updates">Updates</a>
      */
     public static final class Updates {
 

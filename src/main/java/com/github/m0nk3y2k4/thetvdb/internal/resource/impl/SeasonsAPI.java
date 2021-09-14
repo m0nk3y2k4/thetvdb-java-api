@@ -26,7 +26,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 /**
  * Implementation of a connector for the remote API's
- * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/seasons">seasons</a>
+ * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons">Seasons</a>
  * endpoint.
  * <p><br>
  * Provides static access to all routes of this endpoint which may be used for obtaining either basic, extended or
@@ -39,7 +39,7 @@ public final class SeasonsAPI extends Resource {
     /**
      * Returns basic information for a specific season record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/seasons/getSeasonBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonBase">
      * <b>[GET]</b> /seasons/{id}</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -58,7 +58,7 @@ public final class SeasonsAPI extends Resource {
     /**
      * Returns extended information for a specific season record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/seasons/getSeasonExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonExtended">
      * <b>[GET]</b> /seasons/{id}/extended</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -77,7 +77,7 @@ public final class SeasonsAPI extends Resource {
     /**
      * Returns an overview of available season types as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/seasons/getSeasonTypes">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonTypes">
      * <b>[GET]</b> /seasons/types</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -94,7 +94,7 @@ public final class SeasonsAPI extends Resource {
     /**
      * Returns a translation record for a specific season as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/seasons/getSeasonTranslation">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonTranslation">
      * <b>[GET]</b> /seasons/{id}/translations/{language}</a>
      *
      * @param con      Initialized connection to be used for API communication

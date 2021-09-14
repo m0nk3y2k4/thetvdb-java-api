@@ -26,9 +26,9 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 /**
  * Implementation of a connector for the remote API's
- * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/artwork">artwork</a>
- * and
- * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/artwork-types">artwork-types</a>
+ * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Artwork">Artwork</a>,
+ * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Artwork%20Statuses">Artwork Statuses</a> and
+ * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Artwork%20Types">Artwork Types</a>
  * endpoint.
  * <p><br>
  * Provides static access to all routes of this endpoint which may be used for obtaining either basic, extended or
@@ -41,7 +41,7 @@ public final class ArtworkAPI extends Resource {
     /**
      * Returns an overview of available artwork statuses as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/artwork-statuses/getAllArtworkStatuses">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Artwork%20Statuses/getAllArtworkStatuses">
      * <b>[GET]</b> /artwork/statuses</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -58,7 +58,7 @@ public final class ArtworkAPI extends Resource {
     /**
      * Returns an overview of available artwork types as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/artwork-types/getAllArtworkTypes">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Artwork%20Types/getAllArtworkTypes">
      * <b>[GET]</b> /artwork/types</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -75,7 +75,7 @@ public final class ArtworkAPI extends Resource {
     /**
      * Returns basic information for a specific artwork record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/artwork/getArtworkBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Artwork/getArtworkBase">
      * <b>[GET]</b> /artwork/{id}</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -94,7 +94,7 @@ public final class ArtworkAPI extends Resource {
     /**
      * Returns extended information for a specific artwork record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/artwork/getArtworkExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Artwork/getArtworkExtended">
      * <b>[GET]</b> /artwork/{id}/extended</a>
      *
      * @param con Initialized connection to be used for API communication

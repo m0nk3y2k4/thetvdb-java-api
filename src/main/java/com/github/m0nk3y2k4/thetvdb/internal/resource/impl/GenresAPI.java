@@ -26,7 +26,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 /**
  * Implementation of a connector for the remote API's
- * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/genres">genres</a>
+ * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Genres">Genres</a>
  * endpoint.
  * <p><br>
  * Provides static access to all routes of this endpoint which may be used for obtaining specific genre information.
@@ -38,7 +38,7 @@ public final class GenresAPI extends Resource {
     /**
      * Returns an overview of available genres as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/genres/getAllGenres">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Genres/getAllGenres">
      * <b>[GET]</b> /genres</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -55,7 +55,7 @@ public final class GenresAPI extends Resource {
     /**
      * Returns information for a specific genre record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/genres/getGenreBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Genres/getGenreBase">
      * <b>[GET]</b> /genres/{id}</a>
      *
      * @param con Initialized connection to be used for API communication

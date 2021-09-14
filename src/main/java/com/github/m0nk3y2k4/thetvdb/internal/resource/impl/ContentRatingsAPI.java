@@ -25,7 +25,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.resource.Resource;
 
 /**
  * Implementation of a connector for the remote API's
- * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/content-ratings">content-ratings</a>
+ * <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Content%20Ratings">Content Ratings</a>
  * endpoint.
  * <p><br>
  * Provides static access to all routes of this endpoint which may be used for obtaining an overview of available
@@ -38,7 +38,7 @@ public final class ContentRatingsAPI extends Resource {
     /**
      * Returns an overview of available content ratings as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/content-ratings/getAllContentRatings">
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Content%20Ratings/getAllContentRatings">
      * <b>[GET]</b> /content/ratings</a>
      *
      * @param con Initialized connection to be used for API communication
