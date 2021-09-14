@@ -24,6 +24,7 @@ package com.github.m0nk3y2k4.thetvdb.api.constants;
  *     <li>{@link Movies}</li>
  *     <li>{@link Lists}</li>
  *     <li>{@link People}</li>
+ *     <li>{@link Seasons}</li>
  *     <li>{@link Series}</li>
  *     <li>{@link Updates}</li>
  * </ul>
@@ -90,6 +91,17 @@ public final class Query {
         public static final String META = "meta";
 
         private People() {}     // Private constructor. Only constants in this class
+    }
+
+    /**
+     * Collection of query parameters for API endpoint <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons">Seasons</a>
+     */
+    public static final class Seasons {
+
+        /** Query parameter "<i>page</i>" - Page of results to fetch. Defaults to page 0 if not provided. */
+        public static final String PAGE = "page";
+
+        private Seasons() {}     // Private constructor. Only constants in this class
     }
 
     /**

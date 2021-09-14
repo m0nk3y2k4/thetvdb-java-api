@@ -16,6 +16,7 @@
 
 package com.github.m0nk3y2k4.thetvdb.api;
 
+import static com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory.createQueryParameters;
 import static com.github.m0nk3y2k4.thetvdb.testutils.assertj.IntegrationTestAssertions.assertThat;
 
 import com.github.m0nk3y2k4.thetvdb.testutils.annotation.IntegrationTestSuite;
@@ -27,24 +28,30 @@ class SeasonsIT {
 
     @Test
     @Order(1)
+    void getAllSeasons(TheTVDBApi api) {
+        assertThat(() -> api.getAllSeasons(createQueryParameters())).as("/seasons").doesNotThrowAnyException();
+    }
+
+    @Test
+    @Order(2)
     void getSeason(TheTVDBApi api) {
         assertThat(() -> api.getSeason(1733210)).as("/seasons/1733210").doesNotThrowAnyException();
     }
 
     @Test
-    @Order(2)
+    @Order(3)
     void getSeasonDetails(TheTVDBApi api) {
         assertThat(() -> api.getSeasonDetails(669028)).as("/seasons/669028/extended").doesNotThrowAnyException();
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     void getSeasonTypes(TheTVDBApi api) {
         assertThat(api::getSeasonTypes).as("/seasons/types").doesNotThrowAnyException();
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     void getSeasonTranslation(TheTVDBApi api) {
         assertThat(() -> api.getSeasonTranslation(750521, "deu")).as("/seasons/750521/translations/deu")
                 .doesNotThrowAnyException();

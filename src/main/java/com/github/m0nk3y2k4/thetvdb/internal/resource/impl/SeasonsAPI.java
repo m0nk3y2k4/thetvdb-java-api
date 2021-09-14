@@ -19,9 +19,10 @@ package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 import javax.annotation.Nonnull;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
-import com.github.m0nk3y2k4.thetvdb.internal.resource.Resource;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.QueryResource;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
 /**
@@ -32,9 +33,27 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
  * Provides static access to all routes of this endpoint which may be used for obtaining either basic, extended or
  * translated season information.
  */
-public final class SeasonsAPI extends Resource {
+public final class SeasonsAPI extends QueryResource {
 
     private SeasonsAPI() {}     // Private constructor. Only static methods
+
+    /**
+     * Returns an overview of seasons based on the given query parameters as raw JSON.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getAllSeasons">
+     * <b>[GET]</b> /seasons</a>
+     *
+     * @param con    Initialized connection to be used for API communication
+     * @param params Object containing key/value pairs of query parameters
+     *
+     * @return JSON object containing a limited overview of seasons
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     */
+    public static JsonNode getAllSeasons(@Nonnull APIConnection con, QueryParameters params) throws APIException {
+        return con.sendGET(createQueryResource("/seasons", params));
+    }
 
     /**
      * Returns basic information for a specific season record as raw JSON.

@@ -236,6 +236,8 @@ public abstract class ResponseData<T> {
             "season", season(FULL), "Single season JSON response") {};
     public static final ResponseData<APIResponse<SeasonDetails>> SEASON_DETAILS = new ResponseData<>(
             "season_extended", seasonDetails(FULL), "Single extended season JSON response") {};
+    public static final ResponseData<APIResponse<Collection<Season>>> SEASON_OVERVIEW = new ResponseData<>(
+            "season_overview", seasonOverview(), "Overview of seasons JSON response") {};
     public static final ResponseData<APIResponse<Collection<SeasonType>>> SEASONTYPE_OVERVIEW = new ResponseData<>(
             "seasontype_overview", seasonTypeOverview(), "Overview of season types JSON response") {};
 
@@ -448,6 +450,10 @@ public abstract class ResponseData<T> {
 
     private static APIResponse<SeasonDetails> seasonDetails(Shape shape) {
         return createAPIResponse(create(seasonDetailsModel(), shape));
+    }
+
+    private static APIResponse<Collection<Season>> seasonOverview() {
+        return createAPIResponse(createTwo(seasonModel()));
     }
 
     private static APIResponse<Collection<SeasonType>> seasonTypeOverview() {

@@ -435,6 +435,17 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public Collection<Season> getAllSeasons(QueryParameters queryParameters) throws APIException {
+        return extended().getAllSeasons(queryParameters).getData();
+    }
+
+    @Override
+    public Collection<Season> getAllSeasons(long page) throws APIException {
+        validatePage(page);
+        return getAllSeasons(query(Map.of(Query.Seasons.PAGE, String.valueOf(page))));
+    }
+
+    @Override
     public Season getSeason(long seasonId) throws APIException {
         return extended().getSeason(seasonId).getData();
     }
@@ -730,6 +741,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public JsonNode getAllSeasons(QueryParameters queryParameters) throws APIException {
+            return SeasonsAPI.getAllSeasons(con, queryParameters);
+        }
+
+        @Override
         public JsonNode getSeason(long seasonId) throws APIException {
             return SeasonsAPI.getSeasonBase(con, seasonId);
         }
@@ -974,6 +990,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         public APIResponse<PeopleDetails> getPeopleDetails(long peopleId, QueryParameters queryParameters)
                 throws APIException {
             return APIJsonMapper.readValue(json().getPeopleDetails(peopleId, queryParameters), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<Collection<Season>> getAllSeasons(QueryParameters queryParameters) throws APIException {
+            return APIJsonMapper.readValue(json().getAllSeasons(queryParameters), new TypeReference<>() {});
         }
 
         @Override

@@ -16,22 +16,26 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
+import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeasonsAPI.getAllSeasons;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeasonsAPI.getSeasonBase;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeasonsAPI.getSeasonExtended;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeasonsAPI.getSeasonTranslation;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeasonsAPI.getSeasonTypes;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
+import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.params;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASON;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASONTYPE_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASON_DETAILS;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASON_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.TRANSLATION;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.junit.jupiter.params.provider.Arguments.of;
+import static org.mockserver.model.Parameter.param;
 
 import java.util.stream.Stream;
 
@@ -52,6 +56,8 @@ class SeasonsAPITest {
     //@DisableFormatting
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
+        client.when(request("/seasons", GET)).respond(jsonResponse(SEASON_OVERVIEW));
+        client.when(request("/seasons", GET, param("page", "4"))).respond(jsonResponse(SEASON_OVERVIEW));
         client.when(request("/seasons/348109", GET)).respond(jsonResponse(SEASON));
         client.when(request("/seasons/540773/extended", GET)).respond(jsonResponse(SEASON_DETAILS));
         client.when(request("/seasons/types", GET)).respond(jsonResponse(SEASONTYPE_OVERVIEW));
@@ -74,6 +80,8 @@ class SeasonsAPITest {
     @SuppressWarnings("Convert2MethodRef")
     private static Stream<Arguments> withValidParameters() {
         return Stream.of(
+                of(route(con -> getAllSeasons(con, null), "getAllSeasons() without query parameters"), SEASON_OVERVIEW),
+                of(route(con -> getAllSeasons(con, params("page", "4")), "getAllSeasons() with query parameters"), SEASON_OVERVIEW),
                 of(route(con -> getSeasonBase(con, 348109), "getSeasonBase()"), SEASON),
                 of(route(con -> getSeasonExtended(con, 540773), "getSeasonExtended()"), SEASON_DETAILS),
                 of(route(con -> getSeasonTypes(con), "getSeasonTypes()"), SEASONTYPE_OVERVIEW),

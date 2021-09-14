@@ -892,6 +892,39 @@ public interface TheTVDBApi {
     PeopleDetails getPeopleDetails(long peopleId, PeopleMeta meta) throws APIException;
 
     /**
+     * Returns a collection of seasons based on the given query parameters mapped as Java DTO. The collection contains
+     * basic information of all seasons matching the query parameters.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getAllSeasons">
+     * <b>[GET]</b> /seasons</a>
+     *
+     * @param queryParameters Object containing key/value pairs of query parameters
+     *
+     * @return Collection of seasons mapped as Java DTO's based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see JSON#getAllSeasons(QueryParameters) TheTVDBApi.JSON.getAllSeasons(queryParameters)
+     * @see Extended#getAllSeasons(QueryParameters) TheTVDBApi.Extended.getAllSeasons(queryParameters)
+     */
+    Collection<Season> getAllSeasons(QueryParameters queryParameters) throws APIException;
+
+    /**
+     * Returns a limited collection of seasons mapped as Java DTO. Due to the large amount of available seasons, the
+     * result will be paginated. Use the <em>{@code page}</em> parameter to browse to a specific result page. This is a
+     * shortcut-method for {@link #getAllSeasons(QueryParameters) getAllSeasons(queryParameters)} with a single {@value
+     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Seasons#PAGE} query parameter.
+     *
+     * @param page The result page to be returned (zero-based)
+     *
+     * @return Collection of seasons mapped as Java DTO's based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     */
+    Collection<Season> getAllSeasons(long page) throws APIException;
+
+    /**
      * Returns basic information for a specific season mapped as Java DTO.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonBase">
@@ -1822,6 +1855,24 @@ public interface TheTVDBApi {
         JsonNode getPeopleDetails(long peopleId, QueryParameters queryParameters) throws APIException;
 
         /**
+         * Returns a collection of seasons based on the given query parameters as raw JSON. It contains basic
+         * information of all seasons matching the query parameters.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getAllSeasons">
+         * <b>[GET]</b> /seasons</a>
+         *
+         * @param queryParameters Object containing key/value pairs of query parameters
+         *
+         * @return JSON object containing the seasons
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see TheTVDBApi#getAllSeasons(QueryParameters) TheTVDBApi.getAllSeasons(queryParameters)
+         * @see Extended#getAllSeasons(QueryParameters) TheTVDBApi.Extended.getAllSeasons(queryParameters)
+         */
+        JsonNode getAllSeasons(QueryParameters queryParameters) throws APIException;
+
+        /**
          * Returns basic information for a specific season as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonBase">
@@ -2644,6 +2695,25 @@ public interface TheTVDBApi {
          *         queryParameters)
          */
         APIResponse<PeopleDetails> getPeopleDetails(long peopleId, QueryParameters queryParameters) throws APIException;
+
+        /**
+         * Returns a response object containing a collection of seasons based on the given query parameters mapped as
+         * Java DTO. The collection contains basic information of all seasons matching the query parameters.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getAllSeasons">
+         * <b>[GET]</b> /seasons</a>
+         *
+         * @param queryParameters Object containing key/value pairs of query parameters
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see JSON#getAllSeasons(QueryParameters) TheTVDBApi.JSON.getAllSeasons(queryParameters)
+         * @see TheTVDBApi#getAllSeasons(QueryParameters) TheTVDBApi.getAllSeasons(queryParameters)
+         */
+        APIResponse<Collection<Season>> getAllSeasons(QueryParameters queryParameters) throws APIException;
 
         /**
          * Returns a response object containing basic information for a specific season mapped as Java DTO.

@@ -167,7 +167,7 @@ the upcoming APIv4.
 - Search
     - [ ] [/search](https://thetvdb.github.io/v4-api/#/Search/getSearchResults)
 - Seasons
-    - [ ] [/seasons](https://thetvdb.github.io/v4-api/#/Seasons/getAllSeasons)
+    - [x] [/seasons](https://thetvdb.github.io/v4-api/#/Seasons/getAllSeasons)
     - [x] [/seasons/{id}](https://thetvdb.github.io/v4-api/#/Seasons/getSeasonBase)
     - [x] [/seasons/{id}/extended](https://thetvdb.github.io/v4-api/#/Seasons/getSeasonExtended)
     - [x] [/seasons/types](https://thetvdb.github.io/v4-api/#/Seasons/getSeasonTypes)
