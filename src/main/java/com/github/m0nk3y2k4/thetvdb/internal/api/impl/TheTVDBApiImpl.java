@@ -162,8 +162,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
      * @throws IllegalArgumentException If the given parameter is a negative numerical value
      */
     private static void validatePage(long page) {
-        Parameters.validateCondition(value -> value >= 0, page,
-                new IllegalArgumentException("Page value must not be negative!"));
+        Parameters.validateNotNegative(page, "Page value must not be negative!");
     }
 
     /**
@@ -514,10 +513,10 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public SeriesEpisodes getSeriesEpisodes(long seriesId, SeriesSeasonType seasonType, long page)
+    public SeriesEpisodes getSeriesEpisodes(long seriesId, SeriesSeasonType seasonType, long seasonNumber)
             throws APIException {
-        validatePage(page);
-        return getSeriesEpisodes(seriesId, seasonType, query(Map.of(Query.Series.PAGE, String.valueOf(page))));
+        Parameters.validateNotNegative(seasonNumber, "Season number must not be negative!");
+        return getSeriesEpisodes(seriesId, seasonType, query(Map.of(Query.Series.SEASON, String.valueOf(seasonNumber))));
     }
 
     @Override

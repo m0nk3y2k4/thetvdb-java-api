@@ -201,7 +201,7 @@ class TheTVDBApiImplTest {
             client.when(request("/series/1005/extended", GET, param(Series.META, String.valueOf(SeriesMeta.EPISODES)))).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/3789/episodes/default", GET)).respond(jsonResponse(SERIESEPISODES));
             client.when(request("/series/7000/episodes/alternate", GET, param("value", "QuerySeriesEpisodes"))).respond(jsonResponse(SERIESEPISODES));
-            client.when(request("/series/2147/episodes/regional", GET, param(Series.PAGE, "4"))).respond(jsonResponse(SERIESEPISODES));
+            client.when(request("/series/2147/episodes/regional", GET, param(Series.SEASON, "4"))).respond(jsonResponse(SERIESEPISODES));
             client.when(request("/series/6004/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/sources/types", GET)).respond(jsonResponse(SOURCETYPE_OVERVIEW));
             client.when(request("/updates", GET, param(Updates.SINCE, "16247601"), param("value", "QueryUpdates"))).respond(jsonResponse(UPDATE_OVERVIEW));
@@ -220,7 +220,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllSeasons(-6), "getAllSeasons() with negative page parameter")),
                     of(route(() -> basicAPI.getAllSeries(-3), "getAllSeries() with negative page parameter")),
                     of(route(() -> basicAPI.getSeriesDetails(68447, (SeriesMeta)null), "getSeriesDetails() with missing meta parameter")),
-                    of(route(() -> basicAPI.getSeriesEpisodes(41257, DVD, -6), "getSeriesEpisodes() with negative page parameter")),
+                    of(route(() -> basicAPI.getSeriesEpisodes(41257, DVD, -6), "getSeriesEpisodes() with negative season number parameter")),
                     of(route(() -> basicAPI.getUpdates(16237785, -8), "getUpdates() with negative page parameter")),
                     of(route(() -> basicAPI.getUpdates(16237871, null, CREATE, 3), "getUpdates() with missing type parameter")),
                     of(route(() -> basicAPI.getUpdates(16237945, TRANSLATED_EPISODES, null, 5), "getUpdates() with missing action parameter")),
@@ -286,7 +286,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getSeriesDetails(1005, SeriesMeta.EPISODES), "getSeriesDetails() with series ID and meta"), SERIES_DETAILS),
                     of(route(() -> basicAPI.getSeriesEpisodes(3789, DEFAULT), "getSeriesEpisodes()"), SERIESEPISODES),
                     of(route(() -> basicAPI.getSeriesEpisodes(7000, ALTERNATE, params("value", "QuerySeriesEpisodes")), "getSeriesEpisodes() with query parameters"), SERIESEPISODES),
-                    of(route(() -> basicAPI.getSeriesEpisodes(2147, REGIONAL, 4), "getSeriesEpisodes() with page"), SERIESEPISODES),
+                    of(route(() -> basicAPI.getSeriesEpisodes(2147, REGIONAL, 4), "getSeriesEpisodes() with season number"), SERIESEPISODES),
                     of(route(() -> basicAPI.getSeriesTranslation(6004, "eng"), "getSeriesTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
                     of(route(() -> basicAPI.getUpdates(params(Updates.SINCE, "16247601", "value", "QueryUpdates")), "getUpdates() with query parameters"), UPDATE_OVERVIEW),

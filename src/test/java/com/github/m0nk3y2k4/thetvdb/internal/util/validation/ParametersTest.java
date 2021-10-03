@@ -112,6 +112,19 @@ class ParametersTest {
                 .withMessage(validationFailedMessage);
     }
 
+    @ParameterizedTest(name = "[{index}] \"{0}\" is not a negative integer")
+    @ValueSource(longs = {0, 3})
+    void validateNotNegative_happyDay(long value) {
+        assertDoesNotThrow(() -> Parameters.validateNotNegative(value, "Error in case of negative integer"));
+    }
+
+    @Test
+    void validateNotNegative_withNegativeValue_exceptionThrown() {
+        final String validationFailedMessage = "Value is a negative integer!";
+        assertThatIllegalArgumentException().isThrownBy(() -> Parameters.validateNotNegative(-1, validationFailedMessage))
+                .withMessage(validationFailedMessage);
+    }
+
     @Test
     void validatePathParam_happyDay() {
         assertDoesNotThrow(() -> Parameters.validatePathParam("ValidPathParam", "en", p -> p.length() <= 2));

@@ -113,6 +113,8 @@ public final class Query {
         public static final String META = "meta";
         /** Query parameter "<i>page</i>" - Page of results to fetch. Defaults to page 0 if not provided. */
         public static final String PAGE = "page";
+        /** Query parameter "<i>season</i>" - Restrict results to a specific season. Defaults to 0 if not provided. */
+        public static final String SEASON = "season";
 
         private Series() {}     // Private constructor. Only constants in this class
     }

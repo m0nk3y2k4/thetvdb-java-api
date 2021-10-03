@@ -63,7 +63,7 @@ public final class Parameters {
     }
 
     /**
-     * Checks that the given <em>{@code obj}</em> is not <i>null</i>. Otherwise an exception with the given error
+     * Checks that the given <em>{@code obj}</em> is not <i>null</i>. Otherwise, an exception with the given error
      * message will be thrown.
      *
      * @param obj     The object to check
@@ -78,7 +78,7 @@ public final class Parameters {
     }
 
     /**
-     * Checks that the given String is neither <i>null</i> nor empty. Otherwise an exception with the given error
+     * Checks that the given String is neither <i>null</i> nor empty. Otherwise, an exception with the given error
      * message will be thrown.
      *
      * @param obj     The String to check
@@ -93,7 +93,7 @@ public final class Parameters {
     }
 
     /**
-     * Checks that the given Optional contains a non-empty String. Otherwise an exception with the given error message
+     * Checks that the given Optional contains a non-empty String. Otherwise, an exception with the given error message
      * will be thrown.
      *
      * @param obj     The String optional to check
@@ -103,6 +103,21 @@ public final class Parameters {
      */
     public static void validateNotEmpty(@Nonnull Optional<String> obj, String message) {
         validateNotEmpty(obj.orElse(null), message);
+    }
+
+    /**
+     * Checks that the given value is equal or greater zero. Otherwise, an exception with the given error message will
+     * be thrown.
+     *
+     * @param value   The numeric value to check
+     * @param message Error message to be propagated to the exception in case of a failed validation
+     *
+     * @throws IllegalArgumentException If the given value is negative
+     */
+    public static void validateNotNegative(long value, String message) {
+        if (value < 0) {
+            throw new IllegalArgumentException(message);
+        }
     }
 
     /**

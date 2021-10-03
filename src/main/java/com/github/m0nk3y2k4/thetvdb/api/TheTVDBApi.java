@@ -1132,8 +1132,8 @@ public interface TheTVDBApi {
     /**
      * Returns a limited overview of episodes of a particular series mapped as Java DTO. Since some series have many
      * episodes, the result will be paginated. This is a shortcut-method for {@link #getSeriesEpisodes(long,
-     * SeriesSeasonType, QueryParameters) getAllSeries(seriesId, seasonType, queryParameters)} which will always return
-     * the first page only what may be convenient for series with few episodes.
+     * SeriesSeasonType, QueryParameters) getSeriesEpisodes(seriesId, seasonType, queryParameters)} which will always
+     * return the first page only what may be convenient for series with few episodes.
      *
      * @param seriesId   The <i>TheTVDB.com</i> series ID
      * @param seasonType The type of season for which episodes should be returned
@@ -1148,23 +1148,22 @@ public interface TheTVDBApi {
     SeriesEpisodes getSeriesEpisodes(long seriesId, SeriesSeasonType seasonType) throws APIException;
 
     /**
-     * Returns a limited overview of episodes of a particular series mapped as Java DTO. Since some series have many
-     * episodes, the result will be paginated. Use the <em>{@code page}</em> parameter to browse to a specific result
-     * page. This is a shortcut-method for {@link #getSeriesEpisodes(long, SeriesSeasonType, QueryParameters)
-     * getAllSeries(seriesId, seasonType, queryParameters)} with a single {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series#PAGE}
-     * query parameter.
+     * Returns a limited overview of episodes of a particular series season mapped as Java DTO. Since some seasons have
+     * many episodes, the result will be paginated. This is a shortcut-method for {@link #getSeriesEpisodes(long,
+     * SeriesSeasonType, QueryParameters) getSeriesEpisodes(seriesId, seasonType, queryParameters)} with a single
+     * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series#SEASON} query parameter.
      *
-     * @param seriesId   The <i>TheTVDB.com</i> series ID
-     * @param seasonType The type of season for which episodes should be returned
-     * @param page       The result page to be returned (zero-based)
+     * @param seriesId     The <i>TheTVDB.com</i> series ID
+     * @param seasonType   The type of season for which episodes should be returned
+     * @param seasonNumber Number of the season for which episodes should be returned ('0' = all seasons)
      *
-     * @return A series episodes mapped as Java DTO's based on the JSON data returned by the remote service
+     * @return A series seasons episodes mapped as Java DTO's based on the JSON data returned by the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc. or if no series record with the given ID exists.
      * @see #getSeriesEpisodes(long, SeriesSeasonType) getSeriesEpisodes(seriesId, seasonType)
      */
-    SeriesEpisodes getSeriesEpisodes(long seriesId, SeriesSeasonType seasonType, long page) throws APIException;
+    SeriesEpisodes getSeriesEpisodes(long seriesId, SeriesSeasonType seasonType, long seasonNumber) throws APIException;
 
     /**
      * Returns a translation record for a specific series mapped as Java DTO.

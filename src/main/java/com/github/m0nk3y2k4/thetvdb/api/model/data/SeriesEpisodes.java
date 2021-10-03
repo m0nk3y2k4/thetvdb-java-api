@@ -42,6 +42,7 @@ public interface SeriesEpisodes {
      * @return The <em>{@code series}</em> property from the received JSON
      */
     @Nullable
+    // ToDo: Field is currently declared to be a SeriesExtendedRecord but only SeriesBaseRecord fields are returned in JSON. Check again after the next API update.
     Series getSeries();
 
     /**
