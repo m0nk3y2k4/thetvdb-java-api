@@ -36,7 +36,6 @@ public interface CompanyType {
      *
      * @return The <em>{@code companyTypeId}</em> property from the received JSON
      */
-    // ToDo: Field is currently declared as "id" in CompanyType. Check again after the next API update.
     @Nullable
     Long getCompanyTypeId();
 
@@ -45,7 +44,6 @@ public interface CompanyType {
      *
      * @return The <em>{@code companyTypeName}</em> property from the received JSON
      */
-    // ToDo: Field is currently declared as "name" in CompanyType. Check again after the next API update.
     @Nullable
     String getCompanyTypeName();
 }

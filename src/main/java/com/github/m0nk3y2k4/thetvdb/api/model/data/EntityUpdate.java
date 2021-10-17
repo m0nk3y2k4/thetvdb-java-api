@@ -62,4 +62,12 @@ public interface EntityUpdate {
      */
     @Nullable
     Long getTimeStamp();
+
+    /**
+     * Get the value of the {<em>{@code data.seriesId}</em>} JSON property
+     *
+     * @return The <em>{@code seriesId}</em> property from the received JSON
+     */
+    @Nullable
+    Long getSeriesId();
 }

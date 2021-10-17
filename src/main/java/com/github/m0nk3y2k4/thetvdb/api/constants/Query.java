@@ -115,6 +115,9 @@ public final class Query {
         public static final String PAGE = "page";
         /** Query parameter "<i>season</i>" - Restrict results to a specific season. Defaults to 0 if not provided. */
         public static final String SEASON = "season";
+        /** Query parameter "<i>episodeNumber</i>" - Restrict results to a specific episode. Defaults to 0 if not provided. */
+        public static final String EPISODE_NUMBER = "episodeNumber";
+
 
         private Series() {}     // Private constructor. Only constants in this class
     }

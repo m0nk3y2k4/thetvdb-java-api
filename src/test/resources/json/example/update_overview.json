@@ -4,12 +4,14 @@
       "recordId": 39004,
       "method": "Method1",
       "timeStamp": 16245744,
-      "entityType": "EntityType1"
+      "entityType": "EntityType1",
+      "seriesId": 411516
     }, {
       "recordId": 39005,
       "method": "Method2",
       "timeStamp": 16245745,
-      "entityType": "EntityType2"
+      "entityType": "EntityType2",
+      "seriesId": 411517
     }
   ],
   "status": "success",

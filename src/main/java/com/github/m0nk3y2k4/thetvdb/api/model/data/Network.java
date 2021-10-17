@@ -16,6 +16,8 @@
 
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
 /**
@@ -70,4 +72,65 @@ public interface Network {
      */
     @Nullable
     String getCountry();
+
+
+    /**
+     * Get the value of the {<em>{@code <enclosing>.nameTranslations}</em>} JSON property
+     *
+     * @return The <em>{@code nameTranslations}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in NetworkBaseRecord but returned in JSON. Check again after the next API update.
+    List<String> getNameTranslations();
+
+    /**
+     * Get the value of the {<em>{@code <enclosing>.overviewTranslations}</em>} JSON property
+     *
+     * @return The <em>{@code overviewTranslations}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in NetworkBaseRecord but returned in JSON. Check again after the next API update.
+    List<String> getOverviewTranslations();
+
+    /**
+     * Get the value of the {<em>{@code <enclosing>.aliases}</em>} JSON property
+     *
+     * @return The <em>{@code aliases}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in NetworkBaseRecord but returned in JSON. Check again after the next API update.
+    List<Alias> getAliases();
+
+    /**
+     * Get the value of the {<em>{@code <enclosing>.primaryCompanyType}</em>} JSON property
+     *
+     * @return The <em>{@code primaryCompanyType}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in NetworkBaseRecord but returned in JSON. Check again after the next API update.
+    @Nullable
+    Long getPrimaryCompanyType();
+
+    /**
+     * Get the value of the {<em>{@code <enclosing>.activeDate}</em>} JSON property
+     *
+     * @return The <em>{@code activeDate}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in NetworkBaseRecord but returned in JSON. Check again after the next API update.
+    @Nullable
+    String getActiveDate();
+
+    /**
+     * Get the value of the {<em>{@code <enclosing>.inactiveDate}</em>} JSON property
+     *
+     * @return The <em>{@code inactiveDate}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in NetworkBaseRecord but returned in JSON. Check again after the next API update.
+    @Nullable
+    String getInactiveDate();
+
+    /**
+     * Get the value of the {<em>{@code <enclosing>.companyType}</em>} JSON property
+     *
+     * @return The <em>{@code companyType}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in NetworkBaseRecord but returned in JSON. Check again after the next API update.
+    @Nullable
+    CompanyType getCompanyType();
 }

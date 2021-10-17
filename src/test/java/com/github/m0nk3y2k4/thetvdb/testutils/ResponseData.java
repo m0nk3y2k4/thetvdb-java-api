@@ -802,8 +802,14 @@ public abstract class ResponseData<T> {
         return (idx, shape) -> {
             NetworkDTO.Builder builder = new NetworkDTO.Builder();
             if (shape == FULL) {
+                int listOffset = (idx << 1) - 1;
                 builder.id(477L + idx).name("Name" + idx).slug("Slug" + idx).abbreviation("Abbreviation" + idx)
-                        .country("Country" + idx);
+                        .country("Country" + idx).primaryCompanyType(334L + idx).activeDate("ActiveDate" + idx)
+                        .inactiveDate("InactiveDate" + idx)
+                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                        .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
+                        .aliases(createTwo(aliasModel(), listOffset))
+                        .companyType(create(companyTypeModel(), idx));
             }
             return builder.build();
         };
@@ -1097,7 +1103,7 @@ public abstract class ResponseData<T> {
 
     private static SimpleDtoSupplier<EntityUpdate> entityUpdateModel() {
         return idx -> new EntityUpdateDTO.Builder().recordId(39003L + idx).method("Method" + idx)
-                .timeStamp(16245743L + idx).entityType("EntityType" + idx).build();
+                .timeStamp(16245743L + idx).entityType("EntityType" + idx).seriesId(411515L + idx).build();
     }
 
     /**
