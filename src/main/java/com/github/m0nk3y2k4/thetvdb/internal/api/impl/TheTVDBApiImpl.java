@@ -16,6 +16,8 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl;
 
+import static com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil.convert;
+
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
@@ -182,8 +184,8 @@ public class TheTVDBApiImpl implements TheTVDBApi {
      *
      * @return New query parameters object with a preset collection of individual query parameters
      */
-    private static QueryParameters query(@Nonnull Map<String, String> parameters) {
-        return TheTVDBApiFactory.createQueryParameters(parameters);
+    private static QueryParameters query(@Nonnull Map<String, Object> parameters) {
+        return TheTVDBApiFactory.createQueryParameters(convert(parameters, Object::toString));
     }
 
     @Override
@@ -275,7 +277,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     @Override
     public Collection<Company> getAllCompanies(long page) throws APIException {
         validatePage(page);
-        return getAllCompanies(query(Map.of(Query.Companies.PAGE, String.valueOf(page))));
+        return getAllCompanies(query(Map.of(Query.Companies.PAGE, page)));
     }
 
     @Override
@@ -314,9 +316,9 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public EpisodeDetails getEpisodeDetails(long episodeId, EpisodeMeta meta) throws APIException {
+    public EpisodeDetails getEpisodeDetails(long episodeId, @Nonnull EpisodeMeta meta) throws APIException {
         Parameters.validateNotNull(meta, "Episode meta must not be NULL");
-        return getEpisodeDetails(episodeId, query(Map.of(Query.Episodes.META, String.valueOf(meta))));
+        return getEpisodeDetails(episodeId, query(Map.of(Query.Episodes.META, meta)));
     }
 
     @Override
@@ -337,7 +339,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     @Override
     public Collection<FCList> getAllLists(long page) throws APIException {
         validatePage(page);
-        return getAllLists(query(Map.of(Query.Lists.PAGE, String.valueOf(page))));
+        return getAllLists(query(Map.of(Query.Lists.PAGE, page)));
     }
 
     @Override
@@ -378,7 +380,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     @Override
     public Collection<Movie> getAllMovies(long page) throws APIException {
         validatePage(page);
-        return getAllMovies(query(Map.of(Query.Movies.PAGE, String.valueOf(page))));
+        return getAllMovies(query(Map.of(Query.Movies.PAGE, page)));
     }
 
     @Override
@@ -397,9 +399,9 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public MovieDetails getMovieDetails(long movieId, MovieMeta meta) throws APIException {
+    public MovieDetails getMovieDetails(long movieId, @Nonnull MovieMeta meta) throws APIException {
         Parameters.validateNotNull(meta, "Movie meta must not be NULL");
-        return getMovieDetails(movieId, query(Map.of(Query.Movies.META, String.valueOf(meta))));
+        return getMovieDetails(movieId, query(Map.of(Query.Movies.META, meta)));
     }
 
     @Override
@@ -428,9 +430,9 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public PeopleDetails getPeopleDetails(long peopleId, PeopleMeta meta) throws APIException {
+    public PeopleDetails getPeopleDetails(long peopleId, @Nonnull PeopleMeta meta) throws APIException {
         Parameters.validateNotNull(meta, "People meta must not be NULL");
-        return getPeopleDetails(peopleId, query(Map.of(Query.People.META, String.valueOf(meta))));
+        return getPeopleDetails(peopleId, query(Map.of(Query.People.META, meta)));
     }
 
     @Override
@@ -441,7 +443,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     @Override
     public Collection<Season> getAllSeasons(long page) throws APIException {
         validatePage(page);
-        return getAllSeasons(query(Map.of(Query.Seasons.PAGE, String.valueOf(page))));
+        return getAllSeasons(query(Map.of(Query.Seasons.PAGE, page)));
     }
 
     @Override
@@ -477,7 +479,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     @Override
     public Collection<Series> getAllSeries(long page) throws APIException {
         validatePage(page);
-        return getAllSeries(query(Map.of(Query.Series.PAGE, String.valueOf(page))));
+        return getAllSeries(query(Map.of(Query.Series.PAGE, page)));
     }
 
     @Override
@@ -496,9 +498,9 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public SeriesDetails getSeriesDetails(long seriesId, SeriesMeta meta) throws APIException {
+    public SeriesDetails getSeriesDetails(long seriesId, @Nonnull SeriesMeta meta) throws APIException {
         Parameters.validateNotNull(meta, "Series meta must not be NULL");
-        return getSeriesDetails(seriesId, query(Map.of(Query.Series.META, String.valueOf(meta))));
+        return getSeriesDetails(seriesId, query(Map.of(Query.Series.META, meta)));
     }
 
     @Override
@@ -516,7 +518,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     public SeriesEpisodes getSeriesEpisodes(long seriesId, SeriesSeasonType seasonType, long seasonNumber)
             throws APIException {
         Parameters.validateNotNegative(seasonNumber, "Season number must not be negative!");
-        return getSeriesEpisodes(seriesId, seasonType, query(Map.of(Query.Series.SEASON, String.valueOf(seasonNumber))));
+        return getSeriesEpisodes(seriesId, seasonType, query(Map.of(Query.Series.SEASON, seasonNumber)));
     }
 
     @Override
@@ -537,23 +539,20 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     @Override
     public Collection<EntityUpdate> getUpdates(long since, long page) throws APIException {
         validatePage(page);
-        return getUpdates(query(Map.of(
-                Query.Updates.SINCE, String.valueOf(since),
-                Query.Updates.PAGE, String.valueOf(page)))
-        );
+        return getUpdates(query(Map.of(Query.Updates.SINCE, since, Query.Updates.PAGE, page)));
     }
 
     @Override
-    public Collection<EntityUpdate> getUpdates(long since, UpdateEntityType type, UpdateAction action, long page)
-            throws APIException {
+    public Collection<EntityUpdate> getUpdates(long since, @Nonnull UpdateEntityType type, @Nonnull UpdateAction action,
+            long page) throws APIException {
         validatePage(page);
         Parameters.validateNotNull(type, "Update entity type must not be NULL");
         Parameters.validateNotNull(action, "Update action must not be NULL");
         return getUpdates(query(Map.of(
-                Query.Updates.SINCE, String.valueOf(since),
-                Query.Updates.TYPE, String.valueOf(type),
-                Query.Updates.ACTION, String.valueOf(action),
-                Query.Updates.PAGE, String.valueOf(page)))
+                Query.Updates.SINCE, since,
+                Query.Updates.TYPE, type,
+                Query.Updates.ACTION, action,
+                Query.Updates.PAGE, page))
         );
     }
 

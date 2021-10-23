@@ -21,11 +21,17 @@ import static com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil.BracketType.BRA
 import static com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil.BracketType.BRACKETS;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil.BracketType.PARENTHESES;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.JSON_SUCCESS;
+import static java.util.Collections.emptyMap;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.AbstractMap.SimpleEntry;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -93,6 +99,22 @@ class APIUtilTest {
     @MethodSource
     void hasNoValue(String[] values, boolean expected) {
         assertThat(APIUtil.hasNoValue(values)).isEqualTo(expected);
+    }
+
+    @Test
+    void convert_withEmptyMap_returnsEmptyMap() {
+        Map<String, Long> mapToConvert = emptyMap();
+        Map<String, String> convertedMap = APIUtil.convert(mapToConvert, Objects::toString);
+        assertThat(convertedMap).isEmpty();
+    }
+
+    @Test
+    void convert_withMapContainingMultipleValues_valuesAreProperlyMappedIncludingNull() {
+        Map<String, OptionalInt> mapToConvert = new HashMap<>();
+        mapToConvert.put("Key1", OptionalInt.of(12));
+        mapToConvert.put("Key2", null);
+        Map<String, Integer> convertedMap = APIUtil.convert(mapToConvert, OptionalInt::getAsInt);
+        assertThat(convertedMap).contains(new SimpleEntry<>("Key1", 12), new SimpleEntry<>("Key2", null));
     }
 
     @Test

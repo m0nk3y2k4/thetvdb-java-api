@@ -18,7 +18,12 @@ package com.github.m0nk3y2k4.thetvdb.internal.util;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -73,6 +78,22 @@ public final class APIUtil {
      */
     public static boolean hasNoValue(String... strings) {
         return !hasValue(strings);
+    }
+
+    /**
+     * Converts a Maps values from one type to another using the given converter function.
+     *
+     * @param map       The input map that should be converted
+     * @param converter Function to convert values from the input to the output format
+     * @param <T>       The type of values of the input map
+     * @param <U>       The new type of values of the returned map
+     *
+     * @return A new Map with its values being converted based on the given function
+     */
+    public static <T, U> Map<String, U> convert(Map<String, T> map, Function<T, U> converter) {
+        BiConsumer<HashMap<String, U>, ? super Entry<String, T>> accumulator = (out, entry) ->
+                out.put(entry.getKey(), Optional.ofNullable(entry.getValue()).map(converter).orElse(null));
+        return map.entrySet().stream().collect(HashMap::new, accumulator, HashMap::putAll); // Supports NULL values
     }
 
     /**

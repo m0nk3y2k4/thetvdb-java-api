@@ -521,7 +521,7 @@ public interface TheTVDBApi {
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc. or if no episode record with the given ID exists.
      */
-    EpisodeDetails getEpisodeDetails(long episodeId, EpisodeMeta meta) throws APIException;
+    EpisodeDetails getEpisodeDetails(long episodeId, @Nonnull EpisodeMeta meta) throws APIException;
 
     /**
      * Returns a translation record for a specific episode mapped as Java DTO.
@@ -789,7 +789,7 @@ public interface TheTVDBApi {
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc. or if no movie record with the given ID exists.
      */
-    MovieDetails getMovieDetails(long movieId, MovieMeta meta) throws APIException;
+    MovieDetails getMovieDetails(long movieId, @Nonnull MovieMeta meta) throws APIException;
 
     /**
      * Returns a translation record for a specific movie mapped as Java DTO.
@@ -889,7 +889,7 @@ public interface TheTVDBApi {
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc. or if no people record with the given ID exists.
      */
-    PeopleDetails getPeopleDetails(long peopleId, PeopleMeta meta) throws APIException;
+    PeopleDetails getPeopleDetails(long peopleId, @Nonnull PeopleMeta meta) throws APIException;
 
     /**
      * Returns a collection of seasons based on the given query parameters mapped as Java DTO. The collection contains
@@ -1105,7 +1105,7 @@ public interface TheTVDBApi {
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc. or if no series record with the given ID exists.
      */
-    SeriesDetails getSeriesDetails(long seriesId, SeriesMeta meta) throws APIException;
+    SeriesDetails getSeriesDetails(long seriesId, @Nonnull SeriesMeta meta) throws APIException;
 
     /**
      * Returns the episodes of a particular series based on the given query parameters mapped as Java DTO.
@@ -1201,7 +1201,9 @@ public interface TheTVDBApi {
 
     /**
      * Returns a collection of recently updated entities based on the given query parameters mapped as Java DTO. The
-     * collection contains basic information of all entities matching the query parameters.
+     * collection contains basic information of all entities matching the query parameters. Note that the given query
+     * parameters must always contain a valid <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#SINCE}</em>
+     * Epoch timestamp key.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Updates/updates">
      * <b>[GET]</b> /updates</a>
@@ -1258,8 +1260,8 @@ public interface TheTVDBApi {
      *                      not found, etc. or the timestamp lies in the future.
      * @see #getUpdates(long, long) getUpdates(since, page)
      */
-    Collection<EntityUpdate> getUpdates(long since, UpdateEntityType type, UpdateAction action, long page)
-            throws APIException;
+    Collection<EntityUpdate> getUpdates(long since, @Nonnull UpdateEntityType type, @Nonnull UpdateAction action,
+            long page) throws APIException;
 
     /**
      * Provides access to the API's {@link JSON JSON} layout.
@@ -2069,7 +2071,9 @@ public interface TheTVDBApi {
 
         /**
          * Returns a collection of recently updated entities based on the given query parameters as raw JSON. It
-         * contains basic information of all entities matching the query parameters.
+         * contains basic information of all entities matching the query parameters. Note that the given query
+         * parameters must always contain a valid <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#SINCE}</em>
+         * Epoch timestamp key.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Updates/updates">
          * <b>[GET]</b> /updates</a>
@@ -2923,7 +2927,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a collection of recently updated entities based on the given query
          * parameters mapped as Java DTO. The collection contains basic information of all entities matching the query
-         * parameters.
+         * parameters. Note that the given query parameters must always contain a valid <em>{@value
+         * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#SINCE}</em> Epoch timestamp key.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Updates/updates">
          * <b>[GET]</b> /updates</a>
