@@ -16,6 +16,9 @@
 
 package com.github.m0nk3y2k4.thetvdb.testutils.parameterized;
 
+import static java.util.Collections.emptyList;
+import static java.util.Collections.emptySet;
+
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -23,15 +26,15 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 
 /**
- * JUnit arguments provider for empty String values
+ * JUnit arguments provider for empty Collections
  * <p><br>
- * This class is typically used in conjunction with the {@link EmptyStringSource} annotation. It provides various
- * different String arguments that are considered to be empty including Strings that consist only of blanks.
+ * This class is typically used in conjunction with the {@link EmptyCollectionSource} annotation. It provides various
+ * different Collection arguments that contain no elements.
  */
-public class EmptyStringProvider implements ArgumentsProvider {
+public class EmptyCollectionProvider implements ArgumentsProvider {
 
     @Override
     public Stream<? extends Arguments> provideArguments(ExtensionContext context) {
-        return Stream.of("", "   ").map(Arguments::of);
+        return Stream.of(emptyList(), emptySet()).map(Arguments::of);
     }
 }

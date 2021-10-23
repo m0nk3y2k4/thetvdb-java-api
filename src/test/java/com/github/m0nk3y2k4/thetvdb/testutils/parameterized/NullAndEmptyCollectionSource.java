@@ -16,22 +16,24 @@
 
 package com.github.m0nk3y2k4.thetvdb.testutils.parameterized;
 
-import java.util.stream.Stream;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.ArgumentsProvider;
+import org.junit.jupiter.params.provider.NullSource;
 
 /**
- * JUnit arguments provider for empty String values
+ * A composed annotation that combines the functionality of {@link NullSource} and {@link EmptyCollectionSource}
  * <p><br>
- * This class is typically used in conjunction with the {@link EmptyStringSource} annotation. It provides various
- * different String arguments that are considered to be empty including Strings that consist only of blanks.
+ * Annotating a @ParameterizedTest method with @NullAndEmptyCollectionSource is equivalent to annotating the method with
+ * {@link NullSource} and {@link EmptyCollectionSource}.
  */
-public class EmptyStringProvider implements ArgumentsProvider {
-
-    @Override
-    public Stream<? extends Arguments> provideArguments(ExtensionContext context) {
-        return Stream.of("", "   ").map(Arguments::of);
-    }
+@Documented
+@NullSource
+@EmptyCollectionSource
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface NullAndEmptyCollectionSource {
 }
