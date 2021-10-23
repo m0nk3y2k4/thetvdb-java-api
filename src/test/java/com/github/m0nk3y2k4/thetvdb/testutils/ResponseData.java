@@ -20,6 +20,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.Shape.FULL;
 import static java.lang.Boolean.TRUE;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Collections.singletonList;
+import static java.util.stream.Collectors.toList;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,8 +29,10 @@ import java.lang.reflect.ParameterizedType;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -521,9 +524,13 @@ public abstract class ResponseData<T> {
         return create(2, supplier, startIndex, FULL);
     }
 
+    private static Collection<String> createTwo(String property, int startIndex) {
+        return Stream.of(startIndex, startIndex + 1).map(Objects::toString).map(property::concat).collect(toList());
+    }
+
     private static <T> Collection<T> create(int amount, DtoSupplier<T> supplier, int startIndex, Shape shape) {
         return IntStream.range(startIndex, startIndex + amount)
-                .mapToObj(idx -> supplier.get(idx, shape)).collect(Collectors.toList());
+                .mapToObj(idx -> supplier.get(idx, shape)).collect(toList());
     }
 
 
@@ -843,7 +850,7 @@ public abstract class ResponseData<T> {
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .aliases(createTwo(aliasModel(), listOffset))
                         .artworks(createTwo(artworkModel(), listOffset))
-                        .addAudioLanguages("AudioLanguage" + listOffset, "AudioLanguage" + (listOffset + 1))
+                        .audioLanguages(createTwo("AudioLanguage", listOffset))
                         .awards(createTwo(awardModel(), listOffset))
                         .characters(createTwo(characterModel(), listOffset))
                         .companies(create(companiesModel(), idx))
@@ -855,12 +862,12 @@ public abstract class ResponseData<T> {
                         .remoteIds(createTwo(remoteIdModel(), listOffset))
                         .status(create(statusModel(), idx))
                         .studios(createTwo(studioModel(), listOffset))
-                        .addSubtitleLanguages("SubtitleLanguage" + listOffset, "SubtitleLanguage" + (listOffset + 1))
+                        .subtitleLanguages(createTwo("SubtitleLanguage", listOffset))
                         .tagOptions(createTwo(tagOptionModel(), listOffset))
                         .trailers(createTwo(trailerModel(), listOffset))
                         .inspirations(createTwo(inspirationModel(), listOffset))
                         .productionCountries(createTwo(productionCountryModel(), listOffset))
-                        .addSpokenLanguages("SpokenLanguage" + listOffset, "SpokenLanguage" + (listOffset + 1))
+                        .spokenLanguages(createTwo("SpokenLanguage", listOffset))
                         .firstRelease(create(releaseModel(), idx));
             }
             return builder.build();
@@ -1080,7 +1087,7 @@ public abstract class ResponseData<T> {
             TranslationsDTO.Builder builder = new TranslationsDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
-                builder.addAliases("Alias" + listOffset, "Alias" + (listOffset + 1))
+                builder.aliases(createTwo("Alias", listOffset))
                         .nameTranslations(createTwo(translationModel(), listOffset))
                         .overviewTranslations(createTwo(translationModel(), listOffset));
             }
@@ -1095,7 +1102,7 @@ public abstract class ResponseData<T> {
                 int listOffset = (idx << 1) - 1;
                 builder.language("Language" + idx).isPrimary(true).name("Name" + idx).isAlias(true)
                         .overview("Overview" + idx).tagline("Tagline" + idx)
-                        .addAliases("Alias" + listOffset, "Alias" + (listOffset + 1));
+                        .aliases(createTwo("Alias", listOffset));
             }
             return builder.build();
         };
