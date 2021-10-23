@@ -1,0 +1,136 @@
+{
+  "data": [
+    {
+      "objectID": "ObjectID1",
+      "aliases": [
+        "Alias1", "Alias2"
+      ],
+      "companies": [
+        "Company1", "Company2"
+      ],
+      "companyType": "CompanyType1",
+      "country": "Country1",
+      "director": "Director1",
+      "extended_title": "ExtendedTitle1",
+      "genres": [
+        "Genre1", "Genre2"
+      ],
+      "studios": [
+        "Studio1", "Studio2"
+      ],
+      "id": "Id1",
+      "image_url": "ImageUrl1",
+      "name": "Name1",
+      "first_air_time": "FirstAirTime1",
+      "name_translated": "{\"Language1\": \"Translation1\",\n\"Language2\": \"Translation2\"\n}",
+      "officialList": "OfficialList1",
+      "overview": "Overview1",
+      "overview_translated": [
+        "Language1: Translation1", "Language2: Translation2"
+      ],
+      "posters": [
+        "Poster1", "Poster2"
+      ],
+      "primary_language": "PrimaryLanguage1",
+      "primary_type": "PrimaryType1",
+      "status": "Status1",
+      "translationsWithLang": [
+        "TranslationWithLang1", "TranslationWithLang2"
+      ],
+      "tvdb_id": "TvdbId1",
+      "type": "Type1",
+      "year": "2006",
+      "slug": "Slug1",
+      "thumbnail": "Thumbnail1",
+      "poster": "Poster1",
+      "translations": {
+        "Language1": "Translation1",
+        "Language2": "Translation2"
+      },
+      "is_official": true,
+      "remote_ids": [
+        {
+          "id": "Id1",
+          "type": 3070,
+          "sourceName": "SourceName1"
+        }, {
+          "id": "Id2",
+          "type": 3071,
+          "sourceName": "SourceName2"
+        }
+      ],
+      "network": "Network1",
+      "title": "Title1",
+      "overviews": {
+        "Language1": "Translation1",
+        "Language2": "Translation2"
+      }
+    }, {
+      "objectID": "ObjectID2",
+      "aliases": [
+        "Alias3", "Alias4"
+      ],
+      "companies": [
+        "Company3", "Company4"
+      ],
+      "companyType": "CompanyType2",
+      "country": "Country2",
+      "director": "Director2",
+      "extended_title": "ExtendedTitle2",
+      "genres": [
+        "Genre3", "Genre4"
+      ],
+      "studios": [
+        "Studio3", "Studio4"
+      ],
+      "id": "Id2",
+      "image_url": "ImageUrl2",
+      "name": "Name2",
+      "first_air_time": "FirstAirTime2",
+      "name_translated": "{\"Language3\": \"Translation3\",\n\"Language4\": \"Translation4\"\n}",
+      "officialList": "OfficialList2",
+      "overview": "Overview2",
+      "overview_translated": [
+        "Language3: Translation3", "Language4: Translation4"
+      ],
+      "posters": [
+        "Poster3", "Poster4"
+      ],
+      "primary_language": "PrimaryLanguage2",
+      "primary_type": "PrimaryType2",
+      "status": "Status2",
+      "translationsWithLang": [
+        "TranslationWithLang3", "TranslationWithLang4"
+      ],
+      "tvdb_id": "TvdbId2",
+      "type": "Type2",
+      "year": "2007",
+      "slug": "Slug2",
+      "thumbnail": "Thumbnail2",
+      "poster": "Poster2",
+      "translations": {
+        "Language3": "Translation3",
+        "Language4": "Translation4"
+      },
+      "is_official": true,
+      "remote_ids": [
+        {
+          "id": "Id3",
+          "type": 3072,
+          "sourceName": "SourceName3"
+        }, {
+          "id": "Id4",
+          "type": 3073,
+          "sourceName": "SourceName4"
+        }
+      ],
+      "network": "Network2",
+      "title": "Title2",
+      "overviews": {
+        "Language3": "Translation3",
+        "Language4": "Translation4"
+      }
+    }
+  ],
+  "status": "success"
+}

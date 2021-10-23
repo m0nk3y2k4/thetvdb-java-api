@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.EpisodeMeta;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.MovieMeta;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.PeopleMeta;
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.SearchType;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesMeta;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.UpdateAction;
@@ -56,6 +57,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.MovieDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.PeopleDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.PeopleType;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.SearchResult;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Season;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonType;
@@ -890,6 +892,59 @@ public interface TheTVDBApi {
      *                      not found, etc. or if no people record with the given ID exists.
      */
     PeopleDetails getPeopleDetails(long peopleId, @Nonnull PeopleMeta meta) throws APIException;
+
+    /**
+     * Returns a collection of search results based on the given query parameters mapped as Java DTO. Note that the
+     * given query parameters must either contain a valid <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#Q}</em>
+     * or <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#QUERY}</em> search term key.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Search/getSearchResults">
+     * <b>[GET]</b> /search</a>
+     *
+     * @param queryParameters Object containing key/value pairs of query parameters
+     *
+     * @return Collection of search results mapped as Java DTO's based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see JSON#getSearchResults(QueryParameters) TheTVDBApi.JSON.getSearchResults(queryParameters)
+     * @see Extended#getSearchResults(QueryParameters) TheTVDBApi.Extended.getSearchResults(queryParameters)
+     */
+    Collection<SearchResult> getSearchResults(QueryParameters queryParameters) throws APIException;
+
+    /**
+     * Returns a collection of search results based on the given search term mapped as Java DTO. The returned data will
+     * contain all entities that match the given search criteria. This is a shortcut-method for {@link
+     * #getSearchResults(QueryParameters) getSearchResults(queryParameters)} with a single {@value
+     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#QUERY} query parameter.
+     *
+     * @param searchTerm The search string for which the database should be queried
+     *
+     * @return Collection of search results mapped as Java DTO's based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see #search(String, SearchType) search(searchTerm, entityType)
+     */
+    Collection<SearchResult> search(@Nonnull String searchTerm) throws APIException;
+
+    /**
+     * Returns a collection of search results based on the given search term mapped as Java DTO. The returned data will
+     * be restricted to the specified entity type and contain results that match the given search criteria. This is a
+     * shortcut-method for {@link #getSearchResults(QueryParameters) getSearchResults(queryParameters)} with {@value
+     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#QUERY} and {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#TYPE}
+     * query parameters.
+     *
+     * @param searchTerm The search string for which the database should be queried
+     * @param entityType Only search for results of this particular entity type
+     *
+     * @return Collection of search results mapped as Java DTO's based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see #search(String) search(searchTerm)
+     */
+    Collection<SearchResult> search(@Nonnull String searchTerm, @Nonnull SearchType entityType) throws APIException;
 
     /**
      * Returns a collection of seasons based on the given query parameters mapped as Java DTO. The collection contains
@@ -1856,6 +1911,25 @@ public interface TheTVDBApi {
         JsonNode getPeopleDetails(long peopleId, QueryParameters queryParameters) throws APIException;
 
         /**
+         * Returns a collection of search results based on the given query parameters as raw JSON. Note that the given
+         * query parameters must either contain a valid <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#Q}</em>
+         * or <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#QUERY}</em> search term key.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Search/getSearchResults">
+         * <b>[GET]</b> /search</a>
+         *
+         * @param queryParameters Object containing key/value pairs of query parameters
+         *
+         * @return JSON object containing the search results
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see TheTVDBApi#getSearchResults(QueryParameters) TheTVDBApi.getSearchResults(queryParameters)
+         * @see Extended#getSearchResults(QueryParameters) TheTVDBApi.Extended.getSearchResults(queryParameters)
+         */
+        JsonNode getSearchResults(QueryParameters queryParameters) throws APIException;
+
+        /**
          * Returns a collection of seasons based on the given query parameters as raw JSON. It contains basic
          * information of all seasons matching the query parameters.
          * <p><br>
@@ -2698,6 +2772,27 @@ public interface TheTVDBApi {
          *         queryParameters)
          */
         APIResponse<PeopleDetails> getPeopleDetails(long peopleId, QueryParameters queryParameters) throws APIException;
+
+        /**
+         * Returns a response object containing a collection of search results based on the given query parameters
+         * mapped as Java DTO. Note that the given query parameters must either contain a valid <em>{@value
+         * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#Q}</em> or <em>{@value
+         * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#QUERY}</em> search term key.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Search/getSearchResults">
+         * <b>[GET]</b> /search</a>
+         *
+         * @param queryParameters Object containing key/value pairs of query parameters
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see JSON#getSearchResults(QueryParameters) TheTVDBApi.JSON.getSearchResults(queryParameters)
+         * @see TheTVDBApi#getSearchResults(QueryParameters) TheTVDBApi.getSearchResults(queryParameters)
+         */
+        APIResponse<Collection<SearchResult>> getSearchResults(QueryParameters queryParameters) throws APIException;
 
         /**
          * Returns a response object containing a collection of seasons based on the given query parameters mapped as

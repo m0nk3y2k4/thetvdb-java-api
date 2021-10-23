@@ -30,6 +30,7 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -75,6 +76,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.ProductionCountry;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Race;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Release;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.RemoteId;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.SearchResult;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Season;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonType;
@@ -126,6 +128,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ProductionCount
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.RaceDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ReleaseDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.RemoteIdDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SearchResultDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeasonDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeasonDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SeasonTypeDTO;
@@ -233,6 +236,10 @@ public abstract class ResponseData<T> {
             "people", people(FULL), "Single people JSON response") {};
     public static final ResponseData<APIResponse<PeopleDetails>> PEOPLE_DETAILS = new ResponseData<>(
             "people_extended", peopleDetails(FULL), "Single extended people JSON response") {};
+
+    //************************ search **********************
+    public static final ResponseData<APIResponse<Collection<SearchResult>>> SEARCH_OVERVIEW = new ResponseData<>(
+            "search_overview", searchOverview(), "Overview of search results JSON response") {};
 
     //************************ seasons **********************
     public static final ResponseData<APIResponse<Season>> SEASON = new ResponseData<>(
@@ -445,6 +452,10 @@ public abstract class ResponseData<T> {
 
     private static APIResponse<Collection<PeopleType>> peopleTypeOverview() {
         return createAPIResponse(createTwo(peopleTypeModel()));
+    }
+
+    private static APIResponse<Collection<SearchResult>> searchOverview() {
+        return createAPIResponse(createTwo(searchResultModel()));
     }
 
     private static APIResponse<Season> season(Shape shape) {
@@ -934,6 +945,39 @@ public abstract class ResponseData<T> {
 
     private static SimpleDtoSupplier<RemoteId> remoteIdModel() {
         return idx -> new RemoteIdDTO.Builder().id("Id" + idx).type(3069L + idx).sourceName("SourceName" + idx).build();
+    }
+
+    private static DtoSupplier<SearchResult> searchResultModel() {
+        return (idx, shape) -> {
+            SearchResultDTO.Builder builder = new SearchResultDTO.Builder();
+            if (shape == FULL) {
+                int listOffset = (idx << 1) - 1;
+                builder.objectID("ObjectID" + idx).companyType("CompanyType" + idx).country("Country" + idx)
+                        .director("Director" + idx).extendedTitle("ExtendedTitle" + idx).id("Id" + idx)
+                        .imageUrl("ImageUrl" + idx).name("Name" + idx).firstAirTime("FirstAirTime" + idx)
+                        .officialList("OfficialList" + idx).overview("Overview" + idx).status("Status" + idx)
+                        .primaryLanguage("PrimaryLanguage" + idx).primaryType("PrimaryType" + idx).type("Type" + idx)
+                        .tvdbId("TvdbId" + idx).year(2005L + idx).slug("Slug" + idx).thumbnail("Thumbnail" + idx)
+                        .isOfficial(true).network("Network" + idx).title("Title" + idx).poster("Poster" + idx)
+                        .aliases(createTwo("Alias", listOffset))
+                        .companies(createTwo("Company", listOffset))
+                        .genres(createTwo("Genre", listOffset))
+                        .studios(createTwo("Studio", listOffset))
+                        .nameTranslated(createTwo(searchResultTranslationModel(), listOffset))
+                        .overviewTranslated(createTwo(searchResultTranslationModel(), listOffset))
+                        .posters(createTwo("Poster", listOffset))
+                        .translationsWithLang(createTwo("TranslationWithLang", listOffset))
+                        .translations(createTwo(searchResultTranslationModel(), listOffset))
+                        .remoteIds(createTwo(remoteIdModel(), listOffset))
+                        .overviews(createTwo(searchResultTranslationModel(), listOffset))
+                ;
+            }
+            return builder.build();
+        };
+    }
+
+    private static SimpleDtoSupplier<SearchResult.Translation> searchResultTranslationModel() {
+        return idx -> SearchResultDTO.createTranslationDTO(Optional.of("Language" + idx), Optional.of("Translation" + idx));
     }
 
     private static DtoSupplier<Season> seasonModel() {

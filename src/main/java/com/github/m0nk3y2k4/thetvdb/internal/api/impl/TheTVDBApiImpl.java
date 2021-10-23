@@ -35,6 +35,7 @@ import com.github.m0nk3y2k4.thetvdb.api.constants.Query;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.EpisodeMeta;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.MovieMeta;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.PeopleMeta;
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.SearchType;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesMeta;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.UpdateAction;
@@ -66,6 +67,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.MovieDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.PeopleDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.PeopleType;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.SearchResult;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Season;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeasonType;
@@ -92,6 +94,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ListsAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.LoginAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.MoviesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.PeopleAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SearchAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeasonsAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SourceTypesAPI;
@@ -436,6 +439,25 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public Collection<SearchResult> getSearchResults(QueryParameters queryParameters) throws APIException {
+        return extended().getSearchResults(queryParameters).getData();
+    }
+
+    @Override
+    public Collection<SearchResult> search(@Nonnull String searchTerm) throws APIException {
+        Parameters.validateNotNull(searchTerm, "Search term must not be NULL");
+        return getSearchResults(query(Map.of(Query.Search.QUERY, searchTerm)));
+    }
+
+    @Override
+    public Collection<SearchResult> search(@Nonnull String searchTerm, @Nonnull SearchType entityType)
+            throws APIException {
+        Parameters.validateNotNull(searchTerm, "Search term must not be NULL");
+        Parameters.validateNotNull(entityType, "Entity type must not be NULL");
+        return getSearchResults(query(Map.of(Query.Search.QUERY, searchTerm, Query.Search.TYPE, entityType)));
+    }
+
+    @Override
     public Collection<Season> getAllSeasons(QueryParameters queryParameters) throws APIException {
         return extended().getAllSeasons(queryParameters).getData();
     }
@@ -739,6 +761,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public JsonNode getSearchResults(QueryParameters queryParameters) throws APIException {
+            return SearchAPI.getSearchResults(con, queryParameters);
+        }
+
+        @Override
         public JsonNode getAllSeasons(QueryParameters queryParameters) throws APIException {
             return SeasonsAPI.getAllSeasons(con, queryParameters);
         }
@@ -988,6 +1015,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         public APIResponse<PeopleDetails> getPeopleDetails(long peopleId, QueryParameters queryParameters)
                 throws APIException {
             return APIJsonMapper.readValue(json().getPeopleDetails(peopleId, queryParameters), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<Collection<SearchResult>> getSearchResults(QueryParameters queryParameters)
+                throws APIException {
+            return APIJsonMapper.readValue(json().getSearchResults(queryParameters), new TypeReference<>() {});
         }
 
         @Override

@@ -56,6 +56,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.MOVIE_OVERVIEW
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.PEOPLE;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.PEOPLETYPE_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.PEOPLE_DETAILS;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEARCH_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASON;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASONTYPE_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASON_DETAILS;
@@ -86,12 +87,14 @@ import com.github.m0nk3y2k4.thetvdb.api.constants.Query.Episodes;
 import com.github.m0nk3y2k4.thetvdb.api.constants.Query.Lists;
 import com.github.m0nk3y2k4.thetvdb.api.constants.Query.Movies;
 import com.github.m0nk3y2k4.thetvdb.api.constants.Query.People;
+import com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search;
 import com.github.m0nk3y2k4.thetvdb.api.constants.Query.Seasons;
 import com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series;
 import com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.EpisodeMeta;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.MovieMeta;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.PeopleMeta;
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.SearchType;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesMeta;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APIPreconditionException;
@@ -186,6 +189,9 @@ class TheTVDBApiImplTest {
             client.when(request("/people/467845/extended", GET, param("value", "QueryPeopleDetails"))).respond(jsonResponse(PEOPLE_DETAILS));
             client.when(request("/people/574101/extended", GET)).respond(jsonResponse(PEOPLE_DETAILS));
             client.when(request("/people/800577/extended", GET, param(People.META, String.valueOf(PeopleMeta.TRANSLATIONS)))).respond(jsonResponse(PEOPLE_DETAILS));
+            client.when(request("/search", GET, param(Search.Q, "SearchTerm"), param("value", "QuerySearch"))).respond(jsonResponse(SEARCH_OVERVIEW));
+            client.when(request("/search", GET, param(Search.QUERY, "SearchTermOnly"))).respond(jsonResponse(SEARCH_OVERVIEW));
+            client.when(request("/search", GET, param(Search.QUERY, "SearchTermAndType"), param(Search.TYPE, SearchType.EPISODE.toString()))).respond(jsonResponse(SEARCH_OVERVIEW));
             client.when(request("/seasons", GET, param("value", "QuerySeasons"))).respond(jsonResponse(SEASON_OVERVIEW));
             client.when(request("/seasons", GET, param(Seasons.PAGE, "5"))).respond(jsonResponse(SEASON_OVERVIEW));
             client.when(request("/seasons/34167", GET)).respond(jsonResponse(SEASON));
@@ -217,6 +223,9 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllMovies(-4), "getAllMovies() with negative page parameter")),
                     of(route(() -> basicAPI.getMovieDetails(98716, (MovieMeta)null), "getMovieDetails() with missing meta parameter")),
                     of(route(() -> basicAPI.getPeopleDetails(48710, (PeopleMeta)null), "getPeopleDetails() with missing meta parameter")),
+                    of(route(() -> basicAPI.search(null), "search() with missing search term parameter")),
+                    of(route(() -> basicAPI.search(null, null), "search() with missing search term and type parameter")),
+                    of(route(() -> basicAPI.search("SearchTerm", null), "search() with missing type parameter")),
                     of(route(() -> basicAPI.getAllSeasons(-6), "getAllSeasons() with negative page parameter")),
                     of(route(() -> basicAPI.getAllSeries(-3), "getAllSeries() with negative page parameter")),
                     of(route(() -> basicAPI.getSeriesDetails(68447, (SeriesMeta)null), "getSeriesDetails() with missing meta parameter")),
@@ -271,6 +280,9 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getPeopleDetails(467845, params("value", "QueryPeopleDetails")), "getPeopleDetails() with query parameters"), PEOPLE_DETAILS),
                     of(route(() -> basicAPI.getPeopleDetails(574101), "getPeopleDetails() with people ID"), PEOPLE_DETAILS),
                     of(route(() -> basicAPI.getPeopleDetails(800577, PeopleMeta.TRANSLATIONS), "getPeopleDetails() with people ID and meta"), PEOPLE_DETAILS),
+                    of(route(() -> basicAPI.getSearchResults(params(Search.Q, "SearchTerm", "value", "QuerySearch")), "getSearchResults() with query parameters"), SEARCH_OVERVIEW),
+                    of(route(() -> basicAPI.search("SearchTermOnly"), "search() with search term only"), SEARCH_OVERVIEW),
+                    of(route(() -> basicAPI.search("SearchTermAndType", SearchType.EPISODE), "search() with search term and type"), SEARCH_OVERVIEW),
                     of(route(() -> basicAPI.getAllSeasons(params("value", "QuerySeasons")), "getAllSeasons() with query parameters"), SEASON_OVERVIEW),
                     of(route(() -> basicAPI.getAllSeasons(5), "getAllSeasons() with page"), SEASON_OVERVIEW),
                     of(route(() -> basicAPI.getSeason(34167), "getSeason()"), SEASON),
@@ -378,6 +390,7 @@ class TheTVDBApiImplTest {
             client.when(request("/people/types", GET)).respond(jsonResponse(PEOPLETYPE_OVERVIEW));
             client.when(request("/people/3647", GET)).respond(jsonResponse(PEOPLE));
             client.when(request("/people/6904/extended", GET, param("value", "QueryPeopleDetailsJson"))).respond(jsonResponse(PEOPLE_DETAILS));
+            client.when(request("/search", GET, param(Search.Q, "SearchTermJson"), param("value", "QuerySearchJson"))).respond(jsonResponse(SEARCH_OVERVIEW));
             client.when(request("/seasons", GET, param("value", "QuerySeasonsJson"))).respond(jsonResponse(SEASON_OVERVIEW));
             client.when(request("/seasons/18322", GET)).respond(jsonResponse(SEASON));
             client.when(request("/seasons/48874/extended", GET)).respond(jsonResponse(SEASON_DETAILS));
@@ -431,6 +444,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllPeopleTypes(), "getAllPeopleTypes()"), PEOPLETYPE_OVERVIEW),
                     of(route(() -> basicAPI.getPeople(3647), "getPeople()"), PEOPLE),
                     of(route(() -> basicAPI.getPeopleDetails(6904, params("value", "QueryPeopleDetailsJson")), "getPeopleDetails() with query parameters"), PEOPLE_DETAILS),
+                    of(route(() -> basicAPI.getSearchResults(params(Search.Q, "SearchTermJson", "value", "QuerySearchJson")), "getSearchResults() with query parameters"), SEARCH_OVERVIEW),
                     of(route(() -> basicAPI.getAllSeasons(params("value", "QuerySeasonsJson")), "getAllSeasons() with query parameters"), SEASON_OVERVIEW),
                     of(route(() -> basicAPI.getSeason(18322), "getSeason()"), SEASON),
                     of(route(() -> basicAPI.getSeasonDetails(48874), "getSeasonDetails()"), SEASON_DETAILS),
@@ -513,6 +527,7 @@ class TheTVDBApiImplTest {
             client.when(request("/people/types", GET)).respond(jsonResponse(PEOPLETYPE_OVERVIEW));
             client.when(request("/people/9891", GET)).respond(jsonResponse(PEOPLE));
             client.when(request("/people/1067/extended", GET, param("value", "QueryPeopleDetailsExtended"))).respond(jsonResponse(PEOPLE_DETAILS));
+            client.when(request("/search", GET, param(Search.Q, "SearchTermExtended"), param("value", "QuerySearchExtended"))).respond(jsonResponse(SEARCH_OVERVIEW));
             client.when(request("/seasons", GET, param("value", "QuerySeasonsExtended"))).respond(jsonResponse(SEASON_OVERVIEW));
             client.when(request("/seasons/52270", GET)).respond(jsonResponse(SEASON));
             client.when(request("/seasons/69714/extended", GET)).respond(jsonResponse(SEASON_DETAILS));
@@ -566,6 +581,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllPeopleTypes(), "getAllPeopleTypes()"), PEOPLETYPE_OVERVIEW),
                     of(route(() -> basicAPI.getPeople(9891), "getPeople()"), PEOPLE),
                     of(route(() -> basicAPI.getPeopleDetails(1067, params("value", "QueryPeopleDetailsExtended")), "getPeopleDetails() with query parameters"), PEOPLE_DETAILS),
+                    of(route(() -> basicAPI.getSearchResults(params(Search.Q, "SearchTermExtended", "value", "QuerySearchExtended")), "getSearchResults() with query parameters"), SEARCH_OVERVIEW),
                     of(route(() -> basicAPI.getAllSeasons(params("value", "QuerySeasonsExtended")), "getAllSeasons() with query parameters"), SEASON_OVERVIEW),
                     of(route(() -> basicAPI.getSeason(52270), "getSeason()"), SEASON),
                     of(route(() -> basicAPI.getSeasonDetails(69714), "getSeasonDetails()"), SEASON_DETAILS),
