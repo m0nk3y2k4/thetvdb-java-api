@@ -17,10 +17,12 @@
 package com.github.m0nk3y2k4.thetvdb.internal.util.validation;
 
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
+import static java.util.Collections.singleton;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -35,6 +37,7 @@ import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.FundingModel;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.QueryParametersImpl;
 import com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil;
+import com.github.m0nk3y2k4.thetvdb.testutils.parameterized.NullAndEmptyCollectionSource;
 import com.github.m0nk3y2k4.thetvdb.testutils.parameterized.NullAndEmptyStringSource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -46,7 +49,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 @SuppressWarnings({"ConstantConditions", "ObviousNullCheck"})
 class ParametersTest {
 
-    private static Stream<Arguments> validateCondition_withConditionNotMatched_exceptionRethrown() {
+    private static Stream<Arguments> violatedConditions() {
         return Stream.of(
                 Arguments.of((Predicate<Integer>)age -> age > 21, 19,
                         new IllegalArgumentException("No booze for you!")),
@@ -55,8 +58,16 @@ class ParametersTest {
         );
     }
 
-    private static Stream<Optional<?>> validateNotEmptyOptional_withInvalidOptional_exceptionThrown() {
+    private static Stream<Optional<?>> emptyOptionals() {
         return Stream.of(Optional.empty(), Optional.ofNullable(null), Optional.of(" "));
+    }
+
+    private static Stream<Arguments> validQueryParameterCombinations() {
+        return Stream.of(
+                Arguments.of(Optional.of("Name1"), Optional.empty()),
+                Arguments.of(Optional.empty(), Optional.of("Name2")),
+                Arguments.of(Optional.of("Name1"), Optional.of("Name2"))
+        );
     }
 
     @Test
@@ -66,7 +77,7 @@ class ParametersTest {
     }
 
     @ParameterizedTest(name = "[{index}] Value \"{1}\" is invalid as it does not match the condition")
-    @MethodSource
+    @MethodSource("violatedConditions")
     <T> void validateCondition_withConditionNotMatched_exceptionRethrown(Predicate<T> predicate, T value,
             RuntimeException exception) {
         assertThatIllegalArgumentException().isThrownBy(() -> Parameters.validateCondition(predicate, value, exception))
@@ -99,13 +110,26 @@ class ParametersTest {
     }
 
     @Test
+    void validateNotEmptyCollection_happyDay() {
+        assertDoesNotThrow(() -> Parameters.validateNotEmpty(singleton("Non-empty collection"), "Never thrown..."));
+    }
+
+    @ParameterizedTest(name = "[{index}] Collection \"{0}\" is null or empty")
+    @NullAndEmptyCollectionSource
+    void validateNotEmptyCollection_withNullOrEmptyCollection_exceptionThrown(Collection<?> obj) {
+        final String validationFailedMessage = "Collection is null or empty";
+        assertThatIllegalArgumentException().isThrownBy(() -> Parameters.validateNotEmpty(obj, validationFailedMessage))
+                .withMessage(validationFailedMessage);
+    }
+
+    @Test
     void validateNotEmptyOptional_happyDay() {
         assertDoesNotThrow(() -> Parameters
                 .validateNotEmpty(Optional.of("Some String"), "Error in case of empty Optional"));
     }
 
     @ParameterizedTest(name = "[{index}] \"{0}\" contains null or empty value")
-    @MethodSource
+    @MethodSource("emptyOptionals")
     void validateNotEmptyOptional_withInvalidOptional_exceptionThrown(Optional<String> obj) {
         final String validationFailedMessage = "Optional is null or empty!";
         assertThatIllegalArgumentException().isThrownBy(() -> Parameters.validateNotEmpty(obj, validationFailedMessage))
@@ -144,8 +168,29 @@ class ParametersTest {
                 .withMessageContaining("[%s] is set to an invalid value", paramName);
     }
 
+    @ParameterizedTest(name = "[{index}] With parameters \"{0}\" and \"{1}\"")
+    @MethodSource("validQueryParameterCombinations")
+    void validateQueryParam_withMultipleQueryParameters_happyDay(Optional<String> paramName1,
+            Optional<String> paramName2) {
+        final QueryParameters queryParameters = new QueryParametersImpl();
+        paramName1.ifPresent(name -> queryParameters.addParameter(name, "Value1"));
+        paramName2.ifPresent(name -> queryParameters.addParameter(name, "Value2"));
+        assertDoesNotThrow(() -> Parameters
+                .validateQueryParam(paramName1.orElse("K1"), paramName2.orElse("K2"), queryParameters));
+    }
+
     @Test
-    void validateQueryParam_happyDay() {
+    void validateQueryParam_withNoneOfMultipleQueryParametersPresent_exceptionThrown() {
+        final String queryParamName1 = "name";
+        final String queryParamName2 = "id";
+        final QueryParameters queryParameters = new QueryParametersImpl(Map.of("phone", "555-176014"));
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> Parameters.validateQueryParam(queryParamName1, queryParamName2, queryParameters))
+                .withMessageContaining("None of query parameters [%s, %s] is set", queryParamName1, queryParamName2);
+    }
+
+    @Test
+    void validateQueryParam_withSingleQueryParameter_happyDay() {
         final String queryParamName = "department";
         final QueryParameters queryParameters = new QueryParametersImpl(Map.of(queryParamName, "Sales"));
         assertDoesNotThrow(() -> Parameters.validateQueryParam(queryParamName, queryParameters));

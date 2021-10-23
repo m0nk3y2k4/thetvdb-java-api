@@ -16,9 +16,14 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.util.validation;
 
+import static java.util.stream.Collectors.toList;
+
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -106,6 +111,21 @@ public final class Parameters {
     }
 
     /**
+     * Checks that the given Collection is neither <i>null</i> nor empty. Otherwise, an exception with the given error
+     * message will be thrown.
+     *
+     * @param obj     The Collection to check
+     * @param message Error message to be propagated to the exception in case of a failed validation
+     *
+     * @throws IllegalArgumentException If the given Collection is either <i>null</i> or contains no elements
+     */
+    public static void validateNotEmpty(Collection<?> obj, String message) {
+        if (obj == null || obj.isEmpty()) {
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+    /**
      * Checks that the given value is equal or greater zero. Otherwise, an exception with the given error message will
      * be thrown.
      *
@@ -139,8 +159,27 @@ public final class Parameters {
     }
 
     /**
+     * Checks if the given <em>{@code params}</em> query parameter collection contains <u>at least one</u> of the given
+     * parameters and that they are not empty. Otherwise, an exception will be thrown. Any matching parameter that is
+     * present will be validated (not only the first one found).
+     *
+     * @param paramName1 The name of the 1st URL query parameter to check for
+     * @param paramName2 The name of the 2nd URL query parameter to check for
+     * @param params     Query parameters object that should contain the given parameter
+     *
+     * @throws IllegalArgumentException If the parameter collection does not contain any of the given parameters or if a
+     *                                  parameter exists but contains no value
+     */
+    public static void validateQueryParam(String paramName1, String paramName2, QueryParameters params) {
+        List<String> existingParams = Stream.of(paramName1, paramName2)
+                .filter(name -> containsQueryParameter(name, params)).collect(toList());
+        validateNotEmpty(existingParams, String.format("None of query parameters [%s, %s] is set", paramName1, paramName2));
+        existingParams.forEach(paramName -> validateQueryParam(paramName, params));
+    }
+
+    /**
      * Checks if the given <em>{@code params}</em> query parameter collection contains a non-empty <em>{@code
-     * paramName}</em> parameter. Otherwise an exception will be thrown.
+     * paramName}</em> parameter. Otherwise, an exception will be thrown.
      *
      * @param paramName The name of the URL query parameter to check for
      * @param params    Query parameters object that should contain the given parameter
@@ -154,7 +193,7 @@ public final class Parameters {
 
     /**
      * Checks if the given <em>{@code params}</em> query parameter collection contains a non-empty <em>{@code
-     * paramName}</em> parameter which matches the given condition. Otherwise an exception will be thrown.
+     * paramName}</em> parameter which matches the given condition. Otherwise, an exception will be thrown.
      *
      * @param paramName The name of the URL query parameter to check for
      * @param params    Query parameters object that should contain the given parameter
@@ -164,16 +203,27 @@ public final class Parameters {
      *                                  given name or the parameter does not match the given condition
      */
     public static void validateQueryParam(String paramName, QueryParameters params, Predicate<String> condition) {
-        Predicate<QueryParameters> containsMandatoryParam = query -> Optional.ofNullable(query)
-                .map(p -> p.containsParameter(paramName)).orElse(false);
-        validateCondition(containsMandatoryParam, params, new IllegalArgumentException(String
-                .format("Query parameter [%s] is required but is not set", paramName)));
+        validateCondition(query -> containsQueryParameter(paramName, query), params, new IllegalArgumentException(
+                String.format("Query parameter [%s] is required but is not set", paramName)));
         Optional<String> paramValue = params.getParameterValue(paramName);
         validateNotEmpty(paramValue, String.format("Value for query parameter [%s] must not be empty", paramName));
         validateCondition(condition, paramValue.get(),       // NOSONAR: evaluated by upstream validation
                 new IllegalArgumentException(String
                         .format("Value for query parameter [%s] is set to an invalid value: %s", paramName,
                                 paramValue.get())));
+    }
+
+    /**
+     * Checks if the given <em>{@code params}</em> query parameter collection contains a <em>{@code paramName}</em>
+     * parameter.
+     *
+     * @param paramName The name of the URL query parameter to check for
+     * @param params    Query parameters object that should contain the given parameter
+     *
+     * @return Returns TRUE if the parameter collection contains a parameter with the given name
+     */
+    private static boolean containsQueryParameter(String paramName, QueryParameters params) {
+        return Optional.ofNullable(params).map(p -> p.containsParameter(paramName)).orElse(false);
     }
 
     /**
