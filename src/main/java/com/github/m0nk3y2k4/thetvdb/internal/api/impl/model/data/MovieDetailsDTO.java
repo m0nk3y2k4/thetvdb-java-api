@@ -18,6 +18,8 @@ package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.MovieDetails;
@@ -41,6 +43,7 @@ import org.immutables.value.Value.Immutable;
 public abstract class MovieDetailsDTO implements MovieDetails {
 
     @Override
+    @Nullable
     @JsonAlias("first_release")
     // ToDo: Property is declared as "firstRelease" in API documentation but send as "first_release" in JSON. Check again after next API update.
     public abstract Release getFirstRelease();

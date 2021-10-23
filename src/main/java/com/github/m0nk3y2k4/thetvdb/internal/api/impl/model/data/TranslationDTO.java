@@ -16,6 +16,8 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
+import javax.annotation.Nullable;
+
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Translation;
@@ -37,6 +39,7 @@ import org.immutables.value.Value.Immutable;
 public abstract class TranslationDTO implements Translation {
 
     @Override
+    @Nullable
     @JsonAlias("IsPrimary")
     // ToDo: Property is declared as "isPrimary" in API documentation but send as "IsPrimary" in JSON. Check again after next API update.
     public abstract Boolean isPrimary();
