@@ -446,6 +446,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public Translation getPeopleTranslation(long peopleId, @Nonnull String language) throws APIException {
+        return extended().getPeopleTranslation(peopleId, language).getData();
+    }
+
+    @Override
     public Collection<SearchResult> getSearchResults(QueryParameters queryParameters) throws APIException {
         return extended().getSearchResults(queryParameters).getData();
     }
@@ -773,6 +778,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public JsonNode getPeopleTranslation(long peopleId, @Nonnull String language) throws APIException {
+            return PeopleAPI.getPeopleTranslation(con, peopleId, language);
+        }
+
+        @Override
         public JsonNode getSearchResults(QueryParameters queryParameters) throws APIException {
             return SearchAPI.getSearchResults(con, queryParameters);
         }
@@ -1032,6 +1042,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         public APIResponse<PeopleDetails> getPeopleDetails(long peopleId, QueryParameters queryParameters)
                 throws APIException {
             return APIJsonMapper.readValue(json().getPeopleDetails(peopleId, queryParameters), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<Translation> getPeopleTranslation(long peopleId, @Nonnull String language)
+                throws APIException {
+            return APIJsonMapper.readValue(json().getPeopleTranslation(peopleId, language), new TypeReference<>() {});
         }
 
         @Override

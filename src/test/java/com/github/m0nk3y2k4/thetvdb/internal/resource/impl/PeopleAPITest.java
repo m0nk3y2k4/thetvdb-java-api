@@ -19,6 +19,7 @@ package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.PeopleAPI.getAllPeopleTypes;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.PeopleAPI.getPeopleBase;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.PeopleAPI.getPeopleExtended;
+import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.PeopleAPI.getPeopleTranslation;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.params;
@@ -27,6 +28,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.PEOPLE;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.PEOPLETYPE_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.PEOPLE_DETAILS;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.TRANSLATION;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -56,6 +58,7 @@ class PeopleAPITest {
         client.when(request("/people/5404", GET)).respond(jsonResponse(PEOPLE));
         client.when(request("/people/8741/extended", GET)).respond(jsonResponse(PEOPLE_DETAILS));
         client.when(request("/people/7914/extended", GET, param("meta", "translations"))).respond(jsonResponse(PEOPLE_DETAILS));
+        client.when(request("/people/2243/translations/rus", GET)).respond(jsonResponse(TRANSLATION));
     }
 
     private static Stream<Arguments> withInvalidParameters() {
@@ -63,7 +66,11 @@ class PeopleAPITest {
                 of(route(con -> getPeopleBase(con, 0), "getPeopleBase() with ZERO people ID")),
                 of(route(con -> getPeopleBase(con, -12), "getPeopleBase() with negative people ID")),
                 of(route(con -> getPeopleExtended(con, 0, null), "getPeopleExtended() with ZERO people ID")),
-                of(route(con -> getPeopleExtended(con, -4, null), "getPeopleExtended() with negative people ID"))
+                of(route(con -> getPeopleExtended(con, -4, null), "getPeopleExtended() with negative people ID")),
+                of(route(con -> getPeopleTranslation(con, 0, "eng"), "getPeopleTranslation() with ZERO people ID")),
+                of(route(con -> getPeopleTranslation(con, -1, "deu"), "getPeopleTranslation() with negative people ID")),
+                of(route(con -> getPeopleTranslation(con, 5841, "e"), "getPeopleTranslation() with invalid language code (1)")),
+                of(route(con -> getPeopleTranslation(con, 147, "span"), "getPeopleTranslation() with invalid language code (2)"))
         );
     }
 
@@ -73,7 +80,8 @@ class PeopleAPITest {
                 of(route(con -> getAllPeopleTypes(con), "getAllPeopleTypes()"), PEOPLETYPE_OVERVIEW),
                 of(route(con -> getPeopleBase(con, 5404), "getPeopleBase()"), PEOPLE),
                 of(route(con -> getPeopleExtended(con, 8741, null), "getPeopleExtended() without query parameters"), PEOPLE_DETAILS),
-                of(route(con -> getPeopleExtended(con, 7914, params("meta", "translations")), "getPeopleExtended() with query parameters"), PEOPLE_DETAILS)
+                of(route(con -> getPeopleExtended(con, 7914, params("meta", "translations")), "getPeopleExtended() with query parameters"), PEOPLE_DETAILS),
+                of(route(con -> getPeopleTranslation(con, 2243, "rus"), "getPeopleTranslation()"), TRANSLATION)
         );
     }
     //@EnableFormatting

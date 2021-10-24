@@ -94,4 +94,26 @@ public final class PeopleAPI extends QueryResource {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
         return con.sendGET(createQueryResource("/people/{id}/extended", params, id));
     }
+
+    /**
+     * Returns a translation record for a specific people as raw JSON.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/People/getPeopleTranslation">
+     * <b>[GET]</b> /people/{id}/translations/{language}</a>
+     *
+     * @param con      Initialized connection to be used for API communication
+     * @param id       The <i>TheTVDB.com</i> people ID
+     * @param language The 2- or 3-character language code
+     *
+     * @return JSON object containing a translation record for a specific people
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no people
+     *                      translation record exists for the given ID and language, etc.
+     */
+    public static JsonNode getPeopleTranslation(@Nonnull APIConnection con, long id, @Nonnull String language)
+            throws APIException {
+        Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
+        Parameters.validatePathParam(PATH_LANGUAGE, language, LANGUAGE_VALIDATOR);
+        return con.sendGET(createResource("/people/{id}/translations/{language}", id, language));
+    }
 }

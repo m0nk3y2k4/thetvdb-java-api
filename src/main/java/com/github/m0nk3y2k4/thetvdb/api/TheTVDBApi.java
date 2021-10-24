@@ -911,6 +911,24 @@ public interface TheTVDBApi {
     PeopleDetails getPeopleDetails(long peopleId, @Nonnull PeopleMeta meta) throws APIException;
 
     /**
+     * Returns a translation record for a specific people mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/People/getPeopleTranslation">
+     * <b>[GET]</b> /people/{id}/translations/{language}</a>
+     *
+     * @param peopleId The <i>TheTVDB.com</i> people ID
+     * @param language The 2- or 3-character language code
+     *
+     * @return People translation record mapped as Java DTO based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if no people translation record exists for the given ID and language.
+     * @see JSON#getPeopleTranslation(long, String) TheTVDBApi.JSON.getPeopleTranslation(peopleId, language)
+     * @see Extended#getPeopleTranslation(long, String) TheTVDBApi.Extended.getPeopleTranslation(peopleId, language)
+     */
+    Translation getPeopleTranslation(long peopleId, @Nonnull String language) throws APIException;
+
+    /**
      * Returns a collection of search results based on the given query parameters mapped as Java DTO. Note that the
      * given query parameters must either contain a valid <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#Q}</em>
      * or <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#QUERY}</em> search term key.
@@ -1943,6 +1961,26 @@ public interface TheTVDBApi {
         JsonNode getPeopleDetails(long peopleId, QueryParameters queryParameters) throws APIException;
 
         /**
+         * Returns a translation record for a specific people as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/People/getPeopleTranslation">
+         * <b>[GET]</b> /people/{id}/translations/{language}</a>
+         *
+         * @param peopleId The <i>TheTVDB.com</i> people ID
+         * @param language The 2- or 3-character language code
+         *
+         * @return JSON object containing a translation record for a specific people
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if no people translation record exists for the given ID and
+         *                      language.
+         * @see TheTVDBApi#getPeopleTranslation(long, String) TheTVDBApi.getPeopleTranslation(peopleId, language)
+         * @see Extended#getPeopleTranslation(long, String) TheTVDBApi.Extended.getPeopleTranslation(peopleId,
+         *         language)
+         */
+        JsonNode getPeopleTranslation(long peopleId, @Nonnull String language) throws APIException;
+
+        /**
          * Returns a collection of search results based on the given query parameters as raw JSON. Note that the given
          * query parameters must either contain a valid <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#Q}</em>
          * or <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#QUERY}</em> search term key.
@@ -2820,6 +2858,26 @@ public interface TheTVDBApi {
          *         queryParameters)
          */
         APIResponse<PeopleDetails> getPeopleDetails(long peopleId, QueryParameters queryParameters) throws APIException;
+
+        /**
+         * Returns a response object containing a translation record for a specific people mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/People/getPeopleTranslation">
+         * <b>[GET]</b> /people/{id}/translations/{language}</a>
+         *
+         * @param peopleId The <i>TheTVDB.com</i> people ID
+         * @param language The 2- or 3-character language code
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if no people translation record exists for the given ID and
+         *                      language.
+         * @see JSON#getPeopleTranslation(long, String) TheTVDBApi.JSON.getPeopleTranslation(peopleId, language)
+         * @see TheTVDBApi#getPeopleTranslation(long, String) TheTVDBApi.getPeopleTranslation(peopleId, language)
+         */
+        APIResponse<Translation> getPeopleTranslation(long peopleId, @Nonnull String language) throws APIException;
 
         /**
          * Returns a response object containing a collection of search results based on the given query parameters

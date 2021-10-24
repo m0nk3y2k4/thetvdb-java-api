@@ -165,7 +165,7 @@ the upcoming APIv4.
 - People
     - [x] [/people/{id}](https://thetvdb.github.io/v4-api/#/People/getPeopleBase)
     - [x] [/people/{id}/extended](https://thetvdb.github.io/v4-api/#/People/getPeopleExtended)
-    - [ ] [/people/{id}/translations/{language}](https://thetvdb.github.io/v4-api/#/People/getPeopleTranslation)
+    - [x] [/people/{id}/translations/{language}](https://thetvdb.github.io/v4-api/#/People/getPeopleTranslation)
 - Search
     - [x] [/search](https://thetvdb.github.io/v4-api/#/Search/getSearchResults)
 - Seasons
