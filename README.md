@@ -17,7 +17,7 @@ A simple connector for an easy integration of the [TheTVDB.com](https://thetvdb.
 - [License](#license)
 
 ## Introduction
-With more than [240,000+](https://www.thetvdb.com/about) TV Series and movies _TheTVDB.com_ is probably one of the largest
+With more than [300,000+](https://www.thetvdb.com/about) TV Series and movies _TheTVDB.com_ is probably one of the largest
 digital media metadata databases in the world. Moreover, they offer the opportunity to access this vast amount of data
 on M2M-level by providing a RESTful API, which I think is pretty cool as it enables developers to virtually include
 all this data into their own applications. However, the majority of these applications will probably intend to actually
@@ -118,17 +118,17 @@ the upcoming APIv4.
     - [x] [/companies](https://thetvdb.github.io/v4-api/#/Companies/getAllCompanies)
     - [x] [/companies/types](https://thetvdb.github.io/v4-api/#/Companies/getCompanyTypes)
     - [x] [/companies/{id}](https://thetvdb.github.io/v4-api/#/Companies/getCompany)
-    - [ ] [/companies/{id}/movies]()
-    - [ ] [/companies/{id}/episodes]()
-    - [ ] [/companies/{id}/series]()
-    - [ ] [/companies/{id}/seriesRollup]()
+    - [ ] [/companies/{id}/movies]() (not yet available)
+    - [ ] [/companies/{id}/episodes]() (not yet available)
+    - [ ] [/companies/{id}/series]() (not yet available)
+    - [ ] [/companies/{id}/seriesRollup]() (not yet available)
 - Content Ratings
     - [x] [/content/ratings](https://thetvdb.github.io/v4-api/#/Content%20Ratings/getAllContentRatings)
 - Countries
-    - [ ] [~~/countries~~](https://thetvdb.github.io/v4-api/#/Countries/getAllCountries)
-    - [ ] [/countries/{id}/series]()
-    - [ ] [/countries/{id}/movies]()
-    - [ ] [/countries/{id}/networks]()
+    - [ ] [~~/countries~~](https://thetvdb.github.io/v4-api/#/Countries/getAllCountries) (marked for deletion)
+    - [ ] [/countries/{id}/series]() (not yet available)
+    - [ ] [/countries/{id}/movies]() (not yet available)
+    - [ ] [/countries/{id}/networks]() (not yet available)
 - Entity Types
     - [x] [/entities/types](https://thetvdb.github.io/v4-api/#/Entity%20Types/getEntityTypes)
 - Episodes
@@ -140,12 +140,12 @@ the upcoming APIv4.
 - Genres
     - [x] [/genres](https://thetvdb.github.io/v4-api/#/Genres/getAllGenres)
     - [x] [/genres/{id}](https://thetvdb.github.io/v4-api/#/Genres/getGenreBase)
-    - [ ] [/genres/{id}/movies]()
-    - [ ] [/genres/{id}/series]()
+    - [ ] [/genres/{id}/movies]() (not yet available)
+    - [ ] [/genres/{id}/series]() (not yet available)
 - Inspiration Types
     - [x] [/inspiration/types](https://thetvdb.github.io/v4-api/#/InspirationTypes/getAllInspirationTypes)
 - ~~Languages~~
-    - [ ] [~~/languages~~](https://thetvdb.github.io/v4-api/#/Languages/getAllLanguages)
+    - [ ] [~~/languages~~](https://thetvdb.github.io/v4-api/#/Languages/getAllLanguages) (marked for deletion)
 - Lists
     - [x] [/lists/{id}/translations/{language}](https://thetvdb.github.io/v4-api/#/Lists/getListTranslation)
     - [x] [/lists](https://thetvdb.github.io/v4-api/#/Lists/getAllLists)
@@ -179,6 +179,7 @@ the upcoming APIv4.
     - [x] [/series/{id}](https://thetvdb.github.io/v4-api/#/Series/getSeriesBase)
     - [x] [/series/{id}/extended](https://thetvdb.github.io/v4-api/#/Series/getSeriesExtended)
     - [x] [/series/{id}/episodes/{season-type}](https://thetvdb.github.io/v4-api/#/Series/getSeriesEpisodes)
+    - [ ] [/series/{id}/episodes/{season-type}/{lang}](https://thetvdb.github.io/v4-api/#/Series/getSeriesSeasonEpisodesTranslated)
     - [x] [/series/{id}/translations/{language}](https://thetvdb.github.io/v4-api/#/Series/getSeriesTranslation)
 - Series Statuses
     - [x] [/series/statuses](https://thetvdb.github.io/v4-api/#/Series%20Statuses/getAllSeriesStatuses)
