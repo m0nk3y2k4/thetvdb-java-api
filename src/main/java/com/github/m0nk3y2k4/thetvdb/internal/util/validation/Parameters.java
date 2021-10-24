@@ -222,7 +222,7 @@ public final class Parameters {
      *
      * @return Returns TRUE if the parameter collection contains a parameter with the given name
      */
-    private static boolean containsQueryParameter(String paramName, QueryParameters params) {
+    public static boolean containsQueryParameter(String paramName, QueryParameters params) {
         return Optional.ofNullable(params).map(p -> p.containsParameter(paramName)).orElse(false);
     }
 

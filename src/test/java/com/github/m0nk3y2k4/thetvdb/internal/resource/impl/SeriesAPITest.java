@@ -16,7 +16,10 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
+import static com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series.EPISODE_NUMBER;
+import static com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series.SEASON;
 import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.ABSOLUTE;
+import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.ALTERNATE;
 import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.DVD;
 import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.OFFICIAL;
 import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.REGIONAL;
@@ -70,6 +73,7 @@ class SeriesAPITest {
         client.when(request("/series/34879/extended", GET, param("meta", "episodes"))).respond(jsonResponse(SERIES_DETAILS));
         client.when(request("/series/58709/episodes/official", GET)).respond(jsonResponse(SERIESEPISODES));
         client.when(request("/series/22147/episodes/dvd", GET, param("page", "4"))).respond(jsonResponse(SERIESEPISODES));
+        client.when(request("/series/89414/episodes/alternate", GET, param(SEASON, "2"), param(EPISODE_NUMBER, "8"))).respond(jsonResponse(SERIESEPISODES));
         client.when(request("/series/69423/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
     }
 
@@ -83,6 +87,7 @@ class SeriesAPITest {
                 of(route(con -> getSeriesEpisodes(con, 0, ABSOLUTE, null), "getSeriesEpisodes() with ZERO series ID")),
                 of(route(con -> getSeriesEpisodes(con, -4, REGIONAL, null), "getSeriesEpisodes() with negative series ID")),
                 of(route(con -> getSeriesEpisodes(con, 548, null, null), "getSeriesEpisodes() without season-type")),
+                of(route(con -> getSeriesEpisodes(con, 612, DVD, params(EPISODE_NUMBER, "3")), "getSeriesEpisodes() with missing conditional query parameters")),
                 of(route(con -> getSeriesTranslation(con, 0, "eng"), "getSeriesTranslation() with ZERO series ID")),
                 of(route(con -> getSeriesTranslation(con, -5, "deu"), "getSeriesTranslation() with negative series ID")),
                 of(route(con -> getSeriesTranslation(con, 785, "e"), "getSeriesTranslation() with invalid language code (1)")),
@@ -101,6 +106,7 @@ class SeriesAPITest {
                 of(route(con -> getSeriesExtended(con, 34879, params("meta", "episodes")), "getSeriesExtended() with query parameters"), SERIES_DETAILS),
                 of(route(con -> getSeriesEpisodes(con, 58709, OFFICIAL, null), "getSeriesEpisodes() without query parameters"), SERIESEPISODES),
                 of(route(con -> getSeriesEpisodes(con, 22147, DVD, params("page", "4")), "getSeriesEpisodes() with query parameters"), SERIESEPISODES),
+                of(route(con -> getSeriesEpisodes(con, 89414, ALTERNATE, params(SEASON, "2", EPISODE_NUMBER, "8")), "getSeriesEpisodes() with conditional query parameters"), SERIESEPISODES),
                 of(route(con -> getSeriesTranslation(con, 69423, "eng"), "getSeriesTranslation()"), TRANSLATION)
         );
     }

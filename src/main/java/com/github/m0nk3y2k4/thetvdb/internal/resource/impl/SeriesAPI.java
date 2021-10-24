@@ -16,6 +16,9 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
+import static com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series.EPISODE_NUMBER;
+import static com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series.SEASON;
+
 import java.util.Objects;
 import java.util.function.Predicate;
 
@@ -143,6 +146,9 @@ public final class SeriesAPI extends QueryResource {
             QueryParameters params) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
         Parameters.validatePathParam(PATH_SEASONTYPE, seasonType, SEASONTYPE_VALIDATOR);
+        if (Parameters.containsQueryParameter(EPISODE_NUMBER, params)) {
+            Parameters.validateQueryParam(SEASON, params); // If episodeNumber is not null then season must be present
+        }
         return con.sendGET(createQueryResource("/series/{id}/episodes/{season-type}", params, id, seasonType));
     }
 
