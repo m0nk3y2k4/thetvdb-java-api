@@ -211,6 +211,8 @@ class TheTVDBApiImplTest {
             client.when(request("/series/3789/episodes/default", GET)).respond(jsonResponse(SERIESEPISODES));
             client.when(request("/series/7000/episodes/alternate", GET, param("value", "QuerySeriesEpisodes"))).respond(jsonResponse(SERIESEPISODES));
             client.when(request("/series/2147/episodes/regional", GET, param(Series.SEASON, "4"))).respond(jsonResponse(SERIESEPISODES));
+            client.when(request("/series/5481/episodes/dvd/eng", GET)).respond(jsonResponse(SERIES_DETAILS));
+            client.when(request("/series/6974/episodes/default/deu", GET, param("value", "QuerySeriesEpisodesTranslated"))).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/6004/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/sources/types", GET)).respond(jsonResponse(SOURCETYPE_OVERVIEW));
             client.when(request("/updates", GET, param(Updates.SINCE, "16247601"), param("value", "QueryUpdates"))).respond(jsonResponse(UPDATE_OVERVIEW));
@@ -305,6 +307,8 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getSeriesEpisodes(3789, DEFAULT), "getSeriesEpisodes()"), SERIESEPISODES),
                     of(route(() -> basicAPI.getSeriesEpisodes(7000, ALTERNATE, params("value", "QuerySeriesEpisodes")), "getSeriesEpisodes() with query parameters"), SERIESEPISODES),
                     of(route(() -> basicAPI.getSeriesEpisodes(2147, REGIONAL, 4), "getSeriesEpisodes() with season number"), SERIESEPISODES),
+                    of(route(() -> basicAPI.getSeriesEpisodesTranslated(5481, DVD, "eng"), "getSeriesEpisodesTranslated()"), SERIES_DETAILS),
+                    of(route(() -> basicAPI.getSeriesEpisodesTranslated(6974, DEFAULT, "deu", params("value", "QuerySeriesEpisodesTranslated")), "getSeriesEpisodesTranslated() with query parameters"), SERIES_DETAILS),
                     of(route(() -> basicAPI.getSeriesTranslation(6004, "eng"), "getSeriesTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
                     of(route(() -> basicAPI.getUpdates(params(Updates.SINCE, "16247601", "value", "QueryUpdates")), "getUpdates() with query parameters"), UPDATE_OVERVIEW),
@@ -409,6 +413,7 @@ class TheTVDBApiImplTest {
             client.when(request("/series/5003", GET)).respond(jsonResponse(SERIES));
             client.when(request("/series/5842/extended", GET, param("value", "QuerySeriesDetailsJson"))).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/98043/episodes/official", GET, param("value", "QuerySeriesEpisodesJson"))).respond(jsonResponse(SERIESEPISODES));
+            client.when(request("/series/65660/episodes/regional/spa", GET, param("value", "QuerySeriesEpisodesTranslatedJson"))).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/8024/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/sources/types", GET)).respond(jsonResponse(SOURCETYPE_OVERVIEW));
             client.when(request("/updates", GET, param(Updates.SINCE, "16258740"), param("value", "QueryUpdatesJson"))).respond(jsonResponse(UPDATE_OVERVIEW));
@@ -465,6 +470,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getSeries(5003), "getSeries()"), SERIES),
                     of(route(() -> basicAPI.getSeriesDetails(5842, params("value", "QuerySeriesDetailsJson")), "getSeriesDetails() with query parameters"), SERIES_DETAILS),
                     of(route(() -> basicAPI.getSeriesEpisodes(98043, OFFICIAL, params("value", "QuerySeriesEpisodesJson")), "getSeriesEpisodes() with query parameters"), SERIESEPISODES),
+                    of(route(() -> basicAPI.getSeriesEpisodesTranslated(65660, REGIONAL, "spa", params("value", "QuerySeriesEpisodesTranslatedJson")), "getSeriesEpisodesTranslated() with query parameters"), SERIES_DETAILS),
                     of(route(() -> basicAPI.getSeriesTranslation(8024, "eng"), "getSeriesTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
                     of(route(() -> basicAPI.getUpdates(params(Updates.SINCE, "16258740", "value", "QueryUpdatesJson")), "getUpdates() with query parameters"), UPDATE_OVERVIEW)
@@ -550,6 +556,7 @@ class TheTVDBApiImplTest {
             client.when(request("/series/8131", GET)).respond(jsonResponse(SERIES));
             client.when(request("/series/5444/extended", GET, param("value", "QuerySeriesDetailsExtended"))).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/5711/episodes/dvd", GET, param("value", "QuerySeriesEpisodesExtended"))).respond(jsonResponse(SERIESEPISODES));
+            client.when(request("/series/2312/episodes/alternate/por", GET, param("value", "QuerySeriesEpisodesTranslatedExtended"))).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/6170/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/sources/types", GET)).respond(jsonResponse(SOURCETYPE_OVERVIEW));
             client.when(request("/updates", GET, param(Updates.SINCE, "16245743"), param("value", "QueryUpdatesExtended"))).respond(jsonResponse(UPDATE_OVERVIEW));
@@ -606,6 +613,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getSeries(8131), "getSeries()"), SERIES),
                     of(route(() -> basicAPI.getSeriesDetails(5444, params("value", "QuerySeriesDetailsExtended")), "getSeriesDetails() with query parameters"), SERIES_DETAILS),
                     of(route(() -> basicAPI.getSeriesEpisodes(5711, DVD, params("value", "QuerySeriesEpisodesExtended")), "getSeriesEpisodes() with query parameters"), SERIESEPISODES),
+                    of(route(() -> basicAPI.getSeriesEpisodesTranslated(2312, ALTERNATE, "por", params("value", "QuerySeriesEpisodesTranslatedExtended")), "getSeriesEpisodesTranslated() with query parameters"), SERIES_DETAILS),
                     of(route(() -> basicAPI.getSeriesTranslation(6170, "eng"), "getSeriesTranslation()"), TRANSLATION),
                     of(route(() -> basicAPI.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
                     of(route(() -> basicAPI.getUpdates(params(Updates.SINCE, "16245743", "value", "QueryUpdatesExtended")), "getUpdates() with query parameters"), UPDATE_OVERVIEW)

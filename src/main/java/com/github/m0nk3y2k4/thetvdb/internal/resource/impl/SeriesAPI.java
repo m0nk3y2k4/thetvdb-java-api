@@ -153,6 +153,34 @@ public final class SeriesAPI extends QueryResource {
     }
 
     /**
+     * Returns extended information for a specific series record based on the given query parameters as raw JSON. The
+     * contained episodes will be translated to the given language.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesSeasonEpisodesTranslated">
+     * <b>[GET]</b> /series/{id}/episodes/{season-type}/{lang}</a>
+     *
+     * @param con        Initialized connection to be used for API communication
+     * @param id         The <i>TheTVDB.com</i> series ID
+     * @param seasonType The type of season for which episodes should be returned
+     * @param language   The 2- or 3-character language code
+     * @param params     Object containing key/value pairs of query parameters
+     *
+     * @return JSON object containing detailed information incl. translated episodes for a specific series
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no series
+     *                      record with the given ID exists, invalid language code, etc.
+     */
+    // ToDo: Currently declared as a SeriesExtendedRecord and an array of EpisodeBaseRecords in the documentation but the latter is missing. Check again after the next API update.
+    public static JsonNode getSeriesEpisodesTranslated(@Nonnull APIConnection con, long id,
+            @Nonnull SeriesSeasonType seasonType, @Nonnull String language, QueryParameters params)
+            throws APIException {
+        Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
+        Parameters.validatePathParam(PATH_SEASONTYPE, seasonType, SEASONTYPE_VALIDATOR);
+        Parameters.validatePathParam(PATH_LANGUAGE, language, LANGUAGE_VALIDATOR);
+        return con.sendGET(createQueryResource("/series/{id}/episodes/{season-type}/{language}", params, id, seasonType, language));
+    }
+
+    /**
      * Returns a translation record for a specific series as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesTranslation">

@@ -17,6 +17,7 @@
 package com.github.m0nk3y2k4.thetvdb.api;
 
 import static com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory.createQueryParameters;
+import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.DEFAULT;
 import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.OFFICIAL;
 import static com.github.m0nk3y2k4.thetvdb.testutils.assertj.IntegrationTestAssertions.assertThat;
 
@@ -60,6 +61,13 @@ class SeriesIT {
 
     @Test
     @Order(6)
+    void getSeriesEpisodesTranslated(TheTVDBApi api) {
+        assertThat(() -> api.getSeriesEpisodesTranslated(360893, DEFAULT, "fra")).as("/series/360893/episodes/default/fra")
+                .doesNotThrowAnyException();
+    }
+
+    @Test
+    @Order(7)
     void getSeriesTranslation(TheTVDBApi api) {
         assertThat(() -> api.getSeriesTranslation(361753, "nld")).as("/series/361753/translations/nld")
                 .doesNotThrowAnyException();

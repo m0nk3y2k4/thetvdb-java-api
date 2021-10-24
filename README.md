@@ -179,7 +179,7 @@ the upcoming APIv4.
     - [x] [/series/{id}](https://thetvdb.github.io/v4-api/#/Series/getSeriesBase)
     - [x] [/series/{id}/extended](https://thetvdb.github.io/v4-api/#/Series/getSeriesExtended)
     - [x] [/series/{id}/episodes/{season-type}](https://thetvdb.github.io/v4-api/#/Series/getSeriesEpisodes)
-    - [ ] [/series/{id}/episodes/{season-type}/{lang}](https://thetvdb.github.io/v4-api/#/Series/getSeriesSeasonEpisodesTranslated)
+    - [x] [/series/{id}/episodes/{season-type}/{lang}](https://thetvdb.github.io/v4-api/#/Series/getSeriesSeasonEpisodesTranslated)
     - [x] [/series/{id}/translations/{language}](https://thetvdb.github.io/v4-api/#/Series/getSeriesTranslation)
 - Series Statuses
     - [x] [/series/statuses](https://thetvdb.github.io/v4-api/#/Series%20Statuses/getAllSeriesStatuses)
