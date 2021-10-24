@@ -47,6 +47,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.EPISODE_DETAIL
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.GENDER_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.GENRE;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.GENRE_OVERVIEW;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.INSPIRATIONTYPE_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.LIST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.LIST_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.LIST_OVERVIEW;
@@ -176,6 +177,7 @@ class TheTVDBApiImplTest {
             client.when(request("/genders", GET)).respond(jsonResponse(GENDER_OVERVIEW));
             client.when(request("/genres", GET)).respond(jsonResponse(GENRE_OVERVIEW));
             client.when(request("/genres/47", GET)).respond(jsonResponse(GENRE));
+            client.when(request("/inspiration/types", GET)).respond(jsonResponse(INSPIRATIONTYPE_OVERVIEW));
             client.when(request("/movies/statuses", GET)).respond(jsonResponse(STATUS_OVERVIEW));
             client.when(request("/movies", GET, param("value", "QueryMovies"))).respond(jsonResponse(MOVIE_OVERVIEW));
             client.when(request("/movies", GET, param(Movies.PAGE, "3"))).respond(jsonResponse(MOVIE_OVERVIEW));
@@ -215,6 +217,7 @@ class TheTVDBApiImplTest {
             client.when(request("/updates", GET, param(Updates.SINCE, "16239876"), param(Updates.TYPE, String.valueOf(TRANSLATED_EPISODES)), param(Updates.ACTION, String.valueOf(CREATE)), param(Updates.PAGE, "2"))).respond(jsonResponse(UPDATE_OVERVIEW));
         }
 
+        @SuppressWarnings("ConstantConditions")
         private Stream<Arguments> withInvalidParameters() {
             return Stream.of(
                     of(route(() -> basicAPI.getAllCompanies(-1), "getAllCompanies() with negative page parameter")),
@@ -267,6 +270,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllGenders(), "getAllGenders()"), GENDER_OVERVIEW),
                     of(route(() -> basicAPI.getAllGenres(), "getAllGenres()"), GENRE_OVERVIEW),
                     of(route(() -> basicAPI.getGenre(47), "getGenre()"), GENRE),
+                    of(route(() -> basicAPI.getAllInspirationTypes(), "getAllInspirationTypes()"), INSPIRATIONTYPE_OVERVIEW),
                     of(route(() -> basicAPI.getAllMovieStatuses(), "getAllMovieStatuses()"), STATUS_OVERVIEW),
                     of(route(() -> basicAPI.getAllMovies(params("value", "QueryMovies")), "getAllMovies() with query parameters"), MOVIE_OVERVIEW),
                     of(route(() -> basicAPI.getAllMovies(3), "getAllMovies() with page"), MOVIE_OVERVIEW),
@@ -382,6 +386,7 @@ class TheTVDBApiImplTest {
             client.when(request("/genders", GET)).respond(jsonResponse(GENDER_OVERVIEW));
             client.when(request("/genres", GET)).respond(jsonResponse(GENRE_OVERVIEW));
             client.when(request("/genres/21", GET)).respond(jsonResponse(GENRE));
+            client.when(request("/inspiration/types", GET)).respond(jsonResponse(INSPIRATIONTYPE_OVERVIEW));
             client.when(request("/movies/statuses", GET)).respond(jsonResponse(STATUS_OVERVIEW));
             client.when(request("/movies", GET, param("value", "QueryMoviesJson"))).respond(jsonResponse(MOVIE_OVERVIEW));
             client.when(request("/movies/61714", GET)).respond(jsonResponse(MOVIE));
@@ -436,6 +441,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllGenders(), "getAllGenders()"), GENDER_OVERVIEW),
                     of(route(() -> basicAPI.getAllGenres(), "getAllGenres()"), GENRE_OVERVIEW),
                     of(route(() -> basicAPI.getGenre(21), "getGenre()"), GENRE),
+                    of(route(() -> basicAPI.getAllInspirationTypes(), "getAllInspirationTypes()"), INSPIRATIONTYPE_OVERVIEW),
                     of(route(() -> basicAPI.getAllMovieStatuses(), "getAllMovieStatuses()"), STATUS_OVERVIEW),
                     of(route(() -> basicAPI.getAllMovies(params("value", "QueryMoviesJson")), "getAllMovies() with query parameters"), MOVIE_OVERVIEW),
                     of(route(() -> basicAPI.getMovie(61714), "getMovie()"), MOVIE),
@@ -519,6 +525,7 @@ class TheTVDBApiImplTest {
             client.when(request("/genders", GET)).respond(jsonResponse(GENDER_OVERVIEW));
             client.when(request("/genres", GET)).respond(jsonResponse(GENRE_OVERVIEW));
             client.when(request("/genres/35", GET)).respond(jsonResponse(GENRE));
+            client.when(request("/inspiration/types", GET)).respond(jsonResponse(INSPIRATIONTYPE_OVERVIEW));
             client.when(request("/movies/statuses", GET)).respond(jsonResponse(STATUS_OVERVIEW));
             client.when(request("/movies", GET, param("value", "QueryMoviesExtended"))).respond(jsonResponse(MOVIE_OVERVIEW));
             client.when(request("/movies/90034", GET)).respond(jsonResponse(MOVIE));
@@ -573,6 +580,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> basicAPI.getAllGenders(), "getAllGenders()"), GENDER_OVERVIEW),
                     of(route(() -> basicAPI.getAllGenres(), "getAllGenres()"), GENRE_OVERVIEW),
                     of(route(() -> basicAPI.getGenre(35), "getGenre()"), GENRE),
+                    of(route(() -> basicAPI.getAllInspirationTypes(), "getAllInspirationTypes()"), INSPIRATIONTYPE_OVERVIEW),
                     of(route(() -> basicAPI.getAllMovieStatuses(), "getAllMovieStatuses()"), STATUS_OVERVIEW),
                     of(route(() -> basicAPI.getAllMovies(params("value", "QueryMoviesExtended")), "getAllMovies() with query parameters"), MOVIE_OVERVIEW),
                     of(route(() -> basicAPI.getMovie(90034), "getMovie()"), MOVIE),

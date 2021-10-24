@@ -52,6 +52,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.FCList;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.FCListDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Gender;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.InspirationType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.MovieDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
@@ -677,6 +678,22 @@ public interface TheTVDBApi {
      * @see Extended#getGenre(long) TheTVDBApi.Extended.getGenre(genreId)
      */
     Genre getGenre(long genreId) throws APIException;
+
+    /**
+     * Returns a collection of available inspiration types mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/InspirationTypes/getAllInspirationTypes">
+     * <b>[GET]</b> /inspiration/types</a>
+     *
+     * @return Collection of available inspiration types mapped as Java DTO's based on the JSON data returned by the
+     *         remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see JSON#getAllInspirationTypes()
+     * @see Extended#getAllInspirationTypes()
+     */
+    Collection<InspirationType> getAllInspirationTypes() throws APIException;
 
     /**
      * Returns a collection of available movie statuses mapped as Java DTO.
@@ -1769,6 +1786,21 @@ public interface TheTVDBApi {
         JsonNode getGenre(long genreId) throws APIException;
 
         /**
+         * Returns a collection of available inspiration types as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/InspirationTypes/getAllInspirationTypes">
+         * <b>[GET]</b> /inspiration/types</a>
+         *
+         * @return JSON object containing the available inspiration types
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see TheTVDBApi#getAllInspirationTypes() TheTVDBApi.getAllInspirationTypes()
+         * @see Extended#getAllInspirationTypes()
+         */
+        JsonNode getAllInspirationTypes() throws APIException;
+
+        /**
          * Returns a collection of available movie statuses as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movie%20Statuses/getAllMovieStatuses">
@@ -2621,6 +2653,22 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getGenre(long) TheTVDBApi.getGenre(genreId)
          */
         APIResponse<Genre> getGenre(long genreId) throws APIException;
+
+        /**
+         * Returns a response object containing a collection of available inspiration types mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/InspirationTypes/getAllInspirationTypes">
+         * <b>[GET]</b> /inspiration/types</a>
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see JSON#getAllInspirationTypes()
+         * @see TheTVDBApi#getAllInspirationTypes() TheTVDBApi.getAllInspirationTypes()
+         */
+        APIResponse<Collection<InspirationType>> getAllInspirationTypes() throws APIException;
 
         /**
          * Returns a response object containing a collection of available movie statuses mapped as Java DTO.

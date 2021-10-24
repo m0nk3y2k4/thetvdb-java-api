@@ -142,6 +142,8 @@ the upcoming APIv4.
     - [x] [/genres/{id}](https://thetvdb.github.io/v4-api/#/Genres/getGenreBase)
     - [ ] [/genres/{id}/movies]()
     - [ ] [/genres/{id}/series]()
+- Inspiration Types
+    - [x] [/inspiration/types](https://thetvdb.github.io/v4-api/#/InspirationTypes/getAllInspirationTypes)
 - ~~Languages~~
     - [ ] [~~/languages~~](https://thetvdb.github.io/v4-api/#/Languages/getAllLanguages)
 - Lists

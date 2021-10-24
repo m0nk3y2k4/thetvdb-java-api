@@ -62,6 +62,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.FCList;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.FCListDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Gender;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.InspirationType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.MovieDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
@@ -90,6 +91,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.EntityTypesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.EpisodesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.GendersAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.GenresAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.InspirationTypesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ListsAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.LoginAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.MoviesAPI;
@@ -368,6 +370,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     @Override
     public Genre getGenre(long genreId) throws APIException {
         return extended().getGenre(genreId).getData();
+    }
+
+    @Override
+    public Collection<InspirationType> getAllInspirationTypes() throws APIException {
+        return extended().getAllInspirationTypes().getData();
     }
 
     @Override
@@ -721,6 +728,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public JsonNode getAllInspirationTypes() throws APIException {
+            return InspirationTypesAPI.getAllInspirationTypes(con);
+        }
+
+        @Override
         public JsonNode getAllMovieStatuses() throws APIException {
             return MoviesAPI.getAllMovieStatuses(con);
         }
@@ -972,6 +984,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public APIResponse<Genre> getGenre(long genreId) throws APIException {
             return APIJsonMapper.readValue(json().getGenre(genreId), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<Collection<InspirationType>> getAllInspirationTypes() throws APIException {
+            return APIJsonMapper.readValue(json().getAllInspirationTypes(), new TypeReference<>() {});
         }
 
         @Override

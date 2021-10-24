@@ -66,6 +66,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.FCListDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Gender;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Inspiration;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.InspirationType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.MovieDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Network;
@@ -118,6 +119,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.FCListDetailsDT
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.GenderDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.GenreDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.InspirationDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.InspirationTypeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.NetworkDTO;
@@ -220,6 +222,10 @@ public abstract class ResponseData<T> {
             "genre", genre(), "Single genre JSON response") {};
     public static final ResponseData<APIResponse<Collection<Genre>>> GENRE_OVERVIEW = new ResponseData<>(
             "genre_overview", genreOverview(), "Overview of genres JSON response") {};
+
+    //******************* inspiration-types *****************
+    public static final ResponseData<APIResponse<Collection<InspirationType>>> INSPIRATIONTYPE_OVERVIEW = new ResponseData<>(
+            "inspirationtype_overview", inspirationTypeOverview(), "Overview of inspiration types JSON response") {};
 
     //************************* movies **********************
     public static final ResponseData<APIResponse<Movie>> MOVIE = new ResponseData<>(
@@ -428,6 +434,10 @@ public abstract class ResponseData<T> {
 
     private static APIResponse<Collection<Genre>> genreOverview() {
         return createAPIResponse(createTwo(genreModel()));
+    }
+
+    private static APIResponse<Collection<InspirationType>> inspirationTypeOverview() {
+        return createAPIResponse(createTwo(inspirationTypeModel()));
     }
 
     private static APIResponse<Movie> movie(Shape shape) {
@@ -805,6 +815,11 @@ public abstract class ResponseData<T> {
     private static SimpleDtoSupplier<Inspiration> inspirationModel() {
         return idx -> new InspirationDTO.Builder().id(97L + idx).type("Type" + idx).typeName("TypeName" + idx)
                 .url("Url" + idx).build();
+    }
+
+    private static SimpleDtoSupplier<InspirationType> inspirationTypeModel() {
+        return idx -> new InspirationTypeDTO.Builder().id(15L + idx).name("Name" + idx).description("Description" + idx)
+                .referenceName("ReferenceName" + idx).url("Url" + idx).build();
     }
 
     private static SimpleDtoSupplier<Links> linksModel() {
