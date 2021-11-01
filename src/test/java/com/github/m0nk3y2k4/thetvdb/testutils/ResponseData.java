@@ -19,7 +19,6 @@ package com.github.m0nk3y2k4.thetvdb.testutils;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.Shape.FULL;
 import static java.lang.Boolean.TRUE;
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static java.util.Collections.singletonList;
 import static java.util.stream.Collectors.toList;
 
 import java.io.BufferedReader;
@@ -278,9 +277,8 @@ public abstract class ResponseData<T> {
     //********************** translations *******************
     public static final ResponseData<APIResponse<Translation>> TRANSLATION = new ResponseData<>(
             "translation", translation(FULL), "Single translated entity JSON response") {};
-    // ToDo: Remove this and switch to single translation object after remote API has been fixed
     public static final ResponseData<APIResponse<Collection<Translation>>> TRANSLATIONS = new ResponseData<>(
-            "translations", createAPIResponse(singletonList(create(translationModel(), FULL))), "List of translated entities JSON response") {};
+            "translations", translations(), "List of translated entities JSON response") {};
 
     //************************ updates **********************
     public static final ResponseData<APIResponse<Collection<EntityUpdate>>> UPDATE_OVERVIEW = new ResponseData<>(
@@ -385,7 +383,7 @@ public abstract class ResponseData<T> {
     }
 
     private static APIResponse<Collection<Company>> companyOverview() {
-        return createAPIResponse(createTwo(companyModel()));
+        return createAPIResponseWithLinks(createTwo(companyModel()));
     }
 
     private static APIResponse<Collection<CompanyType>> companyTypeOverview() {
@@ -413,7 +411,7 @@ public abstract class ResponseData<T> {
     }
 
     private static APIResponse<Collection<FCList>> listOverview() {
-        return createAPIResponse(createTwo(listModel()));
+        return createAPIResponseWithLinks(createTwo(listModel()));
     }
 
     private static APIResponse<FCList> list(Shape shape) {
@@ -510,6 +508,10 @@ public abstract class ResponseData<T> {
 
     private static APIResponse<Translation> translation(Shape shape) {
         return createAPIResponse(create(translationModel(), shape));
+    }
+
+    private static APIResponse<Collection<Translation>> translations() {
+        return createAPIResponse(createTwo(translationModel()));
     }
 
     private static APIResponse<Collection<EntityUpdate>> updateOverview() {
@@ -824,7 +826,7 @@ public abstract class ResponseData<T> {
 
     private static SimpleDtoSupplier<Links> linksModel() {
         return idx -> new APIResponseDTO.LinksDTO.Builder().previous("Prev" + idx).self("Self" + idx).next("Next" + idx)
-                .build();
+                .totalItems(65847 + idx).pageSize(249 + idx).build();
     }
 
     private static SimpleDtoSupplier<String> nameTranslationModel() {
@@ -1088,7 +1090,9 @@ public abstract class ResponseData<T> {
                         .characters(createTwo(characterModel(), listOffset))
                         .seasons(createTwo(seasonModel(), listOffset))
                         .translations(create(translationsModel(), listOffset))
-                        .episodes(createTwo(episodeModel(), listOffset));
+                        .episodes(createTwo(episodeModel(), listOffset))
+                        .originalNetwork(create(companyModel()))
+                        .latestNetwork(create(companyModel()));
             }
             return builder.build();
         };

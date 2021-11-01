@@ -17,6 +17,7 @@
 package com.github.m0nk3y2k4.thetvdb.api.model;
 
 import java.util.Optional;
+import java.util.OptionalInt;
 
 /**
  * Interface for extended remote API responses. All API routes will return additional status information together with
@@ -84,5 +85,25 @@ public interface APIResponse<T> {
          *         available for this endpoint
          */
         Optional<String> getNext();
+
+        /**
+         * Total amount of available items. Resolves to the value of the {<em>{@code links.total_items}</em>} JSON
+         * property.
+         *
+         * @return Total amount of available items or an empty Optional if link information are not available for this
+         *         endpoint
+         */
+        OptionalInt getTotalItems();
+
+        /**
+         * Number of items returned per page. Resolves to the value of the {<em>{@code links.page_size}</em>} JSON
+         * property.
+         *
+         * @return The number of items returned per page or an empty Optional if link information are not available for
+         *         this endpoint
+         */
+        OptionalInt getPageSize();
+
+
     }
 }

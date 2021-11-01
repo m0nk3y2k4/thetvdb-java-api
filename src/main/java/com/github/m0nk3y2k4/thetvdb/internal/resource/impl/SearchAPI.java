@@ -53,7 +53,7 @@ public final class SearchAPI extends QueryResource {
      *                      not found etc.
      */
     public static JsonNode getSearchResults(@Nonnull APIConnection con, QueryParameters params) throws APIException {
-        Parameters.validateQueryParam(Query.Search.Q, Query.Search.QUERY, params);
+        Parameters.validateEitherMandatoryQueryParam(Query.Search.Q, Query.Search.QUERY, params);
         return con.sendGET(createQueryResource("/search", params));
     }
 }

@@ -65,25 +65,29 @@ class APIUtilTest {
         );
     }
 
-    private static Stream<Arguments> toString_withoutDefaultValue() {
+    private static Stream<Arguments> valueSupplierWithoutDefaultValue() {
         return Stream.of(
                 Arguments.of(null, ""),
                 Arguments.of((Supplier<?>)() -> null, ""),
                 Arguments.of((Supplier<Collection<Integer>>)() -> List.of(4, 3, 2, 1), "4, 3, 2, 1"),
                 Arguments.of((Supplier<Optional<String>>)() -> Optional.of(SOME_STRING), SOME_STRING),
                 Arguments.of((Supplier<Optional<?>>)Optional::empty, ""),
+                Arguments.of((Supplier<OptionalInt>)() -> OptionalInt.of(26), "26"),
+                Arguments.of((Supplier<OptionalInt>)OptionalInt::empty, ""),
                 Arguments.of((Supplier<SomeObject>)() -> new SomeObject(SOME_STRING), SOME_STRING),
                 Arguments.of((Supplier<String>)() -> SOME_STRING, SOME_STRING)
         );
     }
 
-    private static Stream<Arguments> toString_withDefaultValue() {
+    private static Stream<Arguments> valueSupplierWithDefaultValue() {
         return Stream.of(
                 Arguments.of(null, SOME_STRING, SOME_STRING),
                 Arguments.of((Supplier<?>)() -> null, SOME_STRING, SOME_STRING),
                 Arguments.of((Supplier<Collection<Integer>>)() -> List.of(1, 2, 3, 4), "", "1, 2, 3, 4"),
                 Arguments.of((Supplier<Optional<String>>)() -> Optional.of(SOME_STRING), "", SOME_STRING),
                 Arguments.of((Supplier<Optional<?>>)Optional::empty, SOME_STRING, SOME_STRING),
+                Arguments.of((Supplier<OptionalInt>)() -> OptionalInt.of(26), SOME_STRING, "26"),
+                Arguments.of((Supplier<OptionalInt>)OptionalInt::empty, SOME_STRING, SOME_STRING),
                 Arguments.of((Supplier<SomeObject>)() -> new SomeObject(SOME_STRING), "", SOME_STRING),
                 Arguments.of((Supplier<String>)() -> SOME_STRING, "", SOME_STRING)
         );
@@ -129,13 +133,13 @@ class APIUtilTest {
     }
 
     @ParameterizedTest
-    @MethodSource
+    @MethodSource("valueSupplierWithoutDefaultValue")
     void toString_withoutDefaultValue(Supplier<?> valueSupplier, String expected) {
         assertThat(APIUtil.toString(valueSupplier)).isEqualTo(expected);
     }
 
     @ParameterizedTest
-    @MethodSource
+    @MethodSource("valueSupplierWithDefaultValue")
     void toString_withDefaultValue(Supplier<?> valueSupplier, String nullDefault, String expected) {
         assertThat(APIUtil.toString(valueSupplier, nullDefault)).isEqualTo(expected);
     }

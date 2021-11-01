@@ -17,6 +17,7 @@
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model;
 
 import java.util.Optional;
+import java.util.OptionalInt;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -72,11 +73,21 @@ public abstract class APIResponseDTO<T> implements APIResponse<T> {
         public abstract Optional<String> getPrevious();
 
         @Override
+        @JsonAlias("total_items")
+        public abstract OptionalInt getTotalItems();
+
+        @Override
+        @JsonAlias("page_size")
+        public abstract OptionalInt getPageSize();
+
+        @Override
         public String toString() {
-            return String.format("Previous: %s, Self: %s, Next: %s",
+            return String.format("Previous: %s, Self: %s, Next: %s, Total items: %s, Page size: %s",
                     APIUtil.toString(this::getPrevious),
                     APIUtil.toString(this::getSelf),
-                    APIUtil.toString(this::getNext));
+                    APIUtil.toString(this::getNext),
+                    APIUtil.toString(this::getTotalItems),
+                    APIUtil.toString(this::getPageSize));
         }
 
         /**

@@ -16,10 +16,13 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
+import javax.annotation.Nullable;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Company;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.APIDataModel;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.WithHiddenImplementation;
+import org.immutables.value.Value.Auxiliary;
 import org.immutables.value.Value.Immutable;
 
 /**
@@ -34,6 +37,11 @@ import org.immutables.value.Value.Immutable;
 @WithHiddenImplementation
 @JsonDeserialize(builder = CompanyDTO.Builder.class)
 public abstract class CompanyDTO implements Company {
+
+    @Nullable
+    @Auxiliary
+    // ToDo: Field is currently not declared in Company but returned in JSON. Hide it behind the interface for now and check again after next API update.
+    public abstract Object getParentCompany();
 
     /**
      * Builder used to create a new immutable {@link CompanyDTO} implementation

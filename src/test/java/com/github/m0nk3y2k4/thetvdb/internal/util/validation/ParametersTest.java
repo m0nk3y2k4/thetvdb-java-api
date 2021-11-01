@@ -70,6 +70,14 @@ class ParametersTest {
         );
     }
 
+    private static Stream<Arguments> validDateStrings() {
+        return Stream.of(
+                Arguments.of("2017-11-06", "yyyy-MM-dd"),
+                Arguments.of("10/19/21", "M/d/yyyy"),
+                Arguments.of("16.4.19", "dd.MM.yyyy")
+        );
+    }
+
     @Test
     void validateCondition_happyDay() {
         assertDoesNotThrow(() -> Parameters
@@ -170,60 +178,72 @@ class ParametersTest {
 
     @ParameterizedTest(name = "[{index}] With parameters \"{0}\" and \"{1}\"")
     @MethodSource("validQueryParameterCombinations")
-    void validateQueryParam_withMultipleQueryParameters_happyDay(Optional<String> paramName1,
+    void validateEitherMandatoryQueryParam_withMultipleQueryParameters_happyDay(Optional<String> paramName1,
             Optional<String> paramName2) {
         final QueryParameters queryParameters = new QueryParametersImpl();
         paramName1.ifPresent(name -> queryParameters.addParameter(name, "Value1"));
         paramName2.ifPresent(name -> queryParameters.addParameter(name, "Value2"));
         assertDoesNotThrow(() -> Parameters
-                .validateQueryParam(paramName1.orElse("K1"), paramName2.orElse("K2"), queryParameters));
+                .validateEitherMandatoryQueryParam(paramName1.orElse("K1"), paramName2.orElse("K2"), queryParameters));
     }
 
     @Test
-    void validateQueryParam_withNoneOfMultipleQueryParametersPresent_exceptionThrown() {
+    void validateEitherMandatoryQueryParam_withNoneOfMultipleQueryParametersPresent_exceptionThrown() {
         final String queryParamName1 = "name";
         final String queryParamName2 = "id";
         final QueryParameters queryParameters = new QueryParametersImpl(Map.of("phone", "555-176014"));
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> Parameters.validateQueryParam(queryParamName1, queryParamName2, queryParameters))
+                .isThrownBy(() -> Parameters.validateEitherMandatoryQueryParam(queryParamName1, queryParamName2, queryParameters))
                 .withMessageContaining("None of query parameters [%s, %s] is set", queryParamName1, queryParamName2);
     }
 
     @Test
-    void validateQueryParam_withSingleQueryParameter_happyDay() {
+    void validateMandatoryQueryParam_withSingleQueryParameter_happyDay() {
         final String queryParamName = "department";
         final QueryParameters queryParameters = new QueryParametersImpl(Map.of(queryParamName, "Sales"));
-        assertDoesNotThrow(() -> Parameters.validateQueryParam(queryParamName, queryParameters));
+        assertDoesNotThrow(() -> Parameters.validateMandatoryQueryParam(queryParamName, queryParameters));
     }
 
     @Test
-    void validateQueryParam_withMissingMandatoryQueryParameter_exceptionThrown() {
+    void validateMandatoryQueryParam_withNoSingleQueryParameterPresent_exceptionThrown() {
         final String queryParamName = "company";
         final QueryParameters queryParameters = new QueryParametersImpl(Map.of("city", "Bespin"));
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> Parameters.validateQueryParam(queryParamName, queryParameters))
+                .isThrownBy(() -> Parameters.validateMandatoryQueryParam(queryParamName, queryParameters))
                 .withMessageContaining("[%s] is required but is not set", queryParamName);
     }
 
     @ParameterizedTest(name = "[{index}] Parameter \"{0}\" is null or empty")
     @NullAndEmptyStringSource
-    void validateQueryParam_withInvalidMandatoryQueryParameter_exceptionThrown(String queryParamNameValue) {
+    void validateMandatoryQueryParam_withEmptySingleQueryParameter_exceptionThrown(String queryParamNameValue) {
         final String queryParamName = "region";
         final QueryParameters queryParameters = new QueryParametersWithDisabledValueChecks()
                 .addParameter(queryParamName, queryParamNameValue);
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> Parameters.validateQueryParam(queryParamName, queryParameters))
+                .isThrownBy(() -> Parameters.validateMandatoryQueryParam(queryParamName, queryParameters))
                 .withMessageContaining("[%s] must not be empty", queryParamName);
     }
 
     @Test
-    void validateQueryParam_withInvalidQueryParameter_exceptionThrown() {
+    void validateMandatoryQueryParam_withInvalidSingleQueryParameter_exceptionThrown() {
         final String queryParamName = "languageCode";
         final String queryParamValue = "french";
         final QueryParameters params = new QueryParametersImpl(Map.of(queryParamName, queryParamValue));
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> Parameters.validateQueryParam(queryParamName, params, code -> code.length() <= 2))
+                .isThrownBy(() -> Parameters.validateMandatoryQueryParam(queryParamName, params, code -> code.length() <= 2))
                 .withMessageContaining("[%s] is set to an invalid value: %s", queryParamName, queryParamValue);
+    }
+
+    @Test
+    void validateOptionalQueryParam_withValidQueryParameterPresent_happyDay() {
+        final String queryParamName = "airDate";
+        final QueryParameters queryParameters = new QueryParametersImpl(Map.of(queryParamName, "1998-01-26"));
+        assertDoesNotThrow(() -> Parameters.validateOptionalQueryParam(queryParamName, queryParameters, Parameters.isValidDate("yyyy-MM-dd")));
+    }
+
+    @Test
+    void validateOptionalQueryParam_withNoQueryParameterPresent_noValidationPerformed() {
+        assertDoesNotThrow(() -> Parameters.validateOptionalQueryParam("season", new QueryParametersImpl(), s -> false));
     }
 
     @ParameterizedTest(name = "[{index}] \"{0}\" is a positive numerical integer")
@@ -237,6 +257,19 @@ class ParametersTest {
     @ValueSource(strings = {"", "  ", "NaN", "25.3", "-7", "0", "3 "})
     void isPositiveInteger_withNonPositiveIntegerValues_returnsFalse(String value) {
         assertThat(Parameters.isPositiveInteger().test(value)).isFalse();
+    }
+
+    @ParameterizedTest(name = "[{index}] \"{0}\" matches date pattern <{1}>")
+    @MethodSource("validDateStrings")
+    void isValidDate_withValidDateValues_returnsTrue(String value, String pattern) {
+        assertThat(Parameters.isValidDate(pattern).test(value)).isTrue();
+    }
+
+    @ParameterizedTest(name = "[{index}] \"{0}\" does not match date pattern <yyyy-MM-dd>")
+    @NullSource
+    @ValueSource(strings = {"", "  ", "abc", "21-02-30", "2022-15-28", "18-07-2019", "2020/04/31"})
+    void isValidDate_withInvalidDateValues_returnsFalse(String value) {
+        assertThat(Parameters.isValidDate("yyyy-MM-dd").test(value)).isFalse();
     }
 
     @Test

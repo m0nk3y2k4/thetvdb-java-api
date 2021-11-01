@@ -18,8 +18,11 @@ package com.github.m0nk3y2k4.thetvdb.internal.util.validation;
 
 import static java.util.stream.Collectors.toList;
 
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
@@ -170,11 +173,11 @@ public final class Parameters {
      * @throws IllegalArgumentException If the parameter collection does not contain any of the given parameters or if a
      *                                  parameter exists but contains no value
      */
-    public static void validateQueryParam(String paramName1, String paramName2, QueryParameters params) {
+    public static void validateEitherMandatoryQueryParam(String paramName1, String paramName2, QueryParameters params) {
         List<String> existingParams = Stream.of(paramName1, paramName2)
                 .filter(name -> containsQueryParameter(name, params)).collect(toList());
         validateNotEmpty(existingParams, String.format("None of query parameters [%s, %s] is set", paramName1, paramName2));
-        existingParams.forEach(paramName -> validateQueryParam(paramName, params));
+        existingParams.forEach(paramName -> validateMandatoryQueryParam(paramName, params));
     }
 
     /**
@@ -187,8 +190,8 @@ public final class Parameters {
      * @throws IllegalArgumentException If the parameter collection does not contain a non-empty parameter with the
      *                                  given name
      */
-    public static void validateQueryParam(String paramName, QueryParameters params) {
-        validateQueryParam(paramName, params, s -> true);
+    public static void validateMandatoryQueryParam(String paramName, QueryParameters params) {
+        validateMandatoryQueryParam(paramName, params, s -> true);
     }
 
     /**
@@ -202,7 +205,8 @@ public final class Parameters {
      * @throws IllegalArgumentException If the parameter collection does not contain a non-empty parameter with the
      *                                  given name or the parameter does not match the given condition
      */
-    public static void validateQueryParam(String paramName, QueryParameters params, Predicate<String> condition) {
+    public static void validateMandatoryQueryParam(String paramName, QueryParameters params,
+            Predicate<String> condition) {
         validateCondition(query -> containsQueryParameter(paramName, query), params, new IllegalArgumentException(
                 String.format("Query parameter [%s] is required but is not set", paramName)));
         Optional<String> paramValue = params.getParameterValue(paramName);
@@ -211,6 +215,25 @@ public final class Parameters {
                 new IllegalArgumentException(String
                         .format("Value for query parameter [%s] is set to an invalid value: %s", paramName,
                                 paramValue.get())));
+    }
+
+    /**
+     * Checks if a <em>{@code paramName}</em> parameter is present in the given <em>{@code params}</em> query parameter
+     * collection, and if so, verifies that its value is not empty and matches the given condition. Otherwise, an
+     * exception will be thrown. If no such parameter exists this method returns instantly.
+     *
+     * @param paramName The name of the URL query parameter to check for
+     * @param params    Query parameters object to check for the given parameter
+     * @param condition Condition to be matched by the parameter value in case the query parameter is present
+     *
+     * @throws IllegalArgumentException If the parameter collection does contain a parameter with the given name but its
+     *                                  value is empty or does not match the given condition
+     */
+    public static void validateOptionalQueryParam(String paramName, QueryParameters params,
+            Predicate<String> condition) {
+        if (containsQueryParameter(paramName, params)) {
+            validateMandatoryQueryParam(paramName, params, condition);
+        }
     }
 
     /**
@@ -234,6 +257,26 @@ public final class Parameters {
     public static Predicate<String> isPositiveInteger() {
         return value -> APIUtil.hasValue(value) && NUMERIC_INTEGER.matcher(value).matches()
                 && Long.valueOf(value).compareTo(0L) > 0;
+    }
+
+    /**
+     * Provides a predicate used to check whether a String represents a valid date according to the given pattern.
+     * <p><br>
+     * Although strict parsing will be used, this predicate may consider date Strings to be valid, even if they do not
+     * exactly match the given <em>{@code pattern}</em>, i.e. for 2-digit years. Further information can be found {@link
+     * SimpleDateFormat SimpleDateFormat documentation}.
+     *
+     * @param pattern The pattern describing the date format
+     *
+     * @return String predicate to check for a valid date
+     */
+    public static Predicate<String> isValidDate(String pattern) {
+        return value -> Optional.ofNullable(value)
+                .map(date -> {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.ENGLISH);
+                    dateFormat.setLenient(false);
+                    return dateFormat.parse(date, new ParsePosition(0));
+                }).isPresent();
     }
 
     /**

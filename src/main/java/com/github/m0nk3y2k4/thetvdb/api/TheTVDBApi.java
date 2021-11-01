@@ -546,7 +546,7 @@ public interface TheTVDBApi {
     Translation getEpisodeTranslation(long episodeId, @Nonnull String language) throws APIException;
 
     /**
-     * Returns a translation record for a specific list mapped as Java DTO.
+     * Returns a collection of translation records for a specific list mapped as Java DTO.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Lists/getListTranslation">
      * <b>[GET]</b> /lists/{id}/translations/{language}</a>
@@ -561,7 +561,7 @@ public interface TheTVDBApi {
      * @see JSON#getListTranslation(long, String) TheTVDBApi.JSON.getListTranslation(listId, language)
      * @see Extended#getListTranslation(long, String) TheTVDBApi.Extended.getListTranslation(listId, language)
      */
-    Translation getListTranslation(long listId, @Nonnull String language) throws APIException;
+    Collection<Translation> getListTranslation(long listId, @Nonnull String language) throws APIException;
 
     /**
      * Returns a collection of lists based on the given query parameters mapped as Java DTO. The collection contains
@@ -1733,7 +1733,7 @@ public interface TheTVDBApi {
         JsonNode getEpisodeTranslation(long episodeId, @Nonnull String language) throws APIException;
 
         /**
-         * Returns a translation record for a specific list as raw JSON.
+         * Returns a collection of translation records for a specific list as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Lists/getListTranslation">
          * <b>[GET]</b> /lists/{id}/translations/{language}</a>
@@ -2640,7 +2640,8 @@ public interface TheTVDBApi {
         APIResponse<Translation> getEpisodeTranslation(long episodeId, @Nonnull String language) throws APIException;
 
         /**
-         * Returns a response object containing a translation record for a specific list mapped as Java DTO.
+         * Returns a response object containing a collection of translation records for a specific list mapped as Java
+         * DTO.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Lists/getListTranslation">
          * <b>[GET]</b> /lists/{id}/translations/{language}</a>
@@ -2657,7 +2658,8 @@ public interface TheTVDBApi {
          * @see JSON#getListTranslation(long, String) TheTVDBApi.JSON.getListTranslation(listId, language)
          * @see TheTVDBApi#getListTranslation(long, String) TheTVDBApi.getListTranslation(listId, language)
          */
-        APIResponse<Translation> getListTranslation(long listId, @Nonnull String language) throws APIException;
+        APIResponse<Collection<Translation>> getListTranslation(long listId, @Nonnull String language)
+                throws APIException;
 
         /**
          * Returns a response object containing a collection of lists based on the given query parameters mapped as Java

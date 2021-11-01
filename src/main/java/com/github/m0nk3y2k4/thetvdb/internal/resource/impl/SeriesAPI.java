@@ -16,11 +16,14 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
+import static com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series.AIR_DATE;
 import static com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series.EPISODE_NUMBER;
 import static com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series.SEASON;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters.isValidDate;
 
 import java.util.Objects;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
 
@@ -46,8 +49,15 @@ public final class SeriesAPI extends QueryResource {
     /** Identifiers for dynamic URL path parameters */
     private static final String PATH_SEASONTYPE = "season-type";
 
+    /** Pattern used to validate the conformity of optional 'airDate' query parameter value */
+    private static final Pattern AIR_DATE_PATTERN = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
+
     /** Validator for the dynamic <em>{@code season-type}</em> URL path parameter */
     private static final Predicate<SeriesSeasonType> SEASONTYPE_VALIDATOR = Objects::nonNull;
+
+    /** Validator for the optional 'airDate' query parameter value */
+    private static final Predicate<String> AIR_DATE_VALIDATOR = isValidDate("yyyy-MM-dd")
+            .and(value -> AIR_DATE_PATTERN.matcher(value).matches());
 
     private SeriesAPI() {}      // Private constructor. Only static methods
 
@@ -146,9 +156,11 @@ public final class SeriesAPI extends QueryResource {
             QueryParameters params) throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
         Parameters.validatePathParam(PATH_SEASONTYPE, seasonType, SEASONTYPE_VALIDATOR);
-        if (Parameters.containsQueryParameter(EPISODE_NUMBER, params)) {
-            Parameters.validateQueryParam(SEASON, params); // If episodeNumber is not null then season must be present
-        }
+        Parameters.validateOptionalQueryParam(AIR_DATE, params, AIR_DATE_VALIDATOR);
+        Parameters.validateOptionalQueryParam(EPISODE_NUMBER, params, episodeNumber -> {
+            Parameters.validateMandatoryQueryParam(SEASON, params); // If episodeNumber is not null then season must be present
+            return true;
+        });
         return con.sendGET(createQueryResource("/series/{id}/episodes/{season-type}", params, id, seasonType));
     }
 

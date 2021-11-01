@@ -57,7 +57,7 @@ public final class UpdatesAPI extends QueryResource {
      *                      not found, etc.
      */
     public static JsonNode getUpdates(@Nonnull APIConnection con, QueryParameters params) throws APIException {
-        Parameters.validateQueryParam(Query.Updates.SINCE, params, isPositiveInteger());
+        Parameters.validateMandatoryQueryParam(Query.Updates.SINCE, params, isPositiveInteger());
         return con.sendGET(createQueryResource("/updates", params));
     }
 }

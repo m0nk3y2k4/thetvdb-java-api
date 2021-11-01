@@ -30,7 +30,8 @@ class APIResponseDTOTest {
                 .status("")
                 .links(new LinksDTO.Builder().build())
                 .build())
-                .asString().isEqualTo("Data: [], Status: [], Links: [Previous: , Self: , Next: ]");
+                .asString()
+                .isEqualTo("Data: [], Status: [], Links: [Previous: , Self: , Next: , Total items: , Page size: ]");
     }
 
     @Test
@@ -41,10 +42,12 @@ class APIResponseDTOTest {
                         .previous("Prev")
                         .self("Self")
                         .next("Next")
+                        .totalItems(56)
+                        .pageSize(10)
                         .build())
                 .build())
                 .asString()
-                .isEqualTo("Data: [Content], Status: [Success], Links: [Previous: Prev, Self: Self, Next: Next]");
+                .isEqualTo("Data: [Content], Status: [Success], Links: [Previous: Prev, Self: Self, Next: Next, Total items: 56, Page size: 10]");
     }
 
     @Test

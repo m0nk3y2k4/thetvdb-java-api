@@ -141,6 +141,8 @@ public final class Query {
         public static final String SEASON = "season";
         /** Query parameter "<i>episodeNumber</i>" - Restrict results to a specific episode. Defaults to 0 if not provided. */
         public static final String EPISODE_NUMBER = "episodeNumber";
+        /** Query parameter "<i>airDate</i>" - Air date of the episode, format is yyyy-MM-dd. */
+        public static final String AIR_DATE = "airDate";
 
 
         private Series() {}     // Private constructor. Only constants in this class

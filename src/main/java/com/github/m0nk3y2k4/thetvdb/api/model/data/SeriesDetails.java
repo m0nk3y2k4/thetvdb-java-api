@@ -129,6 +129,23 @@ public interface SeriesDetails extends Series {
      *
      * @return The <em>{@code episodes}</em> property from the received JSON
      */
-    // ToDo: Field is currently not declared in SeriesExtendedRecord but returned in JSON. Check again after the next API update.
+    // ToDo: Field is currently declared in SeriesBaseRecord but only returned in SeriesExtendedRecord. Check again after the next API update.
     List<Episode> getEpisodes();
+
+
+    /**
+     * Get the value of the {<em>{@code data.originalNetwork}</em>} JSON property
+     *
+     * @return The <em>{@code originalNetwork}</em> property from the received JSON
+     */
+    @Nullable
+    Company getOriginalNetwork();
+
+    /**
+     * Get the value of the {<em>{@code data.latestNetwork}</em>} JSON property
+     *
+     * @return The <em>{@code latestNetwork}</em> property from the received JSON
+     */
+    @Nullable
+    Company getLatestNetwork();
 }

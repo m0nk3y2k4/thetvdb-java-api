@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -136,6 +137,7 @@ public final class APIUtil {
      *
      * @return Supplier output value converted to a String representation or <em>{@code nullDefault}</em>
      */
+    @SuppressWarnings("IfStatementWithTooManyBranches")
     public static <T> String toString(Supplier<T> valueSupplier, String nullDefault) {
         Optional<T> optValue = Optional.ofNullable(valueSupplier).map(Supplier::get);
         if (optValue.isPresent()) {
@@ -144,6 +146,9 @@ public final class APIUtil {
                 return ((Collection<?>)value).stream().map(Object::toString).collect(Collectors.joining(", "));
             } else if (value instanceof Optional<?>) {
                 return ((Optional<?>)value).map(Object::toString).orElse(nullDefault);
+            } else if (value instanceof OptionalInt) {
+                OptionalInt optIntValue = (OptionalInt)value;
+                return optIntValue.isPresent() ? String.valueOf(optIntValue.getAsInt()) : nullDefault;
             } else {
                 return value.toString();
             }

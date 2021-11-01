@@ -78,8 +78,6 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesEpisodes;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SourceType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Status;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Translation;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.APIResponseDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TranslationDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ArtworkAPI;
@@ -332,7 +330,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public Translation getListTranslation(long listId, @Nonnull String language) throws APIException {
+    public Collection<Translation> getListTranslation(long listId, @Nonnull String language) throws APIException {
         return extended().getListTranslation(listId, language).getData();
     }
 
@@ -972,16 +970,9 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<Translation> getListTranslation(long listId, @Nonnull String language) throws APIException {
-            // ToDo: Route is currently declared to return a single Translation object but the JSON actually contains an array. Check again after next API update.
-            APIResponse<Collection<Translation>> apiResponse = APIJsonMapper
-                    .readValue(json().getListTranslation(listId, language), new TypeReference<>() {});
-            return new APIResponseDTO.Builder<Translation>()
-                    .data(apiResponse.getData().stream().findFirst()
-                            .orElseGet(() -> new TranslationDTO.Builder().build()))
-                    .status(apiResponse.getStatus())
-                    .links(apiResponse.getLinks())
-                    .build();
+        public APIResponse<Collection<Translation>> getListTranslation(long listId, @Nonnull String language)
+                throws APIException {
+            return APIJsonMapper.readValue(json().getListTranslation(listId, language), new TypeReference<>() {});
         }
 
         @Override
