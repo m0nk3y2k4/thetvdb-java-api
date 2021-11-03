@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.0.4] - 2021-11-03
 ### Changed
 - Replaced the maven _NOPLogger_ dependency with _SimpleLogger_ implementation: `org.slf4j:slf4j-nop` -> `org.slf4j:slf4j-simple`.
 - Updated multiple maven dependencies and plugins to latest version:
@@ -247,7 +249,8 @@ First stable release which is fully compatible with _TheTVDB.com_ RESTful remote
 ### Added
 - First basic implementation draft of TheTVDB.com RESTful API Java connector.
 
-[Unreleased]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/3.0.3...HEAD
+[Unreleased]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/3.0.4...HEAD
+[3.0.4]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/3.0.3...3.0.4
 [3.0.3]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/3.0.2...3.0.3
 [3.0.2]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/3.0.1...3.0.2
 [3.0.1]: https://github.com/m0nk3y2k4/thetvdb-java-api/compare/tvdb-japi-3.0.0...3.0.1
