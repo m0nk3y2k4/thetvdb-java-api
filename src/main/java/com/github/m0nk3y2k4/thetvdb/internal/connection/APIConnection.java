@@ -294,7 +294,7 @@ public class APIConnection {
             try {
                 return request.send();
             } catch (APINotAuthorizedException e) {
-                // If the session is not yet authorized try to login or refresh the session
+                // If the session is not yet authorized try to request a new token
                 authorizeSession();
             }
         }

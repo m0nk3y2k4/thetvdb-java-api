@@ -99,11 +99,8 @@ import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeasonsAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SourceTypesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.UpdatesAPI;
-import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
 import com.github.m0nk3y2k4.thetvdb.internal.util.json.APIJsonMapper;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
-
-// ToDo: Revise JDoc once APIv4 implementation is finished
 
 /**
  * Implementation of the {@link TheTVDBApi} API layout. It provides methods for all sorts of API calls throughout the
@@ -148,21 +145,9 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     /**
-     * Validates that none of the given method String parameters is NULL or empty
+     * Validates that the given {@code page} parameters is not negative
      *
-     * @param params Array of method String parameter to check
-     *
-     * @throws IllegalArgumentException If at least one of the given parameters is NULL or empty
-     */
-    private static void validateNotEmpty(String... params) {
-        Parameters.validateCondition(APIUtil::hasValue, params,
-                new IllegalArgumentException("Method parameters must not be NULL or empty!"));
-    }
-
-    /**
-     * Validates that the given method {@code page} parameters is not negative
-     *
-     * @param page The method {@code page} parameter to check
+     * @param page The {@code page} method parameter to be checked
      *
      * @throws IllegalArgumentException If the given parameter is a negative numerical value
      */
@@ -214,12 +199,6 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     @Override
     public void login() throws APIException {
         LoginAPI.login(con);
-    }
-
-    @Override
-    public void refreshToken() throws APIException {
-        // ToDo: Adjust to new APIv4 login mechanics
-//        AuthenticationAPI.refreshSession(con);
     }
 
     @Override

@@ -69,8 +69,6 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.SourceType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Status;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Translation;
 
-// ToDo: Revise JDoc once APIv4 implementation is finished
-
 /**
  * Main interface of the <i>TheTVDB</i> API connector.
  * <p><br>
@@ -95,19 +93,18 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Translation;
  * <ul>
  * <li>{@link TheTVDBApi}<br>
  * This is probably the most common layout. It provides various shortcut-methods and automatically maps the received
- * JSON <b><i>data</i></b> content into simple Java DTO's (at least for more complex response data). The user does not
- * have to worry about JSON parsing but can simply work with the returned DTO's like he works with every other Java
- * object. However, these objects do only contain the actually requested data and will not include any additional
- * contextual information that may be returned by the remote service (e.g. Pagination information, additional
- * validation or error data). Furthermore they will only provide access to properties that are
- * <a target="_blank" href="https://app.swaggerhub.com/apis-docs/thetvdb/tvdb-api_v_4/4.0.0">formally declared by the
- * API</a> (version {@value Version#API_VERSION}).</li>
+ * JSON <b><i>data</i></b> content into simple Java DTO's. The user does not have to worry about JSON parsing but can
+ * simply work with the returned DTO's like he works with every other Java object. However, these objects do only
+ * contain the actually requested data and will not include any additional contextual information that may be returned
+ * by the remote service (e.g. Pagination information, additional validation or error data). They will provide access to
+ * all properties that are formally declared by the <a target="_blank" href="https://thetvdb.github.io/v4-api/">API
+ * documentation</a> (version {@value Version#API_VERSION}).</li>
  * <li>{@link Extended}<br>
  * This layout may be used for slightly advance API integration. Like the common layout it'll take care of parsing
  * the received JSON into Java DTO's but it will also provide access to any additional contextual information.
  * Methods of this layout will always return a single {@link APIResponse} object which consists of the actual data,
  * parsed as DTO, as well as all additional information which is available in the given context, like additional
- * error or pagination information. This layout does not provide any shortcut-methods.</li>
+ * status or pagination information. This layout does not provide any shortcut-methods.</li>
  * <li>{@link JSON}<br>
  * This layout may be used if you do not want any post-processing being applied to the actual remote service response
  * data. All methods within this layout will return the raw, unmodified JSON data as it was received from the API.
@@ -163,6 +160,7 @@ public interface TheTVDBApi {
      *
      * @param languageCode The language in which the results are to be returned
      */
+    // ToDo: Check if this is still supported by the remote API
     void setLanguage(String languageCode);
 
     /**
@@ -179,19 +177,6 @@ public interface TheTVDBApi {
      *                      not found, etc.
      */
     void login() throws APIException;
-
-    /**
-     * Refreshes the current, valid JWT session token. This method can be used to extend the expiration date (24 hours)
-     * of the current session token without the need of a complete new login.
-     * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Login/get_refresh_token">
-     * <b>[GET]</b> /refresh_token</a>
-     *
-     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
-     *                      not found, etc.
-     */
-    // ToDo: Check with final API if this can be removed
-    void refreshToken() throws APIException;
 
     /**
      * Returns a collection of available artwork statuses mapped as Java DTO.
@@ -3252,7 +3237,7 @@ public interface TheTVDBApi {
      */
     final class Version {
         /** Version of the <i>TheTVDB.com</i> remote API used by this connector */
-        public static final String API_VERSION = "v4.0.0";
+        public static final String API_VERSION = "v4.4.0";
 
         /** Constant class. Should not be instantiated */
         private Version() {}

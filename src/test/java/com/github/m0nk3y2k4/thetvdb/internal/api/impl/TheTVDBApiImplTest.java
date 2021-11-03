@@ -26,7 +26,6 @@ import static com.github.m0nk3y2k4.thetvdb.api.enumeration.UpdateEntityType.TRAN
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.POST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
-import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.SUBSCRIPTION_APIKEY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.params;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
@@ -105,7 +104,6 @@ import com.github.m0nk3y2k4.thetvdb.testutils.assertj.TestTheTVDBAPICallAssert;
 import com.github.m0nk3y2k4.thetvdb.testutils.junit.jupiter.WithHttpsMockServer;
 import com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestTheTVDBAPICall;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -139,13 +137,11 @@ class TheTVDBApiImplTest {
     @DisplayName("Tests for the basic TheTVDBApi layout")
     class TheTVDBApiTest {
 
-        private TheTVDBApi basicAPI;
-        private TheTVDBApi userAuthApi;
+        private TheTVDBApi theTVDBApi;
 
         @BeforeAll
-        void setUpAPIs(Proxy remoteAPI) throws Exception {
-            basicAPI = init(new TheTVDBApiImpl(CONTRACT_APIKEY, remoteAPI));
-            userAuthApi = init(new TheTVDBApiImpl(SUBSCRIPTION_APIKEY, remoteAPI));
+        void setUpAPI(Proxy remoteAPI) throws Exception {
+            theTVDBApi = init(new TheTVDBApiImpl(CONTRACT_APIKEY, remoteAPI));
         }
 
         //@DisableFormatting
@@ -223,97 +219,97 @@ class TheTVDBApiImplTest {
         @SuppressWarnings("ConstantConditions")
         private Stream<Arguments> withInvalidParameters() {
             return Stream.of(
-                    of(route(() -> basicAPI.getAllCompanies(-1), "getAllCompanies() with negative page parameter")),
-                    of(route(() -> basicAPI.getEpisodeDetails(87415, (EpisodeMeta)null), "getEpisodeDetails() with missing meta parameter")),
-                    of(route(() -> basicAPI.getAllLists(-5), "getAllLists() with negative page parameter")),
-                    of(route(() -> basicAPI.getAllMovies(-4), "getAllMovies() with negative page parameter")),
-                    of(route(() -> basicAPI.getMovieDetails(98716, (MovieMeta)null), "getMovieDetails() with missing meta parameter")),
-                    of(route(() -> basicAPI.getPeopleDetails(48710, (PeopleMeta)null), "getPeopleDetails() with missing meta parameter")),
-                    of(route(() -> basicAPI.search(null), "search() with missing search term parameter")),
-                    of(route(() -> basicAPI.search(null, null), "search() with missing search term and type parameter")),
-                    of(route(() -> basicAPI.search("SearchTerm", null), "search() with missing type parameter")),
-                    of(route(() -> basicAPI.getAllSeasons(-6), "getAllSeasons() with negative page parameter")),
-                    of(route(() -> basicAPI.getAllSeries(-3), "getAllSeries() with negative page parameter")),
-                    of(route(() -> basicAPI.getSeriesDetails(68447, (SeriesMeta)null), "getSeriesDetails() with missing meta parameter")),
-                    of(route(() -> basicAPI.getSeriesEpisodes(41257, DVD, -6), "getSeriesEpisodes() with negative season number parameter")),
-                    of(route(() -> basicAPI.getUpdates(16237785, -8), "getUpdates() with negative page parameter")),
-                    of(route(() -> basicAPI.getUpdates(16237871, null, CREATE, 3), "getUpdates() with missing type parameter")),
-                    of(route(() -> basicAPI.getUpdates(16237945, TRANSLATED_EPISODES, null, 5), "getUpdates() with missing action parameter")),
-                    of(route(() -> basicAPI.getUpdates(16238547, TRANSLATED_EPISODES, CREATE, -7), "getUpdates() with type, action and negative page parameter"))
+                    of(route(() -> theTVDBApi.getAllCompanies(-1), "getAllCompanies() with negative page parameter")),
+                    of(route(() -> theTVDBApi.getEpisodeDetails(87415, (EpisodeMeta)null), "getEpisodeDetails() with missing meta parameter")),
+                    of(route(() -> theTVDBApi.getAllLists(-5), "getAllLists() with negative page parameter")),
+                    of(route(() -> theTVDBApi.getAllMovies(-4), "getAllMovies() with negative page parameter")),
+                    of(route(() -> theTVDBApi.getMovieDetails(98716, (MovieMeta)null), "getMovieDetails() with missing meta parameter")),
+                    of(route(() -> theTVDBApi.getPeopleDetails(48710, (PeopleMeta)null), "getPeopleDetails() with missing meta parameter")),
+                    of(route(() -> theTVDBApi.search(null), "search() with missing search term parameter")),
+                    of(route(() -> theTVDBApi.search(null, null), "search() with missing search term and type parameter")),
+                    of(route(() -> theTVDBApi.search("SearchTerm", null), "search() with missing type parameter")),
+                    of(route(() -> theTVDBApi.getAllSeasons(-6), "getAllSeasons() with negative page parameter")),
+                    of(route(() -> theTVDBApi.getAllSeries(-3), "getAllSeries() with negative page parameter")),
+                    of(route(() -> theTVDBApi.getSeriesDetails(68447, (SeriesMeta)null), "getSeriesDetails() with missing meta parameter")),
+                    of(route(() -> theTVDBApi.getSeriesEpisodes(41257, DVD, -6), "getSeriesEpisodes() with negative season number parameter")),
+                    of(route(() -> theTVDBApi.getUpdates(16237785, -8), "getUpdates() with negative page parameter")),
+                    of(route(() -> theTVDBApi.getUpdates(16237871, null, CREATE, 3), "getUpdates() with missing type parameter")),
+                    of(route(() -> theTVDBApi.getUpdates(16237945, TRANSLATED_EPISODES, null, 5), "getUpdates() with missing action parameter")),
+                    of(route(() -> theTVDBApi.getUpdates(16238547, TRANSLATED_EPISODES, CREATE, -7), "getUpdates() with type, action and negative page parameter"))
             );
         }
 
         private Stream<Arguments> withValidParameters() {
             return Stream.of(
-                    of(route(() -> basicAPI.init(), "init()"), verify("/login", POST)),
-                    of(route(() -> basicAPI.login(), "login()"), verify("/login", POST)),
-                    of(route(() -> basicAPI.getAllArtworkStatuses(), "getAllArtworkStatuses()"), ARTWORKSTATUS_OVERVIEW),
-                    of(route(() -> basicAPI.getAllArtworkTypes(), "getAllArtworkTypes()"), ARTWORKTYPE_OVERVIEW),
-                    of(route(() -> basicAPI.getArtwork(3447), "getArtwork()"), ARTWORK),
-                    of(route(() -> basicAPI.getArtworkDetails(9403), "getArtworkDetails()"), ARTWORK_DETAILS),
-                    of(route(() -> basicAPI.getAwardCategory(830), "getAwardCategory()"), AWARDCATEGORY),
-                    of(route(() -> basicAPI.getAwardCategoryDetails(574), "getAwardCategoryDetails()"), AWARDCATEGORY_DETAILS),
-                    of(route(() -> basicAPI.getCharacter(604784), "getCharacter()"), CHARACTER),
-                    of(route(() -> basicAPI.getAllCompanies(params("value", "QueryCompanies")), "getAllCompanies() with query parameters"), COMPANY_OVERVIEW),
-                    of(route(() -> basicAPI.getAllCompanies(1), "getAllCompanies() with page"), COMPANY_OVERVIEW),
-                    of(route(() -> basicAPI.getCompany(241), "getCompany()"), COMPANY),
-                    of(route(() -> basicAPI.getCompanyTypes(), "getCompanyTypes()"), COMPANYTYPE_OVERVIEW),
-                    of(route(() -> basicAPI.getAllContentRatings(), "getAllContentRatings()"), CONTENTRATING_OVERVIEW),
-                    of(route(() -> basicAPI.getEntityTypes(), "getEntityTypes()"), ENTITYTYPE_OVERVIEW),
-                    of(route(() -> basicAPI.getEpisode(141007), "getEpisode()"), EPISODE),
-                    of(route(() -> basicAPI.getEpisodeDetails(69784, params("value", "QueryEpisodeDetails")), "getEpisodeDetails() with query parameters"), EPISODE_DETAILS),
-                    of(route(() -> basicAPI.getEpisodeDetails(37017), "getEpisodeDetails() with episode ID"), EPISODE_DETAILS),
-                    of(route(() -> basicAPI.getEpisodeDetails(45704, EpisodeMeta.TRANSLATIONS), "getEpisodeDetails() with episode ID and meta"), EPISODE_DETAILS),
-                    of(route(() -> basicAPI.getEpisodeTranslation(35744, "eng"), "getEpisodeTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getListTranslation(54047, "fra"), "getListTranslation()"), TRANSLATIONS),
-                    of(route(() -> basicAPI.getAllLists(params("value", "QueryLists")), "getAllLists() with query parameters"), LIST_OVERVIEW),
-                    of(route(() -> basicAPI.getAllLists(4), "getAllLists() with page"), LIST_OVERVIEW),
-                    of(route(() -> basicAPI.getList(6740), "getList()"), LIST),
-                    of(route(() -> basicAPI.getListDetails(7901), "getListDetails()"), LIST_DETAILS),
-                    of(route(() -> basicAPI.getAllGenders(), "getAllGenders()"), GENDER_OVERVIEW),
-                    of(route(() -> basicAPI.getAllGenres(), "getAllGenres()"), GENRE_OVERVIEW),
-                    of(route(() -> basicAPI.getGenre(47), "getGenre()"), GENRE),
-                    of(route(() -> basicAPI.getAllInspirationTypes(), "getAllInspirationTypes()"), INSPIRATIONTYPE_OVERVIEW),
-                    of(route(() -> basicAPI.getAllMovieStatuses(), "getAllMovieStatuses()"), STATUS_OVERVIEW),
-                    of(route(() -> basicAPI.getAllMovies(params("value", "QueryMovies")), "getAllMovies() with query parameters"), MOVIE_OVERVIEW),
-                    of(route(() -> basicAPI.getAllMovies(3), "getAllMovies() with page"), MOVIE_OVERVIEW),
-                    of(route(() -> basicAPI.getMovie(54394), "getMovie()"), MOVIE),
-                    of(route(() -> basicAPI.getMovieDetails(87416, params("value", "QueryMovieDetails")), "getMovieDetails() with query parameters"), MOVIE_DETAILS),
-                    of(route(() -> basicAPI.getMovieDetails(46994), "getMovieDetails() with movie ID"), MOVIE_DETAILS),
-                    of(route(() -> basicAPI.getMovieDetails(33657, MovieMeta.TRANSLATIONS), "getMovieDetails() with movie ID and meta"), MOVIE_DETAILS),
-                    of(route(() -> basicAPI.getMovieTranslation(69745, "eng"), "getMovieTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getAllPeopleTypes(), "getAllPeopleTypes()"), PEOPLETYPE_OVERVIEW),
-                    of(route(() -> basicAPI.getPeople(431071), "getPeople()"), PEOPLE),
-                    of(route(() -> basicAPI.getPeopleDetails(467845, params("value", "QueryPeopleDetails")), "getPeopleDetails() with query parameters"), PEOPLE_DETAILS),
-                    of(route(() -> basicAPI.getPeopleDetails(574101), "getPeopleDetails() with people ID"), PEOPLE_DETAILS),
-                    of(route(() -> basicAPI.getPeopleDetails(800577, PeopleMeta.TRANSLATIONS), "getPeopleDetails() with people ID and meta"), PEOPLE_DETAILS),
-                    of(route(() -> basicAPI.getPeopleTranslation(471160, "por"), "getPeopleTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getSearchResults(params(Search.Q, "SearchTerm", "value", "QuerySearch")), "getSearchResults() with query parameters"), SEARCH_OVERVIEW),
-                    of(route(() -> basicAPI.search("SearchTermOnly"), "search() with search term only"), SEARCH_OVERVIEW),
-                    of(route(() -> basicAPI.search("SearchTermAndType", SearchType.EPISODE), "search() with search term and type"), SEARCH_OVERVIEW),
-                    of(route(() -> basicAPI.getAllSeasons(params("value", "QuerySeasons")), "getAllSeasons() with query parameters"), SEASON_OVERVIEW),
-                    of(route(() -> basicAPI.getAllSeasons(5), "getAllSeasons() with page"), SEASON_OVERVIEW),
-                    of(route(() -> basicAPI.getSeason(34167), "getSeason()"), SEASON),
-                    of(route(() -> basicAPI.getSeasonDetails(69761), "getSeasonDetails()"), SEASON_DETAILS),
-                    of(route(() -> basicAPI.getSeasonTypes(), "getSeasonTypes()"), SEASONTYPE_OVERVIEW),
-                    of(route(() -> basicAPI.getSeasonTranslation(27478, "eng"), "getSeasonTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getAllSeriesStatuses(), "getAllSeriesStatuses()"), STATUS_OVERVIEW),
-                    of(route(() -> basicAPI.getAllSeries(params("value", "QuerySeries")), "getAllSeries() with query parameters"), SERIES_OVERVIEW),
-                    of(route(() -> basicAPI.getAllSeries(2), "getAllSeries() with page"), SERIES_OVERVIEW),
-                    of(route(() -> basicAPI.getSeries(2845), "getSeries()"), SERIES),
-                    of(route(() -> basicAPI.getSeriesDetails(4577, params("value", "QuerySeriesDetails")), "getSeriesDetails() with query parameters"), SERIES_DETAILS),
-                    of(route(() -> basicAPI.getSeriesDetails(9041), "getSeriesDetails() with series ID"), SERIES_DETAILS),
-                    of(route(() -> basicAPI.getSeriesDetails(1005, SeriesMeta.EPISODES), "getSeriesDetails() with series ID and meta"), SERIES_DETAILS),
-                    of(route(() -> basicAPI.getSeriesEpisodes(3789, DEFAULT), "getSeriesEpisodes()"), SERIESEPISODES),
-                    of(route(() -> basicAPI.getSeriesEpisodes(7000, ALTERNATE, params("value", "QuerySeriesEpisodes")), "getSeriesEpisodes() with query parameters"), SERIESEPISODES),
-                    of(route(() -> basicAPI.getSeriesEpisodes(2147, REGIONAL, 4), "getSeriesEpisodes() with season number"), SERIESEPISODES),
-                    of(route(() -> basicAPI.getSeriesEpisodesTranslated(5481, DVD, "eng"), "getSeriesEpisodesTranslated()"), SERIES_DETAILS),
-                    of(route(() -> basicAPI.getSeriesEpisodesTranslated(6974, DEFAULT, "deu", params("value", "QuerySeriesEpisodesTranslated")), "getSeriesEpisodesTranslated() with query parameters"), SERIES_DETAILS),
-                    of(route(() -> basicAPI.getSeriesTranslation(6004, "eng"), "getSeriesTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
-                    of(route(() -> basicAPI.getUpdates(params(Updates.SINCE, "16247601", "value", "QueryUpdates")), "getUpdates() with query parameters"), UPDATE_OVERVIEW),
-                    of(route(() -> basicAPI.getUpdates(16236514, 3), "getUpdates() with Epoch time and page"), UPDATE_OVERVIEW),
-                    of(route(() -> basicAPI.getUpdates(16239876, TRANSLATED_EPISODES, CREATE, 2), "getUpdates() with Epoch time, type, action and page"), UPDATE_OVERVIEW)
+                    of(route(() -> theTVDBApi.init(), "init()"), verify("/login", POST)),
+                    of(route(() -> theTVDBApi.login(), "login()"), verify("/login", POST)),
+                    of(route(() -> theTVDBApi.getAllArtworkStatuses(), "getAllArtworkStatuses()"), ARTWORKSTATUS_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllArtworkTypes(), "getAllArtworkTypes()"), ARTWORKTYPE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getArtwork(3447), "getArtwork()"), ARTWORK),
+                    of(route(() -> theTVDBApi.getArtworkDetails(9403), "getArtworkDetails()"), ARTWORK_DETAILS),
+                    of(route(() -> theTVDBApi.getAwardCategory(830), "getAwardCategory()"), AWARDCATEGORY),
+                    of(route(() -> theTVDBApi.getAwardCategoryDetails(574), "getAwardCategoryDetails()"), AWARDCATEGORY_DETAILS),
+                    of(route(() -> theTVDBApi.getCharacter(604784), "getCharacter()"), CHARACTER),
+                    of(route(() -> theTVDBApi.getAllCompanies(params("value", "QueryCompanies")), "getAllCompanies() with query parameters"), COMPANY_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllCompanies(1), "getAllCompanies() with page"), COMPANY_OVERVIEW),
+                    of(route(() -> theTVDBApi.getCompany(241), "getCompany()"), COMPANY),
+                    of(route(() -> theTVDBApi.getCompanyTypes(), "getCompanyTypes()"), COMPANYTYPE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllContentRatings(), "getAllContentRatings()"), CONTENTRATING_OVERVIEW),
+                    of(route(() -> theTVDBApi.getEntityTypes(), "getEntityTypes()"), ENTITYTYPE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getEpisode(141007), "getEpisode()"), EPISODE),
+                    of(route(() -> theTVDBApi.getEpisodeDetails(69784, params("value", "QueryEpisodeDetails")), "getEpisodeDetails() with query parameters"), EPISODE_DETAILS),
+                    of(route(() -> theTVDBApi.getEpisodeDetails(37017), "getEpisodeDetails() with episode ID"), EPISODE_DETAILS),
+                    of(route(() -> theTVDBApi.getEpisodeDetails(45704, EpisodeMeta.TRANSLATIONS), "getEpisodeDetails() with episode ID and meta"), EPISODE_DETAILS),
+                    of(route(() -> theTVDBApi.getEpisodeTranslation(35744, "eng"), "getEpisodeTranslation()"), TRANSLATION),
+                    of(route(() -> theTVDBApi.getListTranslation(54047, "fra"), "getListTranslation()"), TRANSLATIONS),
+                    of(route(() -> theTVDBApi.getAllLists(params("value", "QueryLists")), "getAllLists() with query parameters"), LIST_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllLists(4), "getAllLists() with page"), LIST_OVERVIEW),
+                    of(route(() -> theTVDBApi.getList(6740), "getList()"), LIST),
+                    of(route(() -> theTVDBApi.getListDetails(7901), "getListDetails()"), LIST_DETAILS),
+                    of(route(() -> theTVDBApi.getAllGenders(), "getAllGenders()"), GENDER_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllGenres(), "getAllGenres()"), GENRE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getGenre(47), "getGenre()"), GENRE),
+                    of(route(() -> theTVDBApi.getAllInspirationTypes(), "getAllInspirationTypes()"), INSPIRATIONTYPE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllMovieStatuses(), "getAllMovieStatuses()"), STATUS_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllMovies(params("value", "QueryMovies")), "getAllMovies() with query parameters"), MOVIE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllMovies(3), "getAllMovies() with page"), MOVIE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getMovie(54394), "getMovie()"), MOVIE),
+                    of(route(() -> theTVDBApi.getMovieDetails(87416, params("value", "QueryMovieDetails")), "getMovieDetails() with query parameters"), MOVIE_DETAILS),
+                    of(route(() -> theTVDBApi.getMovieDetails(46994), "getMovieDetails() with movie ID"), MOVIE_DETAILS),
+                    of(route(() -> theTVDBApi.getMovieDetails(33657, MovieMeta.TRANSLATIONS), "getMovieDetails() with movie ID and meta"), MOVIE_DETAILS),
+                    of(route(() -> theTVDBApi.getMovieTranslation(69745, "eng"), "getMovieTranslation()"), TRANSLATION),
+                    of(route(() -> theTVDBApi.getAllPeopleTypes(), "getAllPeopleTypes()"), PEOPLETYPE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getPeople(431071), "getPeople()"), PEOPLE),
+                    of(route(() -> theTVDBApi.getPeopleDetails(467845, params("value", "QueryPeopleDetails")), "getPeopleDetails() with query parameters"), PEOPLE_DETAILS),
+                    of(route(() -> theTVDBApi.getPeopleDetails(574101), "getPeopleDetails() with people ID"), PEOPLE_DETAILS),
+                    of(route(() -> theTVDBApi.getPeopleDetails(800577, PeopleMeta.TRANSLATIONS), "getPeopleDetails() with people ID and meta"), PEOPLE_DETAILS),
+                    of(route(() -> theTVDBApi.getPeopleTranslation(471160, "por"), "getPeopleTranslation()"), TRANSLATION),
+                    of(route(() -> theTVDBApi.getSearchResults(params(Search.Q, "SearchTerm", "value", "QuerySearch")), "getSearchResults() with query parameters"), SEARCH_OVERVIEW),
+                    of(route(() -> theTVDBApi.search("SearchTermOnly"), "search() with search term only"), SEARCH_OVERVIEW),
+                    of(route(() -> theTVDBApi.search("SearchTermAndType", SearchType.EPISODE), "search() with search term and type"), SEARCH_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllSeasons(params("value", "QuerySeasons")), "getAllSeasons() with query parameters"), SEASON_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllSeasons(5), "getAllSeasons() with page"), SEASON_OVERVIEW),
+                    of(route(() -> theTVDBApi.getSeason(34167), "getSeason()"), SEASON),
+                    of(route(() -> theTVDBApi.getSeasonDetails(69761), "getSeasonDetails()"), SEASON_DETAILS),
+                    of(route(() -> theTVDBApi.getSeasonTypes(), "getSeasonTypes()"), SEASONTYPE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getSeasonTranslation(27478, "eng"), "getSeasonTranslation()"), TRANSLATION),
+                    of(route(() -> theTVDBApi.getAllSeriesStatuses(), "getAllSeriesStatuses()"), STATUS_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllSeries(params("value", "QuerySeries")), "getAllSeries() with query parameters"), SERIES_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllSeries(2), "getAllSeries() with page"), SERIES_OVERVIEW),
+                    of(route(() -> theTVDBApi.getSeries(2845), "getSeries()"), SERIES),
+                    of(route(() -> theTVDBApi.getSeriesDetails(4577, params("value", "QuerySeriesDetails")), "getSeriesDetails() with query parameters"), SERIES_DETAILS),
+                    of(route(() -> theTVDBApi.getSeriesDetails(9041), "getSeriesDetails() with series ID"), SERIES_DETAILS),
+                    of(route(() -> theTVDBApi.getSeriesDetails(1005, SeriesMeta.EPISODES), "getSeriesDetails() with series ID and meta"), SERIES_DETAILS),
+                    of(route(() -> theTVDBApi.getSeriesEpisodes(3789, DEFAULT), "getSeriesEpisodes()"), SERIESEPISODES),
+                    of(route(() -> theTVDBApi.getSeriesEpisodes(7000, ALTERNATE, params("value", "QuerySeriesEpisodes")), "getSeriesEpisodes() with query parameters"), SERIESEPISODES),
+                    of(route(() -> theTVDBApi.getSeriesEpisodes(2147, REGIONAL, 4), "getSeriesEpisodes() with season number"), SERIESEPISODES),
+                    of(route(() -> theTVDBApi.getSeriesEpisodesTranslated(5481, DVD, "eng"), "getSeriesEpisodesTranslated()"), SERIES_DETAILS),
+                    of(route(() -> theTVDBApi.getSeriesEpisodesTranslated(6974, DEFAULT, "deu", params("value", "QuerySeriesEpisodesTranslated")), "getSeriesEpisodesTranslated() with query parameters"), SERIES_DETAILS),
+                    of(route(() -> theTVDBApi.getSeriesTranslation(6004, "eng"), "getSeriesTranslation()"), TRANSLATION),
+                    of(route(() -> theTVDBApi.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getUpdates(params(Updates.SINCE, "16247601", "value", "QueryUpdates")), "getUpdates() with query parameters"), UPDATE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getUpdates(16236514, 3), "getUpdates() with Epoch time and page"), UPDATE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getUpdates(16239876, TRANSLATED_EPISODES, CREATE, 2), "getUpdates() with Epoch time, type, action and page"), UPDATE_OVERVIEW)
             );
         }
         //@EnableFormatting
@@ -358,13 +354,11 @@ class TheTVDBApiImplTest {
     @DisplayName("Tests for the API's JSON layout")
     class JSONApiTest {
 
-        private TheTVDBApi.JSON basicAPI;
-        private TheTVDBApi.JSON userAuthApi;
+        private TheTVDBApi.JSON theTVDBApi;
 
         @BeforeAll
-        void setUpAPIs(Proxy remoteAPI) throws Exception {
-            basicAPI = init(new TheTVDBApiImpl(CONTRACT_APIKEY, remoteAPI)).json();
-            userAuthApi = init(new TheTVDBApiImpl(SUBSCRIPTION_APIKEY, remoteAPI)).json();
+        void setUpAPI(Proxy remoteAPI) throws Exception {
+            theTVDBApi = init(new TheTVDBApiImpl(CONTRACT_APIKEY, remoteAPI)).json();
         }
 
         //@DisableFormatting
@@ -419,73 +413,58 @@ class TheTVDBApiImplTest {
             client.when(request("/updates", GET, param(Updates.SINCE, "16258740"), param("value", "QueryUpdatesJson"))).respond(jsonResponse(UPDATE_OVERVIEW));
         }
 
-        private Stream<Arguments> withInvalidParameters() {
-            return Stream.of(
-                // ToDo: Create and return test arguments with invalid parameters
-            );
-        }
-
         private Stream<Arguments> withValidParameters() {
             return Stream.of(
-                    of(route(() -> basicAPI.getAllArtworkStatuses(), "getAllArtworkStatuses()"), ARTWORKSTATUS_OVERVIEW),
-                    of(route(() -> basicAPI.getAllArtworkTypes(), "getAllArtworkTypes()"), ARTWORKTYPE_OVERVIEW),
-                    of(route(() -> basicAPI.getArtwork(6701), "getArtwork()"), ARTWORK),
-                    of(route(() -> basicAPI.getArtworkDetails(9100), "getArtworkDetails()"), ARTWORK_DETAILS),
-                    of(route(() -> basicAPI.getAwardCategory(411), "getAwardCategory()"), AWARDCATEGORY),
-                    of(route(() -> basicAPI.getAwardCategoryDetails(623), "getAwardCategoryDetails()"), AWARDCATEGORY_DETAILS),
-                    of(route(() -> basicAPI.getCharacter(94347), "getCharacter()"), CHARACTER),
-                    of(route(() -> basicAPI.getAllCompanies(params("value", "QueryCompaniesJson")), "getAllCompanies() with query parameters"), COMPANY_OVERVIEW),
-                    of(route(() -> basicAPI.getCompany(117), "getCompany()"), COMPANY),
-                    of(route(() -> basicAPI.getCompanyTypes(), "getCompanyTypes()"), COMPANYTYPE_OVERVIEW),
-                    of(route(() -> basicAPI.getAllContentRatings(), "getAllContentRatings()"), CONTENTRATING_OVERVIEW),
-                    of(route(() -> basicAPI.getEntityTypes(), "getEntityTypes()"), ENTITYTYPE_OVERVIEW),
-                    of(route(() -> basicAPI.getEpisode(640796), "getEpisode()"), EPISODE),
-                    of(route(() -> basicAPI.getEpisodeDetails(872404, params("value", "QueryEpisodeDetailsJson")), "getEpisodeDetails() with query parameters"), EPISODE_DETAILS),
-                    of(route(() -> basicAPI.getEpisodeTranslation(379461, "eng"), "getEpisodeTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getListTranslation(2400, "fra"), "getListTranslation()"), TRANSLATIONS),
-                    of(route(() -> basicAPI.getAllLists(params("value", "QueryListsJson")), "getAllLists() with query parameters"), LIST_OVERVIEW),
-                    of(route(() -> basicAPI.getList(1151), "getList()"), LIST),
-                    of(route(() -> basicAPI.getListDetails(3463), "getListDetails()"), LIST_DETAILS),
-                    of(route(() -> basicAPI.getAllGenders(), "getAllGenders()"), GENDER_OVERVIEW),
-                    of(route(() -> basicAPI.getAllGenres(), "getAllGenres()"), GENRE_OVERVIEW),
-                    of(route(() -> basicAPI.getGenre(21), "getGenre()"), GENRE),
-                    of(route(() -> basicAPI.getAllInspirationTypes(), "getAllInspirationTypes()"), INSPIRATIONTYPE_OVERVIEW),
-                    of(route(() -> basicAPI.getAllMovieStatuses(), "getAllMovieStatuses()"), STATUS_OVERVIEW),
-                    of(route(() -> basicAPI.getAllMovies(params("value", "QueryMoviesJson")), "getAllMovies() with query parameters"), MOVIE_OVERVIEW),
-                    of(route(() -> basicAPI.getMovie(61714), "getMovie()"), MOVIE),
-                    of(route(() -> basicAPI.getMovieDetails(54801, params("value", "QueryMovieDetailsJson")), "getMovieDetails() with query parameters"), MOVIE_DETAILS),
-                    of(route(() -> basicAPI.getMovieTranslation(74810, "eng"), "getMovieTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getAllPeopleTypes(), "getAllPeopleTypes()"), PEOPLETYPE_OVERVIEW),
-                    of(route(() -> basicAPI.getPeople(3647), "getPeople()"), PEOPLE),
-                    of(route(() -> basicAPI.getPeopleDetails(6904, params("value", "QueryPeopleDetailsJson")), "getPeopleDetails() with query parameters"), PEOPLE_DETAILS),
-                    of(route(() -> basicAPI.getPeopleTranslation(1504, "por"), "getPeopleTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getSearchResults(params(Search.Q, "SearchTermJson", "value", "QuerySearchJson")), "getSearchResults() with query parameters"), SEARCH_OVERVIEW),
-                    of(route(() -> basicAPI.getAllSeasons(params("value", "QuerySeasonsJson")), "getAllSeasons() with query parameters"), SEASON_OVERVIEW),
-                    of(route(() -> basicAPI.getSeason(18322), "getSeason()"), SEASON),
-                    of(route(() -> basicAPI.getSeasonDetails(48874), "getSeasonDetails()"), SEASON_DETAILS),
-                    of(route(() -> basicAPI.getSeasonTypes(), "getSeasonTypes()"), SEASONTYPE_OVERVIEW),
-                    of(route(() -> basicAPI.getSeasonTranslation(67446, "eng"), "getSeasonTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getAllSeriesStatuses(), "getAllSeriesStatuses()"), STATUS_OVERVIEW),
-                    of(route(() -> basicAPI.getAllSeries(params("value", "QuerySeriesJson")), "getAllSeries() with query parameters"), SERIES_OVERVIEW),
-                    of(route(() -> basicAPI.getSeries(5003), "getSeries()"), SERIES),
-                    of(route(() -> basicAPI.getSeriesDetails(5842, params("value", "QuerySeriesDetailsJson")), "getSeriesDetails() with query parameters"), SERIES_DETAILS),
-                    of(route(() -> basicAPI.getSeriesEpisodes(98043, OFFICIAL, params("value", "QuerySeriesEpisodesJson")), "getSeriesEpisodes() with query parameters"), SERIESEPISODES),
-                    of(route(() -> basicAPI.getSeriesEpisodesTranslated(65660, REGIONAL, "spa", params("value", "QuerySeriesEpisodesTranslatedJson")), "getSeriesEpisodesTranslated() with query parameters"), SERIES_DETAILS),
-                    of(route(() -> basicAPI.getSeriesTranslation(8024, "eng"), "getSeriesTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
-                    of(route(() -> basicAPI.getUpdates(params(Updates.SINCE, "16258740", "value", "QueryUpdatesJson")), "getUpdates() with query parameters"), UPDATE_OVERVIEW)
+                    of(route(() -> theTVDBApi.getAllArtworkStatuses(), "getAllArtworkStatuses()"), ARTWORKSTATUS_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllArtworkTypes(), "getAllArtworkTypes()"), ARTWORKTYPE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getArtwork(6701), "getArtwork()"), ARTWORK),
+                    of(route(() -> theTVDBApi.getArtworkDetails(9100), "getArtworkDetails()"), ARTWORK_DETAILS),
+                    of(route(() -> theTVDBApi.getAwardCategory(411), "getAwardCategory()"), AWARDCATEGORY),
+                    of(route(() -> theTVDBApi.getAwardCategoryDetails(623), "getAwardCategoryDetails()"), AWARDCATEGORY_DETAILS),
+                    of(route(() -> theTVDBApi.getCharacter(94347), "getCharacter()"), CHARACTER),
+                    of(route(() -> theTVDBApi.getAllCompanies(params("value", "QueryCompaniesJson")), "getAllCompanies() with query parameters"), COMPANY_OVERVIEW),
+                    of(route(() -> theTVDBApi.getCompany(117), "getCompany()"), COMPANY),
+                    of(route(() -> theTVDBApi.getCompanyTypes(), "getCompanyTypes()"), COMPANYTYPE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllContentRatings(), "getAllContentRatings()"), CONTENTRATING_OVERVIEW),
+                    of(route(() -> theTVDBApi.getEntityTypes(), "getEntityTypes()"), ENTITYTYPE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getEpisode(640796), "getEpisode()"), EPISODE),
+                    of(route(() -> theTVDBApi.getEpisodeDetails(872404, params("value", "QueryEpisodeDetailsJson")), "getEpisodeDetails() with query parameters"), EPISODE_DETAILS),
+                    of(route(() -> theTVDBApi.getEpisodeTranslation(379461, "eng"), "getEpisodeTranslation()"), TRANSLATION),
+                    of(route(() -> theTVDBApi.getListTranslation(2400, "fra"), "getListTranslation()"), TRANSLATIONS),
+                    of(route(() -> theTVDBApi.getAllLists(params("value", "QueryListsJson")), "getAllLists() with query parameters"), LIST_OVERVIEW),
+                    of(route(() -> theTVDBApi.getList(1151), "getList()"), LIST),
+                    of(route(() -> theTVDBApi.getListDetails(3463), "getListDetails()"), LIST_DETAILS),
+                    of(route(() -> theTVDBApi.getAllGenders(), "getAllGenders()"), GENDER_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllGenres(), "getAllGenres()"), GENRE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getGenre(21), "getGenre()"), GENRE),
+                    of(route(() -> theTVDBApi.getAllInspirationTypes(), "getAllInspirationTypes()"), INSPIRATIONTYPE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllMovieStatuses(), "getAllMovieStatuses()"), STATUS_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllMovies(params("value", "QueryMoviesJson")), "getAllMovies() with query parameters"), MOVIE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getMovie(61714), "getMovie()"), MOVIE),
+                    of(route(() -> theTVDBApi.getMovieDetails(54801, params("value", "QueryMovieDetailsJson")), "getMovieDetails() with query parameters"), MOVIE_DETAILS),
+                    of(route(() -> theTVDBApi.getMovieTranslation(74810, "eng"), "getMovieTranslation()"), TRANSLATION),
+                    of(route(() -> theTVDBApi.getAllPeopleTypes(), "getAllPeopleTypes()"), PEOPLETYPE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getPeople(3647), "getPeople()"), PEOPLE),
+                    of(route(() -> theTVDBApi.getPeopleDetails(6904, params("value", "QueryPeopleDetailsJson")), "getPeopleDetails() with query parameters"), PEOPLE_DETAILS),
+                    of(route(() -> theTVDBApi.getPeopleTranslation(1504, "por"), "getPeopleTranslation()"), TRANSLATION),
+                    of(route(() -> theTVDBApi.getSearchResults(params(Search.Q, "SearchTermJson", "value", "QuerySearchJson")), "getSearchResults() with query parameters"), SEARCH_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllSeasons(params("value", "QuerySeasonsJson")), "getAllSeasons() with query parameters"), SEASON_OVERVIEW),
+                    of(route(() -> theTVDBApi.getSeason(18322), "getSeason()"), SEASON),
+                    of(route(() -> theTVDBApi.getSeasonDetails(48874), "getSeasonDetails()"), SEASON_DETAILS),
+                    of(route(() -> theTVDBApi.getSeasonTypes(), "getSeasonTypes()"), SEASONTYPE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getSeasonTranslation(67446, "eng"), "getSeasonTranslation()"), TRANSLATION),
+                    of(route(() -> theTVDBApi.getAllSeriesStatuses(), "getAllSeriesStatuses()"), STATUS_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllSeries(params("value", "QuerySeriesJson")), "getAllSeries() with query parameters"), SERIES_OVERVIEW),
+                    of(route(() -> theTVDBApi.getSeries(5003), "getSeries()"), SERIES),
+                    of(route(() -> theTVDBApi.getSeriesDetails(5842, params("value", "QuerySeriesDetailsJson")), "getSeriesDetails() with query parameters"), SERIES_DETAILS),
+                    of(route(() -> theTVDBApi.getSeriesEpisodes(98043, OFFICIAL, params("value", "QuerySeriesEpisodesJson")), "getSeriesEpisodes() with query parameters"), SERIESEPISODES),
+                    of(route(() -> theTVDBApi.getSeriesEpisodesTranslated(65660, REGIONAL, "spa", params("value", "QuerySeriesEpisodesTranslatedJson")), "getSeriesEpisodesTranslated() with query parameters"), SERIES_DETAILS),
+                    of(route(() -> theTVDBApi.getSeriesTranslation(8024, "eng"), "getSeriesTranslation()"), TRANSLATION),
+                    of(route(() -> theTVDBApi.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getUpdates(params(Updates.SINCE, "16258740", "value", "QueryUpdatesJson")), "getUpdates() with query parameters"), UPDATE_OVERVIEW)
             );
         }
         //@EnableFormatting
-
-        @Disabled("New APIv4 implementation is still pending")
-        @ParameterizedTest(name = "[{index}] Route TheTVDBApi.{0} rejected")
-        @MethodSource("withInvalidParameters")
-        <T> void invokeRoute_withInvalidParametersOrState_verifyParameterValidationAndPreconditionChecks(
-                TestTheTVDBAPICall<T> route) {
-            assertThat(catchThrowable(route::invoke))
-                    .isInstanceOfAny(IllegalArgumentException.class, APIPreconditionException.class);
-        }
 
         @ParameterizedTest(name = "[{index}] Route TheTVDBApi.{0} successfully invoked")
         @MethodSource("withValidParameters")
@@ -500,14 +479,11 @@ class TheTVDBApiImplTest {
     @DisplayName("Tests for the API's Extended layout")
     class ExtendedApiTest {
 
-        private TheTVDBApi.Extended basicAPI;
-        private TheTVDBApi.Extended userAuthApi;
+        private TheTVDBApi.Extended theTVDBApi;
 
         @BeforeAll
-        void setUpAPIs(Proxy remoteAPI) throws Exception {
-            basicAPI = init(new TheTVDBApiImpl(CONTRACT_APIKEY, remoteAPI)).extended();
-            userAuthApi = init(new TheTVDBApiImpl(SUBSCRIPTION_APIKEY, remoteAPI))
-                    .extended();
+        void setUpAPI(Proxy remoteAPI) throws Exception {
+            theTVDBApi = init(new TheTVDBApiImpl(CONTRACT_APIKEY, remoteAPI)).extended();
         }
 
         //@DisableFormatting
@@ -562,73 +538,58 @@ class TheTVDBApiImplTest {
             client.when(request("/updates", GET, param(Updates.SINCE, "16245743"), param("value", "QueryUpdatesExtended"))).respond(jsonResponse(UPDATE_OVERVIEW));
         }
 
-        private Stream<Arguments> withInvalidParameters() {
-            return Stream.of(
-                // ToDo: Create and return test arguments with invalid parameters
-            );
-        }
-
         private Stream<Arguments> withValidParameters() {
             return Stream.of(
-                    of(route(() -> basicAPI.getAllArtworkStatuses(), "getAllArtworkStatuses()"), ARTWORKSTATUS_OVERVIEW),
-                    of(route(() -> basicAPI.getAllArtworkTypes(), "getAllArtworkTypes()"), ARTWORKTYPE_OVERVIEW),
-                    of(route(() -> basicAPI.getArtwork(7099), "getArtwork()"), ARTWORK),
-                    of(route(() -> basicAPI.getArtworkDetails(6471), "getArtworkDetails()"), ARTWORK_DETAILS),
-                    of(route(() -> basicAPI.getAwardCategory(355), "getAwardCategory()"), AWARDCATEGORY),
-                    of(route(() -> basicAPI.getAwardCategoryDetails(495), "getAwardCategoryDetails()"), AWARDCATEGORY_DETAILS),
-                    of(route(() -> basicAPI.getCharacter(66470), "getCharacter()"), CHARACTER),
-                    of(route(() -> basicAPI.getAllCompanies(params("value", "QueryCompaniesExtended")), "getAllCompanies() with query parameters"), COMPANY_OVERVIEW),
-                    of(route(() -> basicAPI.getCompany(64), "getCompany()"), COMPANY),
-                    of(route(() -> basicAPI.getCompanyTypes(), "getCompanyTypes()"), COMPANYTYPE_OVERVIEW),
-                    of(route(() -> basicAPI.getAllContentRatings(), "getAllContentRatings()"), CONTENTRATING_OVERVIEW),
-                    of(route(() -> basicAPI.getEntityTypes(), "getEntityTypes()"), ENTITYTYPE_OVERVIEW),
-                    of(route(() -> basicAPI.getEpisode(30619), "getEpisode()"), EPISODE),
-                    of(route(() -> basicAPI.getEpisodeDetails(47149, params("value", "QueryEpisodeDetailsExtended")), "getEpisodeDetails() with query parameters"), EPISODE_DETAILS),
-                    of(route(() -> basicAPI.getEpisodeTranslation(34771, "eng"), "getEpisodeTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getListTranslation(64114, "fra"), "getListTranslation()"), TRANSLATIONS),
-                    of(route(() -> basicAPI.getAllLists(params("value", "QueryListsExtended")), "getAllLists() with query parameters"), LIST_OVERVIEW),
-                    of(route(() -> basicAPI.getList(4641), "getList()"), LIST),
-                    of(route(() -> basicAPI.getListDetails(3169), "getListDetails()"), LIST_DETAILS),
-                    of(route(() -> basicAPI.getAllGenders(), "getAllGenders()"), GENDER_OVERVIEW),
-                    of(route(() -> basicAPI.getAllGenres(), "getAllGenres()"), GENRE_OVERVIEW),
-                    of(route(() -> basicAPI.getGenre(35), "getGenre()"), GENRE),
-                    of(route(() -> basicAPI.getAllInspirationTypes(), "getAllInspirationTypes()"), INSPIRATIONTYPE_OVERVIEW),
-                    of(route(() -> basicAPI.getAllMovieStatuses(), "getAllMovieStatuses()"), STATUS_OVERVIEW),
-                    of(route(() -> basicAPI.getAllMovies(params("value", "QueryMoviesExtended")), "getAllMovies() with query parameters"), MOVIE_OVERVIEW),
-                    of(route(() -> basicAPI.getMovie(90034), "getMovie()"), MOVIE),
-                    of(route(() -> basicAPI.getMovieDetails(31101, params("value", "QueryMovieDetailsExtended")), "getMovieDetails() with query parameters"), MOVIE_DETAILS),
-                    of(route(() -> basicAPI.getMovieTranslation(46011, "eng"), "getMovieTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getAllPeopleTypes(), "getAllPeopleTypes()"), PEOPLETYPE_OVERVIEW),
-                    of(route(() -> basicAPI.getPeople(9891), "getPeople()"), PEOPLE),
-                    of(route(() -> basicAPI.getPeopleDetails(1067, params("value", "QueryPeopleDetailsExtended")), "getPeopleDetails() with query parameters"), PEOPLE_DETAILS),
-                    of(route(() -> basicAPI.getPeopleTranslation(8733, "por"), "getPeopleTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getSearchResults(params(Search.Q, "SearchTermExtended", "value", "QuerySearchExtended")), "getSearchResults() with query parameters"), SEARCH_OVERVIEW),
-                    of(route(() -> basicAPI.getAllSeasons(params("value", "QuerySeasonsExtended")), "getAllSeasons() with query parameters"), SEASON_OVERVIEW),
-                    of(route(() -> basicAPI.getSeason(52270), "getSeason()"), SEASON),
-                    of(route(() -> basicAPI.getSeasonDetails(69714), "getSeasonDetails()"), SEASON_DETAILS),
-                    of(route(() -> basicAPI.getSeasonTypes(), "getSeasonTypes()"), SEASONTYPE_OVERVIEW),
-                    of(route(() -> basicAPI.getSeasonTranslation(64714, "eng"), "getSeasonTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getAllSeriesStatuses(), "getAllSeriesStatuses()"), STATUS_OVERVIEW),
-                    of(route(() -> basicAPI.getAllSeries(params("value", "QuerySeriesExtended")), "getAllSeries() with query parameters"), SERIES_OVERVIEW),
-                    of(route(() -> basicAPI.getSeries(8131), "getSeries()"), SERIES),
-                    of(route(() -> basicAPI.getSeriesDetails(5444, params("value", "QuerySeriesDetailsExtended")), "getSeriesDetails() with query parameters"), SERIES_DETAILS),
-                    of(route(() -> basicAPI.getSeriesEpisodes(5711, DVD, params("value", "QuerySeriesEpisodesExtended")), "getSeriesEpisodes() with query parameters"), SERIESEPISODES),
-                    of(route(() -> basicAPI.getSeriesEpisodesTranslated(2312, ALTERNATE, "por", params("value", "QuerySeriesEpisodesTranslatedExtended")), "getSeriesEpisodesTranslated() with query parameters"), SERIES_DETAILS),
-                    of(route(() -> basicAPI.getSeriesTranslation(6170, "eng"), "getSeriesTranslation()"), TRANSLATION),
-                    of(route(() -> basicAPI.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
-                    of(route(() -> basicAPI.getUpdates(params(Updates.SINCE, "16245743", "value", "QueryUpdatesExtended")), "getUpdates() with query parameters"), UPDATE_OVERVIEW)
+                    of(route(() -> theTVDBApi.getAllArtworkStatuses(), "getAllArtworkStatuses()"), ARTWORKSTATUS_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllArtworkTypes(), "getAllArtworkTypes()"), ARTWORKTYPE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getArtwork(7099), "getArtwork()"), ARTWORK),
+                    of(route(() -> theTVDBApi.getArtworkDetails(6471), "getArtworkDetails()"), ARTWORK_DETAILS),
+                    of(route(() -> theTVDBApi.getAwardCategory(355), "getAwardCategory()"), AWARDCATEGORY),
+                    of(route(() -> theTVDBApi.getAwardCategoryDetails(495), "getAwardCategoryDetails()"), AWARDCATEGORY_DETAILS),
+                    of(route(() -> theTVDBApi.getCharacter(66470), "getCharacter()"), CHARACTER),
+                    of(route(() -> theTVDBApi.getAllCompanies(params("value", "QueryCompaniesExtended")), "getAllCompanies() with query parameters"), COMPANY_OVERVIEW),
+                    of(route(() -> theTVDBApi.getCompany(64), "getCompany()"), COMPANY),
+                    of(route(() -> theTVDBApi.getCompanyTypes(), "getCompanyTypes()"), COMPANYTYPE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllContentRatings(), "getAllContentRatings()"), CONTENTRATING_OVERVIEW),
+                    of(route(() -> theTVDBApi.getEntityTypes(), "getEntityTypes()"), ENTITYTYPE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getEpisode(30619), "getEpisode()"), EPISODE),
+                    of(route(() -> theTVDBApi.getEpisodeDetails(47149, params("value", "QueryEpisodeDetailsExtended")), "getEpisodeDetails() with query parameters"), EPISODE_DETAILS),
+                    of(route(() -> theTVDBApi.getEpisodeTranslation(34771, "eng"), "getEpisodeTranslation()"), TRANSLATION),
+                    of(route(() -> theTVDBApi.getListTranslation(64114, "fra"), "getListTranslation()"), TRANSLATIONS),
+                    of(route(() -> theTVDBApi.getAllLists(params("value", "QueryListsExtended")), "getAllLists() with query parameters"), LIST_OVERVIEW),
+                    of(route(() -> theTVDBApi.getList(4641), "getList()"), LIST),
+                    of(route(() -> theTVDBApi.getListDetails(3169), "getListDetails()"), LIST_DETAILS),
+                    of(route(() -> theTVDBApi.getAllGenders(), "getAllGenders()"), GENDER_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllGenres(), "getAllGenres()"), GENRE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getGenre(35), "getGenre()"), GENRE),
+                    of(route(() -> theTVDBApi.getAllInspirationTypes(), "getAllInspirationTypes()"), INSPIRATIONTYPE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllMovieStatuses(), "getAllMovieStatuses()"), STATUS_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllMovies(params("value", "QueryMoviesExtended")), "getAllMovies() with query parameters"), MOVIE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getMovie(90034), "getMovie()"), MOVIE),
+                    of(route(() -> theTVDBApi.getMovieDetails(31101, params("value", "QueryMovieDetailsExtended")), "getMovieDetails() with query parameters"), MOVIE_DETAILS),
+                    of(route(() -> theTVDBApi.getMovieTranslation(46011, "eng"), "getMovieTranslation()"), TRANSLATION),
+                    of(route(() -> theTVDBApi.getAllPeopleTypes(), "getAllPeopleTypes()"), PEOPLETYPE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getPeople(9891), "getPeople()"), PEOPLE),
+                    of(route(() -> theTVDBApi.getPeopleDetails(1067, params("value", "QueryPeopleDetailsExtended")), "getPeopleDetails() with query parameters"), PEOPLE_DETAILS),
+                    of(route(() -> theTVDBApi.getPeopleTranslation(8733, "por"), "getPeopleTranslation()"), TRANSLATION),
+                    of(route(() -> theTVDBApi.getSearchResults(params(Search.Q, "SearchTermExtended", "value", "QuerySearchExtended")), "getSearchResults() with query parameters"), SEARCH_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllSeasons(params("value", "QuerySeasonsExtended")), "getAllSeasons() with query parameters"), SEASON_OVERVIEW),
+                    of(route(() -> theTVDBApi.getSeason(52270), "getSeason()"), SEASON),
+                    of(route(() -> theTVDBApi.getSeasonDetails(69714), "getSeasonDetails()"), SEASON_DETAILS),
+                    of(route(() -> theTVDBApi.getSeasonTypes(), "getSeasonTypes()"), SEASONTYPE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getSeasonTranslation(64714, "eng"), "getSeasonTranslation()"), TRANSLATION),
+                    of(route(() -> theTVDBApi.getAllSeriesStatuses(), "getAllSeriesStatuses()"), STATUS_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAllSeries(params("value", "QuerySeriesExtended")), "getAllSeries() with query parameters"), SERIES_OVERVIEW),
+                    of(route(() -> theTVDBApi.getSeries(8131), "getSeries()"), SERIES),
+                    of(route(() -> theTVDBApi.getSeriesDetails(5444, params("value", "QuerySeriesDetailsExtended")), "getSeriesDetails() with query parameters"), SERIES_DETAILS),
+                    of(route(() -> theTVDBApi.getSeriesEpisodes(5711, DVD, params("value", "QuerySeriesEpisodesExtended")), "getSeriesEpisodes() with query parameters"), SERIESEPISODES),
+                    of(route(() -> theTVDBApi.getSeriesEpisodesTranslated(2312, ALTERNATE, "por", params("value", "QuerySeriesEpisodesTranslatedExtended")), "getSeriesEpisodesTranslated() with query parameters"), SERIES_DETAILS),
+                    of(route(() -> theTVDBApi.getSeriesTranslation(6170, "eng"), "getSeriesTranslation()"), TRANSLATION),
+                    of(route(() -> theTVDBApi.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getUpdates(params(Updates.SINCE, "16245743", "value", "QueryUpdatesExtended")), "getUpdates() with query parameters"), UPDATE_OVERVIEW)
             );
         }
         //@EnableFormatting
-
-        @Disabled("New APIv4 implementation is still pending")
-        @ParameterizedTest(name = "[{index}] Route TheTVDBApi.{0} rejected")
-        @MethodSource("withInvalidParameters")
-        <T> void invokeRoute_withInvalidParametersOrState_verifyParameterValidationAndPreconditionChecks(
-                TestTheTVDBAPICall<T> route) {
-            assertThat(catchThrowable(route::invoke))
-                    .isInstanceOfAny(IllegalArgumentException.class, APIPreconditionException.class);
-        }
 
         @ParameterizedTest(name = "[{index}] Route TheTVDBApi.{0} successfully invoked")
         @MethodSource("withValidParameters")
