@@ -210,7 +210,7 @@ maven project via the [jitpack.io](https://www.jitpack.io/#m0nk3y2k4/thetvdb-jav
         <dependency>
             <groupId>com.github.m0nk3y2k4</groupId>
             <artifactId>thetvdb-java-api</artifactId>
-            <version>3.0.3</version>
+            <version>3.0.4</version>
         </dependency>
     ```
 
