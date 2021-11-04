@@ -23,6 +23,7 @@ import javax.annotation.Nonnull;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.Module;
@@ -59,7 +60,8 @@ public final class APIResponseDeserializer<T, X extends IOException> extends Jso
     private static final Module JDK8_MODULE = new Jdk8Module();
 
     /** Mapper used for parsing the API response JSON */
-    private final ObjectMapper mapper = new ObjectMapper().registerModules(JDK8_MODULE, RESPONSE_MODULE);
+    private final ObjectMapper mapper = new ObjectMapper().registerModules(JDK8_MODULE, RESPONSE_MODULE)
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     /** The mapping function to be invoked in order to parse the <em>{@code data}</em> node */
     private final ThrowableFunctionalInterfaces.Function<JsonNode, T, X> dataFunction;
