@@ -33,8 +33,11 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORK;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORKSTATUS_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORKTYPE_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ARTWORK_DETAILS;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.AWARD;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.AWARDCATEGORY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.AWARDCATEGORY_DETAILS;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.AWARD_DETAILS;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.AWARD_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.CHARACTER;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.COMPANY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.COMPANYTYPE_OVERVIEW;
@@ -151,6 +154,9 @@ class TheTVDBApiImplTest {
             client.when(request("/artwork/types", GET)).respond(jsonResponse(ARTWORKTYPE_OVERVIEW));
             client.when(request("/artwork/3447", GET)).respond(jsonResponse(ARTWORK));
             client.when(request("/artwork/9403/extended", GET)).respond(jsonResponse(ARTWORK_DETAILS));
+            client.when(request("/awards", GET)).respond(jsonResponse(AWARD_OVERVIEW));
+            client.when(request("/awards/6361", GET)).respond(jsonResponse(AWARD));
+            client.when(request("/awards/4470/extended", GET)).respond(jsonResponse(AWARD_DETAILS));
             client.when(request("/awards/categories/830", GET)).respond(jsonResponse(AWARDCATEGORY));
             client.when(request("/awards/categories/574/extended", GET)).respond(jsonResponse(AWARDCATEGORY_DETAILS));
             client.when(request("/characters/604784", GET)).respond(jsonResponse(CHARACTER));
@@ -247,6 +253,9 @@ class TheTVDBApiImplTest {
                     of(route(() -> theTVDBApi.getAllArtworkTypes(), "getAllArtworkTypes()"), ARTWORKTYPE_OVERVIEW),
                     of(route(() -> theTVDBApi.getArtwork(3447), "getArtwork()"), ARTWORK),
                     of(route(() -> theTVDBApi.getArtworkDetails(9403), "getArtworkDetails()"), ARTWORK_DETAILS),
+                    of(route(() -> theTVDBApi.getAllAwards(), "getAllAwards()"), AWARD_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAward(6361), "getAward()"), AWARD),
+                    of(route(() -> theTVDBApi.getAwardDetails(4470), "getAwardDetails()"), AWARD_DETAILS),
                     of(route(() -> theTVDBApi.getAwardCategory(830), "getAwardCategory()"), AWARDCATEGORY),
                     of(route(() -> theTVDBApi.getAwardCategoryDetails(574), "getAwardCategoryDetails()"), AWARDCATEGORY_DETAILS),
                     of(route(() -> theTVDBApi.getCharacter(604784), "getCharacter()"), CHARACTER),
@@ -368,6 +377,9 @@ class TheTVDBApiImplTest {
             client.when(request("/artwork/types", GET)).respond(jsonResponse(ARTWORKTYPE_OVERVIEW));
             client.when(request("/artwork/6701", GET)).respond(jsonResponse(ARTWORK));
             client.when(request("/artwork/9100/extended", GET)).respond(jsonResponse(ARTWORK_DETAILS));
+            client.when(request("/awards", GET)).respond(jsonResponse(AWARD_OVERVIEW));
+            client.when(request("/awards/5744", GET)).respond(jsonResponse(AWARD));
+            client.when(request("/awards/3697/extended", GET)).respond(jsonResponse(AWARD_DETAILS));
             client.when(request("/awards/categories/411", GET)).respond(jsonResponse(AWARDCATEGORY));
             client.when(request("/awards/categories/623/extended", GET)).respond(jsonResponse(AWARDCATEGORY_DETAILS));
             client.when(request("/characters/94347", GET)).respond(jsonResponse(CHARACTER));
@@ -419,6 +431,9 @@ class TheTVDBApiImplTest {
                     of(route(() -> theTVDBApi.getAllArtworkTypes(), "getAllArtworkTypes()"), ARTWORKTYPE_OVERVIEW),
                     of(route(() -> theTVDBApi.getArtwork(6701), "getArtwork()"), ARTWORK),
                     of(route(() -> theTVDBApi.getArtworkDetails(9100), "getArtworkDetails()"), ARTWORK_DETAILS),
+                    of(route(() -> theTVDBApi.getAllAwards(), "getAllAwards()"), AWARD_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAward(5744), "getAward()"), AWARD),
+                    of(route(() -> theTVDBApi.getAwardDetails(3697), "getAwardDetails()"), AWARD_DETAILS),
                     of(route(() -> theTVDBApi.getAwardCategory(411), "getAwardCategory()"), AWARDCATEGORY),
                     of(route(() -> theTVDBApi.getAwardCategoryDetails(623), "getAwardCategoryDetails()"), AWARDCATEGORY_DETAILS),
                     of(route(() -> theTVDBApi.getCharacter(94347), "getCharacter()"), CHARACTER),
@@ -493,6 +508,9 @@ class TheTVDBApiImplTest {
             client.when(request("/artwork/types", GET)).respond(jsonResponse(ARTWORKTYPE_OVERVIEW));
             client.when(request("/artwork/7099", GET)).respond(jsonResponse(ARTWORK));
             client.when(request("/artwork/6471/extended", GET)).respond(jsonResponse(ARTWORK_DETAILS));
+            client.when(request("/awards", GET)).respond(jsonResponse(AWARD_OVERVIEW));
+            client.when(request("/awards/3004", GET)).respond(jsonResponse(AWARD));
+            client.when(request("/awards/5973/extended", GET)).respond(jsonResponse(AWARD_DETAILS));
             client.when(request("/awards/categories/355", GET)).respond(jsonResponse(AWARDCATEGORY));
             client.when(request("/awards/categories/495/extended", GET)).respond(jsonResponse(AWARDCATEGORY_DETAILS));
             client.when(request("/characters/66470", GET)).respond(jsonResponse(CHARACTER));
@@ -544,6 +562,9 @@ class TheTVDBApiImplTest {
                     of(route(() -> theTVDBApi.getAllArtworkTypes(), "getAllArtworkTypes()"), ARTWORKTYPE_OVERVIEW),
                     of(route(() -> theTVDBApi.getArtwork(7099), "getArtwork()"), ARTWORK),
                     of(route(() -> theTVDBApi.getArtworkDetails(6471), "getArtworkDetails()"), ARTWORK_DETAILS),
+                    of(route(() -> theTVDBApi.getAllAwards(), "getAllAwards()"), AWARD_OVERVIEW),
+                    of(route(() -> theTVDBApi.getAward(3004), "getAward()"), AWARD),
+                    of(route(() -> theTVDBApi.getAwardDetails(5973), "getAwardDetails()"), AWARD_DETAILS),
                     of(route(() -> theTVDBApi.getAwardCategory(355), "getAwardCategory()"), AWARDCATEGORY),
                     of(route(() -> theTVDBApi.getAwardCategoryDetails(495), "getAwardCategoryDetails()"), AWARDCATEGORY_DETAILS),
                     of(route(() -> theTVDBApi.getCharacter(66470), "getCharacter()"), CHARACTER),
