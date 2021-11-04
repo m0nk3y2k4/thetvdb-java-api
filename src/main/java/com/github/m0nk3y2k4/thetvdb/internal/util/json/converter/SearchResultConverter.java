@@ -18,7 +18,6 @@ package com.github.m0nk3y2k4.thetvdb.internal.util.json.converter;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
@@ -29,8 +28,9 @@ import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 
 import com.fasterxml.jackson.databind.util.StdConverter;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.SearchResult.Translation;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SearchResultDTO;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.SearchResultTranslation;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Translations;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SearchResultTranslationDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
 import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil.BracketType;
 
@@ -105,11 +105,11 @@ public final class SearchResultConverter {
      * @return Translation object converted from the given translation String
      */
     @SuppressWarnings({"TypeMayBeWeakened", "MethodOnlyUsedFromInnerClass"})
-    private static Translation convert(String value, Extractor getLanguage, Extractor getTranslation) {
-        return SearchResultDTO.createTranslationDTO(
-                Optional.ofNullable(value).flatMap(getLanguage).map(String::trim),
-                Optional.ofNullable(value).flatMap(getTranslation).map(String::trim)
-        );
+    private static SearchResultTranslation convert(String value, Extractor getLanguage, Extractor getTranslation) {
+        return new SearchResultTranslationDTO.Builder()
+                .language(Optional.ofNullable(value).flatMap(getLanguage).map(String::trim).orElse(null))
+                .translation(Optional.ofNullable(value).flatMap(getTranslation).map(String::trim).orElse(null))
+                .build();
     }
 
     /**
@@ -143,9 +143,9 @@ public final class SearchResultConverter {
      * { \"por\": \"Rei Naresuan 3\", \"eng\": \"King Naresuan 3\" }
      * }</pre>
      * Using this converter, the actual language and translation information will be mapped into a list of corresponding
-     * {@link Translation} objects with unnecessary characters being stripped of.
+     * {@link SearchResultTranslation} objects with unnecessary characters being stripped of.
      */
-    public static final class TranslationString extends StdConverter<String, List<Translation>> {
+    public static final class TranslationString extends StdConverter<String, Translations<SearchResultTranslation>> {
 
         /** Pattern for matching escaped quote characters */
         @SuppressWarnings("RegExpRedundantEscape")
@@ -168,16 +168,16 @@ public final class SearchResultConverter {
         }
 
         /**
-         * Converts a single multi-translation JSON String into a list of corresponding {@link Translation} objects with
-         * unnecessary characters being stripped of.
+         * Converts a single multi-translation JSON String into a list of corresponding {@link SearchResultTranslation}
+         * objects with unnecessary characters being stripped of.
          *
          * @param value The String value as received in the JSON response
          *
          * @return List of translation objects based on the given JSON data
          */
         @Override
-        public List<Translation> convert(@Nullable String value) {
-            return Optional.ofNullable(value)
+        public Translations<SearchResultTranslation> convert(@Nullable String value) {
+            return new TranslationsConverter<SearchResultTranslation>().convert(Optional.ofNullable(value)
                     .map(s -> APIUtil.removeEnclosingBrackets(s, BracketType.BRACES))
                     .filter(APIUtil::hasValue)
                     .map(ELEMENT_SEPARATOR::split)
@@ -187,7 +187,7 @@ public final class SearchResultConverter {
                                     removeQuotes(SearchResultConverter::extractLanguage),
                                     removeQuotes(SearchResultConverter::extractTranslation)))
                             .collect(Collectors.toList()))
-                    .orElseGet(Collections::emptyList);
+                    .orElseGet(Collections::emptyList));
         }
     }
 
@@ -200,25 +200,26 @@ public final class SearchResultConverter {
      * <pre>{@code
      * [ "por: Rei Naresuan 3", "eng: King Naresuan 3" ]
      * }</pre>
-     * Using this converter, the actual language and translation information will be mapped into a list of corresponding
-     * {@link Translation} objects.
+     * Using this converter, the actual language and translation information will be mapped into a corresponding {@link
+     * SearchResultTranslation} object.
      */
-    public static final class TranslationListItem extends StdConverter<String, Translation> {
+    public static final class TranslationListItem extends StdConverter<String, SearchResultTranslation> {
 
         /**
-         * Converts the single items of a JSON translation String array to a corresponding {@link Translation} object.
+         * Converts the single items of a JSON translation String array to a corresponding {@link
+         * SearchResultTranslation} object.
          *
          * @param value Single item from the received JSON String array
          *
          * @return Translation object based on the given JSON data
          */
         @Override
-        public Translation convert(@Nullable String value) {
+        public SearchResultTranslation convert(@Nullable String value) {
             return Optional.ofNullable(value)
                     .map(v -> SearchResultConverter.convert(v,
                             SearchResultConverter::extractLanguage,
                             SearchResultConverter::extractTranslation))
-                    .orElse(SearchResultDTO.createTranslationDTO(Optional.empty(), Optional.empty()));
+                    .orElse(null);
         }
     }
 
@@ -231,13 +232,13 @@ public final class SearchResultConverter {
      * { "por": "Rei Naresuan 3", "eng": "King Naresuan 3" }
      * }</pre>
      * Using this converter, the actual language and translation information will be mapped into a list of corresponding
-     * {@link Translation} objects.
+     * {@link SearchResultTranslation} objects.
      */
-    public static final class TranslationObject extends StdConverter<Map<String, String>, List<Translation>> {
+    public static final class TranslationObject extends StdConverter<Map<String, String>, Translations<SearchResultTranslation>> {
 
         /**
-         * Converts a JSON translation object into a list of corresponding {@link Translation} object with the objects
-         * properties representing the languages keys and their values representing the actual translation.
+         * Converts a JSON translation object into a list of corresponding {@link SearchResultTranslation} object with
+         * the objects properties representing the languages keys and their values representing the actual translation.
          *
          * @param translations Translation JSON object in its default Jackson-bound intermediate type (property name
          *                     &lt;&gt; value)
@@ -245,12 +246,12 @@ public final class SearchResultConverter {
          * @return List of translation objects based on the given Map from the JSON data
          */
         @Override
-        public List<Translation> convert(Map<String, String> translations) {
-            return translations.entrySet().stream()
+        public Translations<SearchResultTranslation> convert(Map<String, String> translations) {
+            return new TranslationsConverter<SearchResultTranslation>().convert(translations.entrySet().stream()
                     .map(e -> SearchResultConverter.convert("",
                             s -> Optional.ofNullable(e.getKey()).filter(APIUtil::hasValue),
                             s -> Optional.ofNullable(e.getValue()).filter(APIUtil::hasValue))
-                    ).collect(Collectors.toList());
+                    ).collect(Collectors.toList()));
         }
     }
 }

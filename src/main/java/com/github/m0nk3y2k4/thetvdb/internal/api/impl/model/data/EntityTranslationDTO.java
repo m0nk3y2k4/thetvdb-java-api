@@ -16,43 +16,41 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
-import java.util.Optional;
+import javax.annotation.Nullable;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Translated;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Translations;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityTranslation;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.APIDataModel;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.WithHiddenImplementation;
-import com.github.m0nk3y2k4.thetvdb.internal.util.json.converter.TranslationsConverter;
 import org.immutables.value.Value.Immutable;
 
 /**
- * DTO implementation of the {@link Translations} interface
+ * DTO implementation of the {@link EntityTranslation} interface
  * <p><br>
  * Objects of this class reflect the data received from the remote service and are immutable so that their content can
  * not be changed once an instance has been created. New objects of this class may be created by using the corresponding
- * {@link TranslationsDTO.Builder}.
- *
- * @param <T> The type of translations held by this object
+ * {@link Builder}.
  */
 @Immutable
 @APIDataModel
 @WithHiddenImplementation
-@JsonDeserialize(converter = TranslationsConverter.class)
-public abstract class TranslationsDTO<T extends Translated> implements Translations<T> {
+@JsonDeserialize(builder = EntityTranslationDTO.Builder.class)
+public abstract class EntityTranslationDTO implements EntityTranslation {
 
     @Override
-    public Optional<T> get(String language) {
-        return getAllTranslations().stream().filter(t -> language.equalsIgnoreCase(t.getLanguage())).findFirst();
-    }
+    @Nullable
+    @JsonAlias("IsPrimary")
+    // ToDo: Property is declared as "isPrimary" in API documentation but send as "IsPrimary" in JSON. Check again after next API update.
+    public abstract Boolean isPrimary();
 
     /**
-     * Builder used to create a new immutable {@link TranslationsDTO} implementation
+     * Builder used to create a new immutable {@link EntityTranslationDTO} implementation
      * <p><br>
      * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link
-     * TranslationsDTO} instance based on these properties. New builders may be initialized with some existing DTO
+     * EntityTranslationDTO} instance based on these properties. New builders may be initialized with some existing DTO
      * instance, which presets the builders properties to the values of the given DTO, still retaining the option to
      * make additional changes before actually building a new immutable object.
      */
-    public static class Builder<T extends Translated> extends TranslationsDTOBuilder<T> {}
+    public static class Builder extends EntityTranslationDTOBuilder {}
 }

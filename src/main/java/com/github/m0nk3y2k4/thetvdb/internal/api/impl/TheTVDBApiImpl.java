@@ -54,6 +54,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Company;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.CompanyType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ContentRating;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityTranslation;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityUpdate;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
@@ -77,7 +78,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesEpisodes;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SourceType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Status;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Translation;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Translations;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ArtworkAPI;
@@ -304,12 +305,13 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public Translation getEpisodeTranslation(long episodeId, @Nonnull String language) throws APIException {
+    public EntityTranslation getEpisodeTranslation(long episodeId, @Nonnull String language) throws APIException {
         return extended().getEpisodeTranslation(episodeId, language).getData();
     }
 
     @Override
-    public Collection<Translation> getListTranslation(long listId, @Nonnull String language) throws APIException {
+    public Translations<EntityTranslation> getListTranslation(long listId, @Nonnull String language)
+            throws APIException {
         return extended().getListTranslation(listId, language).getData();
     }
 
@@ -392,7 +394,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public Translation getMovieTranslation(long movieId, @Nonnull String language) throws APIException {
+    public EntityTranslation getMovieTranslation(long movieId, @Nonnull String language) throws APIException {
         return extended().getMovieTranslation(movieId, language).getData();
     }
 
@@ -423,7 +425,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public Translation getPeopleTranslation(long peopleId, @Nonnull String language) throws APIException {
+    public EntityTranslation getPeopleTranslation(long peopleId, @Nonnull String language) throws APIException {
         return extended().getPeopleTranslation(peopleId, language).getData();
     }
 
@@ -473,7 +475,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public Translation getSeasonTranslation(long seasonId, @Nonnull String language) throws APIException {
+    public EntityTranslation getSeasonTranslation(long seasonId, @Nonnull String language) throws APIException {
         return extended().getSeasonTranslation(seasonId, language).getData();
     }
 
@@ -545,7 +547,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public Translation getSeriesTranslation(long seriesId, @Nonnull String language) throws APIException {
+    public EntityTranslation getSeriesTranslation(long seriesId, @Nonnull String language) throws APIException {
         return extended().getSeriesTranslation(seriesId, language).getData();
     }
 
@@ -943,13 +945,13 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<Translation> getEpisodeTranslation(long episodeId, @Nonnull String language)
+        public APIResponse<EntityTranslation> getEpisodeTranslation(long episodeId, @Nonnull String language)
                 throws APIException {
             return APIJsonMapper.readValue(json().getEpisodeTranslation(episodeId, language), new TypeReference<>() {});
         }
 
         @Override
-        public APIResponse<Collection<Translation>> getListTranslation(long listId, @Nonnull String language)
+        public APIResponse<Translations<EntityTranslation>> getListTranslation(long listId, @Nonnull String language)
                 throws APIException {
             return APIJsonMapper.readValue(json().getListTranslation(listId, language), new TypeReference<>() {});
         }
@@ -1011,7 +1013,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<Translation> getMovieTranslation(long movieId, @Nonnull String language)
+        public APIResponse<EntityTranslation> getMovieTranslation(long movieId, @Nonnull String language)
                 throws APIException {
             return APIJsonMapper.readValue(json().getMovieTranslation(movieId, language), new TypeReference<>() {});
         }
@@ -1033,7 +1035,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<Translation> getPeopleTranslation(long peopleId, @Nonnull String language)
+        public APIResponse<EntityTranslation> getPeopleTranslation(long peopleId, @Nonnull String language)
                 throws APIException {
             return APIJsonMapper.readValue(json().getPeopleTranslation(peopleId, language), new TypeReference<>() {});
         }
@@ -1065,7 +1067,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<Translation> getSeasonTranslation(long seasonId, @Nonnull String language)
+        public APIResponse<EntityTranslation> getSeasonTranslation(long seasonId, @Nonnull String language)
                 throws APIException {
             return APIJsonMapper.readValue(json().getSeasonTranslation(seasonId, language), new TypeReference<>() {});
         }
@@ -1107,7 +1109,7 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<Translation> getSeriesTranslation(long seriesId, @Nonnull String language)
+        public APIResponse<EntityTranslation> getSeriesTranslation(long seriesId, @Nonnull String language)
                 throws APIException {
             return APIJsonMapper.readValue(json().getSeriesTranslation(seriesId, language), new TypeReference<>() {});
         }

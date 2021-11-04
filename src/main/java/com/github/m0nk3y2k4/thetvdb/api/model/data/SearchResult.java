@@ -17,7 +17,6 @@
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.annotation.Nullable;
 
@@ -144,7 +143,7 @@ public interface SearchResult {
      *
      * @return The <em>{@code name_translated}</em> property from the received JSON
      */
-    List<Translation> getNameTranslated();
+    Translations<SearchResultTranslation> getNameTranslated();
 
     /**
      * Get the value of the {<em>{@code data.officialList}</em>} JSON property
@@ -167,7 +166,7 @@ public interface SearchResult {
      *
      * @return The <em>{@code overview_translated}</em> property from the received JSON
      */
-    List<Translation> getOverviewTranslated();
+    Translations<SearchResultTranslation> getOverviewTranslated();
 
     /**
      * Get the value of the {<em>{@code data.posters}</em>} JSON property
@@ -261,7 +260,7 @@ public interface SearchResult {
      *
      * @return The <em>{@code translations}</em> property from the received JSON
      */
-    List<Translation> getTranslations();
+    Translations<SearchResultTranslation> getTranslations();
 
     /**
      * Get the value of the {<em>{@code data.is_official}</em>} JSON property
@@ -299,34 +298,5 @@ public interface SearchResult {
      *
      * @return The <em>{@code overviews}</em> property from the received JSON
      */
-    List<Translation> getOverviews();
-
-    /**
-     * Interface representing the various translation information in the context of a <em>{@code SearchResult}</em> data
-     * transfer object.
-     * <p><br>
-     * The methods of this class provide easy access to all translation data which was returned by the remote service in
-     * JSON format.
-     * <p><br>
-     * For <em>{@code SearchResult}</em> objects, the various translations are returned in quite different fashions, for
-     * example as one big translation String or as List of translations or even as dedicated JSON translation objects.
-     * All of them will be mapped into this unified form in order to facilitate the work with these translations.
-     */
-    interface Translation {
-
-        /**
-         * Returns an Optional containing the language code or an empty Optional if no language code is available
-         *
-         * @return The language code from the received JSON or an empty Optional
-         */
-        Optional<String> getLanguage();
-
-        /**
-         * Returns an Optional containing the actual translation or an empty Optional if no translation is available
-         *
-         * @return The actual translation from the received JSON or an empty Optional
-         */
-        Optional<String> getTranslation();
-
-    }
+    Translations<SearchResultTranslation> getOverviews();
 }

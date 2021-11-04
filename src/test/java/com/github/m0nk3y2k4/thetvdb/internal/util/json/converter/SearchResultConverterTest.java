@@ -20,12 +20,11 @@ import static java.util.Collections.emptyMap;
 import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
-import com.github.m0nk3y2k4.thetvdb.api.model.data.SearchResult.Translation;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SearchResultDTO;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.SearchResultTranslation;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Translations;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.SearchResultTranslationDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.util.json.converter.SearchResultConverter.TranslationListItem;
 import com.github.m0nk3y2k4.thetvdb.internal.util.json.converter.SearchResultConverter.TranslationObject;
 import com.github.m0nk3y2k4.thetvdb.internal.util.json.converter.SearchResultConverter.TranslationString;
@@ -40,8 +39,8 @@ class SearchResultConverterTest {
     @ParameterizedTest(name = "[{index}] With translation String: {0}")
     @ValueSource(strings = {"{\"eng\": \"The Skipper 3\"}", "\"eng\": \"The Skipper 3\"", "eng: The Skipper 3"})
     void convertTranslationString_WithAndWithoutEnclosingBracketsAndQuotes_TranslationProperlyMapped(String value) {
-        List<Translation> translations = new TranslationString().convert(value);
-        assertThat(translations).hasSize(1).allSatisfy(t -> {
+        Translations<SearchResultTranslation> translations = new TranslationString().convert(value);
+        assertThat(translations.getAllTranslations()).hasSize(1).allSatisfy(t -> {
             assertThat(t.getLanguage()).contains("eng");
             assertThat(t.getTranslation()).contains("The Skipper 3");
         });
@@ -51,25 +50,25 @@ class SearchResultConverterTest {
     @NullAndEmptyStringSource
     @ValueSource(strings = "{}")
     void convertTranslationString_WithNoDataAtAll_NotMapped(String value) {
-        assertThat(new TranslationString().convert(value)).isEmpty();
+        assertThat(new TranslationString().convert(value).getAllTranslations()).isEmpty();
     }
 
     @ParameterizedTest(name = "[{index}] With separator but no translation data: {0}")
     @ValueSource(strings = {"{\"\": \"\"}", "\"\": \"\"", "\" \": \" \"", ": ", " : "})
     void convertTranslationString_WithSeparatorButNoActualTranslationData_MappedToEmptyTranslation(String value) {
-        List<Translation> translations = new TranslationString().convert(value);
-        assertThat(translations).hasSize(1).allSatisfy(t -> {
-            assertThat(t.getLanguage()).isEmpty();
-            assertThat(t.getTranslation()).isEmpty();
+        Translations<SearchResultTranslation> translations = new TranslationString().convert(value);
+        assertThat(translations.getAllTranslations()).hasSize(1).allSatisfy(t -> {
+            assertThat(t.getLanguage()).isNull();
+            assertThat(t.getTranslation()).isNull();
         });
     }
 
     @Test
     void convertTranslationString_WithNoTranslationDelimiter_MapWholeValueAsTranslation() {
         String value = "Name translation with no delimiter";
-        List<Translation> translations = new TranslationString().convert(value);
-        assertThat(translations).hasSize(1).allSatisfy(t -> {
-            assertThat(t.getLanguage()).isEmpty();
+        Translations<SearchResultTranslation> translations = new TranslationString().convert(value);
+        assertThat(translations.getAllTranslations()).hasSize(1).allSatisfy(t -> {
+            assertThat(t.getLanguage()).isNull();
             assertThat(t.getTranslation()).contains(value);
         });
     }
@@ -77,11 +76,11 @@ class SearchResultConverterTest {
     @Test
     void convertTranslationString_WithMultipleTranslations_ProperlyMapped() {
         String value = "{\"eng\": \"Translation1\", \"eng\": \"Translation2\", \"spa\": \"Translation3\"}";
-        List<Translation> translations = new TranslationString().convert(value);
-        assertThat(translations).containsExactlyInAnyOrder(
-                SearchResultDTO.createTranslationDTO(Optional.of("eng"), Optional.of("Translation1")),
-                SearchResultDTO.createTranslationDTO(Optional.of("eng"), Optional.of("Translation2")),
-                SearchResultDTO.createTranslationDTO(Optional.of("spa"), Optional.of("Translation3"))
+        Translations<SearchResultTranslation> translations = new TranslationString().convert(value);
+        assertThat(translations.getAllTranslations()).containsExactlyInAnyOrder(
+                new SearchResultTranslationDTO.Builder().language("eng").translation("Translation1").build(),
+                new SearchResultTranslationDTO.Builder().language("eng").translation("Translation2").build(),
+                new SearchResultTranslationDTO.Builder().language("spa").translation("Translation3").build()
         );
     }
 
@@ -89,57 +88,60 @@ class SearchResultConverterTest {
     @EmptyStringSource
     @ValueSource(strings = {": ", " : "})
     void convertTranslationListItem_WithNoActualData_MappedToEmptyTranslation(String value) {
-        Translation translation = new TranslationListItem().convert(value);
+        SearchResultTranslation translation = new TranslationListItem().convert(value);
         assertThat(translation).satisfies(t -> {
-            assertThat(t.getLanguage()).isEmpty();
-            assertThat(t.getTranslation()).isEmpty();
+            assertThat(t.getLanguage()).isNull();
+            assertThat(t.getTranslation()).isNull();
         });
     }
 
     @Test
     void convertTranslationListItem_WithNoTranslationDelimiter_MapWholeValueAsTranslation() {
         String value = "Overview translation with no delimiter";
-        Translation translation = new TranslationListItem().convert(value);
+        SearchResultTranslation translation = new TranslationListItem().convert(value);
         assertThat(translation).satisfies(t -> {
-            assertThat(t.getLanguage()).isEmpty();
+            assertThat(t.getLanguage()).isNull();
             assertThat(t.getTranslation()).contains(value);
         });
     }
 
     @Test
     void convertTranslationListItem_WithMultipleTranslations_ProperlyMapped() {
-        Translation french = new TranslationListItem().convert("fra: Translation1");
-        Translation spanish = new TranslationListItem().convert("spa: Translation2");
-        Translation portuguese = new TranslationListItem().convert("por: Translation3");
-        assertThat(french).isEqualTo(SearchResultDTO.createTranslationDTO(Optional.of("fra"), Optional.of("Translation1")));
-        assertThat(spanish).isEqualTo(SearchResultDTO.createTranslationDTO(Optional.of("spa"), Optional.of("Translation2")));
-        assertThat(portuguese).isEqualTo(SearchResultDTO.createTranslationDTO(Optional.of("por"), Optional.of("Translation3")));
+        SearchResultTranslation french = new TranslationListItem().convert("fra: Translation1");
+        SearchResultTranslation spanish = new TranslationListItem().convert("spa: Translation2");
+        SearchResultTranslation portuguese = new TranslationListItem().convert("por: Translation3");
+        assertThat(french.getLanguage()).isEqualTo("fra");
+        assertThat(french.getTranslation()).isEqualTo("Translation1");
+        assertThat(spanish.getLanguage()).isEqualTo("spa");
+        assertThat(spanish.getTranslation()).isEqualTo("Translation2");
+        assertThat(portuguese.getLanguage()).isEqualTo("por");
+        assertThat(portuguese.getTranslation()).isEqualTo("Translation3");
     }
 
     @Test
     void convertTranslationObject_WithNoActualData_MappedToEmptyTranslation() {
-        List<Translation> translations = new TranslationObject().convert(emptyMap());
-        assertThat(translations).isEmpty();
+        Translations<SearchResultTranslation> translations = new TranslationObject().convert(emptyMap());
+        assertThat(translations.getAllTranslations()).isEmpty();
     }
 
     @ParameterizedTest(name = "[{index}] With empty translation String: {0}")
     @NullAndEmptyStringSource
-    void convertTranslationListItem_WithNoActualTranslationData_MappedToEmptyTranslation(String value) {
-        List<Translation> translations = new TranslationObject().convert(singletonMap("eng", value));
-        assertThat(translations).hasSize(1).allSatisfy(t -> {
+    void convertTranslationListItem_WithNoActualTranslationData_MapOnlyLanguage(String value) {
+        Translations<SearchResultTranslation> translations = new TranslationObject().convert(singletonMap("eng", value));
+        assertThat(translations.getAllTranslations()).hasSize(1).allSatisfy(t -> {
             assertThat(t.getLanguage()).contains("eng");
-            assertThat(t.getTranslation()).isEmpty();
+            assertThat(t.getTranslation()).isNull();
         });
     }
 
     @Test
     void convertTranslationObject_WithMultipleTranslations_ProperlyMapped() {
         Map<String, String> translationMap = Map.of("por", "Translation1", "fra", "Translation2", "spa", "Translation3");
-        List<Translation> translations = new TranslationObject().convert(translationMap);
-        assertThat(translations).hasSize(3).containsExactlyInAnyOrder(
-                SearchResultDTO.createTranslationDTO(Optional.of("por"), Optional.of("Translation1")),
-                SearchResultDTO.createTranslationDTO(Optional.of("fra"), Optional.of("Translation2")),
-                SearchResultDTO.createTranslationDTO(Optional.of("spa"), Optional.of("Translation3"))
+        Translations<SearchResultTranslation> translations = new TranslationObject().convert(translationMap);
+        assertThat(translations.getAllTranslations()).hasSize(3).containsExactlyInAnyOrder(
+                new SearchResultTranslationDTO.Builder().language("por").translation("Translation1").build(),
+                new SearchResultTranslationDTO.Builder().language("fra").translation("Translation2").build(),
+                new SearchResultTranslationDTO.Builder().language("spa").translation("Translation3").build()
         );
     }
 }

@@ -14,16 +14,24 @@
  * limitations under the License.
  */
 
-package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
+package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import javax.annotation.Nullable;
 
-import org.junit.jupiter.api.Test;
+/**
+ * Super interface for objects containing any kind of translation information.
+ * <p><br>
+ * Only provides access to the most basic translation information. The main purpose of this interface is to allow the
+ * implementation of common logic that is able to process different kinds of translation DTO's.
+ */
+@FunctionalInterface
+public interface Translated {
 
-class SearchResultDTOTest {
-
-    @Test
-    void staticBuilderClass_newInstance_extendsDTOBuilder() {
-        assertThat(new SearchResultDTO.Builder()).isInstanceOf(SearchResultDTOBuilder.class);
-    }
+    /**
+     * Returns the 2- or 3-character language code
+     *
+     * @return The language code from the received JSON
+     */
+    @Nullable
+    String getLanguage();
 }

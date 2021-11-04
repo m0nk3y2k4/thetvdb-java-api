@@ -32,7 +32,7 @@ import javax.annotation.Nullable;
  * there will be no intense post-processing of the actual JSON values a type-casting may be applied to <u>some</u> of
  * them to improve the usability and relieve the API user of this task.
  */
-public interface Translation {
+public interface EntityTranslation extends Translated {
 
     /**
      * Get the value of the {<em>{@code data.name}</em>} JSON property
@@ -57,14 +57,6 @@ public interface Translation {
      */
     @Nullable
     String getOverview();
-
-    /**
-     * Get the value of the {<em>{@code data.language}</em>} JSON property
-     *
-     * @return The <em>{@code language}</em> property from the received JSON
-     */
-    @Nullable
-    String getLanguage();
 
     /**
      * Get the value of the {<em>{@code data.isPrimary}</em>} JSON property

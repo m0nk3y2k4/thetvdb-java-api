@@ -17,6 +17,7 @@
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Nullable;
 
@@ -111,13 +112,12 @@ public interface PeopleDetails extends People {
     /**
      * Get the value of the {<em>{@code data.translations}</em>} JSON property
      * <p><br>
-     * <b>Note:</b> Field will be <em>{@code null}</em> unless these data is explicitly requested. See {@link
+     * <b>Note:</b> Field will only be present if these data is explicitly requested. See {@link
      * com.github.m0nk3y2k4.thetvdb.api.enumeration.PeopleMeta#TRANSLATIONS PeopleMeta.TRANSLATIONS}.
      *
      * @return The <em>{@code translations}</em> property from the received JSON
      */
     // ToDo: This field seems to be always included in the JSON response even without meta=translations, but with all properties being null. Check occasionally.
     // ToDo: Field is currently not declared in PeopleExtendedRecord but returned in JSON. Check again after the next API update.
-    @Nullable
-    Translations getTranslations();
+    Optional<MetaTranslations> getTranslations();
 }

@@ -16,14 +16,28 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
+import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Translated;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Translations;
 import org.junit.jupiter.api.Test;
 
 class TranslationsDTOTest {
 
     @Test
     void staticBuilderClass_newInstance_extendsDTOBuilder() {
-        assertThat(new TranslationsDTO.Builder()).isInstanceOf(TranslationsDTOBuilder.class);
+        assertThat(new TranslationsDTO.Builder<>()).isInstanceOf(TranslationsDTOBuilder.class);
+    }
+
+    @Test
+    void get_withSingleTranslation_returnsTranslationOrEmptyOptional() {
+        Translated french = new SearchResultTranslationDTO.Builder()
+                .language("fra").translation("Une traduction").build();
+        Translations<Translated> translations = new TranslationsDTO.Builder<>()
+                .allTranslations(singletonList(french)).build();
+
+        assertThat(translations.get("fra")).contains(french);
+        assertThat(translations.get("ita")).isEmpty();
     }
 }

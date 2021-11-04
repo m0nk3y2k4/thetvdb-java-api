@@ -44,6 +44,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Company;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.CompanyType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ContentRating;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityTranslation;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityUpdate;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
@@ -67,7 +68,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesEpisodes;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SourceType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Status;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Translation;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Translations;
 
 /**
  * Main interface of the <i>TheTVDB</i> API connector.
@@ -528,7 +529,7 @@ public interface TheTVDBApi {
      * @see Extended#getEpisodeTranslation(long, String) TheTVDBApi.Extended.getEpisodeTranslation(episodeId,
      *         language)
      */
-    Translation getEpisodeTranslation(long episodeId, @Nonnull String language) throws APIException;
+    EntityTranslation getEpisodeTranslation(long episodeId, @Nonnull String language) throws APIException;
 
     /**
      * Returns a collection of translation records for a specific list mapped as Java DTO.
@@ -546,7 +547,7 @@ public interface TheTVDBApi {
      * @see JSON#getListTranslation(long, String) TheTVDBApi.JSON.getListTranslation(listId, language)
      * @see Extended#getListTranslation(long, String) TheTVDBApi.Extended.getListTranslation(listId, language)
      */
-    Collection<Translation> getListTranslation(long listId, @Nonnull String language) throws APIException;
+    Translations<EntityTranslation> getListTranslation(long listId, @Nonnull String language) throws APIException;
 
     /**
      * Returns a collection of lists based on the given query parameters mapped as Java DTO. The collection contains
@@ -811,7 +812,7 @@ public interface TheTVDBApi {
      * @see JSON#getMovieTranslation(long, String) TheTVDBApi.JSON.getMovieTranslation(movieId, language)
      * @see Extended#getMovieTranslation(long, String) TheTVDBApi.Extended.getMovieTranslation(movieId, language)
      */
-    Translation getMovieTranslation(long movieId, @Nonnull String language) throws APIException;
+    EntityTranslation getMovieTranslation(long movieId, @Nonnull String language) throws APIException;
 
     /**
      * Returns a collection of available people types mapped as Java DTO.
@@ -911,7 +912,7 @@ public interface TheTVDBApi {
      * @see JSON#getPeopleTranslation(long, String) TheTVDBApi.JSON.getPeopleTranslation(peopleId, language)
      * @see Extended#getPeopleTranslation(long, String) TheTVDBApi.Extended.getPeopleTranslation(peopleId, language)
      */
-    Translation getPeopleTranslation(long peopleId, @Nonnull String language) throws APIException;
+    EntityTranslation getPeopleTranslation(long peopleId, @Nonnull String language) throws APIException;
 
     /**
      * Returns a collection of search results based on the given query parameters mapped as Java DTO. Note that the
@@ -1065,7 +1066,7 @@ public interface TheTVDBApi {
      * @see JSON#getSeasonTranslation(long, String) TheTVDBApi.JSON.getSeasonTranslation(seasonId, language)
      * @see Extended#getSeasonTranslation(long, String) TheTVDBApi.Extended.getSeasonTranslation(seasonId, language)
      */
-    Translation getSeasonTranslation(long seasonId, @Nonnull String language) throws APIException;
+    EntityTranslation getSeasonTranslation(long seasonId, @Nonnull String language) throws APIException;
 
     /**
      * Returns a collection of available series statuses mapped as Java DTO.
@@ -1303,7 +1304,7 @@ public interface TheTVDBApi {
      * @see JSON#getSeriesTranslation(long, String) TheTVDBApi.JSON.getSeriesTranslation(seriesId, language)
      * @see Extended#getSeriesTranslation(long, String) TheTVDBApi.Extended.getSeriesTranslation(seriesId, language)
      */
-    Translation getSeriesTranslation(long seriesId, @Nonnull String language) throws APIException;
+    EntityTranslation getSeriesTranslation(long seriesId, @Nonnull String language) throws APIException;
 
     /**
      * Returns a collection of available source types mapped as Java DTO.
@@ -2622,7 +2623,7 @@ public interface TheTVDBApi {
          * @see JSON#getEpisodeTranslation(long, String) TheTVDBApi.JSON.getEpisodeTranslation(episodeId, language)
          * @see TheTVDBApi#getEpisodeTranslation(long, String) TheTVDBApi.getEpisodeTranslation(episodeId, language)
          */
-        APIResponse<Translation> getEpisodeTranslation(long episodeId, @Nonnull String language) throws APIException;
+        APIResponse<EntityTranslation> getEpisodeTranslation(long episodeId, @Nonnull String language) throws APIException;
 
         /**
          * Returns a response object containing a collection of translation records for a specific list mapped as Java
@@ -2643,7 +2644,7 @@ public interface TheTVDBApi {
          * @see JSON#getListTranslation(long, String) TheTVDBApi.JSON.getListTranslation(listId, language)
          * @see TheTVDBApi#getListTranslation(long, String) TheTVDBApi.getListTranslation(listId, language)
          */
-        APIResponse<Collection<Translation>> getListTranslation(long listId, @Nonnull String language)
+        APIResponse<Translations<EntityTranslation>> getListTranslation(long listId, @Nonnull String language)
                 throws APIException;
 
         /**
@@ -2860,7 +2861,7 @@ public interface TheTVDBApi {
          * @see JSON#getMovieTranslation(long, String) TheTVDBApi.JSON.getMovieTranslation(movieId, language)
          * @see TheTVDBApi#getMovieTranslation(long, String) TheTVDBApi.getMovieTranslation(movieId, language)
          */
-        APIResponse<Translation> getMovieTranslation(long movieId, @Nonnull String language) throws APIException;
+        APIResponse<EntityTranslation> getMovieTranslation(long movieId, @Nonnull String language) throws APIException;
 
         /**
          * Returns a response object containing a collection of available people types mapped as Java DTO.
@@ -2936,7 +2937,7 @@ public interface TheTVDBApi {
          * @see JSON#getPeopleTranslation(long, String) TheTVDBApi.JSON.getPeopleTranslation(peopleId, language)
          * @see TheTVDBApi#getPeopleTranslation(long, String) TheTVDBApi.getPeopleTranslation(peopleId, language)
          */
-        APIResponse<Translation> getPeopleTranslation(long peopleId, @Nonnull String language) throws APIException;
+        APIResponse<EntityTranslation> getPeopleTranslation(long peopleId, @Nonnull String language) throws APIException;
 
         /**
          * Returns a response object containing a collection of search results based on the given query parameters
@@ -3048,7 +3049,7 @@ public interface TheTVDBApi {
          * @see JSON#getSeasonTranslation(long, String) TheTVDBApi.JSON.getSeasonTranslation(seasonId, language)
          * @see TheTVDBApi#getSeasonTranslation(long, String) TheTVDBApi.getSeasonTranslation(seasonId, language)
          */
-        APIResponse<Translation> getSeasonTranslation(long seasonId, @Nonnull String language) throws APIException;
+        APIResponse<EntityTranslation> getSeasonTranslation(long seasonId, @Nonnull String language) throws APIException;
 
         /**
          * Returns a response object containing a collection of available series statuses mapped as Java DTO.
@@ -3192,7 +3193,7 @@ public interface TheTVDBApi {
          * @see JSON#getSeriesTranslation(long, String) TheTVDBApi.JSON.getSeriesTranslation(seriesId, language)
          * @see TheTVDBApi#getSeriesTranslation(long, String) TheTVDBApi.getSeriesTranslation(seriesId, language)
          */
-        APIResponse<Translation> getSeriesTranslation(long seriesId, @Nonnull String language) throws APIException;
+        APIResponse<EntityTranslation> getSeriesTranslation(long seriesId, @Nonnull String language) throws APIException;
 
         /**
          * Returns a response object containing a collection of available source types mapped as Java DTO.

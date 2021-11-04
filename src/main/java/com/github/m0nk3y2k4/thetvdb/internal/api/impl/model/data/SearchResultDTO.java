@@ -17,7 +17,6 @@
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.annotation.Nullable;
 
@@ -25,9 +24,12 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.RemoteId;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SearchResult;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.SearchResultTranslation;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Translations;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.APIDataModel;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.WithHiddenImplementation;
 import com.github.m0nk3y2k4.thetvdb.internal.util.json.converter.SearchResultConverter;
+import com.github.m0nk3y2k4.thetvdb.internal.util.json.converter.TranslationsConverter;
 import org.immutables.value.Value.Immutable;
 
 /**
@@ -42,18 +44,6 @@ import org.immutables.value.Value.Immutable;
 @WithHiddenImplementation
 @JsonDeserialize(builder = SearchResultDTO.Builder.class)
 public abstract class SearchResultDTO implements SearchResult {
-
-    /**
-     * Creates a new immutable {@link SearchResult.Translation} object with the given values
-     *
-     * @param language    The corresponding language code
-     * @param translation The actual translation
-     *
-     * @return New immutable search result translation DTO with the given translation information
-     */
-    public static Translation createTranslationDTO(Optional<String> language, Optional<String> translation) {
-        return new SearchResultTranslationDTOBuilder().language(language).translation(translation).build();
-    }
 
     @Override
     @Nullable
@@ -71,12 +61,12 @@ public abstract class SearchResultDTO implements SearchResult {
     @JsonAlias("name_translated")
     @JsonDeserialize(converter = SearchResultConverter.TranslationString.class)
     // ToDo: Property is declared as "nameTranslated" in API documentation but send as "name_translated" in JSON. Check again after next API update.
-    public abstract List<Translation> getNameTranslated();
+    public abstract Translations<SearchResultTranslation> getNameTranslated();
 
     @Override
     @JsonAlias("overview_translated")
-    @JsonDeserialize(contentConverter = SearchResultConverter.TranslationListItem.class)
-    public abstract List<Translation> getOverviewTranslated();
+    @JsonDeserialize(converter = TranslationsConverter.class, contentConverter = SearchResultConverter.TranslationListItem.class)
+    public abstract Translations<SearchResultTranslation> getOverviewTranslated();
 
     @Override
     @Nullable
@@ -112,11 +102,11 @@ public abstract class SearchResultDTO implements SearchResult {
 
     @Override
     @JsonDeserialize(converter = SearchResultConverter.TranslationObject.class)
-    public abstract List<Translation> getTranslations();
+    public abstract Translations<SearchResultTranslation> getTranslations();
 
     @Override
     @JsonDeserialize(converter = SearchResultConverter.TranslationObject.class)
-    public abstract List<Translation> getOverviews();
+    public abstract Translations<SearchResultTranslation> getOverviews();
 
     /**
      * Builder used to create a new immutable {@link SearchResultDTO} implementation
@@ -127,18 +117,4 @@ public abstract class SearchResultDTO implements SearchResult {
      * make additional changes before actually building a new immutable object.
      */
     public static class Builder extends SearchResultDTOBuilder {}
-
-    /**
-     * DTO implementation of the {@link SearchResult.Translation} interface
-     * <p><br>
-     * Objects of this class reflect the data received by the remote service and are immutable so that their content can
-     * not be changed once an instance has been created. New objects of this class may be created by using the the
-     * {@link SearchResultDTO#createTranslationDTO(Optional, Optional) createTranslationDTO(language, translation)} util
-     * method.
-     */
-    @Immutable
-    @WithHiddenImplementation
-    public abstract static class SearchResultTranslationDTO implements Translation {
-
-    }
 }

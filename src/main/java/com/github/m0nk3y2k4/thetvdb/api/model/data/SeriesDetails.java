@@ -17,6 +17,7 @@
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Nullable;
 
@@ -117,15 +118,20 @@ public interface SeriesDetails extends Series {
 
     /**
      * Get the value of the {<em>{@code data.translations}</em>} JSON property
+     * <p><br>
+     * <b>Note:</b> Field will only be present if these data is explicitly requested. See {@link
+     * com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesMeta#TRANSLATIONS SeriesMeta.TRANSLATIONS}.
      *
      * @return The <em>{@code translations}</em> property from the received JSON
      */
     // ToDo: Field is currently not declared in SeriesExtendedRecord but returned in JSON. Check again after the next API update.
-    @Nullable
-    Translations getTranslations();
+    Optional<MetaTranslations> getTranslations();
 
     /**
      * Get the value of the {<em>{@code data.episodes}</em>} JSON property
+     * <p><br>
+     * <b>Note:</b> Field will be <em>{@code null}</em> unless these data is explicitly requested. See {@link
+     * com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesMeta#EPISODES SeriesMeta.EPISODES}.
      *
      * @return The <em>{@code episodes}</em> property from the received JSON
      */

@@ -17,40 +17,33 @@
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
- * Interface representing a <em>{@code [?]}</em> data transfer object.
+ * Wrapper interface for collections of different kinds of translation data transfer objects.
  * <p><br>
- * The methods of this class provide easy access to all [?] related data which was returned by the remote service in
- * JSON format. Methods returning collection-based values will return an empty collection in case no corresponding data
- * was received.
- * <p><br>
- * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service
- * in order to facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although
- * there will be no intense post-processing of the actual JSON values a type-casting may be applied to <u>some</u> of
- * them to improve the usability and relieve the API user of this task.
+ * Objects of this class wrap around a list of specific translation DTO's and provide convenience functionality to
+ * simplify working with translations, like for example direct access to the translation for a specific language.
+ *
+ * @param <T> The type of translations held by this object
  */
-// ToDo: Model is currently not declared by the API but returned in JSON. Check again after the next API update.
-public interface Translations {
+public interface Translations<T extends Translated> {
 
     /**
-     * Get the value of the {<em>{@code <enclosing>.nameTranslations}</em>} JSON property
+     * Returns all available translation information
      *
-     * @return The <em>{@code nameTranslations}</em> property from the received JSON
+     * @return List of all translations available
      */
-    List<Translation> getNameTranslations();
+    List<T> getAllTranslations();
 
     /**
-     * Get the value of the {<em>{@code <enclosing>.overviewTranslations}</em>} JSON property
+     * Returns an Optional containing translation information for the given language or an empty Optional if no such
+     * information is present.
      *
-     * @return The <em>{@code overviewTranslations}</em> property from the received JSON
-     */
-    List<Translation> getOverviewTranslations();
-
-    /**
-     * Get the value of the {<em>{@code <enclosing>.aliases}</em>} JSON property
+     * @param language The 2- or 3-character language code for which the translation information should be returned
      *
-     * @return The <em>{@code aliases}</em> property from the received JSON
+     * @return Optional containing the requested translation information or an empty Optional if no translation is
+     *         available for the given language
      */
-    List<String> getAliases();
+    Optional<T> get(String language);
 }

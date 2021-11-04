@@ -37,6 +37,8 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityTranslation;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Translated;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.APIDataModel;
 import com.github.m0nk3y2k4.thetvdb.internal.util.functional.ThrowableFunctionalInterfaces;
 import com.github.m0nk3y2k4.thetvdb.internal.util.json.deser.APIResponseDeserializer;
@@ -117,7 +119,8 @@ public final class APIJsonMapper {
     private static <T> SimpleModule createDataModule() {
         // Add Interface <-> Implementation mappings to the module. The object mapper will use these mappings to determine the
         // proper builder to be used to create new instances of a specific interface (via @JsonDeserialize annotation).
-        SimpleAbstractTypeResolver dtoTypeResolver = new SimpleAbstractTypeResolver();
+        SimpleAbstractTypeResolver dtoTypeResolver = new SimpleAbstractTypeResolver()
+                .addMapping(Translated.class, EntityTranslation.class); // Use EntityTranslation as default implementation
         ClassFilter.only().classes().annotatedWith(JsonDeserialize.class)
                 .from(ClassIndex.getAnnotated(APIDataModel.class)).forEach(dto ->
                         Arrays.stream(dto.getInterfaces()).forEach(dtoInterface ->

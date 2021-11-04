@@ -20,10 +20,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-class TranslationDTOTest {
+class SearchResultTranslationDTOTest {
 
     @Test
     void staticBuilderClass_newInstance_extendsDTOBuilder() {
-        assertThat(new TranslationDTO.Builder()).isInstanceOf(TranslationDTOBuilder.class);
+        assertThat(new SearchResultTranslationDTO.Builder()).isInstanceOf(SearchResultTranslationDTOBuilder.class);
     }
 }

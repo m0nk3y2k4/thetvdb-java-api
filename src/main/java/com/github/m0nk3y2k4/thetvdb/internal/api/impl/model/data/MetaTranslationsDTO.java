@@ -16,17 +16,14 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
-import javax.annotation.Nullable;
-
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Translation;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.MetaTranslations;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.APIDataModel;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.WithHiddenImplementation;
 import org.immutables.value.Value.Immutable;
 
 /**
- * DTO implementation of the {@link Translation} interface
+ * DTO implementation of the {@link MetaTranslations} interface
  * <p><br>
  * Objects of this class reflect the data received from the remote service and are immutable so that their content can
  * not be changed once an instance has been created. New objects of this class may be created by using the corresponding
@@ -35,22 +32,16 @@ import org.immutables.value.Value.Immutable;
 @Immutable
 @APIDataModel
 @WithHiddenImplementation
-@JsonDeserialize(builder = TranslationDTO.Builder.class)
-public abstract class TranslationDTO implements Translation {
-
-    @Override
-    @Nullable
-    @JsonAlias("IsPrimary")
-    // ToDo: Property is declared as "isPrimary" in API documentation but send as "IsPrimary" in JSON. Check again after next API update.
-    public abstract Boolean isPrimary();
+@JsonDeserialize(builder = MetaTranslationsDTO.Builder.class)
+public abstract class MetaTranslationsDTO implements MetaTranslations {
 
     /**
-     * Builder used to create a new immutable {@link TranslationDTO} implementation
+     * Builder used to create a new immutable {@link MetaTranslationsDTO} implementation
      * <p><br>
      * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link
-     * TranslationDTO} instance based on these properties. New builders may be initialized with some existing DTO
+     * MetaTranslationsDTO} instance based on these properties. New builders may be initialized with some existing DTO
      * instance, which presets the builders properties to the values of the given DTO, still retaining the option to
      * make additional changes before actually building a new immutable object.
      */
-    public static class Builder extends TranslationDTOBuilder {}
+    public static class Builder extends MetaTranslationsDTOBuilder {}
 }
