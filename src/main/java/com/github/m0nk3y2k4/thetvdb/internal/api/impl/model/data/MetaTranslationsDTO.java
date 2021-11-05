@@ -16,10 +16,15 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.EntityTranslation;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.MetaTranslations;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Translations;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.APIDataModel;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.WithHiddenImplementation;
+import org.immutables.value.Value.Default;
 import org.immutables.value.Value.Immutable;
 
 /**
@@ -34,6 +39,20 @@ import org.immutables.value.Value.Immutable;
 @WithHiddenImplementation
 @JsonDeserialize(builder = MetaTranslationsDTO.Builder.class)
 public abstract class MetaTranslationsDTO implements MetaTranslations {
+
+    @Default
+    @Override
+    @JsonSetter(nulls = Nulls.SKIP)
+    public Translations<EntityTranslation> getNameTranslations() {
+        return new TranslationsDTO.Builder<EntityTranslation>().build();
+    }
+
+    @Default
+    @Override
+    @JsonSetter(nulls = Nulls.SKIP)
+    public Translations<EntityTranslation> getOverviewTranslations() {
+        return new TranslationsDTO.Builder<EntityTranslation>().build();
+    }
 
     /**
      * Builder used to create a new immutable {@link MetaTranslationsDTO} implementation

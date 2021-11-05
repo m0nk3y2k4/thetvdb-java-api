@@ -18,8 +18,6 @@ package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 /**
  * Interface representing a <em>{@code [?]}</em> data transfer object.
  * <p><br>
@@ -40,7 +38,6 @@ public interface MetaTranslations {
      *
      * @return The <em>{@code nameTranslations}</em> property from the received JSON
      */
-    @Nullable
     Translations<EntityTranslation> getNameTranslations();
 
     /**
@@ -48,7 +45,6 @@ public interface MetaTranslations {
      *
      * @return The <em>{@code overviewTranslations}</em> property from the received JSON
      */
-    @Nullable
     Translations<EntityTranslation> getOverviewTranslations();
 
     /**

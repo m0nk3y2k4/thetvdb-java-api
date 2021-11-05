@@ -18,6 +18,7 @@ package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.github.m0nk3y2k4.thetvdb.api.model.data.SearchResult;
 import org.junit.jupiter.api.Test;
 
 class SearchResultDTOTest {
@@ -25,5 +26,14 @@ class SearchResultDTOTest {
     @Test
     void staticBuilderClass_newInstance_extendsDTOBuilder() {
         assertThat(new SearchResultDTO.Builder()).isInstanceOf(SearchResultDTOBuilder.class);
+    }
+
+    @Test
+    void newInstance_withNoTranslationsNotBeingSet_returnsDefaultValues() {
+        SearchResult searchResult = new SearchResultDTO.Builder().build();
+        assertThat(searchResult.getTranslations()).isNotNull();
+        assertThat(searchResult.getNameTranslated()).isNotNull();
+        assertThat(searchResult.getOverviews()).isNotNull();
+        assertThat(searchResult.getOverviewTranslated()).isNotNull();
     }
 }

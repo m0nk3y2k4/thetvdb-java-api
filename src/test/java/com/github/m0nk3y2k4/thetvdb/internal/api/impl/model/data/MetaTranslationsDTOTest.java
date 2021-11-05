@@ -18,6 +18,7 @@ package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.github.m0nk3y2k4.thetvdb.api.model.data.MetaTranslations;
 import org.junit.jupiter.api.Test;
 
 class MetaTranslationsDTOTest {
@@ -25,5 +26,12 @@ class MetaTranslationsDTOTest {
     @Test
     void staticBuilderClass_newInstance_extendsDTOBuilder() {
         assertThat(new MetaTranslationsDTO.Builder()).isInstanceOf(MetaTranslationsDTOBuilder.class);
+    }
+
+    @Test
+    void newInstance_withNoTranslationsNotBeingSet_returnsDefaultValues() {
+        MetaTranslations metaTranslations = new MetaTranslationsDTO.Builder().build();
+        assertThat(metaTranslations.getNameTranslations()).isNotNull();
+        assertThat(metaTranslations.getOverviewTranslations()).isNotNull();
     }
 }

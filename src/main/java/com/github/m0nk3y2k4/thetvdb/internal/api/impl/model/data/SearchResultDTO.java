@@ -21,6 +21,8 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.RemoteId;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SearchResult;
@@ -30,6 +32,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.APIDataModel;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.WithHiddenImplementation;
 import com.github.m0nk3y2k4.thetvdb.internal.util.json.converter.SearchResultConverter;
 import com.github.m0nk3y2k4.thetvdb.internal.util.json.converter.TranslationsConverter;
+import org.immutables.value.Value.Default;
 import org.immutables.value.Value.Immutable;
 
 /**
@@ -57,16 +60,24 @@ public abstract class SearchResultDTO implements SearchResult {
     // ToDo: Property is declared as "imageUrl" in API documentation but send as "image_url" in JSON. Check again after next API update.
     public abstract String getImageUrl();
 
+    @Default
     @Override
     @JsonAlias("name_translated")
+    @JsonSetter(nulls = Nulls.SKIP)
     @JsonDeserialize(converter = SearchResultConverter.TranslationString.class)
     // ToDo: Property is declared as "nameTranslated" in API documentation but send as "name_translated" in JSON. Check again after next API update.
-    public abstract Translations<SearchResultTranslation> getNameTranslated();
+    public Translations<SearchResultTranslation> getNameTranslated() {
+        return new TranslationsDTO.Builder<SearchResultTranslation>().build();
+    }
 
+    @Default
     @Override
     @JsonAlias("overview_translated")
+    @JsonSetter(nulls = Nulls.SKIP)
     @JsonDeserialize(converter = TranslationsConverter.class, contentConverter = SearchResultConverter.TranslationListItem.class)
-    public abstract Translations<SearchResultTranslation> getOverviewTranslated();
+    public Translations<SearchResultTranslation> getOverviewTranslated() {
+        return new TranslationsDTO.Builder<SearchResultTranslation>().build();
+    }
 
     @Override
     @Nullable
@@ -100,13 +111,21 @@ public abstract class SearchResultDTO implements SearchResult {
     @JsonAlias("is_official")
     public abstract Boolean isOfficial();
 
+    @Default
     @Override
+    @JsonSetter(nulls = Nulls.SKIP)
     @JsonDeserialize(converter = SearchResultConverter.TranslationObject.class)
-    public abstract Translations<SearchResultTranslation> getTranslations();
+    public Translations<SearchResultTranslation> getTranslations() {
+        return new TranslationsDTO.Builder<SearchResultTranslation>().build();
+    }
 
+    @Default
     @Override
+    @JsonSetter(nulls = Nulls.SKIP)
     @JsonDeserialize(converter = SearchResultConverter.TranslationObject.class)
-    public abstract Translations<SearchResultTranslation> getOverviews();
+    public Translations<SearchResultTranslation> getOverviews() {
+        return new TranslationsDTO.Builder<SearchResultTranslation>().build();
+    }
 
     /**
      * Builder used to create a new immutable {@link SearchResultDTO} implementation
