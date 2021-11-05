@@ -3238,7 +3238,7 @@ public interface TheTVDBApi {
      */
     final class Version {
         /** Version of the <i>TheTVDB.com</i> remote API used by this connector */
-        public static final String API_VERSION = "v4.4.0";
+        public static final String API_VERSION = "v4.4.3";
 
         /** Constant class. Should not be instantiated */
         private Version() {}
