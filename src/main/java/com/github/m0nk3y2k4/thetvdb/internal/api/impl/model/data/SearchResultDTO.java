@@ -73,7 +73,7 @@ public abstract class SearchResultDTO implements SearchResult {
     @Default
     @Override
     @JsonAlias("overview_translated")
-    @JsonSetter(nulls = Nulls.SKIP)
+    @JsonSetter(nulls = Nulls.SKIP, contentNulls = Nulls.SKIP)
     @JsonDeserialize(converter = TranslationsConverter.class, contentConverter = SearchResultConverter.TranslationListItem.class)
     public Translations<SearchResultTranslation> getOverviewTranslated() {
         return new TranslationsDTO.Builder<SearchResultTranslation>().build();
