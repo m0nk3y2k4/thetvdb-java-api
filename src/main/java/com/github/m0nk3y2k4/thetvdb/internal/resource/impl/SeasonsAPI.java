@@ -89,6 +89,7 @@ public final class SeasonsAPI extends QueryResource {
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no season
      *                      record with the given ID exists, etc.
      */
+    // ToDo: Currently no query parameters are declared in the documentation but should be supported according to GitHub issue. Check again after the next API update.
     public static JsonNode getSeasonExtended(@Nonnull APIConnection con, long id, QueryParameters params)
             throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
