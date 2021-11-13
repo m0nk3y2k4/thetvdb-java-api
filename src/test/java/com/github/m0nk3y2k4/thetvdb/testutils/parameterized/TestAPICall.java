@@ -22,7 +22,7 @@ package com.github.m0nk3y2k4.thetvdb.testutils.parameterized;
  * Accepted routes depend on the actual implementation that is used. Please check out the documentation of the
  * implementing classes for further details and examples. An additional textual description can be added which will be
  * displayed as the default String representation of this object. Provides a single method to invoke the underlying
- * remote API route and to return it's response.
+ * remote API route and to return its response.
  */
 abstract class TestAPICall<T> {
 

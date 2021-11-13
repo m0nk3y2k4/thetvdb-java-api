@@ -88,7 +88,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Translations;
  * <p><br>
  * To cover a wide range of possible applications, this API connector provides multiple layouts in order to allow an
  * easy integration regardless of your actual project requirements. It gives you the option to use prefabbed DTO's which
- * will be parsed from the actual JSON returned by the remote service. In case you need advanced exception handling or
+ * will be parsed from the actual JSON returned by the remote service. In case you need advanced exception handling, or
  * you prefer to parse the JSON into your own data models (or don't want to parse it at all), other API layouts will
  * provide you with extended API response DTO's or even with the raw JSON. The following API layouts are currently
  * available:
@@ -156,9 +156,9 @@ public interface TheTVDBApi {
     Optional<String> getToken();
 
     /**
-     * Sets the preferred language to be used for communication with the remote service. Some of the API calls might use
-     * this setting in order to only return results that match the given language. If available, the data returned by
-     * the remote API will be translated to the given language. The default language code is <b>"en"</b>.
+     * Sets the preferred language to be used for communication with the remote service. Some API calls might use this
+     * setting in order to only return results that match the given language. If available, the data returned by the
+     * remote API will be translated to the given language. The default language code is <b>"en"</b>.
      *
      * @param languageCode The language in which the results are to be returned
      */
@@ -169,7 +169,7 @@ public interface TheTVDBApi {
      * Initializes the current API session by requesting a new token from the remote API. This token will be used for
      * authentication of all requests that are sent to the remote service by this API instance. The initialization will
      * be performed based on the constructor parameters used to create this API instance. It is recommended to
-     * login/initialize the session before making the first API call. However, if an API call is made without proper
+     * log in/initialize the session before making the first API call. However, if an API call is made without proper
      * initialization, an implicit login will be performed.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Login/post_login">
@@ -1424,7 +1424,7 @@ public interface TheTVDBApi {
      * <p><br>
      * In this layout, all methods will return the raw, unmodified JSON as received from the remove service.
      *
-     * @return Instance representing the the API's <em>{@code JSON}</em> layout
+     * @return Instance representing the API's <em>{@code JSON}</em> layout
      */
     JSON json();
 
@@ -1434,7 +1434,7 @@ public interface TheTVDBApi {
      * In this layout, all methods will return a single {@link APIResponse} object, containing the actual request data,
      * mapped as DTO, as well as all additional information that is available in the corresponding context.
      *
-     * @return Instance representing the the API's <em>{@code Extended}</em> layout
+     * @return Instance representing the API's <em>{@code Extended}</em> layout
      */
     Extended extended();
 
@@ -2332,7 +2332,7 @@ public interface TheTVDBApi {
      * Interface representing the API's <em>{@code Extended}</em> layout.
      * <p><br>
      * This layout may be used for slightly advance API integration. Like the common layout it'll take care of parsing
-     * the received JSON into Java DTO's but it will also provide access to any additional contextual information.
+     * the received JSON into Java DTO's, but it will also provide access to any additional contextual information.
      * Methods of this layout will always return a single {@link APIResponse} object which consists of the actual data,
      * parsed as DTO, as well as all additional information which is available in the given context, like additional
      * error or pagination information. This layout does not provide any shortcut-methods.

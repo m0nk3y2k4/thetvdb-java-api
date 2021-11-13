@@ -26,7 +26,7 @@ import org.immutables.value.Value;
  * Forces <em>{@code Immutables}</em> to restrict the visibility of auto-generated DTO implementations in order to
  * "hide" them.
  * <p><br>
- * This is a composed annotation providing some commonly used preconfiguration for DTO's with regards to the <em>{@code
+ * This is a composed annotation providing some commonly used preconfiguration for DTO's with regard to the <em>{@code
  * Immutables}</em> API. It forces the actual immutable implementation to be private and the corresponding builder to be
  * package-private.
  */

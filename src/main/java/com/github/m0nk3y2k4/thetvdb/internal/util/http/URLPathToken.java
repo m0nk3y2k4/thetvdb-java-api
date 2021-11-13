@@ -33,9 +33,9 @@ import javax.annotation.Nonnull;
  * literal} tokens which are just fine as they are. The two tokens <i>"{id}"</i> and <i>"{language}"</i> are only
  * placeholders which have to be replaced by some other, contextual values before connecting to this URL.
  * <p><br>
- * Instances of this class help processing these different kind of tokens by offering the ability to maintain all token
- * related information in one single object. This is especially useful for wildcard tokens with regards to binding a
- * wildcard and it's specific replacement altogether in one object. Using this class also provides a certain degree of
+ * Instances of this class help to process these different kind of tokens by offering the ability to maintain all token
+ * related information in one single object. This is especially useful for wildcard tokens with regard to binding a
+ * wildcard, and it's specific replacement altogether in one object. Using this class also provides a certain degree of
  * type-safety as it will detect unknown wildcards, verify the compatibility of replacement parameters and prohibits
  * further usage of wildcard tokens which have not yet been properly replaced by some actual path parameter value. It
  * also takes care of literal tokens not being accidentally replaced by some other value.

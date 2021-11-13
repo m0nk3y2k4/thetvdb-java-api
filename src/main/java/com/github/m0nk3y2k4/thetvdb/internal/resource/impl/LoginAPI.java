@@ -79,7 +79,7 @@ public final class LoginAPI {
      *
      * @param con         Connection to be used for API communication and to which the Issued JWT token should be
      *                    propagated to
-     * @param sendRequest Prepared API request which returns a valid JWT token in it's payload
+     * @param sendRequest Prepared API request which returns a valid JWT token in its payload
      *
      * @throws APIException If an exception with the remote API occurs, e.g. due to an IO error or if the API returned
      *                      an invalid or unparsable JWT token

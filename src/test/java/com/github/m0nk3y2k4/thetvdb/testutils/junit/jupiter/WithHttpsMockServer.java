@@ -32,12 +32,12 @@ import org.mockserver.junit.jupiter.MockServerSettings;
  * <p><br>
  * Enables the mock server JUnit5 extension and lets the server being started with some preconfigured settings like e.g.
  * specific port number. For test classes annotated with this meta-annotation a mock server instance will be provided
- * for the time of the test execution. If currently no mock server instance exists a new one will be created. Otherwise
+ * for the time of the test execution. If currently no mock server instance exists a new one will be created. Otherwise,
  * the existing instance will be provided. The mock server instance will be shut-down at the very end of the test
  * execution.
  * <p><br>
  * The mocked server can be accessed via injected {@link MockServerClient} parameter. Such clients may be injected into
- * the constructor, lifecycle methods and of course into the actual tests. The server will return a HTTP-200 for each
+ * the constructor, lifecycle methods and of course into the actual tests. The server will return an HTTP-200 for each
  * requested resource by default. This behavior can be overwritten by each test but will be reset before the next test
  * class is executed.
  * <pre><code>

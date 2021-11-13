@@ -54,27 +54,27 @@ import org.mockserver.model.Parameter;
  * <p><br>
  * This class offers quick access to functionality which is often required when working with mock servers. This includes
  * prepared JSON Strings, creation of common HTTP request headers as well as simple preconfigured responses for example
- * to return a HTTP-200 or HTTP-401 response.
+ * to return an HTTP-200 or HTTP-401 response.
  */
 public final class MockServerUtil {
 
     /** JSON String representing a simple <i>Success</i> response content */
     public static final String JSON_SUCCESS = "{\"Success\":true}";
 
-    /** JSON String representing a HTTP-401 <i>Not Authorized</i> response content */
+    /** JSON String representing an HTTP-401 <i>Not Authorized</i> response content */
     public static final String JSON_ERROR_NOTAUTHORIZED = "{\"message\":\"Not Authorized\"}";
 
     /** JSON String representing some dummy payload data e.g. to be used for POST requests */
     public static final String JSON_DATA = "{\"Some\":\"JSON payload\"}";
 
-    /** JSON String representing a dummy JWT response (valid with regards to the JWT format) */
+    /** JSON String representing a dummy JWT response (valid with regard to the JWT format) */
     public static final String JSON_JWT = "{\"token\":\"Header.Payload.Signature\"}";
 
     private MockServerUtil() {}         // Hidden constructor. Only static methods
 
     /**
      * Creates a new <i>"Content-Length"</i> header which can be added to some mock server response. Will invoke the
-     * {@link String#length()} method of the given String in order to determine it's length.
+     * {@link String#length()} method of the given String in order to determine its length.
      *
      * @param content The content of the mock server response
      *
@@ -173,7 +173,7 @@ public final class MockServerUtil {
     /**
      * Creates a simple HTTP-200 <i>"OK"</i> response. The response body contains some dummy JSON success message.
      *
-     * @return New preconfigured HTTP response with a HTTP-200 status
+     * @return New preconfigured HTTP response with an HTTP-200 status
      */
     public static HttpResponse createSuccessResponse() {
         return createResponse(OK_200, JSON_SUCCESS);
@@ -183,7 +183,7 @@ public final class MockServerUtil {
      * Creates a simple HTTP-200 <i>"OK"</i> response. The response body contains some dummy token in a valid JWT
      * format.
      *
-     * @return New preconfigured HTTP response with a HTTP-200 status
+     * @return New preconfigured HTTP response with an HTTP-200 status
      */
     public static HttpResponse createJWTResponse() {
         return createResponse(OK_200, JSON_JWT);
@@ -193,7 +193,7 @@ public final class MockServerUtil {
      * Creates a simple HTTP-401 <i>"Unauthorized"</i> response. The response body contains some dummy JSON
      * authorization failure message.
      *
-     * @return New preconfigured HTTP response with a HTTP-401 status
+     * @return New preconfigured HTTP response with an HTTP-401 status
      */
     public static HttpResponse createUnauthorizedResponse() {
         return createResponse(UNAUTHORIZED_401, JSON_ERROR_NOTAUTHORIZED);
@@ -225,7 +225,7 @@ public final class MockServerUtil {
     }
 
     /**
-     * Creates a new mock server HTTP request for the given path and request method and without any query parameters
+     * Creates a new mock server HTTP-request for the given path and request method and without any query parameters
      *
      * @param path   The requests path
      * @param method The HTTP request method
@@ -237,7 +237,7 @@ public final class MockServerUtil {
     }
 
     /**
-     * Creates a new mock server HTTP request for the given path, request method and an optional set of query
+     * Creates a new mock server HTTP-request for the given path, request method and an optional set of query
      * parameters
      *
      * @param path       The requests path

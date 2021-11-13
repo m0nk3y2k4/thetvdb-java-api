@@ -34,7 +34,7 @@ import org.mockserver.verify.VerificationTimes;
  * Special assertion for {@link TestTheTVDBAPICall} objects, wrapping some API route invocation
  * <p><br>
  * Supports expectation matching for API routes, regardless of the actual API layout that is used. For wrapped non-void
- * routes a {@link ResponseData} object is expected for matching. The assert will automatically try to determine the
+ * routes a {@link ResponseData} object is expected for matching. The assertion will automatically try to determine the
  * layout used by the API route and will perform the matching operation accordingly.
  * <pre>{@code
  *     TheTVDBApi api = TheTVDBApiFactory.createApi("Some APIKey");
@@ -54,9 +54,9 @@ import org.mockserver.verify.VerificationTimes;
  *              .matchesExpectation(ResponseData.ACTORS);
  * }</pre>
  * Unfortunately void API routes do not return any object which could be used for matching an expectation. However, you
- * may let the assert verify that a specific resource has been invoked on the mock server by passing a corresponding
- * HttpRequest object as expectation. For this to work the assert must get in contact with the mock server running in
- * the background. The server can be announced by setting a mock server reference to the assert first.
+ * may let the assertion verify that a specific resource has been invoked on the mock server by passing a corresponding
+ * HttpRequest object as expectation. For this to work, the assertion must get in contact with the mock server running
+ * in the background. The server can be announced by setting a mock server reference to the assertion first.
  * <pre><code>
  *     {@literal @Test}
  *     void voidApiRouteTest(MockServerClient client) throws Exception {        // Client can be injected when using the JUnit5 HttpsMockServerExtension
@@ -164,7 +164,7 @@ public final class TestTheTVDBAPICallAssert<T> extends AbstractAssert<TestTheTVD
      *
      * @param response Response object which is expected to be returned by the invocation of the actual API call
      *
-     * @throws IOException  If an exception occurred while auto-converting a response object object into it's JsonNode
+     * @throws IOException  If an exception occurred while auto-converting a response object into it's JsonNode
      *                      representation
      * @throws APIException If an exception occurred while invoking the actual API call of this assertion
      */

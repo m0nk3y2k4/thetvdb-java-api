@@ -117,7 +117,7 @@ class APIConnectionTest {
     @Test
     void sendRequest_abortAfterMaxRetryCount(MockServerClient client) {
         final String resource = "/auth/retry";
-        con.getSession().setStatus(Status.NOT_AUTHORIZED);       // Allow to trigger auto-authorization
+        con.getSession().setStatus(Status.NOT_AUTHORIZED);       // Allow triggering auto-authorization
         client.when(request(resource), Times.exactly(3)).respond(createUnauthorizedResponse());
         APIException exception = catchThrowableOfType(() -> con.sendGET(resource), APIException.class);
         assertThat(exception).hasMessageContaining(ERR_MAX_RETRY_EXCEEDED, MAX_AUTHENTICATION_RETRY_COUNT);
@@ -126,7 +126,7 @@ class APIConnectionTest {
     @Test
     void sendRequest_automaticAuthorizationSuccess(MockServerClient client) throws Exception {
         final String resource = "/auth/autoAuthSuccess";
-        con.getSession().setStatus(Status.NOT_AUTHORIZED);       // Allow to trigger auto-authorization
+        con.getSession().setStatus(Status.NOT_AUTHORIZED);       // Allow triggering auto-authorization
         con.sendGET(resource);
         client.verify(request(resource), VerificationTimes.exactly(2));
     }
@@ -134,7 +134,7 @@ class APIConnectionTest {
     @Test
     void sendRequest_automaticAuthorizationFailed(MockServerClient client) {
         final String resource = "/auth/autoAuthFailed";
-        con.getSession().setStatus(Status.NOT_AUTHORIZED);       // Allow to trigger auto-authorization
+        con.getSession().setStatus(Status.NOT_AUTHORIZED);       // Allow triggering auto-authorization
         client.when(request("/login"), Times.once()).respond(createUnauthorizedResponse());
         APIException exception = catchThrowableOfType(() -> con.sendGET(resource), APIException.class);
         assertThat(exception).hasMessageContaining("authorization failed");

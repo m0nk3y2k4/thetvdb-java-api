@@ -31,7 +31,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
  * For such cases objects of this class can be used in order to cover the automatic type inference but always return a
  * fix, preconfigured type instead. Just like the actual type reference it will instantiate a reference to a generic
  * type when creating a new instance. However, this reference will be retained by the object and won't be returned when
- * {@link #getType()} is invoked. Instead the static type value provided via the constructor will be returned. For
+ * {@link #getType()} is invoked. Instead, the static type value provided via the constructor will be returned. For
  * example, the following code cannot properly infer the type reference from the context and will probably end up in a
  * NullPointerException:
  * <pre>{@code

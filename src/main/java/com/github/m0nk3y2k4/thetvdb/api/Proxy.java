@@ -23,8 +23,8 @@ import com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory;
 /**
  * Interface representing a proxy service to be used for communication with the remote API. Such proxies may be provided
  * when creating a new API instance in order to forward the all the communication towards this proxy rather than
- * directly communicating with the the actual <i>TheTVDB.com</i> remote API. The latter one will be the default behavior
- * if no specific proxy is set during the API instantiation. Instances of this interface might be created via the {@link
+ * directly communicating with the actual <i>TheTVDB.com</i> remote API. The latter one will be the default behavior if
+ * no specific proxy is set during the API instantiation. Instances of this interface might be created via the {@link
  * TheTVDBApiFactory}. The URI represented by this proxy will be assembled in the following form:
  * <em>{@code protocol://host:port[/path]}</em>
  */

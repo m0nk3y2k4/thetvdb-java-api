@@ -25,16 +25,16 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
  * Collection of simple checks to be used to check for method invocation preconditions
  * <p><br>
  * The default behavior for precondition checks provided by this class is to throw an {@link APIPreconditionException}
- * in case the given arguments do not match the requirements. Some of the methods may support extended control over the
- * actual type of exception that will be thrown by allowing the calling instance to provide it's onw runtime exception
+ * in case the given arguments do not match the requirements. Some methods may support extended control over the actual
+ * type of exception that will be thrown by allowing the calling instance to provide it's onw runtime exception
  * instance.
  * <p><br>
  * Please note that this class should primarily be used for non-method parameter related precondition/object state
  * checks as the default
  * <em>{@code APIPreconditionException}</em> indicates that resolving the failed validation isn't necessarily within
  * the responsibility of the calling instance (although it can be). A common precondition check would be for example to
- * check whether the invoked object is in a proper state in order to process the invocation. If not, this may possibly
- * be resolved by the calling instance by e.g. some additional object initialization. However, it may also prove to be
+ * check whether the invoked object is in a proper state in order to process the invocation. If not, this may be
+ * resolved by the calling instance by e.g. some additional object initialization. However, it may also prove to be
  * unresolvable for example when the invoked method is only supported for certain object states. To verify the values of
  * given method parameters use {@link Parameters}.
  */
@@ -58,7 +58,7 @@ public final class Preconditions {
     }
 
     /**
-     * Checks that the given <em>{@code obj}</em> is not <i>null</i>. Otherwise an exception with the given error
+     * Checks that the given <em>{@code obj}</em> is not <i>null</i>. Otherwise, an exception with the given error
      * message will be thrown.
      *
      * @param obj     The object to check
@@ -73,7 +73,7 @@ public final class Preconditions {
     }
 
     /**
-     * Checks that the given String is neither <i>null</i> nor empty. Otherwise an exception with the given error
+     * Checks that the given String is neither <i>null</i> nor empty. Otherwise, an exception with the given error
      * message will be thrown.
      *
      * @param obj     The String to check

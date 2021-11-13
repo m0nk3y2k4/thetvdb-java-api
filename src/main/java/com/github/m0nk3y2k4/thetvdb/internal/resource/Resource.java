@@ -61,8 +61,8 @@ public abstract class Resource {
      * URLPathTokenType}.
      *
      * @param path               URL path String with or without wildcards
-     * @param pathWildcardParams Additional path parameters used used to replace wildcards within the path String (will
-     *                           be replaced in the order of their appearance)
+     * @param pathWildcardParams Additional path parameters used to replace wildcards within the path String (will be
+     *                           replaced in the order of their appearance)
      *
      * @return Composed resource String based on the given parameters
      */

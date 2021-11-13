@@ -54,7 +54,7 @@ class ResourceTest {
 
     @ParameterizedTest(name = "[{index}] With path: <{0}>")
     @NullAndEmptyStringSource
-    @ValueSource(strings = {"/", "/path/", "/pa.th", "/p ath"})
+    @ValueSource(strings = {"/", "/path/", "//path", "/pa.th", "/p ath"})
     void createResource_withInvalidPath_verifyParameterValidation(String path) {
         assertThatIllegalArgumentException().isThrownBy(() -> Resource.createResource(path));
     }

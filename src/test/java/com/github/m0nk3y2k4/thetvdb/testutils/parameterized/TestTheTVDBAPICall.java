@@ -23,9 +23,9 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.functional.ThrowableFunctional
 /**
  * Small helper class used to wrap calls of TheTVDBAPI routes for easier parameterized JUnit testing
  * <p><br>
- * Accepts routes from the <i>{@link com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi}</i> interface. An additional textual
- * description can be added which will be displayed as the default String representation of this object. Provides a
- * single method to invoke the underlying API route and to return it's actual response value.
+ * It accepts routes from the <i>{@link com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi}</i> interface. An additional
+ * textual description can be added which will be displayed as the default String representation of this object.
+ * Provides a single method to invoke the underlying API route and to return its actual response value.
  * <pre><code>
  * {@literal @WithHttpsMockServer}
  * class SomeAPITest {
@@ -87,7 +87,7 @@ public class TestTheTVDBAPICall<T> extends TestAPICall<Supplier<T, APIException>
     }
 
     /**
-     * Invokes the underlying TheTVDBAPI route and returns it's result. For instances of {@link TestTheTVDBAPICall.Void}
+     * Invokes the underlying TheTVDBAPI route and returns its result. For instances of {@link TestTheTVDBAPICall.Void}
      * this method will always return a {@code null} value.
      *
      * @return DTO response returned by the route invocation or {@code null} for void routes
@@ -103,7 +103,7 @@ public class TestTheTVDBAPICall<T> extends TestAPICall<Supplier<T, APIException>
      * Small helper class used to wrap calls of TheTVDBAPI routes, that do not return any result, for easier
      * parameterized JUnit testing
      * <p><br>
-     * Accepts routes from the <i>{@link com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi}</i> interface. An additional
+     * It accepts routes from the <i>{@link com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi}</i> interface. An additional
      * textual description can be added which will be displayed as the default String representation of this object.
      * Provides a single method to invoke the underlying API route. The return value of the invocation will always be
      * {@code null} for instances of this class.

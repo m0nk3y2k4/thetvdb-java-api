@@ -33,7 +33,7 @@ import org.junit.jupiter.params.support.AnnotationConsumer;
 import org.junit.platform.commons.util.Preconditions;
 
 /**
- * JUnit data provider for {@link ResponseData ResponseData&lt;T&gt;} test objects
+ * JUnit data-provider for {@link ResponseData ResponseData&lt;T&gt;} test objects
  * <p><br>
  * This class is typically used in combination with the {@link ResponseDataSource} annotation
  */

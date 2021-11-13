@@ -228,7 +228,7 @@ public class APIConnection {
     }
 
     /**
-     * Set the preferred language used for API communication. If available, search results will returned in this
+     * Set the preferred language used for API communication. If available, search results will be returned in this
      * language.
      *
      * @param language The preferred language of the data returned by the remote service
@@ -275,9 +275,9 @@ public class APIConnection {
     }
 
     /**
-     * Invokes the given request. If the remote service responds with a HTTP-401 status this method will automatically
+     * Invokes the given request. If the remote service responds with an HTTP-401 status this method will automatically
      * try to authorize the underlying session. If the automated on-demand authentication was successful the given
-     * request will be invoked again. Otherwise an exception will be thrown.
+     * request will be invoked again. Otherwise, an exception will be thrown.
      *
      * @param request The request to be invoked
      *
@@ -380,10 +380,10 @@ abstract class APIRequest {
     /**
      * Should only be invoked in case of HTTP-405 status response. Fetches the error message from the connections
      * <b>error</b> stream and returns it. According to the HTTP-405 status code specification, the server MUST
-     * generate an Allow header field in a 405 response containing a list of the target resource's currently supported
+     * generate an "Allow" header field in a 405 response containing a list of the target resource's currently supported
      * methods. These supported methods will - if available - be prepended to the end of the actual error message.
      *
-     * @param con Fully initialized connection that has returned a HTTP-405 error status code
+     * @param con Fully initialized connection that has returned an HTTP-405 error status code
      *
      * @return Content from the error stream plus all available values from the responses Allow header as String
      *
@@ -441,8 +441,8 @@ abstract class APIRequest {
     }
 
     /**
-     * Specifies the remote endpoint (URI) to which the request should be addressed to. Typically this is the
-     * <i>TheTVDB.com</i> RESTful API but It may also be set to some proxy for example.
+     * Specifies the remote endpoint (URI) to which the request should be addressed to. Typically, this is the
+     * <i>TheTVDB.com</i> RESTful API, but it may also be set to some proxy for example.
      *
      * @param remote The remote endpoint used for API communication
      */
@@ -481,7 +481,7 @@ abstract class APIRequest {
     }
 
     /**
-     * Opens a new HTTPS connection to this requests resource URI using a specific request method. The returned
+     * Opens a new HTTPS connection to the resource URI of this request using a specific request method. The returned
      * connection comes with some common configuration regarding content types and Bearer authentication.
      *
      * @return A preconfigured HTTPS connection pointing to some remote API endpoint
@@ -566,7 +566,7 @@ abstract class APIRequest {
     /**
      * Parses the data from the connections <b>input</b> stream as JSON and returns it
      *
-     * @param con Fully initialized connection that has returned a HTTP-200 status
+     * @param con Fully initialized connection that has returned an HTTP-200 status
      *
      * @return Content from the input stream mapped as JSON object
      *
@@ -602,7 +602,7 @@ final class GetRequest extends APIRequest {
  */
 final class PostRequest extends APIRequest {
 
-    /** The requests payload to be pushed to the remote service */
+    /** The requests' payload to be pushed to the remote service */
     private final String data;
 
     /**
@@ -617,7 +617,7 @@ final class PostRequest extends APIRequest {
     }
 
     /**
-     * Writes the requests payload into the output stream of the given connection
+     * Writes the requests' payload into the output stream of the given connection
      *
      * @param con New HTTPS connection with some basic configuration already applied
      *
@@ -659,7 +659,7 @@ final class HeadRequest extends APIRequest {
      *
      * @param con Fully initialized HTTPS connection pointing to some remote service endpoint
      *
-     * @return Artificial JSON object containing the responses header fields
+     * @return Artificial JSON object containing the response header fields
      */
     @Override
     JsonNode getData(@Nonnull HttpsURLConnection con) {

@@ -25,9 +25,9 @@ import com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory;
 import com.github.m0nk3y2k4.thetvdb.api.constants.Query;
 
 /**
- * Interface representing a set of query parameters. These parameters can be used for some of the API calls in order to
- * narrow the results being returned by the remote service. Instances of this interface might be created by using the
- * {@link TheTVDBApiFactory} class.
+ * Interface representing a set of query parameters. These parameters can be used for some API calls in order to narrow
+ * the results being returned by the remote service. Instances of this interface might be created by using the {@link
+ * TheTVDBApiFactory} class.
  * <p><br>
  * Individual parameters hold by this object can be accessed as Iterator or Stream.
  */
@@ -35,7 +35,7 @@ public interface QueryParameters extends Iterable<QueryParameters.Parameter> {
 
     /**
      * Adds a new parameter to this object. An individual query parameter consists of a key/value pair. Adding the same
-     * parameter key twice will not result in two different parameters. Instead the parameter value from the first
+     * parameter key twice will not result in two different parameters. Instead, the parameter value from the first
      * addition will be replaced by the new given value. For a predefined list of query parameters see {@link Query}.
      *
      * @param key   The new parameters key. The class {@link Query} provides a basic set of parameter constants for the

@@ -79,8 +79,8 @@ public final class TheTVDBApiFactory {
     }
 
     /**
-     * Creates a new query parameter objects to be used with some of the API calls. The returned object is empty and
-     * does not contain any preset query parameters. Those parameters have to be added manually by using the {@link
+     * Creates a new query parameter objects to be used with some API calls. The returned object is empty and does not
+     * contain any preset query parameters. Those parameters have to be added manually by using the {@link
      * QueryParameters#addParameter(String, String) QueryParameters#addParameter(key, value)} method.
      *
      * @return A new, empty query parameter object
@@ -90,9 +90,9 @@ public final class TheTVDBApiFactory {
     }
 
     /**
-     * Creates a new query parameter objects to be used with some of the API calls. The returned object is contain a
-     * preset collection of query parameters based on the given map of key/value pairs. Additional parameters may be
-     * added manually to this object by using the {@link QueryParameters#addParameter(String, String)
+     * Creates a new query parameter objects to be used with some API calls. The returned object contains a preset
+     * collection of query parameters based on the given map of key/value pairs. Additional parameters may be added
+     * manually to this object by using the {@link QueryParameters#addParameter(String, String)
      * QueryParameters#addParameter(key, value)} method.
      *
      * @param parameters Map containing key/value pairs of query parameters to be initially added to the object returned

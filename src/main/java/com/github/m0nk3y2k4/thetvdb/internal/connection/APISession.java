@@ -50,7 +50,7 @@ public final class APISession {
      * Represents the different states of a session.
      * <p><br>
      * By default, sessions are not authorized for general API communication. Only login/refresh requests may be
-     * allowed. During the execution of these kind of requests, the session authorization is in progress. In case the
+     * allowed. During the execution of this kind of requests, the session authorization is in progress. In case the
      * login/refresh was successful the session is authorized and ready for general API communication.
      */
     public enum Status {

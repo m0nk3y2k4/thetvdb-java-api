@@ -52,8 +52,8 @@ public abstract class QueryResource extends Resource {
      *
      * @param path               URL path String with or without wildcards
      * @param queryParams        Set of query parameters to be added to the very end of the resource String
-     * @param pathWildcardParams Additional path parameters used used to replace wildcards within the path String (will
-     *                           be replaced in the order of their appearance)
+     * @param pathWildcardParams Additional path parameters used to replace wildcards within the path String (will be
+     *                           replaced in the order of their appearance)
      *
      * @return Composed query resource String based on the given parameters
      */

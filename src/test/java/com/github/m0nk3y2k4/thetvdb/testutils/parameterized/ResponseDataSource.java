@@ -39,7 +39,7 @@ import org.junit.platform.commons.util.Preconditions;
  * <p><br>
  * Use this annotation to get access to a set of predefined {@link com.github.m0nk3y2k4.thetvdb.testutils.ResponseData
  * ResponseData&lt;T&gt;} test objects in parameterized JUnit tests. Without further configuration all available test
- * objects will applied. To consider only specific {@code ResponseData} instances, use one of the following modes in
+ * objects will be applied. To consider only specific {@code ResponseData} instances, use one of the following modes in
  * combination with the <em>{@code names}</em> parameter:
  * <ul>
  *     <li>{@link Mode#INCLUDE} - Select only those test objects whose names are supplied via the {@link #names()} attribute</li>
@@ -97,7 +97,7 @@ public @interface ResponseDataSource {
         /** To check whether the provided names are valid patterns or map to an actual predefined test data object */
         private final Mode.Validator validator;
 
-        /** To determine whether the a specific test data object is to be in- or excluded */
+        /** To determine whether a specific test data object is to be in- or excluded */
         private final BiPredicate<String, Collection<String>> selector;
 
         /**
@@ -105,7 +105,7 @@ public @interface ResponseDataSource {
          *
          * @param validator To check whether the provided names are valid patterns or map to an actual predefined test
          *                  data object
-         * @param selector  To determine whether the a specific test data object is to be in- or excluded
+         * @param selector  To determine whether a specific test data object is to be in- or excluded
          */
         Mode(Mode.Validator validator, BiPredicate<String, Collection<String>> selector) {
             this.validator = validator;
@@ -157,7 +157,7 @@ public @interface ResponseDataSource {
         }
 
         /**
-         * Determines whether the a specific test data object is to be in- or excluded from JUnit test execution
+         * Determines whether a specific test data object is to be in- or excluded from JUnit test execution
          *
          * @param testObject One of the available test data objects
          * @param names      List of names or naming patterns of test data objects to be in- or excluded

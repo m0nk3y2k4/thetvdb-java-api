@@ -45,9 +45,7 @@ import com.fasterxml.jackson.databind.deser.std.StringCollectionDeserializer;
  * Jackson currently doesn't support skipping or ignoring {@code null} values during JSON <b>de</b>serialization.
  * <p><br>
  * Although I would consider this a bad practice either, the remote API seems to occasionally respond {@code null}
- * values for JSON list properties which leads to the mentioned incompatibility with the Immutables DTO builders. This
- * may be only a temporary condition as (at this point in time) the <i>TheTVDB.com</i> v4 API is yet to conclude it's
- * beta phase.
+ * values for JSON list properties which leads to the mentioned incompatibility with the Immutables DTO builders.
  * <p><br>
  * However, as using {@code null} values for list properties is still valid JSON, it seems reasonable to harden this
  * Java connector in order to also support such scenarios. This can be achieved by using this wrapper around

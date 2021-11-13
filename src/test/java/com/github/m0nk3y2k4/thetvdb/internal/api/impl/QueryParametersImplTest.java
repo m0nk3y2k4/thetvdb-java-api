@@ -131,7 +131,7 @@ class QueryParametersImplTest {
     @Test
     void toString_withMultipleParameters_verifyStringRepresentation() {
         QueryParameters params = new QueryParametersImpl().addParameter("year", "1955");
-        // Flaky with more than one parameters as toString uses entrySet without guaranteed order of elements
+        // Flaky with more than one parameter as toString uses entrySet without guaranteed order of elements
         assertThat(params).asString().isEqualTo("[year=1955]");
     }
 }

@@ -90,11 +90,11 @@ class LoginAPITest {
     }
 
     /**
-     * Specific API connection modified to returns an invalid API key
+     * Specific API connection modified to return an invalid API key
      */
     private static final class ConnectionWithInvalidApiKey extends Connection {
         private ConnectionWithInvalidApiKey() {
-            super(CONTRACT_APIKEY); // The super constructor will check the API key so we have to use a valid one here
+            super(CONTRACT_APIKEY); // The super constructor will check the API key, so we have to use a valid one here
         }
 
         @Override

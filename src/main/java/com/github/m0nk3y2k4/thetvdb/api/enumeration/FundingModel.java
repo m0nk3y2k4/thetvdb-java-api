@@ -19,7 +19,7 @@ package com.github.m0nk3y2k4.thetvdb.api.enumeration;
 /**
  * Represents the different funding models offered by <i>TheTVDB.com</i>.
  * <p><br>
- * Each API key has been issued based on one of these funding models and each model has it's own specification on how
+ * Each API key has been issued based on one of these funding models and each model has its own specification on how
  * authentication with the remote API is conducted.
  */
 public enum FundingModel {

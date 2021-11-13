@@ -24,9 +24,9 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.functional.ThrowableFunctional
 /**
  * Small helper class used to wrap calls to the remote API for easier parameterized JUnit testing
  * <p><br>
- * Accepts routes from classes within the <i>{@link com.github.m0nk3y2k4.thetvdb.internal.resource.impl}</i> package. An
- * additional textual description can be added which will be displayed as the default String representation of this
- * object. Provides a single method to invoke the underlying remote API route and to return it's response.
+ * It accepts routes from classes within the <i>{@link com.github.m0nk3y2k4.thetvdb.internal.resource.impl}</i> package.
+ * An additional textual description can be added which will be displayed as the default String representation of this
+ * object. Provides a single method to invoke the underlying remote API route and to return its response.
  * <pre><code>
  * {@literal @WithHttpsMockServer}
  * class SomeAPITest {
@@ -58,7 +58,7 @@ public final class TestRemoteAPICall extends TestAPICall<Function<APIConnection,
     }
 
     /**
-     * Creates a new remote API call for the given route
+     * Creates a new remote API-call for the given route
      *
      * @param route       The actual remote route to be invoked
      * @param description Textual description of the given remote route
@@ -70,7 +70,7 @@ public final class TestRemoteAPICall extends TestAPICall<Function<APIConnection,
     }
 
     /**
-     * Invokes the underlying remote API route and returns it's result
+     * Invokes the underlying remote API route and returns its result
      *
      * @param con API connection to be used for invocation
      *

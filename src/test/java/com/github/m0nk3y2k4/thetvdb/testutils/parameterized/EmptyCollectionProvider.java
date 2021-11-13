@@ -26,7 +26,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 
 /**
- * JUnit arguments provider for empty Collections
+ * JUnit arguments-provider for empty Collections
  * <p><br>
  * This class is typically used in conjunction with the {@link EmptyCollectionSource} annotation. It provides various
  * different Collection arguments that contain no elements.

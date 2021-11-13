@@ -39,8 +39,8 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
  * Collection of simple checks to be used for method parameter validation
  * <p><br>
  * The default behavior for parameter checks provided by this class is to throw an {@link IllegalArgumentException} in
- * case the given arguments do not match the requirements. Some of the methods may support extended control over the
- * actual type of exception that will be thrown by allowing the calling instance to provide it's onw runtime exception
+ * case the given arguments do not match the requirements. Some methods may support extended control over the actual
+ * type of exception that will be thrown by allowing the calling instance to provide it's onw runtime exception
  * instance.
  * <p><br>
  * Please note that this class should primarily be used for method parameter validation as the default <em>{@code
@@ -145,7 +145,7 @@ public final class Parameters {
 
     /**
      * Checks that a given URL path parameter name is not empty and the corresponding value matches the given condition.
-     * Otherwise an exception will be thrown.
+     * Otherwise, an exception will be thrown.
      *
      * @param paramName  The name of the URL path parameter to check
      * @param paramValue The corresponding value of the path parameter

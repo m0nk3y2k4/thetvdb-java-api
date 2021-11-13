@@ -23,7 +23,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 
 /**
- * JUnit arguments provider for empty String values
+ * JUnit arguments-provider for empty String values
  * <p><br>
  * This class is typically used in conjunction with the {@link EmptyStringSource} annotation. It provides various
  * different String arguments that are considered to be empty including Strings that consist only of blanks.
