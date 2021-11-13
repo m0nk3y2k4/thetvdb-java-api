@@ -36,6 +36,7 @@ import com.github.m0nk3y2k4.thetvdb.api.enumeration.EpisodeMeta;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.MovieMeta;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.PeopleMeta;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.SearchType;
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.SeasonMeta;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesMeta;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.UpdateAction;
@@ -465,8 +466,19 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public SeasonDetails getSeasonDetails(long seasonId, QueryParameters queryParameters) throws APIException {
+        return extended().getSeasonDetails(seasonId, queryParameters).getData();
+    }
+
+    @Override
     public SeasonDetails getSeasonDetails(long seasonId) throws APIException {
-        return extended().getSeasonDetails(seasonId).getData();
+        return getSeasonDetails(seasonId, emptyQuery());
+    }
+
+    @Override
+    public SeasonDetails getSeasonDetails(long seasonId, @Nonnull SeasonMeta meta) throws APIException {
+        Parameters.validateNotNull(meta, "Season meta must not be NULL");
+        return getSeasonDetails(seasonId, query(Map.of(Query.Seasons.META, meta)));
     }
 
     @Override
@@ -789,8 +801,8 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public JsonNode getSeasonDetails(long seasonId) throws APIException {
-            return SeasonsAPI.getSeasonExtended(con, seasonId);
+        public JsonNode getSeasonDetails(long seasonId, QueryParameters queryParameters) throws APIException {
+            return SeasonsAPI.getSeasonExtended(con, seasonId, queryParameters);
         }
 
         @Override
@@ -1057,8 +1069,9 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<SeasonDetails> getSeasonDetails(long seasonId) throws APIException {
-            return APIJsonMapper.readValue(json().getSeasonDetails(seasonId), new TypeReference<>() {});
+        public APIResponse<SeasonDetails> getSeasonDetails(long seasonId, QueryParameters queryParameters)
+                throws APIException {
+            return APIJsonMapper.readValue(json().getSeasonDetails(seasonId, queryParameters), new TypeReference<>() {});
         }
 
         @Override

@@ -1051,7 +1051,8 @@ public abstract class ResponseData<T> {
                         .artwork(createTwo(artworkModel(), listOffset))
                         .episodes(createTwo(episodeModel(), listOffset))
                         .trailers(createTwo(trailerModel(), listOffset))
-                        .tagOptions(createTwo(tagOptionModel(), listOffset));
+                        .tagOptions(createTwo(tagOptionModel(), listOffset))
+                        .translations(createTwo(entityTranslationModel(), listOffset));
             }
             return builder.build();
         };

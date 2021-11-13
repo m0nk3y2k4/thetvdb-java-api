@@ -59,4 +59,11 @@ public interface SeasonDetails extends Season {
      * @return The <em>{@code tagOptions}</em> property from the received JSON
      */
     List<TagOption> getTagOptions();
+
+    /**
+     * Get the value of the {<em>{@code data.translations}</em>} JSON property
+     *
+     * @return The <em>{@code translations}</em> property from the received JSON
+     */
+    List<EntityTranslation> getTranslations();
 }

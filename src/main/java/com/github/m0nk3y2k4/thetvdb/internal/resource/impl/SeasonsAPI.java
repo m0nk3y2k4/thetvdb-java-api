@@ -75,22 +75,24 @@ public final class SeasonsAPI extends QueryResource {
     }
 
     /**
-     * Returns extended information for a specific season record as raw JSON.
+     * Returns extended information for a specific season record based on the given query parameters as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonExtended">
      * <b>[GET]</b> /seasons/{id}/extended</a>
      *
-     * @param con Initialized connection to be used for API communication
-     * @param id  The <i>TheTVDB.com</i> season ID
+     * @param con    Initialized connection to be used for API communication
+     * @param id     The <i>TheTVDB.com</i> season ID
+     * @param params Object containing key/value pairs of query parameters
      *
      * @return JSON object containing extended information for a specific season record
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, no season
      *                      record with the given ID exists, etc.
      */
-    public static JsonNode getSeasonExtended(@Nonnull APIConnection con, long id) throws APIException {
+    public static JsonNode getSeasonExtended(@Nonnull APIConnection con, long id, QueryParameters params)
+            throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
-        return con.sendGET(createResource("/seasons/{id}/extended", id));
+        return con.sendGET(createQueryResource("/seasons/{id}/extended", params, id));
     }
 
     /**

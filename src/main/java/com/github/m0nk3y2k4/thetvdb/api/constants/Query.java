@@ -122,6 +122,8 @@ public final class Query {
      */
     public static final class Seasons {
 
+        /** Query parameter "<i>meta</i>" - Used to request additional information. */
+        public static final String META = "meta";
         /** Query parameter "<i>page</i>" - Page of results to fetch. Defaults to page 0 if not provided. */
         public static final String PAGE = "page";
 

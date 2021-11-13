@@ -98,6 +98,7 @@ import com.github.m0nk3y2k4.thetvdb.api.enumeration.EpisodeMeta;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.MovieMeta;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.PeopleMeta;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.SearchType;
+import com.github.m0nk3y2k4.thetvdb.api.enumeration.SeasonMeta;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesMeta;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APIPreconditionException;
@@ -200,7 +201,9 @@ class TheTVDBApiImplTest {
             client.when(request("/seasons", GET, param("value", "QuerySeasons"))).respond(jsonResponse(SEASON_OVERVIEW));
             client.when(request("/seasons", GET, param(Seasons.PAGE, "5"))).respond(jsonResponse(SEASON_OVERVIEW));
             client.when(request("/seasons/34167", GET)).respond(jsonResponse(SEASON));
+            client.when(request("/seasons/68444/extended", GET, param("value", "QuerySeasonDetails"))).respond(jsonResponse(SEASON_DETAILS));
             client.when(request("/seasons/69761/extended", GET)).respond(jsonResponse(SEASON_DETAILS));
+            client.when(request("/seasons/35047/extended", GET, param(Seasons.META, String.valueOf(SeasonMeta.TRANSLATIONS)))).respond(jsonResponse(SEASON_DETAILS));
             client.when(request("/seasons/types", GET)).respond(jsonResponse(SEASONTYPE_OVERVIEW));
             client.when(request("/seasons/27478/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/series/statuses", GET)).respond(jsonResponse(STATUS_OVERVIEW));
@@ -235,6 +238,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> theTVDBApi.search(null, null), "search() with missing search term and type parameter")),
                     of(route(() -> theTVDBApi.search("SearchTerm", null), "search() with missing type parameter")),
                     of(route(() -> theTVDBApi.getAllSeasons(-6), "getAllSeasons() with negative page parameter")),
+                    of(route(() -> theTVDBApi.getSeasonDetails(97148, (SeasonMeta)null), "getSeasonDetails() with missing meta parameter")),
                     of(route(() -> theTVDBApi.getAllSeries(-3), "getAllSeries() with negative page parameter")),
                     of(route(() -> theTVDBApi.getSeriesDetails(68447, (SeriesMeta)null), "getSeriesDetails() with missing meta parameter")),
                     of(route(() -> theTVDBApi.getSeriesEpisodes(41257, DVD, -6), "getSeriesEpisodes() with negative season number parameter")),
@@ -299,7 +303,9 @@ class TheTVDBApiImplTest {
                     of(route(() -> theTVDBApi.getAllSeasons(params("value", "QuerySeasons")), "getAllSeasons() with query parameters"), SEASON_OVERVIEW),
                     of(route(() -> theTVDBApi.getAllSeasons(5), "getAllSeasons() with page"), SEASON_OVERVIEW),
                     of(route(() -> theTVDBApi.getSeason(34167), "getSeason()"), SEASON),
-                    of(route(() -> theTVDBApi.getSeasonDetails(69761), "getSeasonDetails()"), SEASON_DETAILS),
+                    of(route(() -> theTVDBApi.getSeasonDetails(68444, params("value", "QuerySeasonDetails")), "getSeasonDetails() with query parameters"), SEASON_DETAILS),
+                    of(route(() -> theTVDBApi.getSeasonDetails(69761), "getSeasonDetails() with season ID"), SEASON_DETAILS),
+                    of(route(() -> theTVDBApi.getSeasonDetails(35047, SeasonMeta.TRANSLATIONS), "getSeasonDetails() with season ID and meta"), SEASON_DETAILS),
                     of(route(() -> theTVDBApi.getSeasonTypes(), "getSeasonTypes()"), SEASONTYPE_OVERVIEW),
                     of(route(() -> theTVDBApi.getSeasonTranslation(27478, "eng"), "getSeasonTranslation()"), TRANSLATION),
                     of(route(() -> theTVDBApi.getAllSeriesStatuses(), "getAllSeriesStatuses()"), STATUS_OVERVIEW),
@@ -411,7 +417,7 @@ class TheTVDBApiImplTest {
             client.when(request("/search", GET, param(Search.Q, "SearchTermJson"), param("value", "QuerySearchJson"))).respond(jsonResponse(SEARCH_OVERVIEW));
             client.when(request("/seasons", GET, param("value", "QuerySeasonsJson"))).respond(jsonResponse(SEASON_OVERVIEW));
             client.when(request("/seasons/18322", GET)).respond(jsonResponse(SEASON));
-            client.when(request("/seasons/48874/extended", GET)).respond(jsonResponse(SEASON_DETAILS));
+            client.when(request("/seasons/48874/extended", GET, param("value", "QuerySeasonDetailsJson"))).respond(jsonResponse(SEASON_DETAILS));
             client.when(request("/seasons/types", GET)).respond(jsonResponse(SEASONTYPE_OVERVIEW));
             client.when(request("/seasons/67446/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/series/statuses", GET)).respond(jsonResponse(STATUS_OVERVIEW));
@@ -465,7 +471,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> theTVDBApi.getSearchResults(params(Search.Q, "SearchTermJson", "value", "QuerySearchJson")), "getSearchResults() with query parameters"), SEARCH_OVERVIEW),
                     of(route(() -> theTVDBApi.getAllSeasons(params("value", "QuerySeasonsJson")), "getAllSeasons() with query parameters"), SEASON_OVERVIEW),
                     of(route(() -> theTVDBApi.getSeason(18322), "getSeason()"), SEASON),
-                    of(route(() -> theTVDBApi.getSeasonDetails(48874), "getSeasonDetails()"), SEASON_DETAILS),
+                    of(route(() -> theTVDBApi.getSeasonDetails(48874, params("value", "QuerySeasonDetailsJson")), "getSeasonDetails() with query parameters"), SEASON_DETAILS),
                     of(route(() -> theTVDBApi.getSeasonTypes(), "getSeasonTypes()"), SEASONTYPE_OVERVIEW),
                     of(route(() -> theTVDBApi.getSeasonTranslation(67446, "eng"), "getSeasonTranslation()"), TRANSLATION),
                     of(route(() -> theTVDBApi.getAllSeriesStatuses(), "getAllSeriesStatuses()"), STATUS_OVERVIEW),
@@ -542,7 +548,7 @@ class TheTVDBApiImplTest {
             client.when(request("/search", GET, param(Search.Q, "SearchTermExtended"), param("value", "QuerySearchExtended"))).respond(jsonResponse(SEARCH_OVERVIEW));
             client.when(request("/seasons", GET, param("value", "QuerySeasonsExtended"))).respond(jsonResponse(SEASON_OVERVIEW));
             client.when(request("/seasons/52270", GET)).respond(jsonResponse(SEASON));
-            client.when(request("/seasons/69714/extended", GET)).respond(jsonResponse(SEASON_DETAILS));
+            client.when(request("/seasons/69714/extended", GET, param("value", "QuerySeasonDetailsExtended"))).respond(jsonResponse(SEASON_DETAILS));
             client.when(request("/seasons/types", GET)).respond(jsonResponse(SEASONTYPE_OVERVIEW));
             client.when(request("/seasons/64714/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/series/statuses", GET)).respond(jsonResponse(STATUS_OVERVIEW));
@@ -596,7 +602,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> theTVDBApi.getSearchResults(params(Search.Q, "SearchTermExtended", "value", "QuerySearchExtended")), "getSearchResults() with query parameters"), SEARCH_OVERVIEW),
                     of(route(() -> theTVDBApi.getAllSeasons(params("value", "QuerySeasonsExtended")), "getAllSeasons() with query parameters"), SEASON_OVERVIEW),
                     of(route(() -> theTVDBApi.getSeason(52270), "getSeason()"), SEASON),
-                    of(route(() -> theTVDBApi.getSeasonDetails(69714), "getSeasonDetails()"), SEASON_DETAILS),
+                    of(route(() -> theTVDBApi.getSeasonDetails(69714, params("value", "QuerySeasonDetailsExtended")), "getSeasonDetails() with query parameters"), SEASON_DETAILS),
                     of(route(() -> theTVDBApi.getSeasonTypes(), "getSeasonTypes()"), SEASONTYPE_OVERVIEW),
                     of(route(() -> theTVDBApi.getSeasonTranslation(64714, "eng"), "getSeasonTranslation()"), TRANSLATION),
                     of(route(() -> theTVDBApi.getAllSeriesStatuses(), "getAllSeriesStatuses()"), STATUS_OVERVIEW),
