@@ -42,7 +42,7 @@ public abstract class Resource {
     protected static final String PATH_ID = "id";
     protected static final String PATH_LANGUAGE = "language";
     /** Pattern used to validate the conformity of path Strings */
-    private static final Pattern API_PATH = Pattern.compile("/([A-Za-z0-9{}\\-_]+/)*([A-Za-z0-9{}\\-_]+)");
+    private static final Pattern API_PATH = Pattern.compile("/([A-Za-z0-9{}\\-_]+/)*+([A-Za-z0-9{}\\-_]+)");
     /** Pattern used to validate the conformity of 'language' path parameter value */
     private static final Pattern LANGUAGE = Pattern.compile("[a-zA-Z]{2,3}");
 
@@ -74,7 +74,7 @@ public abstract class Resource {
                 new IllegalArgumentException("Wildcard parameters must not be null"));
 
         List<URLPathToken> tokens = Collections.list(new StringTokenizer(path, "/")).stream()
-                .map(token -> (String)token).map(URLPathToken::new).collect(Collectors.toList());
+                .map(String.class::cast).map(URLPathToken::new).collect(Collectors.toList());
 
         List<URLPathToken> wildcardTokens = tokens.stream().filter(URLPathToken::isWildcardToken)
                 .collect(Collectors.toList());
