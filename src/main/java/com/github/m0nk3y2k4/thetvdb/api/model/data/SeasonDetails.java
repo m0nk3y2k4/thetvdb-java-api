@@ -17,6 +17,7 @@
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Interface representing a <em>{@code SeasonExtendedRecord}</em> data transfer object.
@@ -65,5 +66,5 @@ public interface SeasonDetails extends Season {
      *
      * @return The <em>{@code translations}</em> property from the received JSON
      */
-    List<EntityTranslation> getTranslations();
+    Optional<MetaTranslations> getTranslations();
 }

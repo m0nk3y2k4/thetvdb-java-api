@@ -1052,7 +1052,7 @@ public abstract class ResponseData<T> {
                         .episodes(createTwo(episodeModel(), listOffset))
                         .trailers(createTwo(trailerModel(), listOffset))
                         .tagOptions(createTwo(tagOptionModel(), listOffset))
-                        .translations(createTwo(entityTranslationModel(), listOffset));
+                        .translations(create(metaTranslationsModel(), listOffset));
             }
             return builder.build();
         };
