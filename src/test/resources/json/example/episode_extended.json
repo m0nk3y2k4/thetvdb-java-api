@@ -64,7 +64,22 @@
               "companyType": {
                 "companyTypeId": 356,
                 "companyTypeName": "CompanyTypeName1"
-              }
+              },
+              "tagOptions": [
+                {
+                  "id": 5797,
+                  "tag": 43,
+                  "tagName": "TagName1",
+                  "name": "Name1",
+                  "helpText": "HelpText1"
+                }, {
+                  "id": 5798,
+                  "tag": 44,
+                  "tagName": "TagName2",
+                  "name": "Name2",
+                  "helpText": "HelpText2"
+                }
+              ]
             }, {
               "id": 64715,
               "name": "Name2",
@@ -91,7 +106,22 @@
               "companyType": {
                 "companyTypeId": 357,
                 "companyTypeName": "CompanyTypeName2"
-              }
+              },
+              "tagOptions": [
+                {
+                  "id": 5799,
+                  "tag": 45,
+                  "tagName": "TagName3",
+                  "name": "Name3",
+                  "helpText": "HelpText3"
+                }, {
+                  "id": 5800,
+                  "tag": 46,
+                  "tagName": "TagName4",
+                  "name": "Name4",
+                  "helpText": "HelpText4"
+                }
+              ]
             }
           ],
           "network": [
@@ -121,7 +151,22 @@
               "companyType": {
                 "companyTypeId": 356,
                 "companyTypeName": "CompanyTypeName1"
-              }
+              },
+              "tagOptions": [
+                {
+                  "id": 5797,
+                  "tag": 43,
+                  "tagName": "TagName1",
+                  "name": "Name1",
+                  "helpText": "HelpText1"
+                }, {
+                  "id": 5798,
+                  "tag": 44,
+                  "tagName": "TagName2",
+                  "name": "Name2",
+                  "helpText": "HelpText2"
+                }
+              ]
             }, {
               "id": 64715,
               "name": "Name2",
@@ -148,7 +193,22 @@
               "companyType": {
                 "companyTypeId": 357,
                 "companyTypeName": "CompanyTypeName2"
-              }
+              },
+              "tagOptions": [
+                {
+                  "id": 5799,
+                  "tag": 45,
+                  "tagName": "TagName3",
+                  "name": "Name3",
+                  "helpText": "HelpText3"
+                }, {
+                  "id": 5800,
+                  "tag": 46,
+                  "tagName": "TagName4",
+                  "name": "Name4",
+                  "helpText": "HelpText4"
+                }
+              ]
             }
           ],
           "production": [
@@ -178,7 +238,22 @@
               "companyType": {
                 "companyTypeId": 356,
                 "companyTypeName": "CompanyTypeName1"
-              }
+              },
+              "tagOptions": [
+                {
+                  "id": 5797,
+                  "tag": 43,
+                  "tagName": "TagName1",
+                  "name": "Name1",
+                  "helpText": "HelpText1"
+                }, {
+                  "id": 5798,
+                  "tag": 44,
+                  "tagName": "TagName2",
+                  "name": "Name2",
+                  "helpText": "HelpText2"
+                }
+              ]
             }, {
               "id": 64715,
               "name": "Name2",
@@ -205,7 +280,22 @@
               "companyType": {
                 "companyTypeId": 357,
                 "companyTypeName": "CompanyTypeName2"
-              }
+              },
+              "tagOptions": [
+                {
+                  "id": 5799,
+                  "tag": 45,
+                  "tagName": "TagName3",
+                  "name": "Name3",
+                  "helpText": "HelpText3"
+                }, {
+                  "id": 5800,
+                  "tag": 46,
+                  "tagName": "TagName4",
+                  "name": "Name4",
+                  "helpText": "HelpText4"
+                }
+              ]
             }
           ],
           "distributor": [
@@ -235,7 +325,22 @@
               "companyType": {
                 "companyTypeId": 356,
                 "companyTypeName": "CompanyTypeName1"
-              }
+              },
+              "tagOptions": [
+                {
+                  "id": 5797,
+                  "tag": 43,
+                  "tagName": "TagName1",
+                  "name": "Name1",
+                  "helpText": "HelpText1"
+                }, {
+                  "id": 5798,
+                  "tag": 44,
+                  "tagName": "TagName2",
+                  "name": "Name2",
+                  "helpText": "HelpText2"
+                }
+              ]
             }, {
               "id": 64715,
               "name": "Name2",
@@ -262,7 +367,22 @@
               "companyType": {
                 "companyTypeId": 357,
                 "companyTypeName": "CompanyTypeName2"
-              }
+              },
+              "tagOptions": [
+                {
+                  "id": 5799,
+                  "tag": 45,
+                  "tagName": "TagName3",
+                  "name": "Name3",
+                  "helpText": "HelpText3"
+                }, {
+                  "id": 5800,
+                  "tag": 46,
+                  "tagName": "TagName4",
+                  "name": "Name4",
+                  "helpText": "HelpText4"
+                }
+              ]
             }
           ],
           "special_effects": [
@@ -292,7 +412,22 @@
               "companyType": {
                 "companyTypeId": 356,
                 "companyTypeName": "CompanyTypeName1"
-              }
+              },
+              "tagOptions": [
+                {
+                  "id": 5797,
+                  "tag": 43,
+                  "tagName": "TagName1",
+                  "name": "Name1",
+                  "helpText": "HelpText1"
+                }, {
+                  "id": 5798,
+                  "tag": 44,
+                  "tagName": "TagName2",
+                  "name": "Name2",
+                  "helpText": "HelpText2"
+                }
+              ]
             }, {
               "id": 64715,
               "name": "Name2",
@@ -319,7 +454,22 @@
               "companyType": {
                 "companyTypeId": 357,
                 "companyTypeName": "CompanyTypeName2"
-              }
+              },
+              "tagOptions": [
+                {
+                  "id": 5799,
+                  "tag": 45,
+                  "tagName": "TagName3",
+                  "name": "Name3",
+                  "helpText": "HelpText3"
+                }, {
+                  "id": 5800,
+                  "tag": 46,
+                  "tagName": "TagName4",
+                  "name": "Name4",
+                  "helpText": "HelpText4"
+                }
+              ]
             }
           ]
         }
@@ -372,7 +522,22 @@
               "companyType": {
                 "companyTypeId": 358,
                 "companyTypeName": "CompanyTypeName3"
-              }
+              },
+              "tagOptions": [
+                {
+                  "id": 5801,
+                  "tag": 47,
+                  "tagName": "TagName5",
+                  "name": "Name5",
+                  "helpText": "HelpText5"
+                }, {
+                  "id": 5802,
+                  "tag": 48,
+                  "tagName": "TagName6",
+                  "name": "Name6",
+                  "helpText": "HelpText6"
+                }
+              ]
             }, {
               "id": 64717,
               "name": "Name4",
@@ -399,7 +564,22 @@
               "companyType": {
                 "companyTypeId": 359,
                 "companyTypeName": "CompanyTypeName4"
-              }
+              },
+              "tagOptions": [
+                {
+                  "id": 5803,
+                  "tag": 49,
+                  "tagName": "TagName7",
+                  "name": "Name7",
+                  "helpText": "HelpText7"
+                }, {
+                  "id": 5804,
+                  "tag": 50,
+                  "tagName": "TagName8",
+                  "name": "Name8",
+                  "helpText": "HelpText8"
+                }
+              ]
             }
           ],
           "network": [
@@ -429,7 +609,22 @@
               "companyType": {
                 "companyTypeId": 358,
                 "companyTypeName": "CompanyTypeName3"
-              }
+              },
+              "tagOptions": [
+                {
+                  "id": 5801,
+                  "tag": 47,
+                  "tagName": "TagName5",
+                  "name": "Name5",
+                  "helpText": "HelpText5"
+                }, {
+                  "id": 5802,
+                  "tag": 48,
+                  "tagName": "TagName6",
+                  "name": "Name6",
+                  "helpText": "HelpText6"
+                }
+              ]
             }, {
               "id": 64717,
               "name": "Name4",
@@ -456,7 +651,22 @@
               "companyType": {
                 "companyTypeId": 359,
                 "companyTypeName": "CompanyTypeName4"
-              }
+              },
+              "tagOptions": [
+                {
+                  "id": 5803,
+                  "tag": 49,
+                  "tagName": "TagName7",
+                  "name": "Name7",
+                  "helpText": "HelpText7"
+                }, {
+                  "id": 5804,
+                  "tag": 50,
+                  "tagName": "TagName8",
+                  "name": "Name8",
+                  "helpText": "HelpText8"
+                }
+              ]
             }
           ],
           "production": [
@@ -486,7 +696,22 @@
               "companyType": {
                 "companyTypeId": 358,
                 "companyTypeName": "CompanyTypeName3"
-              }
+              },
+              "tagOptions": [
+                {
+                  "id": 5801,
+                  "tag": 47,
+                  "tagName": "TagName5",
+                  "name": "Name5",
+                  "helpText": "HelpText5"
+                }, {
+                  "id": 5802,
+                  "tag": 48,
+                  "tagName": "TagName6",
+                  "name": "Name6",
+                  "helpText": "HelpText6"
+                }
+              ]
             }, {
               "id": 64717,
               "name": "Name4",
@@ -513,7 +738,22 @@
               "companyType": {
                 "companyTypeId": 359,
                 "companyTypeName": "CompanyTypeName4"
-              }
+              },
+              "tagOptions": [
+                {
+                  "id": 5803,
+                  "tag": 49,
+                  "tagName": "TagName7",
+                  "name": "Name7",
+                  "helpText": "HelpText7"
+                }, {
+                  "id": 5804,
+                  "tag": 50,
+                  "tagName": "TagName8",
+                  "name": "Name8",
+                  "helpText": "HelpText8"
+                }
+              ]
             }
           ],
           "distributor": [
@@ -543,7 +783,22 @@
               "companyType": {
                 "companyTypeId": 358,
                 "companyTypeName": "CompanyTypeName3"
-              }
+              },
+              "tagOptions": [
+                {
+                  "id": 5801,
+                  "tag": 47,
+                  "tagName": "TagName5",
+                  "name": "Name5",
+                  "helpText": "HelpText5"
+                }, {
+                  "id": 5802,
+                  "tag": 48,
+                  "tagName": "TagName6",
+                  "name": "Name6",
+                  "helpText": "HelpText6"
+                }
+              ]
             }, {
               "id": 64717,
               "name": "Name4",
@@ -570,7 +825,22 @@
               "companyType": {
                 "companyTypeId": 359,
                 "companyTypeName": "CompanyTypeName4"
-              }
+              },
+              "tagOptions": [
+                {
+                  "id": 5803,
+                  "tag": 49,
+                  "tagName": "TagName7",
+                  "name": "Name7",
+                  "helpText": "HelpText7"
+                }, {
+                  "id": 5804,
+                  "tag": 50,
+                  "tagName": "TagName8",
+                  "name": "Name8",
+                  "helpText": "HelpText8"
+                }
+              ]
             }
           ],
           "special_effects": [
@@ -600,7 +870,22 @@
               "companyType": {
                 "companyTypeId": 358,
                 "companyTypeName": "CompanyTypeName3"
-              }
+              },
+              "tagOptions": [
+                {
+                  "id": 5801,
+                  "tag": 47,
+                  "tagName": "TagName5",
+                  "name": "Name5",
+                  "helpText": "HelpText5"
+                }, {
+                  "id": 5802,
+                  "tag": 48,
+                  "tagName": "TagName6",
+                  "name": "Name6",
+                  "helpText": "HelpText6"
+                }
+              ]
             }, {
               "id": 64717,
               "name": "Name4",
@@ -627,7 +912,22 @@
               "companyType": {
                 "companyTypeId": 359,
                 "companyTypeName": "CompanyTypeName4"
-              }
+              },
+              "tagOptions": [
+                {
+                  "id": 5803,
+                  "tag": 49,
+                  "tagName": "TagName7",
+                  "name": "Name7",
+                  "helpText": "HelpText7"
+                }, {
+                  "id": 5804,
+                  "tag": 50,
+                  "tagName": "TagName8",
+                  "name": "Name8",
+                  "helpText": "HelpText8"
+                }
+              ]
             }
           ]
         }
@@ -740,7 +1040,22 @@
           }
         ],
         "peopleType": "PeopleType1",
-        "personName": "PersonName1"
+        "personName": "PersonName1",
+        "tagOptions": [
+          {
+            "id": 5797,
+            "tag": 43,
+            "tagName": "TagName1",
+            "name": "Name1",
+            "helpText": "HelpText1"
+          }, {
+            "id": 5798,
+            "tag": 44,
+            "tagName": "TagName2",
+            "name": "Name2",
+            "helpText": "HelpText2"
+          }
+        ]
       }, {
         "id": 36488,
         "name": "Name2",
@@ -769,7 +1084,22 @@
           }
         ],
         "peopleType": "PeopleType2",
-        "personName": "PersonName2"
+        "personName": "PersonName2",
+        "tagOptions": [
+          {
+            "id": 5799,
+            "tag": 45,
+            "tagName": "TagName3",
+            "name": "Name3",
+            "helpText": "HelpText3"
+          }, {
+            "id": 5800,
+            "tag": 46,
+            "tagName": "TagName4",
+            "name": "Name4",
+            "helpText": "HelpText4"
+          }
+        ]
       }
     ],
     "contentRatings": [
@@ -891,7 +1221,95 @@
       "aliases": [
         "Alias1", "Alias2"
       ]
-    }
+    },
+    "companies": [
+      {
+        "id": 64714,
+        "name": "Name1",
+        "slug": "Slug1",
+        "nameTranslations": [
+          "NameTranslation1", "NameTranslation2"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation1", "OverviewTranslation2"
+        ],
+        "aliases": [
+          {
+            "language": "Language1",
+            "name": "Name1"
+          }, {
+            "language": "Language2",
+            "name": "Name2"
+          }
+        ],
+        "country": "Country1",
+        "primaryCompanyType": 514,
+        "activeDate": "ActiveDate1",
+        "inactiveDate": "InactiveDate1",
+        "companyType": {
+          "companyTypeId": 356,
+          "companyTypeName": "CompanyTypeName1"
+        },
+        "tagOptions": [
+          {
+            "id": 5797,
+            "tag": 43,
+            "tagName": "TagName1",
+            "name": "Name1",
+            "helpText": "HelpText1"
+          }, {
+            "id": 5798,
+            "tag": 44,
+            "tagName": "TagName2",
+            "name": "Name2",
+            "helpText": "HelpText2"
+          }
+        ]
+      },
+      {
+        "id": 64715,
+        "name": "Name2",
+        "slug": "Slug2",
+        "nameTranslations": [
+          "NameTranslation3", "NameTranslation4"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation3", "OverviewTranslation4"
+        ],
+        "aliases": [
+          {
+            "language": "Language3",
+            "name": "Name3"
+          }, {
+            "language": "Language4",
+            "name": "Name4"
+          }
+        ],
+        "country": "Country2",
+        "primaryCompanyType": 515,
+        "activeDate": "ActiveDate2",
+        "inactiveDate": "InactiveDate2",
+        "companyType": {
+          "companyTypeId": 357,
+          "companyTypeName": "CompanyTypeName2"
+        },
+        "tagOptions": [
+          {
+            "id": 5799,
+            "tag": 45,
+            "tagName": "TagName3",
+            "name": "Name3",
+            "helpText": "HelpText3"
+          }, {
+            "id": 5800,
+            "tag": 46,
+            "tagName": "TagName4",
+            "name": "Name4",
+            "helpText": "HelpText4"
+          }
+        ]
+      }
+    ]
   },
   "status": "success"
 }

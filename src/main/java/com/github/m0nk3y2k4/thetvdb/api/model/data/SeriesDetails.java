@@ -154,4 +154,11 @@ public interface SeriesDetails extends Series {
      */
     @Nullable
     Company getLatestNetwork();
+
+    /**
+     * Get the value of the {<em>{@code data.tags}</em>} JSON property
+     *
+     * @return The <em>{@code tags}</em> property from the received JSON
+     */
+    List<TagOption> getTags();
 }

@@ -143,4 +143,11 @@ public interface EpisodeDetails extends Episode {
      */
     // ToDo: Field is currently not declared in EpisodeExtendedRecord but can be returned in JSON. Check again after the next API update.
     Optional<MetaTranslations> getTranslations();
+
+    /**
+     * Get the value of the {<em>{@code data.companies}</em>} JSON property
+     *
+     * @return The <em>{@code companies}</em> property from the received JSON
+     */
+    List<Company> getCompanies();
 }

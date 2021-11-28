@@ -583,13 +583,14 @@ public abstract class ResponseData<T> {
         return (idx, shape) -> {
             ArtworkDetailsDTO.Builder builder = new ArtworkDetailsDTO.Builder();
             if (shape == FULL) {
+                int listOffset = (idx << 1) - 1;
                 builder.height(1079L + idx).id(694400L + idx).image("Image" + idx).thumbnail("Thumbnail" + idx)
                         .thumbnailHeight(399L + idx).thumbnailWidth(599L + idx).type(4L + idx).width(1919L + idx)
                         .updatedAt(16015470L + idx).episodeId(39009L + idx).language("Language" + idx)
                         .movieId(573L + idx).networkId(66340L + idx).seriesPeopleId(646L + idx)
                         .peopleId(97511L + idx).score(81D + idx).seasonId(574603L + idx).seriesId(669843L + idx)
                         .status(create(artworkStatusModel(), idx))
-                        .tagOptions(create(tagOptionModel(), idx));
+                        .tagOptions(createTwo(tagOptionModel(), listOffset));
             }
             return builder.build();
         };
@@ -678,7 +679,8 @@ public abstract class ResponseData<T> {
                         .personName("PersonName" + idx)
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .aliases(createTwo(aliasModel(), listOffset));
+                        .aliases(createTwo(aliasModel(), listOffset))
+                        .tagOptions(createTwo(tagOptionModel(), listOffset));
             }
             return builder.build();
         };
@@ -709,7 +711,8 @@ public abstract class ResponseData<T> {
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .aliases(createTwo(aliasModel(), listOffset))
-                        .companyType(create(companyTypeModel(), idx));
+                        .companyType(create(companyTypeModel(), idx))
+                        .tagOptions(createTwo(tagOptionModel(), listOffset));
             }
             return builder.build();
         };
@@ -745,7 +748,7 @@ public abstract class ResponseData<T> {
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .image("Image" + idx).imageType(4L + idx).seasons(createTwo(seasonModel(), listOffset))
                         .number(42L + idx).seasonNumber(8L + idx).lastUpdated("LastUpdated" + idx)
-                        .finaleType("FinaleType" + idx).overview("Overview" + idx);
+                        .finaleType("FinaleType" + idx).overview("Overview" + idx).seasonName("SeasonName" + idx);
             }
             return builder.build();
         };
@@ -772,7 +775,8 @@ public abstract class ResponseData<T> {
                         .trailers(createTwo(trailerModel(), listOffset))
                         .nominations(Collections.emptyList())
                         .studios(createTwo(studioModel(), listOffset))
-                        .translations(create(metaTranslationsModel(), idx));
+                        .translations(create(metaTranslationsModel(), idx))
+                        .companies(createTwo(companyModel(), listOffset));
             }
             return builder.build();
         };
@@ -1115,7 +1119,8 @@ public abstract class ResponseData<T> {
                         .translations(create(metaTranslationsModel(), listOffset))
                         .episodes(createTwo(episodeModel(), listOffset))
                         .originalNetwork(create(companyModel()))
-                        .latestNetwork(create(companyModel()));
+                        .latestNetwork(create(companyModel()))
+                        .tags(createTwo(tagOptionModel(), listOffset));
             }
             return builder.build();
         };

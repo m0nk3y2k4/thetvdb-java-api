@@ -159,4 +159,12 @@ public interface Character {
      */
     @Nullable
     String getPersonName();
+
+    /**
+     * Get the value of the {<em>{@code data.tagOptions}</em>} JSON property
+     *
+     * @return The <em>{@code tagOptions}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in Character but returned in JSON. Check again after the next API update.
+    List<TagOption> getTagOptions();
 }

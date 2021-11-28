@@ -22,13 +22,21 @@
       "id": 73,
       "name": "Name1"
     },
-    "tagOptions": {
-      "id": 5797,
-      "tag": 43,
-      "tagName": "TagName1",
-      "name": "Name1",
-      "helpText": "HelpText1"
-    }
+    "tagOptions": [
+      {
+        "id": 5797,
+        "tag": 43,
+        "tagName": "TagName1",
+        "name": "Name1",
+        "helpText": "HelpText1"
+      }, {
+        "id": 5798,
+        "tag": 44,
+        "tagName": "TagName2",
+        "name": "Name2",
+        "helpText": "HelpText2"
+      }
+    ]
   },
   "status": "success"
 }

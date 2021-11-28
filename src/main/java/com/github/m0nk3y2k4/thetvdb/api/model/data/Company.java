@@ -119,4 +119,12 @@ public interface Company {
     // ToDo: Field is currently not declared in Company but returned in JSON. Check again after the next API update.
     @Nullable
     CompanyType getCompanyType();
+
+    /**
+     * Get the value of the {<em>{@code data.tagOptions}</em>} JSON property
+     *
+     * @return The <em>{@code tagOptions}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in Company but returned in JSON. Check again after the next API update.
+    List<TagOption> getTagOptions();
 }

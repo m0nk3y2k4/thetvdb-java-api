@@ -16,13 +16,16 @@
 
 package com.github.m0nk3y2k4.thetvdb.api.model.data;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
 /**
  * Interface representing an <em>{@code ArtworkExtendedRecord}</em> data transfer object.
  * <p><br>
  * The methods of this class provide easy access to all artwork related data which was returned by the remote service in
- * JSON format.
+ * JSON format. Methods returning collection-based values will return an empty collection in case no corresponding data
+ * was received.
  * <p><br>
  * The sole purpose of these DTO objects is to encapsulate the exact raw JSON data as received from the remote service
  * in order to facilitate API integration by working with simple Java POJO's instead of nested JSON nodes. Although
@@ -141,7 +144,5 @@ public interface ArtworkDetails extends Artwork {
      *
      * @return The <em>{@code tagOptions}</em> property from the received JSON
      */
-    // ToDo: Field is currently not declared in ArtworkExtendedRecord but returned in JSON. Check again after the next API update.
-    @Nullable
-    TagOption getTagOptions();
+    List<TagOption> getTagOptions();
 }
