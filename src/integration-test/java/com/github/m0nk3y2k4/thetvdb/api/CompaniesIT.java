@@ -41,6 +41,6 @@ class CompaniesIT {
     @Test
     @Order(3)
     void getCompany(TheTVDBApi api) {
-        assertThat(() -> api.getCompany(266)).as("/companies/266").doesNotThrowAnyException();
+        assertThat(() -> api.getCompany(1085)).as("/companies/1085").doesNotThrowAnyException();
     }
 }
