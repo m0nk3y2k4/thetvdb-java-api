@@ -52,6 +52,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Biography;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Character;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Companies;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Company;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.CompanyRelationship;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.CompanyType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ContentRating;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Entity;
@@ -70,6 +71,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.MetaTranslations;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.MovieDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Network;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.ParentCompany;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.PeopleDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.PeopleType;
@@ -107,6 +109,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.BiographyDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CharacterDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CompaniesDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CompanyDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CompanyRelationshipDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.CompanyTypeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ContentRatingDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EntityDTO;
@@ -125,6 +128,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MetaTranslation
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.NetworkDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ParentCompanyDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.PeopleDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.PeopleDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.PeopleTypeDTO;
@@ -712,10 +716,15 @@ public abstract class ResponseData<T> {
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .aliases(createTwo(aliasModel(), listOffset))
                         .companyType(create(companyTypeModel(), idx))
-                        .tagOptions(createTwo(tagOptionModel(), listOffset));
+                        .tagOptions(createTwo(tagOptionModel(), listOffset))
+                        .parentCompany(create(parentCompanyModel(), idx));
             }
             return builder.build();
         };
+    }
+
+    private static SimpleDtoSupplier<CompanyRelationship> companyRelationshipModel() {
+        return idx -> new CompanyRelationshipDTO.Builder().id(6911L + idx).typeName("TypeName" + idx).build();
     }
 
     private static SimpleDtoSupplier<CompanyType> companyTypeModel() {
@@ -940,6 +949,11 @@ public abstract class ResponseData<T> {
         };
     }
 
+    private static SimpleDtoSupplier<ParentCompany> parentCompanyModel() {
+        return idx -> new ParentCompanyDTO.Builder().id(3794L + idx).name("Name" + idx)
+                .relation(create(companyRelationshipModel(), idx)).build();
+    }
+
     private static DtoSupplier<PeopleDetails> peopleDetailsModel() {
         return (idx, shape) -> {
             PeopleDetailsDTO.Builder builder = new PeopleDetailsDTO.Builder();
@@ -1063,7 +1077,8 @@ public abstract class ResponseData<T> {
     }
 
     private static SimpleDtoSupplier<SeasonType> seasonTypeModel() {
-        return idx -> new SeasonTypeDTO.Builder().id(6953L + idx).name("Name" + idx).type("Type" + idx).build();
+        return idx -> new SeasonTypeDTO.Builder().id(6953L + idx).name("Name" + idx).type("Type" + idx)
+                .alternateName("AlternateName" + idx).build();
     }
 
     private static DtoSupplier<Series> seriesModel() {

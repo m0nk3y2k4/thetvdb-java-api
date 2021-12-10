@@ -170,6 +170,14 @@
             "companyTypeId": 356,
             "companyTypeName": "CompanyTypeName1"
           },
+          "parentCompany": {
+            "id": 3795,
+            "name": "Name1",
+            "relation": {
+              "id": 6912,
+              "typeName": "TypeName1"
+            }
+          },
           "tagOptions": [
             {
               "id": 5797,
@@ -211,6 +219,14 @@
           "companyType": {
             "companyTypeId": 357,
             "companyTypeName": "CompanyTypeName2"
+          },
+          "parentCompany": {
+            "id": 3796,
+            "name": "Name2",
+            "relation": {
+              "id": 6913,
+              "typeName": "TypeName2"
+            }
           },
           "tagOptions": [
             {
@@ -257,6 +273,14 @@
             "companyTypeId": 356,
             "companyTypeName": "CompanyTypeName1"
           },
+          "parentCompany": {
+            "id": 3795,
+            "name": "Name1",
+            "relation": {
+              "id": 6912,
+              "typeName": "TypeName1"
+            }
+          },
           "tagOptions": [
             {
               "id": 5797,
@@ -298,6 +322,14 @@
           "companyType": {
             "companyTypeId": 357,
             "companyTypeName": "CompanyTypeName2"
+          },
+          "parentCompany": {
+            "id": 3796,
+            "name": "Name2",
+            "relation": {
+              "id": 6913,
+              "typeName": "TypeName2"
+            }
           },
           "tagOptions": [
             {
@@ -344,6 +376,14 @@
             "companyTypeId": 356,
             "companyTypeName": "CompanyTypeName1"
           },
+          "parentCompany": {
+            "id": 3795,
+            "name": "Name1",
+            "relation": {
+              "id": 6912,
+              "typeName": "TypeName1"
+            }
+          },
           "tagOptions": [
             {
               "id": 5797,
@@ -385,6 +425,14 @@
           "companyType": {
             "companyTypeId": 357,
             "companyTypeName": "CompanyTypeName2"
+          },
+          "parentCompany": {
+            "id": 3796,
+            "name": "Name2",
+            "relation": {
+              "id": 6913,
+              "typeName": "TypeName2"
+            }
           },
           "tagOptions": [
             {
@@ -431,6 +479,14 @@
             "companyTypeId": 356,
             "companyTypeName": "CompanyTypeName1"
           },
+          "parentCompany": {
+            "id": 3795,
+            "name": "Name1",
+            "relation": {
+              "id": 6912,
+              "typeName": "TypeName1"
+            }
+          },
           "tagOptions": [
             {
               "id": 5797,
@@ -472,6 +528,14 @@
           "companyType": {
             "companyTypeId": 357,
             "companyTypeName": "CompanyTypeName2"
+          },
+          "parentCompany": {
+            "id": 3796,
+            "name": "Name2",
+            "relation": {
+              "id": 6913,
+              "typeName": "TypeName2"
+            }
           },
           "tagOptions": [
             {
@@ -518,6 +582,14 @@
             "companyTypeId": 356,
             "companyTypeName": "CompanyTypeName1"
           },
+          "parentCompany": {
+            "id": 3795,
+            "name": "Name1",
+            "relation": {
+              "id": 6912,
+              "typeName": "TypeName1"
+            }
+          },
           "tagOptions": [
             {
               "id": 5797,
@@ -559,6 +631,14 @@
           "companyType": {
             "companyTypeId": 357,
             "companyTypeName": "CompanyTypeName2"
+          },
+          "parentCompany": {
+            "id": 3796,
+            "name": "Name2",
+            "relation": {
+              "id": 6913,
+              "typeName": "TypeName2"
+            }
           },
           "tagOptions": [
             {

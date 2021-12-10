@@ -17,13 +17,13 @@
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Company;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.ParentCompany;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.APIDataModel;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.WithHiddenImplementation;
 import org.immutables.value.Value.Immutable;
 
 /**
- * DTO implementation of the {@link Company} interface
+ * DTO implementation of the {@link ParentCompany} interface
  * <p><br>
  * Objects of this class reflect the data received from the remote service and are immutable so that their content can
  * not be changed once an instance has been created. New objects of this class may be created by using the corresponding
@@ -32,16 +32,16 @@ import org.immutables.value.Value.Immutable;
 @Immutable
 @APIDataModel
 @WithHiddenImplementation
-@JsonDeserialize(builder = CompanyDTO.Builder.class)
-public abstract class CompanyDTO implements Company {
+@JsonDeserialize(builder = ParentCompanyDTO.Builder.class)
+public abstract class ParentCompanyDTO implements ParentCompany {
 
     /**
-     * Builder used to create a new immutable {@link CompanyDTO} implementation
+     * Builder used to create a new immutable {@link ParentCompanyDTO} implementation
      * <p><br>
      * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link
-     * CompanyDTO} instance based on these properties. New builders may be initialized with some existing DTO instance,
-     * which presets the builders properties to the values of the given DTO, still retaining the option to make
-     * additional changes before actually building a new immutable object.
+     * ParentCompanyDTO} instance based on these properties. New builders may be initialized with some existing DTO
+     * instance, which presets the builders properties to the values of the given DTO, still retaining the option to
+     * make additional changes before actually building a new immutable object.
      */
-    public static class Builder extends CompanyDTOBuilder {}
+    public static class Builder extends ParentCompanyDTOBuilder {}
 }

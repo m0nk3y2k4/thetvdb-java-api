@@ -22,6 +22,14 @@
       "id": 73,
       "name": "Name1"
     },
+    "parentCompany": {
+      "id": 3795,
+      "name": "Name1",
+      "relation": {
+        "id": 6912,
+        "typeName": "TypeName1"
+      }
+    },
     "tagOptions": [
       {
         "id": 5797,

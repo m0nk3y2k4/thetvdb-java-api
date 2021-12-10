@@ -6,7 +6,8 @@
       "type": {
         "id": 6954,
         "name": "Name1",
-        "type": "Type1"
+        "type": "Type1",
+        "alternateName": "AlternateName1"
       },
       "name": "Name1",
       "number": 6,
@@ -50,6 +51,14 @@
               "companyTypeId": 356,
               "companyTypeName": "CompanyTypeName1"
             },
+            "parentCompany": {
+              "id": 3795,
+              "name": "Name1",
+              "relation": {
+                "id": 6912,
+                "typeName": "TypeName1"
+              }
+            },
             "tagOptions": [
               {
                 "id": 5797,
@@ -91,6 +100,14 @@
             "companyType": {
               "companyTypeId": 357,
               "companyTypeName": "CompanyTypeName2"
+            },
+            "parentCompany": {
+              "id": 3796,
+              "name": "Name2",
+              "relation": {
+                "id": 6913,
+                "typeName": "TypeName2"
+              }
             },
             "tagOptions": [
               {
@@ -137,6 +154,14 @@
               "companyTypeId": 356,
               "companyTypeName": "CompanyTypeName1"
             },
+            "parentCompany": {
+              "id": 3795,
+              "name": "Name1",
+              "relation": {
+                "id": 6912,
+                "typeName": "TypeName1"
+              }
+            },
             "tagOptions": [
               {
                 "id": 5797,
@@ -178,6 +203,14 @@
             "companyType": {
               "companyTypeId": 357,
               "companyTypeName": "CompanyTypeName2"
+            },
+            "parentCompany": {
+              "id": 3796,
+              "name": "Name2",
+              "relation": {
+                "id": 6913,
+                "typeName": "TypeName2"
+              }
             },
             "tagOptions": [
               {
@@ -224,6 +257,14 @@
               "companyTypeId": 356,
               "companyTypeName": "CompanyTypeName1"
             },
+            "parentCompany": {
+              "id": 3795,
+              "name": "Name1",
+              "relation": {
+                "id": 6912,
+                "typeName": "TypeName1"
+              }
+            },
             "tagOptions": [
               {
                 "id": 5797,
@@ -265,6 +306,14 @@
             "companyType": {
               "companyTypeId": 357,
               "companyTypeName": "CompanyTypeName2"
+            },
+            "parentCompany": {
+              "id": 3796,
+              "name": "Name2",
+              "relation": {
+                "id": 6913,
+                "typeName": "TypeName2"
+              }
             },
             "tagOptions": [
               {
@@ -311,6 +360,14 @@
               "companyTypeId": 356,
               "companyTypeName": "CompanyTypeName1"
             },
+            "parentCompany": {
+              "id": 3795,
+              "name": "Name1",
+              "relation": {
+                "id": 6912,
+                "typeName": "TypeName1"
+              }
+            },
             "tagOptions": [
               {
                 "id": 5797,
@@ -352,6 +409,14 @@
             "companyType": {
               "companyTypeId": 357,
               "companyTypeName": "CompanyTypeName2"
+            },
+            "parentCompany": {
+              "id": 3796,
+              "name": "Name2",
+              "relation": {
+                "id": 6913,
+                "typeName": "TypeName2"
+              }
             },
             "tagOptions": [
               {
@@ -398,6 +463,14 @@
               "companyTypeId": 356,
               "companyTypeName": "CompanyTypeName1"
             },
+            "parentCompany": {
+              "id": 3795,
+              "name": "Name1",
+              "relation": {
+                "id": 6912,
+                "typeName": "TypeName1"
+              }
+            },
             "tagOptions": [
               {
                 "id": 5797,
@@ -440,6 +513,14 @@
               "companyTypeId": 357,
               "companyTypeName": "CompanyTypeName2"
             },
+            "parentCompany": {
+              "id": 3796,
+              "name": "Name2",
+              "relation": {
+                "id": 6913,
+                "typeName": "TypeName2"
+              }
+            },
             "tagOptions": [
               {
                 "id": 5799,
@@ -464,7 +545,8 @@
       "type": {
         "id": 6955,
         "name": "Name2",
-        "type": "Type2"
+        "type": "Type2",
+        "alternateName": "AlternateName2"
       },
       "name": "Name2",
       "number": 7,
@@ -508,6 +590,14 @@
               "companyTypeId": 358,
               "companyTypeName": "CompanyTypeName3"
             },
+            "parentCompany": {
+              "id": 3797,
+              "name": "Name3",
+              "relation": {
+                "id": 6914,
+                "typeName": "TypeName3"
+              }
+            },
             "tagOptions": [
               {
                 "id": 5801,
@@ -549,6 +639,14 @@
             "companyType": {
               "companyTypeId": 359,
               "companyTypeName": "CompanyTypeName4"
+            },
+            "parentCompany": {
+              "id": 3798,
+              "name": "Name4",
+              "relation": {
+                "id": 6915,
+                "typeName": "TypeName4"
+              }
             },
             "tagOptions": [
               {
@@ -595,6 +693,14 @@
               "companyTypeId": 358,
               "companyTypeName": "CompanyTypeName3"
             },
+            "parentCompany": {
+              "id": 3797,
+              "name": "Name3",
+              "relation": {
+                "id": 6914,
+                "typeName": "TypeName3"
+              }
+            },
             "tagOptions": [
               {
                 "id": 5801,
@@ -636,6 +742,14 @@
             "companyType": {
               "companyTypeId": 359,
               "companyTypeName": "CompanyTypeName4"
+            },
+            "parentCompany": {
+              "id": 3798,
+              "name": "Name4",
+              "relation": {
+                "id": 6915,
+                "typeName": "TypeName4"
+              }
             },
             "tagOptions": [
               {
@@ -682,6 +796,14 @@
               "companyTypeId": 358,
               "companyTypeName": "CompanyTypeName3"
             },
+            "parentCompany": {
+              "id": 3797,
+              "name": "Name3",
+              "relation": {
+                "id": 6914,
+                "typeName": "TypeName3"
+              }
+            },
             "tagOptions": [
               {
                 "id": 5801,
@@ -723,6 +845,14 @@
             "companyType": {
               "companyTypeId": 359,
               "companyTypeName": "CompanyTypeName4"
+            },
+            "parentCompany": {
+              "id": 3798,
+              "name": "Name4",
+              "relation": {
+                "id": 6915,
+                "typeName": "TypeName4"
+              }
             },
             "tagOptions": [
               {
@@ -769,6 +899,14 @@
               "companyTypeId": 358,
               "companyTypeName": "CompanyTypeName3"
             },
+            "parentCompany": {
+              "id": 3797,
+              "name": "Name3",
+              "relation": {
+                "id": 6914,
+                "typeName": "TypeName3"
+              }
+            },
             "tagOptions": [
               {
                 "id": 5801,
@@ -810,6 +948,14 @@
             "companyType": {
               "companyTypeId": 359,
               "companyTypeName": "CompanyTypeName4"
+            },
+            "parentCompany": {
+              "id": 3798,
+              "name": "Name4",
+              "relation": {
+                "id": 6915,
+                "typeName": "TypeName4"
+              }
             },
             "tagOptions": [
               {
@@ -856,6 +1002,14 @@
               "companyTypeId": 358,
               "companyTypeName": "CompanyTypeName3"
             },
+            "parentCompany": {
+              "id": 3797,
+              "name": "Name3",
+              "relation": {
+                "id": 6914,
+                "typeName": "TypeName3"
+              }
+            },
             "tagOptions": [
               {
                 "id": 5801,
@@ -897,6 +1051,14 @@
             "companyType": {
               "companyTypeId": 359,
               "companyTypeName": "CompanyTypeName4"
+            },
+            "parentCompany": {
+              "id": 3798,
+              "name": "Name4",
+              "relation": {
+                "id": 6915,
+                "typeName": "TypeName4"
+              }
             },
             "tagOptions": [
               {
