@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Bumped multiple maven dependencies and plugins to latest version:
+  - _org.junit.jupiter:*_: `5.8.1` -> `5.8.2`
+  - _org.mockito:mockito-core_: `4.0.0` -> `4.1.0`
 
 ## [3.0.4] - 2021-11-03
 ### Changed
