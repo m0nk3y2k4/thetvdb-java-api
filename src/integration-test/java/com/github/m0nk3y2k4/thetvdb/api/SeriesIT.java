@@ -100,7 +100,7 @@ class SeriesIT {
     @Test
     @Order(11)
     void queryImages(TheTVDBApi api) {
-        assertThat(() -> api.queryImages(296762, "fanart", "1920x1080")).as("/series/296762/images/query")
+        assertThat(() -> api.queryImages(296762, "poster", "680x1000")).as("/series/296762/images/query")
                 .doesNotThrowAnyException();
     }
 
