@@ -168,8 +168,8 @@ public interface TheTVDBApi {
     /**
      * Initializes the current API session by requesting a new token from the remote API. This token will be used for
      * authentication of all requests that are sent to the remote service by this API instance. The initialization will
-     * be performed based on the constructor parameters used to create this API instance. It is recommended to
-     * log in/initialize the session before making the first API call. However, if an API call is made without proper
+     * be performed based on the constructor parameters used to create this API instance. It is recommended to log
+     * in/initialize the session before making the first API call. However, if an API call is made without proper
      * initialization, an implicit login will be performed.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Login/post_login">
