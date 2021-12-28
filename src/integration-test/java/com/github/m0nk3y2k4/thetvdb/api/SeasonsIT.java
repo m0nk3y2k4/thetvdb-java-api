@@ -35,13 +35,13 @@ class SeasonsIT {
     @Test
     @Order(2)
     void getSeason(TheTVDBApi api) {
-        assertThat(() -> api.getSeason(1733210)).as("/seasons/1733210").doesNotThrowAnyException();
+        assertThat(() -> api.getSeason(1733210)).as("/seasons/669028").doesNotThrowAnyException();
     }
 
     @Test
     @Order(3)
     void getSeasonDetails(TheTVDBApi api) {
-        assertThat(() -> api.getSeasonDetails(669028)).as("/seasons/669028/extended").doesNotThrowAnyException();
+        assertThat(() -> api.getSeasonDetails(669028)).as("/seasons/1733210/extended").doesNotThrowAnyException();
     }
 
     @Test
