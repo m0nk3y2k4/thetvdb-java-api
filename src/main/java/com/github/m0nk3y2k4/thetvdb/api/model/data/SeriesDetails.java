@@ -124,7 +124,6 @@ public interface SeriesDetails extends Series {
      *
      * @return The <em>{@code translations}</em> property from the received JSON
      */
-    // ToDo: Field is currently not declared in SeriesExtendedRecord but returned in JSON. Check again after the next API update.
     Optional<MetaTranslations> getTranslations();
 
     /**

@@ -265,7 +265,9 @@
             "name": "Name2"
           }
         ],
-        "score": 7
+        "score": 7,
+        "image": "Image1",
+        "imageIsFallback": true
       }, {
         "id": 96,
         "name": "Name2",
@@ -287,7 +289,9 @@
             "name": "Name4"
           }
         ],
-        "score": 8
+        "score": 8,
+        "image": "Image2",
+        "imageIsFallback": true
       }
     ],
     "remoteIds": [
@@ -345,7 +349,8 @@
             "name": "Name2",
             "helpText": "HelpText2"
           }
-        ]
+        ],
+        "personImgURL": "PersonImgURL1"
       }, {
         "id": 36488,
         "name": "Name2",
@@ -389,7 +394,8 @@
             "name": "Name4",
             "helpText": "HelpText4"
           }
-        ]
+        ],
+        "personImgURL": "PersonImgURL2"
       }
     ],
     "airsDays": {
@@ -423,9 +429,6 @@
         ],
         "image": "Image1",
         "imageType": 487,
-        "slug": "Slug1",
-        "abbreviation": "Abbreviation1",
-        "country": "Country1",
         "companies": {
           "studio": [
             {
@@ -962,9 +965,6 @@
         ],
         "image": "Image2",
         "imageType": 488,
-        "slug": "Slug2",
-        "abbreviation": "Abbreviation2",
-        "country": "Country2",
         "companies": {
           "studio": [
             {
@@ -1571,9 +1571,6 @@
             ],
             "image": "Image1",
             "imageType": 487,
-            "slug": "Slug1",
-            "abbreviation": "Abbreviation1",
-            "country": "Country1",
             "companies": {
               "studio": [
                 {
@@ -2110,9 +2107,6 @@
             ],
             "image": "Image2",
             "imageType": 488,
-            "slug": "Slug2",
-            "abbreviation": "Abbreviation2",
-            "country": "Country2",
             "companies": {
               "studio": [
                 {
@@ -2673,9 +2667,6 @@
             ],
             "image": "Image3",
             "imageType": 489,
-            "slug": "Slug3",
-            "abbreviation": "Abbreviation3",
-            "country": "Country3",
             "companies": {
               "studio": [
                 {
@@ -3212,9 +3203,6 @@
             ],
             "image": "Image4",
             "imageType": 490,
-            "slug": "Slug4",
-            "abbreviation": "Abbreviation4",
-            "country": "Country4",
             "companies": {
               "studio": [
                 {

@@ -50,14 +50,7 @@ public abstract class SearchResultDTO implements SearchResult {
 
     @Override
     @Nullable
-    @JsonAlias("extended_title")
-    // ToDo: Property is declared as "extendedTitle" in API documentation but send as "extended_title" in JSON. Check again after next API update.
-    public abstract String getExtendedTitle();
-
-    @Override
-    @Nullable
     @JsonAlias("image_url")
-    // ToDo: Property is declared as "imageUrl" in API documentation but send as "image_url" in JSON. Check again after next API update.
     public abstract String getImageUrl();
 
     @Default
@@ -65,7 +58,6 @@ public abstract class SearchResultDTO implements SearchResult {
     @JsonAlias("name_translated")
     @JsonSetter(nulls = Nulls.SKIP)
     @JsonDeserialize(converter = SearchResultConverter.TranslationString.class)
-    // ToDo: Property is declared as "nameTranslated" in API documentation but send as "name_translated" in JSON. Check again after next API update.
     public Translations<SearchResultTranslation> getNameTranslated() {
         return new TranslationsDTO.Builder<SearchResultTranslation>().build();
     }
@@ -82,14 +74,7 @@ public abstract class SearchResultDTO implements SearchResult {
     @Override
     @Nullable
     @JsonAlias("primary_language")
-    // ToDo: Property is declared as "primaryLanguage" in API documentation but send as "primary_language" in JSON. Check again after next API update.
     public abstract String getPrimaryLanguage();
-
-    @Override
-    @Nullable
-    @JsonAlias("primary_type")
-    // ToDo: Property is declared as "primaryType" in API documentation but send as "primary_type" in JSON. Check again after next API update.
-    public abstract String getPrimaryType();
 
     @Override
     @Nullable
@@ -98,7 +83,6 @@ public abstract class SearchResultDTO implements SearchResult {
 
     @Override
     @JsonAlias("remote_ids")
-    // ToDo: Property is declared as "remoteIds" in API documentation but send as "remote_ids" in JSON. Check again after next API update.
     public abstract List<RemoteId> getRemoteIds();
 
     @Override

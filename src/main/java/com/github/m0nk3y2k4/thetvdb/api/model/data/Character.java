@@ -167,4 +167,12 @@ public interface Character {
      */
     // ToDo: Field is currently not declared in Character but returned in JSON. Check again after the next API update.
     List<TagOption> getTagOptions();
+
+    /**
+     * Get the value of the {<em>{@code data.personImgURL}</em>} JSON property
+     *
+     * @return The <em>{@code personImgURL}</em> property from the received JSON
+     */
+    @Nullable
+    String getPersonImgURL();
 }

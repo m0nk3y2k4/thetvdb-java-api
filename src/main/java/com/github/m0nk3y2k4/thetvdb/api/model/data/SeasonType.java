@@ -52,7 +52,6 @@ public interface SeasonType {
      *
      * @return The <em>{@code type}</em> property from the received JSON
      */
-    // ToDo: Property is currently declared as int64. Check this again after the next API update.
     @Nullable
     String getType();
 

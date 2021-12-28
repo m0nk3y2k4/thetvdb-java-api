@@ -16,6 +16,9 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data;
 
+import javax.annotation.Nullable;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.FCList;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.annotation.APIDataModel;
@@ -34,6 +37,11 @@ import org.immutables.value.Value.Immutable;
 @WithHiddenImplementation
 @JsonDeserialize(builder = FCListDTO.Builder.class)
 public abstract class FCListDTO implements FCList {
+
+    @Override
+    @Nullable
+    @JsonAlias("imageIsFallback")
+    public abstract Boolean isImageFallback();
 
     /**
      * Builder used to create a new immutable {@link FCListDTO} implementation

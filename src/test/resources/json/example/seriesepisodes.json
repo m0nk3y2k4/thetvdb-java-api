@@ -75,9 +75,6 @@
             ],
             "image": "Image1",
             "imageType": 487,
-            "slug": "Slug1",
-            "abbreviation": "Abbreviation1",
-            "country": "Country1",
             "companies": {
               "studio": [
                 {
@@ -614,9 +611,6 @@
             ],
             "image": "Image2",
             "imageType": 488,
-            "slug": "Slug2",
-            "abbreviation": "Abbreviation2",
-            "country": "Country2",
             "companies": {
               "studio": [
                 {
@@ -1177,9 +1171,6 @@
             ],
             "image": "Image3",
             "imageType": 489,
-            "slug": "Slug3",
-            "abbreviation": "Abbreviation3",
-            "country": "Country3",
             "companies": {
               "studio": [
                 {
@@ -1716,9 +1707,6 @@
             ],
             "image": "Image4",
             "imageType": 490,
-            "slug": "Slug4",
-            "abbreviation": "Abbreviation4",
-            "country": "Country4",
             "companies": {
               "studio": [
                 {

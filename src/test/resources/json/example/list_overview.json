@@ -21,7 +21,9 @@
           "name": "Name2"
         }
       ],
-      "score": 7
+      "score": 7,
+      "image": "Image1",
+      "imageIsFallback": true
     }, {
       "id": 96,
       "name": "Name2",
@@ -43,7 +45,9 @@
           "name": "Name4"
         }
       ],
-      "score": 8
+      "score": 8,
+      "image": "Image2",
+      "imageIsFallback": true
     }
   ],
   "status": "success",

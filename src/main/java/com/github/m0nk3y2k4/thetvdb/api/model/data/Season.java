@@ -105,34 +105,9 @@ public interface Season {
     Long getImageType();
 
     /**
-     * Get the value of the {<em>{@code data.abbreviation}</em>} JSON property
-     *
-     * @return The <em>{@code abbreviation}</em> property from the received JSON
-     */
-    @Nullable
-    String getAbbreviation();
-
-    /**
-     * Get the value of the {<em>{@code data.country}</em>} JSON property
-     *
-     * @return The <em>{@code country}</em> property from the received JSON
-     */
-    @Nullable
-    String getCountry();
-
-    /**
-     * Get the value of the {<em>{@code data.slug}</em>} JSON property
-     *
-     * @return The <em>{@code slug}</em> property from the received JSON
-     */
-    @Nullable
-    String getSlug();
-
-    /**
      * Get the value of the {<em>{@code data.companies}</em>} JSON property
      *
      * @return The <em>{@code companies}</em> property from the received JSON
      */
-    // ToDo: Field is currently not declared in SeasonBaseRecord but returned in JSON. Check again after the next API update.
     Companies getCompanies();
 }

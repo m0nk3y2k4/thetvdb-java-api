@@ -11,7 +11,6 @@
       "companyType": "CompanyType1",
       "country": "Country1",
       "director": "Director1",
-      "extended_title": "ExtendedTitle1",
       "genres": [
         "Genre1", "Genre2"
       ],
@@ -32,7 +31,6 @@
         "Poster1", "Poster2"
       ],
       "primary_language": "PrimaryLanguage1",
-      "primary_type": "PrimaryType1",
       "status": "Status1",
       "translationsWithLang": [
         "TranslationWithLang1", "TranslationWithLang2"
@@ -76,7 +74,6 @@
       "companyType": "CompanyType2",
       "country": "Country2",
       "director": "Director2",
-      "extended_title": "ExtendedTitle2",
       "genres": [
         "Genre3", "Genre4"
       ],
@@ -97,7 +94,6 @@
         "Poster3", "Poster4"
       ],
       "primary_language": "PrimaryLanguage2",
-      "primary_type": "PrimaryType2",
       "status": "Status2",
       "translationsWithLang": [
         "TranslationWithLang3", "TranslationWithLang4"

@@ -680,7 +680,7 @@ public abstract class ResponseData<T> {
                 builder.id(36486L + idx).type(11L + idx).sort(2L + idx).isFeatured(TRUE).url("Url" + idx)
                         .name("Name" + idx).peopleId(568L + idx).seriesId(44L + idx).movieId(363L + idx)
                         .episodeId(974L + idx).image("Image" + idx).peopleType("PeopleType" + idx)
-                        .personName("PersonName" + idx)
+                        .personName("PersonName" + idx).personImgURL("PersonImgURL" + idx)
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .aliases(createTwo(aliasModel(), listOffset))
@@ -772,12 +772,13 @@ public abstract class ResponseData<T> {
                         .runtime(73L + idx).image("Image" + idx).imageType(573L + idx).seasonNumber(2L + idx)
                         .productionCode("ProductionCode" + idx).airsAfterSeason(1L + idx).airsBeforeSeason(3L + idx)
                         .airsBeforeEpisode(11L + idx).lastUpdated("LastUpdated" + idx).finaleType("FinaleType" + idx)
-                        .overview("Overview" + idx)
+                        .overview("Overview" + idx).number(10L + idx)
                         .networks(createTwo(networkModel(), listOffset))
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .seasons(createTwo(seasonModel(), listOffset)).number(10L + idx)
-                        .awards(createTwo(awardModel(), listOffset)).characters(createTwo(characterModel(), listOffset))
+                        .seasons(createTwo(seasonModel(), listOffset))
+                        .awards(createTwo(awardModel(), listOffset))
+                        .characters(createTwo(characterModel(), listOffset))
                         .contentRatings(createTwo(contentRatingModel(), listOffset))
                         .remoteIds(createTwo(remoteIdModel(), listOffset))
                         .tagOptions(createTwo(tagOptionModel(), listOffset))
@@ -797,7 +798,7 @@ public abstract class ResponseData<T> {
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
                 builder.id(94L + idx).name("Name" + idx).overview("Overview" + idx).url("Url" + idx).isOfficial(true)
-                        .score(6L + idx)
+                        .score(6L + idx).image("Image" + idx).isImageFallback(true)
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .aliases(createTwo(aliasModel(), listOffset));
@@ -812,7 +813,7 @@ public abstract class ResponseData<T> {
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
                 builder.id(66L + idx).name("Name" + idx).overview("Overview" + idx).url("Url" + idx).isOfficial(true)
-                        .score(8L + idx)
+                        .score(8L + idx).image("Image" + idx).isImageFallback(true)
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
                         .aliases(createTwo(aliasModel(), listOffset))
@@ -1004,12 +1005,11 @@ public abstract class ResponseData<T> {
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
                 builder.objectID("ObjectID" + idx).companyType("CompanyType" + idx).country("Country" + idx)
-                        .director("Director" + idx).extendedTitle("ExtendedTitle" + idx).id("Id" + idx)
-                        .imageUrl("ImageUrl" + idx).name("Name" + idx).firstAirTime("FirstAirTime" + idx)
-                        .officialList("OfficialList" + idx).overview("Overview" + idx).status("Status" + idx)
-                        .primaryLanguage("PrimaryLanguage" + idx).primaryType("PrimaryType" + idx).type("Type" + idx)
-                        .tvdbId("TvdbId" + idx).year(2005L + idx).slug("Slug" + idx).thumbnail("Thumbnail" + idx)
-                        .isOfficial(true).network("Network" + idx).title("Title" + idx).poster("Poster" + idx)
+                        .director("Director" + idx).id("Id" + idx).imageUrl("ImageUrl" + idx).name("Name" + idx)
+                        .firstAirTime("FirstAirTime" + idx).officialList("OfficialList" + idx).poster("Poster" + idx)
+                        .overview("Overview" + idx).status("Status" + idx).primaryLanguage("PrimaryLanguage" + idx)
+                        .type("Type" + idx).tvdbId("TvdbId" + idx).year(2005L + idx).slug("Slug" + idx)
+                        .thumbnail("Thumbnail" + idx).isOfficial(true).network("Network" + idx).title("Title" + idx)
                         .aliases(createTwo("Alias", listOffset))
                         .companies(createTwo("Company", listOffset))
                         .genres(createTwo("Genre", listOffset))
@@ -1042,8 +1042,7 @@ public abstract class ResponseData<T> {
             SeasonDTO.Builder builder = new SeasonDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
-                builder.seriesId(95873L + idx).number(5L + idx).id(47747L + idx).name("Name" + idx).slug("Slug" + idx)
-                        .abbreviation("Abbreviation" + idx).country("Country" + idx).image("Image" + idx)
+                builder.seriesId(95873L + idx).number(5L + idx).id(47747L + idx).name("Name" + idx).image("Image" + idx)
                         .imageType(486L + idx)
                         .type(create(seasonTypeModel(), idx))
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
@@ -1059,9 +1058,8 @@ public abstract class ResponseData<T> {
             SeasonDetailsDTO.Builder builder = new SeasonDetailsDTO.Builder();
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
-                builder.seriesId(30013L + idx).number(11L + idx).id(67409L + idx).name("Name" + idx).slug("Slug" + idx)
-                        .abbreviation("Abbreviation" + idx).country("Country" + idx).image("Image" + idx)
-                        .imageType(654L + idx)
+                builder.seriesId(30013L + idx).number(11L + idx).id(67409L + idx).name("Name" + idx)
+                        .image("Image" + idx).imageType(654L + idx)
                         .type(create(seasonTypeModel(), idx))
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))

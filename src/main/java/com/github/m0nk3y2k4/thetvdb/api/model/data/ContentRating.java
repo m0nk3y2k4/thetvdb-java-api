@@ -60,7 +60,6 @@ public interface ContentRating {
      *
      * @return The <em>{@code description}</em> property from the received JSON
      */
-    // ToDo: Field is currently not declared in ContentRating but returned in JSON. Check again after the next API update.
     @Nullable
     String getDescription();
 

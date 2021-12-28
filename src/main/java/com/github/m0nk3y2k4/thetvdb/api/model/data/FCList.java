@@ -100,7 +100,24 @@ public interface FCList {
      *
      * @return The <em>{@code score}</em> property from the received JSON
      */
-    // ToDo: Field is currently not declared in ListBaseRecord but returned in JSON. Check again after the next API update.
     @Nullable
     Long getScore();
+
+    /**
+     * Get the value of the {<em>{@code data.image}</em>} JSON property
+     *
+     * @return The <em>{@code image}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in ListBaseRecord but returned in JSON. Check again after the next API update.
+    @Nullable
+    String getImage();
+
+    /**
+     * Get the value of the {<em>{@code data.imageIsFallback}</em>} JSON property
+     *
+     * @return The <em>{@code imageIsFallback}</em> property from the received JSON
+     */
+    // ToDo: Field is currently not declared in ListBaseRecord but returned in JSON. Check again after the next API update.
+    @Nullable
+    Boolean isImageFallback();
 }

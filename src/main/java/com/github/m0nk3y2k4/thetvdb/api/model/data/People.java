@@ -78,7 +78,6 @@ public interface People {
      *
      * @return The <em>{@code nameTranslations}</em> property from the received JSON
      */
-    // ToDo: Field is currently not declared in PeopleBaseRecord but returned in JSON. Check again after the next API update.
     List<String> getNameTranslations();
 
     /**
@@ -86,6 +85,5 @@ public interface People {
      *
      * @return The <em>{@code overviewTranslations}</em> property from the received JSON
      */
-    // ToDo: Field is currently not declared in PeopleBaseRecord but returned in JSON. Check again after the next API update.
     List<String> getOverviewTranslations();
 }

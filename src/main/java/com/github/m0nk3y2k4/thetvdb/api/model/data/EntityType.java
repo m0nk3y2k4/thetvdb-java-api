@@ -52,7 +52,6 @@ public interface EntityType {
      *
      * @return The <em>{@code hasSpecials}</em> property from the received JSON
      */
-    // ToDo: Field is currently not declared in EntityType but returned in JSON. Check again after the next API update.
     @Nullable
     Boolean hasSpecials();
 }

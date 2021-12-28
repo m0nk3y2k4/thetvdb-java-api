@@ -180,7 +180,6 @@ public interface Series {
      *
      * @return The <em>{@code lastUpdated}</em> property from the received JSON
      */
-    // ToDo: Field is currently not declared in SeriesBaseRecord but returned in JSON. Check again after the next API update.
     @Nullable
     String getLastUpdated();
 
@@ -189,7 +188,6 @@ public interface Series {
      *
      * @return The <em>{@code averageRuntime}</em> property from the received JSON
      */
-    // ToDo: Field is currently not declared in SeriesBaseRecord but returned in JSON. Check again after the next API update.
     @Nullable
     Long getAverageRuntime();
 }

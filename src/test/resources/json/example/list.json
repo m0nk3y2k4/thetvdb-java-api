@@ -20,7 +20,9 @@
         "name": "Name2"
       }
     ],
-    "score": 7
+    "score": 7,
+    "image": "Image1",
+    "imageIsFallback": true
   },
   "status": "success"
 }

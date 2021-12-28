@@ -6,6 +6,8 @@
     "url": "Url1",
     "isOfficial": true,
     "score": 9,
+    "image": "Image1",
+    "imageIsFallback": true,
     "nameTranslations": [
       "NameTranslation1", "NameTranslation2"
     ],

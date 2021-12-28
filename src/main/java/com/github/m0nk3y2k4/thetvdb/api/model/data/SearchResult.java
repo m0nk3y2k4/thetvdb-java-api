@@ -39,7 +39,6 @@ public interface SearchResult {
      *
      * @return The <em>{@code objectID}</em> property from the received JSON
      */
-    // ToDo: Field is currently not declared in SearchResult but returned in JSON. Check again after the next API update.
     @Nullable
     String getObjectID();
 
@@ -80,14 +79,6 @@ public interface SearchResult {
      */
     @Nullable
     String getDirector();
-
-    /**
-     * Get the value of the {<em>{@code data.extended_title}</em>} JSON property
-     *
-     * @return The <em>{@code extended_title}</em> property from the received JSON
-     */
-    @Nullable
-    String getExtendedTitle();
 
     /**
      * Get the value of the {<em>{@code data.genres}</em>} JSON property
@@ -184,14 +175,6 @@ public interface SearchResult {
     String getPrimaryLanguage();
 
     /**
-     * Get the value of the {<em>{@code data.primary_type}</em>} JSON property
-     *
-     * @return The <em>{@code primary_type}</em> property from the received JSON
-     */
-    @Nullable
-    String getPrimaryType();
-
-    /**
      * Get the value of the {<em>{@code data.status}</em>} JSON property
      *
      * @return The <em>{@code status}</em> property from the received JSON
@@ -235,7 +218,6 @@ public interface SearchResult {
      *
      * @return The <em>{@code slug}</em> property from the received JSON
      */
-    // ToDo: Field is currently not declared in SearchResult but returned in JSON. Check again after the next API update.
     @Nullable
     String getSlug();
 

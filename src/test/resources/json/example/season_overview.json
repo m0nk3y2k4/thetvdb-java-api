@@ -19,9 +19,6 @@
       ],
       "image": "Image1",
       "imageType": 487,
-      "slug": "Slug1",
-      "abbreviation": "Abbreviation1",
-      "country": "Country1",
       "companies": {
         "studio": [
           {
@@ -558,9 +555,6 @@
       ],
       "image": "Image2",
       "imageType": 488,
-      "slug": "Slug2",
-      "abbreviation": "Abbreviation2",
-      "country": "Country2",
       "companies": {
         "studio": [
           {
