@@ -19,7 +19,6 @@ package com.github.m0nk3y2k4.thetvdb.api;
 import static com.github.m0nk3y2k4.thetvdb.testutils.assertj.IntegrationTestAssertions.assertThat;
 
 import com.github.m0nk3y2k4.thetvdb.testutils.annotation.IntegrationTestSuite;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
@@ -40,7 +39,6 @@ class PeopleIT {
 
     @Test
     @Order(3)
-    @Disabled("Temporarily disabled due to remote endpoint being broken") // ToDo: Check frequently if it can be re-enabled
     void getPeopleDetails(TheTVDBApi api) {
         assertThat(() -> api.getPeopleDetails(254786)).as("/people/254786/extended").doesNotThrowAnyException();
     }
