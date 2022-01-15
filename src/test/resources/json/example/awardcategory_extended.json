@@ -63,6 +63,9 @@
           "seriesId": 69554,
           "name": "Name1",
           "aired": "Aired1",
+          "airsAfterSeason": 5,
+          "airsBeforeSeason": 6,
+          "airsBeforeEpisode": 18,
           "runtime": 62,
           "nameTranslations": [
             "NameTranslation1", "NameTranslation2"
@@ -1282,6 +1285,9 @@
           "seriesId": 69555,
           "name": "Name2",
           "aired": "Aired2",
+          "airsAfterSeason": 6,
+          "airsBeforeSeason": 7,
+          "airsBeforeEpisode": 19,
           "runtime": 63,
           "nameTranslations": [
             "NameTranslation3", "NameTranslation4"

@@ -41,7 +41,6 @@ public abstract class InspirationDTO implements Inspiration {
     @Override
     @Nullable
     @JsonAlias("type_name")
-    // ToDo: Property is declared as "typeName" in API documentation but send as "type_name" in JSON. Check again after next API update.
     public abstract String getTypeName();
 
     /**

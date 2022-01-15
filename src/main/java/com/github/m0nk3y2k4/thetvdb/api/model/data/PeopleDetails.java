@@ -89,6 +89,14 @@ public interface PeopleDetails extends People {
     Long getGender();
 
     /**
+     * Get the value of the {<em>{@code data.slug}</em>} JSON property
+     *
+     * @return The <em>{@code slug}</em> property from the received JSON
+     */
+    @Nullable
+    String getSlug();
+
+    /**
      * Get the value of the {<em>{@code data.races}</em>} JSON property
      *
      * @return The <em>{@code races}</em> property from the received JSON

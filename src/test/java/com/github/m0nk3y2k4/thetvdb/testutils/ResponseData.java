@@ -752,6 +752,7 @@ public abstract class ResponseData<T> {
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
                 builder.id(548744L + idx).seriesId(69553L + idx).isMovie(true).name("Name" + idx).aired("Aired" + idx)
+                        .airsAfterSeason(4L + idx).airsBeforeSeason(5L + idx).airsBeforeEpisode(17L + idx)
                         .runtime(61L + idx)
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
@@ -961,7 +962,7 @@ public abstract class ResponseData<T> {
             if (shape == FULL) {
                 int listOffset = (idx << 1) - 1;
                 builder.id(5874L + idx).name("Name" + idx).image("Image" + idx).score(23L + idx).birth("Birth" + idx)
-                        .birthPlace("BirthPlace" + idx).death("Death" + idx).gender(2L + idx)
+                        .birthPlace("BirthPlace" + idx).death("Death" + idx).gender(2L + idx).slug("Slug" + idx)
                         .aliases(createTwo(aliasModel(), listOffset))
                         .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                         .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))

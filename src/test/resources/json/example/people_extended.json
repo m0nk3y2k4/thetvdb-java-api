@@ -134,6 +134,7 @@
     ],
     "death": "Death1",
     "gender": 3,
+    "slug": "Slug1",
     "races": [
       {
       }

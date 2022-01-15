@@ -4,6 +4,9 @@
     "seriesId": 69554,
     "name": "Name1",
     "aired": "Aired1",
+    "airsAfterSeason": 5,
+    "airsBeforeSeason": 6,
+    "airsBeforeEpisode": 18,
     "runtime": 62,
     "nameTranslations": [
       "NameTranslation1", "NameTranslation2"

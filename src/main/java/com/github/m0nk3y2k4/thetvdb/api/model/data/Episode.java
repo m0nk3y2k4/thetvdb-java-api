@@ -66,6 +66,31 @@ public interface Episode {
     @Nullable
     String getAired();
 
+
+    /**
+     * Get the value of the {<em>{@code data.airsAfterSeason}</em>} JSON property
+     *
+     * @return The <em>{@code airsAfterSeason}</em> property from the received JSON
+     */
+    @Nullable
+    Long getAirsAfterSeason();
+
+    /**
+     * Get the value of the {<em>{@code data.airsBeforeSeason}</em>} JSON property
+     *
+     * @return The <em>{@code airsBeforeSeason}</em> property from the received JSON
+     */
+    @Nullable
+    Long getAirsBeforeSeason();
+
+    /**
+     * Get the value of the {<em>{@code data.airsBeforeEpisode}</em>} JSON property
+     *
+     * @return The <em>{@code airsBeforeEpisode}</em> property from the received JSON
+     */
+    @Nullable
+    Long getAirsBeforeEpisode();
+
     /**
      * Get the value of the {<em>{@code data.runtime}</em>} JSON property
      *
