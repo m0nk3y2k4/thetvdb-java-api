@@ -24,6 +24,8 @@ import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_NOT_FO
 import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_SERVICE_UNAVAILABLE;
 import static com.github.m0nk3y2k4.thetvdb.internal.connection.APIRequest.ERR_SEND;
 import static com.github.m0nk3y2k4.thetvdb.internal.connection.APIRequest.ERR_UNEXPECTED_RESPONSE;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.CONTENT_ENCODING;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.CONTENT_LENGTH;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.DELETE;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.HEAD;
@@ -34,6 +36,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.createRespon
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.createUnauthorizedResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.defaultAPIHttpHeaders;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.defaultAPIHttpHeadersWithAuthorization;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -43,9 +46,13 @@ import static org.mockserver.model.Header.header;
 import static org.mockserver.model.HttpError.error;
 import static org.mockserver.model.HttpRequest.request;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
+import java.util.zip.GZIPOutputStream;
 
 import javax.annotation.Nonnull;
 import javax.net.ssl.HttpsURLConnection;
@@ -68,6 +75,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.mockserver.client.MockServerClient;
 import org.mockserver.model.Header;
+import org.mockserver.model.HttpResponse;
 import org.mockserver.model.HttpStatusCode;
 import org.mockserver.verify.VerificationTimes;
 
@@ -241,6 +249,32 @@ class APIRequestTest {
                 .hasMessageContaining(API_NOT_AUTHORIZED_ERROR, "n/a");
     }
 
+    private static void withGzipEncodedResponse(String resource, HttpStatusCode status, String content,
+            MockServerClient client) throws IOException {
+        try (ByteArrayOutputStream contentStream = new ByteArrayOutputStream();
+             OutputStream compressed = new GZIPOutputStream(contentStream, true)) {
+            compressed.write(content.getBytes(UTF_8));
+            compressed.flush();
+            byte[] compressedContent = contentStream.toByteArray();
+            client.when(request(resource))
+                    .respond(HttpResponse.response().withHeaders(
+                                    header(CONTENT_LENGTH, compressedContent.length),
+                                    header(CONTENT_ENCODING, "gzip"))
+                            .withStatusCode(status.code()).withReasonPhrase(status.reasonPhrase())
+                            .withBody(compressedContent));
+        }
+    }
+
+    @Test
+    void getResponse_respondHTTP200WithEncodedData_verifyDataIsDecompressedBeforeParsing(MockServerClient client,
+            RemoteAPI remoteAPI) throws Exception {
+        final String resource = "/test/success";
+        APIRequest request = createAPIRequestWith(resource, DELETE, Status.NOT_AUTHORIZED, remoteAPI);
+        withGzipEncodedResponse(resource, HttpStatusCode.OK_200, JSON_SUCCESS, client);
+        JsonNode response = request.send();
+        assertThat(response).hasToString(JSON_SUCCESS);
+    }
+
     @Test
     void getResponse_terminateConnection_verifyExceptionHandling(MockServerClient client, RemoteAPI remoteAPI) {
         final String resource = "/test/terminated";
@@ -248,6 +282,17 @@ class APIRequestTest {
         client.when(request(resource)).error(error().withDropConnection(true));
         APICommunicationException exception = catchThrowableOfType(request::send, APICommunicationException.class);
         assertThat(exception).hasMessageContaining(ERR_SEND, PUT.getName());
+    }
+
+    @Test
+    void getResponse_respondHTTP405WithEncodedData_verifyDataIsDecompressedBeforeParsing(MockServerClient client,
+            RemoteAPI remoteAPI) throws Exception {
+        final String resource = "/test/notFound";
+        APIRequest request = createAPIRequestWith(resource, DELETE, Status.NOT_AUTHORIZED, remoteAPI);
+        withGzipEncodedResponse(resource, HttpStatusCode.NOT_FOUND_404, JSON_ERROR, client);
+        Throwable exception = catchThrowable(request::send);
+        assertThat(exception).isInstanceOf(APIException.class)
+                .hasMessageContaining(API_NOT_FOUND_ERROR, HttpStatusCode.NOT_FOUND_404.reasonPhrase());
     }
 
     private static class TestAPIRequest extends APIRequest {

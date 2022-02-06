@@ -24,9 +24,11 @@ import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_SERVIC
 import static com.github.m0nk3y2k4.thetvdb.internal.connection.APISession.Status;
 import static com.github.m0nk3y2k4.thetvdb.internal.connection.APISession.Status.NOT_AUTHORIZED;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.ACCEPT;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.ACCEPT_ENCODING;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.ACCEPT_LANGUAGE;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.ALLOW;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.AUTHORIZATION;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.CONTENT_ENCODING;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.CONTENT_TYPE;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpHeaders.USER_AGENT;
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -41,6 +43,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.zip.GZIPInputStream;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
@@ -57,6 +60,7 @@ import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APICommunicationException;
 import com.github.m0nk3y2k4.thetvdb.internal.exception.APINotAuthorizedException;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.LoginAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.util.functional.ThrowableFunctionalInterfaces;
 import com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Preconditions;
@@ -378,59 +382,6 @@ abstract class APIRequest {
     }
 
     /**
-     * Should only be invoked in case of HTTP-405 status response. Fetches the error message from the connections
-     * <b>error</b> stream and returns it. According to the HTTP-405 status code specification, the server MUST
-     * generate an "Allow" header field in a 405 response containing a list of the target resource's currently supported
-     * methods. These supported methods will - if available - be prepended to the end of the actual error message.
-     *
-     * @param con Fully initialized connection that has returned an HTTP-405 error status code
-     *
-     * @return Content from the error stream plus all available values from the responses Allow header as String
-     *
-     * @throws IOException Thrown if an I/O error occurs while creating the input stream or fetching the error data
-     */
-    private static String getBadMethodError(HttpsURLConnection con) throws IOException {
-        String allowedMethods = con.getHeaderFields().getOrDefault(ALLOW, Collections.emptyList())
-                .stream().sorted().collect(joining(", ", "[", "]"));
-        return String.format("%s - Response Allow header: %s", getError(con), allowedMethods);
-    }
-
-    /**
-     * Fetches the error message from the connections <b>error</b> stream and returns it
-     *
-     * @param con Fully initialized connection that has returned some HTTP error status code
-     *
-     * @return Content from the error stream as String
-     *
-     * @throws IOException Thrown if an I/O error occurs while creating the input stream or fetching the error data
-     */
-    private static String getError(@Nonnull HttpsURLConnection con) throws IOException {
-        JsonNode response = parseResponse(con.getErrorStream());
-        return response.has(API_ERROR) ? response.get(API_ERROR).asText("") : "n/a";
-    }
-
-    /**
-     * Parses the data from the given input stream as JSON and returns it
-     *
-     * @param inputStream The input stream to parse the JSON from
-     *
-     * @return Content from the given input stream parsed as JSON object
-     *
-     * @throws IOException Thrown if an I/O error occurs while parsing the JSON data
-     */
-    private static JsonNode parseResponse(@CheckForNull InputStream inputStream) throws IOException {
-        // According to the HTTP/1.1 specification, HEAD methods must not return a message-body in the response. In
-        // order to harden the implementation we return an empty JsonNode instead of a null-value.
-        InputStream checkedInputStream = Optional.ofNullable(inputStream)
-                .orElseGet(() -> new ByteArrayInputStream("{}".getBytes(UTF_8)));
-
-        ObjectMapper mapper = new ObjectMapper();
-        try (JsonParser parser = mapper.getFactory().createParser(checkedInputStream)) {
-            return mapper.readTree(parser);
-        }
-    }
-
-    /**
      * Associates this request with an underlying communication session. Most of the requests require an initialized
      * session to be used for remote service authentication.
      *
@@ -502,6 +453,7 @@ abstract class APIRequest {
         // Request properties for API
         con.setRequestProperty(CONTENT_TYPE, "application/json; charset=utf-8");
         con.setRequestProperty(ACCEPT, "application/json, application/vnd.thetvdb." + API_VERSION);
+        con.setRequestProperty(ACCEPT_ENCODING, "gzip");
         con.setRequestProperty(USER_AGENT, "Mozilla/5.0");
         if (session != null && session.isInitialized()) {
             // If session has already been initialized, add token information and language key to each request
@@ -510,21 +462,6 @@ abstract class APIRequest {
         }
 
         return con;
-    }
-
-    /**
-     * Provides the option for additional request specific preparation. The default implementation does <b>not</b>
-     * perform any additional preparations. However, subclasses may overwrite this method and use the given connection
-     * in order to apply specific preparations like for example, pushing additional payload for <em>{@code POST}</em>
-     * requests. Still, the provided connection will already contain some basic configuration that should be sufficient
-     * for most of the request types without the need of any further preparations.
-     *
-     * @param con New HTTPS connection with some basic configuration already applied
-     *
-     * @throws IOException Thrown in case an I/O error occurred while performing request specific preparations
-     */
-    void prepareRequest(@Nonnull HttpsURLConnection con) throws IOException {
-        // No default preparation. Overwrite this method in any sub-class to add type specific request preparations.
     }
 
     /**
@@ -564,6 +501,82 @@ abstract class APIRequest {
     }
 
     /**
+     * Should only be invoked in case of HTTP-405 status response. Fetches the error message from the connections
+     * <b>error</b> stream and returns it. According to the HTTP-405 status code specification, the server MUST
+     * generate an "Allow" header field in a 405 response containing a list of the target resource's currently supported
+     * methods. These supported methods will - if available - be prepended to the end of the actual error message.
+     *
+     * @param con Fully initialized connection that has returned an HTTP-405 error status code
+     *
+     * @return Content from the error stream plus all available values from the responses Allow header as String
+     *
+     * @throws IOException Thrown if an I/O error occurs while creating the input stream or fetching the error data
+     */
+    private static String getBadMethodError(HttpsURLConnection con) throws IOException {
+        String allowedMethods = con.getHeaderFields().getOrDefault(ALLOW, Collections.emptyList())
+                .stream().sorted().collect(joining(", ", "[", "]"));
+        return String.format("%s - Response Allow header: %s", getError(con), allowedMethods);
+    }
+
+    /**
+     * Fetches the error message from the connections <b>error</b> stream and returns it
+     *
+     * @param con Fully initialized connection that has returned some HTTP error status code
+     *
+     * @return Content from the error stream as String
+     *
+     * @throws IOException Thrown if an I/O error occurs while creating the input stream or fetching the error data
+     */
+    private static String getError(@Nonnull HttpsURLConnection con) throws IOException {
+        JsonNode response = parseResponseJsonData(con, HttpsURLConnection::getErrorStream);
+        return response.has(API_ERROR) ? response.get(API_ERROR).asText("") : "n/a";
+    }
+
+    /**
+     * Parses the response data from the given connection as JSON and returns it. If the response JSON content is
+     * gzip-encoded it will be decompressed first.
+     *
+     * @param con                Fully initialized connection from which the data should be parsed
+     * @param dataStreamFunction The response data input stream to parse the JSON from
+     *
+     * @return Content from the given response data input stream parsed as JSON object
+     *
+     * @throws IOException Thrown if an I/O error occurs while parsing the JSON data
+     */
+    private static JsonNode parseResponseJsonData(HttpsURLConnection con,
+            ThrowableFunctionalInterfaces.Function<HttpsURLConnection, InputStream, IOException> dataStreamFunction)
+            throws IOException {
+        // According to the HTTP/1.1 specification, HEAD methods must not return a message-body in the response. In
+        // order to harden the implementation we return an empty JsonNode instead of a null-value.
+        InputStream responseDataStream = Optional.ofNullable(dataStreamFunction.apply(con))
+                .orElseGet(() -> new ByteArrayInputStream("{}".getBytes(UTF_8)));
+
+        if ("gzip".equals(con.getHeaderField(CONTENT_ENCODING))) {
+            responseDataStream = new GZIPInputStream(responseDataStream);
+        }
+
+        ObjectMapper mapper = new ObjectMapper();
+        try (JsonParser parser = mapper.getFactory().createParser(responseDataStream)) {
+            return mapper.readTree(parser);
+        }
+    }
+
+    /**
+     * Provides the option for additional request specific preparation. The default implementation does <b>not</b>
+     * perform any additional preparations. However, subclasses may overwrite this method and use the given connection
+     * in order to apply specific preparations like for example, pushing additional payload for <em>{@code POST}</em>
+     * requests. Still, the provided connection will already contain some basic configuration that should be sufficient
+     * for most of the request types without the need of any further preparations.
+     *
+     * @param con New HTTPS connection with some basic configuration already applied
+     *
+     * @throws IOException Thrown in case an I/O error occurred while performing request specific preparations
+     */
+    void prepareRequest(@Nonnull HttpsURLConnection con) throws IOException {
+        // No default preparation. Overwrite this method in any subclass to add type specific request preparations.
+    }
+
+    /**
      * Parses the data from the connections <b>input</b> stream as JSON and returns it
      *
      * @param con Fully initialized connection that has returned an HTTP-200 status
@@ -573,7 +586,7 @@ abstract class APIRequest {
      * @throws IOException Thrown if an I/O error occurs while creating the input stream or parsing the JSON data
      */
     JsonNode getData(@Nonnull HttpsURLConnection con) throws IOException {
-        return parseResponse(con.getInputStream());
+        return parseResponseJsonData(con, HttpsURLConnection::getInputStream);
     }
 }
 

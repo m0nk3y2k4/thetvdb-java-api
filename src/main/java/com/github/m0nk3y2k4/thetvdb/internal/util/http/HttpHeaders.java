@@ -24,11 +24,17 @@ public final class HttpHeaders {
     /** <i>Accept</i> header according to <a href="https://tools.ietf.org/html/rfc1945#appendix-D.2.1">RFC1945</a> */
     public static final String ACCEPT = "Accept";
 
+    /** <i>Accept-Encoding</i> header according to <a href="https://tools.ietf.org/html/rfc1945#appendix-D.2.3">RFC1945</a> */
+    public static final String ACCEPT_ENCODING = "Accept-Encoding";
+
     /** <i>Accept-Language</i> header according to <a href="https://tools.ietf.org/html/rfc1945#appendix-D.2.4">RFC1945</a> */
     public static final String ACCEPT_LANGUAGE = "Accept-Language";
 
     /** <i>Authorization</i> header according to <a href="https://tools.ietf.org/html/rfc1945#section-10.2">RFC1945</a> */
     public static final String AUTHORIZATION = "Authorization";
+
+    /** <i>Content-Encoding</i> header according to <a href="https://tools.ietf.org/html/rfc1945#section-10.3">RFC1945</a> */
+    public static final String CONTENT_ENCODING = "Content-Encoding";
 
     /** <i>Content-Length</i> header according to <a href="https://tools.ietf.org/html/rfc1945#section-10.4">RFC1945</a> */
     public static final String CONTENT_LENGTH = "Content-Length";
