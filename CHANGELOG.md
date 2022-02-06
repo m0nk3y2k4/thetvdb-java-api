@@ -7,8 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - Bumped multiple maven dependencies and plugins to latest version:
+  - _com.fasterxml.jackson.core:jackson-databind_: `2.13.0` -> `2.13.1`
+  - _org.apache.maven.plugins:maven-compiler-plugin_: `3.8.1` -> `3.9.0`
+  - _org.assertj:assertj-core_: `3.21.0` -> `3.22.0`
+  - _org.codehaus.mojo:build-helper-maven-plugin_: `3.2.0` -> `3.3.0`
+  - _org.immutables:value_: `2.8.8` -> `2.9.0`
   - _org.junit.jupiter:*_: `5.8.1` -> `5.8.2`
-  - _org.mockito:mockito-core_: `4.0.0` -> `4.1.0`
+  - _org.mockito:mockito-core_: `4.0.0` -> `4.3.1`
+  - _org.slf4j:*_: `1.7.32` -> `1.7.35`
 
 ## [3.0.4] - 2021-11-03
 ### Changed
