@@ -45,7 +45,7 @@ class EntityTypesAPITest {
     //@DisableFormatting
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
-        client.when(request("/entities/types", GET)).respond(jsonResponse(ENTITYTYPE_OVERVIEW));
+        client.when(request("/entities", GET)).respond(jsonResponse(ENTITYTYPE_OVERVIEW));
     }
 
     @SuppressWarnings("Convert2MethodRef")

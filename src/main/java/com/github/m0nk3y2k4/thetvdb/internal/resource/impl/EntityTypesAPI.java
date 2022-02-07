@@ -39,7 +39,7 @@ public final class EntityTypesAPI extends Resource {
      * Returns an overview of available entity types as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Entity%20Types/getEntityTypes">
-     * <b>[GET]</b> /entities/types</a>
+     * <b>[GET]</b> /entities</a>
      *
      * @param con Initialized connection to be used for API communication
      *
@@ -49,6 +49,6 @@ public final class EntityTypesAPI extends Resource {
      *                      not found, etc.
      */
     public static JsonNode getEntityTypes(@Nonnull APIConnection con) throws APIException {
-        return con.sendGET(createResource("/entities/types"));
+        return con.sendGET(createResource("/entities"));
     }
 }

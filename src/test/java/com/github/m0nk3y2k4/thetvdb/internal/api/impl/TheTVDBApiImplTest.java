@@ -166,7 +166,7 @@ class TheTVDBApiImplTest {
             client.when(request("/companies/types", GET)).respond(jsonResponse(COMPANYTYPE_OVERVIEW));
             client.when(request("/companies/241", GET)).respond(jsonResponse(COMPANY));
             client.when(request("/content/ratings", GET)).respond(jsonResponse(CONTENTRATING_OVERVIEW));
-            client.when(request("/entities/types", GET)).respond(jsonResponse(ENTITYTYPE_OVERVIEW));
+            client.when(request("/entities", GET)).respond(jsonResponse(ENTITYTYPE_OVERVIEW));
             client.when(request("/episodes/141007", GET)).respond(jsonResponse(EPISODE));
             client.when(request("/episodes/69784/extended", GET, param("value", "QueryEpisodeDetails"))).respond(jsonResponse(EPISODE_DETAILS));
             client.when(request("/episodes/37017/extended", GET)).respond(jsonResponse(EPISODE_DETAILS));
@@ -393,7 +393,7 @@ class TheTVDBApiImplTest {
             client.when(request("/companies/types", GET)).respond(jsonResponse(COMPANYTYPE_OVERVIEW));
             client.when(request("/companies/117", GET)).respond(jsonResponse(COMPANY));
             client.when(request("/content/ratings", GET)).respond(jsonResponse(CONTENTRATING_OVERVIEW));
-            client.when(request("/entities/types", GET)).respond(jsonResponse(ENTITYTYPE_OVERVIEW));
+            client.when(request("/entities", GET)).respond(jsonResponse(ENTITYTYPE_OVERVIEW));
             client.when(request("/episodes/640796", GET)).respond(jsonResponse(EPISODE));
             client.when(request("/episodes/872404/extended", GET, param("value", "QueryEpisodeDetailsJson"))).respond(jsonResponse(EPISODE_DETAILS));
             client.when(request("/episodes/379461/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
@@ -524,7 +524,7 @@ class TheTVDBApiImplTest {
             client.when(request("/companies/types", GET)).respond(jsonResponse(COMPANYTYPE_OVERVIEW));
             client.when(request("/companies/64", GET)).respond(jsonResponse(COMPANY));
             client.when(request("/content/ratings", GET)).respond(jsonResponse(CONTENTRATING_OVERVIEW));
-            client.when(request("/entities/types", GET)).respond(jsonResponse(ENTITYTYPE_OVERVIEW));
+            client.when(request("/entities", GET)).respond(jsonResponse(ENTITYTYPE_OVERVIEW));
             client.when(request("/episodes/30619", GET)).respond(jsonResponse(EPISODE));
             client.when(request("/episodes/47149/extended", GET, param("value", "QueryEpisodeDetailsExtended"))).respond(jsonResponse(EPISODE_DETAILS));
             client.when(request("/episodes/34771/translations/eng", GET)).respond(jsonResponse(TRANSLATION));

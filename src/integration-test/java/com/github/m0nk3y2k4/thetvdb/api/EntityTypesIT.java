@@ -19,7 +19,6 @@ package com.github.m0nk3y2k4.thetvdb.api;
 import static com.github.m0nk3y2k4.thetvdb.testutils.assertj.IntegrationTestAssertions.assertThat;
 
 import com.github.m0nk3y2k4.thetvdb.testutils.annotation.IntegrationTestSuite;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
@@ -28,8 +27,7 @@ class EntityTypesIT {
 
     @Test
     @Order(1)
-    @Disabled("Temporarily disabled as remote endpoint is currently broken")
     void getEntityTypes(TheTVDBApi api) {
-        assertThat(api::getEntityTypes).as("/entities/types").doesNotThrowAnyException();
+        assertThat(api::getEntityTypes).as("/entities").doesNotThrowAnyException();
     }
 }

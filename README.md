@@ -130,7 +130,7 @@ the upcoming APIv4.
     - [ ] [/countries/{id}/movies]() (not yet available)
     - [ ] [/countries/{id}/networks]() (not yet available)
 - Entity Types
-    - [x] [/entities/types](https://thetvdb.github.io/v4-api/#/Entity%20Types/getEntityTypes)
+    - [x] [/entities](https://thetvdb.github.io/v4-api/#/Entity%20Types/getEntityTypes)
 - Episodes
     - [x] [/episodes/{id}](https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeBase)
     - [x] [/episodes/{id}/extended](https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeExtended)

@@ -434,7 +434,7 @@ public interface TheTVDBApi {
      * Returns a collection of available entity types mapped as Java DTO.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Entity%20Types/getEntityTypes">
-     * <b>[GET]</b> /entities/types</a>
+     * <b>[GET]</b> /entities</a>
      *
      * @return Collection of available entity types mapped as Java DTO's based on the JSON data returned by the remote
      *         service
@@ -1683,7 +1683,7 @@ public interface TheTVDBApi {
          * Returns a collection of available entity types as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Entity%20Types/getEntityTypes">
-         * <b>[GET]</b> /entities/types</a>
+         * <b>[GET]</b> /entities</a>
          *
          * @return JSON object containing the available entity types
          *
@@ -2588,7 +2588,7 @@ public interface TheTVDBApi {
          * Returns a response object containing a collection of available entity types mapped as Java DTO.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Entity%20Types/getEntityTypes">
-         * <b>[GET]</b> /entities/types</a>
+         * <b>[GET]</b> /entities</a>
          *
          * @return Extended API response containing the actually requested data as well as additional status
          *         information
