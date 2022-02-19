@@ -92,7 +92,6 @@ public interface SearchResult {
      *
      * @return The <em>{@code studios}</em> property from the received JSON
      */
-    // ToDo: Field is currently not declared in SearchResult but returned in JSON. Check again after the next API update.
     @Nullable
     List<String> getStudios();
 
@@ -125,7 +124,6 @@ public interface SearchResult {
      *
      * @return The <em>{@code first_air_time}</em> property from the received JSON
      */
-    // ToDo: Field is currently not declared in SearchResult but returned in JSON. Check again after the next API update.
     @Nullable
     String getFirstAirTime();
 

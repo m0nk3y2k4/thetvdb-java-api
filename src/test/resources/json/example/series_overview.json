@@ -37,7 +37,8 @@
       "defaultSeasonType": 469,
       "isOrderRandomized": true,
       "lastUpdated": "LastUpdated1",
-      "averageRuntime": 42
+      "averageRuntime": 42,
+      "overview": "Overview1"
     }, {
       "id": 34876,
       "name": "Name2",
@@ -75,7 +76,8 @@
       "defaultSeasonType": 470,
       "isOrderRandomized": true,
       "lastUpdated": "LastUpdated2",
-      "averageRuntime": 43
+      "averageRuntime": 43,
+      "overview": "Overview2"
     }
   ],
   "status": "success",

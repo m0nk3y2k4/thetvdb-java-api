@@ -148,7 +148,6 @@ public interface Character {
      *
      * @return The <em>{@code peopleType}</em> property from the received JSON
      */
-    // ToDo: Field is currently not declared in Character but returned in JSON. Check again after the next API update.
     @Nullable
     String getPeopleType();
 
@@ -165,7 +164,6 @@ public interface Character {
      *
      * @return The <em>{@code tagOptions}</em> property from the received JSON
      */
-    // ToDo: Field is currently not declared in Character but returned in JSON. Check again after the next API update.
     List<TagOption> getTagOptions();
 
     /**

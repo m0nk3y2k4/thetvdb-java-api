@@ -172,7 +172,7 @@
           "isAlias": true,
           "overview": "Overview1",
           "language": "Language1",
-          "IsPrimary": true,
+          "isPrimary": true,
           "aliases": [
             "Alias1", "Alias2"
           ],
@@ -182,7 +182,7 @@
           "isAlias": true,
           "overview": "Overview2",
           "language": "Language2",
-          "IsPrimary": true,
+          "isPrimary": true,
           "aliases": [
             "Alias3", "Alias4"
           ],
@@ -195,7 +195,7 @@
           "isAlias": true,
           "overview": "Overview1",
           "language": "Language1",
-          "IsPrimary": true,
+          "isPrimary": true,
           "aliases": [
             "Alias1", "Alias2"
           ],
@@ -205,7 +205,7 @@
           "isAlias": true,
           "overview": "Overview2",
           "language": "Language2",
-          "IsPrimary": true,
+          "isPrimary": true,
           "aliases": [
             "Alias3", "Alias4"
           ],

@@ -1098,14 +1098,2466 @@
     "airsAfterSeason": 2,
     "airsBeforeSeason": 4,
     "airsBeforeEpisode": 12,
-    "nominations": null,
+    "nominations": [
+      {
+        "character": {
+          "id": 36487,
+          "name": "Name1",
+          "peopleId": 569,
+          "seriesId": 45,
+          "movieId": 364,
+          "episodeId": 975,
+          "type": 12,
+          "image": "Image1",
+          "sort": 3,
+          "isFeatured": true,
+          "url": "Url1",
+          "nameTranslations": [
+            "NameTranslation1", "NameTranslation2"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation1", "OverviewTranslation2"
+          ],
+          "aliases": [
+            {
+              "language": "Language1",
+              "name": "Name1"
+            }, {
+              "language": "Language2",
+              "name": "Name2"
+            }
+          ],
+          "peopleType": "PeopleType1",
+          "personName": "PersonName1",
+          "tagOptions": [
+            {
+              "id": 5797,
+              "tag": 43,
+              "tagName": "TagName1",
+              "name": "Name1",
+              "helpText": "HelpText1"
+            }, {
+              "id": 5798,
+              "tag": 44,
+              "tagName": "TagName2",
+              "name": "Name2",
+              "helpText": "HelpText2"
+            }
+          ],
+          "personImgURL": "PersonImgURL1"
+        },
+        "details": "Details1",
+        "episode": {
+          "id": 548745,
+          "seriesId": 69554,
+          "name": "Name1",
+          "aired": "Aired1",
+          "airsAfterSeason": 5,
+          "airsBeforeSeason": 6,
+          "airsBeforeEpisode": 18,
+          "runtime": 62,
+          "nameTranslations": [
+            "NameTranslation1", "NameTranslation2"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation1", "OverviewTranslation2"
+          ],
+          "image": "Image1",
+          "imageType": 5,
+          "isMovie": 1,
+          "seasons": [
+            {
+              "id": 47748,
+              "seriesId": 95874,
+              "type": {
+                "id": 6954,
+                "name": "Name1",
+                "type": "Type1",
+                "alternateName": "AlternateName1"
+              },
+              "name": "Name1",
+              "number": 6,
+              "nameTranslations": [
+                "NameTranslation1", "NameTranslation2"
+              ],
+              "overviewTranslations": [
+                "OverviewTranslation1", "OverviewTranslation2"
+              ],
+              "image": "Image1",
+              "imageType": 487,
+              "companies": {
+                "studio": [
+                  {
+                    "id": 64714,
+                    "name": "Name1",
+                    "slug": "Slug1",
+                    "nameTranslations": [
+                      "NameTranslation1", "NameTranslation2"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation1", "OverviewTranslation2"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language1",
+                        "name": "Name1"
+                      }, {
+                        "language": "Language2",
+                        "name": "Name2"
+                      }
+                    ],
+                    "country": "Country1",
+                    "primaryCompanyType": 514,
+                    "activeDate": "ActiveDate1",
+                    "inactiveDate": "InactiveDate1",
+                    "companyType": {
+                      "companyTypeId": 356,
+                      "companyTypeName": "CompanyTypeName1"
+                    },
+                    "parentCompany": {
+                      "id": 3795,
+                      "name": "Name1",
+                      "relation": {
+                        "id": 6912,
+                        "typeName": "TypeName1"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5797,
+                        "tag": 43,
+                        "tagName": "TagName1",
+                        "name": "Name1",
+                        "helpText": "HelpText1"
+                      }, {
+                        "id": 5798,
+                        "tag": 44,
+                        "tagName": "TagName2",
+                        "name": "Name2",
+                        "helpText": "HelpText2"
+                      }
+                    ]
+                  }, {
+                    "id": 64715,
+                    "name": "Name2",
+                    "slug": "Slug2",
+                    "nameTranslations": [
+                      "NameTranslation3", "NameTranslation4"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation3", "OverviewTranslation4"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language3",
+                        "name": "Name3"
+                      }, {
+                        "language": "Language4",
+                        "name": "Name4"
+                      }
+                    ],
+                    "country": "Country2",
+                    "primaryCompanyType": 515,
+                    "activeDate": "ActiveDate2",
+                    "inactiveDate": "InactiveDate2",
+                    "companyType": {
+                      "companyTypeId": 357,
+                      "companyTypeName": "CompanyTypeName2"
+                    },
+                    "parentCompany": {
+                      "id": 3796,
+                      "name": "Name2",
+                      "relation": {
+                        "id": 6913,
+                        "typeName": "TypeName2"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5799,
+                        "tag": 45,
+                        "tagName": "TagName3",
+                        "name": "Name3",
+                        "helpText": "HelpText3"
+                      }, {
+                        "id": 5800,
+                        "tag": 46,
+                        "tagName": "TagName4",
+                        "name": "Name4",
+                        "helpText": "HelpText4"
+                      }
+                    ]
+                  }
+                ],
+                "network": [
+                  {
+                    "id": 64714,
+                    "name": "Name1",
+                    "slug": "Slug1",
+                    "nameTranslations": [
+                      "NameTranslation1", "NameTranslation2"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation1", "OverviewTranslation2"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language1",
+                        "name": "Name1"
+                      }, {
+                        "language": "Language2",
+                        "name": "Name2"
+                      }
+                    ],
+                    "country": "Country1",
+                    "primaryCompanyType": 514,
+                    "activeDate": "ActiveDate1",
+                    "inactiveDate": "InactiveDate1",
+                    "companyType": {
+                      "companyTypeId": 356,
+                      "companyTypeName": "CompanyTypeName1"
+                    },
+                    "parentCompany": {
+                      "id": 3795,
+                      "name": "Name1",
+                      "relation": {
+                        "id": 6912,
+                        "typeName": "TypeName1"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5797,
+                        "tag": 43,
+                        "tagName": "TagName1",
+                        "name": "Name1",
+                        "helpText": "HelpText1"
+                      }, {
+                        "id": 5798,
+                        "tag": 44,
+                        "tagName": "TagName2",
+                        "name": "Name2",
+                        "helpText": "HelpText2"
+                      }
+                    ]
+                  }, {
+                    "id": 64715,
+                    "name": "Name2",
+                    "slug": "Slug2",
+                    "nameTranslations": [
+                      "NameTranslation3", "NameTranslation4"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation3", "OverviewTranslation4"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language3",
+                        "name": "Name3"
+                      }, {
+                        "language": "Language4",
+                        "name": "Name4"
+                      }
+                    ],
+                    "country": "Country2",
+                    "primaryCompanyType": 515,
+                    "activeDate": "ActiveDate2",
+                    "inactiveDate": "InactiveDate2",
+                    "companyType": {
+                      "companyTypeId": 357,
+                      "companyTypeName": "CompanyTypeName2"
+                    },
+                    "parentCompany": {
+                      "id": 3796,
+                      "name": "Name2",
+                      "relation": {
+                        "id": 6913,
+                        "typeName": "TypeName2"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5799,
+                        "tag": 45,
+                        "tagName": "TagName3",
+                        "name": "Name3",
+                        "helpText": "HelpText3"
+                      }, {
+                        "id": 5800,
+                        "tag": 46,
+                        "tagName": "TagName4",
+                        "name": "Name4",
+                        "helpText": "HelpText4"
+                      }
+                    ]
+                  }
+                ],
+                "production": [
+                  {
+                    "id": 64714,
+                    "name": "Name1",
+                    "slug": "Slug1",
+                    "nameTranslations": [
+                      "NameTranslation1", "NameTranslation2"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation1", "OverviewTranslation2"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language1",
+                        "name": "Name1"
+                      }, {
+                        "language": "Language2",
+                        "name": "Name2"
+                      }
+                    ],
+                    "country": "Country1",
+                    "primaryCompanyType": 514,
+                    "activeDate": "ActiveDate1",
+                    "inactiveDate": "InactiveDate1",
+                    "companyType": {
+                      "companyTypeId": 356,
+                      "companyTypeName": "CompanyTypeName1"
+                    },
+                    "parentCompany": {
+                      "id": 3795,
+                      "name": "Name1",
+                      "relation": {
+                        "id": 6912,
+                        "typeName": "TypeName1"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5797,
+                        "tag": 43,
+                        "tagName": "TagName1",
+                        "name": "Name1",
+                        "helpText": "HelpText1"
+                      }, {
+                        "id": 5798,
+                        "tag": 44,
+                        "tagName": "TagName2",
+                        "name": "Name2",
+                        "helpText": "HelpText2"
+                      }
+                    ]
+                  }, {
+                    "id": 64715,
+                    "name": "Name2",
+                    "slug": "Slug2",
+                    "nameTranslations": [
+                      "NameTranslation3", "NameTranslation4"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation3", "OverviewTranslation4"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language3",
+                        "name": "Name3"
+                      }, {
+                        "language": "Language4",
+                        "name": "Name4"
+                      }
+                    ],
+                    "country": "Country2",
+                    "primaryCompanyType": 515,
+                    "activeDate": "ActiveDate2",
+                    "inactiveDate": "InactiveDate2",
+                    "companyType": {
+                      "companyTypeId": 357,
+                      "companyTypeName": "CompanyTypeName2"
+                    },
+                    "parentCompany": {
+                      "id": 3796,
+                      "name": "Name2",
+                      "relation": {
+                        "id": 6913,
+                        "typeName": "TypeName2"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5799,
+                        "tag": 45,
+                        "tagName": "TagName3",
+                        "name": "Name3",
+                        "helpText": "HelpText3"
+                      }, {
+                        "id": 5800,
+                        "tag": 46,
+                        "tagName": "TagName4",
+                        "name": "Name4",
+                        "helpText": "HelpText4"
+                      }
+                    ]
+                  }
+                ],
+                "distributor": [
+                  {
+                    "id": 64714,
+                    "name": "Name1",
+                    "slug": "Slug1",
+                    "nameTranslations": [
+                      "NameTranslation1", "NameTranslation2"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation1", "OverviewTranslation2"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language1",
+                        "name": "Name1"
+                      }, {
+                        "language": "Language2",
+                        "name": "Name2"
+                      }
+                    ],
+                    "country": "Country1",
+                    "primaryCompanyType": 514,
+                    "activeDate": "ActiveDate1",
+                    "inactiveDate": "InactiveDate1",
+                    "companyType": {
+                      "companyTypeId": 356,
+                      "companyTypeName": "CompanyTypeName1"
+                    },
+                    "parentCompany": {
+                      "id": 3795,
+                      "name": "Name1",
+                      "relation": {
+                        "id": 6912,
+                        "typeName": "TypeName1"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5797,
+                        "tag": 43,
+                        "tagName": "TagName1",
+                        "name": "Name1",
+                        "helpText": "HelpText1"
+                      }, {
+                        "id": 5798,
+                        "tag": 44,
+                        "tagName": "TagName2",
+                        "name": "Name2",
+                        "helpText": "HelpText2"
+                      }
+                    ]
+                  }, {
+                    "id": 64715,
+                    "name": "Name2",
+                    "slug": "Slug2",
+                    "nameTranslations": [
+                      "NameTranslation3", "NameTranslation4"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation3", "OverviewTranslation4"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language3",
+                        "name": "Name3"
+                      }, {
+                        "language": "Language4",
+                        "name": "Name4"
+                      }
+                    ],
+                    "country": "Country2",
+                    "primaryCompanyType": 515,
+                    "activeDate": "ActiveDate2",
+                    "inactiveDate": "InactiveDate2",
+                    "companyType": {
+                      "companyTypeId": 357,
+                      "companyTypeName": "CompanyTypeName2"
+                    },
+                    "parentCompany": {
+                      "id": 3796,
+                      "name": "Name2",
+                      "relation": {
+                        "id": 6913,
+                        "typeName": "TypeName2"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5799,
+                        "tag": 45,
+                        "tagName": "TagName3",
+                        "name": "Name3",
+                        "helpText": "HelpText3"
+                      }, {
+                        "id": 5800,
+                        "tag": 46,
+                        "tagName": "TagName4",
+                        "name": "Name4",
+                        "helpText": "HelpText4"
+                      }
+                    ]
+                  }
+                ],
+                "special_effects": [
+                  {
+                    "id": 64714,
+                    "name": "Name1",
+                    "slug": "Slug1",
+                    "nameTranslations": [
+                      "NameTranslation1", "NameTranslation2"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation1", "OverviewTranslation2"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language1",
+                        "name": "Name1"
+                      }, {
+                        "language": "Language2",
+                        "name": "Name2"
+                      }
+                    ],
+                    "country": "Country1",
+                    "primaryCompanyType": 514,
+                    "activeDate": "ActiveDate1",
+                    "inactiveDate": "InactiveDate1",
+                    "companyType": {
+                      "companyTypeId": 356,
+                      "companyTypeName": "CompanyTypeName1"
+                    },
+                    "parentCompany": {
+                      "id": 3795,
+                      "name": "Name1",
+                      "relation": {
+                        "id": 6912,
+                        "typeName": "TypeName1"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5797,
+                        "tag": 43,
+                        "tagName": "TagName1",
+                        "name": "Name1",
+                        "helpText": "HelpText1"
+                      }, {
+                        "id": 5798,
+                        "tag": 44,
+                        "tagName": "TagName2",
+                        "name": "Name2",
+                        "helpText": "HelpText2"
+                      }
+                    ]
+                  }, {
+                    "id": 64715,
+                    "name": "Name2",
+                    "slug": "Slug2",
+                    "nameTranslations": [
+                      "NameTranslation3", "NameTranslation4"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation3", "OverviewTranslation4"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language3",
+                        "name": "Name3"
+                      }, {
+                        "language": "Language4",
+                        "name": "Name4"
+                      }
+                    ],
+                    "country": "Country2",
+                    "primaryCompanyType": 515,
+                    "activeDate": "ActiveDate2",
+                    "inactiveDate": "InactiveDate2",
+                    "companyType": {
+                      "companyTypeId": 357,
+                      "companyTypeName": "CompanyTypeName2"
+                    },
+                    "parentCompany": {
+                      "id": 3796,
+                      "name": "Name2",
+                      "relation": {
+                        "id": 6913,
+                        "typeName": "TypeName2"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5799,
+                        "tag": 45,
+                        "tagName": "TagName3",
+                        "name": "Name3",
+                        "helpText": "HelpText3"
+                      }, {
+                        "id": 5800,
+                        "tag": 46,
+                        "tagName": "TagName4",
+                        "name": "Name4",
+                        "helpText": "HelpText4"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }, {
+              "id": 47749,
+              "seriesId": 95875,
+              "type": {
+                "id": 6955,
+                "name": "Name2",
+                "type": "Type2",
+                "alternateName": "AlternateName2"
+              },
+              "name": "Name2",
+              "number": 7,
+              "nameTranslations": [
+                "NameTranslation3", "NameTranslation4"
+              ],
+              "overviewTranslations": [
+                "OverviewTranslation3", "OverviewTranslation4"
+              ],
+              "image": "Image2",
+              "imageType": 488,
+              "companies": {
+                "studio": [
+                  {
+                    "id": 64716,
+                    "name": "Name3",
+                    "slug": "Slug3",
+                    "nameTranslations": [
+                      "NameTranslation5", "NameTranslation6"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation5", "OverviewTranslation6"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language5",
+                        "name": "Name5"
+                      }, {
+                        "language": "Language6",
+                        "name": "Name6"
+                      }
+                    ],
+                    "country": "Country3",
+                    "primaryCompanyType": 516,
+                    "activeDate": "ActiveDate3",
+                    "inactiveDate": "InactiveDate3",
+                    "companyType": {
+                      "companyTypeId": 358,
+                      "companyTypeName": "CompanyTypeName3"
+                    },
+                    "parentCompany": {
+                      "id": 3797,
+                      "name": "Name3",
+                      "relation": {
+                        "id": 6914,
+                        "typeName": "TypeName3"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5801,
+                        "tag": 47,
+                        "tagName": "TagName5",
+                        "name": "Name5",
+                        "helpText": "HelpText5"
+                      }, {
+                        "id": 5802,
+                        "tag": 48,
+                        "tagName": "TagName6",
+                        "name": "Name6",
+                        "helpText": "HelpText6"
+                      }
+                    ]
+                  }, {
+                    "id": 64717,
+                    "name": "Name4",
+                    "slug": "Slug4",
+                    "nameTranslations": [
+                      "NameTranslation7", "NameTranslation8"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation7", "OverviewTranslation8"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language7",
+                        "name": "Name7"
+                      }, {
+                        "language": "Language8",
+                        "name": "Name8"
+                      }
+                    ],
+                    "country": "Country4",
+                    "primaryCompanyType": 517,
+                    "activeDate": "ActiveDate4",
+                    "inactiveDate": "InactiveDate4",
+                    "companyType": {
+                      "companyTypeId": 359,
+                      "companyTypeName": "CompanyTypeName4"
+                    },
+                    "parentCompany": {
+                      "id": 3798,
+                      "name": "Name4",
+                      "relation": {
+                        "id": 6915,
+                        "typeName": "TypeName4"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5803,
+                        "tag": 49,
+                        "tagName": "TagName7",
+                        "name": "Name7",
+                        "helpText": "HelpText7"
+                      }, {
+                        "id": 5804,
+                        "tag": 50,
+                        "tagName": "TagName8",
+                        "name": "Name8",
+                        "helpText": "HelpText8"
+                      }
+                    ]
+                  }
+                ],
+                "network": [
+                  {
+                    "id": 64716,
+                    "name": "Name3",
+                    "slug": "Slug3",
+                    "nameTranslations": [
+                      "NameTranslation5", "NameTranslation6"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation5", "OverviewTranslation6"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language5",
+                        "name": "Name5"
+                      }, {
+                        "language": "Language6",
+                        "name": "Name6"
+                      }
+                    ],
+                    "country": "Country3",
+                    "primaryCompanyType": 516,
+                    "activeDate": "ActiveDate3",
+                    "inactiveDate": "InactiveDate3",
+                    "companyType": {
+                      "companyTypeId": 358,
+                      "companyTypeName": "CompanyTypeName3"
+                    },
+                    "parentCompany": {
+                      "id": 3797,
+                      "name": "Name3",
+                      "relation": {
+                        "id": 6914,
+                        "typeName": "TypeName3"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5801,
+                        "tag": 47,
+                        "tagName": "TagName5",
+                        "name": "Name5",
+                        "helpText": "HelpText5"
+                      }, {
+                        "id": 5802,
+                        "tag": 48,
+                        "tagName": "TagName6",
+                        "name": "Name6",
+                        "helpText": "HelpText6"
+                      }
+                    ]
+                  }, {
+                    "id": 64717,
+                    "name": "Name4",
+                    "slug": "Slug4",
+                    "nameTranslations": [
+                      "NameTranslation7", "NameTranslation8"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation7", "OverviewTranslation8"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language7",
+                        "name": "Name7"
+                      }, {
+                        "language": "Language8",
+                        "name": "Name8"
+                      }
+                    ],
+                    "country": "Country4",
+                    "primaryCompanyType": 517,
+                    "activeDate": "ActiveDate4",
+                    "inactiveDate": "InactiveDate4",
+                    "companyType": {
+                      "companyTypeId": 359,
+                      "companyTypeName": "CompanyTypeName4"
+                    },
+                    "parentCompany": {
+                      "id": 3798,
+                      "name": "Name4",
+                      "relation": {
+                        "id": 6915,
+                        "typeName": "TypeName4"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5803,
+                        "tag": 49,
+                        "tagName": "TagName7",
+                        "name": "Name7",
+                        "helpText": "HelpText7"
+                      }, {
+                        "id": 5804,
+                        "tag": 50,
+                        "tagName": "TagName8",
+                        "name": "Name8",
+                        "helpText": "HelpText8"
+                      }
+                    ]
+                  }
+                ],
+                "production": [
+                  {
+                    "id": 64716,
+                    "name": "Name3",
+                    "slug": "Slug3",
+                    "nameTranslations": [
+                      "NameTranslation5", "NameTranslation6"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation5", "OverviewTranslation6"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language5",
+                        "name": "Name5"
+                      }, {
+                        "language": "Language6",
+                        "name": "Name6"
+                      }
+                    ],
+                    "country": "Country3",
+                    "primaryCompanyType": 516,
+                    "activeDate": "ActiveDate3",
+                    "inactiveDate": "InactiveDate3",
+                    "companyType": {
+                      "companyTypeId": 358,
+                      "companyTypeName": "CompanyTypeName3"
+                    },
+                    "parentCompany": {
+                      "id": 3797,
+                      "name": "Name3",
+                      "relation": {
+                        "id": 6914,
+                        "typeName": "TypeName3"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5801,
+                        "tag": 47,
+                        "tagName": "TagName5",
+                        "name": "Name5",
+                        "helpText": "HelpText5"
+                      }, {
+                        "id": 5802,
+                        "tag": 48,
+                        "tagName": "TagName6",
+                        "name": "Name6",
+                        "helpText": "HelpText6"
+                      }
+                    ]
+                  }, {
+                    "id": 64717,
+                    "name": "Name4",
+                    "slug": "Slug4",
+                    "nameTranslations": [
+                      "NameTranslation7", "NameTranslation8"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation7", "OverviewTranslation8"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language7",
+                        "name": "Name7"
+                      }, {
+                        "language": "Language8",
+                        "name": "Name8"
+                      }
+                    ],
+                    "country": "Country4",
+                    "primaryCompanyType": 517,
+                    "activeDate": "ActiveDate4",
+                    "inactiveDate": "InactiveDate4",
+                    "companyType": {
+                      "companyTypeId": 359,
+                      "companyTypeName": "CompanyTypeName4"
+                    },
+                    "parentCompany": {
+                      "id": 3798,
+                      "name": "Name4",
+                      "relation": {
+                        "id": 6915,
+                        "typeName": "TypeName4"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5803,
+                        "tag": 49,
+                        "tagName": "TagName7",
+                        "name": "Name7",
+                        "helpText": "HelpText7"
+                      }, {
+                        "id": 5804,
+                        "tag": 50,
+                        "tagName": "TagName8",
+                        "name": "Name8",
+                        "helpText": "HelpText8"
+                      }
+                    ]
+                  }
+                ],
+                "distributor": [
+                  {
+                    "id": 64716,
+                    "name": "Name3",
+                    "slug": "Slug3",
+                    "nameTranslations": [
+                      "NameTranslation5", "NameTranslation6"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation5", "OverviewTranslation6"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language5",
+                        "name": "Name5"
+                      }, {
+                        "language": "Language6",
+                        "name": "Name6"
+                      }
+                    ],
+                    "country": "Country3",
+                    "primaryCompanyType": 516,
+                    "activeDate": "ActiveDate3",
+                    "inactiveDate": "InactiveDate3",
+                    "companyType": {
+                      "companyTypeId": 358,
+                      "companyTypeName": "CompanyTypeName3"
+                    },
+                    "parentCompany": {
+                      "id": 3797,
+                      "name": "Name3",
+                      "relation": {
+                        "id": 6914,
+                        "typeName": "TypeName3"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5801,
+                        "tag": 47,
+                        "tagName": "TagName5",
+                        "name": "Name5",
+                        "helpText": "HelpText5"
+                      }, {
+                        "id": 5802,
+                        "tag": 48,
+                        "tagName": "TagName6",
+                        "name": "Name6",
+                        "helpText": "HelpText6"
+                      }
+                    ]
+                  }, {
+                    "id": 64717,
+                    "name": "Name4",
+                    "slug": "Slug4",
+                    "nameTranslations": [
+                      "NameTranslation7", "NameTranslation8"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation7", "OverviewTranslation8"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language7",
+                        "name": "Name7"
+                      }, {
+                        "language": "Language8",
+                        "name": "Name8"
+                      }
+                    ],
+                    "country": "Country4",
+                    "primaryCompanyType": 517,
+                    "activeDate": "ActiveDate4",
+                    "inactiveDate": "InactiveDate4",
+                    "companyType": {
+                      "companyTypeId": 359,
+                      "companyTypeName": "CompanyTypeName4"
+                    },
+                    "parentCompany": {
+                      "id": 3798,
+                      "name": "Name4",
+                      "relation": {
+                        "id": 6915,
+                        "typeName": "TypeName4"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5803,
+                        "tag": 49,
+                        "tagName": "TagName7",
+                        "name": "Name7",
+                        "helpText": "HelpText7"
+                      }, {
+                        "id": 5804,
+                        "tag": 50,
+                        "tagName": "TagName8",
+                        "name": "Name8",
+                        "helpText": "HelpText8"
+                      }
+                    ]
+                  }
+                ],
+                "special_effects": [
+                  {
+                    "id": 64716,
+                    "name": "Name3",
+                    "slug": "Slug3",
+                    "nameTranslations": [
+                      "NameTranslation5", "NameTranslation6"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation5", "OverviewTranslation6"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language5",
+                        "name": "Name5"
+                      }, {
+                        "language": "Language6",
+                        "name": "Name6"
+                      }
+                    ],
+                    "country": "Country3",
+                    "primaryCompanyType": 516,
+                    "activeDate": "ActiveDate3",
+                    "inactiveDate": "InactiveDate3",
+                    "companyType": {
+                      "companyTypeId": 358,
+                      "companyTypeName": "CompanyTypeName3"
+                    },
+                    "parentCompany": {
+                      "id": 3797,
+                      "name": "Name3",
+                      "relation": {
+                        "id": 6914,
+                        "typeName": "TypeName3"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5801,
+                        "tag": 47,
+                        "tagName": "TagName5",
+                        "name": "Name5",
+                        "helpText": "HelpText5"
+                      }, {
+                        "id": 5802,
+                        "tag": 48,
+                        "tagName": "TagName6",
+                        "name": "Name6",
+                        "helpText": "HelpText6"
+                      }
+                    ]
+                  }, {
+                    "id": 64717,
+                    "name": "Name4",
+                    "slug": "Slug4",
+                    "nameTranslations": [
+                      "NameTranslation7", "NameTranslation8"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation7", "OverviewTranslation8"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language7",
+                        "name": "Name7"
+                      }, {
+                        "language": "Language8",
+                        "name": "Name8"
+                      }
+                    ],
+                    "country": "Country4",
+                    "primaryCompanyType": 517,
+                    "activeDate": "ActiveDate4",
+                    "inactiveDate": "InactiveDate4",
+                    "companyType": {
+                      "companyTypeId": 359,
+                      "companyTypeName": "CompanyTypeName4"
+                    },
+                    "parentCompany": {
+                      "id": 3798,
+                      "name": "Name4",
+                      "relation": {
+                        "id": 6915,
+                        "typeName": "TypeName4"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5803,
+                        "tag": 49,
+                        "tagName": "TagName7",
+                        "name": "Name7",
+                        "helpText": "HelpText7"
+                      }, {
+                        "id": 5804,
+                        "tag": 50,
+                        "tagName": "TagName8",
+                        "name": "Name8",
+                        "helpText": "HelpText8"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ],
+          "number": 43,
+          "seasonNumber": 9,
+          "lastUpdated": "LastUpdated1",
+          "finaleType": "FinaleType1",
+          "overview": "Overview1",
+          "seasonName": "SeasonName1"
+        },
+        "id": 64120,
+        "isWinner": true,
+        "movie": {
+          "id": 84756,
+          "name": "Name1",
+          "slug": "Slug1",
+          "image": "Image1",
+          "nameTranslations": [
+            "NameTranslation1", "NameTranslation2"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation1", "OverviewTranslation2"
+          ],
+          "aliases": [
+            {
+              "language": "Language1",
+              "name": "Name1"
+            }, {
+              "language": "Language2",
+              "name": "Name2"
+            }
+          ],
+          "score": 1080,
+          "runtime": 47,
+          "status": {
+            "id": 547,
+            "keepUpdated": true,
+            "name": "Name1",
+            "recordType": "RecordType1"
+          },
+          "lastUpdated": "LastUpdated1"
+        },
+        "series": {
+          "id": 34875,
+          "name": "Name1",
+          "slug": "Slug1",
+          "image": "Image1",
+          "nameTranslations": [
+            "NameTranslation1", "NameTranslation2"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation1", "OverviewTranslation2"
+          ],
+          "aliases": [
+            {
+              "language": "Language1",
+              "name": "Name1"
+            }, {
+              "language": "Language2",
+              "name": "Name2"
+            }
+          ],
+          "firstAired": "FirstAired1",
+          "lastAired": "LastAired1",
+          "nextAired": "NextAired1",
+          "score": 68,
+          "status": {
+            "id": 547,
+            "keepUpdated": true,
+            "name": "Name1",
+            "recordType": "RecordType1"
+          },
+          "originalCountry": "OriginalCountry1",
+          "originalLanguage": "OriginalLanguage1",
+          "abbreviation": "Abbreviation1",
+          "country": "Country1",
+          "defaultSeasonType": 469,
+          "isOrderRandomized": true,
+          "lastUpdated": "LastUpdated1",
+          "averageRuntime": 42,
+          "overview": "Overview1"
+        },
+        "year": "Year1",
+        "category": "Category1",
+        "name": "Name1"
+      }, {
+        "character": {
+          "id": 36488,
+          "name": "Name2",
+          "peopleId": 570,
+          "seriesId": 46,
+          "movieId": 365,
+          "episodeId": 976,
+          "type": 13,
+          "image": "Image2",
+          "sort": 4,
+          "isFeatured": true,
+          "url": "Url2",
+          "nameTranslations": [
+            "NameTranslation3", "NameTranslation4"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation3", "OverviewTranslation4"
+          ],
+          "aliases": [
+            {
+              "language": "Language3",
+              "name": "Name3"
+            }, {
+              "language": "Language4",
+              "name": "Name4"
+            }
+          ],
+          "peopleType": "PeopleType2",
+          "personName": "PersonName2",
+          "tagOptions": [
+            {
+              "id": 5799,
+              "tag": 45,
+              "tagName": "TagName3",
+              "name": "Name3",
+              "helpText": "HelpText3"
+            }, {
+              "id": 5800,
+              "tag": 46,
+              "tagName": "TagName4",
+              "name": "Name4",
+              "helpText": "HelpText4"
+            }
+          ],
+          "personImgURL": "PersonImgURL2"
+        },
+        "details": "Details2",
+        "episode": {
+          "id": 548746,
+          "seriesId": 69555,
+          "name": "Name2",
+          "aired": "Aired2",
+          "airsAfterSeason": 6,
+          "airsBeforeSeason": 7,
+          "airsBeforeEpisode": 19,
+          "runtime": 63,
+          "nameTranslations": [
+            "NameTranslation3", "NameTranslation4"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation3", "OverviewTranslation4"
+          ],
+          "image": "Image2",
+          "imageType": 6,
+          "isMovie": 1,
+          "seasons": [
+            {
+              "id": 47750,
+              "seriesId": 95876,
+              "type": {
+                "id": 6956,
+                "name": "Name3",
+                "type": "Type3",
+                "alternateName": "AlternateName3"
+              },
+              "name": "Name3",
+              "number": 8,
+              "nameTranslations": [
+                "NameTranslation5", "NameTranslation6"
+              ],
+              "overviewTranslations": [
+                "OverviewTranslation5", "OverviewTranslation6"
+              ],
+              "image": "Image3",
+              "imageType": 489,
+              "companies": {
+                "studio": [
+                  {
+                    "id": 64718,
+                    "name": "Name5",
+                    "slug": "Slug5",
+                    "nameTranslations": [
+                      "NameTranslation9", "NameTranslation10"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation9", "OverviewTranslation10"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language9",
+                        "name": "Name9"
+                      }, {
+                        "language": "Language10",
+                        "name": "Name10"
+                      }
+                    ],
+                    "country": "Country5",
+                    "primaryCompanyType": 518,
+                    "activeDate": "ActiveDate5",
+                    "inactiveDate": "InactiveDate5",
+                    "companyType": {
+                      "companyTypeId": 360,
+                      "companyTypeName": "CompanyTypeName5"
+                    },
+                    "parentCompany": {
+                      "id": 3799,
+                      "name": "Name5",
+                      "relation": {
+                        "id": 6916,
+                        "typeName": "TypeName5"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5805,
+                        "tag": 51,
+                        "tagName": "TagName9",
+                        "name": "Name9",
+                        "helpText": "HelpText9"
+                      }, {
+                        "id": 5806,
+                        "tag": 52,
+                        "tagName": "TagName10",
+                        "name": "Name10",
+                        "helpText": "HelpText10"
+                      }
+                    ]
+                  }, {
+                    "id": 64719,
+                    "name": "Name6",
+                    "slug": "Slug6",
+                    "nameTranslations": [
+                      "NameTranslation11", "NameTranslation12"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation11", "OverviewTranslation12"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language11",
+                        "name": "Name11"
+                      }, {
+                        "language": "Language12",
+                        "name": "Name12"
+                      }
+                    ],
+                    "country": "Country6",
+                    "primaryCompanyType": 519,
+                    "activeDate": "ActiveDate6",
+                    "inactiveDate": "InactiveDate6",
+                    "companyType": {
+                      "companyTypeId": 361,
+                      "companyTypeName": "CompanyTypeName6"
+                    },
+                    "parentCompany": {
+                      "id": 3800,
+                      "name": "Name6",
+                      "relation": {
+                        "id": 6917,
+                        "typeName": "TypeName6"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5807,
+                        "tag": 53,
+                        "tagName": "TagName11",
+                        "name": "Name11",
+                        "helpText": "HelpText11"
+                      }, {
+                        "id": 5808,
+                        "tag": 54,
+                        "tagName": "TagName12",
+                        "name": "Name12",
+                        "helpText": "HelpText12"
+                      }
+                    ]
+                  }
+                ],
+                "network": [
+                  {
+                    "id": 64718,
+                    "name": "Name5",
+                    "slug": "Slug5",
+                    "nameTranslations": [
+                      "NameTranslation9", "NameTranslation10"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation9", "OverviewTranslation10"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language9",
+                        "name": "Name9"
+                      }, {
+                        "language": "Language10",
+                        "name": "Name10"
+                      }
+                    ],
+                    "country": "Country5",
+                    "primaryCompanyType": 518,
+                    "activeDate": "ActiveDate5",
+                    "inactiveDate": "InactiveDate5",
+                    "companyType": {
+                      "companyTypeId": 360,
+                      "companyTypeName": "CompanyTypeName5"
+                    },
+                    "parentCompany": {
+                      "id": 3799,
+                      "name": "Name5",
+                      "relation": {
+                        "id": 6916,
+                        "typeName": "TypeName5"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5805,
+                        "tag": 51,
+                        "tagName": "TagName9",
+                        "name": "Name9",
+                        "helpText": "HelpText9"
+                      }, {
+                        "id": 5806,
+                        "tag": 52,
+                        "tagName": "TagName10",
+                        "name": "Name10",
+                        "helpText": "HelpText10"
+                      }
+                    ]
+                  }, {
+                    "id": 64719,
+                    "name": "Name6",
+                    "slug": "Slug6",
+                    "nameTranslations": [
+                      "NameTranslation11", "NameTranslation12"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation11", "OverviewTranslation12"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language11",
+                        "name": "Name11"
+                      }, {
+                        "language": "Language12",
+                        "name": "Name12"
+                      }
+                    ],
+                    "country": "Country6",
+                    "primaryCompanyType": 519,
+                    "activeDate": "ActiveDate6",
+                    "inactiveDate": "InactiveDate6",
+                    "companyType": {
+                      "companyTypeId": 361,
+                      "companyTypeName": "CompanyTypeName6"
+                    },
+                    "parentCompany": {
+                      "id": 3800,
+                      "name": "Name6",
+                      "relation": {
+                        "id": 6917,
+                        "typeName": "TypeName6"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5807,
+                        "tag": 53,
+                        "tagName": "TagName11",
+                        "name": "Name11",
+                        "helpText": "HelpText11"
+                      }, {
+                        "id": 5808,
+                        "tag": 54,
+                        "tagName": "TagName12",
+                        "name": "Name12",
+                        "helpText": "HelpText12"
+                      }
+                    ]
+                  }
+                ],
+                "production": [
+                  {
+                    "id": 64718,
+                    "name": "Name5",
+                    "slug": "Slug5",
+                    "nameTranslations": [
+                      "NameTranslation9", "NameTranslation10"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation9", "OverviewTranslation10"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language9",
+                        "name": "Name9"
+                      }, {
+                        "language": "Language10",
+                        "name": "Name10"
+                      }
+                    ],
+                    "country": "Country5",
+                    "primaryCompanyType": 518,
+                    "activeDate": "ActiveDate5",
+                    "inactiveDate": "InactiveDate5",
+                    "companyType": {
+                      "companyTypeId": 360,
+                      "companyTypeName": "CompanyTypeName5"
+                    },
+                    "parentCompany": {
+                      "id": 3799,
+                      "name": "Name5",
+                      "relation": {
+                        "id": 6916,
+                        "typeName": "TypeName5"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5805,
+                        "tag": 51,
+                        "tagName": "TagName9",
+                        "name": "Name9",
+                        "helpText": "HelpText9"
+                      }, {
+                        "id": 5806,
+                        "tag": 52,
+                        "tagName": "TagName10",
+                        "name": "Name10",
+                        "helpText": "HelpText10"
+                      }
+                    ]
+                  }, {
+                    "id": 64719,
+                    "name": "Name6",
+                    "slug": "Slug6",
+                    "nameTranslations": [
+                      "NameTranslation11", "NameTranslation12"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation11", "OverviewTranslation12"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language11",
+                        "name": "Name11"
+                      }, {
+                        "language": "Language12",
+                        "name": "Name12"
+                      }
+                    ],
+                    "country": "Country6",
+                    "primaryCompanyType": 519,
+                    "activeDate": "ActiveDate6",
+                    "inactiveDate": "InactiveDate6",
+                    "companyType": {
+                      "companyTypeId": 361,
+                      "companyTypeName": "CompanyTypeName6"
+                    },
+                    "parentCompany": {
+                      "id": 3800,
+                      "name": "Name6",
+                      "relation": {
+                        "id": 6917,
+                        "typeName": "TypeName6"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5807,
+                        "tag": 53,
+                        "tagName": "TagName11",
+                        "name": "Name11",
+                        "helpText": "HelpText11"
+                      }, {
+                        "id": 5808,
+                        "tag": 54,
+                        "tagName": "TagName12",
+                        "name": "Name12",
+                        "helpText": "HelpText12"
+                      }
+                    ]
+                  }
+                ],
+                "distributor": [
+                  {
+                    "id": 64718,
+                    "name": "Name5",
+                    "slug": "Slug5",
+                    "nameTranslations": [
+                      "NameTranslation9", "NameTranslation10"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation9", "OverviewTranslation10"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language9",
+                        "name": "Name9"
+                      }, {
+                        "language": "Language10",
+                        "name": "Name10"
+                      }
+                    ],
+                    "country": "Country5",
+                    "primaryCompanyType": 518,
+                    "activeDate": "ActiveDate5",
+                    "inactiveDate": "InactiveDate5",
+                    "companyType": {
+                      "companyTypeId": 360,
+                      "companyTypeName": "CompanyTypeName5"
+                    },
+                    "parentCompany": {
+                      "id": 3799,
+                      "name": "Name5",
+                      "relation": {
+                        "id": 6916,
+                        "typeName": "TypeName5"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5805,
+                        "tag": 51,
+                        "tagName": "TagName9",
+                        "name": "Name9",
+                        "helpText": "HelpText9"
+                      }, {
+                        "id": 5806,
+                        "tag": 52,
+                        "tagName": "TagName10",
+                        "name": "Name10",
+                        "helpText": "HelpText10"
+                      }
+                    ]
+                  }, {
+                    "id": 64719,
+                    "name": "Name6",
+                    "slug": "Slug6",
+                    "nameTranslations": [
+                      "NameTranslation11", "NameTranslation12"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation11", "OverviewTranslation12"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language11",
+                        "name": "Name11"
+                      }, {
+                        "language": "Language12",
+                        "name": "Name12"
+                      }
+                    ],
+                    "country": "Country6",
+                    "primaryCompanyType": 519,
+                    "activeDate": "ActiveDate6",
+                    "inactiveDate": "InactiveDate6",
+                    "companyType": {
+                      "companyTypeId": 361,
+                      "companyTypeName": "CompanyTypeName6"
+                    },
+                    "parentCompany": {
+                      "id": 3800,
+                      "name": "Name6",
+                      "relation": {
+                        "id": 6917,
+                        "typeName": "TypeName6"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5807,
+                        "tag": 53,
+                        "tagName": "TagName11",
+                        "name": "Name11",
+                        "helpText": "HelpText11"
+                      }, {
+                        "id": 5808,
+                        "tag": 54,
+                        "tagName": "TagName12",
+                        "name": "Name12",
+                        "helpText": "HelpText12"
+                      }
+                    ]
+                  }
+                ],
+                "special_effects": [
+                  {
+                    "id": 64718,
+                    "name": "Name5",
+                    "slug": "Slug5",
+                    "nameTranslations": [
+                      "NameTranslation9", "NameTranslation10"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation9", "OverviewTranslation10"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language9",
+                        "name": "Name9"
+                      }, {
+                        "language": "Language10",
+                        "name": "Name10"
+                      }
+                    ],
+                    "country": "Country5",
+                    "primaryCompanyType": 518,
+                    "activeDate": "ActiveDate5",
+                    "inactiveDate": "InactiveDate5",
+                    "companyType": {
+                      "companyTypeId": 360,
+                      "companyTypeName": "CompanyTypeName5"
+                    },
+                    "parentCompany": {
+                      "id": 3799,
+                      "name": "Name5",
+                      "relation": {
+                        "id": 6916,
+                        "typeName": "TypeName5"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5805,
+                        "tag": 51,
+                        "tagName": "TagName9",
+                        "name": "Name9",
+                        "helpText": "HelpText9"
+                      }, {
+                        "id": 5806,
+                        "tag": 52,
+                        "tagName": "TagName10",
+                        "name": "Name10",
+                        "helpText": "HelpText10"
+                      }
+                    ]
+                  }, {
+                    "id": 64719,
+                    "name": "Name6",
+                    "slug": "Slug6",
+                    "nameTranslations": [
+                      "NameTranslation11", "NameTranslation12"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation11", "OverviewTranslation12"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language11",
+                        "name": "Name11"
+                      }, {
+                        "language": "Language12",
+                        "name": "Name12"
+                      }
+                    ],
+                    "country": "Country6",
+                    "primaryCompanyType": 519,
+                    "activeDate": "ActiveDate6",
+                    "inactiveDate": "InactiveDate6",
+                    "companyType": {
+                      "companyTypeId": 361,
+                      "companyTypeName": "CompanyTypeName6"
+                    },
+                    "parentCompany": {
+                      "id": 3800,
+                      "name": "Name6",
+                      "relation": {
+                        "id": 6917,
+                        "typeName": "TypeName6"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5807,
+                        "tag": 53,
+                        "tagName": "TagName11",
+                        "name": "Name11",
+                        "helpText": "HelpText11"
+                      }, {
+                        "id": 5808,
+                        "tag": 54,
+                        "tagName": "TagName12",
+                        "name": "Name12",
+                        "helpText": "HelpText12"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }, {
+              "id": 47751,
+              "seriesId": 95877,
+              "type": {
+                "id": 6957,
+                "name": "Name4",
+                "type": "Type4",
+                "alternateName": "AlternateName4"
+              },
+              "name": "Name4",
+              "number": 9,
+              "nameTranslations": [
+                "NameTranslation7", "NameTranslation8"
+              ],
+              "overviewTranslations": [
+                "OverviewTranslation7", "OverviewTranslation8"
+              ],
+              "image": "Image4",
+              "imageType": 490,
+              "companies": {
+                "studio": [
+                  {
+                    "id": 64720,
+                    "name": "Name7",
+                    "slug": "Slug7",
+                    "nameTranslations": [
+                      "NameTranslation13", "NameTranslation14"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation13", "OverviewTranslation14"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language13",
+                        "name": "Name13"
+                      }, {
+                        "language": "Language14",
+                        "name": "Name14"
+                      }
+                    ],
+                    "country": "Country7",
+                    "primaryCompanyType": 520,
+                    "activeDate": "ActiveDate7",
+                    "inactiveDate": "InactiveDate7",
+                    "companyType": {
+                      "companyTypeId": 362,
+                      "companyTypeName": "CompanyTypeName7"
+                    },
+                    "parentCompany": {
+                      "id": 3801,
+                      "name": "Name7",
+                      "relation": {
+                        "id": 6918,
+                        "typeName": "TypeName7"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5809,
+                        "tag": 55,
+                        "tagName": "TagName13",
+                        "name": "Name13",
+                        "helpText": "HelpText13"
+                      }, {
+                        "id": 5810,
+                        "tag": 56,
+                        "tagName": "TagName14",
+                        "name": "Name14",
+                        "helpText": "HelpText14"
+                      }
+                    ]
+                  }, {
+                    "id": 64721,
+                    "name": "Name8",
+                    "slug": "Slug8",
+                    "nameTranslations": [
+                      "NameTranslation15", "NameTranslation16"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation15", "OverviewTranslation16"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language15",
+                        "name": "Name15"
+                      }, {
+                        "language": "Language16",
+                        "name": "Name16"
+                      }
+                    ],
+                    "country": "Country8",
+                    "primaryCompanyType": 521,
+                    "activeDate": "ActiveDate8",
+                    "inactiveDate": "InactiveDate8",
+                    "companyType": {
+                      "companyTypeId": 363,
+                      "companyTypeName": "CompanyTypeName8"
+                    },
+                    "parentCompany": {
+                      "id": 3802,
+                      "name": "Name8",
+                      "relation": {
+                        "id": 6919,
+                        "typeName": "TypeName8"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5811,
+                        "tag": 57,
+                        "tagName": "TagName15",
+                        "name": "Name15",
+                        "helpText": "HelpText15"
+                      }, {
+                        "id": 5812,
+                        "tag": 58,
+                        "tagName": "TagName16",
+                        "name": "Name16",
+                        "helpText": "HelpText16"
+                      }
+                    ]
+                  }
+                ],
+                "network": [
+                  {
+                    "id": 64720,
+                    "name": "Name7",
+                    "slug": "Slug7",
+                    "nameTranslations": [
+                      "NameTranslation13", "NameTranslation14"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation13", "OverviewTranslation14"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language13",
+                        "name": "Name13"
+                      }, {
+                        "language": "Language14",
+                        "name": "Name14"
+                      }
+                    ],
+                    "country": "Country7",
+                    "primaryCompanyType": 520,
+                    "activeDate": "ActiveDate7",
+                    "inactiveDate": "InactiveDate7",
+                    "companyType": {
+                      "companyTypeId": 362,
+                      "companyTypeName": "CompanyTypeName7"
+                    },
+                    "parentCompany": {
+                      "id": 3801,
+                      "name": "Name7",
+                      "relation": {
+                        "id": 6918,
+                        "typeName": "TypeName7"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5809,
+                        "tag": 55,
+                        "tagName": "TagName13",
+                        "name": "Name13",
+                        "helpText": "HelpText13"
+                      }, {
+                        "id": 5810,
+                        "tag": 56,
+                        "tagName": "TagName14",
+                        "name": "Name14",
+                        "helpText": "HelpText14"
+                      }
+                    ]
+                  }, {
+                    "id": 64721,
+                    "name": "Name8",
+                    "slug": "Slug8",
+                    "nameTranslations": [
+                      "NameTranslation15", "NameTranslation16"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation15", "OverviewTranslation16"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language15",
+                        "name": "Name15"
+                      }, {
+                        "language": "Language16",
+                        "name": "Name16"
+                      }
+                    ],
+                    "country": "Country8",
+                    "primaryCompanyType": 521,
+                    "activeDate": "ActiveDate8",
+                    "inactiveDate": "InactiveDate8",
+                    "companyType": {
+                      "companyTypeId": 363,
+                      "companyTypeName": "CompanyTypeName8"
+                    },
+                    "parentCompany": {
+                      "id": 3802,
+                      "name": "Name8",
+                      "relation": {
+                        "id": 6919,
+                        "typeName": "TypeName8"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5811,
+                        "tag": 57,
+                        "tagName": "TagName15",
+                        "name": "Name15",
+                        "helpText": "HelpText15"
+                      }, {
+                        "id": 5812,
+                        "tag": 58,
+                        "tagName": "TagName16",
+                        "name": "Name16",
+                        "helpText": "HelpText16"
+                      }
+                    ]
+                  }
+                ],
+                "production": [
+                  {
+                    "id": 64720,
+                    "name": "Name7",
+                    "slug": "Slug7",
+                    "nameTranslations": [
+                      "NameTranslation13", "NameTranslation14"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation13", "OverviewTranslation14"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language13",
+                        "name": "Name13"
+                      }, {
+                        "language": "Language14",
+                        "name": "Name14"
+                      }
+                    ],
+                    "country": "Country7",
+                    "primaryCompanyType": 520,
+                    "activeDate": "ActiveDate7",
+                    "inactiveDate": "InactiveDate7",
+                    "companyType": {
+                      "companyTypeId": 362,
+                      "companyTypeName": "CompanyTypeName7"
+                    },
+                    "parentCompany": {
+                      "id": 3801,
+                      "name": "Name7",
+                      "relation": {
+                        "id": 6918,
+                        "typeName": "TypeName7"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5809,
+                        "tag": 55,
+                        "tagName": "TagName13",
+                        "name": "Name13",
+                        "helpText": "HelpText13"
+                      }, {
+                        "id": 5810,
+                        "tag": 56,
+                        "tagName": "TagName14",
+                        "name": "Name14",
+                        "helpText": "HelpText14"
+                      }
+                    ]
+                  }, {
+                    "id": 64721,
+                    "name": "Name8",
+                    "slug": "Slug8",
+                    "nameTranslations": [
+                      "NameTranslation15", "NameTranslation16"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation15", "OverviewTranslation16"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language15",
+                        "name": "Name15"
+                      }, {
+                        "language": "Language16",
+                        "name": "Name16"
+                      }
+                    ],
+                    "country": "Country8",
+                    "primaryCompanyType": 521,
+                    "activeDate": "ActiveDate8",
+                    "inactiveDate": "InactiveDate8",
+                    "companyType": {
+                      "companyTypeId": 363,
+                      "companyTypeName": "CompanyTypeName8"
+                    },
+                    "parentCompany": {
+                      "id": 3802,
+                      "name": "Name8",
+                      "relation": {
+                        "id": 6919,
+                        "typeName": "TypeName8"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5811,
+                        "tag": 57,
+                        "tagName": "TagName15",
+                        "name": "Name15",
+                        "helpText": "HelpText15"
+                      }, {
+                        "id": 5812,
+                        "tag": 58,
+                        "tagName": "TagName16",
+                        "name": "Name16",
+                        "helpText": "HelpText16"
+                      }
+                    ]
+                  }
+                ],
+                "distributor": [
+                  {
+                    "id": 64720,
+                    "name": "Name7",
+                    "slug": "Slug7",
+                    "nameTranslations": [
+                      "NameTranslation13", "NameTranslation14"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation13", "OverviewTranslation14"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language13",
+                        "name": "Name13"
+                      }, {
+                        "language": "Language14",
+                        "name": "Name14"
+                      }
+                    ],
+                    "country": "Country7",
+                    "primaryCompanyType": 520,
+                    "activeDate": "ActiveDate7",
+                    "inactiveDate": "InactiveDate7",
+                    "companyType": {
+                      "companyTypeId": 362,
+                      "companyTypeName": "CompanyTypeName7"
+                    },
+                    "parentCompany": {
+                      "id": 3801,
+                      "name": "Name7",
+                      "relation": {
+                        "id": 6918,
+                        "typeName": "TypeName7"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5809,
+                        "tag": 55,
+                        "tagName": "TagName13",
+                        "name": "Name13",
+                        "helpText": "HelpText13"
+                      }, {
+                        "id": 5810,
+                        "tag": 56,
+                        "tagName": "TagName14",
+                        "name": "Name14",
+                        "helpText": "HelpText14"
+                      }
+                    ]
+                  }, {
+                    "id": 64721,
+                    "name": "Name8",
+                    "slug": "Slug8",
+                    "nameTranslations": [
+                      "NameTranslation15", "NameTranslation16"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation15", "OverviewTranslation16"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language15",
+                        "name": "Name15"
+                      }, {
+                        "language": "Language16",
+                        "name": "Name16"
+                      }
+                    ],
+                    "country": "Country8",
+                    "primaryCompanyType": 521,
+                    "activeDate": "ActiveDate8",
+                    "inactiveDate": "InactiveDate8",
+                    "companyType": {
+                      "companyTypeId": 363,
+                      "companyTypeName": "CompanyTypeName8"
+                    },
+                    "parentCompany": {
+                      "id": 3802,
+                      "name": "Name8",
+                      "relation": {
+                        "id": 6919,
+                        "typeName": "TypeName8"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5811,
+                        "tag": 57,
+                        "tagName": "TagName15",
+                        "name": "Name15",
+                        "helpText": "HelpText15"
+                      }, {
+                        "id": 5812,
+                        "tag": 58,
+                        "tagName": "TagName16",
+                        "name": "Name16",
+                        "helpText": "HelpText16"
+                      }
+                    ]
+                  }
+                ],
+                "special_effects": [
+                  {
+                    "id": 64720,
+                    "name": "Name7",
+                    "slug": "Slug7",
+                    "nameTranslations": [
+                      "NameTranslation13", "NameTranslation14"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation13", "OverviewTranslation14"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language13",
+                        "name": "Name13"
+                      }, {
+                        "language": "Language14",
+                        "name": "Name14"
+                      }
+                    ],
+                    "country": "Country7",
+                    "primaryCompanyType": 520,
+                    "activeDate": "ActiveDate7",
+                    "inactiveDate": "InactiveDate7",
+                    "companyType": {
+                      "companyTypeId": 362,
+                      "companyTypeName": "CompanyTypeName7"
+                    },
+                    "parentCompany": {
+                      "id": 3801,
+                      "name": "Name7",
+                      "relation": {
+                        "id": 6918,
+                        "typeName": "TypeName7"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5809,
+                        "tag": 55,
+                        "tagName": "TagName13",
+                        "name": "Name13",
+                        "helpText": "HelpText13"
+                      }, {
+                        "id": 5810,
+                        "tag": 56,
+                        "tagName": "TagName14",
+                        "name": "Name14",
+                        "helpText": "HelpText14"
+                      }
+                    ]
+                  }, {
+                    "id": 64721,
+                    "name": "Name8",
+                    "slug": "Slug8",
+                    "nameTranslations": [
+                      "NameTranslation15", "NameTranslation16"
+                    ],
+                    "overviewTranslations": [
+                      "OverviewTranslation15", "OverviewTranslation16"
+                    ],
+                    "aliases": [
+                      {
+                        "language": "Language15",
+                        "name": "Name15"
+                      }, {
+                        "language": "Language16",
+                        "name": "Name16"
+                      }
+                    ],
+                    "country": "Country8",
+                    "primaryCompanyType": 521,
+                    "activeDate": "ActiveDate8",
+                    "inactiveDate": "InactiveDate8",
+                    "companyType": {
+                      "companyTypeId": 363,
+                      "companyTypeName": "CompanyTypeName8"
+                    },
+                    "parentCompany": {
+                      "id": 3802,
+                      "name": "Name8",
+                      "relation": {
+                        "id": 6919,
+                        "typeName": "TypeName8"
+                      }
+                    },
+                    "tagOptions": [
+                      {
+                        "id": 5811,
+                        "tag": 57,
+                        "tagName": "TagName15",
+                        "name": "Name15",
+                        "helpText": "HelpText15"
+                      }, {
+                        "id": 5812,
+                        "tag": 58,
+                        "tagName": "TagName16",
+                        "name": "Name16",
+                        "helpText": "HelpText16"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ],
+          "number": 44,
+          "seasonNumber": 10,
+          "lastUpdated": "LastUpdated2",
+          "finaleType": "FinaleType2",
+          "overview": "Overview2",
+          "seasonName": "SeasonName2"
+        },
+        "id": 64121,
+        "isWinner": true,
+        "movie": {
+          "id": 84757,
+          "name": "Name2",
+          "slug": "Slug2",
+          "image": "Image2",
+          "nameTranslations": [
+            "NameTranslation3", "NameTranslation4"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation3", "OverviewTranslation4"
+          ],
+          "aliases": [
+            {
+              "language": "Language3",
+              "name": "Name3"
+            }, {
+              "language": "Language4",
+              "name": "Name4"
+            }
+          ],
+          "score": 1081,
+          "runtime": 48,
+          "status": {
+            "id": 548,
+            "keepUpdated": true,
+            "name": "Name2",
+            "recordType": "RecordType2"
+          },
+          "lastUpdated": "LastUpdated2"
+        },
+        "series": {
+          "id": 34876,
+          "name": "Name2",
+          "slug": "Slug2",
+          "image": "Image2",
+          "nameTranslations": [
+            "NameTranslation3", "NameTranslation4"
+          ],
+          "overviewTranslations": [
+            "OverviewTranslation3", "OverviewTranslation4"
+          ],
+          "aliases": [
+            {
+              "language": "Language3",
+              "name": "Name3"
+            }, {
+              "language": "Language4",
+              "name": "Name4"
+            }
+          ],
+          "firstAired": "FirstAired2",
+          "lastAired": "LastAired2",
+          "nextAired": "NextAired2",
+          "score": 69,
+          "status": {
+            "id": 548,
+            "keepUpdated": true,
+            "name": "Name2",
+            "recordType": "RecordType2"
+          },
+          "originalCountry": "OriginalCountry2",
+          "originalLanguage": "OriginalLanguage2",
+          "abbreviation": "Abbreviation2",
+          "country": "Country2",
+          "defaultSeasonType": 470,
+          "isOrderRandomized": true,
+          "lastUpdated": "LastUpdated2",
+          "averageRuntime": 43,
+          "overview": "Overview2"
+        },
+        "year": "Year2",
+        "category": "Category2",
+        "name": "Name2"
+      }
+    ],
     "networks": [
       {
-        "id": 478,
+        "id": 64714,
         "name": "Name1",
         "slug": "Slug1",
-        "abbreviation": "Abbreviation1",
-        "country": "Country1",
+        "nameTranslations": [
+          "NameTranslation1", "NameTranslation2"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation1", "OverviewTranslation2"
+        ],
         "aliases": [
           {
             "language": "Language1",
@@ -1115,25 +3567,48 @@
             "name": "Name2"
           }
         ],
-        "nameTranslations": [
-          "NameTranslation1", "NameTranslation2"
-        ],
-        "overviewTranslations": [
-          "OverviewTranslation1", "OverviewTranslation2"
-        ],
-        "primaryCompanyType": 335,
+        "country": "Country1",
+        "primaryCompanyType": 514,
         "activeDate": "ActiveDate1",
         "inactiveDate": "InactiveDate1",
         "companyType": {
           "companyTypeId": 356,
           "companyTypeName": "CompanyTypeName1"
-        }
-      }, {
-        "id": 479,
+        },
+        "parentCompany": {
+          "id": 3795,
+          "name": "Name1",
+          "relation": {
+            "id": 6912,
+            "typeName": "TypeName1"
+          }
+        },
+        "tagOptions": [
+          {
+            "id": 5797,
+            "tag": 43,
+            "tagName": "TagName1",
+            "name": "Name1",
+            "helpText": "HelpText1"
+          }, {
+            "id": 5798,
+            "tag": 44,
+            "tagName": "TagName2",
+            "name": "Name2",
+            "helpText": "HelpText2"
+          }
+        ]
+      },
+      {
+        "id": 64715,
         "name": "Name2",
         "slug": "Slug2",
-        "abbreviation": "Abbreviation2",
-        "country": "Country2",
+        "nameTranslations": [
+          "NameTranslation3", "NameTranslation4"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation3", "OverviewTranslation4"
+        ],
         "aliases": [
           {
             "language": "Language3",
@@ -1143,19 +3618,37 @@
             "name": "Name4"
           }
         ],
-        "nameTranslations": [
-          "NameTranslation3", "NameTranslation4"
-        ],
-        "overviewTranslations": [
-          "OverviewTranslation3", "OverviewTranslation4"
-        ],
-        "primaryCompanyType": 336,
+        "country": "Country2",
+        "primaryCompanyType": 515,
         "activeDate": "ActiveDate2",
         "inactiveDate": "InactiveDate2",
         "companyType": {
           "companyTypeId": 357,
           "companyTypeName": "CompanyTypeName2"
-        }
+        },
+        "parentCompany": {
+          "id": 3796,
+          "name": "Name2",
+          "relation": {
+            "id": 6913,
+            "typeName": "TypeName2"
+          }
+        },
+        "tagOptions": [
+          {
+            "id": 5799,
+            "tag": 45,
+            "tagName": "TagName3",
+            "name": "Name3",
+            "helpText": "HelpText3"
+          }, {
+            "id": 5800,
+            "tag": 46,
+            "tagName": "TagName4",
+            "name": "Name4",
+            "helpText": "HelpText4"
+          }
+        ]
       }
     ],
     "awards": [
@@ -1320,13 +3813,106 @@
     ],
     "studios": [
       {
-        "id": 87,
+        "id": 64714,
         "name": "Name1",
-        "parentStudio": 16
-      }, {
-        "id": 88,
+        "slug": "Slug1",
+        "nameTranslations": [
+          "NameTranslation1", "NameTranslation2"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation1", "OverviewTranslation2"
+        ],
+        "aliases": [
+          {
+            "language": "Language1",
+            "name": "Name1"
+          }, {
+            "language": "Language2",
+            "name": "Name2"
+          }
+        ],
+        "country": "Country1",
+        "primaryCompanyType": 514,
+        "activeDate": "ActiveDate1",
+        "inactiveDate": "InactiveDate1",
+        "companyType": {
+          "companyTypeId": 356,
+          "companyTypeName": "CompanyTypeName1"
+        },
+        "parentCompany": {
+          "id": 3795,
+          "name": "Name1",
+          "relation": {
+            "id": 6912,
+            "typeName": "TypeName1"
+          }
+        },
+        "tagOptions": [
+          {
+            "id": 5797,
+            "tag": 43,
+            "tagName": "TagName1",
+            "name": "Name1",
+            "helpText": "HelpText1"
+          }, {
+            "id": 5798,
+            "tag": 44,
+            "tagName": "TagName2",
+            "name": "Name2",
+            "helpText": "HelpText2"
+          }
+        ]
+      },
+      {
+        "id": 64715,
         "name": "Name2",
-        "parentStudio": 17
+        "slug": "Slug2",
+        "nameTranslations": [
+          "NameTranslation3", "NameTranslation4"
+        ],
+        "overviewTranslations": [
+          "OverviewTranslation3", "OverviewTranslation4"
+        ],
+        "aliases": [
+          {
+            "language": "Language3",
+            "name": "Name3"
+          }, {
+            "language": "Language4",
+            "name": "Name4"
+          }
+        ],
+        "country": "Country2",
+        "primaryCompanyType": 515,
+        "activeDate": "ActiveDate2",
+        "inactiveDate": "InactiveDate2",
+        "companyType": {
+          "companyTypeId": 357,
+          "companyTypeName": "CompanyTypeName2"
+        },
+        "parentCompany": {
+          "id": 3796,
+          "name": "Name2",
+          "relation": {
+            "id": 6913,
+            "typeName": "TypeName2"
+          }
+        },
+        "tagOptions": [
+          {
+            "id": 5799,
+            "tag": 45,
+            "tagName": "TagName3",
+            "name": "Name3",
+            "helpText": "HelpText3"
+          }, {
+            "id": 5800,
+            "tag": 46,
+            "tagName": "TagName4",
+            "name": "Name4",
+            "helpText": "HelpText4"
+          }
+        ]
       }
     ],
     "translations": {
@@ -1336,7 +3922,7 @@
           "isAlias": true,
           "overview": "Overview1",
           "language": "Language1",
-          "IsPrimary": true,
+          "isPrimary": true,
           "aliases": [
             "Alias1", "Alias2"
           ],
@@ -1346,7 +3932,7 @@
           "isAlias": true,
           "overview": "Overview2",
           "language": "Language2",
-          "IsPrimary": true,
+          "isPrimary": true,
           "aliases": [
             "Alias3", "Alias4"
           ],
@@ -1359,7 +3945,7 @@
           "isAlias": true,
           "overview": "Overview1",
           "language": "Language1",
-          "IsPrimary": true,
+          "isPrimary": true,
           "aliases": [
             "Alias1", "Alias2"
           ],
@@ -1369,7 +3955,7 @@
           "isAlias": true,
           "overview": "Overview2",
           "language": "Language2",
-          "IsPrimary": true,
+          "isPrimary": true,
           "aliases": [
             "Alias3", "Alias4"
           ],

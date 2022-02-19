@@ -112,7 +112,6 @@ public interface SeriesDetails extends Series {
      *
      * @return The <em>{@code airsTimeUTC}</em> property from the received JSON
      */
-    // ToDo: Field is currently not declared in SeriesExtendedRecord but returned in JSON. Check again after the next API update.
     @Nullable
     String getAirsTimeUTC();
 
@@ -125,18 +124,6 @@ public interface SeriesDetails extends Series {
      * @return The <em>{@code translations}</em> property from the received JSON
      */
     Optional<MetaTranslations> getTranslations();
-
-    /**
-     * Get the value of the {<em>{@code data.episodes}</em>} JSON property
-     * <p><br>
-     * <b>Note:</b> Field will be <em>{@code null}</em> unless these data is explicitly requested. See {@link
-     * com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesMeta#EPISODES SeriesMeta.EPISODES}.
-     *
-     * @return The <em>{@code episodes}</em> property from the received JSON
-     */
-    // ToDo: Field is currently declared in SeriesBaseRecord but only returned in SeriesExtendedRecord. Check again after the next API update.
-    List<Episode> getEpisodes();
-
 
     /**
      * Get the value of the {<em>{@code data.originalNetwork}</em>} JSON property
@@ -160,4 +147,18 @@ public interface SeriesDetails extends Series {
      * @return The <em>{@code tags}</em> property from the received JSON
      */
     List<TagOption> getTags();
+
+    /**
+     * Get the value of the {<em>{@code data.contentRatings}</em>} JSON property
+     *
+     * @return The <em>{@code contentRatings}</em> property from the received JSON
+     */
+    List<ContentRating> getContentRatings();
+
+    /**
+     * Get the value of the {<em>{@code data.seasonTypes}</em>} JSON property
+     *
+     * @return The <em>{@code seasonTypes}</em> property from the received JSON
+     */
+    List<SeasonType> getSeasonTypes();
 }

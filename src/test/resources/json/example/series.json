@@ -36,7 +36,8 @@
     "defaultSeasonType": 469,
     "isOrderRandomized": true,
     "lastUpdated": "LastUpdated1",
-    "averageRuntime": 42
+    "averageRuntime": 42,
+    "overview": "Overview1"
   },
   "status": "success"
 }

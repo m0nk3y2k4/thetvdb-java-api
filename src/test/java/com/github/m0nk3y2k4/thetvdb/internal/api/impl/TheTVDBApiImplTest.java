@@ -66,6 +66,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASON_DETAILS
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SEASON_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIESEPISODES;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIESEPISODES_TRANSLATED;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SOURCETYPE_OVERVIEW;
@@ -197,7 +198,7 @@ class TheTVDBApiImplTest {
             client.when(request("/people/471160/translations/por", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/search", GET, param(Search.Q, "SearchTerm"), param("value", "QuerySearch"))).respond(jsonResponse(SEARCH_OVERVIEW));
             client.when(request("/search", GET, param(Search.QUERY, "SearchTermOnly"))).respond(jsonResponse(SEARCH_OVERVIEW));
-            client.when(request("/search", GET, param(Search.QUERY, "SearchTermAndType"), param(Search.TYPE, SearchType.EPISODE.toString()))).respond(jsonResponse(SEARCH_OVERVIEW));
+            client.when(request("/search", GET, param(Search.QUERY, "SearchTermAndType"), param(Search.TYPE, SearchType.SERIES.toString()))).respond(jsonResponse(SEARCH_OVERVIEW));
             client.when(request("/seasons", GET, param("value", "QuerySeasons"))).respond(jsonResponse(SEASON_OVERVIEW));
             client.when(request("/seasons", GET, param(Seasons.PAGE, "5"))).respond(jsonResponse(SEASON_OVERVIEW));
             client.when(request("/seasons/34167", GET)).respond(jsonResponse(SEASON));
@@ -210,14 +211,16 @@ class TheTVDBApiImplTest {
             client.when(request("/series", GET, param("value", "QuerySeries"))).respond(jsonResponse(SERIES_OVERVIEW));
             client.when(request("/series", GET, param(Series.PAGE, "2"))).respond(jsonResponse(SERIES_OVERVIEW));
             client.when(request("/series/2845", GET)).respond(jsonResponse(SERIES));
+            client.when(request("/series/9342/artworks", GET, param("value", "QuerySeriesArtworks"))).respond(jsonResponse(SERIES_DETAILS));
+            client.when(request("/series/8751/artworks", GET, param(Series.LANGUAGE, "rus"))).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/4577/extended", GET, param("value", "QuerySeriesDetails"))).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/9041/extended", GET)).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/1005/extended", GET, param(Series.META, String.valueOf(SeriesMeta.EPISODES)))).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/3789/episodes/default", GET)).respond(jsonResponse(SERIESEPISODES));
             client.when(request("/series/7000/episodes/alternate", GET, param("value", "QuerySeriesEpisodes"))).respond(jsonResponse(SERIESEPISODES));
             client.when(request("/series/2147/episodes/regional", GET, param(Series.SEASON, "4"))).respond(jsonResponse(SERIESEPISODES));
-            client.when(request("/series/5481/episodes/dvd/eng", GET)).respond(jsonResponse(SERIES_DETAILS));
-            client.when(request("/series/6974/episodes/default/deu", GET, param("value", "QuerySeriesEpisodesTranslated"))).respond(jsonResponse(SERIES_DETAILS));
+            client.when(request("/series/5481/episodes/dvd/eng", GET)).respond(jsonResponse(SERIESEPISODES_TRANSLATED));
+            client.when(request("/series/6974/episodes/default/deu", GET, param("value", "QuerySeriesEpisodesTranslated"))).respond(jsonResponse(SERIESEPISODES_TRANSLATED));
             client.when(request("/series/6004/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/sources/types", GET)).respond(jsonResponse(SOURCETYPE_OVERVIEW));
             client.when(request("/updates", GET, param(Updates.SINCE, "16247601"), param("value", "QueryUpdates"))).respond(jsonResponse(UPDATE_OVERVIEW));
@@ -240,6 +243,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> theTVDBApi.getAllSeasons(-6), "getAllSeasons() with negative page parameter")),
                     of(route(() -> theTVDBApi.getSeasonDetails(97148, (SeasonMeta)null), "getSeasonDetails() with missing meta parameter")),
                     of(route(() -> theTVDBApi.getAllSeries(-3), "getAllSeries() with negative page parameter")),
+                    of(route(() -> theTVDBApi.getSeriesArtworks(12407, (String)null), "getSeriesArtworks() with missing language parameter")),
                     of(route(() -> theTVDBApi.getSeriesDetails(68447, (SeriesMeta)null), "getSeriesDetails() with missing meta parameter")),
                     of(route(() -> theTVDBApi.getSeriesEpisodes(41257, DVD, -6), "getSeriesEpisodes() with negative season number parameter")),
                     of(route(() -> theTVDBApi.getUpdates(16237785, -8), "getUpdates() with negative page parameter")),
@@ -299,7 +303,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> theTVDBApi.getPeopleTranslation(471160, "por"), "getPeopleTranslation()"), TRANSLATION),
                     of(route(() -> theTVDBApi.getSearchResults(params(Search.Q, "SearchTerm", "value", "QuerySearch")), "getSearchResults() with query parameters"), SEARCH_OVERVIEW),
                     of(route(() -> theTVDBApi.search("SearchTermOnly"), "search() with search term only"), SEARCH_OVERVIEW),
-                    of(route(() -> theTVDBApi.search("SearchTermAndType", SearchType.EPISODE), "search() with search term and type"), SEARCH_OVERVIEW),
+                    of(route(() -> theTVDBApi.search("SearchTermAndType", SearchType.SERIES), "search() with search term and type"), SEARCH_OVERVIEW),
                     of(route(() -> theTVDBApi.getAllSeasons(params("value", "QuerySeasons")), "getAllSeasons() with query parameters"), SEASON_OVERVIEW),
                     of(route(() -> theTVDBApi.getAllSeasons(5), "getAllSeasons() with page"), SEASON_OVERVIEW),
                     of(route(() -> theTVDBApi.getSeason(34167), "getSeason()"), SEASON),
@@ -312,14 +316,16 @@ class TheTVDBApiImplTest {
                     of(route(() -> theTVDBApi.getAllSeries(params("value", "QuerySeries")), "getAllSeries() with query parameters"), SERIES_OVERVIEW),
                     of(route(() -> theTVDBApi.getAllSeries(2), "getAllSeries() with page"), SERIES_OVERVIEW),
                     of(route(() -> theTVDBApi.getSeries(2845), "getSeries()"), SERIES),
+                    of(route(() -> theTVDBApi.getSeriesArtworks(9342, params("value", "QuerySeriesArtworks")), "getSeriesArtworks() with query parameters"), SERIES_DETAILS),
+                    of(route(() -> theTVDBApi.getSeriesArtworks(8751, "rus"), "getSeriesArtworks() with series ID and language"), SERIES_DETAILS),
                     of(route(() -> theTVDBApi.getSeriesDetails(4577, params("value", "QuerySeriesDetails")), "getSeriesDetails() with query parameters"), SERIES_DETAILS),
                     of(route(() -> theTVDBApi.getSeriesDetails(9041), "getSeriesDetails() with series ID"), SERIES_DETAILS),
                     of(route(() -> theTVDBApi.getSeriesDetails(1005, SeriesMeta.EPISODES), "getSeriesDetails() with series ID and meta"), SERIES_DETAILS),
                     of(route(() -> theTVDBApi.getSeriesEpisodes(3789, DEFAULT), "getSeriesEpisodes()"), SERIESEPISODES),
                     of(route(() -> theTVDBApi.getSeriesEpisodes(7000, ALTERNATE, params("value", "QuerySeriesEpisodes")), "getSeriesEpisodes() with query parameters"), SERIESEPISODES),
                     of(route(() -> theTVDBApi.getSeriesEpisodes(2147, REGIONAL, 4), "getSeriesEpisodes() with season number"), SERIESEPISODES),
-                    of(route(() -> theTVDBApi.getSeriesEpisodesTranslated(5481, DVD, "eng"), "getSeriesEpisodesTranslated()"), SERIES_DETAILS),
-                    of(route(() -> theTVDBApi.getSeriesEpisodesTranslated(6974, DEFAULT, "deu", params("value", "QuerySeriesEpisodesTranslated")), "getSeriesEpisodesTranslated() with query parameters"), SERIES_DETAILS),
+                    of(route(() -> theTVDBApi.getSeriesEpisodesTranslated(5481, DVD, "eng"), "getSeriesEpisodesTranslated()"), SERIESEPISODES_TRANSLATED),
+                    of(route(() -> theTVDBApi.getSeriesEpisodesTranslated(6974, DEFAULT, "deu", params("value", "QuerySeriesEpisodesTranslated")), "getSeriesEpisodesTranslated() with query parameters"), SERIESEPISODES_TRANSLATED),
                     of(route(() -> theTVDBApi.getSeriesTranslation(6004, "eng"), "getSeriesTranslation()"), TRANSLATION),
                     of(route(() -> theTVDBApi.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
                     of(route(() -> theTVDBApi.getUpdates(params(Updates.SINCE, "16247601", "value", "QueryUpdates")), "getUpdates() with query parameters"), UPDATE_OVERVIEW),
@@ -423,9 +429,10 @@ class TheTVDBApiImplTest {
             client.when(request("/series/statuses", GET)).respond(jsonResponse(STATUS_OVERVIEW));
             client.when(request("/series", GET, param("value", "QuerySeriesJson"))).respond(jsonResponse(SERIES_OVERVIEW));
             client.when(request("/series/5003", GET)).respond(jsonResponse(SERIES));
+            client.when(request("/series/3661/artworks", GET, param("value", "QuerySeriesArtworksJson"))).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/5842/extended", GET, param("value", "QuerySeriesDetailsJson"))).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/98043/episodes/official", GET, param("value", "QuerySeriesEpisodesJson"))).respond(jsonResponse(SERIESEPISODES));
-            client.when(request("/series/65660/episodes/regional/spa", GET, param("value", "QuerySeriesEpisodesTranslatedJson"))).respond(jsonResponse(SERIES_DETAILS));
+            client.when(request("/series/65660/episodes/regional/spa", GET, param("value", "QuerySeriesEpisodesTranslatedJson"))).respond(jsonResponse(SERIESEPISODES_TRANSLATED));
             client.when(request("/series/8024/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/sources/types", GET)).respond(jsonResponse(SOURCETYPE_OVERVIEW));
             client.when(request("/updates", GET, param(Updates.SINCE, "16258740"), param("value", "QueryUpdatesJson"))).respond(jsonResponse(UPDATE_OVERVIEW));
@@ -477,9 +484,10 @@ class TheTVDBApiImplTest {
                     of(route(() -> theTVDBApi.getAllSeriesStatuses(), "getAllSeriesStatuses()"), STATUS_OVERVIEW),
                     of(route(() -> theTVDBApi.getAllSeries(params("value", "QuerySeriesJson")), "getAllSeries() with query parameters"), SERIES_OVERVIEW),
                     of(route(() -> theTVDBApi.getSeries(5003), "getSeries()"), SERIES),
+                    of(route(() -> theTVDBApi.getSeriesArtworks(3661, params("value", "QuerySeriesArtworksJson")), "getSeriesArtworks() with query parameters"), SERIES_DETAILS),
                     of(route(() -> theTVDBApi.getSeriesDetails(5842, params("value", "QuerySeriesDetailsJson")), "getSeriesDetails() with query parameters"), SERIES_DETAILS),
                     of(route(() -> theTVDBApi.getSeriesEpisodes(98043, OFFICIAL, params("value", "QuerySeriesEpisodesJson")), "getSeriesEpisodes() with query parameters"), SERIESEPISODES),
-                    of(route(() -> theTVDBApi.getSeriesEpisodesTranslated(65660, REGIONAL, "spa", params("value", "QuerySeriesEpisodesTranslatedJson")), "getSeriesEpisodesTranslated() with query parameters"), SERIES_DETAILS),
+                    of(route(() -> theTVDBApi.getSeriesEpisodesTranslated(65660, REGIONAL, "spa", params("value", "QuerySeriesEpisodesTranslatedJson")), "getSeriesEpisodesTranslated() with query parameters"), SERIESEPISODES_TRANSLATED),
                     of(route(() -> theTVDBApi.getSeriesTranslation(8024, "eng"), "getSeriesTranslation()"), TRANSLATION),
                     of(route(() -> theTVDBApi.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
                     of(route(() -> theTVDBApi.getUpdates(params(Updates.SINCE, "16258740", "value", "QueryUpdatesJson")), "getUpdates() with query parameters"), UPDATE_OVERVIEW)
@@ -554,9 +562,10 @@ class TheTVDBApiImplTest {
             client.when(request("/series/statuses", GET)).respond(jsonResponse(STATUS_OVERVIEW));
             client.when(request("/series", GET, param("value", "QuerySeriesExtended"))).respond(jsonResponse(SERIES_OVERVIEW));
             client.when(request("/series/8131", GET)).respond(jsonResponse(SERIES));
+            client.when(request("/series/4713/artworks", GET, param("value", "QuerySeriesArtworksExtended"))).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/5444/extended", GET, param("value", "QuerySeriesDetailsExtended"))).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/5711/episodes/dvd", GET, param("value", "QuerySeriesEpisodesExtended"))).respond(jsonResponse(SERIESEPISODES));
-            client.when(request("/series/2312/episodes/alternate/por", GET, param("value", "QuerySeriesEpisodesTranslatedExtended"))).respond(jsonResponse(SERIES_DETAILS));
+            client.when(request("/series/2312/episodes/alternate/por", GET, param("value", "QuerySeriesEpisodesTranslatedExtended"))).respond(jsonResponse(SERIESEPISODES_TRANSLATED));
             client.when(request("/series/6170/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/sources/types", GET)).respond(jsonResponse(SOURCETYPE_OVERVIEW));
             client.when(request("/updates", GET, param(Updates.SINCE, "16245743"), param("value", "QueryUpdatesExtended"))).respond(jsonResponse(UPDATE_OVERVIEW));
@@ -608,9 +617,10 @@ class TheTVDBApiImplTest {
                     of(route(() -> theTVDBApi.getAllSeriesStatuses(), "getAllSeriesStatuses()"), STATUS_OVERVIEW),
                     of(route(() -> theTVDBApi.getAllSeries(params("value", "QuerySeriesExtended")), "getAllSeries() with query parameters"), SERIES_OVERVIEW),
                     of(route(() -> theTVDBApi.getSeries(8131), "getSeries()"), SERIES),
+                    of(route(() -> theTVDBApi.getSeriesArtworks(4713, params("value", "QuerySeriesArtworksExtended")), "getSeriesArtworks() with query parameters"), SERIES_DETAILS),
                     of(route(() -> theTVDBApi.getSeriesDetails(5444, params("value", "QuerySeriesDetailsExtended")), "getSeriesDetails() with query parameters"), SERIES_DETAILS),
                     of(route(() -> theTVDBApi.getSeriesEpisodes(5711, DVD, params("value", "QuerySeriesEpisodesExtended")), "getSeriesEpisodes() with query parameters"), SERIESEPISODES),
-                    of(route(() -> theTVDBApi.getSeriesEpisodesTranslated(2312, ALTERNATE, "por", params("value", "QuerySeriesEpisodesTranslatedExtended")), "getSeriesEpisodesTranslated() with query parameters"), SERIES_DETAILS),
+                    of(route(() -> theTVDBApi.getSeriesEpisodesTranslated(2312, ALTERNATE, "por", params("value", "QuerySeriesEpisodesTranslatedExtended")), "getSeriesEpisodesTranslated() with query parameters"), SERIESEPISODES_TRANSLATED),
                     of(route(() -> theTVDBApi.getSeriesTranslation(6170, "eng"), "getSeriesTranslation()"), TRANSLATION),
                     of(route(() -> theTVDBApi.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
                     of(route(() -> theTVDBApi.getUpdates(params(Updates.SINCE, "16245743", "value", "QueryUpdatesExtended")), "getUpdates() with query parameters"), UPDATE_OVERVIEW)

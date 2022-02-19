@@ -99,15 +99,27 @@ public final class Query {
      */
     public static final class Search {
 
+        /** Query parameter "<i>company</i>" - Restrict results to a specific company (original network, studio, etc.) */
+        public static final String COMPANY = "company";
+        /** Query parameter "<i>country</i>" - Restrict results to a specific country of origin (3-char country code) */
+        public static final String COUNTRY = "country";
+        /** Query parameter "<i>director</i>" - Restrict movie results to a specific director (full name) */
+        public static final String DIRECTOR = "director";
+        /** Query parameter "<i>language</i>" - Restrict results to a specific primary language (3-char language code) */
+        public static final String LANGUAGE = "language";
         /** Query parameter "<i>limit</i>" - Limit search results to a specific amount */
         public static final String LIMIT = "limit";
+        /** Query parameter "<i>network</i>" - Restrict results to a specific network. Used for TV and TV movies */
+        public static final String NETWORK = "network";
         /** Query parameter "<i>offset</i>" - Offset results (max. 500 results returned per request) */
         public static final String OFFSET = "offset";
-        /** Query parameter "<i>q</i>" - The actual search term to query for */
+        /** Query parameter "<i>primaryType</i>" - Restrict results to a specific type of company (full name) */
+        public static final String PRIMARY_TYPE = "primaryType";
+        /** Query parameter "<i>q</i>" - Synonym for the {@value QUERY} parameter */
         public static final String Q = "q";
-        /** Query parameter "<i>query</i>" - Synonym for the {@value Q} parameter */
+        /** Query parameter "<i>query</i>" - The actual search term to query for */
         public static final String QUERY = "query";
-        /** Query parameter "<i>remote_id</i>" - Restrict results to remote id */
+        /** Query parameter "<i>remote_id</i>" - Search for a specific remote id, e.g. IMDB or EIDR id */
         public static final String REMOTE_ID = "remote_id";
         /** Query parameter "<i>type</i>" - Restrict results to a specific entity type */
         public static final String TYPE = "type";
@@ -145,7 +157,10 @@ public final class Query {
         public static final String EPISODE_NUMBER = "episodeNumber";
         /** Query parameter "<i>airDate</i>" - Air date of the episode, format is yyyy-MM-dd. */
         public static final String AIR_DATE = "airDate";
-
+        /** Query parameter "<i>lang</i>" - Restrict artworks to a specific language, e.g. eng, spa */
+        public static final String LANGUAGE = "lang";
+        /** Query parameter "<i>type</i>" - Restrict artworks to a specific type */
+        public static final String TYPE = "type";
 
         private Series() {}     // Private constructor. Only constants in this class
     }

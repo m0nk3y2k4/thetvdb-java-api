@@ -32,8 +32,6 @@ public enum SearchType {
     MOVIE("movie"),
     /** Restrict search results to series only */
     SERIES("series"),
-    /** Restrict search results to series episodes only */
-    EPISODE("episode"),
     /** Restrict search results to persons only */
     PERSON("person"),
     /** Restrict search results to companies only */

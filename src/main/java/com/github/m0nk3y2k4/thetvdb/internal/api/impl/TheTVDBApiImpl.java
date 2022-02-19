@@ -513,6 +513,17 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public SeriesDetails getSeriesArtworks(long seriesId, QueryParameters queryParameters) throws APIException {
+        return extended().getSeriesArtworks(seriesId, queryParameters).getData();
+    }
+
+    @Override
+    public SeriesDetails getSeriesArtworks(long seriesId, @Nonnull String language) throws APIException {
+        Parameters.validateNotNull(language, "Language must not be NULL");
+        return getSeriesArtworks(seriesId, query(Map.of(Query.Series.LANGUAGE, language)));
+    }
+
+    @Override
     public SeriesDetails getSeriesDetails(long seriesId, QueryParameters queryParameters) throws APIException {
         return extended().getSeriesDetails(seriesId, queryParameters).getData();
     }
@@ -547,13 +558,13 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
-    public SeriesDetails getSeriesEpisodesTranslated(long seriesId, @Nonnull SeriesSeasonType seasonType,
+    public Series getSeriesEpisodesTranslated(long seriesId, @Nonnull SeriesSeasonType seasonType,
             @Nonnull String language, QueryParameters queryParameters) throws APIException {
         return extended().getSeriesEpisodesTranslated(seriesId, seasonType, language, queryParameters).getData();
     }
 
     @Override
-    public SeriesDetails getSeriesEpisodesTranslated(long seriesId, @Nonnull SeriesSeasonType seasonType,
+    public Series getSeriesEpisodesTranslated(long seriesId, @Nonnull SeriesSeasonType seasonType,
             @Nonnull String language) throws APIException {
         return getSeriesEpisodesTranslated(seriesId, seasonType, language, emptyQuery());
     }
@@ -831,6 +842,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public JsonNode getSeriesArtworks(long seriesId, QueryParameters queryParameters) throws APIException {
+            return SeriesAPI.getSeriesArtworks(con, seriesId, queryParameters);
+        }
+
+        @Override
         public JsonNode getSeriesDetails(long seriesId, QueryParameters queryParameters) throws APIException {
             return SeriesAPI.getSeriesExtended(con, seriesId, queryParameters);
         }
@@ -1101,6 +1117,12 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public APIResponse<SeriesDetails> getSeriesArtworks(long seriesId, QueryParameters queryParameters)
+                throws APIException {
+            return APIJsonMapper.readValue(json().getSeriesArtworks(seriesId, queryParameters), new TypeReference<>() {});
+        }
+
+        @Override
         public APIResponse<SeriesDetails> getSeriesDetails(long seriesId, QueryParameters queryParameters)
                 throws APIException {
             return APIJsonMapper.readValue(json().getSeriesDetails(seriesId, queryParameters), new TypeReference<>() {});
@@ -1114,9 +1136,8 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
-        public APIResponse<SeriesDetails> getSeriesEpisodesTranslated(long seriesId,
-                @Nonnull SeriesSeasonType seasonType, @Nonnull String language, QueryParameters queryParameters)
-                throws APIException {
+        public APIResponse<Series> getSeriesEpisodesTranslated(long seriesId, @Nonnull SeriesSeasonType seasonType,
+                @Nonnull String language, QueryParameters queryParameters) throws APIException {
             return APIJsonMapper.readValue(json()
                     .getSeriesEpisodesTranslated(seriesId, seasonType, language, queryParameters), new TypeReference<>() {});
         }

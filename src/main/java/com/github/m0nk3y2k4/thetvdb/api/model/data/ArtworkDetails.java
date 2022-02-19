@@ -135,7 +135,6 @@ public interface ArtworkDetails extends Artwork {
      *
      * @return The <em>{@code status}</em> property from the received JSON
      */
-    // ToDo: Field is currently not declared in ArtworkExtendedRecord but returned in JSON. Check again after the next API update.
     @Nullable
     ArtworkStatus getStatus();
 

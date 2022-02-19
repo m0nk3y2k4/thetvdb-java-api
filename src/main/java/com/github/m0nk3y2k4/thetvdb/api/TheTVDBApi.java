@@ -1168,6 +1168,45 @@ public interface TheTVDBApi {
     Series getSeries(long seriesId) throws APIException;
 
     /**
+     * Returns detailed information for a specific series including custom artworks based on the given query parameters
+     * mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesArtworks">
+     * <b>[GET]</b> /series/{id}/artworks</a>
+     *
+     * @param seriesId        The <i>TheTVDB.com</i> series ID
+     * @param queryParameters Object containing key/value pairs of query parameters
+     *
+     * @return Detailed series information incl. language/type based artworks mapped as Java DTO based on the JSON data
+     *         returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if no series record with the given ID exists.
+     * @see JSON#getSeriesArtworks(long, QueryParameters) TheTVDBApi.JSON.getSeriesArtworks(seriesId,
+     *         queryParameters)
+     * @see Extended#getSeriesArtworks(long, QueryParameters) TheTVDBApi.Extended.getSeriesArtworks(seriesId,
+     *         queryParameters)
+     */
+    SeriesDetails getSeriesArtworks(long seriesId, QueryParameters queryParameters) throws APIException;
+
+    /**
+     * Returns detailed information for a specific series including custom artworks based on the given query parameters
+     * mapped as Java DTO. This is a shortcut-method for {@link #getSeriesArtworks(long, QueryParameters)
+     * getSeriesArtworks(seriesId, queryParameters)} with a single {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series#LANGUAGE}
+     * query parameter.
+     *
+     * @param seriesId The <i>TheTVDB.com</i> series ID
+     * @param language The 2- or 3-character language code
+     *
+     * @return Detailed series information incl. language/type based artworks mapped as Java DTO based on the JSON data
+     *         returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc. or if no series record with the given ID exists.
+     */
+    SeriesDetails getSeriesArtworks(long seriesId, @Nonnull String language) throws APIException;
+
+    /**
      * Returns detailed information for a specific series based on the given query parameters mapped as Java DTO.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesExtended">
@@ -1276,7 +1315,7 @@ public interface TheTVDBApi {
             throws APIException;
 
     /**
-     * Returns detailed information for a specific series based on the given query parameters mapped as Java DTO. The
+     * Returns basic information for a specific series based on the given query parameters mapped as Java DTO. The
      * contained episodes will be translated to the given language.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesSeasonEpisodesTranslated">
@@ -1287,8 +1326,8 @@ public interface TheTVDBApi {
      * @param language        The 2- or 3-character language code
      * @param queryParameters Object containing key/value pairs of query parameters
      *
-     * @return Detailed series information with translated episodes mapped as Java DTO based on the JSON data returned
-     *         by the remote service
+     * @return Basic series information with translated episodes mapped as Java DTO based on the JSON data returned by
+     *         the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc. or if no series record with the given ID exists or the language code is
@@ -1298,12 +1337,12 @@ public interface TheTVDBApi {
      * @see Extended#getSeriesEpisodesTranslated(long, SeriesSeasonType, String, QueryParameters)
      *         TheTVDBApi.Extended.getSeriesEpisodesTranslated(seriesId, seasonType, language, queryParameters)
      */
-    SeriesDetails getSeriesEpisodesTranslated(long seriesId, @Nonnull SeriesSeasonType seasonType,
-            @Nonnull String language, QueryParameters queryParameters) throws APIException;
+    Series getSeriesEpisodesTranslated(long seriesId, @Nonnull SeriesSeasonType seasonType, @Nonnull String language,
+            QueryParameters queryParameters) throws APIException;
 
     /**
-     * Returns detailed information for a specific series mapped as Java DTO. The contained episodes will be translated
-     * to the given language. This is a shortcut-method for {@link #getSeriesEpisodesTranslated(long, SeriesSeasonType,
+     * Returns basic information for a specific series mapped as Java DTO. The contained episodes will be translated to
+     * the given language. This is a shortcut-method for {@link #getSeriesEpisodesTranslated(long, SeriesSeasonType,
      * String, QueryParameters) getSeriesEpisodesTranslated(seriesId, seasonType, language, queryParameters)}  with no
      * additional query parameters.
      *
@@ -1311,15 +1350,15 @@ public interface TheTVDBApi {
      * @param seasonType The type of season for which episodes should be returned
      * @param language   The 2- or 3-character language code
      *
-     * @return Detailed series information with translated episodes mapped as Java DTO's based on the JSON data returned
-     *         by the remote service
+     * @return Basic series information with translated episodes mapped as Java DTO's based on the JSON data returned by
+     *         the remote service
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc. or if no series record with the given ID exists or the language code is
      *                      invalid.
      */
-    SeriesDetails getSeriesEpisodesTranslated(long seriesId, @Nonnull SeriesSeasonType seasonType,
-            @Nonnull String language) throws APIException;
+    Series getSeriesEpisodesTranslated(long seriesId, @Nonnull SeriesSeasonType seasonType, @Nonnull String language)
+            throws APIException;
 
     /**
      * Returns a translation record for a specific series mapped as Java DTO.
@@ -2206,6 +2245,27 @@ public interface TheTVDBApi {
         JsonNode getSeries(long seriesId) throws APIException;
 
         /**
+         * Returns detailed information for a specific series including custom artworks based on the given query
+         * parameters as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesArtworks">
+         * <b>[GET]</b> /series/{id}/artworks</a>
+         *
+         * @param seriesId        The <i>TheTVDB.com</i> series ID
+         * @param queryParameters Object containing key/value pairs of query parameters
+         *
+         * @return JSON object containing detailed information for a specific series incl. language/type based artworks
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if no series record with the given ID exists.
+         * @see TheTVDBApi#getSeriesArtworks(long, QueryParameters) TheTVDBApi.getSeriesArtworks(seriesId,
+         *         queryParameters)
+         * @see Extended#getSeriesArtworks(long, QueryParameters) TheTVDBApi.Extended.getSeriesArtworks(seriesId,
+         *         queryParameters)
+         */
+        JsonNode getSeriesArtworks(long seriesId, QueryParameters queryParameters) throws APIException;
+
+        /**
          * Returns detailed information for a specific series based on the given query parameters as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesExtended">
@@ -2248,7 +2308,7 @@ public interface TheTVDBApi {
                 throws APIException;
 
         /**
-         * Returns detailed information for a specific series based on the given query parameters as raw JSON. The
+         * Returns basic information for a specific series based on the given query parameters as raw JSON. The
          * contained episodes will be translated to the given language.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesSeasonEpisodesTranslated">
@@ -2259,7 +2319,7 @@ public interface TheTVDBApi {
          * @param language        The 2- or 3-character language code
          * @param queryParameters Object containing key/value pairs of query parameters
          *
-         * @return JSON object containing detailed information incl. translated episodes for a specific series
+         * @return JSON object containing basic information incl. translated episodes for a specific series
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
          *                      resource not found, etc. or if no series record with the given ID exists or the language
@@ -3148,6 +3208,29 @@ public interface TheTVDBApi {
         APIResponse<Series> getSeries(long seriesId) throws APIException;
 
         /**
+         * Returns a response object containing detailed information for a specific series including custom artworks
+         * based on the given query parameters mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesArtworks">
+         * <b>[GET]</b> /series/{id}/artworks</a>
+         *
+         * @param seriesId        The <i>TheTVDB.com</i> series ID
+         * @param queryParameters Object containing key/value pairs of query parameters
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc. or if no series record with the given ID exists.
+         * @see JSON#getSeriesArtworks(long, QueryParameters) TheTVDBApi.JSON.getSeriesArtworks(seriesId,
+         *         queryParameters)
+         * @see TheTVDBApi#getSeriesArtworks(long, QueryParameters) TheTVDBApi.getSeriesArtworks(seriesId,
+         *         queryParameters)
+         */
+        APIResponse<SeriesDetails> getSeriesArtworks(long seriesId, QueryParameters queryParameters)
+                throws APIException;
+
+        /**
          * Returns a response object containing detailed information for a specific series based on the given query
          * parameters mapped as Java DTO.
          * <p><br>
@@ -3193,8 +3276,8 @@ public interface TheTVDBApi {
                 QueryParameters queryParameters) throws APIException;
 
         /**
-         * Returns detailed information for a specific series based on the given query parameters mapped as Java DTO.
-         * The contained episodes will be translated to the given language.
+         * Returns basic information for a specific series based on the given query parameters mapped as Java DTO. The
+         * contained episodes will be translated to the given language.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesSeasonEpisodesTranslated">
          * <b>[GET]</b> /series/{id}/episodes/{season-type}/{lang}</a>
@@ -3215,7 +3298,7 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getSeriesEpisodesTranslated(long, SeriesSeasonType, String, QueryParameters)
          *         TheTVDBApi.getSeriesEpisodesTranslated(seriesId, seasonType, language, queryParameters)
          */
-        APIResponse<SeriesDetails> getSeriesEpisodesTranslated(long seriesId, @Nonnull SeriesSeasonType seasonType,
+        APIResponse<Series> getSeriesEpisodesTranslated(long seriesId, @Nonnull SeriesSeasonType seasonType,
                 @Nonnull String language, QueryParameters queryParameters) throws APIException;
 
         /**
@@ -3282,7 +3365,7 @@ public interface TheTVDBApi {
      */
     final class Version {
         /** Version of the <i>TheTVDB.com</i> remote API used by this connector */
-        public static final String API_VERSION = "v4.5.3";
+        public static final String API_VERSION = "v4.6.0";
 
         /** Constant class. Should not be instantiated */
         private Version() {}

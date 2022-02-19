@@ -177,6 +177,7 @@ the upcoming APIv4.
 - Series
     - [x] [/series](https://thetvdb.github.io/v4-api/#/Series/getAllSeries)
     - [x] [/series/{id}](https://thetvdb.github.io/v4-api/#/Series/getSeriesBase)
+    - [x] [/series/{id}/artworks](https://thetvdb.github.io/v4-api/#/Series/getSeriesArtworks)
     - [x] [/series/{id}/extended](https://thetvdb.github.io/v4-api/#/Series/getSeriesExtended)
     - [x] [/series/{id}/episodes/{season-type}](https://thetvdb.github.io/v4-api/#/Series/getSeriesEpisodes)
     - [x] [/series/{id}/episodes/{season-type}/{lang}](https://thetvdb.github.io/v4-api/#/Series/getSeriesSeasonEpisodesTranslated)

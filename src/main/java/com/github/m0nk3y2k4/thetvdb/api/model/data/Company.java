@@ -125,7 +125,6 @@ public interface Company {
      *
      * @return The <em>{@code tagOptions}</em> property from the received JSON
      */
-    // ToDo: Field is currently not declared in Company but returned in JSON. Check again after the next API update.
     List<TagOption> getTagOptions();
 
     /**

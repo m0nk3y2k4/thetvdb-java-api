@@ -16,6 +16,7 @@
 
 package com.github.m0nk3y2k4.thetvdb.testutils;
 
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.Shape.BASIC;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.Shape.FULL;
 import static java.lang.Boolean.TRUE;
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -27,7 +28,6 @@ import java.io.InputStreamReader;
 import java.lang.reflect.ParameterizedType;
 import java.net.URL;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -70,7 +70,6 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.InspirationType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.MetaTranslations;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Movie;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.MovieDetails;
-import com.github.m0nk3y2k4.thetvdb.api.model.data.Network;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.ParentCompany;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.People;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.PeopleDetails;
@@ -127,7 +126,6 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.InspirationType
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MetaTranslationsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.MovieDetailsDTO;
-import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.NetworkDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ParentCompanyDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.PeopleDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.PeopleDetailsDTO;
@@ -154,7 +152,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TranslationsDTO
 import com.github.m0nk3y2k4.thetvdb.internal.util.json.deser.StaticTypeReference;
 import com.github.m0nk3y2k4.thetvdb.testutils.json.Data;
 
-@SuppressWarnings({"ClassWithTooManyFields", "unused", "OverlyLongLambda", "OverlyComplexClass", "ConstantValueVariableUse"})
+@SuppressWarnings({"ClassWithTooManyFields", "unused", "OverlyLongLambda", "OverlyComplexClass"})
 // Test class providing prefabbed test objects via reflection
 public abstract class ResponseData<T> {
 
@@ -165,29 +163,29 @@ public abstract class ResponseData<T> {
     public static final ResponseData<APIResponse<Collection<ArtworkType>>> ARTWORKTYPE_OVERVIEW = new ResponseData<>(
             "artworktype_overview", artworkTypeOverview(), "Overview of artwork types JSON response") {};
     public static final ResponseData<APIResponse<Artwork>> ARTWORK = new ResponseData<>(
-            "artwork", artwork(FULL), "Single artwork JSON response") {};
+            "artwork", artwork(), "Single artwork JSON response") {};
     public static final ResponseData<APIResponse<ArtworkDetails>> ARTWORK_DETAILS = new ResponseData<>(
-            "artwork_extended", artworkDetails(FULL), "Single extended artwork JSON response") {};
+            "artwork_extended", artworkDetails(), "Single extended artwork JSON response") {};
 
     //************************ awards ***********************
     public static final ResponseData<APIResponse<AwardCategory>> AWARDCATEGORY = new ResponseData<>(
-            "awardcategory", awardCategory(FULL), "Single award category JSON response") {};
+            "awardcategory", awardCategory(), "Single award category JSON response") {};
     public static final ResponseData<APIResponse<AwardCategoryDetails>> AWARDCATEGORY_DETAILS = new ResponseData<>(
-            "awardcategory_extended", awardCategoryDetails(FULL), "Single extended award category JSON response") {};
+            "awardcategory_extended", awardCategoryDetails(), "Single extended award category JSON response") {};
     public static final ResponseData<APIResponse<Collection<Award>>> AWARD_OVERVIEW = new ResponseData<>(
             "award_overview", awardOverview(), "Overview of awards JSON response") {};
     public static final ResponseData<APIResponse<Award>> AWARD = new ResponseData<>(
             "award", award(), "Single award JSON response") {};
     public static final ResponseData<APIResponse<AwardDetails>> AWARD_DETAILS = new ResponseData<>(
-            "award_extended", awardDetails(FULL), "Single extended award JSON response") {};
+            "award_extended", awardDetails(), "Single extended award JSON response") {};
 
     //*********************** characters ********************
     public static final ResponseData<APIResponse<Character>> CHARACTER = new ResponseData<>(
-            "character", character(FULL), "Single character JSON response") {};
+            "character", character(), "Single character JSON response") {};
 
     //*********************** companies *********************
     public static final ResponseData<APIResponse<Company>> COMPANY = new ResponseData<>(
-            "company", company(FULL), "Single company JSON response") {};
+            "company", company(), "Single company JSON response") {};
     public static final ResponseData<APIResponse<Collection<CompanyType>>> COMPANYTYPE_OVERVIEW = new ResponseData<>(
             "companytype_overview", companyTypeOverview(), "Overview of company types JSON response") {};
     public static final ResponseData<APIResponse<Collection<Company>>> COMPANY_OVERVIEW = new ResponseData<>(
@@ -207,17 +205,17 @@ public abstract class ResponseData<T> {
 
     //************************ episodes *********************
     public static final ResponseData<APIResponse<Episode>> EPISODE = new ResponseData<>(
-            "episode", episode(FULL), "Single episode JSON response") {};
+            "episode", episode(), "Single episode JSON response") {};
     public static final ResponseData<APIResponse<EpisodeDetails>> EPISODE_DETAILS = new ResponseData<>(
-            "episode_extended", episodeDetails(FULL), "Single extended episode JSON response") {};
+            "episode_extended", episodeDetails(), "Single extended episode JSON response") {};
 
     //************************* lists ***********************
     public static final ResponseData<APIResponse<Collection<FCList>>> LIST_OVERVIEW = new ResponseData<>(
             "list_overview", listOverview(), "Overview of lists JSON response") {};
     public static final ResponseData<APIResponse<FCList>> LIST = new ResponseData<>(
-            "list", list(FULL), "Single list JSON response") {};
+            "list", list(), "Single list JSON response") {};
     public static final ResponseData<APIResponse<FCListDetails>> LIST_DETAILS = new ResponseData<>(
-            "list_extended", listDetails(FULL), "Single extended list JSON response") {};
+            "list_extended", listDetails(), "Single extended list JSON response") {};
 
     //************************ genders **********************
     public static final ResponseData<APIResponse<Collection<Gender>>> GENDER_OVERVIEW = new ResponseData<>(
@@ -235,9 +233,9 @@ public abstract class ResponseData<T> {
 
     //************************* movies **********************
     public static final ResponseData<APIResponse<Movie>> MOVIE = new ResponseData<>(
-            "movie", movie(FULL), "Single movie JSON response") {};
+            "movie", movie(), "Single movie JSON response") {};
     public static final ResponseData<APIResponse<MovieDetails>> MOVIE_DETAILS = new ResponseData<>(
-            "movie_extended", movieDetails(FULL), "Single extended movie JSON response") {};
+            "movie_extended", movieDetails(), "Single extended movie JSON response") {};
     public static final ResponseData<APIResponse<Collection<Movie>>> MOVIE_OVERVIEW = new ResponseData<>(
             "movie_overview", movieOverview(), "Overview of movies JSON response") {};
 
@@ -245,9 +243,9 @@ public abstract class ResponseData<T> {
     public static final ResponseData<APIResponse<Collection<PeopleType>>> PEOPLETYPE_OVERVIEW = new ResponseData<>(
             "peopletype_overview", peopleTypeOverview(), "Overview of people types JSON response") {};
     public static final ResponseData<APIResponse<People>> PEOPLE = new ResponseData<>(
-            "people", people(FULL), "Single people JSON response") {};
+            "people", people(), "Single people JSON response") {};
     public static final ResponseData<APIResponse<PeopleDetails>> PEOPLE_DETAILS = new ResponseData<>(
-            "people_extended", peopleDetails(FULL), "Single extended people JSON response") {};
+            "people_extended", peopleDetails(), "Single extended people JSON response") {};
 
     //************************ search **********************
     public static final ResponseData<APIResponse<Collection<SearchResult>>> SEARCH_OVERVIEW = new ResponseData<>(
@@ -255,9 +253,9 @@ public abstract class ResponseData<T> {
 
     //************************ seasons **********************
     public static final ResponseData<APIResponse<Season>> SEASON = new ResponseData<>(
-            "season", season(FULL), "Single season JSON response") {};
+            "season", season(), "Single season JSON response") {};
     public static final ResponseData<APIResponse<SeasonDetails>> SEASON_DETAILS = new ResponseData<>(
-            "season_extended", seasonDetails(FULL), "Single extended season JSON response") {};
+            "season_extended", seasonDetails(), "Single extended season JSON response") {};
     public static final ResponseData<APIResponse<Collection<Season>>> SEASON_OVERVIEW = new ResponseData<>(
             "season_overview", seasonOverview(), "Overview of seasons JSON response") {};
     public static final ResponseData<APIResponse<Collection<SeasonType>>> SEASONTYPE_OVERVIEW = new ResponseData<>(
@@ -265,11 +263,13 @@ public abstract class ResponseData<T> {
 
     //************************* series **********************
     public static final ResponseData<APIResponse<Series>> SERIES = new ResponseData<>(
-            "series", series(FULL), "Single series JSON response") {};
+            "series", series(BASIC), "Single series JSON response") {};
     public static final ResponseData<APIResponse<SeriesDetails>> SERIES_DETAILS = new ResponseData<>(
-            "series_extended", seriesDetails(FULL), "Single extended series JSON response") {};
+            "series_extended", seriesDetails(), "Single extended series JSON response") {};
     public static final ResponseData<APIResponse<SeriesEpisodes>> SERIESEPISODES = new ResponseData<>(
-            "seriesepisodes", seriesEpisodes(FULL), "Single series episodes JSON response") {};
+            "seriesepisodes", seriesEpisodes(), "Single series episodes JSON response") {};
+    public static final ResponseData<APIResponse<Series>> SERIESEPISODES_TRANSLATED = new ResponseData<>(
+            "seriesepisodes_translated", series(FULL), "Single series translated episodes JSON response") {};
     public static final ResponseData<APIResponse<Collection<Series>>> SERIES_OVERVIEW = new ResponseData<>(
             "series_overview", seriesOverview(), "Overview of series JSON response") {};
 
@@ -283,7 +283,7 @@ public abstract class ResponseData<T> {
 
     //********************** translations *******************
     public static final ResponseData<APIResponse<EntityTranslation>> TRANSLATION = new ResponseData<>(
-            "translation", entityTranslation(FULL), "Single translated entity JSON response") {};
+            "translation", entityTranslation(), "Single translated entity JSON response") {};
     public static final ResponseData<APIResponse<Translations<EntityTranslation>>> TRANSLATIONS = new ResponseData<>(
             "translations", entityTranslations(), "List of translated entities JSON response") {};
 
@@ -294,12 +294,10 @@ public abstract class ResponseData<T> {
 
     /**
      * Used to specify the actual content of a test data object.
-     * <p><br>
-     * <b>NOTE:</b> since all JSON fields have been declared being optional the MIN shape for testing mandatory
-     * fields is no longer needed. And although only FULL message tests are performed for the time being, I decided to
-     * not completely remove the "shaping" as there might be other use cases for which this can be used in the future.
      */
     enum Shape {
+        /** With only basic data */
+        BASIC,
         /** With all data */
         FULL
     }
@@ -345,12 +343,12 @@ public abstract class ResponseData<T> {
         return new APIResponseDTO.Builder<T>().data(data).status("success").links(links).build();
     }
 
-    private static APIResponse<Artwork> artwork(Shape shape) {
-        return createAPIResponse(create(artworkModel(), shape));
+    private static APIResponse<Artwork> artwork() {
+        return createAPIResponse(create(artworkModel()));
     }
 
-    private static APIResponse<ArtworkDetails> artworkDetails(Shape shape) {
-        return createAPIResponse(create(artworkDetailsModel(), shape));
+    private static APIResponse<ArtworkDetails> artworkDetails() {
+        return createAPIResponse(create(artworkDetailsModel()));
     }
 
     private static APIResponse<Collection<ArtworkType>> artworkTypeOverview() {
@@ -361,12 +359,12 @@ public abstract class ResponseData<T> {
         return createAPIResponse(createTwo(artworkStatusModel()));
     }
 
-    private static APIResponse<AwardCategory> awardCategory(Shape shape) {
-        return createAPIResponse(create(awardCategoryModel(), shape));
+    private static APIResponse<AwardCategory> awardCategory() {
+        return createAPIResponse(create(awardCategoryModel()));
     }
 
-    private static APIResponse<AwardCategoryDetails> awardCategoryDetails(Shape shape) {
-        return createAPIResponse(create(awardCategoryDetailsModel(), shape));
+    private static APIResponse<AwardCategoryDetails> awardCategoryDetails() {
+        return createAPIResponse(create(awardCategoryDetailsModel()));
     }
 
     private static APIResponse<Collection<Award>> awardOverview() {
@@ -377,16 +375,16 @@ public abstract class ResponseData<T> {
         return createAPIResponse(create(awardModel()));
     }
 
-    private static APIResponse<AwardDetails> awardDetails(Shape shape) {
-        return createAPIResponse(create(awardDetailsModel(), shape));
+    private static APIResponse<AwardDetails> awardDetails() {
+        return createAPIResponse(create(awardDetailsModel()));
     }
 
-    private static APIResponse<Character> character(Shape shape) {
-        return createAPIResponse(create(characterModel(), shape));
+    private static APIResponse<Character> character() {
+        return createAPIResponse(create(characterModel()));
     }
 
-    private static APIResponse<Company> company(Shape shape) {
-        return createAPIResponse(create(companyModel(), shape));
+    private static APIResponse<Company> company() {
+        return createAPIResponse(create(companyModel()));
     }
 
     private static APIResponse<Collection<Company>> companyOverview() {
@@ -409,24 +407,24 @@ public abstract class ResponseData<T> {
         return createAPIResponse(createTwo(entityTypeModel()));
     }
 
-    private static APIResponse<Episode> episode(Shape shape) {
-        return createAPIResponse(create(episodeModel(), shape));
+    private static APIResponse<Episode> episode() {
+        return createAPIResponse(create(episodeModel()));
     }
 
-    private static APIResponse<EpisodeDetails> episodeDetails(Shape shape) {
-        return createAPIResponse(create(episodeDetailsModel(), shape));
+    private static APIResponse<EpisodeDetails> episodeDetails() {
+        return createAPIResponse(create(episodeDetailsModel()));
     }
 
     private static APIResponse<Collection<FCList>> listOverview() {
         return createAPIResponseWithLinks(createTwo(listModel()));
     }
 
-    private static APIResponse<FCList> list(Shape shape) {
-        return createAPIResponse(create(listModel(), shape));
+    private static APIResponse<FCList> list() {
+        return createAPIResponse(create(listModel()));
     }
 
-    private static APIResponse<FCListDetails> listDetails(Shape shape) {
-        return createAPIResponse(create(listDetailsModel(), shape));
+    private static APIResponse<FCListDetails> listDetails() {
+        return createAPIResponse(create(listDetailsModel()));
     }
 
     private static APIResponse<Genre> genre() {
@@ -445,24 +443,24 @@ public abstract class ResponseData<T> {
         return createAPIResponse(createTwo(inspirationTypeModel()));
     }
 
-    private static APIResponse<Movie> movie(Shape shape) {
-        return createAPIResponse(create(movieModel(), shape));
+    private static APIResponse<Movie> movie() {
+        return createAPIResponse(create(movieModel()));
     }
 
-    private static APIResponse<MovieDetails> movieDetails(Shape shape) {
-        return createAPIResponse(create(movieDetailsModel(), shape));
+    private static APIResponse<MovieDetails> movieDetails() {
+        return createAPIResponse(create(movieDetailsModel()));
     }
 
     private static APIResponse<Collection<Movie>> movieOverview() {
         return createAPIResponseWithLinks(createTwo(movieModel()));
     }
 
-    private static APIResponse<People> people(Shape shape) {
-        return createAPIResponse(create(peopleModel(), shape));
+    private static APIResponse<People> people() {
+        return createAPIResponse(create(peopleModel()));
     }
 
-    private static APIResponse<PeopleDetails> peopleDetails(Shape shape) {
-        return createAPIResponse(create(peopleDetailsModel(), shape));
+    private static APIResponse<PeopleDetails> peopleDetails() {
+        return createAPIResponse(create(peopleDetailsModel()));
     }
 
     private static APIResponse<Collection<PeopleType>> peopleTypeOverview() {
@@ -473,12 +471,12 @@ public abstract class ResponseData<T> {
         return createAPIResponse(createTwo(searchResultModel()));
     }
 
-    private static APIResponse<Season> season(Shape shape) {
-        return createAPIResponse(create(seasonModel(), shape));
+    private static APIResponse<Season> season() {
+        return createAPIResponse(create(seasonModel()));
     }
 
-    private static APIResponse<SeasonDetails> seasonDetails(Shape shape) {
-        return createAPIResponse(create(seasonDetailsModel(), shape));
+    private static APIResponse<SeasonDetails> seasonDetails() {
+        return createAPIResponse(create(seasonDetailsModel()));
     }
 
     private static APIResponse<Collection<Season>> seasonOverview() {
@@ -493,12 +491,12 @@ public abstract class ResponseData<T> {
         return createAPIResponse(create(seriesModel(), shape));
     }
 
-    private static APIResponse<SeriesDetails> seriesDetails(Shape shape) {
-        return createAPIResponse(create(seriesDetailsModel(), shape));
+    private static APIResponse<SeriesDetails> seriesDetails() {
+        return createAPIResponse(create(seriesDetailsModel()));
     }
 
-    private static APIResponse<SeriesEpisodes> seriesEpisodes(Shape shape) {
-        return createAPIResponseWithLinks(create(seriesEpisodesModel(), shape));
+    private static APIResponse<SeriesEpisodes> seriesEpisodes() {
+        return createAPIResponseWithLinks(create(seriesEpisodesModel()));
     }
 
     private static APIResponse<Collection<Series>> seriesOverview() {
@@ -513,8 +511,8 @@ public abstract class ResponseData<T> {
         return createAPIResponse(createTwo(statusModel()));
     }
 
-    private static APIResponse<EntityTranslation> entityTranslation(Shape shape) {
-        return createAPIResponse(create(entityTranslationModel(), shape));
+    private static APIResponse<EntityTranslation> entityTranslation() {
+        return createAPIResponse(create(entityTranslationModel()));
     }
 
     private static APIResponse<Translations<EntityTranslation>> entityTranslations() {
@@ -531,7 +529,7 @@ public abstract class ResponseData<T> {
     // *************************************************************************
 
     private static <T> T create(DtoSupplier<T> supplier) {
-        return create(supplier, FULL);
+        return create(supplier, BASIC);
     }
 
     private static <T> T create(DtoSupplier<T> supplier, Shape shape) {
@@ -539,7 +537,7 @@ public abstract class ResponseData<T> {
     }
 
     private static <T> T create(DtoSupplier<T> supplier, int startIndex) {
-        return create(supplier, startIndex, FULL);
+        return create(supplier, startIndex, BASIC);
     }
 
     private static <T> T create(DtoSupplier<T> supplier, int startIndex, Shape shape) {
@@ -551,7 +549,7 @@ public abstract class ResponseData<T> {
     }
 
     private static <T> Collection<T> createTwo(DtoSupplier<T> supplier, int startIndex) {
-        return create(2, supplier, startIndex, FULL);
+        return create(2, supplier, startIndex, BASIC);
     }
 
     private static Collection<String> createTwo(String property, int startIndex) {
@@ -572,30 +570,22 @@ public abstract class ResponseData<T> {
         return idx -> new AliasDTO.Builder().language("Language" + idx).name("Name" + idx).build();
     }
 
-    private static DtoSupplier<Artwork> artworkModel() {
-        return (idx, shape) -> {
-            ArtworkDTO.Builder builder = new ArtworkDTO.Builder();
-            if (shape == FULL) {
-                builder.id(4634L + idx).image("Image" + idx).thumbnail("Thumbnail" + idx).type(53L + idx)
-                        .language("Language" + idx).score(1.0 + idx);
-            }
-            return builder.build();
-        };
+    private static SimpleDtoSupplier<Artwork> artworkModel() {
+        return idx -> new ArtworkDTO.Builder().id(4634L + idx).image("Image" + idx).thumbnail("Thumbnail" + idx)
+                .type(53L + idx).language("Language" + idx).score(1.0 + idx).build();
     }
 
-    private static DtoSupplier<ArtworkDetails> artworkDetailsModel() {
-        return (idx, shape) -> {
-            ArtworkDetailsDTO.Builder builder = new ArtworkDetailsDTO.Builder();
-            if (shape == FULL) {
-                int listOffset = (idx << 1) - 1;
-                builder.height(1079L + idx).id(694400L + idx).image("Image" + idx).thumbnail("Thumbnail" + idx)
-                        .thumbnailHeight(399L + idx).thumbnailWidth(599L + idx).type(4L + idx).width(1919L + idx)
-                        .updatedAt(16015470L + idx).episodeId(39009L + idx).language("Language" + idx)
-                        .movieId(573L + idx).networkId(66340L + idx).seriesPeopleId(646L + idx)
-                        .peopleId(97511L + idx).score(81D + idx).seasonId(574603L + idx).seriesId(669843L + idx)
-                        .status(create(artworkStatusModel(), idx))
-                        .tagOptions(createTwo(tagOptionModel(), listOffset));
-            }
+    private static SimpleDtoSupplier<ArtworkDetails> artworkDetailsModel() {
+        return idx -> {
+            int listOffset = (idx << 1) - 1;
+            ArtworkDetailsDTO.Builder builder = new ArtworkDetailsDTO.Builder().height(1079L + idx).id(694400L + idx)
+                    .image("Image" + idx).thumbnail("Thumbnail" + idx).thumbnailHeight(399L + idx)
+                    .thumbnailWidth(599L + idx).type(4L + idx).width(1919L + idx).updatedAt(16015470L + idx)
+                    .episodeId(39009L + idx).language("Language" + idx).movieId(573L + idx).networkId(66340L + idx)
+                    .seriesPeopleId(646L + idx).peopleId(97511L + idx).score(81D + idx).seasonId(574603L + idx)
+                    .seriesId(669843L + idx)
+                    .status(create(artworkStatusModel(), idx))
+                    .tagOptions(createTwo(tagOptionModel(), listOffset));
             return builder.build();
         };
     }
@@ -610,115 +600,92 @@ public abstract class ResponseData<T> {
         return idx -> new ArtworkStatusDTO.Builder().id(72L + idx).name("Name" + idx).build();
     }
 
-    private static DtoSupplier<Award> awardModel() {
-        return (idx, shape) -> {
-            AwardDTO.Builder builder = new AwardDTO.Builder();
-            if (shape == FULL) {
-                builder.id(46L + idx).name("Name" + idx);
-            }
+    private static SimpleDtoSupplier<Award> awardModel() {
+        return idx -> new AwardDTO.Builder().id(46L + idx).name("Name" + idx).build();
+    }
+
+    private static SimpleDtoSupplier<AwardDetails> awardDetailsModel() {
+        return idx -> {
+            int listOffset = (idx << 1) - 1;
+            AwardDetailsDTO.Builder builder = new AwardDetailsDTO.Builder().id(61L + idx).name("Name" + idx)
+                    .score(5L + idx).
+                    categories(createTwo(awardCategoryModel(), listOffset));
             return builder.build();
         };
     }
 
-    private static DtoSupplier<AwardDetails> awardDetailsModel() {
-        return (idx, shape) -> {
-            AwardDetailsDTO.Builder builder = new AwardDetailsDTO.Builder();
-            if (shape == FULL) {
-                int listOffset = (idx << 1) - 1;
-                builder.id(61L + idx).name("Name" + idx).score(5L + idx).
-                        categories(createTwo(awardCategoryModel(), listOffset));
-            }
+    private static SimpleDtoSupplier<AwardCategory> awardCategoryModel() {
+        return idx -> new AwardCategoryDTO.Builder().allowCoNominees(true).forMovies(true).forSeries(true)
+                .id(8753L + idx).name("Name" + idx)
+                .award(create(awardModel(), idx))
+                .build();
+    }
+
+    private static SimpleDtoSupplier<AwardCategoryDetails> awardCategoryDetailsModel() {
+        return idx -> {
+            int listOffset = (idx << 1) - 1;
+            AwardCategoryDetailsDTO.Builder builder = new AwardCategoryDetailsDTO.Builder().allowCoNominees(true)
+                    .forMovies(true).forSeries(true).id(5449L + idx).name("Name" + idx)
+                    .award(create(awardModel(), idx))
+                    .nominees(createTwo(awardNomineeModel(), listOffset));
             return builder.build();
         };
     }
 
-    private static DtoSupplier<AwardCategory> awardCategoryModel() {
-        return (idx, shape) -> {
-            AwardCategoryDTO.Builder builder = new AwardCategoryDTO.Builder();
-            if (shape == FULL) {
-                builder.allowCoNominees(true).award(create(awardModel(), idx, shape)).forMovies(true).forSeries(true)
-                        .id(8753L + idx).name("Name" + idx);
-            }
-            return builder.build();
-        };
-    }
-
-    private static DtoSupplier<AwardCategoryDetails> awardCategoryDetailsModel() {
-        return (idx, shape) -> {
-            AwardCategoryDetailsDTO.Builder builder = new AwardCategoryDetailsDTO.Builder();
-            if (shape == FULL) {
-                int listOffset = (idx << 1) - 1;
-                builder.allowCoNominees(true).award(create(awardModel(), idx, shape)).forMovies(true).forSeries(true)
-                        .id(5449L + idx).name("Name" + idx).nominees(createTwo(awardNomineeModel(), listOffset));
-            }
-            return builder.build();
-        };
-    }
-
-    private static DtoSupplier<AwardNominee> awardNomineeModel() {
-        return (idx, shape) -> {
-            AwardNomineeDTO.Builder builder = new AwardNomineeDTO.Builder();
-            if (shape == FULL) {
-                builder.character(create(characterModel(), idx, shape)).episode(create(episodeModel(), idx, shape))
-                        .movie(create(movieModel(), idx, shape)).series(create(seriesModel(), idx, shape))
-                        .id(64119L + idx).isWinner(true).details("Details" + idx).year("Year" + idx)
-                        .category("Category" + idx).name("Name" + idx);
-            }
-            return builder.build();
-        };
+    private static SimpleDtoSupplier<AwardNominee> awardNomineeModel() {
+        return idx -> new AwardNomineeDTO.Builder().id(64119L + idx).isWinner(true).details("Details" + idx)
+                .year("Year" + idx).category("Category" + idx).name("Name" + idx)
+                .character(create(characterModel(), idx))
+                .episode(create(episodeModel(), idx))
+                .movie(create(movieModel(), idx))
+                .series(create(seriesModel(), idx))
+                .build();
     }
 
     private static SimpleDtoSupplier<Biography> biographyModel() {
         return idx -> new BiographyDTO.Builder().biography("Biography" + idx).language("Language" + idx).build();
     }
 
-    private static DtoSupplier<Character> characterModel() {
-        return (idx, shape) -> {
-            CharacterDTO.Builder builder = new CharacterDTO.Builder();
-            if (shape == FULL) {
-                int listOffset = (idx << 1) - 1;
-                builder.id(36486L + idx).type(11L + idx).sort(2L + idx).isFeatured(TRUE).url("Url" + idx)
-                        .name("Name" + idx).peopleId(568L + idx).seriesId(44L + idx).movieId(363L + idx)
-                        .episodeId(974L + idx).image("Image" + idx).peopleType("PeopleType" + idx)
-                        .personName("PersonName" + idx).personImgURL("PersonImgURL" + idx)
-                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
-                        .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .aliases(createTwo(aliasModel(), listOffset))
-                        .tagOptions(createTwo(tagOptionModel(), listOffset));
-            }
+    private static SimpleDtoSupplier<Character> characterModel() {
+        return idx -> {
+            int listOffset = (idx << 1) - 1;
+            CharacterDTO.Builder builder = new CharacterDTO.Builder().id(36486L + idx).type(11L + idx).sort(2L + idx)
+                    .isFeatured(TRUE).url("Url" + idx).name("Name" + idx).peopleId(568L + idx).seriesId(44L + idx)
+                    .movieId(363L + idx).episodeId(974L + idx).image("Image" + idx).peopleType("PeopleType" + idx)
+                    .personName("PersonName" + idx).personImgURL("PersonImgURL" + idx)
+                    .nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                    .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
+                    .aliases(createTwo(aliasModel(), listOffset))
+                    .tagOptions(createTwo(tagOptionModel(), listOffset));
             return builder.build();
         };
     }
 
-    private static DtoSupplier<Companies> companiesModel() {
-        return (idx, shape) -> {
-            CompaniesDTO.Builder builder = new CompaniesDTO.Builder();
-            if (shape == FULL) {
-                int listOffset = (idx << 1) - 1;
-                builder.studio(createTwo(companyModel(), listOffset))
-                        .network(createTwo(companyModel(), listOffset))
-                        .production(createTwo(companyModel(), listOffset))
-                        .distributor(createTwo(companyModel(), listOffset))
-                        .specialEffects(createTwo(companyModel(), listOffset));
-            }
+    private static SimpleDtoSupplier<Companies> companiesModel() {
+        return idx -> {
+            int listOffset = (idx << 1) - 1;
+            CompaniesDTO.Builder builder = new CompaniesDTO.Builder()
+                    .studio(createTwo(companyModel(), listOffset))
+                    .network(createTwo(companyModel(), listOffset))
+                    .production(createTwo(companyModel(), listOffset))
+                    .distributor(createTwo(companyModel(), listOffset))
+                    .specialEffects(createTwo(companyModel(), listOffset));
             return builder.build();
         };
     }
 
-    private static DtoSupplier<Company> companyModel() {
-        return (idx, shape) -> {
-            CompanyDTO.Builder builder = new CompanyDTO.Builder();
-            if (shape == FULL) {
-                int listOffset = (idx << 1) - 1;
-                builder.id(64713L + idx).slug("Slug" + idx).primaryCompanyType(513L + idx).country("Country" + idx)
-                        .activeDate("ActiveDate" + idx).inactiveDate("InactiveDate" + idx).name("Name" + idx)
-                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
-                        .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .aliases(createTwo(aliasModel(), listOffset))
-                        .companyType(create(companyTypeModel(), idx))
-                        .tagOptions(createTwo(tagOptionModel(), listOffset))
-                        .parentCompany(create(parentCompanyModel(), idx));
-            }
+    private static SimpleDtoSupplier<Company> companyModel() {
+        return idx -> {
+            int listOffset = (idx << 1) - 1;
+            CompanyDTO.Builder builder = new CompanyDTO.Builder().id(64713L + idx).slug("Slug" + idx)
+                    .primaryCompanyType(513L + idx).country("Country" + idx).activeDate("ActiveDate" + idx)
+                    .inactiveDate("InactiveDate" + idx).name("Name" + idx)
+                    .nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                    .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
+                    .aliases(createTwo(aliasModel(), listOffset))
+                    .companyType(create(companyTypeModel(), idx))
+                    .tagOptions(createTwo(tagOptionModel(), listOffset))
+                    .parentCompany(create(parentCompanyModel(), idx));
             return builder.build();
         };
     }
@@ -746,80 +713,71 @@ public abstract class ResponseData<T> {
         return idx -> new EntityTypeDTO.Builder().id(603L + idx).name("Name" + idx).hasSpecials(true).build();
     }
 
-    private static DtoSupplier<Episode> episodeModel() {
-        return (idx, shape) -> {
-            EpisodeDTO.Builder builder = new EpisodeDTO.Builder();
-            if (shape == FULL) {
-                int listOffset = (idx << 1) - 1;
-                builder.id(548744L + idx).seriesId(69553L + idx).isMovie(true).name("Name" + idx).aired("Aired" + idx)
-                        .airsAfterSeason(4L + idx).airsBeforeSeason(5L + idx).airsBeforeEpisode(17L + idx)
-                        .runtime(61L + idx)
-                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
-                        .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .image("Image" + idx).imageType(4L + idx).seasons(createTwo(seasonModel(), listOffset))
-                        .number(42L + idx).seasonNumber(8L + idx).lastUpdated("LastUpdated" + idx)
-                        .finaleType("FinaleType" + idx).overview("Overview" + idx).seasonName("SeasonName" + idx);
-            }
+    private static SimpleDtoSupplier<Episode> episodeModel() {
+        return idx -> {
+            int listOffset = (idx << 1) - 1;
+            EpisodeDTO.Builder builder = new EpisodeDTO.Builder().id(548744L + idx).seriesId(69553L + idx).isMovie(true)
+                    .name("Name" + idx).aired("Aired" + idx).airsAfterSeason(4L + idx).airsBeforeSeason(5L + idx)
+                    .airsBeforeEpisode(17L + idx).runtime(61L + idx).image("Image" + idx).imageType(4L + idx)
+                    .number(42L + idx).seasonNumber(8L + idx).lastUpdated("LastUpdated" + idx)
+                    .finaleType("FinaleType" + idx).overview("Overview" + idx).seasonName("SeasonName" + idx)
+                    .nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                    .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
+                    .seasons(createTwo(seasonModel(), listOffset));
             return builder.build();
         };
     }
 
-    private static DtoSupplier<EpisodeDetails> episodeDetailsModel() {
-        return (idx, shape) -> {
-            EpisodeDetailsDTO.Builder builder = new EpisodeDetailsDTO.Builder();
-            if (shape == FULL) {
-                int listOffset = (idx << 1) - 1;
-                builder.id(647513L + idx).seriesId(634043L + idx).isMovie(true).name("Name" + idx).aired("Aired" + idx)
-                        .runtime(73L + idx).image("Image" + idx).imageType(573L + idx).seasonNumber(2L + idx)
-                        .productionCode("ProductionCode" + idx).airsAfterSeason(1L + idx).airsBeforeSeason(3L + idx)
-                        .airsBeforeEpisode(11L + idx).lastUpdated("LastUpdated" + idx).finaleType("FinaleType" + idx)
-                        .overview("Overview" + idx).number(10L + idx)
-                        .networks(createTwo(networkModel(), listOffset))
-                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
-                        .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .seasons(createTwo(seasonModel(), listOffset))
-                        .awards(createTwo(awardModel(), listOffset))
-                        .characters(createTwo(characterModel(), listOffset))
-                        .contentRatings(createTwo(contentRatingModel(), listOffset))
-                        .remoteIds(createTwo(remoteIdModel(), listOffset))
-                        .tagOptions(createTwo(tagOptionModel(), listOffset))
-                        .trailers(createTwo(trailerModel(), listOffset))
-                        .nominations(Collections.emptyList())
-                        .studios(createTwo(studioModel(), listOffset))
-                        .translations(create(metaTranslationsModel(), idx))
-                        .companies(createTwo(companyModel(), listOffset));
-            }
+    private static SimpleDtoSupplier<EpisodeDetails> episodeDetailsModel() {
+        return idx -> {
+            int listOffset = (idx << 1) - 1;
+            EpisodeDetailsDTO.Builder builder = new EpisodeDetailsDTO.Builder().id(647513L + idx)
+                    .seriesId(634043L + idx).isMovie(true).name("Name" + idx).aired("Aired" + idx).runtime(73L + idx)
+                    .image("Image" + idx).imageType(573L + idx).seasonNumber(2L + idx)
+                    .productionCode("ProductionCode" + idx).airsAfterSeason(1L + idx).airsBeforeSeason(3L + idx)
+                    .airsBeforeEpisode(11L + idx).lastUpdated("LastUpdated" + idx).finaleType("FinaleType" + idx)
+                    .overview("Overview" + idx).number(10L + idx)
+                    .networks(createTwo(companyModel(), listOffset))
+                    .nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                    .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
+                    .seasons(createTwo(seasonModel(), listOffset))
+                    .awards(createTwo(awardModel(), listOffset))
+                    .characters(createTwo(characterModel(), listOffset))
+                    .contentRatings(createTwo(contentRatingModel(), listOffset))
+                    .remoteIds(createTwo(remoteIdModel(), listOffset))
+                    .tagOptions(createTwo(tagOptionModel(), listOffset))
+                    .trailers(createTwo(trailerModel(), listOffset))
+                    .nominations(createTwo(awardNomineeModel(), listOffset))
+                    .studios(createTwo(companyModel(), listOffset))
+                    .translations(create(metaTranslationsModel(), idx))
+                    .companies(createTwo(companyModel(), listOffset));
             return builder.build();
         };
     }
 
-    private static DtoSupplier<FCList> listModel() {
-        return (idx, shape) -> {
-            FCListDTO.Builder builder = new FCListDTO.Builder();
-            if (shape == FULL) {
-                int listOffset = (idx << 1) - 1;
-                builder.id(94L + idx).name("Name" + idx).overview("Overview" + idx).url("Url" + idx).isOfficial(true)
-                        .score(6L + idx).image("Image" + idx).isImageFallback(true)
-                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
-                        .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .aliases(createTwo(aliasModel(), listOffset));
-            }
+    private static SimpleDtoSupplier<FCList> listModel() {
+        return idx -> {
+            int listOffset = (idx << 1) - 1;
+            FCListDTO.Builder builder = new FCListDTO.Builder().id(94L + idx).name("Name" + idx)
+                    .overview("Overview" + idx).url("Url" + idx).isOfficial(true).score(6L + idx).image("Image" + idx)
+                    .isImageFallback(true)
+                    .nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                    .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
+                    .aliases(createTwo(aliasModel(), listOffset));
             return builder.build();
         };
     }
 
-    private static DtoSupplier<FCListDetails> listDetailsModel() {
-        return (idx, shape) -> {
-            FCListDetailsDTO.Builder builder = new FCListDetailsDTO.Builder();
-            if (shape == FULL) {
-                int listOffset = (idx << 1) - 1;
-                builder.id(66L + idx).name("Name" + idx).overview("Overview" + idx).url("Url" + idx).isOfficial(true)
-                        .score(8L + idx).image("Image" + idx).isImageFallback(true)
-                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
-                        .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .aliases(createTwo(aliasModel(), listOffset))
-                        .entities(createTwo(entityModel(), listOffset));
-            }
+    private static SimpleDtoSupplier<FCListDetails> listDetailsModel() {
+        return idx -> {
+            int listOffset = (idx << 1) - 1;
+            FCListDetailsDTO.Builder builder = new FCListDetailsDTO.Builder().id(66L + idx).name("Name" + idx)
+                    .overview("Overview" + idx).url("Url" + idx).isOfficial(true).score(8L + idx).image("Image" + idx)
+                    .isImageFallback(true)
+                    .nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                    .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
+                    .aliases(createTwo(aliasModel(), listOffset))
+                    .entities(createTwo(entityModel(), listOffset));
             return builder.build();
         };
     }
@@ -851,84 +809,60 @@ public abstract class ResponseData<T> {
         return idx -> "NameTranslation" + idx;
     }
 
-    private static DtoSupplier<Network> networkModel() {
-        return (idx, shape) -> {
-            NetworkDTO.Builder builder = new NetworkDTO.Builder();
-            if (shape == FULL) {
-                int listOffset = (idx << 1) - 1;
-                builder.id(477L + idx).name("Name" + idx).slug("Slug" + idx).abbreviation("Abbreviation" + idx)
-                        .country("Country" + idx).primaryCompanyType(334L + idx).activeDate("ActiveDate" + idx)
-                        .inactiveDate("InactiveDate" + idx)
-                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
-                        .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .aliases(createTwo(aliasModel(), listOffset))
-                        .companyType(create(companyTypeModel(), idx));
-            }
+    private static SimpleDtoSupplier<MetaTranslations> metaTranslationsModel() {
+        return idx -> {
+            int listOffset = (idx << 1) - 1;
+            MetaTranslationsDTO.Builder builder = new MetaTranslationsDTO.Builder()
+                    .aliases(createTwo("Alias", listOffset))
+                    .nameTranslations(create(entityTranslationsModel(), listOffset))
+                    .overviewTranslations(create(entityTranslationsModel(), listOffset));
             return builder.build();
         };
     }
 
-    private static DtoSupplier<MetaTranslations> metaTranslationsModel() {
-        return (idx, shape) -> {
-            MetaTranslationsDTO.Builder builder = new MetaTranslationsDTO.Builder();
-            if (shape == FULL) {
-                int listOffset = (idx << 1) - 1;
-                builder.aliases(createTwo("Alias", listOffset))
-                        .nameTranslations(create(entityTranslationsModel(), listOffset))
-                        .overviewTranslations(create(entityTranslationsModel(), listOffset));
-            }
+    private static SimpleDtoSupplier<Movie> movieModel() {
+        return idx -> {
+            int listOffset = (idx << 1) - 1;
+            MovieDTO.Builder builder = new MovieDTO.Builder().id(84755L + idx).name("Name" + idx).slug("Slug" + idx)
+                    .image("Image" + idx).score(1079D + idx).runtime(46L + idx).lastUpdated("LastUpdated" + idx)
+                    .status(create(statusModel(), idx))
+                    .nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                    .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
+                    .aliases(createTwo(aliasModel(), listOffset));
             return builder.build();
         };
     }
 
-    private static DtoSupplier<Movie> movieModel() {
-        return (idx, shape) -> {
-            MovieDTO.Builder builder = new MovieDTO.Builder();
-            if (shape == FULL) {
-                int listOffset = (idx << 1) - 1;
-                builder.id(84755L + idx).name("Name" + idx).slug("Slug" + idx).image("Image" + idx).score(1079D + idx)
-                        .runtime(46L + idx).lastUpdated("LastUpdated" + idx)
-                        .status(create(statusModel(), idx))
-                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
-                        .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .aliases(createTwo(aliasModel(), listOffset));
-            }
-            return builder.build();
-        };
-    }
-
-    private static DtoSupplier<MovieDetails> movieDetailsModel() {
-        return (idx, shape) -> {
-            MovieDetailsDTO.Builder builder = new MovieDetailsDTO.Builder();
-            if (shape == FULL) {
-                int listOffset = (idx << 1) - 1;
-                builder.id(33247L + idx).image("Image" + idx).name("Name" + idx).slug("Slug" + idx).score(32D + idx)
-                        .boxOffice("BoxOffice" + idx).budget("Budget" + idx).originalCountry("OriginalCountry" + idx)
-                        .originalLanguage("OriginalLanguage" + idx).runtime(160L + idx).lastUpdated("LastUpdated" + idx)
-                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
-                        .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .aliases(createTwo(aliasModel(), listOffset))
-                        .artworks(createTwo(artworkModel(), listOffset))
-                        .audioLanguages(createTwo("AudioLanguage", listOffset))
-                        .awards(createTwo(awardModel(), listOffset))
-                        .characters(createTwo(characterModel(), listOffset))
-                        .companies(create(companiesModel(), idx))
-                        .contentRatings(createTwo(contentRatingModel(), listOffset))
-                        .lists(createTwo(listModel(), listOffset))
-                        .translations(create(metaTranslationsModel(), idx))
-                        .genres(createTwo(genreModel(), listOffset))
-                        .releases(createTwo(releaseModel(), listOffset))
-                        .remoteIds(createTwo(remoteIdModel(), listOffset))
-                        .status(create(statusModel(), idx))
-                        .studios(createTwo(studioModel(), listOffset))
-                        .subtitleLanguages(createTwo("SubtitleLanguage", listOffset))
-                        .tagOptions(createTwo(tagOptionModel(), listOffset))
-                        .trailers(createTwo(trailerModel(), listOffset))
-                        .inspirations(createTwo(inspirationModel(), listOffset))
-                        .productionCountries(createTwo(productionCountryModel(), listOffset))
-                        .spokenLanguages(createTwo("SpokenLanguage", listOffset))
-                        .firstRelease(create(releaseModel(), idx));
-            }
+    private static SimpleDtoSupplier<MovieDetails> movieDetailsModel() {
+        return idx -> {
+            int listOffset = (idx << 1) - 1;
+            MovieDetailsDTO.Builder builder = new MovieDetailsDTO.Builder().id(33247L + idx).image("Image" + idx)
+                    .name("Name" + idx).slug("Slug" + idx).score(32D + idx).boxOffice("BoxOffice" + idx)
+                    .budget("Budget" + idx).originalCountry("OriginalCountry" + idx)
+                    .originalLanguage("OriginalLanguage" + idx).runtime(160L + idx).lastUpdated("LastUpdated" + idx)
+                    .nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                    .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
+                    .aliases(createTwo(aliasModel(), listOffset))
+                    .artworks(createTwo(artworkModel(), listOffset))
+                    .audioLanguages(createTwo("AudioLanguage", listOffset))
+                    .awards(createTwo(awardModel(), listOffset))
+                    .characters(createTwo(characterModel(), listOffset))
+                    .companies(create(companiesModel(), idx))
+                    .contentRatings(createTwo(contentRatingModel(), listOffset))
+                    .lists(createTwo(listModel(), listOffset))
+                    .translations(create(metaTranslationsModel(), idx))
+                    .genres(createTwo(genreModel(), listOffset))
+                    .releases(createTwo(releaseModel(), listOffset))
+                    .remoteIds(createTwo(remoteIdModel(), listOffset))
+                    .status(create(statusModel(), idx))
+                    .studios(createTwo(studioModel(), listOffset))
+                    .subtitleLanguages(createTwo("SubtitleLanguage", listOffset))
+                    .tagOptions(createTwo(tagOptionModel(), listOffset))
+                    .trailers(createTwo(trailerModel(), listOffset))
+                    .inspirations(createTwo(inspirationModel(), listOffset))
+                    .productionCountries(createTwo(productionCountryModel(), listOffset))
+                    .spokenLanguages(createTwo("SpokenLanguage", listOffset))
+                    .firstRelease(create(releaseModel(), idx));
             return builder.build();
         };
     }
@@ -937,43 +871,40 @@ public abstract class ResponseData<T> {
         return idx -> "OverviewTranslation" + idx;
     }
 
-    private static DtoSupplier<People> peopleModel() {
-        return (idx, shape) -> {
-            PeopleDTO.Builder builder = new PeopleDTO.Builder();
-            if (shape == FULL) {
-                int listOffset = (idx << 1) - 1;
-                builder.id(11353L + idx).score(486L + idx).name("Name" + idx).image("Image" + idx)
-                        .aliases(createTwo(aliasModel(), listOffset))
-                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
-                        .overviewTranslations(createTwo(overviewTranslationModel(), listOffset));
-            }
+    private static SimpleDtoSupplier<People> peopleModel() {
+        return idx -> {
+            int listOffset = (idx << 1) - 1;
+            PeopleDTO.Builder builder = new PeopleDTO.Builder().id(11353L + idx).score(486L + idx).name("Name" + idx)
+                    .image("Image" + idx)
+                    .aliases(createTwo(aliasModel(), listOffset))
+                    .nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                    .overviewTranslations(createTwo(overviewTranslationModel(), listOffset));
             return builder.build();
         };
     }
 
     private static SimpleDtoSupplier<ParentCompany> parentCompanyModel() {
         return idx -> new ParentCompanyDTO.Builder().id(3794L + idx).name("Name" + idx)
-                .relation(create(companyRelationshipModel(), idx)).build();
+                .relation(create(companyRelationshipModel(), idx))
+                .build();
     }
 
-    private static DtoSupplier<PeopleDetails> peopleDetailsModel() {
-        return (idx, shape) -> {
-            PeopleDetailsDTO.Builder builder = new PeopleDetailsDTO.Builder();
-            if (shape == FULL) {
-                int listOffset = (idx << 1) - 1;
-                builder.id(5874L + idx).name("Name" + idx).image("Image" + idx).score(23L + idx).birth("Birth" + idx)
-                        .birthPlace("BirthPlace" + idx).death("Death" + idx).gender(2L + idx).slug("Slug" + idx)
-                        .aliases(createTwo(aliasModel(), listOffset))
-                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
-                        .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .awards(createTwo(awardModel(), listOffset))
-                        .biographies(createTwo(biographyModel(), listOffset))
-                        .characters(createTwo(characterModel(), listOffset))
-                        .races(create(1, raceModel(), idx, shape))
-                        .remoteIds(createTwo(remoteIdModel(), listOffset))
-                        .tagOptions(createTwo(tagOptionModel(), listOffset))
-                        .translations(create(metaTranslationsModel(), listOffset));
-            }
+    private static SimpleDtoSupplier<PeopleDetails> peopleDetailsModel() {
+        return idx -> {
+            int listOffset = (idx << 1) - 1;
+            PeopleDetailsDTO.Builder builder = new PeopleDetailsDTO.Builder().id(5874L + idx).name("Name" + idx)
+                    .image("Image" + idx).score(23L + idx).birth("Birth" + idx).birthPlace("BirthPlace" + idx)
+                    .death("Death" + idx).gender(2L + idx).slug("Slug" + idx)
+                    .aliases(createTwo(aliasModel(), listOffset))
+                    .nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                    .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
+                    .awards(createTwo(awardModel(), listOffset))
+                    .biographies(createTwo(biographyModel(), listOffset))
+                    .characters(createTwo(characterModel(), listOffset))
+                    .races(create(1, raceModel(), idx, BASIC))
+                    .remoteIds(createTwo(remoteIdModel(), listOffset))
+                    .tagOptions(createTwo(tagOptionModel(), listOffset))
+                    .translations(create(metaTranslationsModel(), listOffset));
             return builder.build();
         };
     }
@@ -1000,37 +931,35 @@ public abstract class ResponseData<T> {
         return idx -> new RemoteIdDTO.Builder().id("Id" + idx).type(3069L + idx).sourceName("SourceName" + idx).build();
     }
 
-    private static DtoSupplier<SearchResult> searchResultModel() {
-        return (idx, shape) -> {
-            SearchResultDTO.Builder builder = new SearchResultDTO.Builder();
-            if (shape == FULL) {
-                int listOffset = (idx << 1) - 1;
-                builder.objectID("ObjectID" + idx).companyType("CompanyType" + idx).country("Country" + idx)
-                        .director("Director" + idx).id("Id" + idx).imageUrl("ImageUrl" + idx).name("Name" + idx)
-                        .firstAirTime("FirstAirTime" + idx).officialList("OfficialList" + idx).poster("Poster" + idx)
-                        .overview("Overview" + idx).status("Status" + idx).primaryLanguage("PrimaryLanguage" + idx)
-                        .type("Type" + idx).tvdbId("TvdbId" + idx).year(2005L + idx).slug("Slug" + idx)
-                        .thumbnail("Thumbnail" + idx).isOfficial(true).network("Network" + idx).title("Title" + idx)
-                        .aliases(createTwo("Alias", listOffset))
-                        .companies(createTwo("Company", listOffset))
-                        .genres(createTwo("Genre", listOffset))
-                        .studios(createTwo("Studio", listOffset))
-                        .nameTranslated(create(searchResultTranslationsModel(), listOffset))
-                        .overviewTranslated(create(searchResultTranslationsModel(), listOffset))
-                        .posters(createTwo("Poster", listOffset))
-                        .translationsWithLang(createTwo("TranslationWithLang", listOffset))
-                        .translations(create(searchResultTranslationsModel(), listOffset))
-                        .remoteIds(createTwo(remoteIdModel(), listOffset))
-                        .overviews(create(searchResultTranslationsModel(), listOffset))
-                ;
-            }
+    private static SimpleDtoSupplier<SearchResult> searchResultModel() {
+        return idx -> {
+            int listOffset = (idx << 1) - 1;
+            SearchResultDTO.Builder builder = new SearchResultDTO.Builder().objectID("ObjectID" + idx)
+                    .companyType("CompanyType" + idx).country("Country" + idx).director("Director" + idx).id("Id" + idx)
+                    .imageUrl("ImageUrl" + idx).name("Name" + idx).firstAirTime("FirstAirTime" + idx)
+                    .officialList("OfficialList" + idx).poster("Poster" + idx).overview("Overview" + idx)
+                    .status("Status" + idx).primaryLanguage("PrimaryLanguage" + idx).type("Type" + idx)
+                    .tvdbId("TvdbId" + idx).year(2005L + idx).slug("Slug" + idx).thumbnail("Thumbnail" + idx)
+                    .isOfficial(true).network("Network" + idx).title("Title" + idx)
+                    .aliases(createTwo("Alias", listOffset))
+                    .companies(createTwo("Company", listOffset))
+                    .genres(createTwo("Genre", listOffset))
+                    .studios(createTwo("Studio", listOffset))
+                    .nameTranslated(create(searchResultTranslationsModel(), listOffset))
+                    .overviewTranslated(create(searchResultTranslationsModel(), listOffset))
+                    .posters(createTwo("Poster", listOffset))
+                    .translationsWithLang(createTwo("TranslationWithLang", listOffset))
+                    .translations(create(searchResultTranslationsModel(), listOffset))
+                    .remoteIds(createTwo(remoteIdModel(), listOffset))
+                    .overviews(create(searchResultTranslationsModel(), listOffset));
             return builder.build();
         };
     }
 
     private static SimpleDtoSupplier<Translations<SearchResultTranslation>> searchResultTranslationsModel() {
         return idx -> new TranslationsDTO.Builder<SearchResultTranslation>()
-                .allTranslations(createTwo(searchResultTranslationModel(), idx)).build();
+                .allTranslations(createTwo(searchResultTranslationModel(), idx))
+                .build();
     }
 
     private static SimpleDtoSupplier<SearchResultTranslation> searchResultTranslationModel() {
@@ -1038,39 +967,33 @@ public abstract class ResponseData<T> {
                 .translation("Translation" + idx).build();
     }
 
-    private static DtoSupplier<Season> seasonModel() {
-        return (idx, shape) -> {
-            SeasonDTO.Builder builder = new SeasonDTO.Builder();
-            if (shape == FULL) {
-                int listOffset = (idx << 1) - 1;
-                builder.seriesId(95873L + idx).number(5L + idx).id(47747L + idx).name("Name" + idx).image("Image" + idx)
-                        .imageType(486L + idx)
-                        .type(create(seasonTypeModel(), idx))
-                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
-                        .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .companies(create(companiesModel(), idx));
-            }
+    private static SimpleDtoSupplier<Season> seasonModel() {
+        return idx -> {
+            int listOffset = (idx << 1) - 1;
+            SeasonDTO.Builder builder = new SeasonDTO.Builder().seriesId(95873L + idx).number(5L + idx).id(47747L + idx)
+                    .name("Name" + idx).image("Image" + idx).imageType(486L + idx)
+                    .type(create(seasonTypeModel(), idx))
+                    .nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                    .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
+                    .companies(create(companiesModel(), idx));
             return builder.build();
         };
     }
 
-    private static DtoSupplier<SeasonDetails> seasonDetailsModel() {
-        return (idx, shape) -> {
-            SeasonDetailsDTO.Builder builder = new SeasonDetailsDTO.Builder();
-            if (shape == FULL) {
-                int listOffset = (idx << 1) - 1;
-                builder.seriesId(30013L + idx).number(11L + idx).id(67409L + idx).name("Name" + idx)
-                        .image("Image" + idx).imageType(654L + idx)
-                        .type(create(seasonTypeModel(), idx))
-                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
-                        .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .companies(create(companiesModel(), idx))
-                        .artwork(createTwo(artworkModel(), listOffset))
-                        .episodes(createTwo(episodeModel(), listOffset))
-                        .trailers(createTwo(trailerModel(), listOffset))
-                        .tagOptions(createTwo(tagOptionModel(), listOffset))
-                        .translations(create(metaTranslationsModel(), listOffset));
-            }
+    private static SimpleDtoSupplier<SeasonDetails> seasonDetailsModel() {
+        return idx -> {
+            int listOffset = (idx << 1) - 1;
+            SeasonDetailsDTO.Builder builder = new SeasonDetailsDTO.Builder().seriesId(30013L + idx).number(11L + idx)
+                    .id(67409L + idx).name("Name" + idx).image("Image" + idx).imageType(654L + idx)
+                    .type(create(seasonTypeModel(), idx))
+                    .nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                    .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
+                    .companies(create(companiesModel(), idx))
+                    .artwork(createTwo(artworkModel(), listOffset))
+                    .episodes(createTwo(episodeModel(), listOffset))
+                    .trailers(createTwo(trailerModel(), listOffset))
+                    .tagOptions(createTwo(tagOptionModel(), listOffset))
+                    .translations(create(metaTranslationsModel(), listOffset));
             return builder.build();
         };
     }
@@ -1082,19 +1005,19 @@ public abstract class ResponseData<T> {
 
     private static DtoSupplier<Series> seriesModel() {
         return (idx, shape) -> {
-            SeriesDTO.Builder builder = new SeriesDTO.Builder();
+            int listOffset = (idx << 1) - 1;
+            SeriesDTO.Builder builder = new SeriesDTO.Builder().nextAired("NextAired" + idx).score(67D + idx)
+                    .lastAired("LastAired" + idx).originalCountry("OriginalCountry" + idx).defaultSeasonType(468L + idx)
+                    .country("Country" + idx).originalLanguage("OriginalLanguage" + idx).isOrderRandomized(TRUE)
+                    .id(34874L + idx).name("Name" + idx).slug("Slug" + idx).image("Image" + idx)
+                    .abbreviation("Abbreviation" + idx).lastUpdated("LastUpdated" + idx).averageRuntime(41L + idx)
+                    .firstAired("FirstAired" + idx).overview("Overview" + idx)
+                    .status(create(statusModel(), idx))
+                    .nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                    .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
+                    .aliases(createTwo(aliasModel(), listOffset));
             if (shape == FULL) {
-                int listOffset = (idx << 1) - 1;
-                builder.nextAired("NextAired" + idx).score(67D + idx).lastAired("LastAired" + idx)
-                        .originalCountry("OriginalCountry" + idx).defaultSeasonType(468L + idx).country("Country" + idx)
-                        .originalLanguage("OriginalLanguage" + idx).isOrderRandomized(TRUE).id(34874L + idx)
-                        .name("Name" + idx).slug("Slug" + idx).image("Image" + idx).abbreviation("Abbreviation" + idx)
-                        .lastUpdated("LastUpdated" + idx).averageRuntime(41L + idx)
-                        .status(create(statusModel(), idx))
-                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
-                        .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .aliases(createTwo(aliasModel(), listOffset)).firstAired("FirstAired" + idx)
-                ;
+                builder.episodes(createTwo(episodeModel(), listOffset));
             }
             return builder.build();
         };
@@ -1105,49 +1028,45 @@ public abstract class ResponseData<T> {
                 .onThursday(TRUE).onTuesday(TRUE).onWednesday(TRUE).build();
     }
 
-    private static DtoSupplier<SeriesDetails> seriesDetailsModel() {
-        return (idx, shape) -> {
-            SeriesDetailsDTO.Builder builder = new SeriesDetailsDTO.Builder();
-            if (shape == FULL) {
-                int listOffset = (idx << 1) - 1;
-                builder.nextAired("NextAired" + idx).score(4D + idx).defaultSeasonType(56L + idx)
-                        .isOrderRandomized(TRUE).firstAired("FirstAired" + idx).lastAired("LastAired" + idx)
-                        .id(923L + idx).name("Name" + idx).slug("Slug" + idx).image("Image" + idx)
-                        .originalCountry("OriginalCountry" + idx).originalLanguage("OriginalLanguage" + idx)
-                        .isOrderRandomized(TRUE).airsTime("AirsTime" + idx).abbreviation("Abbreviation" + idx)
-                        .country("Country" + idx).lastUpdated("LastUpdated" + idx).airsTimeUTC("AirsTimeUTC" + idx)
-                        .averageRuntime(50L + idx)
-                        .status(create(statusModel(), idx))
-                        .airsDays(create(seriesAirsDaysModel(), idx))
-                        .companies(createTwo(companyModel(), listOffset))
-                        .nameTranslations(createTwo(nameTranslationModel(), listOffset))
-                        .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
-                        .aliases(createTwo(aliasModel()))
-                        .artworks(createTwo(artworkDetailsModel(), listOffset))
-                        .genres(createTwo(genreModel(), listOffset))
-                        .trailers(createTwo(trailerModel(), listOffset))
-                        .lists(createTwo(listModel(), listOffset))
-                        .remoteIds(createTwo(remoteIdModel(), listOffset))
-                        .characters(createTwo(characterModel(), listOffset))
-                        .seasons(createTwo(seasonModel(), listOffset))
-                        .translations(create(metaTranslationsModel(), listOffset))
-                        .episodes(createTwo(episodeModel(), listOffset))
-                        .originalNetwork(create(companyModel()))
-                        .latestNetwork(create(companyModel()))
-                        .tags(createTwo(tagOptionModel(), listOffset));
-            }
+    private static SimpleDtoSupplier<SeriesDetails> seriesDetailsModel() {
+        return idx -> {
+            int listOffset = (idx << 1) - 1;
+            SeriesDetailsDTO.Builder builder = new SeriesDetailsDTO.Builder().nextAired("NextAired" + idx)
+                    .score(4D + idx).defaultSeasonType(56L + idx).isOrderRandomized(TRUE).firstAired("FirstAired" + idx)
+                    .lastAired("LastAired" + idx).id(923L + idx).name("Name" + idx).slug("Slug" + idx)
+                    .image("Image" + idx).originalCountry("OriginalCountry" + idx)
+                    .originalLanguage("OriginalLanguage" + idx).isOrderRandomized(TRUE).airsTime("AirsTime" + idx)
+                    .abbreviation("Abbreviation" + idx).country("Country" + idx).lastUpdated("LastUpdated" + idx)
+                    .airsTimeUTC("AirsTimeUTC" + idx).averageRuntime(50L + idx)
+                    .status(create(statusModel(), idx))
+                    .airsDays(create(seriesAirsDaysModel(), idx))
+                    .companies(createTwo(companyModel(), listOffset))
+                    .nameTranslations(createTwo(nameTranslationModel(), listOffset))
+                    .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
+                    .aliases(createTwo(aliasModel()))
+                    .artworks(createTwo(artworkDetailsModel(), listOffset))
+                    .genres(createTwo(genreModel(), listOffset))
+                    .trailers(createTwo(trailerModel(), listOffset))
+                    .lists(createTwo(listModel(), listOffset))
+                    .remoteIds(createTwo(remoteIdModel(), listOffset))
+                    .characters(createTwo(characterModel(), listOffset))
+                    .seasons(createTwo(seasonModel(), listOffset))
+                    .translations(create(metaTranslationsModel(), listOffset))
+                    .episodes(createTwo(episodeModel(), listOffset))
+                    .originalNetwork(create(companyModel()))
+                    .latestNetwork(create(companyModel()))
+                    .tags(createTwo(tagOptionModel(), listOffset))
+                    .contentRatings(createTwo(contentRatingModel(), listOffset))
+                    .seasonTypes(createTwo(seasonTypeModel(), listOffset));
             return builder.build();
         };
     }
 
-    private static DtoSupplier<SeriesEpisodes> seriesEpisodesModel() {
-        return (idx, shape) -> {
-            SeriesEpisodesDTO.Builder builder = new SeriesEpisodesDTO.Builder();
-            if (shape == FULL) {
-                int listOffset = (idx << 1) - 1;
-                builder.series(create(seriesModel(), idx))
-                        .episodes(createTwo(episodeModel(), listOffset));
-            }
+    private static SimpleDtoSupplier<SeriesEpisodes> seriesEpisodesModel() {
+        return idx -> {
+            int listOffset = (idx << 1) - 1;
+            SeriesEpisodesDTO.Builder builder = new SeriesEpisodesDTO.Builder().series(create(seriesModel(), idx))
+                    .episodes(createTwo(episodeModel(), listOffset));
             return builder.build();
         };
     }
@@ -1166,41 +1085,29 @@ public abstract class ResponseData<T> {
         return idx -> new StudioDTO.Builder().id(86L + idx).name("Name" + idx).parentStudio(15L + idx).build();
     }
 
-    private static DtoSupplier<TagOption> tagOptionModel() {
-        return (idx, shape) -> {
-            TagOptionDTO.Builder builder = new TagOptionDTO.Builder();
-            if (shape == FULL) {
-                builder.id(5796L + idx).name("Name" + idx).tag(42L + idx).tagName("TagName" + idx)
-                        .helpText("HelpText" + idx);
-            }
-            return builder.build();
-        };
+    private static SimpleDtoSupplier<TagOption> tagOptionModel() {
+        return idx -> new TagOptionDTO.Builder().id(5796L + idx).name("Name" + idx).tag(42L + idx)
+                .tagName("TagName" + idx).helpText("HelpText" + idx).build();
     }
 
-    private static DtoSupplier<Trailer> trailerModel() {
-        return (idx, shape) -> {
-            TrailerDTO.Builder builder = new TrailerDTO.Builder();
-            if (shape == FULL) {
-                builder.id(6033L + idx).name("Name" + idx).language("Language" + idx).url("Url" + idx);
-            }
-            return builder.build();
-        };
+    private static SimpleDtoSupplier<Trailer> trailerModel() {
+        return idx -> new TrailerDTO.Builder().id(6033L + idx).name("Name" + idx).language("Language" + idx)
+                .url("Url" + idx).build();
     }
 
     private static SimpleDtoSupplier<Translations<EntityTranslation>> entityTranslationsModel() {
         return idx -> new TranslationsDTO.Builder<EntityTranslation>()
-                .allTranslations(createTwo(entityTranslationModel(), idx)).build();
+                .allTranslations(createTwo(entityTranslationModel(), idx))
+                .build();
     }
 
-    private static DtoSupplier<EntityTranslation> entityTranslationModel() {
-        return (idx, shape) -> {
-            EntityTranslationDTO.Builder builder = new EntityTranslationDTO.Builder();
-            if (shape == FULL) {
-                int listOffset = (idx << 1) - 1;
-                builder.language("Language" + idx).isPrimary(true).name("Name" + idx).isAlias(true)
-                        .overview("Overview" + idx).tagline("Tagline" + idx)
-                        .aliases(createTwo("Alias", listOffset));
-            }
+    private static SimpleDtoSupplier<EntityTranslation> entityTranslationModel() {
+        return idx -> {
+            int listOffset = (idx << 1) - 1;
+            EntityTranslationDTO.Builder builder = new EntityTranslationDTO.Builder()
+                    .language("Language" + idx).isPrimary(true).name("Name" + idx).isAlias(true)
+                    .overview("Overview" + idx).tagline("Tagline" + idx)
+                    .aliases(createTwo("Alias", listOffset));
             return builder.build();
         };
     }

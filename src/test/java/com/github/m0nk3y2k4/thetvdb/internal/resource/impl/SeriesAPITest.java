@@ -18,6 +18,7 @@ package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
 import static com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series.AIR_DATE;
 import static com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series.EPISODE_NUMBER;
+import static com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series.LANGUAGE;
 import static com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series.SEASON;
 import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.ABSOLUTE;
 import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.ALTERNATE;
@@ -27,6 +28,7 @@ import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.OFFI
 import static com.github.m0nk3y2k4.thetvdb.api.enumeration.SeriesSeasonType.REGIONAL;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI.getAllSeries;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI.getAllSeriesStatuses;
+import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI.getSeriesArtworks;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI.getSeriesBase;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI.getSeriesEpisodes;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI.getSeriesEpisodesTranslated;
@@ -39,6 +41,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIESEPISODES;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIESEPISODES_TRANSLATED;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.SERIES_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.STATUS_OVERVIEW;
@@ -72,13 +75,15 @@ class SeriesAPITest {
         client.when(request("/series", GET)).respond(jsonResponse(SERIES_OVERVIEW));
         client.when(request("/series", GET, param("page", "3"))).respond(jsonResponse(SERIES_OVERVIEW));
         client.when(request("/series/100348", GET)).respond(jsonResponse(SERIES));
+        client.when(request("/series/65740/artworks", GET)).respond(jsonResponse(SERIES_DETAILS));
+        client.when(request("/series/21447/artworks", GET, param(LANGUAGE, "spa"))).respond(jsonResponse(SERIES_DETAILS));
         client.when(request("/series/49710/extended", GET)).respond(jsonResponse(SERIES_DETAILS));
         client.when(request("/series/34879/extended", GET, param("meta", "episodes"))).respond(jsonResponse(SERIES_DETAILS));
         client.when(request("/series/58709/episodes/official", GET)).respond(jsonResponse(SERIESEPISODES));
         client.when(request("/series/69742/episodes/regional", GET, param(AIR_DATE, "1998-06-19"))).respond(jsonResponse(SERIESEPISODES));
         client.when(request("/series/89414/episodes/alternate", GET, param(SEASON, "2"), param(EPISODE_NUMBER, "8"))).respond(jsonResponse(SERIESEPISODES));
-        client.when(request("/series/70204/episodes/default/nld", GET)).respond(jsonResponse(SERIES_DETAILS));
-        client.when(request("/series/56347/episodes/regional/fra", GET, param("page", "9"))).respond(jsonResponse(SERIES_DETAILS));
+        client.when(request("/series/70204/episodes/default/nld", GET)).respond(jsonResponse(SERIESEPISODES_TRANSLATED));
+        client.when(request("/series/56347/episodes/regional/fra", GET, param("page", "9"))).respond(jsonResponse(SERIESEPISODES_TRANSLATED));
         client.when(request("/series/69423/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
     }
 
@@ -87,6 +92,8 @@ class SeriesAPITest {
         return Stream.of(
                 of(route(con -> getSeriesBase(con, 0), "getSeriesBase() with ZERO series ID")),
                 of(route(con -> getSeriesBase(con, -2), "getSeriesBase() with negative series ID")),
+                of(route(con -> getSeriesArtworks(con, 0, null), "getSeriesArtworks() with ZERO series ID")),
+                of(route(con -> getSeriesArtworks(con, -6, null), "getSeriesArtworks() with negative series ID")),
                 of(route(con -> getSeriesExtended(con, 0, null), "getSeriesExtended() with ZERO series ID")),
                 of(route(con -> getSeriesExtended(con, -9, null), "getSeriesExtended() with negative series ID")),
                 of(route(con -> getSeriesEpisodes(con, 0, ABSOLUTE, null), "getSeriesEpisodes() with ZERO series ID")),
@@ -113,13 +120,15 @@ class SeriesAPITest {
                 of(route(con -> getAllSeries(con, null), "getAllSeries() without query parameters"), SERIES_OVERVIEW),
                 of(route(con -> getAllSeries(con, params("page", "3")), "getAllSeries() with query parameters"), SERIES_OVERVIEW),
                 of(route(con -> getSeriesBase(con, 100348), "getSeriesBase()"), SERIES),
+                of(route(con -> getSeriesArtworks(con, 65740, null), "getSeriesArtworks() without query parameters"), SERIES_DETAILS),
+                of(route(con -> getSeriesArtworks(con, 21447, params(LANGUAGE, "spa")), "getSeriesArtworks() with query parameters"), SERIES_DETAILS),
                 of(route(con -> getSeriesExtended(con, 49710, null), "getSeriesExtended() without query parameters"), SERIES_DETAILS),
                 of(route(con -> getSeriesExtended(con, 34879, params("meta", "episodes")), "getSeriesExtended() with query parameters"), SERIES_DETAILS),
                 of(route(con -> getSeriesEpisodes(con, 58709, OFFICIAL, null), "getSeriesEpisodes() without query parameters"), SERIESEPISODES),
                 of(route(con -> getSeriesEpisodes(con, 69742, REGIONAL, params(AIR_DATE, "1998-06-19")), "getSeriesEpisodes() with query parameters"), SERIESEPISODES),
                 of(route(con -> getSeriesEpisodes(con, 89414, ALTERNATE, params(SEASON, "2", EPISODE_NUMBER, "8")), "getSeriesEpisodes() with conditional query parameters"), SERIESEPISODES),
-                of(route(con -> getSeriesEpisodesTranslated(con, 70204, DEFAULT, "nld", null), "getSeriesEpisodesTranslated() without query parameters"), SERIES_DETAILS),
-                of(route(con -> getSeriesEpisodesTranslated(con, 56347, REGIONAL, "fra", params("page", "9")), "getSeriesEpisodesTranslated() with query parameters"), SERIES_DETAILS),
+                of(route(con -> getSeriesEpisodesTranslated(con, 70204, DEFAULT, "nld", null), "getSeriesEpisodesTranslated() without query parameters"), SERIESEPISODES_TRANSLATED),
+                of(route(con -> getSeriesEpisodesTranslated(con, 56347, REGIONAL, "fra", params("page", "9")), "getSeriesEpisodesTranslated() with query parameters"), SERIESEPISODES_TRANSLATED),
                 of(route(con -> getSeriesTranslation(con, 69423, "eng"), "getSeriesTranslation()"), TRANSLATION)
         );
     }

@@ -1227,7 +1227,8 @@
           "defaultSeasonType": 469,
           "isOrderRandomized": true,
           "lastUpdated": "LastUpdated1",
-          "averageRuntime": 42
+          "averageRuntime": 42,
+          "overview": "Overview1"
         },
         "year": "Year1",
         "category": "Category1",
@@ -2449,7 +2450,8 @@
           "defaultSeasonType": 470,
           "isOrderRandomized": true,
           "lastUpdated": "LastUpdated2",
-          "averageRuntime": 43
+          "averageRuntime": 43,
+          "overview": "Overview2"
         },
         "year": "Year2",
         "category": "Category2",

@@ -45,17 +45,14 @@ public abstract class MovieDetailsDTO implements MovieDetails {
     @Override
     @Nullable
     @JsonAlias("first_release")
-    // ToDo: Property is declared as "firstRelease" in API documentation but send as "first_release" in JSON. Check again after next API update.
     public abstract Release getFirstRelease();
 
     @Override
     @JsonAlias("production_countries")
-    // ToDo: Property is declared as "productionCountries" in API documentation but send as "production_countries" in JSON. Check again after next API update.
     public abstract List<ProductionCountry> getProductionCountries();
 
     @Override
     @JsonAlias("spoken_languages")
-    // ToDo: Property is declared as "spokenLanguages" in API documentation but send as "spoken_languages" in JSON. Check again after next API update.
     public abstract List<String> getSpokenLanguages();
 
     /**

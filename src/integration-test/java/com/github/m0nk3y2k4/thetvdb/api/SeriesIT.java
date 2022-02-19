@@ -48,26 +48,33 @@ class SeriesIT {
 
     @Test
     @Order(4)
+    void getSeriesArtworks(TheTVDBApi api) {
+        assertThat(() -> api.getSeriesArtworks(273181, "deu")).as("/series/273181/artworks?language=deu")
+                .doesNotThrowAnyException();
+    }
+
+    @Test
+    @Order(5)
     void getSeriesDetails(TheTVDBApi api) {
         assertThat(() -> api.getSeriesDetails(292157)).as("/series/292157/extended").doesNotThrowAnyException();
     }
 
     @Test
-    @Order(5)
+    @Order(6)
     void getSeriesEpisodes(TheTVDBApi api) {
         assertThat(() -> api.getSeriesEpisodes(71470, OFFICIAL)).as("/series/71470/episodes/official")
                 .doesNotThrowAnyException();
     }
 
     @Test
-    @Order(6)
+    @Order(7)
     void getSeriesEpisodesTranslated(TheTVDBApi api) {
         assertThat(() -> api.getSeriesEpisodesTranslated(360893, DEFAULT, "fra")).as("/series/360893/episodes/default/fra")
                 .doesNotThrowAnyException();
     }
 
     @Test
-    @Order(7)
+    @Order(8)
     void getSeriesTranslation(TheTVDBApi api) {
         assertThat(() -> api.getSeriesTranslation(361753, "nld")).as("/series/361753/translations/nld")
                 .doesNotThrowAnyException();

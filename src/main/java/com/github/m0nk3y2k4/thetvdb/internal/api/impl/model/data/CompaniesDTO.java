@@ -41,7 +41,6 @@ public abstract class CompaniesDTO implements Companies {
 
     @Override
     @JsonAlias("special_effects")
-    // ToDo: Property is declared as "specialEffects" in API documentation but send as "special_effects" in JSON. Check again after next API update.
     public abstract List<Company> getSpecialEffects();
 
     /**
