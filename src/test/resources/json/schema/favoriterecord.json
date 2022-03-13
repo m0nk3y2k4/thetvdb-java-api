@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema#",
+  "$id": "https://api4.thetvdb.com/v4/schemas/favoriterecord.json",
+  "type": "object",
+  "properties": {
+    "series": { "type": "integer" },
+    "movies": { "type": "integer" },
+    "episodes": { "type": "integer" },
+    "artwork": { "type": "integer" },
+    "people": { "type": "integer" },
+    "list": { "type": "integer" }
+  },
+  "anyOf": [
+    { "required": ["series"] },
+    { "required": ["movies"] },
+    { "required": ["episodes"] },
+    { "required": ["artwork"] },
+    { "required": ["people"] },
+    { "required": ["list"] }
+  ],
+  "additionalProperties": false
+}

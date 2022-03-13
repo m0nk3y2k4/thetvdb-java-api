@@ -22,6 +22,7 @@ import java.util.Optional;
 import javax.annotation.Nonnull;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.EpisodeMeta;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.MovieMeta;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.PeopleMeta;
@@ -52,6 +53,8 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EpisodeDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.FCList;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.FCListDetails;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.FavoriteRecord;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Favorites;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Gender;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.InspirationType;
@@ -768,6 +771,23 @@ public interface TheTVDBApi {
     MovieDetails getMovieDetails(long movieId, QueryParameters queryParameters) throws APIException;
 
     /**
+     * Returns a collection of movies based on the given filter parameters mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getMoviesFilter">
+     * <b>[GET]</b> /movies/filter</a>
+     *
+     * @param queryParameters Object containing key/value pairs of query parameters
+     *
+     * @return Collection of movies mapped as Java DTO's based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see JSON#getMoviesFiltered(QueryParameters) TheTVDBApi.JSON.getMoviesFiltered(queryParameters)
+     * @see Extended#getMoviesFiltered(QueryParameters) TheTVDBApi.Extended.getMoviesFiltered(queryParameters)
+     */
+    Collection<Movie> getMoviesFiltered(QueryParameters queryParameters) throws APIException;
+
+    /**
      * Returns detailed information for a specific movie mapped as Java DTO. This is a shortcut-method for {@link
      * #getMovieDetails(long, QueryParameters) getMovieDetails(movieId, queryParameters)} with no additional query
      * parameters.
@@ -1361,6 +1381,23 @@ public interface TheTVDBApi {
             throws APIException;
 
     /**
+     * Returns a collection of series based on the given filter parameters mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesFilter">
+     * <b>[GET]</b> /series/filter</a>
+     *
+     * @param queryParameters Object containing key/value pairs of query parameters
+     *
+     * @return Collection of series mapped as Java DTO's based on the JSON data returned by the remote service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see JSON#getSeriesFiltered(QueryParameters) TheTVDBApi.JSON.getSeriesFiltered(queryParameters)
+     * @see Extended#getSeriesFiltered(QueryParameters) TheTVDBApi.Extended.getSeriesFiltered(queryParameters)
+     */
+    Collection<Series> getSeriesFiltered(QueryParameters queryParameters) throws APIException;
+
+    /**
      * Returns a translation record for a specific series mapped as Java DTO.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesTranslation">
@@ -1457,6 +1494,41 @@ public interface TheTVDBApi {
      */
     Collection<EntityUpdate> getUpdates(long since, @Nonnull UpdateEntityType type, @Nonnull UpdateAction action,
             long page) throws APIException;
+
+    /**
+     * Returns the current favorites of this user mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Favorites/getUserFavorites">
+     * <b>[GET]</b> /user/favorites</a>
+     *
+     * @return The current favorites of this user mapped as Java DTO's based on the JSON data returned by the remote
+     *         service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see JSON#getUserFavorites()
+     * @see Extended#getUserFavorites()
+     */
+    Favorites getUserFavorites() throws APIException;
+
+    /**
+     * Adds the given entities to the users list of favorites. To create a new favorite record, use the {@link
+     * TheTVDBApiFactory#createFavoriteRecordBuilder() factory method} to retrieve a corresponding builder instance.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Favorites/createUserFavorites">
+     * <b>[POST]</b> /user/favorites</a>
+     *
+     * @param favoriteRecord Record containing one or multiple favorite entities
+     *
+     * @return Void placeholder object containing no actual data
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see JSON#createUserFavorites(FavoriteRecord) TheTVDBApi.JSON.createUserFavorites(favoriteRecord)
+     * @see Extended#createUserFavorites(FavoriteRecord) TheTVDBApi.Extended.createUserFavorites(favoriteRecord)
+     * @see TheTVDBApiFactory#createFavoriteRecordBuilder()
+     */
+    Void createUserFavorites(@Nonnull FavoriteRecord favoriteRecord) throws APIException;
 
     /**
      * Provides access to the API's {@link JSON JSON} layout.
@@ -1994,6 +2066,23 @@ public interface TheTVDBApi {
         JsonNode getMovieDetails(long movieId, QueryParameters queryParameters) throws APIException;
 
         /**
+         * Returns a collection of movies based on the given filter parameters as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getMoviesFilter">
+         * <b>[GET]</b> /movies/filter</a>
+         *
+         * @param queryParameters Object containing key/value pairs of query parameters
+         *
+         * @return JSON object containing the movies
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see TheTVDBApi#getMoviesFiltered(QueryParameters) TheTVDBApi.getMoviesFiltered(queryParameters)
+         * @see Extended#getMoviesFiltered(QueryParameters) TheTVDBApi.Extended.getMoviesFiltered(queryParameters)
+         */
+        JsonNode getMoviesFiltered(QueryParameters queryParameters) throws APIException;
+
+        /**
          * Returns a translation record for a specific movie as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getMovieTranslation">
@@ -2333,6 +2422,23 @@ public interface TheTVDBApi {
                 @Nonnull String language, QueryParameters queryParameters) throws APIException;
 
         /**
+         * Returns a collection of series based on the given filter parameters as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesFilter">
+         * <b>[GET]</b> /series/filter</a>
+         *
+         * @param queryParameters Object containing key/value pairs of query parameters
+         *
+         * @return JSON object containing the series
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see TheTVDBApi#getSeriesFiltered(QueryParameters) TheTVDBApi.getSeriesFiltered(queryParameters)
+         * @see Extended#getSeriesFiltered(QueryParameters) TheTVDBApi.Extended.getSeriesFiltered(queryParameters)
+         */
+        JsonNode getSeriesFiltered(QueryParameters queryParameters) throws APIException;
+
+        /**
          * Returns a translation record for a specific series as raw JSON.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesTranslation">
@@ -2386,6 +2492,41 @@ public interface TheTVDBApi {
          * @see Extended#getUpdates(QueryParameters) TheTVDBApi.Extended.getUpdates(queryParameters)
          */
         JsonNode getUpdates(QueryParameters queryParameters) throws APIException;
+
+        /**
+         * Returns the current favorites of this user as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Favorites/getUserFavorites">
+         * <b>[GET]</b> /user/favorites</a>
+         *
+         * @return JSON object containing the current favorites of this user
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see TheTVDBApi#getUserFavorites() TheTVDBApi.getUserFavorites()
+         * @see Extended#getUserFavorites()
+         */
+        JsonNode getUserFavorites() throws APIException;
+
+        /**
+         * Adds the given entities to the users list of favorites and returns the success status of the operation as raw
+         * JSON. To create a new favorite record, use the {@link TheTVDBApiFactory#createFavoriteRecordBuilder() factory
+         * method} to retrieve a corresponding builder instance.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Favorites/createUserFavorites">
+         * <b>[POST]</b> /user/favorites</a>
+         *
+         * @param favoriteRecord Record containing one or multiple favorite entities
+         *
+         * @return JSON object containing the success status of the operation
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see TheTVDBApi#createUserFavorites(FavoriteRecord) TheTVDBApi.createUserFavorites(favoriteRecord)
+         * @see Extended#createUserFavorites(FavoriteRecord) TheTVDBApi.Extended.createUserFavorites(favoriteRecord)
+         * @see TheTVDBApiFactory#createFavoriteRecordBuilder()
+         */
+        JsonNode createUserFavorites(@Nonnull FavoriteRecord favoriteRecord) throws APIException;
     }
 
     /**
@@ -2941,6 +3082,25 @@ public interface TheTVDBApi {
         APIResponse<MovieDetails> getMovieDetails(long movieId, QueryParameters queryParameters) throws APIException;
 
         /**
+         * Returns a response object containing a collection of movies based on the given filter parameters mapped as
+         * Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getMoviesFilter">
+         * <b>[GET]</b> /movies/filter</a>
+         *
+         * @param queryParameters Object containing key/value pairs of query parameters
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see JSON#getMoviesFiltered(QueryParameters) TheTVDBApi.JSON.getMoviesFiltered(queryParameters)
+         * @see TheTVDBApi#getMoviesFiltered(QueryParameters) TheTVDBApi.getMoviesFiltered(queryParameters)
+         */
+        APIResponse<Collection<Movie>> getMoviesFiltered(QueryParameters queryParameters) throws APIException;
+
+        /**
          * Returns a response object containing a translation record for a specific movie mapped as Java DTO.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getMovieTranslation">
@@ -3302,6 +3462,25 @@ public interface TheTVDBApi {
                 @Nonnull String language, QueryParameters queryParameters) throws APIException;
 
         /**
+         * Returns a response object containing a collection of series based on the given filter parameters mapped as
+         * Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesFilter">
+         * <b>[GET]</b> /series/filter</a>
+         *
+         * @param queryParameters Object containing key/value pairs of query parameters
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see JSON#getSeriesFiltered(QueryParameters) TheTVDBApi.JSON.getSeriesFiltered(queryParameters)
+         * @see TheTVDBApi#getSeriesFiltered(QueryParameters) TheTVDBApi.getSeriesFiltered(queryParameters)
+         */
+        APIResponse<Collection<Series>> getSeriesFiltered(QueryParameters queryParameters) throws APIException;
+
+        /**
          * Returns a response object containing a translation record for a specific series mapped as Java DTO.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesTranslation">
@@ -3358,6 +3537,42 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getUpdates(QueryParameters) TheTVDBApi.getUpdates(queryParameters)
          */
         APIResponse<Collection<EntityUpdate>> getUpdates(QueryParameters queryParameters) throws APIException;
+
+        /**
+         * Returns a response object containing the current favorites of this user mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Favorites/getUserFavorites">
+         * <b>[GET]</b> /user/favorites</a>
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see JSON#getUserFavorites()
+         * @see TheTVDBApi#getUserFavorites() TheTVDBApi.getUserFavorites()
+         */
+        APIResponse<Favorites> getUserFavorites() throws APIException;
+
+        /**
+         * Adds the given entities to the users list of favorites and returns a response object containing the success
+         * status of the operation. To create a new favorite record, use the {@link TheTVDBApiFactory#createFavoriteRecordBuilder()
+         * factory method} to retrieve a corresponding builder instance.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Favorites/createUserFavorites">
+         * <b>[POST]</b> /user/favorites</a>
+         *
+         * @param favoriteRecord Record containing one or multiple favorite entities
+         *
+         * @return Extended API response containing the success status of the operation
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see JSON#createUserFavorites(FavoriteRecord) TheTVDBApi.JSON.createUserFavorites(favoriteRecord)
+         * @see TheTVDBApi#createUserFavorites(FavoriteRecord) TheTVDBApi.createUserFavorites(favoriteRecord)
+         * @see TheTVDBApiFactory#createFavoriteRecordBuilder()
+         */
+        APIResponse<Void> createUserFavorites(@Nonnull FavoriteRecord favoriteRecord) throws APIException;
     }
 
     /**
@@ -3365,7 +3580,7 @@ public interface TheTVDBApi {
      */
     final class Version {
         /** Version of the <i>TheTVDB.com</i> remote API used by this connector */
-        public static final String API_VERSION = "v4.6.0";
+        public static final String API_VERSION = "v4.6.1";
 
         /** Constant class. Should not be instantiated */
         private Version() {}

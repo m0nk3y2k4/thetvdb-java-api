@@ -1,0 +1,11 @@
+{
+  "data": null,
+  "status": "success",
+  "links": {
+    "prev": "Prev1",
+    "self": "Self1",
+    "next": "Next1",
+    "total_items": 65848,
+    "page_size": 250
+  }
+}

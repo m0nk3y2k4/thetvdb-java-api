@@ -70,4 +70,20 @@ public interface EntityUpdate {
      */
     @Nullable
     Long getSeriesId();
+
+    /**
+     * Get the value of the {<em>{@code data.mergeToId}</em>} JSON property
+     *
+     * @return The <em>{@code mergeToId}</em> property from the received JSON
+     */
+    @Nullable
+    Long getMergeToId();
+
+    /**
+     * Get the value of the {<em>{@code data.mergeToEntityType}</em>} JSON property
+     *
+     * @return The <em>{@code mergeToEntityType}</em> property from the received JSON
+     */
+    @Nullable
+    String getMergeToEntityType();
 }

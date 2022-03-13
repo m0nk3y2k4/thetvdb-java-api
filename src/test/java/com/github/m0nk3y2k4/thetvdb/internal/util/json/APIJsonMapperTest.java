@@ -23,11 +23,25 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.m0nk3y2k4.thetvdb.api.exception.APIException;
 import com.github.m0nk3y2k4.thetvdb.api.model.APIResponse;
 import com.github.m0nk3y2k4.thetvdb.testutils.ResponseData;
+import com.github.m0nk3y2k4.thetvdb.testutils.json.Data;
 import com.github.m0nk3y2k4.thetvdb.testutils.parameterized.ResponseDataSource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 
 class APIJsonMapperTest {
+
+    @Test
+    void writeValue_beanWithNoProperties_APIExceptionIsThrown() {
+        assertThatExceptionOfType(APIException.class)
+                .isThrownBy(() -> APIJsonMapper.writeValue(new Object()))
+                .withMessageStartingWith("Error while processing JSON content: ");
+    }
+
+    @Test
+    void writeValue_simpleBean_returnsJsonString() throws Exception {
+        assertThat(APIJsonMapper.writeValue(Data.with("some value")))
+                .isEqualToIgnoringWhitespace("{\"content\": \"some value\"}");
+    }
 
     @Test
     void readObject_withInvalidJSON_throwsAPIException() {

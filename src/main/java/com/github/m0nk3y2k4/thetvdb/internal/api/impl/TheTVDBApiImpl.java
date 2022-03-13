@@ -62,6 +62,8 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EpisodeDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.FCList;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.FCListDetails;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.FavoriteRecord;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Favorites;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Gender;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.InspirationType;
@@ -101,6 +103,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeasonsAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SourceTypesAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.UpdatesAPI;
+import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.UserAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.util.json.APIJsonMapper;
 import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters;
 
@@ -384,6 +387,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public Collection<Movie> getMoviesFiltered(QueryParameters queryParameters) throws APIException {
+        return extended().getMoviesFiltered(queryParameters).getData();
+    }
+
+    @Override
     public MovieDetails getMovieDetails(long movieId) throws APIException {
         return getMovieDetails(movieId, emptyQuery());
     }
@@ -570,6 +578,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public Collection<Series> getSeriesFiltered(QueryParameters queryParameters) throws APIException {
+        return extended().getSeriesFiltered(queryParameters).getData();
+    }
+
+    @Override
     public EntityTranslation getSeriesTranslation(long seriesId, @Nonnull String language) throws APIException {
         return extended().getSeriesTranslation(seriesId, language).getData();
     }
@@ -602,6 +615,16 @@ public class TheTVDBApiImpl implements TheTVDBApi {
                 Query.Updates.ACTION, action,
                 Query.Updates.PAGE, page))
         );
+    }
+
+    @Override
+    public Favorites getUserFavorites() throws APIException {
+        return extended().getUserFavorites().getData();
+    }
+
+    @Override
+    public Void createUserFavorites(@Nonnull FavoriteRecord favoriteRecord) throws APIException {
+        return extended().createUserFavorites(favoriteRecord).getData();
     }
 
     @Override
@@ -772,6 +795,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public JsonNode getMoviesFiltered(QueryParameters queryParameters) throws APIException {
+            return MoviesAPI.getMoviesFilter(con, queryParameters);
+        }
+
+        @Override
         public JsonNode getMovieTranslation(long movieId, @Nonnull String language) throws APIException {
             return MoviesAPI.getMovieTranslation(con, movieId, language);
         }
@@ -864,6 +892,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public JsonNode getSeriesFiltered(QueryParameters queryParameters) throws APIException {
+            return SeriesAPI.getSeriesFilter(con, queryParameters);
+        }
+
+        @Override
         public JsonNode getSeriesTranslation(long seriesId, @Nonnull String language) throws APIException {
             return SeriesAPI.getSeriesTranslation(con, seriesId, language);
         }
@@ -876,6 +909,16 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public JsonNode getUpdates(QueryParameters queryParameters) throws APIException {
             return UpdatesAPI.getUpdates(con, queryParameters);
+        }
+
+        @Override
+        public JsonNode getUserFavorites() throws APIException {
+            return UserAPI.getUserFavorites(con);
+        }
+
+        @Override
+        public JsonNode createUserFavorites(@Nonnull FavoriteRecord favoriteRecord) throws APIException {
+            return UserAPI.createUserFavorites(con, favoriteRecord);
         }
     }
 
@@ -1041,6 +1084,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public APIResponse<Collection<Movie>> getMoviesFiltered(QueryParameters queryParameters) throws APIException {
+            return APIJsonMapper.readValue(json().getMoviesFiltered(queryParameters), new TypeReference<>() {});
+        }
+
+        @Override
         public APIResponse<EntityTranslation> getMovieTranslation(long movieId, @Nonnull String language)
                 throws APIException {
             return APIJsonMapper.readValue(json().getMovieTranslation(movieId, language), new TypeReference<>() {});
@@ -1143,6 +1191,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         }
 
         @Override
+        public APIResponse<Collection<Series>> getSeriesFiltered(QueryParameters queryParameters) throws APIException {
+            return APIJsonMapper.readValue(json().getSeriesFiltered(queryParameters), new TypeReference<>() {});
+        }
+
+        @Override
         public APIResponse<EntityTranslation> getSeriesTranslation(long seriesId, @Nonnull String language)
                 throws APIException {
             return APIJsonMapper.readValue(json().getSeriesTranslation(seriesId, language), new TypeReference<>() {});
@@ -1156,6 +1209,16 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public APIResponse<Collection<EntityUpdate>> getUpdates(QueryParameters queryParameters) throws APIException {
             return APIJsonMapper.readValue(json().getUpdates(queryParameters), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<Favorites> getUserFavorites() throws APIException {
+            return APIJsonMapper.readValue(json().getUserFavorites(), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<Void> createUserFavorites(@Nonnull FavoriteRecord favoriteRecord) throws APIException {
+            return APIJsonMapper.readValue(json().createUserFavorites(favoriteRecord), new TypeReference<>() {});
         }
     }
 }

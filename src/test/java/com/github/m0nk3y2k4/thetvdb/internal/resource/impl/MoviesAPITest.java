@@ -16,11 +16,13 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
+import static com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory.createQueryParameters;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.MoviesAPI.getAllMovieStatuses;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.MoviesAPI.getAllMovies;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.MoviesAPI.getMovieBase;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.MoviesAPI.getMovieExtended;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.MoviesAPI.getMovieTranslation;
+import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.MoviesAPI.getMoviesFilter;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.params;
@@ -62,6 +64,7 @@ class MoviesAPITest {
         client.when(request("/movies/648730", GET)).respond(jsonResponse(MOVIE));
         client.when(request("/movies/95574/extended", GET)).respond(jsonResponse(MOVIE_DETAILS));
         client.when(request("/movies/54717/extended", GET, param("meta", "translations"))).respond(jsonResponse(MOVIE_DETAILS));
+        client.when(request("/movies/filter", GET, param("country", "bel"), param("lang", "fra"))).respond(jsonResponse(MOVIE_OVERVIEW));
         client.when(request("/movies/57017/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
     }
 
@@ -71,6 +74,10 @@ class MoviesAPITest {
                 of(route(con -> getMovieBase(con, -4), "getMovieBase() with negative movie ID")),
                 of(route(con -> getMovieExtended(con, 0, null), "getMovieExtended() with ZERO movie ID")),
                 of(route(con -> getMovieExtended(con, -5, null), "getMovieExtended() with negative movie ID")),
+                of(route(con -> getMoviesFilter(con, null), "getMoviesFilter() without query parameters")),
+                of(route(con -> getMoviesFilter(con, createQueryParameters()), "getMoviesFilter() with empty query parameters")),
+                of(route(con -> getMoviesFilter(con, params("country", "isl")), "getMoviesFilter() without mandatory \"lang\" query parameter")),
+                of(route(con -> getMoviesFilter(con, params("lang", "pus")), "getMoviesFilter() without mandatory \"country\" query parameter")),
                 of(route(con -> getMovieTranslation(con, 0, "eng"), "getMovieTranslation() with ZERO movie ID")),
                 of(route(con -> getMovieTranslation(con, -1, "deu"), "getMovieTranslation() with negative movie ID")),
                 of(route(con -> getMovieTranslation(con, 5841, "e"), "getMovieTranslation() with invalid language code (1)")),
@@ -87,6 +94,7 @@ class MoviesAPITest {
                 of(route(con -> getMovieBase(con, 648730), "getMovieBase()"), MOVIE),
                 of(route(con -> getMovieExtended(con, 95574, null), "getMovieExtended() without query parameters"), MOVIE_DETAILS),
                 of(route(con -> getMovieExtended(con, 54717, params("meta", "translations")), "getMovieExtended() with query parameters"), MOVIE_DETAILS),
+                of(route(con -> getMoviesFilter(con, params("country", "bel", "lang", "fra")), "getMoviesFilter() with query parameters"), MOVIE_OVERVIEW),
                 of(route(con -> getMovieTranslation(con, 57017, "eng"), "getMovieTranslation()"), TRANSLATION)
         );
     }

@@ -90,8 +90,8 @@ public final class APIResponseDeserializer<T, X extends IOException> extends Jso
 
     /**
      * Checks if the specified field exists in the given JSON. If so, the node will be applied to the given mapping
-     * function, and its result will be returned. If the JSON does not contain a node with the specified name or the
-     * node exists but is a {@link NullNode}, an {@link IllegalArgumentException} will be thrown.
+     * function, and its result will be returned. If the JSON does not contain a node with the specified name an
+     * {@link IllegalArgumentException} will be thrown.
      *
      * @param json      Base JSON object used for parsing
      * @param fieldName Name of the top-level node to be deserialized
@@ -105,7 +105,7 @@ public final class APIResponseDeserializer<T, X extends IOException> extends Jso
      *                                  the node exists but is a "null node"
      */
     private static <U> U parseMandatoryNode(JsonNode json, String fieldName, Mapping<U> mapping) throws IOException {
-        return mapping.apply(json.path(fieldName).requireNonNull());
+        return mapping.apply(json.path(fieldName).require());
     }
 
     /**

@@ -18,6 +18,7 @@ package com.github.m0nk3y2k4.thetvdb.internal.util.json.deser;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.api.Assertions.assertThatNoException;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -68,13 +69,21 @@ class APIResponseDeserializerTest {
     private final APIResponseDeserializer<Data, IOException> functionalDeserializer =
             new APIResponseDeserializer<>(dataNode -> new ObjectMapper().readValue(dataNode.toString(), Data.class));
 
-    @ParameterizedTest(name = "[{index}] JSON [{0}] throws IllegalArgumentException")
-    @ValueSource(strings = {MISSING_DATA_PROPERTY, NULL_DATA_PROPERTY, MISSING_STATUS_PROPERTY, NULL_STATUS_PROPERTY})
-    void deserialize_withMandatoryPropertyMissingOrNull_throwsIllegalArgumentException(String jsonContent)
+    @ParameterizedTest(name = "[{index}] Parsing JSON [{0}] throws IllegalArgumentException")
+    @ValueSource(strings = {MISSING_DATA_PROPERTY, MISSING_STATUS_PROPERTY})
+    void deserialize_withMandatoryPropertyMissing_throwsIllegalArgumentException(String jsonContent)
             throws Exception {
         JsonParser jsonParser = new JsonFactory().createParser("{" + jsonContent + "}");
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() ->
                 functionalDeserializer.deserialize(jsonParser, null));
+    }
+
+    @ParameterizedTest(name = "[{index}] Parsing JSON [{0}] does not throw any exception")
+    @ValueSource(strings = {NULL_DATA_PROPERTY, NULL_STATUS_PROPERTY})
+    void deserialize_withMandatoryPropertyNull_isParsedWithoutThrowingAnyException(String jsonContent)
+            throws Exception {
+        JsonParser jsonParser = new JsonFactory().createParser("{" + jsonContent + "}");
+        assertThatNoException().isThrownBy(() -> functionalDeserializer.deserialize(jsonParser, null));
     }
 
     @ParameterizedTest(name = "[{index}] Optional fields in JSON [{0}] are mapped to empty object")

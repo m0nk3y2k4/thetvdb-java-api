@@ -34,6 +34,7 @@ import javax.annotation.Nonnull;
 
 import com.github.m0nk3y2k4.thetvdb.api.APIKey;
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
+import com.github.m0nk3y2k4.thetvdb.api.constants.Query;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.FundingModel;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.QueryParametersImpl;
 import com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil;
@@ -246,17 +247,78 @@ class ParametersTest {
         assertDoesNotThrow(() -> Parameters.validateOptionalQueryParam("season", new QueryParametersImpl(), s -> false));
     }
 
+    @Test
+    void validateFilterQueryParams_withMissingLanguageParameter_exceptionThrown() {
+        final QueryParameters params = new QueryParametersImpl(Map.of(Query.Filter.COUNTRY, "aus"));
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> Parameters.validateFilterQueryParams(params))
+                .withMessageContaining("[%s] is required but is not set", Query.Filter.LANGUAGE);
+    }
+
+    @Test
+    void validateFilterQueryParams_withMissingCountryParameter_exceptionThrown() {
+        final QueryParameters params = new QueryParametersImpl(Map.of(Query.Filter.LANGUAGE, "nld"));
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> Parameters.validateFilterQueryParams(params))
+                .withMessageContaining("[%s] is required but is not set", Query.Filter.COUNTRY);
+    }
+
+    @Test
+    void validateFilterQueryParams_withInvalidCompanyParameter_exceptionThrown() {
+        String queryParamValue = "-46";
+        final QueryParameters params = new QueryParametersImpl(Map.of(
+                Query.Filter.COUNTRY, "bel",
+                Query.Filter.LANGUAGE, "swe",
+                Query.Filter.COMPANY, queryParamValue
+        ));
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> Parameters.validateFilterQueryParams(params))
+                .withMessageContaining("[%s] is set to an invalid value: %s", Query.Filter.COMPANY, queryParamValue);
+    }
+
+    @Test
+    void validateFilterQueryParams_withValidFilterParameters_happyDay() {
+        assertDoesNotThrow(() -> Parameters.validateFilterQueryParams(new QueryParametersImpl(Map.of(
+                Query.Filter.COUNTRY, "col", Query.Filter.LANGUAGE, "ukr", Query.Filter.COMPANY, "17"))));
+    }
+
     @ParameterizedTest(name = "[{index}] \"{0}\" is a positive numerical integer")
     @ValueSource(strings = {"3", "104"})
-    void isPositiveInteger_withPositiveIntegerValues_returnsFalse(String value) {
+    void isPositiveInteger_withPositiveIntegerValues_returnsTrue(String value) {
         assertThat(Parameters.isPositiveInteger().test(value)).isTrue();
     }
 
     @ParameterizedTest(name = "[{index}] \"{0}\" is not a positive numerical integer")
-    @NullSource
-    @ValueSource(strings = {"", "  ", "NaN", "25.3", "-7", "0", "3 "})
+    @NullAndEmptyStringSource
+    @ValueSource(strings = {"NaN", "25.3", "-7", "0", "3 "})
     void isPositiveInteger_withNonPositiveIntegerValues_returnsFalse(String value) {
         assertThat(Parameters.isPositiveInteger().test(value)).isFalse();
+    }
+
+    @ParameterizedTest(name = "[{index}] \"{0}\" is a valid country code")
+    @ValueSource(strings = {"bra", "kor"})
+    void isValidCountryCode_withThreeCharacterCountryCodes_returnsTrue(String value) {
+        assertThat(Parameters.isValidCountryCode().test(value)).isTrue();
+    }
+
+    @ParameterizedTest(name = "[{index}] \"{0}\" is not a valid country code")
+    @NullAndEmptyStringSource
+    @ValueSource(strings = {"it", "d3u", "123"})
+    void isValidCountryCode_withInvalidValues_returnsFalse(String value) {
+        assertThat(Parameters.isValidCountryCode().test(value)).isFalse();
+    }
+
+    @ParameterizedTest(name = "[{index}] \"{0}\" is a valid language code")
+    @ValueSource(strings = {"fin", "pt"})
+    void isValidLanguageCode_withTwoOrThreeCharacterLanguageCode_returnsTrue(String value) {
+        assertThat(Parameters.isValidLanguageCode().test(value)).isTrue();
+    }
+
+    @ParameterizedTest(name = "[{index}] \"{0}\" is not a valid language code")
+    @NullAndEmptyStringSource
+    @ValueSource(strings = {"p", "12", "french"})
+    void isValidLanguageCode_withInvalidValues_returnsFalse(String value) {
+        assertThat(Parameters.isValidLanguageCode().test(value)).isFalse();
     }
 
     @ParameterizedTest(name = "[{index}] \"{0}\" matches date pattern <{1}>")

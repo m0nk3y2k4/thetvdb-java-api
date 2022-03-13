@@ -51,7 +51,7 @@ from its version number. For example, `v3.x` uses the _TheTVDB.com_ APIv3 wherea
 the upcoming APIv4.
 
 <details>
-<summary>Supported TheTVDB.com APIv3 routes (<code>thetvdb-java-api v3.x</code>)</summary>
+<summary>Supported TheTVDB.com APIv3 endpoints (<code>thetvdb-java-api v3.x</code>)</summary>
 
 - Authentication
     - [x] [/login](https://api.thetvdb.com/swagger#!/Authentication/post_login)
@@ -96,7 +96,7 @@ the upcoming APIv4.
 </details>
 
 <details>
-<summary>WIP: Supported TheTVDB.com APIv4 routes (<code>thetvdb-java-api v4.x</code>)</summary>
+<summary>WIP: Supported TheTVDB.com APIv4 endpoints (<code>thetvdb-java-api v4.x</code>)</summary>
 
 - Artwork Statuses
     - [x] [/artwork/statuses](https://thetvdb.github.io/v4-api/#/Artwork%20Statuses/getAllArtworkStatuses)
@@ -159,6 +159,7 @@ the upcoming APIv4.
     - [x] [/movies](https://thetvdb.github.io/v4-api/#/Movies/getAllMovie)
     - [x] [/movies/{id}](https://thetvdb.github.io/v4-api/#/Movies/getMovieBase)
     - [x] [/movies/{id}/extended](https://thetvdb.github.io/v4-api/#/Movies/getMovieExtended)
+    - [x] [/movies/filter](https://thetvdb.github.io/v4-api/#/Movies/getMoviesFilter)
     - [x] [/movies/{id}/translations/{language}](https://thetvdb.github.io/v4-api/#/Movies/getMovieTranslation)
 - People Types
     - [x] [/people/types](https://thetvdb.github.io/v4-api/#/People%20Types/getAllPeopleTypes)
@@ -181,6 +182,7 @@ the upcoming APIv4.
     - [x] [/series/{id}/extended](https://thetvdb.github.io/v4-api/#/Series/getSeriesExtended)
     - [x] [/series/{id}/episodes/{season-type}](https://thetvdb.github.io/v4-api/#/Series/getSeriesEpisodes)
     - [x] [/series/{id}/episodes/{season-type}/{lang}](https://thetvdb.github.io/v4-api/#/Series/getSeriesSeasonEpisodesTranslated)
+    - [x] [/series/filter](https://thetvdb.github.io/v4-api/#/Series/getSeriesFilter)
     - [x] [/series/{id}/translations/{language}](https://thetvdb.github.io/v4-api/#/Series/getSeriesTranslation)
 - Series Statuses
     - [x] [/series/statuses](https://thetvdb.github.io/v4-api/#/Series%20Statuses/getAllSeriesStatuses)
@@ -188,6 +190,8 @@ the upcoming APIv4.
     - [x] [/source/types](https://thetvdb.github.io/v4-api/#/Source%20Types/getAllSourceTypes)
 - Updates
     - [x] [/updates](https://thetvdb.github.io/v4-api/#/Updates/updates)
+- Favorites
+    - [x] [/user/favorites](https://thetvdb.github.io/v4-api/#/Favorites)
 </details>
 
 The latest documentation can be found here: [TheTVDB Java 3.x API](http://thetvdb-java-api.m0nk3y.info/v3/index.html?overview-summary.html)

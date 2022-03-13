@@ -21,9 +21,11 @@ import static com.github.m0nk3y2k4.thetvdb.api.enumeration.FundingModel.SUBSCRIP
 
 import java.util.Optional;
 
+import com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory;
 import com.github.m0nk3y2k4.thetvdb.api.APIKey;
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.FundingModel;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.FavoriteRecord;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.APIKeyImpl;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.QueryParametersImpl;
 
@@ -87,6 +89,17 @@ public final class APITestUtil {
      */
     public static APIKey apiKey(String apiKey, String pin, FundingModel fundingModel) {
         return new TestAPIKey(apiKey, pin, fundingModel);
+    }
+
+    /**
+     * Creates a new favorite record with only the series ID being set
+     *
+     * @param seriesId Some arbitrary favorite series ID
+     *
+     * @return New favorite record with the given ID set to be a favorite series
+     */
+    public static FavoriteRecord favoriteRecord(int seriesId) {
+        return TheTVDBApiFactory.createFavoriteRecordBuilder().series(seriesId).build();
     }
 
     /**

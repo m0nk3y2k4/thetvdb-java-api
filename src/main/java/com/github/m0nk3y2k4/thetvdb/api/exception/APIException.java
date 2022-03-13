@@ -39,8 +39,8 @@ public class APIException extends Exception {
     /** Indicates that the remote service is currently unavailable e.g. due to maintenance or server issues */
     public static final String API_SERVICE_UNAVAILABLE = "API Service is currently unavailable. Please try again later.";
 
-    /** Indicates that a malformed JSON response was received from the remote service */
-    public static final String API_JSON_PARSE_ERROR = "Error while parsing JSON from response: %s";
+    /** Indicates problems encountered when processing (parsing, generating) JSON content */
+    public static final String API_JSON_PROCESSING_ERROR = "Error while processing JSON content: %s";
 
     /**
      * Creates a new checked API exception with the given error message

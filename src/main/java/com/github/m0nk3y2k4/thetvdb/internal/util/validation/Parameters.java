@@ -16,6 +16,7 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.util.validation;
 
+import static java.util.Locale.IsoCountryCode.PART1_ALPHA3;
 import static java.util.stream.Collectors.toList;
 
 import java.text.ParsePosition;
@@ -32,6 +33,7 @@ import javax.annotation.Nonnull;
 
 import com.github.m0nk3y2k4.thetvdb.api.APIKey;
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
+import com.github.m0nk3y2k4.thetvdb.api.constants.Query;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.FundingModel;
 import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
 
@@ -50,6 +52,9 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
  */
 public final class Parameters {
 
+    /** Pattern for 2- or 3-letter language code String matcher */
+    // ToDo: Maybe replace with something more accurate?
+    private static final Pattern LANGUAGE_CODE = Pattern.compile("[a-zA-Z]{2,3}");
     /** Pattern for numeric integer String matcher */
     private static final Pattern NUMERIC_INTEGER = Pattern.compile("\\d+");
 
@@ -237,6 +242,22 @@ public final class Parameters {
     }
 
     /**
+     * Checks if the given <em>{@code params}</em> query parameter collection contains all necessary data for invoking a
+     * filter endpoint. Also verifies that the provided parameter contain reasonable values with regard to the APIs
+     * contract.
+     *
+     * @param params Query parameters object to be used for a filter request
+     *
+     * @throws IllegalArgumentException If the parameter collection lacks mandatory values or contains invalid filter
+     *                                  properties
+     */
+    public static void validateFilterQueryParams(QueryParameters params) {
+        validateMandatoryQueryParam(Query.Filter.LANGUAGE, params, isValidLanguageCode());
+        validateMandatoryQueryParam(Query.Filter.COUNTRY, params, isValidCountryCode());
+        validateOptionalQueryParam(Query.Filter.COMPANY, params, isPositiveInteger());
+    }
+
+    /**
      * Checks if the given <em>{@code params}</em> query parameter collection contains a <em>{@code paramName}</em>
      * parameter.
      *
@@ -257,6 +278,26 @@ public final class Parameters {
     public static Predicate<String> isPositiveInteger() {
         return value -> APIUtil.hasValue(value) && NUMERIC_INTEGER.matcher(value).matches()
                 && Long.valueOf(value).compareTo(0L) > 0;
+    }
+
+    /**
+     * Provides a predicate used to check whether a String represents a valid 3-letter country code according to the
+     * ISO3166-1 alpha-3 standard.
+     *
+     * @return String predicate to check for a 3-letter country code
+     */
+    public static Predicate<String> isValidCountryCode() {
+        return value -> APIUtil.hasValue(value) &&
+                Locale.getISOCountries(PART1_ALPHA3).stream().anyMatch(code -> code.equalsIgnoreCase(value));
+    }
+
+    /**
+     * Provides a predicate used to check whether a String only contains 2 or 3 non-numerical characters.
+     *
+     * @return String predicate to check for non-numerical Strings containing 2 or 3 characters
+     */
+    public static Predicate<String> isValidLanguageCode() {
+        return value -> APIUtil.hasValue(value) && LANGUAGE_CODE.matcher(value).matches();
     }
 
     /**

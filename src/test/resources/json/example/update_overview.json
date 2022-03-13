@@ -5,13 +5,17 @@
       "method": "Method1",
       "timeStamp": 16245744,
       "entityType": "EntityType1",
-      "seriesId": 411516
+      "seriesId": 411516,
+      "mergeToId": 3487,
+      "mergeToEntityType": "MergeToEntityType1"
     }, {
       "recordId": 39005,
       "method": "Method2",
       "timeStamp": 16245745,
       "entityType": "EntityType2",
-      "seriesId": 411517
+      "seriesId": 411517,
+      "mergeToId": 3488,
+      "mergeToEntityType": "MergeToEntityType2"
     }
   ],
   "status": "success",

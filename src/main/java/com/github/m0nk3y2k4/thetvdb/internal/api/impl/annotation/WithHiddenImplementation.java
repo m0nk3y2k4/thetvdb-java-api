@@ -33,6 +33,7 @@ import org.immutables.value.Value;
 @Documented
 @Value.Style(
         visibility = Value.Style.ImplementationVisibility.PRIVATE,      // Immutable implementation
-        builderVisibility = Value.Style.BuilderVisibility.PACKAGE)      // Builder implementation
+        builderVisibility = Value.Style.BuilderVisibility.PACKAGE,      // Builder implementation
+        validationMethod = Value.Style.ValidationMethod.NONE)           // Disable checks for required attributes
 @Target(ElementType.TYPE)
 public @interface WithHiddenImplementation {}

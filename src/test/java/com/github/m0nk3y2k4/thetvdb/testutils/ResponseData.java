@@ -28,10 +28,8 @@ import java.io.InputStreamReader;
 import java.lang.reflect.ParameterizedType;
 import java.net.URL;
 import java.util.Collection;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -63,6 +61,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Episode;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.EpisodeDetails;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.FCList;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.FCListDetails;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.Favorites;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Gender;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Genre;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Inspiration;
@@ -119,6 +118,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EpisodeDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.EpisodeDetailsDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.FCListDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.FCListDetailsDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.FavoritesDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.GenderDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.GenreDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.InspirationDTO;
@@ -197,7 +197,9 @@ public abstract class ResponseData<T> {
 
     //************************* DUMMY ***********************
     public static final ResponseData<APIResponse<Data>> DATA = new ResponseData<>(
-            "data", data(), "Full JSON response with data and status node") {};
+            "data_full", data(), "Full JSON response with data and status node") {};
+    public static final ResponseData<APIResponse<Void>> NO_DATA = new ResponseData<>(
+            "data_empty", noData(), "Empty data JSON response with status node") {};
 
     //********************* entity-types ********************
     public static final ResponseData<APIResponse<Collection<EntityType>>> ENTITYTYPE_OVERVIEW = new ResponseData<>(
@@ -290,6 +292,10 @@ public abstract class ResponseData<T> {
     //************************ updates **********************
     public static final ResponseData<APIResponse<Collection<EntityUpdate>>> UPDATE_OVERVIEW = new ResponseData<>(
             "update_overview", updateOverview(), "Overview of updates JSON response") {};
+
+    //************************* user ***********************
+    public static final ResponseData<APIResponse<Favorites>> FAVORITES = new ResponseData<>(
+            "favorites", favorites(), "Single user favorites JSON response") {};
     //@EnableFormatting
 
     /**
@@ -403,6 +409,10 @@ public abstract class ResponseData<T> {
         return createAPIResponseWithLinks(Data.with("Some content"));
     }
 
+    private static APIResponse<Void> noData() {
+        return createAPIResponseWithLinks(null);
+    }
+
     private static APIResponse<Collection<EntityType>> entityTypeOverview() {
         return createAPIResponse(createTwo(entityTypeModel()));
     }
@@ -413,6 +423,10 @@ public abstract class ResponseData<T> {
 
     private static APIResponse<EpisodeDetails> episodeDetails() {
         return createAPIResponse(create(episodeDetailsModel()));
+    }
+
+    private static APIResponse<Favorites> favorites() {
+        return createAPIResponse(create(favoritesModel()));
     }
 
     private static APIResponse<Collection<FCList>> listOverview() {
@@ -548,12 +562,16 @@ public abstract class ResponseData<T> {
         return createTwo(supplier, 1);
     }
 
-    private static <T> Collection<T> createTwo(DtoSupplier<T> supplier, int startIndex) {
-        return create(2, supplier, startIndex, BASIC);
+    private static Collection<String> createTwo(String property, int startIndex) {
+        return createTwo((idx, shape) -> property + idx, startIndex);
     }
 
-    private static Collection<String> createTwo(String property, int startIndex) {
-        return Stream.of(startIndex, startIndex + 1).map(Objects::toString).map(property::concat).collect(toList());
+    private static Collection<Integer> createTwo(int property, int startIndex) {
+        return createTwo((idx, shape) -> property + idx, startIndex);
+    }
+
+    private static <T> Collection<T> createTwo(DtoSupplier<T> supplier, int startIndex) {
+        return create(2, supplier, startIndex, BASIC);
     }
 
     private static <T> Collection<T> create(int amount, DtoSupplier<T> supplier, int startIndex, Shape shape) {
@@ -751,6 +769,20 @@ public abstract class ResponseData<T> {
                     .studios(createTwo(companyModel(), listOffset))
                     .translations(create(metaTranslationsModel(), idx))
                     .companies(createTwo(companyModel(), listOffset));
+            return builder.build();
+        };
+    }
+
+    private static SimpleDtoSupplier<Favorites> favoritesModel() {
+        return idx -> {
+            int listOffset = (idx << 1) - 1;
+            FavoritesDTO.Builder builder = new FavoritesDTO.Builder()
+                    .series(createTwo(875113, listOffset))
+                    .movies(createTwo(348774, listOffset))
+                    .episodes(createTwo(100034, listOffset))
+                    .artwork(createTwo(934779, listOffset))
+                    .people(createTwo(369713, listOffset))
+                    .lists(createTwo(337479, listOffset));
             return builder.build();
         };
     }
@@ -1114,7 +1146,8 @@ public abstract class ResponseData<T> {
 
     private static SimpleDtoSupplier<EntityUpdate> entityUpdateModel() {
         return idx -> new EntityUpdateDTO.Builder().recordId(39003L + idx).method("Method" + idx)
-                .timeStamp(16245743L + idx).entityType("EntityType" + idx).seriesId(411515L + idx).build();
+                .timeStamp(16245743L + idx).entityType("EntityType" + idx).seriesId(411515L + idx)
+                .mergeToId(3486L + idx).mergeToEntityType("MergeToEntityType" + idx).build();
     }
 
     /**

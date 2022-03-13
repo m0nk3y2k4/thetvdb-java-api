@@ -16,6 +16,8 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
+import static com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters.isValidLanguageCode;
+
 import javax.annotation.Nonnull;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -114,6 +116,25 @@ public final class MoviesAPI extends QueryResource {
     }
 
     /**
+     * Returns a collection of movies based on the given filter parameters as raw JSON.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getMoviesFilter">
+     * <b>[GET]</b> /movies/filter</a>
+     *
+     * @param con    Initialized connection to be used for API communication
+     * @param params Object containing key/value pairs of query parameters
+     *
+     * @return JSON object containing a collection of movies based on the given filter parameters
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     */
+    public static JsonNode getMoviesFilter(@Nonnull APIConnection con, QueryParameters params) throws APIException {
+        Parameters.validateFilterQueryParams(params);
+        return con.sendGET(createQueryResource("/movies/filter", params));
+    }
+
+    /**
      * Returns a translation record for a specific movie as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getMovieTranslation">
@@ -131,7 +152,7 @@ public final class MoviesAPI extends QueryResource {
     public static JsonNode getMovieTranslation(@Nonnull APIConnection con, long id, @Nonnull String language)
             throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
-        Parameters.validatePathParam(PATH_LANGUAGE, language, LANGUAGE_VALIDATOR);
+        Parameters.validatePathParam(PATH_LANGUAGE, language, isValidLanguageCode());
         return con.sendGET(createResource("/movies/{id}/translations/{language}", id, language));
     }
 }

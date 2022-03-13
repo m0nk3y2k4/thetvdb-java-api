@@ -16,7 +16,7 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.util.json;
 
-import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_JSON_PARSE_ERROR;
+import static com.github.m0nk3y2k4.thetvdb.api.exception.APIException.API_JSON_PROCESSING_ERROR;
 
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
@@ -84,7 +84,24 @@ public final class APIJsonMapper {
                             .getActualTypeArguments()[0]))
                     .readValue(json.toString(), typeReference);
         } catch (JsonProcessingException | IllegalArgumentException ex) {
-            throw new APIException(String.format(API_JSON_PARSE_ERROR, ex.getMessage()), ex);
+            throw new APIException(String.format(API_JSON_PROCESSING_ERROR, ex.getMessage()), ex);
+        }
+    }
+
+    /**
+     * Serializes the given object into its JSON string representation.
+     *
+     * @param object The object to be serialized into a JSON string
+     *
+     * @return JSON string representation of the given object
+     *
+     * @throws APIException If problems were encountered while serializing (parsing, generating) the given object
+     */
+    public static String writeValue(Object object) throws APIException {
+        try {
+            return new ObjectMapper().writeValueAsString(object);
+        } catch (JsonProcessingException ex) {
+            throw new APIException(String.format(API_JSON_PROCESSING_ERROR, ex.getMessage()), ex);
         }
     }
 

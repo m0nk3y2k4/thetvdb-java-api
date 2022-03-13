@@ -16,6 +16,8 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
+import static com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters.isValidLanguageCode;
+
 import javax.annotation.Nonnull;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -95,7 +97,7 @@ public final class EpisodesAPI extends QueryResource {
     public static JsonNode getEpisodeTranslation(@Nonnull APIConnection con, long id, @Nonnull String language)
             throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
-        Parameters.validatePathParam(PATH_LANGUAGE, language, LANGUAGE_VALIDATOR);
+        Parameters.validatePathParam(PATH_LANGUAGE, language, isValidLanguageCode());
         return con.sendGET(createResource("/episodes/{id}/translations/{language}", id, language));
     }
 }

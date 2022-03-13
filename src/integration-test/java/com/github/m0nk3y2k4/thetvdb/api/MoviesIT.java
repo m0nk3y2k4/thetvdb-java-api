@@ -17,7 +17,11 @@
 package com.github.m0nk3y2k4.thetvdb.api;
 
 import static com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory.createQueryParameters;
+import static com.github.m0nk3y2k4.thetvdb.api.constants.Query.Filter.COUNTRY;
+import static com.github.m0nk3y2k4.thetvdb.api.constants.Query.Filter.LANGUAGE;
 import static com.github.m0nk3y2k4.thetvdb.testutils.assertj.IntegrationTestAssertions.assertThat;
+
+import java.util.Map;
 
 import com.github.m0nk3y2k4.thetvdb.testutils.annotation.IntegrationTestSuite;
 import org.junit.jupiter.api.Order;
@@ -52,6 +56,13 @@ class MoviesIT {
 
     @Test
     @Order(5)
+    void getMoviesFiltered(TheTVDBApi api) {
+        assertThat(() -> api.getMoviesFiltered(createQueryParameters(Map.of(COUNTRY, "esp", LANGUAGE, "spa")))).as("/movies/filter")
+                .doesNotThrowAnyException();
+    }
+
+    @Test
+    @Order(6)
     void getMovieTranslation(TheTVDBApi api) {
         assertThat(() -> api.getMovieTranslation(733, "ita")).as("/movies/67143/translations/ita")
                 .doesNotThrowAnyException();

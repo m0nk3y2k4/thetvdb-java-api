@@ -16,6 +16,7 @@
 
 package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
+import static com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory.createQueryParameters;
 import static com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series.AIR_DATE;
 import static com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series.EPISODE_NUMBER;
 import static com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series.LANGUAGE;
@@ -33,6 +34,7 @@ import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI.getS
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI.getSeriesEpisodes;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI.getSeriesEpisodesTranslated;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI.getSeriesExtended;
+import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI.getSeriesFilter;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.SeriesAPI.getSeriesTranslation;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
@@ -84,6 +86,7 @@ class SeriesAPITest {
         client.when(request("/series/89414/episodes/alternate", GET, param(SEASON, "2"), param(EPISODE_NUMBER, "8"))).respond(jsonResponse(SERIESEPISODES));
         client.when(request("/series/70204/episodes/default/nld", GET)).respond(jsonResponse(SERIESEPISODES_TRANSLATED));
         client.when(request("/series/56347/episodes/regional/fra", GET, param("page", "9"))).respond(jsonResponse(SERIESEPISODES_TRANSLATED));
+        client.when(request("/series/filter", GET, param("country", "bra"), param("lang", "por"))).respond(jsonResponse(SERIES_OVERVIEW));
         client.when(request("/series/69423/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
     }
 
@@ -106,6 +109,10 @@ class SeriesAPITest {
                 of(route(con -> getSeriesEpisodesTranslated(con, 487, null, "spa", null), "getSeriesEpisodesTranslated() without season-type")),
                 of(route(con -> getSeriesEpisodesTranslated(con, 559, DVD, "f", null), "getSeriesEpisodesTranslated() with invalid language code (1)")),
                 of(route(con -> getSeriesEpisodesTranslated(con, 781, DVD, "ital", null), "getSeriesEpisodesTranslated() with invalid language code (2)")),
+                of(route(con -> getSeriesFilter(con, null), "getSeriesFilter() without query parameters")),
+                of(route(con -> getSeriesFilter(con, createQueryParameters()), "getSeriesFilter() with empty query parameters")),
+                of(route(con -> getSeriesFilter(con, params("country", "col")), "getSeriesFilter() without mandatory \"lang\" query parameter")),
+                of(route(con -> getSeriesFilter(con, params("lang", "kor")), "getSeriesFilter() without mandatory \"country\" query parameter")),
                 of(route(con -> getSeriesTranslation(con, 0, "eng"), "getSeriesTranslation() with ZERO series ID")),
                 of(route(con -> getSeriesTranslation(con, -5, "deu"), "getSeriesTranslation() with negative series ID")),
                 of(route(con -> getSeriesTranslation(con, 785, "e"), "getSeriesTranslation() with invalid language code (1)")),
@@ -129,6 +136,7 @@ class SeriesAPITest {
                 of(route(con -> getSeriesEpisodes(con, 89414, ALTERNATE, params(SEASON, "2", EPISODE_NUMBER, "8")), "getSeriesEpisodes() with conditional query parameters"), SERIESEPISODES),
                 of(route(con -> getSeriesEpisodesTranslated(con, 70204, DEFAULT, "nld", null), "getSeriesEpisodesTranslated() without query parameters"), SERIESEPISODES_TRANSLATED),
                 of(route(con -> getSeriesEpisodesTranslated(con, 56347, REGIONAL, "fra", params("page", "9")), "getSeriesEpisodesTranslated() with query parameters"), SERIESEPISODES_TRANSLATED),
+                of(route(con -> getSeriesFilter(con, params("country", "bra", "lang", "por")), "getSeriesFilter() with query parameters"), SERIES_OVERVIEW),
                 of(route(con -> getSeriesTranslation(con, 69423, "eng"), "getSeriesTranslation()"), TRANSLATION)
         );
     }

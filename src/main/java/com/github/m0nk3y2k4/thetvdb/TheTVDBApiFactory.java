@@ -25,9 +25,11 @@ import com.github.m0nk3y2k4.thetvdb.api.Proxy;
 import com.github.m0nk3y2k4.thetvdb.api.QueryParameters;
 import com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi;
 import com.github.m0nk3y2k4.thetvdb.api.enumeration.FundingModel;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.FavoriteRecord;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.APIKeyImpl;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.QueryParametersImpl;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.TheTVDBApiImpl;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.FavoriteRecordDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI;
 
 /**
@@ -79,7 +81,7 @@ public final class TheTVDBApiFactory {
     }
 
     /**
-     * Creates a new query parameter objects to be used with some API calls. The returned object is empty and does not
+     * Creates a new query parameter object to be used with some API calls. The returned object is empty and does not
      * contain any preset query parameters. Those parameters have to be added manually by using the {@link
      * QueryParameters#addParameter(String, String) QueryParameters#addParameter(key, value)} method.
      *
@@ -90,7 +92,7 @@ public final class TheTVDBApiFactory {
     }
 
     /**
-     * Creates a new query parameter objects to be used with some API calls. The returned object contains a preset
+     * Creates a new query parameter object to be used with some API calls. The returned object contains a preset
      * collection of query parameters based on the given map of key/value pairs. Additional parameters may be added
      * manually to this object by using the {@link QueryParameters#addParameter(String, String)
      * QueryParameters#addParameter(key, value)} method.
@@ -180,5 +182,21 @@ public final class TheTVDBApiFactory {
      */
     public static APIKey createAPIKey(@Nonnull String apiKey, @Nonnull String pin) {
         return new APIKeyImpl.Builder().apiKey(apiKey).pin(pin).fundingModel(FundingModel.SUBSCRIPTION).build();
+    }
+
+    /**
+     * Creates and returns a new builder for {@link FavoriteRecord} objects which can be used to add favorite series,
+     * movies, etc. to the currently authenticated user. Use the builder methods to set the favorites you would like to
+     * add. Afterwards invoke the {@link FavoriteRecord.FavoriteRecordBuilder#build() build} method to create a new
+     * favorite record object.
+     *
+     * @return A new builder used to create a favorite record
+     *
+     * @see TheTVDBApi#createUserFavorites(FavoriteRecord) TheTVDBApi.createUserFavorites(favoriteRecord)
+     * @see TheTVDBApi.JSON#createUserFavorites(FavoriteRecord) TheTVDBApi.JSON.createUserFavorites(favoriteRecord)
+     * @see TheTVDBApi.Extended#createUserFavorites(FavoriteRecord) TheTVDBApi.Extended.createUserFavorites(favoriteRecord)
+     */
+    public static FavoriteRecord.FavoriteRecordBuilder createFavoriteRecordBuilder() {
+        return new FavoriteRecordDTO.Builder();
     }
 }

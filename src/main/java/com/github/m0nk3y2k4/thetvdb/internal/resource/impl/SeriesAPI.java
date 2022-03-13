@@ -20,6 +20,7 @@ import static com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series.AIR_DATE;
 import static com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series.EPISODE_NUMBER;
 import static com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series.SEASON;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters.isValidDate;
+import static com.github.m0nk3y2k4.thetvdb.internal.util.validation.Parameters.isValidLanguageCode;
 
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -209,8 +210,27 @@ public final class SeriesAPI extends QueryResource {
             throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
         Parameters.validatePathParam(PATH_SEASONTYPE, seasonType, SEASONTYPE_VALIDATOR);
-        Parameters.validatePathParam(PATH_LANGUAGE, language, LANGUAGE_VALIDATOR);
+        Parameters.validatePathParam(PATH_LANGUAGE, language, isValidLanguageCode());
         return con.sendGET(createQueryResource("/series/{id}/episodes/{season-type}/{language}", params, id, seasonType, language));
+    }
+
+    /**
+     * Returns a collection of series based on the given filter parameters as raw JSON.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesFilter">
+     * <b>[GET]</b> /series/filter</a>
+     *
+     * @param con    Initialized connection to be used for API communication
+     * @param params Object containing key/value pairs of query parameters
+     *
+     * @return JSON object containing a collection of series based on the given filter parameters
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     */
+    public static JsonNode getSeriesFilter(@Nonnull APIConnection con, QueryParameters params) throws APIException {
+        Parameters.validateFilterQueryParams(params);
+        return con.sendGET(createQueryResource("/series/filter", params));
     }
 
     /**
@@ -231,7 +251,7 @@ public final class SeriesAPI extends QueryResource {
     public static JsonNode getSeriesTranslation(@Nonnull APIConnection con, long id, @Nonnull String language)
             throws APIException {
         Parameters.validatePathParam(PATH_ID, id, ID_VALIDATOR);
-        Parameters.validatePathParam(PATH_LANGUAGE, language, LANGUAGE_VALIDATOR);
+        Parameters.validatePathParam(PATH_LANGUAGE, language, isValidLanguageCode());
         return con.sendGET(createResource("/series/{id}/translations/{language}", id, language));
     }
 }

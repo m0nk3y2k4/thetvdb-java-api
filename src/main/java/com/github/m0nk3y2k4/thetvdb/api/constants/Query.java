@@ -28,6 +28,7 @@ package com.github.m0nk3y2k4.thetvdb.api.constants;
  *     <li>{@link Seasons}</li>
  *     <li>{@link Series}</li>
  *     <li>{@link Updates}</li>
+ *     <li>{@link Filter}</li>
  * </ul>
  * The parameters of this class may be used to create own {@link com.github.m0nk3y2k4.thetvdb.api.QueryParameters QueryParameters} objects.
  */
@@ -180,5 +181,30 @@ public final class Query {
         public static final String TYPE = "type";
 
         private Updates() {}     // Private constructor. Only constants in this class
+    }
+
+    /**
+     * Collection of query parameters for API filter endpoints
+     */
+    public static final class Filter {
+
+        /** Query parameter "<i>company</i>" - Filter for production company */
+        public static final String COMPANY = "company";
+        /** Query parameter "<i>contentRating</i>" - Filter for content rating id based on a country */
+        public static final String CONTENT_RATING = "contentRating";
+        /** Query parameter "<i>country</i>" - Filter for country of origin */
+        public static final String COUNTRY = "country";
+        /** Query parameter "<i>genre</i>" - Filter for genre */
+        public static final String GENRE = "genre";
+        /** Query parameter "<i>lang</i>" - Filter for original language */
+        public static final String LANGUAGE = "lang";
+        /** Query parameter "<i>sort</i>" - Sort filter results */
+        public static final String SORT = "sort";
+        /** Query parameter "<i>status</i>" - Filter for status */
+        public static final String STATUS = "status";
+        /** Query parameter "<i>year</i>" - Filter for release year */
+        public static final String YEAR = "year";
+
+        private Filter() {}     // Private constructor. Only constants in this class
     }
 }

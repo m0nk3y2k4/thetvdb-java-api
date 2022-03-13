@@ -26,6 +26,7 @@ import static com.github.m0nk3y2k4.thetvdb.api.enumeration.UpdateEntityType.TRAN
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.POST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
+import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.favoriteRecord;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.params;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonResponse;
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
@@ -46,6 +47,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.CONTENTRATING_
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.ENTITYTYPE_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.EPISODE;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.EPISODE_DETAILS;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.FAVORITES;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.GENDER_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.GENRE;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.GENRE_OVERVIEW;
@@ -56,6 +58,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.LIST_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.MOVIE;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.MOVIE_DETAILS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.MOVIE_OVERVIEW;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.NO_DATA;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.PEOPLE;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.PEOPLETYPE_OVERVIEW;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.PEOPLE_DETAILS;
@@ -88,6 +91,7 @@ import com.github.m0nk3y2k4.thetvdb.api.Proxy;
 import com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi;
 import com.github.m0nk3y2k4.thetvdb.api.constants.Query.Companies;
 import com.github.m0nk3y2k4.thetvdb.api.constants.Query.Episodes;
+import com.github.m0nk3y2k4.thetvdb.api.constants.Query.Filter;
 import com.github.m0nk3y2k4.thetvdb.api.constants.Query.Lists;
 import com.github.m0nk3y2k4.thetvdb.api.constants.Query.Movies;
 import com.github.m0nk3y2k4.thetvdb.api.constants.Query.People;
@@ -189,6 +193,7 @@ class TheTVDBApiImplTest {
             client.when(request("/movies/87416/extended", GET, param("value", "QueryMovieDetails"))).respond(jsonResponse(MOVIE_DETAILS));
             client.when(request("/movies/46994/extended", GET)).respond(jsonResponse(MOVIE_DETAILS));
             client.when(request("/movies/33657/extended", GET, param(Movies.META, String.valueOf(MovieMeta.TRANSLATIONS)))).respond(jsonResponse(MOVIE_DETAILS));
+            client.when(request("/movies/filter", GET, param(Filter.COUNTRY, "mng"), param(Filter.LANGUAGE, "mon"))).respond(jsonResponse(MOVIE_OVERVIEW));
             client.when(request("/movies/69745/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/people/types", GET)).respond(jsonResponse(PEOPLETYPE_OVERVIEW));
             client.when(request("/people/431071", GET)).respond(jsonResponse(PEOPLE));
@@ -221,11 +226,14 @@ class TheTVDBApiImplTest {
             client.when(request("/series/2147/episodes/regional", GET, param(Series.SEASON, "4"))).respond(jsonResponse(SERIESEPISODES));
             client.when(request("/series/5481/episodes/dvd/eng", GET)).respond(jsonResponse(SERIESEPISODES_TRANSLATED));
             client.when(request("/series/6974/episodes/default/deu", GET, param("value", "QuerySeriesEpisodesTranslated"))).respond(jsonResponse(SERIESEPISODES_TRANSLATED));
+            client.when(request("/series/filter", GET, param(Filter.COUNTRY, "guf"), param(Filter.LANGUAGE, "fra"))).respond(jsonResponse(SERIES_OVERVIEW));
             client.when(request("/series/6004/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/sources/types", GET)).respond(jsonResponse(SOURCETYPE_OVERVIEW));
             client.when(request("/updates", GET, param(Updates.SINCE, "16247601"), param("value", "QueryUpdates"))).respond(jsonResponse(UPDATE_OVERVIEW));
             client.when(request("/updates", GET, param(Updates.SINCE, "16236514"), param(Updates.PAGE, "3"))).respond(jsonResponse(UPDATE_OVERVIEW));
             client.when(request("/updates", GET, param(Updates.SINCE, "16239876"), param(Updates.TYPE, String.valueOf(TRANSLATED_EPISODES)), param(Updates.ACTION, String.valueOf(CREATE)), param(Updates.PAGE, "2"))).respond(jsonResponse(UPDATE_OVERVIEW));
+            client.when(request("/user/favorites", GET)).respond(jsonResponse(FAVORITES));
+            client.when(request("/user/favorites", POST)).respond(jsonResponse(NO_DATA));
         }
 
         @SuppressWarnings("ConstantConditions")
@@ -294,6 +302,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> theTVDBApi.getMovieDetails(87416, params("value", "QueryMovieDetails")), "getMovieDetails() with query parameters"), MOVIE_DETAILS),
                     of(route(() -> theTVDBApi.getMovieDetails(46994), "getMovieDetails() with movie ID"), MOVIE_DETAILS),
                     of(route(() -> theTVDBApi.getMovieDetails(33657, MovieMeta.TRANSLATIONS), "getMovieDetails() with movie ID and meta"), MOVIE_DETAILS),
+                    of(route(() -> theTVDBApi.getMoviesFiltered(params(Filter.COUNTRY, "mng", Filter.LANGUAGE, "mon")), "getMoviesFiltered()"), MOVIE_OVERVIEW),
                     of(route(() -> theTVDBApi.getMovieTranslation(69745, "eng"), "getMovieTranslation()"), TRANSLATION),
                     of(route(() -> theTVDBApi.getAllPeopleTypes(), "getAllPeopleTypes()"), PEOPLETYPE_OVERVIEW),
                     of(route(() -> theTVDBApi.getPeople(431071), "getPeople()"), PEOPLE),
@@ -326,11 +335,14 @@ class TheTVDBApiImplTest {
                     of(route(() -> theTVDBApi.getSeriesEpisodes(2147, REGIONAL, 4), "getSeriesEpisodes() with season number"), SERIESEPISODES),
                     of(route(() -> theTVDBApi.getSeriesEpisodesTranslated(5481, DVD, "eng"), "getSeriesEpisodesTranslated()"), SERIESEPISODES_TRANSLATED),
                     of(route(() -> theTVDBApi.getSeriesEpisodesTranslated(6974, DEFAULT, "deu", params("value", "QuerySeriesEpisodesTranslated")), "getSeriesEpisodesTranslated() with query parameters"), SERIESEPISODES_TRANSLATED),
+                    of(route(() -> theTVDBApi.getSeriesFiltered(params(Filter.COUNTRY, "guf", Filter.LANGUAGE, "fra")), "getSeriesFiltered()"), SERIES_OVERVIEW),
                     of(route(() -> theTVDBApi.getSeriesTranslation(6004, "eng"), "getSeriesTranslation()"), TRANSLATION),
                     of(route(() -> theTVDBApi.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
                     of(route(() -> theTVDBApi.getUpdates(params(Updates.SINCE, "16247601", "value", "QueryUpdates")), "getUpdates() with query parameters"), UPDATE_OVERVIEW),
                     of(route(() -> theTVDBApi.getUpdates(16236514, 3), "getUpdates() with Epoch time and page"), UPDATE_OVERVIEW),
-                    of(route(() -> theTVDBApi.getUpdates(16239876, TRANSLATED_EPISODES, CREATE, 2), "getUpdates() with Epoch time, type, action and page"), UPDATE_OVERVIEW)
+                    of(route(() -> theTVDBApi.getUpdates(16239876, TRANSLATED_EPISODES, CREATE, 2), "getUpdates() with Epoch time, type, action and page"), UPDATE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getUserFavorites(), "getUserFavorites()"), FAVORITES),
+                    of(route(() -> theTVDBApi.createUserFavorites(favoriteRecord(8741)), "createUserFavorites() with favorite record"), NO_DATA)
             );
         }
         //@EnableFormatting
@@ -415,6 +427,7 @@ class TheTVDBApiImplTest {
             client.when(request("/movies", GET, param("value", "QueryMoviesJson"))).respond(jsonResponse(MOVIE_OVERVIEW));
             client.when(request("/movies/61714", GET)).respond(jsonResponse(MOVIE));
             client.when(request("/movies/54801/extended", GET, param("value", "QueryMovieDetailsJson"))).respond(jsonResponse(MOVIE_DETAILS));
+            client.when(request("/movies/filter", GET, param(Filter.COUNTRY, "sdn"), param(Filter.LANGUAGE, "sun"))).respond(jsonResponse(MOVIE_OVERVIEW));
             client.when(request("/movies/74810/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/people/types", GET)).respond(jsonResponse(PEOPLETYPE_OVERVIEW));
             client.when(request("/people/3647", GET)).respond(jsonResponse(PEOPLE));
@@ -433,9 +446,12 @@ class TheTVDBApiImplTest {
             client.when(request("/series/5842/extended", GET, param("value", "QuerySeriesDetailsJson"))).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/98043/episodes/official", GET, param("value", "QuerySeriesEpisodesJson"))).respond(jsonResponse(SERIESEPISODES));
             client.when(request("/series/65660/episodes/regional/spa", GET, param("value", "QuerySeriesEpisodesTranslatedJson"))).respond(jsonResponse(SERIESEPISODES_TRANSLATED));
+            client.when(request("/series/filter", GET, param(Filter.COUNTRY, "grc"), param(Filter.LANGUAGE, "ell"))).respond(jsonResponse(SERIES_OVERVIEW));
             client.when(request("/series/8024/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/sources/types", GET)).respond(jsonResponse(SOURCETYPE_OVERVIEW));
             client.when(request("/updates", GET, param(Updates.SINCE, "16258740"), param("value", "QueryUpdatesJson"))).respond(jsonResponse(UPDATE_OVERVIEW));
+            client.when(request("/user/favorites", GET)).respond(jsonResponse(FAVORITES));
+            client.when(request("/user/favorites", POST)).respond(jsonResponse(NO_DATA));
         }
 
         private Stream<Arguments> withValidParameters() {
@@ -470,6 +486,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> theTVDBApi.getAllMovies(params("value", "QueryMoviesJson")), "getAllMovies() with query parameters"), MOVIE_OVERVIEW),
                     of(route(() -> theTVDBApi.getMovie(61714), "getMovie()"), MOVIE),
                     of(route(() -> theTVDBApi.getMovieDetails(54801, params("value", "QueryMovieDetailsJson")), "getMovieDetails() with query parameters"), MOVIE_DETAILS),
+                    of(route(() -> theTVDBApi.getMoviesFiltered(params(Filter.COUNTRY, "sdn", Filter.LANGUAGE, "sun")), "getMoviesFiltered()"), MOVIE_OVERVIEW),
                     of(route(() -> theTVDBApi.getMovieTranslation(74810, "eng"), "getMovieTranslation()"), TRANSLATION),
                     of(route(() -> theTVDBApi.getAllPeopleTypes(), "getAllPeopleTypes()"), PEOPLETYPE_OVERVIEW),
                     of(route(() -> theTVDBApi.getPeople(3647), "getPeople()"), PEOPLE),
@@ -488,9 +505,12 @@ class TheTVDBApiImplTest {
                     of(route(() -> theTVDBApi.getSeriesDetails(5842, params("value", "QuerySeriesDetailsJson")), "getSeriesDetails() with query parameters"), SERIES_DETAILS),
                     of(route(() -> theTVDBApi.getSeriesEpisodes(98043, OFFICIAL, params("value", "QuerySeriesEpisodesJson")), "getSeriesEpisodes() with query parameters"), SERIESEPISODES),
                     of(route(() -> theTVDBApi.getSeriesEpisodesTranslated(65660, REGIONAL, "spa", params("value", "QuerySeriesEpisodesTranslatedJson")), "getSeriesEpisodesTranslated() with query parameters"), SERIESEPISODES_TRANSLATED),
+                    of(route(() -> theTVDBApi.getSeriesFiltered(params(Filter.COUNTRY, "grc", Filter.LANGUAGE, "ell")), "getSeriesFiltered()"), SERIES_OVERVIEW),
                     of(route(() -> theTVDBApi.getSeriesTranslation(8024, "eng"), "getSeriesTranslation()"), TRANSLATION),
                     of(route(() -> theTVDBApi.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
-                    of(route(() -> theTVDBApi.getUpdates(params(Updates.SINCE, "16258740", "value", "QueryUpdatesJson")), "getUpdates() with query parameters"), UPDATE_OVERVIEW)
+                    of(route(() -> theTVDBApi.getUpdates(params(Updates.SINCE, "16258740", "value", "QueryUpdatesJson")), "getUpdates() with query parameters"), UPDATE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getUserFavorites(), "getUserFavorites()"), FAVORITES),
+                    of(route(() -> theTVDBApi.createUserFavorites(favoriteRecord(6006)), "createUserFavorites() with favorite record"), NO_DATA)
             );
         }
         //@EnableFormatting
@@ -548,6 +568,7 @@ class TheTVDBApiImplTest {
             client.when(request("/movies", GET, param("value", "QueryMoviesExtended"))).respond(jsonResponse(MOVIE_OVERVIEW));
             client.when(request("/movies/90034", GET)).respond(jsonResponse(MOVIE));
             client.when(request("/movies/31101/extended", GET, param("value", "QueryMovieDetailsExtended"))).respond(jsonResponse(MOVIE_DETAILS));
+            client.when(request("/movies/filter", GET, param(Filter.COUNTRY, "mys"), param(Filter.LANGUAGE, "msa"))).respond(jsonResponse(MOVIE_OVERVIEW));
             client.when(request("/movies/46011/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/people/types", GET)).respond(jsonResponse(PEOPLETYPE_OVERVIEW));
             client.when(request("/people/9891", GET)).respond(jsonResponse(PEOPLE));
@@ -566,9 +587,12 @@ class TheTVDBApiImplTest {
             client.when(request("/series/5444/extended", GET, param("value", "QuerySeriesDetailsExtended"))).respond(jsonResponse(SERIES_DETAILS));
             client.when(request("/series/5711/episodes/dvd", GET, param("value", "QuerySeriesEpisodesExtended"))).respond(jsonResponse(SERIESEPISODES));
             client.when(request("/series/2312/episodes/alternate/por", GET, param("value", "QuerySeriesEpisodesTranslatedExtended"))).respond(jsonResponse(SERIESEPISODES_TRANSLATED));
+            client.when(request("/series/filter", GET, param(Filter.COUNTRY, "grl"), param(Filter.LANGUAGE, "nor"))).respond(jsonResponse(SERIES_OVERVIEW));
             client.when(request("/series/6170/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/sources/types", GET)).respond(jsonResponse(SOURCETYPE_OVERVIEW));
             client.when(request("/updates", GET, param(Updates.SINCE, "16245743"), param("value", "QueryUpdatesExtended"))).respond(jsonResponse(UPDATE_OVERVIEW));
+            client.when(request("/user/favorites", GET)).respond(jsonResponse(FAVORITES));
+            client.when(request("/user/favorites", POST)).respond(jsonResponse(NO_DATA));
         }
 
         private Stream<Arguments> withValidParameters() {
@@ -603,6 +627,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> theTVDBApi.getAllMovies(params("value", "QueryMoviesExtended")), "getAllMovies() with query parameters"), MOVIE_OVERVIEW),
                     of(route(() -> theTVDBApi.getMovie(90034), "getMovie()"), MOVIE),
                     of(route(() -> theTVDBApi.getMovieDetails(31101, params("value", "QueryMovieDetailsExtended")), "getMovieDetails() with query parameters"), MOVIE_DETAILS),
+                    of(route(() -> theTVDBApi.getMoviesFiltered(params(Filter.COUNTRY, "mys", Filter.LANGUAGE, "msa")), "getMoviesFiltered()"), MOVIE_OVERVIEW),
                     of(route(() -> theTVDBApi.getMovieTranslation(46011, "eng"), "getMovieTranslation()"), TRANSLATION),
                     of(route(() -> theTVDBApi.getAllPeopleTypes(), "getAllPeopleTypes()"), PEOPLETYPE_OVERVIEW),
                     of(route(() -> theTVDBApi.getPeople(9891), "getPeople()"), PEOPLE),
@@ -621,9 +646,12 @@ class TheTVDBApiImplTest {
                     of(route(() -> theTVDBApi.getSeriesDetails(5444, params("value", "QuerySeriesDetailsExtended")), "getSeriesDetails() with query parameters"), SERIES_DETAILS),
                     of(route(() -> theTVDBApi.getSeriesEpisodes(5711, DVD, params("value", "QuerySeriesEpisodesExtended")), "getSeriesEpisodes() with query parameters"), SERIESEPISODES),
                     of(route(() -> theTVDBApi.getSeriesEpisodesTranslated(2312, ALTERNATE, "por", params("value", "QuerySeriesEpisodesTranslatedExtended")), "getSeriesEpisodesTranslated() with query parameters"), SERIESEPISODES_TRANSLATED),
+                    of(route(() -> theTVDBApi.getSeriesFiltered(params(Filter.COUNTRY, "grl", Filter.LANGUAGE, "nor")), "getSeriesFiltered()"), SERIES_OVERVIEW),
                     of(route(() -> theTVDBApi.getSeriesTranslation(6170, "eng"), "getSeriesTranslation()"), TRANSLATION),
                     of(route(() -> theTVDBApi.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
-                    of(route(() -> theTVDBApi.getUpdates(params(Updates.SINCE, "16245743", "value", "QueryUpdatesExtended")), "getUpdates() with query parameters"), UPDATE_OVERVIEW)
+                    of(route(() -> theTVDBApi.getUpdates(params(Updates.SINCE, "16245743", "value", "QueryUpdatesExtended")), "getUpdates() with query parameters"), UPDATE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getUserFavorites(), "getUserFavorites()"), FAVORITES),
+                    of(route(() -> theTVDBApi.createUserFavorites(favoriteRecord(3447)), "createUserFavorites() with favorite record"), NO_DATA)
             );
         }
         //@EnableFormatting
