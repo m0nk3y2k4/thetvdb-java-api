@@ -86,8 +86,8 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Translations;
  * slightly more effort than using the shortcut-methods but gives the user unlimited configuration options.
  * <p><br>
  * In order to create a new API instance the {@link com.github.m0nk3y2k4.thetvdb.TheTVDBApiFactory TheTVDBApiFactory}
- * should be used. This factory also provides additional helper methods, for example to easily create new <em>{@code
- * QueryParameters}</em>.
+ * should be used. This factory also provides additional helper methods, for example to easily create new
+ * <em>{@code QueryParameters}</em>.
  * <p><br>
  * To cover a wide range of possible applications, this API connector provides multiple layouts in order to allow an
  * easy integration regardless of your actual project requirements. It gives you the option to use prefabbed DTO's which
@@ -175,7 +175,8 @@ public interface TheTVDBApi {
      * in/initialize the session before making the first API call. However, if an API call is made without proper
      * initialization, an implicit login will be performed.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Login/post_login">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Login/post_login">
      * <b>[POST]</b> /login</a>
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
@@ -186,7 +187,8 @@ public interface TheTVDBApi {
     /**
      * Returns a collection of available artwork statuses mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Artwork%20Statuses/getAllArtworkStatuses">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Artwork%20Statuses/getAllArtworkStatuses">
      * <b>[GET]</b> /artwork/statuses</a>
      *
      * @return Collection of available artwork statuses mapped as Java DTO's based on the JSON data returned by the
@@ -202,7 +204,8 @@ public interface TheTVDBApi {
     /**
      * Returns a collection of available artwork types mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Artwork%20Types/getAllArtworkTypes">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Artwork%20Types/getAllArtworkTypes">
      * <b>[GET]</b> /artwork/types</a>
      *
      * @return Collection of available artwork types mapped as Java DTO's based on the JSON data returned by the remote
@@ -218,7 +221,8 @@ public interface TheTVDBApi {
     /**
      * Returns basic information for a specific artwork mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Artwork/getArtworkBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Artwork/getArtworkBase">
      * <b>[GET]</b> /artwork/{id}</a>
      *
      * @param artworkId The <i>TheTVDB.com</i> artwork ID
@@ -235,7 +239,8 @@ public interface TheTVDBApi {
     /**
      * Returns detailed information for a specific artwork mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Artwork/getArtworkExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Artwork/getArtworkExtended">
      * <b>[GET]</b> /artwork/{id}/extended</a>
      *
      * @param artworkId The <i>TheTVDB.com</i> artwork ID
@@ -252,7 +257,8 @@ public interface TheTVDBApi {
     /**
      * Returns basic information for a specific award category mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Award%20Categories/getAwardCategory">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Award%20Categories/getAwardCategory">
      * <b>[GET]</b> /awards/categories/{id}</a>
      *
      * @param awardCategoryId The <i>TheTVDB.com</i> award category ID
@@ -270,7 +276,8 @@ public interface TheTVDBApi {
     /**
      * Returns detailed information for a specific award category mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Award%20Categories/getAwardCategoryExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Award%20Categories/getAwardCategoryExtended">
      * <b>[GET]</b> /awards/categories/{id}/extended</a>
      *
      * @param awardCategoryId The <i>TheTVDB.com</i> award category ID
@@ -288,7 +295,8 @@ public interface TheTVDBApi {
     /**
      * Returns a collection of available awards mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Awards/getAllAwards">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Awards/getAllAwards">
      * <b>[GET]</b> /awards</a>
      *
      * @return Collection of available awards mapped as Java DTO's based on the JSON data returned by the remote
@@ -304,7 +312,8 @@ public interface TheTVDBApi {
     /**
      * Returns basic information for a specific award mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Awards/getAward">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Awards/getAward">
      * <b>[GET]</b> /awards/{id}</a>
      *
      * @param awardId The <i>TheTVDB.com</i> award ID
@@ -321,7 +330,8 @@ public interface TheTVDBApi {
     /**
      * Returns detailed information for a specific award mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Awards/getAwardExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Awards/getAwardExtended">
      * <b>[GET]</b> /awards/{id}/extended</a>
      *
      * @param awardId The <i>TheTVDB.com</i> award ID
@@ -338,7 +348,8 @@ public interface TheTVDBApi {
     /**
      * Returns information for a specific character mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Characters/getCharacterBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Characters/getCharacterBase">
      * <b>[GET]</b> /characters/{id}</a>
      *
      * @param characterId The <i>TheTVDB.com</i> character ID
@@ -355,7 +366,8 @@ public interface TheTVDBApi {
     /**
      * Returns a collection of companies based on the given query parameters mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Companies/getAllCompanies">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Companies/getAllCompanies">
      * <b>[GET]</b> /companies</a>
      *
      * @param queryParameters Object containing key/value pairs of query parameters
@@ -387,7 +399,8 @@ public interface TheTVDBApi {
     /**
      * Returns a collection of available company types mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Companies/getCompanyTypes">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Companies/getCompanyTypes">
      * <b>[GET]</b> /companies/types</a>
      *
      * @return Collection of available company types mapped as Java DTO's based on the JSON data returned by the remote
@@ -403,7 +416,8 @@ public interface TheTVDBApi {
     /**
      * Returns information for a specific company mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Companies/getCompany">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Companies/getCompany">
      * <b>[GET]</b> /companies/{id}</a>
      *
      * @param companyId The <i>TheTVDB.com</i> company ID
@@ -420,7 +434,8 @@ public interface TheTVDBApi {
     /**
      * Returns a collection of available content ratings mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Content%20Ratings/getAllContentRatings">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Content%20Ratings/getAllContentRatings">
      * <b>[GET]</b> /content/ratings</a>
      *
      * @return Collection of available content ratings mapped as Java DTO's based on the JSON data returned by the
@@ -436,7 +451,8 @@ public interface TheTVDBApi {
     /**
      * Returns a collection of available entity types mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Entity%20Types/getEntityTypes">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Entity%20Types/getEntityTypes">
      * <b>[GET]</b> /entities</a>
      *
      * @return Collection of available entity types mapped as Java DTO's based on the JSON data returned by the remote
@@ -452,7 +468,8 @@ public interface TheTVDBApi {
     /**
      * Returns basic information for a specific episode mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeBase">
      * <b>[GET]</b> /episodes/{id}</a>
      *
      * @param episodeId The <i>TheTVDB.com</i> episode ID
@@ -469,7 +486,8 @@ public interface TheTVDBApi {
     /**
      * Returns detailed information for a specific episode based on the given query parameters mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeExtended">
      * <b>[GET]</b> /episodes/{id}/extended</a>
      *
      * @param episodeId       The <i>TheTVDB.com</i> episode ID
@@ -487,9 +505,9 @@ public interface TheTVDBApi {
     EpisodeDetails getEpisodeDetails(long episodeId, QueryParameters queryParameters) throws APIException;
 
     /**
-     * Returns detailed information for a specific episode mapped as Java DTO. This is a shortcut-method for {@link
-     * #getEpisodeDetails(long, QueryParameters) getEpisodeDetails(episodeId, queryParameters)} with no additional query
-     * parameters.
+     * Returns detailed information for a specific episode mapped as Java DTO. This is a shortcut-method for
+     * {@link #getEpisodeDetails(long, QueryParameters) getEpisodeDetails(episodeId, queryParameters)} with no
+     * additional query parameters.
      *
      * @param episodeId The <i>TheTVDB.com</i> episode ID
      *
@@ -502,9 +520,9 @@ public interface TheTVDBApi {
 
     /**
      * Returns detailed information as well as the requested additional meta information for a specific episode mapped
-     * as Java DTO. This is a shortcut-method for {@link #getEpisodeDetails(long, QueryParameters)
-     * getEpisodeDetails(episodeId, queryParameters)} with a single {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Episodes#META}
-     * query parameter.
+     * as Java DTO. This is a shortcut-method for
+     * {@link #getEpisodeDetails(long, QueryParameters) getEpisodeDetails(episodeId, queryParameters)} with a single
+     * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Episodes#META} query parameter.
      *
      * @param episodeId The <i>TheTVDB.com</i> episode ID
      * @param meta      Additional information to be included in the response
@@ -519,7 +537,8 @@ public interface TheTVDBApi {
     /**
      * Returns a translation record for a specific episode mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeTranslation">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeTranslation">
      * <b>[GET]</b> /episodes/{id}/translations/{language}</a>
      *
      * @param episodeId The <i>TheTVDB.com</i> episode ID
@@ -538,7 +557,8 @@ public interface TheTVDBApi {
     /**
      * Returns a collection of translation records for a specific list mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Lists/getListTranslation">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Lists/getListTranslation">
      * <b>[GET]</b> /lists/{id}/translations/{language}</a>
      *
      * @param listId   The <i>TheTVDB.com</i> list ID
@@ -557,7 +577,8 @@ public interface TheTVDBApi {
      * Returns a collection of lists based on the given query parameters mapped as Java DTO. The collection contains
      * basic information of all lists matching the query parameters.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Lists/getAllLists">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Lists/getAllLists">
      * <b>[GET]</b> /lists</a>
      *
      * @param queryParameters Object containing key/value pairs of query parameters
@@ -574,8 +595,8 @@ public interface TheTVDBApi {
     /**
      * Returns a limited collection of lists mapped as Java DTO. Due to the large amount of available lists, the result
      * will be paginated. Use the <em>{@code page}</em> parameter to browse to a specific result page. This is a
-     * shortcut-method for {@link #getAllLists(QueryParameters) getAllLists(queryParameters)} with a single {@value
-     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Lists#PAGE} query parameter.
+     * shortcut-method for {@link #getAllLists(QueryParameters) getAllLists(queryParameters)} with a single
+     * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Lists#PAGE} query parameter.
      *
      * @param page The result page to be returned (zero-based)
      *
@@ -589,7 +610,8 @@ public interface TheTVDBApi {
     /**
      * Returns basic information for a specific list mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Lists/getList">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Lists/getList">
      * <b>[GET]</b> /lists/{id}</a>
      *
      * @param listId The <i>TheTVDB.com</i> list ID
@@ -606,7 +628,8 @@ public interface TheTVDBApi {
     /**
      * Returns detailed information for a specific list mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Lists/getListExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Lists/getListExtended">
      * <b>[GET]</b> /lists/{id}/extended</a>
      *
      * @param listId The <i>TheTVDB.com</i> list ID
@@ -623,7 +646,8 @@ public interface TheTVDBApi {
     /**
      * Returns a collection of available genders mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Genders/getAllGenders">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Genders/getAllGenders">
      * <b>[GET]</b> /genders</a>
      *
      * @return Collection of available genders mapped as Java DTO's based on the JSON data returned by the remote
@@ -639,7 +663,8 @@ public interface TheTVDBApi {
     /**
      * Returns a collection of available genres mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Genres/getAllGenres">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Genres/getAllGenres">
      * <b>[GET]</b> /genres</a>
      *
      * @return Collection of available genres mapped as Java DTO's based on the JSON data returned by the remote
@@ -655,7 +680,8 @@ public interface TheTVDBApi {
     /**
      * Returns information for a specific genre mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Genres/getGenreBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Genres/getGenreBase">
      * <b>[GET]</b> /genres/{id}</a>
      *
      * @param genreId The <i>TheTVDB.com</i> genre ID
@@ -672,7 +698,8 @@ public interface TheTVDBApi {
     /**
      * Returns a collection of available inspiration types mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/InspirationTypes/getAllInspirationTypes">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/InspirationTypes/getAllInspirationTypes">
      * <b>[GET]</b> /inspiration/types</a>
      *
      * @return Collection of available inspiration types mapped as Java DTO's based on the JSON data returned by the
@@ -688,7 +715,8 @@ public interface TheTVDBApi {
     /**
      * Returns a collection of available movie statuses mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movie%20Statuses/getAllMovieStatuses">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Movie%20Statuses/getAllMovieStatuses">
      * <b>[GET]</b> /movies/statuses</a>
      *
      * @return Collection of available movie statuses mapped as Java DTO's based on the JSON data returned by the remote
@@ -705,7 +733,8 @@ public interface TheTVDBApi {
      * Returns a collection of movies based on the given query parameters mapped as Java DTO. The collection contains
      * basic information of all movies matching the query parameters.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getAllMovie">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Movies/getAllMovie">
      * <b>[GET]</b> /movies</a>
      *
      * @param queryParameters Object containing key/value pairs of query parameters
@@ -722,8 +751,8 @@ public interface TheTVDBApi {
     /**
      * Returns a limited collection of movies mapped as Java DTO. Due to the large amount of available movies, the
      * result will be paginated. Use the <em>{@code page}</em> parameter to browse to a specific result page. This is a
-     * shortcut-method for {@link #getAllMovies(QueryParameters) getAllMovies(queryParameters)} with a single {@value
-     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Movies#PAGE} query parameter.
+     * shortcut-method for {@link #getAllMovies(QueryParameters) getAllMovies(queryParameters)} with a single
+     * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Movies#PAGE} query parameter.
      *
      * @param page The result page to be returned (zero-based)
      *
@@ -737,7 +766,8 @@ public interface TheTVDBApi {
     /**
      * Returns basic information for a specific movie mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getMovieBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Movies/getMovieBase">
      * <b>[GET]</b> /movies/{id}</a>
      *
      * @param movieId The <i>TheTVDB.com</i> movie ID
@@ -754,7 +784,8 @@ public interface TheTVDBApi {
     /**
      * Returns detailed information for a specific movie based on the given query parameters mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getMovieExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Movies/getMovieExtended">
      * <b>[GET]</b> /movies/{id}/extended</a>
      *
      * @param movieId         The <i>TheTVDB.com</i> movie ID
@@ -773,7 +804,8 @@ public interface TheTVDBApi {
     /**
      * Returns a collection of movies based on the given filter parameters mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getMoviesFilter">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Movies/getMoviesFilter">
      * <b>[GET]</b> /movies/filter</a>
      *
      * @param queryParameters Object containing key/value pairs of query parameters
@@ -788,9 +820,9 @@ public interface TheTVDBApi {
     Collection<Movie> getMoviesFiltered(QueryParameters queryParameters) throws APIException;
 
     /**
-     * Returns detailed information for a specific movie mapped as Java DTO. This is a shortcut-method for {@link
-     * #getMovieDetails(long, QueryParameters) getMovieDetails(movieId, queryParameters)} with no additional query
-     * parameters.
+     * Returns detailed information for a specific movie mapped as Java DTO. This is a shortcut-method for
+     * {@link #getMovieDetails(long, QueryParameters) getMovieDetails(movieId, queryParameters)} with no additional
+     * query parameters.
      *
      * @param movieId The <i>TheTVDB.com</i> movie ID
      *
@@ -803,9 +835,9 @@ public interface TheTVDBApi {
 
     /**
      * Returns detailed information as well as the requested additional meta information for a specific movie based on
-     * the given query parameters mapped as Java DTO. This is a shortcut-method for {@link #getMovieDetails(long,
-     * QueryParameters) getMovieDetails(movieId, queryParameters)} with a single {@value
-     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Movies#META} query parameter.
+     * the given query parameters mapped as Java DTO. This is a shortcut-method for
+     * {@link #getMovieDetails(long, QueryParameters) getMovieDetails(movieId, queryParameters)} with a single
+     * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Movies#META} query parameter.
      *
      * @param movieId The <i>TheTVDB.com</i> movie ID
      * @param meta    Additional information to be included in the response
@@ -820,7 +852,8 @@ public interface TheTVDBApi {
     /**
      * Returns a translation record for a specific movie mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getMovieTranslation">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Movies/getMovieTranslation">
      * <b>[GET]</b> /movies/{id}/translations/{language}</a>
      *
      * @param movieId  The <i>TheTVDB.com</i> movie ID
@@ -838,7 +871,8 @@ public interface TheTVDBApi {
     /**
      * Returns a collection of available people types mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/People%20Types/getAllPeopleTypes">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/People%20Types/getAllPeopleTypes">
      * <b>[GET]</b> /people/types</a>
      *
      * @return Collection of available people types mapped as Java DTO's based on the JSON data returned by the remote
@@ -854,7 +888,8 @@ public interface TheTVDBApi {
     /**
      * Returns basic information for a specific people mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/People/getPeopleBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/People/getPeopleBase">
      * <b>[GET]</b> /people/{id}</a>
      *
      * @param peopleId The <i>TheTVDB.com</i> people ID
@@ -871,7 +906,8 @@ public interface TheTVDBApi {
     /**
      * Returns detailed information for a specific people based on the given query parameters mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/People/getPeopleExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/People/getPeopleExtended">
      * <b>[GET]</b> /people/{id}/extended</a>
      *
      * @param peopleId        The <i>TheTVDB.com</i> people ID
@@ -888,9 +924,9 @@ public interface TheTVDBApi {
     PeopleDetails getPeopleDetails(long peopleId, QueryParameters queryParameters) throws APIException;
 
     /**
-     * Returns detailed information for a specific people mapped as Java DTO. This is a shortcut-method for {@link
-     * #getPeopleDetails(long, QueryParameters) getPeopleDetails(peopleId, queryParameters)} with no additional query
-     * parameters.
+     * Returns detailed information for a specific people mapped as Java DTO. This is a shortcut-method for
+     * {@link #getPeopleDetails(long, QueryParameters) getPeopleDetails(peopleId, queryParameters)} with no additional
+     * query parameters.
      *
      * @param peopleId The <i>TheTVDB.com</i> people ID
      *
@@ -903,9 +939,9 @@ public interface TheTVDBApi {
 
     /**
      * Returns detailed information as well as the requested additional meta information for a specific people based on
-     * the given query parameters mapped as Java DTO. This is a shortcut-method for {@link #getPeopleDetails(long,
-     * QueryParameters) getPeopleDetails(peopleId, queryParameters)} with a single {@value
-     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.People#META} query parameter.
+     * the given query parameters mapped as Java DTO. This is a shortcut-method for
+     * {@link #getPeopleDetails(long, QueryParameters) getPeopleDetails(peopleId, queryParameters)} with a single
+     * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.People#META} query parameter.
      *
      * @param peopleId The <i>TheTVDB.com</i> people ID
      * @param meta     Additional information to be included in the response
@@ -920,7 +956,8 @@ public interface TheTVDBApi {
     /**
      * Returns a translation record for a specific people mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/People/getPeopleTranslation">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/People/getPeopleTranslation">
      * <b>[GET]</b> /people/{id}/translations/{language}</a>
      *
      * @param peopleId The <i>TheTVDB.com</i> people ID
@@ -937,10 +974,12 @@ public interface TheTVDBApi {
 
     /**
      * Returns a collection of search results based on the given query parameters mapped as Java DTO. Note that the
-     * given query parameters must either contain a valid <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#Q}</em>
-     * or <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#QUERY}</em> search term key.
+     * given query parameters must either contain a valid
+     * <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#Q}</em> or
+     * <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#QUERY}</em> search term key.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Search/getSearchResults">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Search/getSearchResults">
      * <b>[GET]</b> /search</a>
      *
      * @param queryParameters Object containing key/value pairs of query parameters
@@ -956,9 +995,9 @@ public interface TheTVDBApi {
 
     /**
      * Returns a collection of search results based on the given search term mapped as Java DTO. The returned data will
-     * contain all entities that match the given search criteria. This is a shortcut-method for {@link
-     * #getSearchResults(QueryParameters) getSearchResults(queryParameters)} with a single {@value
-     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#QUERY} query parameter.
+     * contain all entities that match the given search criteria. This is a shortcut-method for
+     * {@link #getSearchResults(QueryParameters) getSearchResults(queryParameters)} with a single
+     * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#QUERY} query parameter.
      *
      * @param searchTerm The search string for which the database should be queried
      *
@@ -973,9 +1012,9 @@ public interface TheTVDBApi {
     /**
      * Returns a collection of search results based on the given search term mapped as Java DTO. The returned data will
      * be restricted to the specified entity type and contain results that match the given search criteria. This is a
-     * shortcut-method for {@link #getSearchResults(QueryParameters) getSearchResults(queryParameters)} with {@value
-     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#QUERY} and {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#TYPE}
-     * query parameters.
+     * shortcut-method for {@link #getSearchResults(QueryParameters) getSearchResults(queryParameters)} with
+     * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#QUERY} and
+     * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#TYPE} query parameters.
      *
      * @param searchTerm The search string for which the database should be queried
      * @param entityType Only search for results of this particular entity type
@@ -992,7 +1031,8 @@ public interface TheTVDBApi {
      * Returns a collection of seasons based on the given query parameters mapped as Java DTO. The collection contains
      * basic information of all seasons matching the query parameters.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getAllSeasons">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Seasons/getAllSeasons">
      * <b>[GET]</b> /seasons</a>
      *
      * @param queryParameters Object containing key/value pairs of query parameters
@@ -1009,8 +1049,8 @@ public interface TheTVDBApi {
     /**
      * Returns a limited collection of seasons mapped as Java DTO. Due to the large amount of available seasons, the
      * result will be paginated. Use the <em>{@code page}</em> parameter to browse to a specific result page. This is a
-     * shortcut-method for {@link #getAllSeasons(QueryParameters) getAllSeasons(queryParameters)} with a single {@value
-     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Seasons#PAGE} query parameter.
+     * shortcut-method for {@link #getAllSeasons(QueryParameters) getAllSeasons(queryParameters)} with a single
+     * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Seasons#PAGE} query parameter.
      *
      * @param page The result page to be returned (zero-based)
      *
@@ -1024,7 +1064,8 @@ public interface TheTVDBApi {
     /**
      * Returns basic information for a specific season mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonBase">
      * <b>[GET]</b> /seasons/{id}</a>
      *
      * @param seasonId The <i>TheTVDB.com</i> season ID
@@ -1041,7 +1082,8 @@ public interface TheTVDBApi {
     /**
      * Returns detailed information for a specific season based on the given query parameters mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonExtended">
      * <b>[GET]</b> /seasons/{id}/extended</a>
      *
      * @param seasonId        The <i>TheTVDB.com</i> season ID
@@ -1058,9 +1100,9 @@ public interface TheTVDBApi {
     SeasonDetails getSeasonDetails(long seasonId, QueryParameters queryParameters) throws APIException;
 
     /**
-     * Returns detailed information for a specific season mapped as Java DTO. This is a shortcut-method for {@link
-     * #getSeasonDetails(long, QueryParameters) getSeasonDetails(seasonId, queryParameters)} with no additional query
-     * parameters.
+     * Returns detailed information for a specific season mapped as Java DTO. This is a shortcut-method for
+     * {@link #getSeasonDetails(long, QueryParameters) getSeasonDetails(seasonId, queryParameters)} with no additional
+     * query parameters.
      *
      * @param seasonId The <i>TheTVDB.com</i> season ID
      *
@@ -1073,9 +1115,9 @@ public interface TheTVDBApi {
 
     /**
      * Returns detailed information as well as the requested additional meta information for a specific season based on
-     * the given query parameters mapped as Java DTO. This is a shortcut-method for {@link #getSeasonDetails(long,
-     * QueryParameters) getSeasonDetails(seasonId, queryParameters)} with a single {@value
-     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Seasons#META} query parameter.
+     * the given query parameters mapped as Java DTO. This is a shortcut-method for
+     * {@link #getSeasonDetails(long, QueryParameters) getSeasonDetails(seasonId, queryParameters)} with a single
+     * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Seasons#META} query parameter.
      *
      * @param seasonId The <i>TheTVDB.com</i> season ID
      * @param meta     Additional information to be included in the response
@@ -1090,7 +1132,8 @@ public interface TheTVDBApi {
     /**
      * Returns a collection of available season types mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonTypes">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonTypes">
      * <b>[GET]</b> /seasons/types</a>
      *
      * @return Collection of available season types mapped as Java DTO's based on the JSON data returned by the remote
@@ -1106,7 +1149,8 @@ public interface TheTVDBApi {
     /**
      * Returns a translation record for a specific season mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonTranslation">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonTranslation">
      * <b>[GET]</b> /seasons/{id}/translations/{language}</a>
      *
      * @param seasonId The <i>TheTVDB.com</i> season ID
@@ -1124,7 +1168,8 @@ public interface TheTVDBApi {
     /**
      * Returns a collection of available series statuses mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series%20Statuses/getAllSeriesStatuses">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Series%20Statuses/getAllSeriesStatuses">
      * <b>[GET]</b> /series/statuses</a>
      *
      * @return Collection of available series statuses mapped as Java DTO's based on the JSON data returned by the
@@ -1141,7 +1186,8 @@ public interface TheTVDBApi {
      * Returns a collection of series based on the given query parameters mapped as Java DTO. The collection contains
      * basic information of all series matching the query parameters.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getAllSeries">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Series/getAllSeries">
      * <b>[GET]</b> /series</a>
      *
      * @param queryParameters Object containing key/value pairs of query parameters
@@ -1158,8 +1204,8 @@ public interface TheTVDBApi {
     /**
      * Returns a limited collection of series mapped as Java DTO. Due to the large amount of available series, the
      * result will be paginated. Use the <em>{@code page}</em> parameter to browse to a specific result page. This is a
-     * shortcut-method for {@link #getAllSeries(QueryParameters) getAllSeries(queryParameters)} with a single {@value
-     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series#PAGE} query parameter.
+     * shortcut-method for {@link #getAllSeries(QueryParameters) getAllSeries(queryParameters)} with a single
+     * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series#PAGE} query parameter.
      *
      * @param page The result page to be returned (zero-based)
      *
@@ -1173,7 +1219,8 @@ public interface TheTVDBApi {
     /**
      * Returns basic information for a specific series mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesBase">
      * <b>[GET]</b> /series/{id}</a>
      *
      * @param seriesId The <i>TheTVDB.com</i> series ID
@@ -1191,7 +1238,8 @@ public interface TheTVDBApi {
      * Returns detailed information for a specific series including custom artworks based on the given query parameters
      * mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesArtworks">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesArtworks">
      * <b>[GET]</b> /series/{id}/artworks</a>
      *
      * @param seriesId        The <i>TheTVDB.com</i> series ID
@@ -1211,9 +1259,9 @@ public interface TheTVDBApi {
 
     /**
      * Returns detailed information for a specific series including custom artworks based on the given query parameters
-     * mapped as Java DTO. This is a shortcut-method for {@link #getSeriesArtworks(long, QueryParameters)
-     * getSeriesArtworks(seriesId, queryParameters)} with a single {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series#LANGUAGE}
-     * query parameter.
+     * mapped as Java DTO. This is a shortcut-method for
+     * {@link #getSeriesArtworks(long, QueryParameters) getSeriesArtworks(seriesId, queryParameters)} with a single
+     * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series#LANGUAGE} query parameter.
      *
      * @param seriesId The <i>TheTVDB.com</i> series ID
      * @param language The 2- or 3-character language code
@@ -1229,7 +1277,8 @@ public interface TheTVDBApi {
     /**
      * Returns detailed information for a specific series based on the given query parameters mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesExtended">
      * <b>[GET]</b> /series/{id}/extended</a>
      *
      * @param seriesId        The <i>TheTVDB.com</i> series ID
@@ -1246,9 +1295,9 @@ public interface TheTVDBApi {
     SeriesDetails getSeriesDetails(long seriesId, QueryParameters queryParameters) throws APIException;
 
     /**
-     * Returns detailed information for a specific series mapped as Java DTO. This is a shortcut-method for {@link
-     * #getSeriesDetails(long, QueryParameters) getSeriesDetails(seriesId, queryParameters)} with no additional query
-     * parameters.
+     * Returns detailed information for a specific series mapped as Java DTO. This is a shortcut-method for
+     * {@link #getSeriesDetails(long, QueryParameters) getSeriesDetails(seriesId, queryParameters)} with no additional
+     * query parameters.
      *
      * @param seriesId The <i>TheTVDB.com</i> series ID
      *
@@ -1261,9 +1310,9 @@ public interface TheTVDBApi {
 
     /**
      * Returns detailed information as well as the requested additional meta information for a specific series based on
-     * the given query parameters mapped as Java DTO. This is a shortcut-method for {@link #getSeriesDetails(long,
-     * QueryParameters) getSeriesDetails(seriesId, queryParameters)} with a single {@value
-     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series#META} query parameter.
+     * the given query parameters mapped as Java DTO. This is a shortcut-method for
+     * {@link #getSeriesDetails(long, QueryParameters) getSeriesDetails(seriesId, queryParameters)} with a single
+     * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series#META} query parameter.
      *
      * @param seriesId The <i>TheTVDB.com</i> series ID
      * @param meta     Additional information to be included in the response
@@ -1278,7 +1327,8 @@ public interface TheTVDBApi {
     /**
      * Returns the episodes of a particular series based on the given query parameters mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesEpisodes">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesEpisodes">
      * <b>[GET]</b> /series/{id}/episodes/{season-type}</a>
      *
      * @param seriesId        The <i>TheTVDB.com</i> series ID
@@ -1289,19 +1339,20 @@ public interface TheTVDBApi {
      *
      * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
      *                      not found, etc. or if no series record with the given ID exists.
-     * @see JSON#getSeriesEpisodes(long, SeriesSeasonType, QueryParameters) TheTVDBApi.JSON.getSeriesEpisodes(seriesId,
-     *         seasonType, queryParameters)
-     * @see Extended#getSeriesEpisodes(long, SeriesSeasonType, QueryParameters) TheTVDBApi.Extended.getSeriesEpisodes(seriesId,
-     *         seasonType, queryParameters)
+     * @see JSON#getSeriesEpisodes(long, SeriesSeasonType, QueryParameters)
+     *         TheTVDBApi.JSON.getSeriesEpisodes(seriesId, seasonType, queryParameters)
+     * @see Extended#getSeriesEpisodes(long, SeriesSeasonType, QueryParameters)
+     *         TheTVDBApi.Extended.getSeriesEpisodes(seriesId, seasonType, queryParameters)
      */
     SeriesEpisodes getSeriesEpisodes(long seriesId, @Nonnull SeriesSeasonType seasonType,
             QueryParameters queryParameters) throws APIException;
 
     /**
      * Returns a limited overview of episodes of a particular series mapped as Java DTO. Since some series have many
-     * episodes, the result will be paginated. This is a shortcut-method for {@link #getSeriesEpisodes(long,
-     * SeriesSeasonType, QueryParameters) getSeriesEpisodes(seriesId, seasonType, queryParameters)} which will always
-     * return the first page only, what may be convenient for series with few episodes.
+     * episodes, the result will be paginated. This is a shortcut-method for
+     * {@link #getSeriesEpisodes(long, SeriesSeasonType, QueryParameters) getSeriesEpisodes(seriesId, seasonType,
+     * queryParameters)} which will always return the first page only, what may be convenient for series with few
+     * episodes.
      *
      * @param seriesId   The <i>TheTVDB.com</i> series ID
      * @param seasonType The type of season for which episodes should be returned
@@ -1317,9 +1368,10 @@ public interface TheTVDBApi {
 
     /**
      * Returns a limited overview of episodes of a particular series season mapped as Java DTO. Since some seasons have
-     * many episodes, the result will be paginated. This is a shortcut-method for {@link #getSeriesEpisodes(long,
-     * SeriesSeasonType, QueryParameters) getSeriesEpisodes(seriesId, seasonType, queryParameters)} with a single
-     * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series#SEASON} query parameter.
+     * many episodes, the result will be paginated. This is a shortcut-method for
+     * {@link #getSeriesEpisodes(long, SeriesSeasonType, QueryParameters) getSeriesEpisodes(seriesId, seasonType,
+     * queryParameters)} with a single {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Series#SEASON} query
+     * parameter.
      *
      * @param seriesId     The <i>TheTVDB.com</i> series ID
      * @param seasonType   The type of season for which episodes should be returned
@@ -1338,7 +1390,8 @@ public interface TheTVDBApi {
      * Returns basic information for a specific series based on the given query parameters mapped as Java DTO. The
      * contained episodes will be translated to the given language.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesSeasonEpisodesTranslated">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesSeasonEpisodesTranslated">
      * <b>[GET]</b> /series/{id}/episodes/{season-type}/{lang}</a>
      *
      * @param seriesId        The <i>TheTVDB.com</i> series ID
@@ -1362,9 +1415,10 @@ public interface TheTVDBApi {
 
     /**
      * Returns basic information for a specific series mapped as Java DTO. The contained episodes will be translated to
-     * the given language. This is a shortcut-method for {@link #getSeriesEpisodesTranslated(long, SeriesSeasonType,
-     * String, QueryParameters) getSeriesEpisodesTranslated(seriesId, seasonType, language, queryParameters)}  with no
-     * additional query parameters.
+     * the given language. This is a shortcut-method for
+     * {@link #getSeriesEpisodesTranslated(long, SeriesSeasonType, String, QueryParameters)
+     * getSeriesEpisodesTranslated(seriesId, seasonType, language, queryParameters)}  with no additional query
+     * parameters.
      *
      * @param seriesId   The <i>TheTVDB.com</i> series ID
      * @param seasonType The type of season for which episodes should be returned
@@ -1383,7 +1437,8 @@ public interface TheTVDBApi {
     /**
      * Returns a collection of series based on the given filter parameters mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesFilter">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesFilter">
      * <b>[GET]</b> /series/filter</a>
      *
      * @param queryParameters Object containing key/value pairs of query parameters
@@ -1400,7 +1455,8 @@ public interface TheTVDBApi {
     /**
      * Returns a translation record for a specific series mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesTranslation">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesTranslation">
      * <b>[GET]</b> /series/{id}/translations/{language}</a>
      *
      * @param seriesId The <i>TheTVDB.com</i> series ID
@@ -1418,7 +1474,8 @@ public interface TheTVDBApi {
     /**
      * Returns a collection of available source types mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Source%20Types/getAllSourceTypes">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Source%20Types/getAllSourceTypes">
      * <b>[GET]</b> /sources/types</a>
      *
      * @return Collection of available source types mapped as Java DTO's based on the JSON data returned by the remote
@@ -1434,10 +1491,11 @@ public interface TheTVDBApi {
     /**
      * Returns a collection of recently updated entities based on the given query parameters mapped as Java DTO. The
      * collection contains basic information of all entities matching the query parameters. Note that the given query
-     * parameters must always contain a valid <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#SINCE}</em>
-     * Epoch timestamp key.
+     * parameters must always contain a valid
+     * <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#SINCE}</em> Epoch timestamp key.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Updates/updates">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Updates/updates">
      * <b>[GET]</b> /updates</a>
      *
      * @param queryParameters Object containing key/value pairs of query parameters
@@ -1455,8 +1513,9 @@ public interface TheTVDBApi {
     /**
      * Returns a collection of entities which have been updated since the given Epoch time mapped as Java DTO. Due to
      * the possibly large amount of updates, the result will be paginated. Use the <em>{@code page}</em> parameter to
-     * browse to a specific result page. This is a shortcut-method for {@link #getUpdates(QueryParameters)
-     * getUpdates(queryParameters)} with {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#SINCE} and
+     * browse to a specific result page. This is a shortcut-method for
+     * {@link #getUpdates(QueryParameters) getUpdates(queryParameters)} with
+     * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#SINCE} and
      * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#PAGE} query parameters.
      *
      * @param since UNIX Epoch time (GMT) in seconds. Must be in the past.
@@ -1475,10 +1534,11 @@ public interface TheTVDBApi {
      * Returns a collection of entities which have been updated since the given Epoch time, restricted to a specific
      * type of entities and some particular update action, mapped as Java DTO. Due to the possibly large amount of
      * updates, the result will be paginated. Use the <em>{@code page}</em> parameter to browse to a specific result
-     * page. This is a shortcut-method for {@link #getUpdates(QueryParameters) getUpdates(queryParameters)} with {@value
-     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#SINCE}, {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#TYPE},
-     * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#ACTION} and {@value
-     * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#PAGE} query parameters.
+     * page. This is a shortcut-method for {@link #getUpdates(QueryParameters) getUpdates(queryParameters)} with
+     * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#SINCE},
+     * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#TYPE},
+     * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#ACTION} and
+     * {@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#PAGE} query parameters.
      *
      * @param since  UNIX Epoch time (GMT) in seconds. Must be in the past.
      * @param type   The type of entity to be restricted to
@@ -1498,7 +1558,8 @@ public interface TheTVDBApi {
     /**
      * Returns the current favorites of this user mapped as Java DTO.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Favorites/getUserFavorites">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Favorites/getUserFavorites">
      * <b>[GET]</b> /user/favorites</a>
      *
      * @return The current favorites of this user mapped as Java DTO's based on the JSON data returned by the remote
@@ -1512,10 +1573,12 @@ public interface TheTVDBApi {
     Favorites getUserFavorites() throws APIException;
 
     /**
-     * Adds the given entities to the users list of favorites. To create a new favorite record, use the {@link
-     * TheTVDBApiFactory#createFavoriteRecordBuilder() factory method} to retrieve a corresponding builder instance.
+     * Adds the given entities to the users list of favorites. To create a new favorite record, use the
+     * {@link TheTVDBApiFactory#createFavoriteRecordBuilder() factory method} to retrieve a corresponding builder
+     * instance.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Favorites/createUserFavorites">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Favorites/createUserFavorites">
      * <b>[POST]</b> /user/favorites</a>
      *
      * @param favoriteRecord Record containing one or multiple favorite entities
@@ -1565,7 +1628,8 @@ public interface TheTVDBApi {
         /**
          * Returns a collection of available artwork statuses as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Artwork%20Statuses/getAllArtworkStatuses">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Artwork%20Statuses/getAllArtworkStatuses">
          * <b>[GET]</b> /artwork/statuses</a>
          *
          * @return JSON object containing the available artwork statuses
@@ -1580,7 +1644,8 @@ public interface TheTVDBApi {
         /**
          * Returns a collection of available artwork types as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Artwork%20Types/getAllArtworkTypes">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Artwork%20Types/getAllArtworkTypes">
          * <b>[GET]</b> /artwork/types</a>
          *
          * @return JSON object containing the available artwork types
@@ -1595,7 +1660,8 @@ public interface TheTVDBApi {
         /**
          * Returns basic information for a specific artwork as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Artwork/getArtworkBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Artwork/getArtworkBase">
          * <b>[GET]</b> /artwork/{id}</a>
          *
          * @param artworkId The <i>TheTVDB.com</i> artwork ID
@@ -1612,7 +1678,8 @@ public interface TheTVDBApi {
         /**
          * Returns detailed information for a specific artwork as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Artwork/getArtworkExtended">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Artwork/getArtworkExtended">
          * <b>[GET]</b> /artwork/{id}/extended</a>
          *
          * @param artworkId The <i>TheTVDB.com</i> artwork ID
@@ -1629,7 +1696,8 @@ public interface TheTVDBApi {
         /**
          * Returns basic information for a specific award category as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Award%20Categories/getAwardCategory">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Award%20Categories/getAwardCategory">
          * <b>[GET]</b> /awards/categories/{id}</a>
          *
          * @param awardCategoryId The <i>TheTVDB.com</i> award category ID
@@ -1646,7 +1714,8 @@ public interface TheTVDBApi {
         /**
          * Returns detailed information for a specific award category as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Award%20Categories/getAwardCategoryExtended">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Award%20Categories/getAwardCategoryExtended">
          * <b>[GET]</b> /awards/categories/{id}/extended</a>
          *
          * @param awardCategoryId The <i>TheTVDB.com</i> award category ID
@@ -1663,7 +1732,8 @@ public interface TheTVDBApi {
         /**
          * Returns a collection of available awards as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Awards/getAllAwards">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Awards/getAllAwards">
          * <b>[GET]</b> /awards</a>
          *
          * @return JSON object containing the available awards
@@ -1678,7 +1748,8 @@ public interface TheTVDBApi {
         /**
          * Returns basic information for a specific award as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Awards/getAward">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Awards/getAward">
          * <b>[GET]</b> /awards/{id}</a>
          *
          * @param awardId The <i>TheTVDB.com</i> award ID
@@ -1695,7 +1766,8 @@ public interface TheTVDBApi {
         /**
          * Returns detailed information for a specific award as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Awards/getAwardExtended">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Awards/getAwardExtended">
          * <b>[GET]</b> /awards/{id}/extended</a>
          *
          * @param awardId The <i>TheTVDB.com</i> award ID
@@ -1712,7 +1784,8 @@ public interface TheTVDBApi {
         /**
          * Returns information for a specific character as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Characters/getCharacterBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Characters/getCharacterBase">
          * <b>[GET]</b> /characters/{id}</a>
          *
          * @param characterId The <i>TheTVDB.com</i> character ID
@@ -1729,7 +1802,8 @@ public interface TheTVDBApi {
         /**
          * Returns a collection of companies based on the given query parameters as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Companies/getAllCompanies">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Companies/getAllCompanies">
          * <b>[GET]</b> /companies</a>
          *
          * @param queryParameters Object containing key/value pairs of query parameters
@@ -1746,7 +1820,8 @@ public interface TheTVDBApi {
         /**
          * Returns a collection of available company types as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Companies/getCompanyTypes">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Companies/getCompanyTypes">
          * <b>[GET]</b> /companies/types</a>
          *
          * @return JSON object containing the available company types
@@ -1761,7 +1836,8 @@ public interface TheTVDBApi {
         /**
          * Returns information for a specific company as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Companies/getCompany">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Companies/getCompany">
          * <b>[GET]</b> /companies/{id}</a>
          *
          * @param companyId The <i>TheTVDB.com</i> company ID
@@ -1778,7 +1854,8 @@ public interface TheTVDBApi {
         /**
          * Returns a collection of available content ratings as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Content%20Ratings/getAllContentRatings">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Content%20Ratings/getAllContentRatings">
          * <b>[GET]</b> /content/ratings</a>
          *
          * @return JSON object containing the available content ratings
@@ -1793,7 +1870,8 @@ public interface TheTVDBApi {
         /**
          * Returns a collection of available entity types as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Entity%20Types/getEntityTypes">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Entity%20Types/getEntityTypes">
          * <b>[GET]</b> /entities</a>
          *
          * @return JSON object containing the available entity types
@@ -1808,7 +1886,8 @@ public interface TheTVDBApi {
         /**
          * Returns basic information for a specific episode as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeBase">
          * <b>[GET]</b> /episodes/{id}</a>
          *
          * @param episodeId The <i>TheTVDB.com</i> episode ID
@@ -1825,7 +1904,8 @@ public interface TheTVDBApi {
         /**
          * Returns detailed information for a specific episode based on the given query parameters as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeExtended">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeExtended">
          * <b>[GET]</b> /episodes/{id}/extended</a>
          *
          * @param episodeId       The <i>TheTVDB.com</i> episode ID
@@ -1845,7 +1925,8 @@ public interface TheTVDBApi {
         /**
          * Returns a translation record for a specific episode as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeTranslation">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeTranslation">
          * <b>[GET]</b> /episodes/{id}/translations/{language}</a>
          *
          * @param episodeId The <i>TheTVDB.com</i> episode ID
@@ -1865,7 +1946,8 @@ public interface TheTVDBApi {
         /**
          * Returns a collection of translation records for a specific list as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Lists/getListTranslation">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Lists/getListTranslation">
          * <b>[GET]</b> /lists/{id}/translations/{language}</a>
          *
          * @param listId   The <i>TheTVDB.com</i> list ID
@@ -1885,7 +1967,8 @@ public interface TheTVDBApi {
          * Returns a collection of lists based on the given query parameters as raw JSON. It contains basic information
          * of all lists matching the query parameters.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Lists/getAllLists">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Lists/getAllLists">
          * <b>[GET]</b> /lists</a>
          *
          * @param queryParameters Object containing key/value pairs of query parameters
@@ -1902,7 +1985,8 @@ public interface TheTVDBApi {
         /**
          * Returns basic information for a specific list as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Lists/getList">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Lists/getList">
          * <b>[GET]</b> /lists/{id}</a>
          *
          * @param listId The <i>TheTVDB.com</i> list ID
@@ -1919,7 +2003,8 @@ public interface TheTVDBApi {
         /**
          * Returns detailed information for a specific list as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Lists/getListExtended">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Lists/getListExtended">
          * <b>[GET]</b> /lists/{id}/extended</a>
          *
          * @param listId The <i>TheTVDB.com</i> list ID
@@ -1936,7 +2021,8 @@ public interface TheTVDBApi {
         /**
          * Returns a collection of available genders as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Genders/getAllGenders">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Genders/getAllGenders">
          * <b>[GET]</b> /genders</a>
          *
          * @return JSON object containing the available genders
@@ -1951,7 +2037,8 @@ public interface TheTVDBApi {
         /**
          * Returns a collection of available genres as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Genres/getAllGenres">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Genres/getAllGenres">
          * <b>[GET]</b> /genres</a>
          *
          * @return JSON object containing the available genres
@@ -1966,7 +2053,8 @@ public interface TheTVDBApi {
         /**
          * Returns information for a specific genre as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Genres/getGenreBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Genres/getGenreBase">
          * <b>[GET]</b> /genres/{id}</a>
          *
          * @param genreId The <i>TheTVDB.com</i> genre ID
@@ -1983,7 +2071,8 @@ public interface TheTVDBApi {
         /**
          * Returns a collection of available inspiration types as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/InspirationTypes/getAllInspirationTypes">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/InspirationTypes/getAllInspirationTypes">
          * <b>[GET]</b> /inspiration/types</a>
          *
          * @return JSON object containing the available inspiration types
@@ -1998,7 +2087,8 @@ public interface TheTVDBApi {
         /**
          * Returns a collection of available movie statuses as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movie%20Statuses/getAllMovieStatuses">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Movie%20Statuses/getAllMovieStatuses">
          * <b>[GET]</b> /movies/statuses</a>
          *
          * @return JSON object containing the available movie statuses
@@ -2014,7 +2104,8 @@ public interface TheTVDBApi {
          * Returns a collection of movies based on the given query parameters as raw JSON. It contains basic information
          * of all movies matching the query parameters.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getAllMovie">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Movies/getAllMovie">
          * <b>[GET]</b> /movies</a>
          *
          * @param queryParameters Object containing key/value pairs of query parameters
@@ -2031,7 +2122,8 @@ public interface TheTVDBApi {
         /**
          * Returns basic information for a specific movie as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getMovieBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Movies/getMovieBase">
          * <b>[GET]</b> /movies/{id}</a>
          *
          * @param movieId The <i>TheTVDB.com</i> movie ID
@@ -2048,7 +2140,8 @@ public interface TheTVDBApi {
         /**
          * Returns detailed information for a specific movie based on the given query parameters as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getMovieExtended">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Movies/getMovieExtended">
          * <b>[GET]</b> /movies/{id}/extended</a>
          *
          * @param movieId         The <i>TheTVDB.com</i> movie ID
@@ -2068,7 +2161,8 @@ public interface TheTVDBApi {
         /**
          * Returns a collection of movies based on the given filter parameters as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getMoviesFilter">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Movies/getMoviesFilter">
          * <b>[GET]</b> /movies/filter</a>
          *
          * @param queryParameters Object containing key/value pairs of query parameters
@@ -2085,7 +2179,8 @@ public interface TheTVDBApi {
         /**
          * Returns a translation record for a specific movie as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getMovieTranslation">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Movies/getMovieTranslation">
          * <b>[GET]</b> /movies/{id}/translations/{language}</a>
          *
          * @param movieId  The <i>TheTVDB.com</i> movie ID
@@ -2105,7 +2200,8 @@ public interface TheTVDBApi {
         /**
          * Returns a collection of available people types as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/People%20Types/getAllPeopleTypes">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/People%20Types/getAllPeopleTypes">
          * <b>[GET]</b> /people/types</a>
          *
          * @return JSON object containing the available people types
@@ -2120,7 +2216,8 @@ public interface TheTVDBApi {
         /**
          * Returns basic information for a specific people as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/People/getPeopleBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/People/getPeopleBase">
          * <b>[GET]</b> /people/{id}</a>
          *
          * @param peopleId The <i>TheTVDB.com</i> people ID
@@ -2137,7 +2234,8 @@ public interface TheTVDBApi {
         /**
          * Returns detailed information for a specific people based on the given query parameters as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/People/getPeopleExtended">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/People/getPeopleExtended">
          * <b>[GET]</b> /people/{id}/extended</a>
          *
          * @param peopleId        The <i>TheTVDB.com</i> people ID
@@ -2157,7 +2255,8 @@ public interface TheTVDBApi {
         /**
          * Returns a translation record for a specific people as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/People/getPeopleTranslation">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/People/getPeopleTranslation">
          * <b>[GET]</b> /people/{id}/translations/{language}</a>
          *
          * @param peopleId The <i>TheTVDB.com</i> people ID
@@ -2176,10 +2275,12 @@ public interface TheTVDBApi {
 
         /**
          * Returns a collection of search results based on the given query parameters as raw JSON. Note that the given
-         * query parameters must either contain a valid <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#Q}</em>
-         * or <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#QUERY}</em> search term key.
+         * query parameters must either contain a valid
+         * <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#Q}</em> or
+         * <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#QUERY}</em> search term key.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Search/getSearchResults">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Search/getSearchResults">
          * <b>[GET]</b> /search</a>
          *
          * @param queryParameters Object containing key/value pairs of query parameters
@@ -2197,7 +2298,8 @@ public interface TheTVDBApi {
          * Returns a collection of seasons based on the given query parameters as raw JSON. It contains basic
          * information of all seasons matching the query parameters.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getAllSeasons">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Seasons/getAllSeasons">
          * <b>[GET]</b> /seasons</a>
          *
          * @param queryParameters Object containing key/value pairs of query parameters
@@ -2214,7 +2316,8 @@ public interface TheTVDBApi {
         /**
          * Returns basic information for a specific season as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonBase">
          * <b>[GET]</b> /seasons/{id}</a>
          *
          * @param seasonId The <i>TheTVDB.com</i> season ID
@@ -2231,7 +2334,8 @@ public interface TheTVDBApi {
         /**
          * Returns detailed information for a specific season based on the given query parameters as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonExtended">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonExtended">
          * <b>[GET]</b> /seasons/{id}/extended</a>
          *
          * @param seasonId        The <i>TheTVDB.com</i> season ID
@@ -2251,7 +2355,8 @@ public interface TheTVDBApi {
         /**
          * Returns a collection of available season types as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonTypes">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonTypes">
          * <b>[GET]</b> /seasons/types</a>
          *
          * @return JSON object containing the available season types
@@ -2266,7 +2371,8 @@ public interface TheTVDBApi {
         /**
          * Returns a translation record for a specific season as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonTranslation">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonTranslation">
          * <b>[GET]</b> /seasons/{id}/translations/{language}</a>
          *
          * @param seasonId The <i>TheTVDB.com</i> season ID
@@ -2286,7 +2392,8 @@ public interface TheTVDBApi {
         /**
          * Returns a collection of available series statuses as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series%20Statuses/getAllSeriesStatuses">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Series%20Statuses/getAllSeriesStatuses">
          * <b>[GET]</b> /series/statuses</a>
          *
          * @return JSON object containing the available series statuses
@@ -2302,7 +2409,8 @@ public interface TheTVDBApi {
          * Returns a collection of series based on the given query parameters as raw JSON. It contains basic information
          * of all series matching the query parameters.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getAllSeries">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Series/getAllSeries">
          * <b>[GET]</b> /series</a>
          *
          * @param queryParameters Object containing key/value pairs of query parameters
@@ -2319,7 +2427,8 @@ public interface TheTVDBApi {
         /**
          * Returns basic information for a specific series as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesBase">
          * <b>[GET]</b> /series/{id}</a>
          *
          * @param seriesId The <i>TheTVDB.com</i> series ID
@@ -2337,7 +2446,8 @@ public interface TheTVDBApi {
          * Returns detailed information for a specific series including custom artworks based on the given query
          * parameters as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesArtworks">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesArtworks">
          * <b>[GET]</b> /series/{id}/artworks</a>
          *
          * @param seriesId        The <i>TheTVDB.com</i> series ID
@@ -2357,7 +2467,8 @@ public interface TheTVDBApi {
         /**
          * Returns detailed information for a specific series based on the given query parameters as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesExtended">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesExtended">
          * <b>[GET]</b> /series/{id}/extended</a>
          *
          * @param seriesId        The <i>TheTVDB.com</i> series ID
@@ -2377,7 +2488,8 @@ public interface TheTVDBApi {
         /**
          * Returns the episodes of a particular series based on the given query parameters as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesEpisodes">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesEpisodes">
          * <b>[GET]</b> /series/{id}/episodes/{season-type}</a>
          *
          * @param seriesId        The <i>TheTVDB.com</i> series ID
@@ -2390,8 +2502,8 @@ public interface TheTVDBApi {
          *                      resource not found, etc. or if no series record with the given ID exists.
          * @see TheTVDBApi#getSeriesEpisodes(long, SeriesSeasonType, QueryParameters)
          *         TheTVDBApi.getSeriesEpisodes(seriesId, seasonType, queryParameters)
-         * @see Extended#getSeriesEpisodes(long, SeriesSeasonType, QueryParameters) TheTVDBApi.Extended.getSeriesEpisodes(seriesId,
-         *         seasonType, queryParameters)
+         * @see Extended#getSeriesEpisodes(long, SeriesSeasonType, QueryParameters)
+         *         TheTVDBApi.Extended.getSeriesEpisodes(seriesId, seasonType, queryParameters)
          */
         JsonNode getSeriesEpisodes(long seriesId, @Nonnull SeriesSeasonType seasonType, QueryParameters queryParameters)
                 throws APIException;
@@ -2400,7 +2512,8 @@ public interface TheTVDBApi {
          * Returns basic information for a specific series based on the given query parameters as raw JSON. The
          * contained episodes will be translated to the given language.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesSeasonEpisodesTranslated">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesSeasonEpisodesTranslated">
          * <b>[GET]</b> /series/{id}/episodes/{season-type}/{lang}</a>
          *
          * @param seriesId        The <i>TheTVDB.com</i> series ID
@@ -2424,7 +2537,8 @@ public interface TheTVDBApi {
         /**
          * Returns a collection of series based on the given filter parameters as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesFilter">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesFilter">
          * <b>[GET]</b> /series/filter</a>
          *
          * @param queryParameters Object containing key/value pairs of query parameters
@@ -2441,7 +2555,8 @@ public interface TheTVDBApi {
         /**
          * Returns a translation record for a specific series as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesTranslation">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesTranslation">
          * <b>[GET]</b> /series/{id}/translations/{language}</a>
          *
          * @param seriesId The <i>TheTVDB.com</i> series ID
@@ -2461,7 +2576,8 @@ public interface TheTVDBApi {
         /**
          * Returns a collection of available source types as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Source%20Types/getAllSourceTypes">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Source%20Types/getAllSourceTypes">
          * <b>[GET]</b> /sources/types</a>
          *
          * @return JSON object containing the available source types
@@ -2476,10 +2592,11 @@ public interface TheTVDBApi {
         /**
          * Returns a collection of recently updated entities based on the given query parameters as raw JSON. It
          * contains basic information of all entities matching the query parameters. Note that the given query
-         * parameters must always contain a valid <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#SINCE}</em>
-         * Epoch timestamp key.
+         * parameters must always contain a valid
+         * <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#SINCE}</em> Epoch timestamp key.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Updates/updates">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Updates/updates">
          * <b>[GET]</b> /updates</a>
          *
          * @param queryParameters Object containing key/value pairs of query parameters
@@ -2496,7 +2613,8 @@ public interface TheTVDBApi {
         /**
          * Returns the current favorites of this user as raw JSON.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Favorites/getUserFavorites">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Favorites/getUserFavorites">
          * <b>[GET]</b> /user/favorites</a>
          *
          * @return JSON object containing the current favorites of this user
@@ -2510,10 +2628,12 @@ public interface TheTVDBApi {
 
         /**
          * Adds the given entities to the users list of favorites and returns the success status of the operation as raw
-         * JSON. To create a new favorite record, use the {@link TheTVDBApiFactory#createFavoriteRecordBuilder() factory
-         * method} to retrieve a corresponding builder instance.
+         * JSON. To create a new favorite record, use the
+         * {@link TheTVDBApiFactory#createFavoriteRecordBuilder() factory method} to retrieve a corresponding builder
+         * instance.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Favorites/createUserFavorites">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Favorites/createUserFavorites">
          * <b>[POST]</b> /user/favorites</a>
          *
          * @param favoriteRecord Record containing one or multiple favorite entities
@@ -2545,7 +2665,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a collection of available artwork statuses mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Artwork%20Statuses/getAllArtworkStatuses">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Artwork%20Statuses/getAllArtworkStatuses">
          * <b>[GET]</b> /artwork/statuses</a>
          *
          * @return Extended API response containing the actually requested data as well as additional status
@@ -2561,7 +2682,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a collection of available artwork types mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Artwork%20Types/getAllArtworkTypes">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Artwork%20Types/getAllArtworkTypes">
          * <b>[GET]</b> /artwork/types</a>
          *
          * @return Extended API response containing the actually requested data as well as additional status
@@ -2577,7 +2699,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing basic information for a specific artwork mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Artwork/getArtworkBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Artwork/getArtworkBase">
          * <b>[GET]</b> /artwork/{id}</a>
          *
          * @param artworkId The <i>TheTVDB.com</i> artwork ID
@@ -2595,7 +2718,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing detailed information for a specific artwork mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Artwork/getArtworkExtended">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Artwork/getArtworkExtended">
          * <b>[GET]</b> /artwork/{id}/extended</a>
          *
          * @param artworkId The <i>TheTVDB.com</i> artwork ID
@@ -2613,7 +2737,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing basic information for a specific award category mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Award%20Categories/getAwardCategory">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Award%20Categories/getAwardCategory">
          * <b>[GET]</b> /awards/categories/{id}</a>
          *
          * @param awardCategoryId The <i>TheTVDB.com</i> award category ID
@@ -2631,7 +2756,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing detailed information for a specific award category mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Award%20Categories/getAwardCategoryExtended">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Award%20Categories/getAwardCategoryExtended">
          * <b>[GET]</b> /awards/categories/{id}/extended</a>
          *
          * @param awardCategoryId The <i>TheTVDB.com</i> award category ID
@@ -2649,7 +2775,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a collection of available awards mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Awards/getAllAwards">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Awards/getAllAwards">
          * <b>[GET]</b> /awards</a>
          *
          * @return Extended API response containing the actually requested data as well as additional status
@@ -2665,7 +2792,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing basic information for a specific award mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Awards/getAward">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Awards/getAward">
          * <b>[GET]</b> /awards/{id}</a>
          *
          * @param awardId The <i>TheTVDB.com</i> award ID
@@ -2683,7 +2811,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing detailed information for a specific award mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Awards/getAwardExtended">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Awards/getAwardExtended">
          * <b>[GET]</b> /awards/{id}/extended</a>
          *
          * @param awardId The <i>TheTVDB.com</i> award ID
@@ -2701,7 +2830,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing information for a specific character mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Characters/getCharacterBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Characters/getCharacterBase">
          * <b>[GET]</b> /characters/{id}</a>
          *
          * @param characterId The <i>TheTVDB.com</i> character ID
@@ -2720,7 +2850,8 @@ public interface TheTVDBApi {
          * Returns a response object containing a collection of companies based on the given query parameters mapped as
          * Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Companies/getAllCompanies">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Companies/getAllCompanies">
          * <b>[GET]</b> /companies</a>
          *
          * @param queryParameters Object containing key/value pairs of query parameters
@@ -2738,7 +2869,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a collection of available company types mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Companies/getCompanyTypes">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Companies/getCompanyTypes">
          * <b>[GET]</b> /companies/types</a>
          *
          * @return Extended API response containing the actually requested data as well as additional status
@@ -2754,7 +2886,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing information for a specific company mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Companies/getCompany">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Companies/getCompany">
          * <b>[GET]</b> /companies/{id}</a>
          *
          * @param companyId The <i>TheTVDB.com</i> company ID
@@ -2772,7 +2905,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a collection of available content ratings mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Content%20Ratings/getAllContentRatings">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Content%20Ratings/getAllContentRatings">
          * <b>[GET]</b> /content/ratings</a>
          *
          * @return Extended API response containing the actually requested data as well as additional status
@@ -2788,7 +2922,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a collection of available entity types mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Entity%20Types/getEntityTypes">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Entity%20Types/getEntityTypes">
          * <b>[GET]</b> /entities</a>
          *
          * @return Extended API response containing the actually requested data as well as additional status
@@ -2804,7 +2939,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing basic information for a specific episode mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeBase">
          * <b>[GET]</b> /episodes/{id}</a>
          *
          * @param episodeId The <i>TheTVDB.com</i> episode ID
@@ -2823,7 +2959,8 @@ public interface TheTVDBApi {
          * Returns a response object containing detailed information for a specific episode based on the given query
          * parameters mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeExtended">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeExtended">
          * <b>[GET]</b> /episodes/{id}/extended</a>
          *
          * @param episodeId       The <i>TheTVDB.com</i> episode ID
@@ -2845,7 +2982,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a translation record for a specific episode mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeTranslation">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeTranslation">
          * <b>[GET]</b> /episodes/{id}/translations/{language}</a>
          *
          * @param episodeId The <i>TheTVDB.com</i> episode ID
@@ -2867,7 +3005,8 @@ public interface TheTVDBApi {
          * Returns a response object containing a collection of translation records for a specific list mapped as Java
          * DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Lists/getListTranslation">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Lists/getListTranslation">
          * <b>[GET]</b> /lists/{id}/translations/{language}</a>
          *
          * @param listId   The <i>TheTVDB.com</i> list ID
@@ -2889,7 +3028,8 @@ public interface TheTVDBApi {
          * Returns a response object containing a collection of lists based on the given query parameters mapped as Java
          * DTO. The collection contains basic information of all lists matching the query parameters.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Lists/getAllLists">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Lists/getAllLists">
          * <b>[GET]</b> /lists</a>
          *
          * @param queryParameters Object containing key/value pairs of query parameters
@@ -2907,7 +3047,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing basic information for a specific list mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Lists/getList">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Lists/getList">
          * <b>[GET]</b> /lists/{id}</a>
          *
          * @param listId The <i>TheTVDB.com</i> list ID
@@ -2925,7 +3066,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing detailed information for a specific list mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Lists/getListExtended">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Lists/getListExtended">
          * <b>[GET]</b> /lists/{id}/extended</a>
          *
          * @param listId The <i>TheTVDB.com</i> list ID
@@ -2943,7 +3085,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a collection of available genders mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Genders/getAllGenders">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Genders/getAllGenders">
          * <b>[GET]</b> /genders</a>
          *
          * @return Extended API response containing the actually requested data as well as additional status
@@ -2959,7 +3102,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a collection of available genres mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Genres/getAllGenres">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Genres/getAllGenres">
          * <b>[GET]</b> /genres</a>
          *
          * @return Extended API response containing the actually requested data as well as additional status
@@ -2975,7 +3119,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing information for a specific genre mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Genres/getGenreBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Genres/getGenreBase">
          * <b>[GET]</b> /genres/{id}</a>
          *
          * @param genreId The <i>TheTVDB.com</i> genre ID
@@ -2993,7 +3138,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a collection of available inspiration types mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/InspirationTypes/getAllInspirationTypes">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/InspirationTypes/getAllInspirationTypes">
          * <b>[GET]</b> /inspiration/types</a>
          *
          * @return Extended API response containing the actually requested data as well as additional status
@@ -3009,7 +3155,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a collection of available movie statuses mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movie%20Statuses/getAllMovieStatuses">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Movie%20Statuses/getAllMovieStatuses">
          * <b>[GET]</b> /movies/statuses</a>
          *
          * @return Extended API response containing the actually requested data as well as additional status
@@ -3026,7 +3173,8 @@ public interface TheTVDBApi {
          * Returns a response object containing a collection of movies based on the given query parameters mapped as
          * Java DTO. The collection contains basic information of all movies matching the query parameters.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getAllMovie">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Movies/getAllMovie">
          * <b>[GET]</b> /movies</a>
          *
          * @param queryParameters Object containing key/value pairs of query parameters
@@ -3044,7 +3192,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing basic information for a specific movie mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getMovieBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Movies/getMovieBase">
          * <b>[GET]</b> /movies/{id}</a>
          *
          * @param movieId The <i>TheTVDB.com</i> movie ID
@@ -3063,7 +3212,8 @@ public interface TheTVDBApi {
          * Returns a response object containing detailed information for a specific movie based on the given query
          * parameters mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getMovieExtended">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Movies/getMovieExtended">
          * <b>[GET]</b> /movies/{id}/extended</a>
          *
          * @param movieId         The <i>TheTVDB.com</i> movie ID
@@ -3085,7 +3235,8 @@ public interface TheTVDBApi {
          * Returns a response object containing a collection of movies based on the given filter parameters mapped as
          * Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getMoviesFilter">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Movies/getMoviesFilter">
          * <b>[GET]</b> /movies/filter</a>
          *
          * @param queryParameters Object containing key/value pairs of query parameters
@@ -3103,7 +3254,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a translation record for a specific movie mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getMovieTranslation">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Movies/getMovieTranslation">
          * <b>[GET]</b> /movies/{id}/translations/{language}</a>
          *
          * @param movieId  The <i>TheTVDB.com</i> movie ID
@@ -3123,7 +3275,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a collection of available people types mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/People%20Types/getAllPeopleTypes">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/People%20Types/getAllPeopleTypes">
          * <b>[GET]</b> /people/types</a>
          *
          * @return Extended API response containing the actually requested data as well as additional status
@@ -3139,7 +3292,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing basic information for a specific people mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/People/getPeopleBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/People/getPeopleBase">
          * <b>[GET]</b> /people/{id}</a>
          *
          * @param peopleId The <i>TheTVDB.com</i> people ID
@@ -3158,7 +3312,8 @@ public interface TheTVDBApi {
          * Returns a response object containing detailed information for a specific people based on the given query
          * parameters mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/People/getPeopleExtended">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/People/getPeopleExtended">
          * <b>[GET]</b> /people/{id}/extended</a>
          *
          * @param peopleId        The <i>TheTVDB.com</i> people ID
@@ -3179,7 +3334,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a translation record for a specific people mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/People/getPeopleTranslation">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/People/getPeopleTranslation">
          * <b>[GET]</b> /people/{id}/translations/{language}</a>
          *
          * @param peopleId The <i>TheTVDB.com</i> people ID
@@ -3199,11 +3355,12 @@ public interface TheTVDBApi {
 
         /**
          * Returns a response object containing a collection of search results based on the given query parameters
-         * mapped as Java DTO. Note that the given query parameters must either contain a valid <em>{@value
-         * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#Q}</em> or <em>{@value
-         * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#QUERY}</em> search term key.
+         * mapped as Java DTO. Note that the given query parameters must either contain a valid
+         * <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#Q}</em> or
+         * <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Search#QUERY}</em> search term key.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Search/getSearchResults">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Search/getSearchResults">
          * <b>[GET]</b> /search</a>
          *
          * @param queryParameters Object containing key/value pairs of query parameters
@@ -3222,7 +3379,8 @@ public interface TheTVDBApi {
          * Returns a response object containing a collection of seasons based on the given query parameters mapped as
          * Java DTO. The collection contains basic information of all seasons matching the query parameters.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getAllSeasons">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Seasons/getAllSeasons">
          * <b>[GET]</b> /seasons</a>
          *
          * @param queryParameters Object containing key/value pairs of query parameters
@@ -3240,7 +3398,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing basic information for a specific season mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonBase">
          * <b>[GET]</b> /seasons/{id}</a>
          *
          * @param seasonId The <i>TheTVDB.com</i> season ID
@@ -3259,7 +3418,8 @@ public interface TheTVDBApi {
          * Returns a response object containing detailed information for a specific season based on the given query
          * parameters mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonExtended">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonExtended">
          * <b>[GET]</b> /seasons/{id}/extended</a>
          *
          * @param seasonId        The <i>TheTVDB.com</i> season ID
@@ -3280,7 +3440,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a collection of available season types mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonTypes">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonTypes">
          * <b>[GET]</b> /seasons/types</a>
          *
          * @return Extended API response containing the actually requested data as well as additional status
@@ -3296,7 +3457,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a translation record for a specific season mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonTranslation">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonTranslation">
          * <b>[GET]</b> /seasons/{id}/translations/{language}</a>
          *
          * @param seasonId The <i>TheTVDB.com</i> season ID
@@ -3317,7 +3479,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a collection of available series statuses mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series%20Statuses/getAllSeriesStatuses">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Series%20Statuses/getAllSeriesStatuses">
          * <b>[GET]</b> /series/statuses</a>
          *
          * @return Extended API response containing the actually requested data as well as additional status
@@ -3334,7 +3497,8 @@ public interface TheTVDBApi {
          * Returns a response object containing a collection of series based on the given query parameters mapped as
          * Java DTO. The collection contains basic information of all series matching the query parameters.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getAllSeries">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Series/getAllSeries">
          * <b>[GET]</b> /series</a>
          *
          * @param queryParameters Object containing key/value pairs of query parameters
@@ -3352,7 +3516,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing basic information for a specific series mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesBase">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesBase">
          * <b>[GET]</b> /series/{id}</a>
          *
          * @param seriesId The <i>TheTVDB.com</i> series ID
@@ -3371,7 +3536,8 @@ public interface TheTVDBApi {
          * Returns a response object containing detailed information for a specific series including custom artworks
          * based on the given query parameters mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesArtworks">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesArtworks">
          * <b>[GET]</b> /series/{id}/artworks</a>
          *
          * @param seriesId        The <i>TheTVDB.com</i> series ID
@@ -3394,7 +3560,8 @@ public interface TheTVDBApi {
          * Returns a response object containing detailed information for a specific series based on the given query
          * parameters mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesExtended">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesExtended">
          * <b>[GET]</b> /series/{id}/extended</a>
          *
          * @param seriesId        The <i>TheTVDB.com</i> series ID
@@ -3415,7 +3582,8 @@ public interface TheTVDBApi {
         /**
          * Returns the episodes of a particular series based on the given query parameters mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesEpisodes">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesEpisodes">
          * <b>[GET]</b> /series/{id}/episodes/{season-type}</a>
          *
          * @param seriesId        The <i>TheTVDB.com</i> series ID
@@ -3427,8 +3595,8 @@ public interface TheTVDBApi {
          *
          * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
          *                      resource not found, etc. or if no series record with the given ID exists.
-         * @see JSON#getSeriesEpisodes(long, SeriesSeasonType, QueryParameters) TheTVDBApi.JSON.getSeriesEpisodes(seriesId,
-         *         seasonType, queryParameters)
+         * @see JSON#getSeriesEpisodes(long, SeriesSeasonType, QueryParameters)
+         *         TheTVDBApi.JSON.getSeriesEpisodes(seriesId, seasonType, queryParameters)
          * @see TheTVDBApi#getSeriesEpisodes(long, SeriesSeasonType, QueryParameters)
          *         TheTVDBApi.getSeriesEpisodes(seriesId, seasonType, queryParameters)
          */
@@ -3439,7 +3607,8 @@ public interface TheTVDBApi {
          * Returns basic information for a specific series based on the given query parameters mapped as Java DTO. The
          * contained episodes will be translated to the given language.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesSeasonEpisodesTranslated">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesSeasonEpisodesTranslated">
          * <b>[GET]</b> /series/{id}/episodes/{season-type}/{lang}</a>
          *
          * @param seriesId        The <i>TheTVDB.com</i> series ID
@@ -3465,7 +3634,8 @@ public interface TheTVDBApi {
          * Returns a response object containing a collection of series based on the given filter parameters mapped as
          * Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesFilter">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesFilter">
          * <b>[GET]</b> /series/filter</a>
          *
          * @param queryParameters Object containing key/value pairs of query parameters
@@ -3483,7 +3653,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a translation record for a specific series mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesTranslation">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesTranslation">
          * <b>[GET]</b> /series/{id}/translations/{language}</a>
          *
          * @param seriesId The <i>TheTVDB.com</i> series ID
@@ -3504,7 +3675,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a collection of available source types mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Source%20Types/getAllSourceTypes">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Source%20Types/getAllSourceTypes">
          * <b>[GET]</b> /sources/types</a>
          *
          * @return Extended API response containing the actually requested data as well as additional status
@@ -3520,10 +3692,11 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing a collection of recently updated entities based on the given query
          * parameters mapped as Java DTO. The collection contains basic information of all entities matching the query
-         * parameters. Note that the given query parameters must always contain a valid <em>{@value
-         * com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#SINCE}</em> Epoch timestamp key.
+         * parameters. Note that the given query parameters must always contain a valid
+         * <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#SINCE}</em> Epoch timestamp key.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Updates/updates">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Updates/updates">
          * <b>[GET]</b> /updates</a>
          *
          * @param queryParameters Object containing key/value pairs of query parameters
@@ -3541,7 +3714,8 @@ public interface TheTVDBApi {
         /**
          * Returns a response object containing the current favorites of this user mapped as Java DTO.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Favorites/getUserFavorites">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Favorites/getUserFavorites">
          * <b>[GET]</b> /user/favorites</a>
          *
          * @return Extended API response containing the actually requested data as well as additional status
@@ -3556,10 +3730,12 @@ public interface TheTVDBApi {
 
         /**
          * Adds the given entities to the users list of favorites and returns a response object containing the success
-         * status of the operation. To create a new favorite record, use the {@link TheTVDBApiFactory#createFavoriteRecordBuilder()
-         * factory method} to retrieve a corresponding builder instance.
+         * status of the operation. To create a new favorite record, use the
+         * {@link TheTVDBApiFactory#createFavoriteRecordBuilder() factory method} to retrieve a corresponding builder
+         * instance.
          * <p><br>
-         * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Favorites/createUserFavorites">
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/Favorites/createUserFavorites">
          * <b>[POST]</b> /user/favorites</a>
          *
          * @param favoriteRecord Record containing one or multiple favorite entities

@@ -35,8 +35,8 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
 import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil.BracketType;
 
 /**
- * Contains multiple JSON converters used in conjunction with deserialization of {@link
- * com.github.m0nk3y2k4.thetvdb.api.model.data.SearchResult} objects.
+ * Contains multiple JSON converters used in conjunction with deserialization of
+ * {@link com.github.m0nk3y2k4.thetvdb.api.model.data.SearchResult} objects.
  * <p><br>
  * Nested converters from this class may be used to convert data from Jackson-bound intermediate types into actual
  * property types. This is basically a two-step deserialization; Jackson binds data into a suitable intermediate type
@@ -58,7 +58,6 @@ public final class SearchResultConverter {
      *
      * @return Optional representing the language part of the given value
      */
-    @SuppressWarnings("MethodOnlyUsedFromInnerClass")
     private static Optional<String> extractLanguage(String value) {
         return getDelimiterIndex(value).map(idx -> value.substring(0, idx)).filter(APIUtil::hasValue);
     }
@@ -72,7 +71,6 @@ public final class SearchResultConverter {
      * @return Optional representing the translation part of the given value or an empty Optional if not translation
      *         data is available
      */
-    @SuppressWarnings("MethodOnlyUsedFromInnerClass")
     private static Optional<String> extractTranslation(String value) {
         Optional<Integer> delimiterIndex = getDelimiterIndex(value);
         if (delimiterIndex.isPresent()) {
@@ -137,8 +135,8 @@ public final class SearchResultConverter {
      * Used to convert multi-translation Strings into a list of immutable translation objects.
      * <p><br>
      * The actual translations will be transmitted in one single String value and may be enclosed in braces and contain
-     * additional quote characters. The language code and the actual translation will be separated by a {@value
-     * TRANSLATION_DELIMITER} with multiple translations being comma-separated. For example:
+     * additional quote characters. The language code and the actual translation will be separated by a
+     * {@value TRANSLATION_DELIMITER} with multiple translations being comma-separated. For example:
      * <pre>{@code
      * { \"por\": \"Rei Naresuan 3\", \"eng\": \"King Naresuan 3\" }
      * }</pre>
@@ -200,14 +198,14 @@ public final class SearchResultConverter {
      * <pre>{@code
      * [ "por: Rei Naresuan 3", "eng: King Naresuan 3" ]
      * }</pre>
-     * Using this converter, the actual language and translation information will be mapped into a corresponding {@link
-     * SearchResultTranslation} object.
+     * Using this converter, the actual language and translation information will be mapped into a corresponding
+     * {@link SearchResultTranslation} object.
      */
     public static final class TranslationListItem extends StdConverter<String, SearchResultTranslation> {
 
         /**
-         * Converts the single items of a JSON translation String array to a corresponding {@link
-         * SearchResultTranslation} object.
+         * Converts the single items of a JSON translation String array to a corresponding
+         * {@link SearchResultTranslation} object.
          *
          * @param value Single item from the received JSON String array
          *

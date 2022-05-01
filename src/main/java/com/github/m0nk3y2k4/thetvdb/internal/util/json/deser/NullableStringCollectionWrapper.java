@@ -35,11 +35,11 @@ import com.fasterxml.jackson.databind.deser.std.StringCollectionDeserializer;
  * Wrapper class for Jackson {@link StringCollectionDeserializer} objects
  * <p><br>
  * These wrappers are used as a workaround for Jackson/Immutables not supporting proper handling of nullable lists in
- * JSON data. Empty lists ({@code "list": []}) will automatically be deserialized into an empty {@link Collection
- * Collection&lt;T&gt;} with no elements.
+ * JSON data. Empty lists ({@code "list": []}) will automatically be deserialized into an empty
+ * {@link Collection Collection&lt;T&gt;} with no elements.
  * <br>
- * However, {@code null} values ({@code "list": null}) will be parsed as Java {@code null}. Unfortunately, the {@code
- * Immutables} library used by this API does not support
+ * However, {@code null} values ({@code "list": null}) will be parsed as Java {@code null}. Unfortunately, the
+ * {@code Immutables} library used by this API does not support
  * <a target="_bank" href="https://immutables.github.io/immutable.html#nulls-in-collection">nullable collections</a>
  * (only by wrapping the collection into a Java Optional which can be considered as bad practice). On the other hand,
  * Jackson currently doesn't support skipping or ignoring {@code null} values during JSON <b>de</b>serialization.

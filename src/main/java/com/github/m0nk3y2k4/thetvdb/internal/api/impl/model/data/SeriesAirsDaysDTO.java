@@ -76,9 +76,9 @@ public abstract class SeriesAirsDaysDTO implements SeriesAirsDays {
     /**
      * Builder used to create a new immutable {@link SeriesAirsDaysDTO} implementation
      * <p><br>
-     * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link
-     * SeriesAirsDaysDTO} instance based on these properties. New builders may be initialized with some existing DTO
-     * instance, which presets the builders properties to the values of the given DTO, still retaining the option to
+     * This builder provides a fluent API for setting certain object properties and creating a new immutable
+     * {@link SeriesAirsDaysDTO} instance based on these properties. New builders may be initialized with some existing
+     * DTO instance, which presets the builders properties to the values of the given DTO, still retaining the option to
      * make additional changes before actually building a new immutable object.
      */
     public static class Builder extends SeriesAirsDaysDTOBuilder {}

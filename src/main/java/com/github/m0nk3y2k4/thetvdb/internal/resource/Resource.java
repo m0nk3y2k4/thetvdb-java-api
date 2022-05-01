@@ -53,8 +53,8 @@ public abstract class Resource {
     /**
      * Creates a new resource String based on the given parameters. The <em>{@code path}</em> parameter may contain
      * certain wildcards. <b>If</b> the given path contains wildcards then a set of corresponding replacement parameters
-     * has to be provided. For a list of supported wildcards see {@link com.github.m0nk3y2k4.thetvdb.internal.util.http.URLPathTokenType
-     * URLPathTokenType}.
+     * has to be provided. For a list of supported wildcards see
+     * {@link com.github.m0nk3y2k4.thetvdb.internal.util.http.URLPathTokenType URLPathTokenType}.
      *
      * @param path               URL path String with or without wildcards
      * @param pathWildcardParams Additional path parameters used to replace wildcards within the path String (will be

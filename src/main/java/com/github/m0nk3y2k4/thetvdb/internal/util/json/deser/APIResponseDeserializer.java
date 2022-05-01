@@ -41,12 +41,12 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.json.APIJsonMapper;
  * Specific JSON deserializer for parsing an API response providing some extended JSON <em>{@code data}</em> node
  * processing capabilities.
  * <p><br>
- * This class enables the {@link APIJsonMapper} to provide some specific handling of the top-level JSON <em>{@code
- * data}</em> node. For this a mapping function has to be provided when creating a new instance of this class. This
- * function will then be invoked in order to deserialize the JSON's <em>{@code data}</em> node and the result of this
- * invocation will be set to the returned API response. Technically it means that the object mapper will simply leave it
- * up to the function to deserialize the <em>{@code data}</em> node rather than using its native deserialization
- * implementation.
+ * This class enables the {@link APIJsonMapper} to provide some specific handling of the top-level JSON
+ * <em>{@code data}</em> node. For this a mapping function has to be provided when creating a new instance of this
+ * class. This function will then be invoked in order to deserialize the JSON's <em>{@code data}</em> node and the
+ * result of this invocation will be set to the returned API response. Technically it means that the object mapper will
+ * simply leave it up to the function to deserialize the <em>{@code data}</em> node rather than using its native
+ * deserialization implementation.
  *
  * @param <T> The type of object that should be the outcome of the deserialization
  * @param <X> The type of exception which the given mapping function is permitted to throw
@@ -111,8 +111,8 @@ public final class APIResponseDeserializer<T, X extends IOException> extends Jso
     /**
      * Applies the specified field to the given mapping function and returns its result. If the JSON does not contain a
      * node with the specified name the mapping function will be invoked with a {@link NullNode} object instead. In this
-     * case it depends on the actual deserializer implementation whether the mapping (and so this method) returns {@code
-     * NULL} or a new, plain instance of type <b>U</b>.
+     * case it depends on the actual deserializer implementation whether the mapping (and so this method) returns
+     * {@code NULL} or a new, plain instance of type <b>U</b>.
      *
      * @param json      Base JSON object used for parsing
      * @param fieldName Name of the top-level node to be deserialized

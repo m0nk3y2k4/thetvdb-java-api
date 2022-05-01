@@ -38,7 +38,8 @@ public final class GenresAPI extends Resource {
     /**
      * Returns an overview of available genres as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Genres/getAllGenres">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Genres/getAllGenres">
      * <b>[GET]</b> /genres</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -55,7 +56,8 @@ public final class GenresAPI extends Resource {
     /**
      * Returns information for a specific genre record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Genres/getGenreBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Genres/getGenreBase">
      * <b>[GET]</b> /genres/{id}</a>
      *
      * @param con Initialized connection to be used for API communication

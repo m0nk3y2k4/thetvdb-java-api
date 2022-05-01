@@ -38,7 +38,8 @@ public final class GendersAPI extends Resource {
     /**
      * Returns an overview of available genders as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Genders/getAllGenders">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Genders/getAllGenders">
      * <b>[GET]</b> /genders</a>
      *
      * @param con Initialized connection to be used for API communication

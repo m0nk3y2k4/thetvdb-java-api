@@ -205,8 +205,8 @@ public final class TestTheTVDBAPICallAssert<T> extends AbstractAssert<TestTheTVD
     }
 
     /**
-     * Checks whether the given object is a typical return value for the {@link com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi.Extended}
-     * layout
+     * Checks whether the given object is a typical return value for the
+     * {@link com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi.Extended} layout
      *
      * @param result The value to check
      *
@@ -218,8 +218,8 @@ public final class TestTheTVDBAPICallAssert<T> extends AbstractAssert<TestTheTVD
     }
 
     /**
-     * Checks whether the given object is a typical return value for the {@link com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi.JSON}
-     * layout
+     * Checks whether the given object is a typical return value for the
+     * {@link com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi.JSON} layout
      *
      * @param result The value to check
      *

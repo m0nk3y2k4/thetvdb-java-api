@@ -46,8 +46,8 @@ public final class TheTVDBApiFactory {
     /**
      * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid
      * <a target="_blank" href="https://www.thetvdb.com/dashboard/account/apikey">TheTVDB.com v4 API Key</a> which will
-     * be used for remote service authentication. To authenticate and generate a new session token use the {@link
-     * TheTVDBApi#init()} or {@link TheTVDBApi#login()} methods right after creating a new instance of this API.
+     * be used for remote service authentication. To authenticate and generate a new session token use the
+     * {@link TheTVDBApi#init()} or {@link TheTVDBApi#login()} methods right after creating a new instance of this API.
      *
      * @param apiKey Valid <i>TheTVDB.com</i> v4 API-Key
      *
@@ -63,9 +63,9 @@ public final class TheTVDBApiFactory {
     /**
      * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid
      * <a target="_blank" href="https://www.thetvdb.com/dashboard/account/apikey">TheTVDB.com v4 API Key</a> which will
-     * be used for remote service authentication. To authenticate and generate a new session token use the {@link
-     * TheTVDBApi#init()} or {@link TheTVDBApi#login()} methods right after creating a new instance of this API. All
-     * communication to the remote API will be forwarded to the given <em>{@code proxy}</em>.
+     * be used for remote service authentication. To authenticate and generate a new session token use the
+     * {@link TheTVDBApi#init()} or {@link TheTVDBApi#login()} methods right after creating a new instance of this API.
+     * All communication to the remote API will be forwarded to the given <em>{@code proxy}</em>.
      *
      * @param apiKey Valid <i>TheTVDB.com</i> v4 API-Key
      * @param proxy  The proxy service to be used for remote API communication
@@ -82,8 +82,8 @@ public final class TheTVDBApiFactory {
 
     /**
      * Creates a new query parameter object to be used with some API calls. The returned object is empty and does not
-     * contain any preset query parameters. Those parameters have to be added manually by using the {@link
-     * QueryParameters#addParameter(String, String) QueryParameters#addParameter(key, value)} method.
+     * contain any preset query parameters. Those parameters have to be added manually by using the
+     * {@link QueryParameters#addParameter(String, String) QueryParameters#addParameter(key, value)} method.
      *
      * @return A new, empty query parameter object
      */
@@ -94,8 +94,8 @@ public final class TheTVDBApiFactory {
     /**
      * Creates a new query parameter object to be used with some API calls. The returned object contains a preset
      * collection of query parameters based on the given map of key/value pairs. Additional parameters may be added
-     * manually to this object by using the {@link QueryParameters#addParameter(String, String)
-     * QueryParameters#addParameter(key, value)} method.
+     * manually to this object by using the
+     * {@link QueryParameters#addParameter(String, String) QueryParameters#addParameter(key, value)} method.
      *
      * @param parameters Map containing key/value pairs of query parameters to be initially added to the object returned
      *                   by this method. Might be empty but not <em>{@code null}</em>.
@@ -194,7 +194,8 @@ public final class TheTVDBApiFactory {
      *
      * @see TheTVDBApi#createUserFavorites(FavoriteRecord) TheTVDBApi.createUserFavorites(favoriteRecord)
      * @see TheTVDBApi.JSON#createUserFavorites(FavoriteRecord) TheTVDBApi.JSON.createUserFavorites(favoriteRecord)
-     * @see TheTVDBApi.Extended#createUserFavorites(FavoriteRecord) TheTVDBApi.Extended.createUserFavorites(favoriteRecord)
+     * @see TheTVDBApi.Extended#createUserFavorites(FavoriteRecord)
+     *         TheTVDBApi.Extended.createUserFavorites(favoriteRecord)
      */
     public static FavoriteRecord.FavoriteRecordBuilder createFavoriteRecordBuilder() {
         return new FavoriteRecordDTO.Builder();

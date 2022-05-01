@@ -65,7 +65,8 @@ public final class SeriesAPI extends QueryResource {
     /**
      * Returns an overview of available series statuses as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series%20Statuses/getAllSeriesStatuses">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Series%20Statuses/getAllSeriesStatuses">
      * <b>[GET]</b> /series/statuses</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -82,7 +83,8 @@ public final class SeriesAPI extends QueryResource {
     /**
      * Returns an overview of series based on the given query parameters as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getAllSeries">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Series/getAllSeries">
      * <b>[GET]</b> /series</a>
      *
      * @param con    Initialized connection to be used for API communication
@@ -100,7 +102,8 @@ public final class SeriesAPI extends QueryResource {
     /**
      * Returns basic information for a specific series record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesBase">
      * <b>[GET]</b> /series/{id}</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -120,7 +123,8 @@ public final class SeriesAPI extends QueryResource {
      * Returns extended information for a specific series record including custom artworks based on the given query
      * parameters as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesArtworks">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesArtworks">
      * <b>[GET]</b> /series/{id}/artworks</a>
      *
      * @param con    Initialized connection to be used for API communication
@@ -141,7 +145,8 @@ public final class SeriesAPI extends QueryResource {
     /**
      * Returns extended information for a specific series record based on the given query parameters as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesExtended">
      * <b>[GET]</b> /series/{id}/extended</a>
      *
      * @param con    Initialized connection to be used for API communication
@@ -162,7 +167,8 @@ public final class SeriesAPI extends QueryResource {
     /**
      * Returns the episodes of a particular series based on the given query parameters as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesEpisodes">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesEpisodes">
      * <b>[GET]</b> /series/{id}/episodes/{season-type}</a>
      *
      * @param con        Initialized connection to be used for API communication
@@ -191,7 +197,8 @@ public final class SeriesAPI extends QueryResource {
      * Returns basic information for a specific series record based on the given query parameters as raw JSON. The
      * contained episodes will be translated to the given language.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesSeasonEpisodesTranslated">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesSeasonEpisodesTranslated">
      * <b>[GET]</b> /series/{id}/episodes/{season-type}/{lang}</a>
      *
      * @param con        Initialized connection to be used for API communication
@@ -217,7 +224,8 @@ public final class SeriesAPI extends QueryResource {
     /**
      * Returns a collection of series based on the given filter parameters as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesFilter">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesFilter">
      * <b>[GET]</b> /series/filter</a>
      *
      * @param con    Initialized connection to be used for API communication
@@ -236,7 +244,8 @@ public final class SeriesAPI extends QueryResource {
     /**
      * Returns a translation record for a specific series as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Series/getSeriesTranslation">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Series/getSeriesTranslation">
      * <b>[GET]</b> /series/{id}/translations/{language}</a>
      *
      * @param con      Initialized connection to be used for API communication

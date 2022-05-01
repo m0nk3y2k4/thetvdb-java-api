@@ -50,7 +50,8 @@ public final class LoginAPI {
      * routes. However, if an API call is made without proper initialization, an implicit login attempt will be
      * performed.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Login/post_login">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Login/post_login">
      * <b>[POST]</b> /login</a>
      *
      * @param con Connection to be used for API communication and to which the Issued JWT token should be propagated to

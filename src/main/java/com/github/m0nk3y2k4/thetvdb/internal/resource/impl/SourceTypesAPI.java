@@ -38,7 +38,8 @@ public final class SourceTypesAPI extends Resource {
     /**
      * Returns an overview of available source types as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Source%20Types/getAllSourceTypes">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Source%20Types/getAllSourceTypes">
      * <b>[GET]</b> /sources/types</a>
      *
      * @param con Initialized connection to be used for API communication

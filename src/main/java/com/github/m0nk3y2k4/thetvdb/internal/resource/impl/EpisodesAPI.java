@@ -42,7 +42,8 @@ public final class EpisodesAPI extends QueryResource {
     /**
      * Returns basic information for a specific episode record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeBase">
      * <b>[GET]</b> /episodes/{id}</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -61,7 +62,8 @@ public final class EpisodesAPI extends QueryResource {
     /**
      * Returns extended information for a specific episode record based on the given query parameters as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeExtended">
      * <b>[GET]</b> /episodes/{id}/extended</a>
      *
      * @param con    Initialized connection to be used for API communication
@@ -82,7 +84,8 @@ public final class EpisodesAPI extends QueryResource {
     /**
      * Returns a translation record for a specific episode as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeTranslation">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeTranslation">
      * <b>[GET]</b> /episodes/{id}/translations/{language}</a>
      *
      * @param con      Initialized connection to be used for API communication

@@ -38,7 +38,8 @@ public final class ContentRatingsAPI extends Resource {
     /**
      * Returns an overview of available content ratings as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Content%20Ratings/getAllContentRatings">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Content%20Ratings/getAllContentRatings">
      * <b>[GET]</b> /content/ratings</a>
      *
      * @param con Initialized connection to be used for API communication

@@ -26,8 +26,8 @@ import org.immutables.value.Value.Immutable;
  * Implementation of the {@link APIKey} interface
  * <p><br>
  * Objects of this class represent a specific API key and are immutable so that their content can not be changed once an
- * instance has been created. New objects of this class may be created by using the corresponding {@link
- * APIKeyImpl.Builder}.
+ * instance has been created. New objects of this class may be created by using the corresponding
+ * {@link APIKeyImpl.Builder}.
  */
 @Immutable
 @WithHiddenImplementation
@@ -47,8 +47,8 @@ public abstract class APIKeyImpl implements APIKey {
     /**
      * Builder used to create a new immutable {@link APIKeyImpl} implementation
      * <p><br>
-     * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link
-     * APIKeyImpl} instance based on these properties. New builders may be initialized with some existing APIKey
+     * This builder provides a fluent API for setting certain object properties and creating a new immutable
+     * {@link APIKeyImpl} instance based on these properties. New builders may be initialized with some existing APIKey
      * instance, which presets the builders properties to the values of the given key, still retaining the option to
      * make additional changes before actually building a new immutable object.
      */

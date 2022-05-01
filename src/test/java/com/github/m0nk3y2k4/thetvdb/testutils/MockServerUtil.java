@@ -148,9 +148,10 @@ public final class MockServerUtil {
     }
 
     /**
-     * Tries to create a set of mock server headers from the given response object. For this, the responses {@link
-     * ResponseData#getDTO()} method must return a {@link Map} as data object. The key/value pairs of this map will be
-     * converted into their String representation and will be set as key/value pairs on the returned headers object.
+     * Tries to create a set of mock server headers from the given response object. For this, the responses
+     * {@link ResponseData#getDTO()} method must return a {@link Map} as data object. The key/value pairs of this map
+     * will be converted into their String representation and will be set as key/value pairs on the returned headers
+     * object.
      *
      * @param response The test response based on which the headers object should be created
      *

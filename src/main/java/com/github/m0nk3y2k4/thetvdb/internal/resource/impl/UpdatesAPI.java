@@ -42,10 +42,11 @@ public final class UpdatesAPI extends QueryResource {
 
     /**
      * Returns an overview of recently updated entities based on the given query parameters as raw JSON. Note that the
-     * given query parameters must always contain a valid <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#SINCE}</em>
-     * Epoch timestamp key.
+     * given query parameters must always contain a valid
+     * <em>{@value com.github.m0nk3y2k4.thetvdb.api.constants.Query.Updates#SINCE}</em> Epoch timestamp key.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Updates/updates">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Updates/updates">
      * <b>[GET]</b> /updates</a>
      *
      * @param con    Initialized connection to be used for API communication

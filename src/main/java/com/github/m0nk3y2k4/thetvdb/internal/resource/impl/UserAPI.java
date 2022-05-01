@@ -40,7 +40,8 @@ public final class UserAPI extends Resource {
     /**
      * Returns the current favorites of this user as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Favorites/getUserFavorites">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Favorites/getUserFavorites">
      * <b>[GET]</b> /user/favorites</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -57,7 +58,8 @@ public final class UserAPI extends Resource {
     /**
      * Adds favorites to the current user and returns the success status of the operation as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Favorites/createUserFavorites">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Favorites/createUserFavorites">
      * <b>[POST]</b> /user/favorites</a>
      *
      * @param con       Initialized connection to be used for API communication

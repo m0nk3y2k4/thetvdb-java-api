@@ -28,9 +28,9 @@ import javax.annotation.Nonnull;
  * represent some existing resource on the remote service or may just be wildcards which have to be replaced by some
  * actual parameter values.
  * <p><br>
- * For example, the following path component consists of four tokens, two of them being wildcard tokens: {@code
- * /movies/{id}/translations/{language}}.<br> The tokens <i>"movies"</i> and <i>"translations"</i> are called {@code
- * literal} tokens which are just fine as they are. The two tokens <i>"{id}"</i> and <i>"{language}"</i> are only
+ * For example, the following path component consists of four tokens, two of them being wildcard tokens:
+ * {@code /movies/{id}/translations/{language}}.<br> The tokens <i>"movies"</i> and <i>"translations"</i> are called
+ * {@code literal} tokens which are just fine as they are. The two tokens <i>"{id}"</i> and <i>"{language}"</i> are only
  * placeholders which have to be replaced by some other, contextual values before connecting to this URL.
  * <p><br>
  * Instances of this class help to process these different kind of tokens by offering the ability to maintain all token
@@ -63,8 +63,8 @@ public final class URLPathToken {
 
     /**
      * Returns the actual token as String value. Please note that for wildcard tokens an actual URL path parameter has
-     * to be set before invoking this method. Wildcard replacement parameters can be applied via the {@link
-     * #replaceWildcard(Object) replaceWildcard(pathParameter)} method.
+     * to be set before invoking this method. Wildcard replacement parameters can be applied via the
+     * {@link #replaceWildcard(Object) replaceWildcard(pathParameter)} method.
      *
      * @return The URL path token as String
      *

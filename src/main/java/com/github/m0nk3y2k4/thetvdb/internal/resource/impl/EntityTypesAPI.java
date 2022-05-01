@@ -38,7 +38,8 @@ public final class EntityTypesAPI extends Resource {
     /**
      * Returns an overview of available entity types as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Entity%20Types/getEntityTypes">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Entity%20Types/getEntityTypes">
      * <b>[GET]</b> /entities</a>
      *
      * @param con Initialized connection to be used for API communication

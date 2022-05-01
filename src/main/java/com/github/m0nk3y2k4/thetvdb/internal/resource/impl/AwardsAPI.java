@@ -40,7 +40,8 @@ public final class AwardsAPI extends Resource {
     /**
      * Returns basic information for a specific award category as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Award%20Categories/getAwardCategory">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Award%20Categories/getAwardCategory">
      * <b>[GET]</b> /awards/categories/{id}</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -59,7 +60,8 @@ public final class AwardsAPI extends Resource {
     /**
      * Returns extended information for a specific award category as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Award%20Categories/getAwardCategoryExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Award%20Categories/getAwardCategoryExtended">
      * <b>[GET]</b> /awards/categories/{id}/extended</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -78,7 +80,8 @@ public final class AwardsAPI extends Resource {
     /**
      * Returns an overview of available awards as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Awards/getAllAwards">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Awards/getAllAwards">
      * <b>[GET]</b> /awards</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -95,7 +98,8 @@ public final class AwardsAPI extends Resource {
     /**
      * Returns basic information for a specific award record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Awards/getAward">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Awards/getAward">
      * <b>[GET]</b> /awards/{id}</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -114,7 +118,8 @@ public final class AwardsAPI extends Resource {
     /**
      * Returns extended information for a specific award record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Awards/getAwardExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Awards/getAwardExtended">
      * <b>[GET]</b> /awards/{id}/extended</a>
      *
      * @param con Initialized connection to be used for API communication

@@ -45,8 +45,8 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.APIUtil;
  * type of exception that will be thrown by allowing the calling instance to provide it's onw runtime exception
  * instance.
  * <p><br>
- * Please note that this class should primarily be used for method parameter validation as the default <em>{@code
- * IllegalArgumentException}</em> typically indicates that resolving the failed validation lies within the
+ * Please note that this class should primarily be used for method parameter validation as the default
+ * <em>{@code IllegalArgumentException}</em> typically indicates that resolving the failed validation lies within the
  * responsibility of the calling instance. To check for additional, non-method parameter related preconditions use
  * {@link Preconditions}.
  */
@@ -186,8 +186,8 @@ public final class Parameters {
     }
 
     /**
-     * Checks if the given <em>{@code params}</em> query parameter collection contains a non-empty <em>{@code
-     * paramName}</em> parameter. Otherwise, an exception will be thrown.
+     * Checks if the given <em>{@code params}</em> query parameter collection contains a non-empty
+     * <em>{@code paramName}</em> parameter. Otherwise, an exception will be thrown.
      *
      * @param paramName The name of the URL query parameter to check for
      * @param params    Query parameters object that should contain the given parameter
@@ -200,8 +200,8 @@ public final class Parameters {
     }
 
     /**
-     * Checks if the given <em>{@code params}</em> query parameter collection contains a non-empty <em>{@code
-     * paramName}</em> parameter which matches the given condition. Otherwise, an exception will be thrown.
+     * Checks if the given <em>{@code params}</em> query parameter collection contains a non-empty
+     * <em>{@code paramName}</em> parameter which matches the given condition. Otherwise, an exception will be thrown.
      *
      * @param paramName The name of the URL query parameter to check for
      * @param params    Query parameters object that should contain the given parameter
@@ -304,8 +304,8 @@ public final class Parameters {
      * Provides a predicate used to check whether a String represents a valid date according to the given pattern.
      * <p><br>
      * Although strict parsing will be used, this predicate may consider date Strings to be valid, even if they do not
-     * exactly match the given <em>{@code pattern}</em>, i.e. for 2-digit years. Further information can be found {@link
-     * SimpleDateFormat SimpleDateFormat documentation}.
+     * exactly match the given <em>{@code pattern}</em>, i.e. for 2-digit years. Further information can be found
+     * {@link SimpleDateFormat SimpleDateFormat documentation}.
      *
      * @param pattern The pattern describing the date format
      *

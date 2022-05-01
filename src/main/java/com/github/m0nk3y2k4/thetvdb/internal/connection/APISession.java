@@ -144,8 +144,8 @@ public final class APISession {
 
     /**
      * Set the preferred language used for API communication. If available, search results will be returned in this
-     * language. If the given language parameter is <em>{@code null}</em> the sessions language will be reset to {@link
-     * #DEFAULT_LANGUAGE}.
+     * language. If the given language parameter is <em>{@code null}</em> the sessions language will be reset to
+     * {@link #DEFAULT_LANGUAGE}.
      *
      * @param language The preferred language of the data returned by the remote service
      */

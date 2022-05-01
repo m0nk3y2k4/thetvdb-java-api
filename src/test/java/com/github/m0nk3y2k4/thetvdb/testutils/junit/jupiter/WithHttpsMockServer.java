@@ -60,10 +60,11 @@ import org.mockserver.junit.jupiter.MockServerSettings;
  * The list of recorded requests will be reset after each individual test. The mocked server has HTTPS enabled by
  * default.
  * <p><br>
- * Just like the mock server it is also possible to automatically inject a remote API instance either as {@link
- * com.github.m0nk3y2k4.thetvdb.api.Proxy Proxy}, {@link com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI
- * RemoteAPI} or {@link java.util.function.Supplier Supplier&lt;RemoteAPI&gt;} parameter. Valid injection points are
- * constructors, lifecycle methods and the actual tests.
+ * Just like the mock server it is also possible to automatically inject a remote API instance either as
+ * {@link com.github.m0nk3y2k4.thetvdb.api.Proxy Proxy},
+ * {@link com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI RemoteAPI} or
+ * {@link java.util.function.Supplier Supplier&lt;RemoteAPI&gt;} parameter. Valid injection points are constructors,
+ * lifecycle methods and the actual tests.
  * <pre><code>
  * package com.github.m0nk3y2k4.thetvdb.foobar;
  *

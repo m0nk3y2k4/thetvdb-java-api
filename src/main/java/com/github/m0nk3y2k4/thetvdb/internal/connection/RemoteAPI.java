@@ -33,8 +33,8 @@ import org.immutables.value.Value.Immutable;
  * service.
  * <p><br>
  * Objects of this class represent a specific remote and are immutable so that their content can not be changed once an
- * instance has been created. New objects of this class may be created by using the corresponding {@link
- * RemoteAPI.Builder}.
+ * instance has been created. New objects of this class may be created by using the corresponding
+ * {@link RemoteAPI.Builder}.
  */
 @Immutable
 @WithHiddenImplementation
@@ -78,10 +78,10 @@ public abstract class RemoteAPI implements Proxy {
     /**
      * Builder used to create a new immutable {@link RemoteAPI} implementation
      * <p><br>
-     * This builder provides a fluent API for setting certain object properties and creating a new immutable {@link
-     * RemoteAPI} instance based on these properties. New builders may be initialized with some existing API instance or
-     * even a {@link Proxy}, which presets the builders properties to the values of the given object, still retaining
-     * the option to make additional changes before actually building a new immutable instance.
+     * This builder provides a fluent API for setting certain object properties and creating a new immutable
+     * {@link RemoteAPI} instance based on these properties. New builders may be initialized with some existing API
+     * instance or even a {@link Proxy}, which presets the builders properties to the values of the given object, still
+     * retaining the option to make additional changes before actually building a new immutable instance.
      */
     public static class Builder extends RemoteAPIBuilder {}
 }

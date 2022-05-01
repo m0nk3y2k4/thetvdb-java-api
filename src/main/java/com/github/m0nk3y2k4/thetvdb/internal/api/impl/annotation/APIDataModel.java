@@ -25,8 +25,8 @@ import java.lang.annotation.Target;
 import org.atteo.classindex.IndexAnnotated;
 
 /**
- * Labels the actual implementations of API data models returned by the remote service as part of the JSON's {@code
- * data} node.
+ * Labels the actual implementations of API data models returned by the remote service as part of the JSON's
+ * {@code data} node.
  * <p><br>
  * If the annotated class also has a {@code @JsonDeserialize} annotation, it will automatically be registered to the
  * API's type resolver used for JSON deserialization, bound to all interfaces which are implemented by this particular

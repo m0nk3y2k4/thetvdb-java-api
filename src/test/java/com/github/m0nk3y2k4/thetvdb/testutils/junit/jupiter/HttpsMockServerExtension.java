@@ -48,8 +48,8 @@ import org.mockserver.model.ClearType;
 import org.mockserver.socket.tls.KeyStoreFactory;
 
 /**
- * JUnit5 extension adding some additional features to the regular {@link org.mockserver.junit.jupiter.MockServerExtension
- * MockServerExtension}
+ * JUnit5 extension adding some additional features to the regular
+ * {@link org.mockserver.junit.jupiter.MockServerExtension MockServerExtension}
  * <p><br>
  * Provides a resolver to let preconfigured {@link RemoteAPI} method parameters being injected in test classes. Also
  * adds settings for handling HTTPS request as well as some default expectations which enable the mock server to

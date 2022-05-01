@@ -42,7 +42,8 @@ public final class SeasonsAPI extends QueryResource {
     /**
      * Returns an overview of seasons based on the given query parameters as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getAllSeasons">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Seasons/getAllSeasons">
      * <b>[GET]</b> /seasons</a>
      *
      * @param con    Initialized connection to be used for API communication
@@ -60,7 +61,8 @@ public final class SeasonsAPI extends QueryResource {
     /**
      * Returns basic information for a specific season record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonBase">
      * <b>[GET]</b> /seasons/{id}</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -79,7 +81,8 @@ public final class SeasonsAPI extends QueryResource {
     /**
      * Returns extended information for a specific season record based on the given query parameters as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonExtended">
      * <b>[GET]</b> /seasons/{id}/extended</a>
      *
      * @param con    Initialized connection to be used for API communication
@@ -101,7 +104,8 @@ public final class SeasonsAPI extends QueryResource {
     /**
      * Returns an overview of available season types as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonTypes">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonTypes">
      * <b>[GET]</b> /seasons/types</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -118,7 +122,8 @@ public final class SeasonsAPI extends QueryResource {
     /**
      * Returns a translation record for a specific season as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonTranslation">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Seasons/getSeasonTranslation">
      * <b>[GET]</b> /seasons/{id}/translations/{language}</a>
      *
      * @param con      Initialized connection to be used for API communication

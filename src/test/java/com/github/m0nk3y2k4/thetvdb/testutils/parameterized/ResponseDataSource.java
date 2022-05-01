@@ -37,10 +37,11 @@ import org.junit.platform.commons.util.Preconditions;
 /**
  * Custom test data source annotation for {@link ResponseDataProvider}
  * <p><br>
- * Use this annotation to get access to a set of predefined {@link com.github.m0nk3y2k4.thetvdb.testutils.ResponseData
- * ResponseData&lt;T&gt;} test objects in parameterized JUnit tests. Without further configuration all available test
- * objects will be applied. To consider only specific {@code ResponseData} instances, use one of the following modes in
- * combination with the <em>{@code names}</em> parameter:
+ * Use this annotation to get access to a set of predefined
+ * {@link com.github.m0nk3y2k4.thetvdb.testutils.ResponseData ResponseData&lt;T&gt;} test objects in parameterized JUnit
+ * tests. Without further configuration all available test objects will be applied. To consider only specific
+ * {@code ResponseData} instances, use one of the following modes in combination with the <em>{@code names}</em>
+ * parameter:
  * <ul>
  *     <li>{@link Mode#INCLUDE} - Select only those test objects whose names are supplied via the {@link #names()} attribute</li>
  *     <li>{@link Mode#EXCLUDE} - Select all declared test objects except those supplied via the {@link #names} attribute</li>
@@ -113,8 +114,8 @@ public @interface ResponseDataSource {
         }
 
         /**
-         * Default validator for {@link #INCLUDE} and {@link #EXCLUDE} mode. Checks whether the given <em>{@code
-         * names}</em> all resolve to an existing response test data instance.
+         * Default validator for {@link #INCLUDE} and {@link #EXCLUDE} mode. Checks whether the given
+         * <em>{@code names}</em> all resolve to an existing response test data instance.
          *
          * @param source      Reference to the corresponding JUnit test annotation
          * @param testObjects List of available test data objects
@@ -128,8 +129,8 @@ public @interface ResponseDataSource {
         }
 
         /**
-         * Default validator for {@link #MATCH_ALL} and {@link #MATCH_ANY} mode. Checks whether the given <em>{@code
-         * patterns}</em> are valid regular expressions.
+         * Default validator for {@link #MATCH_ALL} and {@link #MATCH_ANY} mode. Checks whether the given
+         * <em>{@code patterns}</em> are valid regular expressions.
          *
          * @param source      Reference to the corresponding JUnit test annotation
          * @param testObjects List of available test data objects

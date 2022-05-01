@@ -39,7 +39,8 @@ public final class CharactersAPI extends Resource {
     /**
      * Returns information for a specific character record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Characters/getCharacterBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Characters/getCharacterBase">
      * <b>[GET]</b> /characters/{id}</a>
      *
      * @param con Initialized connection to be used for API communication

@@ -43,7 +43,8 @@ public final class MoviesAPI extends QueryResource {
     /**
      * Returns an overview of available movie statuses as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movie%20Statuses/getAllMovieStatuses">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Movie%20Statuses/getAllMovieStatuses">
      * <b>[GET]</b> /movies/statuses</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -60,7 +61,8 @@ public final class MoviesAPI extends QueryResource {
     /**
      * Returns an overview of movies based on the given query parameters as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getAllMovie">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Movies/getAllMovie">
      * <b>[GET]</b> /movies</a>
      *
      * @param con    Initialized connection to be used for API communication
@@ -78,7 +80,8 @@ public final class MoviesAPI extends QueryResource {
     /**
      * Returns basic information for a specific movie record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getMovieBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Movies/getMovieBase">
      * <b>[GET]</b> /movies/{id}</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -97,7 +100,8 @@ public final class MoviesAPI extends QueryResource {
     /**
      * Returns extended information for a specific movie record based on the given query parameters as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getMovieExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Movies/getMovieExtended">
      * <b>[GET]</b> /movies/{id}/extended</a>
      *
      * @param con    Initialized connection to be used for API communication
@@ -118,7 +122,8 @@ public final class MoviesAPI extends QueryResource {
     /**
      * Returns a collection of movies based on the given filter parameters as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getMoviesFilter">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Movies/getMoviesFilter">
      * <b>[GET]</b> /movies/filter</a>
      *
      * @param con    Initialized connection to be used for API communication
@@ -137,7 +142,8 @@ public final class MoviesAPI extends QueryResource {
     /**
      * Returns a translation record for a specific movie as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Movies/getMovieTranslation">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Movies/getMovieTranslation">
      * <b>[GET]</b> /movies/{id}/translations/{language}</a>
      *
      * @param con      Initialized connection to be used for API communication

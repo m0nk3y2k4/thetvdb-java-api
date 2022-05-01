@@ -125,8 +125,8 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     /**
      * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid
      * <a target="_blank" href="https://www.thetvdb.com/dashboard/account/apikey">TheTVDB.com v4 API Key</a> as it will
-     * be used for remote service authentication. To authenticate and generate a new session token use the {@link
-     * #init()} or {@link #login()} method right after creating a new instance of this API.
+     * be used for remote service authentication. To authenticate and generate a new session token use the
+     * {@link #init()} or {@link #login()} method right after creating a new instance of this API.
      *
      * @param apiKey Valid <i>TheTVDB.com</i> v4 API-Key
      */
@@ -137,9 +137,9 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     /**
      * Creates a new TheTVDBApi instance. The given <em>{@code apiKey}</em> must be a valid
      * <a target="_blank" href="https://www.thetvdb.com/dashboard/account/apikey">TheTVDB.com v4 API Key</a> as it will
-     * be used for remote service authentication. To authenticate and generate a new session token use the {@link
-     * #init()} or {@link #login()} method right after creating a new instance of this API. All communication to the
-     * remote API will be forwarded to the given <em>{@code proxy}</em>.
+     * be used for remote service authentication. To authenticate and generate a new session token use the
+     * {@link #init()} or {@link #login()} method right after creating a new instance of this API. All communication to
+     * the remote API will be forwarded to the given <em>{@code proxy}</em>.
      *
      * @param apiKey Valid <i>TheTVDB.com</i> v4 API-Key
      * @param proxy  The proxy service to be used for remote API communication
@@ -924,8 +924,8 @@ public class TheTVDBApiImpl implements TheTVDBApi {
 
     /**
      * Implementation of the {@link TheTVDBApi.Extended} API layout. It provides methods for all sorts of API calls
-     * throughout the different API routes. Responses will be returned as wrapped {@link APIResponse
-     * APIResponse&lt;DTO&gt;} objects containing additional error and paging information.
+     * throughout the different API routes. Responses will be returned as wrapped
+     * {@link APIResponse APIResponse&lt;DTO&gt;} objects containing additional error and paging information.
      */
     private class ExtendedApi implements Extended {
 

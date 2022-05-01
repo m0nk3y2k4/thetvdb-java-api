@@ -41,7 +41,8 @@ public final class SearchAPI extends QueryResource {
     /**
      * Returns a search result record based on the given query parameters as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/Search/getSearchResults">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/Search/getSearchResults">
      * <b>[GET]</b> /search</a>
      *
      * @param con    Initialized connection to be used for API communication

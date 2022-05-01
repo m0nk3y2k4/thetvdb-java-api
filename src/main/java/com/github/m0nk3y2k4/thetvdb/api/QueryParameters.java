@@ -26,8 +26,8 @@ import com.github.m0nk3y2k4.thetvdb.api.constants.Query;
 
 /**
  * Interface representing a set of query parameters. These parameters can be used for some API calls in order to narrow
- * the results being returned by the remote service. Instances of this interface might be created by using the {@link
- * TheTVDBApiFactory} class.
+ * the results being returned by the remote service. Instances of this interface might be created by using the
+ * {@link TheTVDBApiFactory} class.
  * <p><br>
  * Individual parameters hold by this object can be accessed as Iterator or Stream.
  */

@@ -72,11 +72,11 @@ import com.github.m0nk3y2k4.thetvdb.internal.util.validation.Preconditions;
  * additional session information like API key, the JWT token and authentication status and will handle the Bearer
  * authentication for each request.
  * <p><br>
- * Although it is highly recommended to first off authenticate a newly created API connection manually via the {@link
- * com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi#login TheTVDBApi.login()} method, this API connection also provides some
- * automatic on-demand authorization. In case an attempt is made to call any of the API routes without previous
- * authorization, the connection will automatically try to resolve the HTTP-401 state by invoking the login() function
- * followed by a retry of requesting the original resource.
+ * Although it is highly recommended to first off authenticate a newly created API connection manually via the
+ * {@link com.github.m0nk3y2k4.thetvdb.api.TheTVDBApi#login TheTVDBApi.login()} method, this API connection also
+ * provides some automatic on-demand authorization. In case an attempt is made to call any of the API routes without
+ * previous authorization, the connection will automatically try to resolve the HTTP-401 state by invoking the login()
+ * function followed by a retry of requesting the original resource.
  */
 public class APIConnection {
 
@@ -403,8 +403,8 @@ abstract class APIRequest {
 
     /**
      * Performs the actual request invocation by opening a connection to an API resource, processing the actual response
-     * data and finally closing the connection. Subclasses may hook into this process by implementing the {@link
-     * #prepareRequest(HttpsURLConnection) prepareRequest(connection)} method which allows for additional request
+     * data and finally closing the connection. Subclasses may hook into this process by implementing the
+     * {@link #prepareRequest(HttpsURLConnection) prepareRequest(connection)} method which allows for additional request
      * specific preparation.
      *
      * @return Raw JSON as received from the remote service
@@ -467,8 +467,8 @@ abstract class APIRequest {
     /**
      * Evaluates the status code and parses the response content accordingly. In case of HTTP-200 the content from the
      * responses <b>input</b> stream will be parsed and returned as raw JSON object. For other status codes the content
-     * from the <b>error</b> stream will be parsed and mapped into a corresponding exception type or a general {@link
-     * APICommunicationException} for unhandled status codes.
+     * from the <b>error</b> stream will be parsed and mapped into a corresponding exception type or a general
+     * {@link APICommunicationException} for unhandled status codes.
      *
      * @param con Fully initialized HTTPS connection pointing to some remote service endpoint
      *

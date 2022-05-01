@@ -43,7 +43,8 @@ public final class PeopleAPI extends QueryResource {
     /**
      * Returns an overview of available people types as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/People%20Types/getAllPeopleTypes">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/People%20Types/getAllPeopleTypes">
      * <b>[GET]</b> /people/types</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -60,7 +61,8 @@ public final class PeopleAPI extends QueryResource {
     /**
      * Returns basic information for a specific people record as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/People/getPeopleBase">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/People/getPeopleBase">
      * <b>[GET]</b> /people/{id}</a>
      *
      * @param con Initialized connection to be used for API communication
@@ -79,7 +81,8 @@ public final class PeopleAPI extends QueryResource {
     /**
      * Returns extended information for a specific people record based on the given query parameters as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/People/getPeopleExtended">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/People/getPeopleExtended">
      * <b>[GET]</b> /people/{id}/extended</a>
      *
      * @param con    Initialized connection to be used for API communication
@@ -100,7 +103,8 @@ public final class PeopleAPI extends QueryResource {
     /**
      * Returns a translation record for a specific people as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/People/getPeopleTranslation">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/People/getPeopleTranslation">
      * <b>[GET]</b> /people/{id}/translations/{language}</a>
      *
      * @param con      Initialized connection to be used for API communication

@@ -38,7 +38,8 @@ public final class InspirationTypesAPI extends Resource {
     /**
      * Returns an overview of available inspiration types as raw JSON.
      * <p><br>
-     * <i>Corresponds to remote API route:</i> <a target="_blank" href="https://thetvdb.github.io/v4-api/#/InspirationTypes/getAllInspirationTypes">
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/InspirationTypes/getAllInspirationTypes">
      * <b>[GET]</b> /inspiration/types</a>
      *
      * @param con Initialized connection to be used for API communication
