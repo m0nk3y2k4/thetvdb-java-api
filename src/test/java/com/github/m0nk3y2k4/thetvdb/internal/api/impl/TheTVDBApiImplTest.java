@@ -77,6 +77,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.STATUS_OVERVIE
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.TRANSLATION;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.TRANSLATIONS;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.UPDATE_OVERVIEW;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.USERINFO;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestTheTVDBAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
@@ -232,6 +233,7 @@ class TheTVDBApiImplTest {
             client.when(request("/updates", GET, param(Updates.SINCE, "16247601"), param("value", "QueryUpdates"))).respond(jsonResponse(UPDATE_OVERVIEW));
             client.when(request("/updates", GET, param(Updates.SINCE, "16236514"), param(Updates.PAGE, "3"))).respond(jsonResponse(UPDATE_OVERVIEW));
             client.when(request("/updates", GET, param(Updates.SINCE, "16239876"), param(Updates.TYPE, String.valueOf(TRANSLATED_EPISODES)), param(Updates.ACTION, String.valueOf(CREATE)), param(Updates.PAGE, "2"))).respond(jsonResponse(UPDATE_OVERVIEW));
+            client.when(request("/user", GET)).respond(jsonResponse(USERINFO));
             client.when(request("/user/favorites", GET)).respond(jsonResponse(FAVORITES));
             client.when(request("/user/favorites", POST)).respond(jsonResponse(NO_DATA));
         }
@@ -341,6 +343,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> theTVDBApi.getUpdates(params(Updates.SINCE, "16247601", "value", "QueryUpdates")), "getUpdates() with query parameters"), UPDATE_OVERVIEW),
                     of(route(() -> theTVDBApi.getUpdates(16236514, 3), "getUpdates() with Epoch time and page"), UPDATE_OVERVIEW),
                     of(route(() -> theTVDBApi.getUpdates(16239876, TRANSLATED_EPISODES, CREATE, 2), "getUpdates() with Epoch time, type, action and page"), UPDATE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getUserInfo(), "getUserInfo()"), USERINFO),
                     of(route(() -> theTVDBApi.getUserFavorites(), "getUserFavorites()"), FAVORITES),
                     of(route(() -> theTVDBApi.createUserFavorites(favoriteRecord(8741)), "createUserFavorites() with favorite record"), NO_DATA)
             );
@@ -450,6 +453,7 @@ class TheTVDBApiImplTest {
             client.when(request("/series/8024/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/sources/types", GET)).respond(jsonResponse(SOURCETYPE_OVERVIEW));
             client.when(request("/updates", GET, param(Updates.SINCE, "16258740"), param("value", "QueryUpdatesJson"))).respond(jsonResponse(UPDATE_OVERVIEW));
+            client.when(request("/user", GET)).respond(jsonResponse(USERINFO));
             client.when(request("/user/favorites", GET)).respond(jsonResponse(FAVORITES));
             client.when(request("/user/favorites", POST)).respond(jsonResponse(NO_DATA));
         }
@@ -509,6 +513,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> theTVDBApi.getSeriesTranslation(8024, "eng"), "getSeriesTranslation()"), TRANSLATION),
                     of(route(() -> theTVDBApi.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
                     of(route(() -> theTVDBApi.getUpdates(params(Updates.SINCE, "16258740", "value", "QueryUpdatesJson")), "getUpdates() with query parameters"), UPDATE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getUserInfo(), "getUserInfo()"), USERINFO),
                     of(route(() -> theTVDBApi.getUserFavorites(), "getUserFavorites()"), FAVORITES),
                     of(route(() -> theTVDBApi.createUserFavorites(favoriteRecord(6006)), "createUserFavorites() with favorite record"), NO_DATA)
             );
@@ -591,6 +596,7 @@ class TheTVDBApiImplTest {
             client.when(request("/series/6170/translations/eng", GET)).respond(jsonResponse(TRANSLATION));
             client.when(request("/sources/types", GET)).respond(jsonResponse(SOURCETYPE_OVERVIEW));
             client.when(request("/updates", GET, param(Updates.SINCE, "16245743"), param("value", "QueryUpdatesExtended"))).respond(jsonResponse(UPDATE_OVERVIEW));
+            client.when(request("/user", GET)).respond(jsonResponse(USERINFO));
             client.when(request("/user/favorites", GET)).respond(jsonResponse(FAVORITES));
             client.when(request("/user/favorites", POST)).respond(jsonResponse(NO_DATA));
         }
@@ -650,6 +656,7 @@ class TheTVDBApiImplTest {
                     of(route(() -> theTVDBApi.getSeriesTranslation(6170, "eng"), "getSeriesTranslation()"), TRANSLATION),
                     of(route(() -> theTVDBApi.getAllSourceTypes(), "getAllSourceTypes()"), SOURCETYPE_OVERVIEW),
                     of(route(() -> theTVDBApi.getUpdates(params(Updates.SINCE, "16245743", "value", "QueryUpdatesExtended")), "getUpdates() with query parameters"), UPDATE_OVERVIEW),
+                    of(route(() -> theTVDBApi.getUserInfo(), "getUserInfo()"), USERINFO),
                     of(route(() -> theTVDBApi.getUserFavorites(), "getUserFavorites()"), FAVORITES),
                     of(route(() -> theTVDBApi.createUserFavorites(favoriteRecord(3447)), "createUserFavorites() with favorite record"), NO_DATA)
             );

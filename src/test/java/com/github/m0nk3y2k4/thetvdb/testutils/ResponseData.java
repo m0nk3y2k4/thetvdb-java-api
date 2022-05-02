@@ -92,6 +92,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.Studio;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.TagOption;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Trailer;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Translations;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.UserInfo;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.APIResponseDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.AliasDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.ArtworkDTO;
@@ -149,6 +150,7 @@ import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.StudioDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TagOptionDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TrailerDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.TranslationsDTO;
+import com.github.m0nk3y2k4.thetvdb.internal.api.impl.model.data.UserInfoDTO;
 import com.github.m0nk3y2k4.thetvdb.internal.util.json.deser.StaticTypeReference;
 import com.github.m0nk3y2k4.thetvdb.testutils.json.Data;
 
@@ -294,6 +296,8 @@ public abstract class ResponseData<T> {
             "update_overview", updateOverview(), "Overview of updates JSON response") {};
 
     //************************* user ***********************
+    public static final ResponseData<APIResponse<UserInfo>> USERINFO = new ResponseData<>(
+            "userinfo", userInfo(), "Single user info JSON response") {};
     public static final ResponseData<APIResponse<Favorites>> FAVORITES = new ResponseData<>(
             "favorites", favorites(), "Single user favorites JSON response") {};
     //@EnableFormatting
@@ -535,6 +539,10 @@ public abstract class ResponseData<T> {
 
     private static APIResponse<Collection<EntityUpdate>> updateOverview() {
         return createAPIResponseWithLinks(createTwo(entityUpdateModel()));
+    }
+
+    private static APIResponse<UserInfo> userInfo() {
+        return createAPIResponse(create(userInfoModel()));
     }
 
 
@@ -1148,6 +1156,11 @@ public abstract class ResponseData<T> {
         return idx -> new EntityUpdateDTO.Builder().recordId(39003L + idx).method("Method" + idx)
                 .timeStamp(16245743L + idx).entityType("EntityType" + idx).seriesId(411515L + idx)
                 .mergeToId(3486L + idx).mergeToEntityType("MergeToEntityType" + idx).build();
+    }
+
+    private static SimpleDtoSupplier<UserInfo> userInfoModel() {
+        return idx -> new UserInfoDTO.Builder().id(574637L + idx).language("Language" + idx).name("Name" + idx)
+                .type("Type" + idx).build();
     }
 
     /**

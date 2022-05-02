@@ -73,6 +73,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesEpisodes;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SourceType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Status;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Translations;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.UserInfo;
 
 /**
  * Main interface of the <i>TheTVDB</i> API connector.
@@ -1556,6 +1557,23 @@ public interface TheTVDBApi {
             long page) throws APIException;
 
     /**
+     * Returns some information about the current user mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/User%20info/getUserInfo">
+     * <b>[GET]</b> /user</a>
+     *
+     * @return Information about the current user mapped as Java DTO's based on the JSON data returned by the remote
+     *         service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see JSON#getUserInfo()
+     * @see Extended#getUserInfo()
+     */
+    UserInfo getUserInfo() throws APIException;
+
+    /**
      * Returns the current favorites of this user mapped as Java DTO.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank"
@@ -2609,6 +2627,22 @@ public interface TheTVDBApi {
          * @see Extended#getUpdates(QueryParameters) TheTVDBApi.Extended.getUpdates(queryParameters)
          */
         JsonNode getUpdates(QueryParameters queryParameters) throws APIException;
+
+        /**
+         * Returns some information about the current user as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/User%20info/getUserInfo">
+         * <b>[GET]</b> /user</a>
+         *
+         * @return JSON object containing information about the current user
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see TheTVDBApi#getUserInfo() TheTVDBApi.getUserInfo()
+         * @see Extended#getUserInfo()
+         */
+        JsonNode getUserInfo() throws APIException;
 
         /**
          * Returns the current favorites of this user as raw JSON.
@@ -3712,6 +3746,23 @@ public interface TheTVDBApi {
         APIResponse<Collection<EntityUpdate>> getUpdates(QueryParameters queryParameters) throws APIException;
 
         /**
+         * Returns a response object containing some information about the current user mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/User%20info/getUserInfo">
+         * <b>[GET]</b> /user</a>
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see JSON#getUserInfo()
+         * @see TheTVDBApi#getUserInfo() TheTVDBApi.getUserInfo()
+         */
+        APIResponse<UserInfo> getUserInfo() throws APIException;
+
+        /**
          * Returns a response object containing the current favorites of this user mapped as Java DTO.
          * <p><br>
          * <i>Corresponds to remote API route:</i> <a target="_blank"
@@ -3756,7 +3807,7 @@ public interface TheTVDBApi {
      */
     final class Version {
         /** Version of the <i>TheTVDB.com</i> remote API used by this connector */
-        public static final String API_VERSION = "v4.6.1";
+        public static final String API_VERSION = "v4.6.2";
 
         /** Constant class. Should not be instantiated */
         private Version() {}

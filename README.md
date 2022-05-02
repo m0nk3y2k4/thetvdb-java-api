@@ -190,6 +190,8 @@ the upcoming APIv4.
     - [x] [/source/types](https://thetvdb.github.io/v4-api/#/Source%20Types/getAllSourceTypes)
 - Updates
     - [x] [/updates](https://thetvdb.github.io/v4-api/#/Updates/updates)
+- User info
+    - [x] [/user](https://thetvdb.github.io/v4-api/#/User%20info/getUserInfo)
 - Favorites
     - [x] [/user/favorites](https://thetvdb.github.io/v4-api/#/Favorites)
 </details>

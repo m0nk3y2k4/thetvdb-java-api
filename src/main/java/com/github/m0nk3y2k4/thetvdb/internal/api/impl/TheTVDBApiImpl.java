@@ -82,6 +82,7 @@ import com.github.m0nk3y2k4.thetvdb.api.model.data.SeriesEpisodes;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.SourceType;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Status;
 import com.github.m0nk3y2k4.thetvdb.api.model.data.Translations;
+import com.github.m0nk3y2k4.thetvdb.api.model.data.UserInfo;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.APIConnection;
 import com.github.m0nk3y2k4.thetvdb.internal.connection.RemoteAPI;
 import com.github.m0nk3y2k4.thetvdb.internal.resource.impl.ArtworkAPI;
@@ -618,6 +619,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public UserInfo getUserInfo() throws APIException {
+        return extended().getUserInfo().getData();
+    }
+
+    @Override
     public Favorites getUserFavorites() throws APIException {
         return extended().getUserFavorites().getData();
     }
@@ -909,6 +915,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public JsonNode getUpdates(QueryParameters queryParameters) throws APIException {
             return UpdatesAPI.getUpdates(con, queryParameters);
+        }
+
+        @Override
+        public JsonNode getUserInfo() throws APIException {
+            return UserAPI.getUserInfo(con);
         }
 
         @Override
@@ -1209,6 +1220,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public APIResponse<Collection<EntityUpdate>> getUpdates(QueryParameters queryParameters) throws APIException {
             return APIJsonMapper.readValue(json().getUpdates(queryParameters), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<UserInfo> getUserInfo() throws APIException {
+            return APIJsonMapper.readValue(json().getUserInfo(), new TypeReference<>() {});
         }
 
         @Override

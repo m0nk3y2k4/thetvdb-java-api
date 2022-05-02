@@ -18,6 +18,7 @@ package com.github.m0nk3y2k4.thetvdb.internal.resource.impl;
 
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.UserAPI.createUserFavorites;
 import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.UserAPI.getUserFavorites;
+import static com.github.m0nk3y2k4.thetvdb.internal.resource.impl.UserAPI.getUserInfo;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.GET;
 import static com.github.m0nk3y2k4.thetvdb.internal.util.http.HttpRequestMethod.POST;
 import static com.github.m0nk3y2k4.thetvdb.testutils.APITestUtil.CONTRACT_APIKEY;
@@ -26,6 +27,7 @@ import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.jsonSchemaFr
 import static com.github.m0nk3y2k4.thetvdb.testutils.MockServerUtil.request;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.FAVORITES;
 import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.NO_DATA;
+import static com.github.m0nk3y2k4.thetvdb.testutils.ResponseData.USERINFO;
 import static com.github.m0nk3y2k4.thetvdb.testutils.parameterized.TestRemoteAPICall.route;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -55,6 +57,7 @@ class UserAPITest {
     //@DisableFormatting
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
+        client.when(request("/user", GET)).respond(jsonResponse(USERINFO));
         client.when(request("/user/favorites", GET)).respond(jsonResponse(FAVORITES));
         client.when(request("/user/favorites", POST)).respond(jsonResponse(NO_DATA));
     }
@@ -69,6 +72,7 @@ class UserAPITest {
     @SuppressWarnings("Convert2MethodRef")
     private static Stream<Arguments> withValidParameters() {
         return Stream.of(
+                of(route(con -> getUserInfo(con), "getUserInfo()"), USERINFO),
                 of(route(con -> getUserFavorites(con), "getUserFavorites()"), FAVORITES)
         );
     }
