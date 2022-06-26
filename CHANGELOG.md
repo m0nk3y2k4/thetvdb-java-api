@@ -7,14 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - Bumped multiple maven dependencies and plugins to latest version:
-  - _com.fasterxml.jackson.core:jackson-databind_: `2.13.0` -> `2.13.1`
-  - _org.apache.maven.plugins:maven-compiler-plugin_: `3.8.1` -> `3.9.0`
-  - _org.assertj:assertj-core_: `3.21.0` -> `3.22.0`
+  - _com.fasterxml.jackson.core:jackson-databind_: `2.13.0` -> `2.13.3`
+  - _org.apache.maven.plugins:maven-compiler-plugin_: `3.8.1` -> `3.10.1`
+  - _org.assertj:assertj-core_: `3.21.0` -> `3.23.1`
   - _org.codehaus.mojo:build-helper-maven-plugin_: `3.2.0` -> `3.3.0`
   - _org.immutables:value_: `2.8.8` -> `2.9.0`
   - _org.junit.jupiter:*_: `5.8.1` -> `5.8.2`
-  - _org.mockito:mockito-core_: `4.0.0` -> `4.3.1`
-  - _org.slf4j:*_: `1.7.32` -> `1.7.35`
+  - _org.mockito:mockito-core_: `4.0.0` -> `4.6.1`
+  - _org.mock-server:*_: `5.11.2` -> `5.13.2`
+  - _org.slf4j:*_: `1.7.32` -> `1.7.36`
+  - _org.jacoco:jacoco-maven-plugin_: `0.8.7` -> `0.8.8`
+  - _org.apache.maven.plugins:maven-javadoc-plugin_: `3.3.1` -> `3.4.0`
+  - _org.apache.maven.plugins:maven-failsafe-plugin_: `3.0.0-M5` -> `3.0.0-M7`
+  - _org.apache.maven.plugins:maven-surefire-plugin_: `3.0.0-M5` -> `3.0.0-M7`
 
 ## [3.0.4] - 2021-11-03
 ### Changed
