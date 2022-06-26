@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema#",
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
   "$id": "https://api4.thetvdb.com/v4/schemas/login.json",
   "type": "object",
   "properties": {
