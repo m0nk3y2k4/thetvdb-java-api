@@ -1574,6 +1574,25 @@ public interface TheTVDBApi {
     UserInfo getUserInfo() throws APIException;
 
     /**
+     * Returns some information about a specific user mapped as Java DTO.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/User%20info/getUserInfoById">
+     * <b>[GET]</b> /user/{id}</a>
+     *
+     * @param userId The <i>TheTVDB.com</i> user ID
+     *
+     * @return Information about the specified user mapped as Java DTO's based on the JSON data returned by the remote
+     *         service
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     * @see JSON#getUserInfo(long) TheTVDBApi.JSON.getUserInfo(userId)
+     * @see Extended#getUserInfo(long) TheTVDBApi.Extended.getUserInfo(userId)
+     */
+    UserInfo getUserInfo(long userId) throws APIException;
+
+    /**
      * Returns the current favorites of this user mapped as Java DTO.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank"
@@ -2643,6 +2662,24 @@ public interface TheTVDBApi {
          * @see Extended#getUserInfo()
          */
         JsonNode getUserInfo() throws APIException;
+
+        /**
+         * Returns some information about a specific user as raw JSON.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/User%20info/getUserInfoById">
+         * <b>[GET]</b> /user/{id}</a>
+         *
+         * @param userId The <i>TheTVDB.com</i> user ID
+         *
+         * @return JSON object containing information about the specified user
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see TheTVDBApi#getUserInfo(long) TheTVDBApi.getUserInfo(userId)
+         * @see Extended#getUserInfo(long) TheTVDBApi.Extended.getUserInfo(userId)
+         */
+        JsonNode getUserInfo(long userId) throws APIException;
 
         /**
          * Returns the current favorites of this user as raw JSON.
@@ -3761,6 +3798,25 @@ public interface TheTVDBApi {
          * @see TheTVDBApi#getUserInfo() TheTVDBApi.getUserInfo()
          */
         APIResponse<UserInfo> getUserInfo() throws APIException;
+
+        /**
+         * Returns a response object containing some information about a specific user mapped as Java DTO.
+         * <p><br>
+         * <i>Corresponds to remote API route:</i> <a target="_blank"
+         * href="https://thetvdb.github.io/v4-api/#/User%20info/getUserInfoById">
+         * <b>[GET]</b> /user/{id}</a>
+         *
+         * @param userId The <i>TheTVDB.com</i> user ID
+         *
+         * @return Extended API response containing the actually requested data as well as additional status
+         *         information
+         *
+         * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error,
+         *                      resource not found, etc.
+         * @see JSON#getUserInfo(long) TheTVDBApi.JSON.getUserInfo(userId)
+         * @see TheTVDBApi#getUserInfo(long) TheTVDBApi.getUserInfo(userId)
+         */
+        APIResponse<UserInfo> getUserInfo(long userId) throws APIException;
 
         /**
          * Returns a response object containing the current favorites of this user mapped as Java DTO.

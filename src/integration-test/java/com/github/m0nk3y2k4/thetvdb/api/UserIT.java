@@ -28,11 +28,17 @@ class UserIT {
     @Test
     @Order(1)
     void getUserInfo(TheTVDBApi api) {
-        assertThat(api::getUserInfo).as("/user").doesNotThrowAnyException();
+        assertThat(() -> api.getUserInfo()).as("/user").doesNotThrowAnyException();
     }
 
     @Test
     @Order(2)
+    void getUserInfoById(TheTVDBApi api) {
+        assertThat(() -> api.getUserInfo(47109)).as("/user/47109").doesNotThrowAnyException();
+    }
+
+    @Test
+    @Order(3)
     void getUserFavorites(TheTVDBApi api) {
         assertThat(api::getUserFavorites).as("/user/favorites").doesNotThrowAnyException();
     }

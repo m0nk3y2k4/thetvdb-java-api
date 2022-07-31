@@ -56,6 +56,25 @@ public final class UserAPI extends Resource {
     }
 
     /**
+     * Returns some information about a specific user as raw JSON.
+     * <p><br>
+     * <i>Corresponds to remote API route:</i> <a target="_blank"
+     * href="https://thetvdb.github.io/v4-api/#/User%20info/getUserInfoById">
+     * <b>[GET]</b> /user/{id}</a>
+     *
+     * @param con Initialized connection to be used for API communication
+     * @param id  The <i>TheTVDB.com</i> user ID
+     *
+     * @return JSON object containing information about the specified user
+     *
+     * @throws APIException If an exception with the remote API occurs, e.g. authentication failure, IO error, resource
+     *                      not found, etc.
+     */
+    public static JsonNode getUserInfo(@Nonnull APIConnection con, long id) throws APIException {
+        return con.sendGET(createResource("/user/{id}", id));
+    }
+
+    /**
      * Returns the current favorites of this user as raw JSON.
      * <p><br>
      * <i>Corresponds to remote API route:</i> <a target="_blank"

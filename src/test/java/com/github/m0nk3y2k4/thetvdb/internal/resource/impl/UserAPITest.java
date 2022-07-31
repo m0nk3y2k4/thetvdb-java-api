@@ -58,6 +58,7 @@ class UserAPITest {
     @BeforeAll
     static void setUpRoutes(MockServerClient client) throws Exception {
         client.when(request("/user", GET)).respond(jsonResponse(USERINFO));
+        client.when(request("/user/89751", GET)).respond(jsonResponse(USERINFO));
         client.when(request("/user/favorites", GET)).respond(jsonResponse(FAVORITES));
         client.when(request("/user/favorites", POST)).respond(jsonResponse(NO_DATA));
     }
@@ -73,6 +74,7 @@ class UserAPITest {
     private static Stream<Arguments> withValidParameters() {
         return Stream.of(
                 of(route(con -> getUserInfo(con), "getUserInfo()"), USERINFO),
+                of(route(con -> getUserInfo(con, 89751), "getUserInfo() with user ID"), USERINFO),
                 of(route(con -> getUserFavorites(con), "getUserFavorites()"), FAVORITES)
         );
     }
@@ -102,3 +104,22 @@ class UserAPITest {
                 .withBody(jsonSchemaFromResource("favoriterecord.json")), VerificationTimes.once());
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

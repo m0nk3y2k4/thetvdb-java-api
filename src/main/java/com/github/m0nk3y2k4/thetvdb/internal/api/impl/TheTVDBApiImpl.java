@@ -624,6 +624,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
     }
 
     @Override
+    public UserInfo getUserInfo(long userId) throws APIException {
+        return extended().getUserInfo(userId).getData();
+    }
+
+    @Override
     public Favorites getUserFavorites() throws APIException {
         return extended().getUserFavorites().getData();
     }
@@ -920,6 +925,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public JsonNode getUserInfo() throws APIException {
             return UserAPI.getUserInfo(con);
+        }
+
+        @Override
+        public JsonNode getUserInfo(long userId) throws APIException {
+            return UserAPI.getUserInfo(con, userId);
         }
 
         @Override
@@ -1225,6 +1235,11 @@ public class TheTVDBApiImpl implements TheTVDBApi {
         @Override
         public APIResponse<UserInfo> getUserInfo() throws APIException {
             return APIJsonMapper.readValue(json().getUserInfo(), new TypeReference<>() {});
+        }
+
+        @Override
+        public APIResponse<UserInfo> getUserInfo(long userId) throws APIException {
+            return APIJsonMapper.readValue(json().getUserInfo(userId), new TypeReference<>() {});
         }
 
         @Override

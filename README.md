@@ -196,7 +196,7 @@ the upcoming APIv4.
     - [x] [/updates](https://thetvdb.github.io/v4-api/#/Updates/updates)
 - User info
     - [x] [/user](https://thetvdb.github.io/v4-api/#/User%20info/getUserInfo)
-    - [ ] [/user/{id}](https://thetvdb.github.io/v4-api/#/User%20info/getUserInfoById)
+    - [x] [/user/{id}](https://thetvdb.github.io/v4-api/#/User%20info/getUserInfoById)
 - Favorites
     - [x] [/user/favorites](https://thetvdb.github.io/v4-api/#/Favorites)
 </details>
