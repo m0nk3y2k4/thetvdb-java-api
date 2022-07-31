@@ -125,7 +125,6 @@ public interface PeopleDetails extends People {
      *
      * @return The <em>{@code translations}</em> property from the received JSON
      */
-    // ToDo: This field seems to be always included in the JSON response even without meta=translations, but with all properties being null. Check occasionally.
-    // ToDo: Field is currently not declared in PeopleExtendedRecord but returned in JSON. Check again after the next API update.
+    // ToDo: This field seems to be always included in the JSON response even without meta=translations. Check occasionally.
     Optional<MetaTranslations> getTranslations();
 }

@@ -110,4 +110,11 @@ public interface Season {
      * @return The <em>{@code companies}</em> property from the received JSON
      */
     Companies getCompanies();
+
+    /**
+     * Get the value of the {<em>{@code data.lastUpdated}</em>} JSON property
+     *
+     * @return The <em>{@code lastUpdated}</em> property from the received JSON
+     */
+    String getLastUpdated();
 }

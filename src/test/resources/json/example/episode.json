@@ -553,7 +553,8 @@
               ]
             }
           ]
-        }
+        },
+        "lastUpdated": "LastUpdated1"
       }, {
         "id": 47749,
         "seriesId": 95875,
@@ -1089,7 +1090,8 @@
               ]
             }
           ]
-        }
+        },
+        "lastUpdated": "LastUpdated2"
       }
     ],
     "number": 43,

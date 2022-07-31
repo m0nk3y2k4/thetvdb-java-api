@@ -32,7 +32,6 @@
       },
       "originalCountry": "OriginalCountry1",
       "originalLanguage": "OriginalLanguage1",
-      "abbreviation": "Abbreviation1",
       "country": "Country1",
       "defaultSeasonType": 469,
       "isOrderRandomized": true,
@@ -595,7 +594,8 @@
                   ]
                 }
               ]
-            }
+            },
+            "lastUpdated": "LastUpdated1"
           }, {
             "id": 47749,
             "seriesId": 95875,
@@ -1131,7 +1131,8 @@
                   ]
                 }
               ]
-            }
+            },
+            "lastUpdated": "LastUpdated2"
           }
         ],
         "number": 43,
@@ -1694,7 +1695,8 @@
                   ]
                 }
               ]
-            }
+            },
+            "lastUpdated": "LastUpdated3"
           }, {
             "id": 47751,
             "seriesId": 95877,
@@ -2230,7 +2232,8 @@
                   ]
                 }
               ]
-            }
+            },
+            "lastUpdated": "LastUpdated4"
           }
         ],
         "number": 44,

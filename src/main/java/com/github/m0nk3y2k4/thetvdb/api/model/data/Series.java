@@ -144,14 +144,6 @@ public interface Series {
     String getOriginalLanguage();
 
     /**
-     * Get the value of the {<em>{@code data.abbreviation}</em>} JSON property
-     *
-     * @return The <em>{@code abbreviation}</em> property from the received JSON
-     */
-    @Nullable
-    String getAbbreviation();
-
-    /**
      * Get the value of the {<em>{@code data.country}</em>} JSON property
      *
      * @return The <em>{@code country}</em> property from the received JSON

@@ -48,7 +48,6 @@ public interface EpisodeDetails extends Episode {
      *
      * @return The <em>{@code network}</em> property from the received JSON
      */
-    // ToDo: Field is currently declared as 'network' in EpisodeExtendedRecord. Check again after the next API update.
     List<Company> getNetworks();
 
     /**
@@ -115,7 +114,6 @@ public interface EpisodeDetails extends Episode {
      *
      * @return The <em>{@code translations}</em> property from the received JSON
      */
-    // ToDo: Field is currently not declared in EpisodeExtendedRecord but can be returned in JSON. Check again after the next API update.
     Optional<MetaTranslations> getTranslations();
 
     /**

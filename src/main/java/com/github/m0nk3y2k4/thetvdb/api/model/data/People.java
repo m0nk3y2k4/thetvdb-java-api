@@ -74,6 +74,13 @@ public interface People {
     Long getScore();
 
     /**
+     * Get the value of the {<em>{@code data.lastUpdated}</em>} JSON property
+     *
+     * @return The <em>{@code lastUpdated}</em> property from the received JSON
+     */
+    String getLastUpdated();
+
+    /**
      * Get the value of the {<em>{@code data.nameTranslations}</em>} JSON property
      *
      * @return The <em>{@code nameTranslations}</em> property from the received JSON

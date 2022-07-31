@@ -132,6 +132,7 @@ the upcoming APIv4.
 - Entity Types
     - [x] [/entities](https://thetvdb.github.io/v4-api/#/Entity%20Types/getEntityTypes)
 - Episodes
+    - [ ] [/episodes](https://thetvdb.github.io/v4-api/#/Episodes/getAllEpisodes)
     - [x] [/episodes/{id}](https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeBase)
     - [x] [/episodes/{id}/extended](https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeExtended)
     - [x] [/episodes/{id}/translations/{language}](https://thetvdb.github.io/v4-api/#/Episodes/getEpisodeTranslation)
@@ -164,11 +165,13 @@ the upcoming APIv4.
 - People Types
     - [x] [/people/types](https://thetvdb.github.io/v4-api/#/People%20Types/getAllPeopleTypes)
 - People
+    - [ ] [/people](https://thetvdb.github.io/v4-api/#/People/getAllPeople)
     - [x] [/people/{id}](https://thetvdb.github.io/v4-api/#/People/getPeopleBase)
     - [x] [/people/{id}/extended](https://thetvdb.github.io/v4-api/#/People/getPeopleExtended)
     - [x] [/people/{id}/translations/{language}](https://thetvdb.github.io/v4-api/#/People/getPeopleTranslation)
 - Search
     - [x] [/search](https://thetvdb.github.io/v4-api/#/Search/getSearchResults)
+    - [ ] [/search/remoteid/{remoteid}](https://thetvdb.github.io/v4-api/#/Search/getSearchResultsByRemoteId)
 - Seasons
     - [x] [/seasons](https://thetvdb.github.io/v4-api/#/Seasons/getAllSeasons)
     - [x] [/seasons/{id}](https://thetvdb.github.io/v4-api/#/Seasons/getSeasonBase)
@@ -179,6 +182,7 @@ the upcoming APIv4.
     - [x] [/series](https://thetvdb.github.io/v4-api/#/Series/getAllSeries)
     - [x] [/series/{id}](https://thetvdb.github.io/v4-api/#/Series/getSeriesBase)
     - [x] [/series/{id}/artworks](https://thetvdb.github.io/v4-api/#/Series/getSeriesArtworks)
+    - [ ] [/series/{id}/nextAired](https://thetvdb.github.io/v4-api/#/Series/getSeriesNextAired)
     - [x] [/series/{id}/extended](https://thetvdb.github.io/v4-api/#/Series/getSeriesExtended)
     - [x] [/series/{id}/episodes/{season-type}](https://thetvdb.github.io/v4-api/#/Series/getSeriesEpisodes)
     - [x] [/series/{id}/episodes/{season-type}/{lang}](https://thetvdb.github.io/v4-api/#/Series/getSeriesSeasonEpisodesTranslated)
@@ -192,6 +196,7 @@ the upcoming APIv4.
     - [x] [/updates](https://thetvdb.github.io/v4-api/#/Updates/updates)
 - User info
     - [x] [/user](https://thetvdb.github.io/v4-api/#/User%20info/getUserInfo)
+    - [ ] [/user/{id}](https://thetvdb.github.io/v4-api/#/User%20info/getUserInfoById)
 - Favorites
     - [x] [/user/favorites](https://thetvdb.github.io/v4-api/#/Favorites)
 </details>

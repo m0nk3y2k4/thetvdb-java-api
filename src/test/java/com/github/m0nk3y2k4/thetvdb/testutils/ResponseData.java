@@ -915,7 +915,7 @@ public abstract class ResponseData<T> {
         return idx -> {
             int listOffset = (idx << 1) - 1;
             PeopleDTO.Builder builder = new PeopleDTO.Builder().id(11353L + idx).score(486L + idx).name("Name" + idx)
-                    .image("Image" + idx)
+                    .image("Image" + idx).lastUpdated("LastUpdated" + idx)
                     .aliases(createTwo(aliasModel(), listOffset))
                     .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                     .overviewTranslations(createTwo(overviewTranslationModel(), listOffset));
@@ -934,7 +934,7 @@ public abstract class ResponseData<T> {
             int listOffset = (idx << 1) - 1;
             PeopleDetailsDTO.Builder builder = new PeopleDetailsDTO.Builder().id(5874L + idx).name("Name" + idx)
                     .image("Image" + idx).score(23L + idx).birth("Birth" + idx).birthPlace("BirthPlace" + idx)
-                    .death("Death" + idx).gender(2L + idx).slug("Slug" + idx)
+                    .death("Death" + idx).gender(2L + idx).slug("Slug" + idx).lastUpdated("LastUpdated" + idx)
                     .aliases(createTwo(aliasModel(), listOffset))
                     .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                     .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
@@ -1011,7 +1011,7 @@ public abstract class ResponseData<T> {
         return idx -> {
             int listOffset = (idx << 1) - 1;
             SeasonDTO.Builder builder = new SeasonDTO.Builder().seriesId(95873L + idx).number(5L + idx).id(47747L + idx)
-                    .name("Name" + idx).image("Image" + idx).imageType(486L + idx)
+                    .name("Name" + idx).image("Image" + idx).imageType(486L + idx).lastUpdated("LastUpdated" + idx)
                     .type(create(seasonTypeModel(), idx))
                     .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                     .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
@@ -1025,6 +1025,7 @@ public abstract class ResponseData<T> {
             int listOffset = (idx << 1) - 1;
             SeasonDetailsDTO.Builder builder = new SeasonDetailsDTO.Builder().seriesId(30013L + idx).number(11L + idx)
                     .id(67409L + idx).name("Name" + idx).image("Image" + idx).imageType(654L + idx)
+                    .lastUpdated("LastUpdated" + idx)
                     .type(create(seasonTypeModel(), idx))
                     .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                     .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
@@ -1050,8 +1051,8 @@ public abstract class ResponseData<T> {
                     .lastAired("LastAired" + idx).originalCountry("OriginalCountry" + idx).defaultSeasonType(468L + idx)
                     .country("Country" + idx).originalLanguage("OriginalLanguage" + idx).isOrderRandomized(TRUE)
                     .id(34874L + idx).name("Name" + idx).slug("Slug" + idx).image("Image" + idx)
-                    .abbreviation("Abbreviation" + idx).lastUpdated("LastUpdated" + idx).averageRuntime(41L + idx)
-                    .firstAired("FirstAired" + idx).overview("Overview" + idx)
+                    .lastUpdated("LastUpdated" + idx).averageRuntime(41L + idx).firstAired("FirstAired" + idx)
+                    .overview("Overview" + idx)
                     .status(create(statusModel(), idx))
                     .nameTranslations(createTwo(nameTranslationModel(), listOffset))
                     .overviewTranslations(createTwo(overviewTranslationModel(), listOffset))
@@ -1077,7 +1078,7 @@ public abstract class ResponseData<T> {
                     .image("Image" + idx).originalCountry("OriginalCountry" + idx)
                     .originalLanguage("OriginalLanguage" + idx).isOrderRandomized(TRUE).airsTime("AirsTime" + idx)
                     .abbreviation("Abbreviation" + idx).country("Country" + idx).lastUpdated("LastUpdated" + idx)
-                    .airsTimeUTC("AirsTimeUTC" + idx).averageRuntime(50L + idx)
+                    .averageRuntime(50L + idx)
                     .status(create(statusModel(), idx))
                     .airsDays(create(seriesAirsDaysModel(), idx))
                     .companies(createTwo(companyModel(), listOffset))

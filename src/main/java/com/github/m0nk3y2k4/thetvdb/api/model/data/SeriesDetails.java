@@ -86,6 +86,14 @@ public interface SeriesDetails extends Series {
     SeriesAirsDays getAirsDays();
 
     /**
+     * Get the value of the {<em>{@code data.abbreviation}</em>} JSON property
+     *
+     * @return The <em>{@code abbreviation}</em> property from the received JSON
+     */
+    @Nullable
+    String getAbbreviation();
+
+    /**
      * Get the value of the {<em>{@code data.airsTime}</em>} JSON property
      *
      * @return The <em>{@code airsTime}</em> property from the received JSON
@@ -106,14 +114,6 @@ public interface SeriesDetails extends Series {
      * @return The <em>{@code companies}</em> property from the received JSON
      */
     List<Company> getCompanies();
-
-    /**
-     * Get the value of the {<em>{@code data.airsTimeUTC}</em>} JSON property
-     *
-     * @return The <em>{@code airsTimeUTC}</em> property from the received JSON
-     */
-    @Nullable
-    String getAirsTimeUTC();
 
     /**
      * Get the value of the {<em>{@code data.translations}</em>} JSON property

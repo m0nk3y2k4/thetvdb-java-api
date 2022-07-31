@@ -32,6 +32,7 @@ package com.github.m0nk3y2k4.thetvdb.api.constants;
  * </ul>
  * The parameters of this class may be used to create own {@link com.github.m0nk3y2k4.thetvdb.api.QueryParameters QueryParameters} objects.
  */
+@SuppressWarnings("unused")
 public final class Query {
 
     /** Constant class. Should not be instantiated */
@@ -66,7 +67,8 @@ public final class Query {
 
         /** Query parameter "<i>meta</i>" - Used to request additional information. */
         public static final String META = "meta";
-
+        /** Query parameter "<i>short</i>" - Returns the records short version (w/o characters, artworks, trailers). */
+        public static final String SHORT = "short";
         /** Query parameter "<i>page</i>" - Page of results to fetch. Defaults to page 0 if not provided. */
         public static final String PAGE = "page";
 
@@ -150,6 +152,8 @@ public final class Query {
 
         /** Query parameter "<i>meta</i>" - Used to request additional information. */
         public static final String META = "meta";
+        /** Query parameter "<i>short</i>" - Returns the records short version (w/o characters, artworks). */
+        public static final String SHORT = "short";
         /** Query parameter "<i>page</i>" - Page of results to fetch. Defaults to page 0 if not provided. */
         public static final String PAGE = "page";
         /** Query parameter "<i>season</i>" - Restrict results to a specific season. Defaults to 0 if not provided. */
@@ -200,6 +204,8 @@ public final class Query {
         public static final String LANGUAGE = "lang";
         /** Query parameter "<i>sort</i>" - Sort filter results */
         public static final String SORT = "sort";
+        /** Query parameter "<i>sortType</i>" - Sort results ascending or descending */
+        public static final String SORT_TYPE = "sortType";
         /** Query parameter "<i>status</i>" - Filter for status */
         public static final String STATUS = "status";
         /** Query parameter "<i>year</i>" - Filter for release year */
