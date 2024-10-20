@@ -5,21 +5,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- New maven plugins
+  - _org.apache.maven.plugins:maven-dependency-plugin_: `3.8.0`
 ### Changed
 - Bumped multiple maven dependencies and plugins to latest version:
-  - _com.fasterxml.jackson.core:jackson-databind_: `2.13.0` -> `2.13.3`
-  - _org.apache.maven.plugins:maven-compiler-plugin_: `3.8.1` -> `3.10.1`
-  - _org.assertj:assertj-core_: `3.21.0` -> `3.23.1`
-  - _org.codehaus.mojo:build-helper-maven-plugin_: `3.2.0` -> `3.3.0`
-  - _org.immutables:value_: `2.8.8` -> `2.9.0`
-  - _org.junit.jupiter:*_: `5.8.1` -> `5.8.2`
-  - _org.mockito:mockito-core_: `4.0.0` -> `4.6.1`
-  - _org.mock-server:*_: `5.11.2` -> `5.13.2`
-  - _org.slf4j:*_: `1.7.32` -> `1.7.36`
-  - _org.jacoco:jacoco-maven-plugin_: `0.8.7` -> `0.8.8`
-  - _org.apache.maven.plugins:maven-javadoc-plugin_: `3.3.1` -> `3.4.0`
-  - _org.apache.maven.plugins:maven-failsafe-plugin_: `3.0.0-M5` -> `3.0.0-M7`
-  - _org.apache.maven.plugins:maven-surefire-plugin_: `3.0.0-M5` -> `3.0.0-M7`
+  - _com.fasterxml.jackson.core:jackson-databind_: `2.13.0` -> `2.18.0`
+  - _org.apache.maven.plugins:maven-compiler-plugin_: `3.8.1` -> `3.13.0`
+  - _org.assertj:assertj-core_: `3.21.0` -> `3.26.3`
+  - _org.codehaus.mojo:build-helper-maven-plugin_: `3.2.0` -> `3.6.0`
+  - _org.immutables:value_: `2.8.8` -> `2.10.1`
+  - _org.junit.jupiter:*_: `5.8.1` -> `5.11.2`
+  - _org.mockito:mockito-core_: `4.0.0` -> `5.14.2`
+  - _org.mock-server:*_: `5.11.2` -> `5.15.0`
+  - _org.slf4j:*_: `1.7.32` -> `2.0.16`
+  - _org.jacoco:jacoco-maven-plugin_: `0.8.7` -> `0.8.12`
+  - _org.apache.maven.plugins:maven-javadoc-plugin_: `3.3.1` -> `3.10.1`
+  - _org.apache.maven.plugins:maven-failsafe-plugin_: `3.0.0-M5` -> `3.5.1`
+  - _org.apache.maven.plugins:maven-surefire-plugin_: `3.0.0-M5` -> `3.5.1`
+  - _org.apache.maven.plugins:maven-source-plugin_: `3.2.1` -> `3.3.1`
+  - _org.apache.maven.plugins:maven-assembly-plugin_: `3.3.0` -> `3.7.1`
+  - _org.apache.maven.plugins:maven-release-plugin_: `2.5.3` -> `3.1.1`
 
 ## [3.0.4] - 2021-11-03
 ### Changed
