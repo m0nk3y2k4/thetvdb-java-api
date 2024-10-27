@@ -2,7 +2,7 @@
 ![Java CI with Maven](https://github.com/m0nk3y2k4/thetvdb-java-api/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master&event=push) &nbsp;
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) &nbsp;
 [![GitHub release](https://img.shields.io/github/release/m0nk3y2k4/thetvdb-java-api.svg)](https://github.com/m0nk3y2k4/thetvdb-java-api/releases) &nbsp;
-![Java version](https://img.shields.io/badge/Java-10-informational) &nbsp;
+![Java version](https://img.shields.io/badge/Java-22-informational) &nbsp;
 
 A simple connector for an easy integration of the [TheTVDB.com](https://thetvdb.com/) RESTful API in Java projects.
 
@@ -40,7 +40,7 @@ work with the prefabbed Java DTOs or to run more complex queries by providing a 
 the raw JSON content returned by the _TheTVDB.com_ API all by yourself. Your decision!
 
 ## Technologies
-* [Java](https://jdk.java.net/) (10) - Class-based, object-oriented programming language
+* [Java](https://jdk.java.net/) (22) - Class-based, object-oriented programming language
 * [Apache Maven](https://maven.apache.org/download.cgi) (3.6.0) - Software project management and comprehension tool
 
 ## Features

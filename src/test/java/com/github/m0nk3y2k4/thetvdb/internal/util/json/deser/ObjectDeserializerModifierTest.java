@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 - 2022 thetvdb-java-api Authors and Contributors
+ * Copyright (C) 2019 - 2024 thetvdb-java-api Authors and Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ class ObjectDeserializerModifierTest {
         doReturn(mock(ValueInstantiator.class)).when(builder).getValueInstantiator();
 
         BeanDescription beanDesc = mock(BeanDescription.class);
-        doReturn(new JsonFormat.Value()).when(beanDesc).findExpectedFormat(null);
+        doReturn(new JsonFormat.Value()).when(beanDesc).findExpectedFormat();
 
         JsonDeserializer<?> deserializer = new BuilderBasedDeserializer(builder, beanDesc, mock(JavaType.class),
                 mock(BeanPropertyMap.class), emptyMap(), emptySet(), true, emptySet(), false);

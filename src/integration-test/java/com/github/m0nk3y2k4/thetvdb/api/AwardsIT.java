@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 - 2022 thetvdb-java-api Authors and Contributors
+ * Copyright (C) 2019 - 2024 thetvdb-java-api Authors and Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ class AwardsIT {
     @Test
     @Order(1)
     void getAwardCategory(TheTVDBApi api) {
-        assertThat(() -> api.getAwardCategory(1)).as("/awards/categories/1").doesNotThrowAnyException();
+        assertThat(() -> api.getAwardCategory(256)).as("/awards/categories/256").doesNotThrowAnyException();
     }
 
     @Test

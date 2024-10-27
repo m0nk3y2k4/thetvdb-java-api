@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 - 2022 thetvdb-java-api Authors and Contributors
+ * Copyright (C) 2019 - 2024 thetvdb-java-api Authors and Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,7 +68,7 @@ class NullableObjectWrapperTest {
             doReturn(valueInstantiator).when(builder).getValueInstantiator();
 
             BeanDescription beanDesc = mock(BeanDescription.class);
-            doReturn(new JsonFormat.Value()).when(beanDesc).findExpectedFormat(null);
+            doReturn(new JsonFormat.Value()).when(beanDesc).findExpectedFormat();
 
             return new BuilderBasedDeserializer(builder, beanDesc, targetType, mock(BeanPropertyMap.class), emptyMap(),
                     emptySet(), true, emptySet(), false);
